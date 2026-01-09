@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<title>Номер рейсу → авіакомпанія</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #ffffff;
+  padding: 40px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 900px;
+  margin: auto;
+}
+
+th, td {
+  border: 2px solid #000;
+  padding: 10px;
+  text-align: center;
+  font-size: 16px;
+}
+
+th {
+  font-weight: bold;
+}
+
+input {
+  width: 100%;
+  font-size: 20px;
+  text-align: center;
+  border: none;
+  outline: none;
+}
+
+.input-cell {
+  background-color: #e6f3df;
+}
+</style>
+</head>
+
+<body>
+
+<table>
+  <tr>
+    <th>Номер рейсу (3–4 цифри):</th>
+    <th>Назва авіакомпанії:</th>
+    <th>Тип літака, на якому літали<br>(або рекомендується виконати рейс):</th>
+  </tr>
+  <tr>
+    <td class="input-cell">
+      <input type="number" id="flightNumber" min="100" max="9999" oninput="findFlight()">
+    </td>
+    <td id="airline"></td>
+    <td id="aircraft"></td>
+  </tr>
+</table>
+
+<script>
+const database = [
+  {from:100, to:200, airline:"Ukraine International Airlines (МАУ)", aircraft:"738"},
+  {from:701, to:714, airline:"Ukraine International Airlines (МАУ)", aircraft:"738 Грузовий"},
+  {from:661, to:674, airline:"Ukraine International Airlines (МАУ)", aircraft:"767"},
+  {from:771, to:784, airline:"Ukraine International Airlines (МАУ)", aircraft:"777"},
+  {from:903, to:916, airline:"Ukraine International Airlines (МАУ)", aircraft:"E190"},
+  {from:9901, to:9930, airline:"Ukraine International Airlines (МАУ)", aircraft:"738"},
+  {from:1901, to:1932, airline:"Ukraine International Airlines (МАУ)", aircraft:"E190"},
+
+  {from:803, to:892, airline:"AeroSvit", aircraft:"738"},
+  {from:500, to:560, airline:"AeroSvit", aircraft:"736"},
+  {from:540, to:599, airline:"AeroSvit", aircraft:"E145"},
+
+  {from:5501, to:5522, airline:"Air Ukraine", aircraft:"Tu-154"},
+  {from:5601, to:5622, airline:"Air Ukraine", aircraft:"Tu-154"},
+  {from:5551, to:5593, airline:"Air Ukraine", aircraft:"Tu-134"},
+  {from:3401, to:3434, airline:"Air Ukraine", aircraft:"Tu-134"},
+  {from:4001, to:4028, airline:"Air Ukraine", aircraft:"Yak-40"},
+  {from:2401, to:2416, airline:"Air Ukraine", aircraft:"Ан-24"},
+
+  {prefix:33, digits:4, airline:"Donbassaero", aircraft:"A320"},
+
+  {from:7801, to:7808, airline:"UTair Ukraine", aircraft:"ATR 76"},
+  {from:7809, to:7810, airline:"UTair Ukraine", aircraft:"ATR 42"},
+  {from:7811, to:7812, airline:"UTair Ukraine", aircraft:"CRJ"},
+  {from:7813, to:7816, airline:"UTair Ukraine", aircraft:"738"},
+
+  {prefix:66, digits:4, airline:"Dniproavia (Дніпроавіа)", aircraft:"Embraer 145"},
+  {from:6701, to:6702, airline:"Dniproavia (Дніпроавіа)", aircraft:"738"},
+  {from:6703, to:6704, airline:"Dniproavia (Дніпроавіа)", aircraft:"736"},
+  {from:6705, to:6712, airline:"Dniproavia (Дніпроавіа)", aircraft:"Yak-40"},
+
+  {prefix:88, digits:4, airline:"Air Onix", aircraft:"736"},
+
+  {from:8201, to:8218, airline:"Bravo Airways", aircraft:"MD-82/83"},
+  {from:8219, to:8222, airline:"Bravo Airways", aircraft:"A320, 736 (лізинг)"},
+
+  {from:2501, to:2508, airline:"Motor Sich Airlines", aircraft:"Ан-24"},
+  {from:2509, to:2510, airline:"Motor Sich Airlines", aircraft:"Yak-40"},
+
+  {prefix:44, digits:4, airline:"Bees Airlines", aircraft:"737-800"},
+  {prefix:60, digits:4, airline:"AtlasGlobal Ukraine", aircraft:"A320"},
+
+  {from:7001, to:7006, airline:"Kharkiv Airlines", aircraft:"Ан-24"},
+  {from:7007, to:7018, airline:"Kharkiv Airlines", aircraft:"738"},
+
+  {from:8701, to:8712, airline:"Bukovyna Airlines", aircraft:"MD82"},
+  {from:8713, to:8716, airline:"Bukovyna Airlines", aircraft:"Avro RJ"},
+
+  {from:8901, to:8906, airline:"UM Air", aircraft:"MD83"},
+  {from:8907, to:8910, airline:"UM Air", aircraft:"MD82"},
+  {from:8911, to:8916, airline:"UM Air", aircraft:"A320"},
+
+  {from:9201, to:9204, airline:"Illich-Avia", aircraft:"Ан-24"},
+  {from:9205, to:9206, airline:"Illich-Avia", aircraft:"Yak-40"},
+
+  {from:9301, to:9308, airline:"Southline", aircraft:"Як-42Д"},
+  {from:9309, to:9312, airline:"Southline", aircraft:"Saab-340"},
+  {from:9313, to:9318, airline:"Southline", aircraft:"Ан-24"},
+
+  {prefix:95, digits:4, airline:"Wizz Air Ukraine", aircraft:"A320"},
+
+  {from:9401, to:9406, airline:"Luhansk Airlines", aircraft:"Ан-24"},
+  {from:9407, to:9414, airline:"Luhansk Airlines", aircraft:"Як-42Д"},
+
+  {from:9601, to:9604, airline:"Lviv Airlines", aircraft:"738"},
+
+  {from:9701, to:9708, airline:"Odessa Airlines", aircraft:"Yak-40"},
+  {from:9709, to:9710, airline:"Odessa Airlines", aircraft:"Ан-24"},
+  {from:9711, to:9712, airline:"Odessa Airlines", aircraft:"Tu-154"},
+
+  {prefix:83, digits:4, airline:"Khors (ХОРС)", aircraft:"MD-82/83"},
+  {from:8307, to:8310, airline:"Khors (ХОРС)", aircraft:"A320"},
+  {from:8313, to:8314, airline:"Khors (ХОРС)", aircraft:"738"},
+
+  {from:8401, to:8404, airline:"YanAir", aircraft:"Saab-340"},
+  {from:8405, to:8408, airline:"YanAir", aircraft:"A320"},
+  {from:8409, to:8418, airline:"YanAir", aircraft:"738"},
+  {from:8413, to:8414, airline:"YanAir", aircraft:"A321"},
+
+  {from:8501, to:8506, airline:"Dart", aircraft:"A319"},
+  {from:8507, to:8516, airline:"Dart", aircraft:"A320"},
+  {from:8517, to:8520, airline:"Dart", aircraft:"A321"},
+  {from:8521, to:8526, airline:"Dart", aircraft:"MD83"},
+
+  {from:8601, to:8606, airline:"Anda Air", aircraft:"A321"},
+  {from:8607, to:8620, airline:"Anda Air", aircraft:"MD83"},
+
+  {from:9801, to:9816, airline:"Aerostar (Business Jets)", aircraft:"Business"},
+  {from:9850, to:9863, airline:"Challenge Aero (Business Jets)", aircraft:"Business"},
+
+  {from:3501, to:3516, airline:"Constanta (Cargo)", aircraft:"738"},
+  {from:6501, to:6511, airline:"Rivne Universal Avia", aircraft:"L410"},
+  {from:6901, to:6909, airline:"Urga", aircraft:"SF34, An-26 (f271)"},
+  {from:3601, to:3609, airline:"Volare Airlines Ukraine", aircraft:"Cargo"},
+
+  {from:3901, to:3914, airline:"Classic Air Alliance", aircraft:"Any with UCAA livery"},
+  {from:4031, to:4078, airline:"Classic Air Alliance", aircraft:"Any with UCAA livery"},
+  {from:5001, to:5026, airline:"Classic Air Alliance", aircraft:"Any with UCAA livery"},
+
+  {from:2901, to:2970, airline:"Молдова рейси пкси/карго", aircraft:"Any"},
+
+  {from:5101, to:5108, airline:"Supernova Airlines", aircraft:"738 Cargo"}
+];
+
+function findFlight() {
+  const value = document.getElementById("flightNumber").value;
+  const airlineCell = document.getElementById("airline");
+  const aircraftCell = document.getElementById("aircraft");
+
+  airlineCell.textContent = "";
+  aircraftCell.textContent = "";
+
+  if (!value) return;
+
+  const num = parseInt(value);
+  const str = value.toString();
+
+  for (const r of database) {
+    if (r.from && num >= r.from && num <= r.to) {
+      airlineCell.textContent = r.airline;
+      aircraftCell.textContent = r.aircraft;
+      return;
+    }
+    if (r.prefix && str.length === r.digits && str.startsWith(r.prefix.toString())) {
+      airlineCell.textContent = r.airline;
+      aircraftCell.textContent = r.aircraft;
+      return;
+    }
+  }
+}
+</script>
+
+</body>
+</html>
