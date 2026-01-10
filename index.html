@@ -40,6 +40,42 @@ input {
 .input-cell {
   background-color: #e6f3df;
 }
+
+ 
+.livery-table {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 1000px;
+  margin: 40px auto;
+}
+
+.livery-table td {
+  border: 2px solid #000;
+  padding: 10px;
+  vertical-align: middle;
+}
+
+.livery-table img {
+  width: 600px;
+  max-width: 100%;
+  display: block;
+}
+
+.livery-name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.download-link {
+  margin-top: 10px;
+}
+
+.download-link a {
+  color: #0077cc;
+  text-decoration: underline;
+  font-size: 16px;
+}
+  
 </style>
 </head>
 
@@ -60,6 +96,32 @@ input {
   </tr>
 </table>
 
+<table class="livery-table">
+  <tr>
+    <td rowspan="2">
+      <img src="livery1.jpg" alt="Ліврея 1">
+    </td>
+    <td class="livery-name">Ліврея 1</td>
+  </tr>
+  <tr>
+    <td class="download-link">
+      <a href="livery1.jpg" download>скачати</a>
+    </td>
+  </tr>
+
+  <tr>
+    <td rowspan="2">
+      <img src="livery2.jpg" alt="Ліврея 2">
+    </td>
+    <td class="livery-name">Ліврея 2</td>
+  </tr>
+  <tr>
+    <td class="download-link">
+      <a href="livery2.jpg" download>скачати</a>
+    </td>
+  </tr>
+</table>
+  
 <script>
 const database = [
   {from:100, to:200, airline:"Ukraine International Airlines (МАУ)", aircraft:"738"},
@@ -196,3 +258,4 @@ function findFlight() {
 
 </body>
 </html>
+
