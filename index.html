@@ -119,6 +119,23 @@ input {
   font-size: 16px;
   font-weight: bold;
 }
+
+.icon-table {
+  width: 240px;
+  border-collapse: collapse;
+  margin: 20px auto;
+}
+
+.icon-table td {
+  padding: 4px;
+  text-align: center;
+}
+
+.icon-table img {
+  width: 100px;
+  height: 40px;
+  display: block;
+  margin: auto;
   
 </style>
 </head>
@@ -139,6 +156,7 @@ input {
     <th>Корисні посилання:</th>
   </tr>
   <tr>
+      
     <td>
       <a href="https://youtube.com" target="_blank"><img src="1.png" alt="YouTube Kazuar Avia">
       </a>
@@ -152,18 +170,58 @@ input {
       <a href="https://example.com" target="_blank"><img src="3.png" alt="Virtual Airline">
       </a>
     </td>
-        <td>
-       <a href="https://planner.flightsimulator.com/" target="_blank"><img style="width:100px; height:37px; src="charts.png" alt="msfs2024 charts/planner"></a>  
-       <a href="https://dispatch.simbrief.com/briefing/latest" target="_blank"><img style="width:100px; height:37px; src="simbrief.png" alt="Simbrief"></a> 
-       <br>
-      <a href="https://my.vatsim.net/home" target="_blank"><img style="width:100px; height:37px; src="vatsim.png" alt="Vatsim"></a>
-      <a href="https://vatsim-radar.com/?center=34.26150,49.23896&zoom=6.64" target="_blank"><img style="width:100px; height:37px; src="radar.png" alt="Vatsim Radar"></a>
-      <br>
-      <a href="https://ua.ivao.aero/en/resources/weather/airports" target="_blank"><img style="width:100px; height:37px;" src="weather.png" alt="Погода по Україні"> </a>
-      <a href="https://metar-taf.com/?c=490567.344421.6" target="_blank"><img style="width:100px; height:37px; src="metar.png" alt="METAR по світу"> </a>
-      <br>
-      <a href="https://flightsim.to/" target="_blank"><img style="width:100px; height:37px; src="flightsim.png" alt="flightsim.to"> </a>  
-      <a href="https://www.faa.gov/air_traffic/publications/atpubs/cnt_html/chap3_section_3.html" target="_blank"><img style="width:100px; height:37px; src="3ld.png" alt="3-літерні Коди авіакомпаній"> </a>
+      <td>
+
+        <table class="icon-table">
+  <tr>
+    <td>
+      <a href="https://planner.flightsimulator.com/" target="_blank"><img src="charts.png" alt="msfs2024 charts/planner"></a>
+     </td>
+    <td>
+<a href="https://dispatch.simbrief.com/briefing/latest" target="_blank"><img src="simbrief.png" alt="Simbrief"></a>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+<a href="https://my.vatsim.net/home" target="_blank"><img src="vatsim.png" alt="Vatsim"></a>
+    </td>
+    <td>
+<a href="https://vatsim-radar.com/?center=34.26150,49.23896&zoom=6.64" target="_blank"><img src="radar.png" alt="Vatsim Radar"></a>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+<a href="https://ua.ivao.aero/en/resources/weather/airports" target="_blank"><img src="weather.png" alt="Погода по Україні"> </a>
+    </td>
+    <td>
+<a href="https://metar-taf.com/?c=490567.344421.6" target="_blank"><img src="metar.png" alt="METAR по світу"> </a>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+ <a href="https://flightsim.to/" target="_blank"><img src="flightsim.png" alt="flightsim.to"> </a> 
+    </td>
+    <td>
+      <a href="https://www.faa.gov/air_traffic/publications/atpubs/cnt_html/chap3_section_3.html" target="_blank"><img src="3ld.png" alt="3-літерні Коди авіакомпаній"> </a>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <a href="https://send.monobank.ua/jar/3xnwWhLj9Y" target="_blank">
+        <img src="mono.png" alt="Монобанка для донатів">
+      </a>
+    </td>
+    <td>
+      <a href="https://buymeacoffee.com/kazuar" target="_blank">
+        <img src="buy.png" alt="Buy me a coffee">
+      </a>
+    </td>
+  </tr>
+</table>
     </td>
   </tr>
 </table>
@@ -206,7 +264,7 @@ input {
 </tr>
     
     <th>Номер рейсу (3–4 цифри):</th>
-    <th style="width:400px;">Назва авіакомпанії:</th>
+    <th style="width:300px;">Назва авіакомпанії:</th>
     <th>Тип літака, на якому літали<br>(або рекомендується виконати рейс):</th>
   </tr>
   <tr>
@@ -490,6 +548,7 @@ function findFlight() {
 
 </body>
 </html>
+
 
 
 
