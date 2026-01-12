@@ -139,6 +139,48 @@ input {
   display: block;
   margin: auto;
   }
+
+  .livery-grid {
+  width: 1000px;
+  margin: 30px auto;
+  border-collapse: collapse;
+}
+
+.livery-grid td {
+  width: 50%;
+  border: 1px solid #000;   /* контур ТІЛЬКИ навколо ячейки */
+  vertical-align: top;
+}
+
+.livery-header {
+  background: #e9f4df;      /* кольоровий заголовок */
+  text-align: center;
+  font-weight: bold;
+  padding: 8px;
+}
+
+.livery-content {
+  padding: 10px;            /* відступ 10px від краю ячейки */
+  text-align: center;
+}
+
+.livery-content img {
+  width: 100%;
+  max-width: 460px;
+  display: block;
+  margin: 0 auto 10px auto;
+}
+
+.livery-links {
+  font-size: 14px;
+}
+
+.livery-links a {
+  color: #0066cc;
+  text-decoration: underline;
+  margin: 0 6px;
+}
+  
 </style>
 </head>
 
@@ -468,6 +510,82 @@ input {
   </tr>
 
 </table>
+
+
+<table class="livery-grid">
+  <tr>
+    <td>
+      <div class="livery-header">PMDG Boeing 777F UR-CRG (cargo)</div>
+      <div class="livery-content">
+        <img src="livery1.jpg" alt="">
+        <div class="livery-links">
+          скачати:
+          <a href="msfs2024.zip" target="_blank">MSFS 2024</a>
+          &nbsp;&nbsp;
+          установка: <em>розпакувати в Community</em><br>
+          скачати:
+          <a href="msfs2020.zip" target="_blank">MSFS 2020</a>
+          &nbsp;&nbsp;
+          установка: <em>в Community</em>
+        </div>
+      </div>
+    </td>
+
+    <td>
+      <div class="livery-header">PMDG Boeing 777F UR-CRG (cargo)</div>
+      <div class="livery-content">
+        <img src="livery2.jpg" alt="">
+        <div class="livery-links">
+          скачати:
+          <a href="msfs2024.zip" target="_blank">MSFS 2024</a>
+          &nbsp;&nbsp;
+          установка: <em>розпакувати в Community</em><br>
+          скачати:
+          <a href="msfs2020.zip" target="_blank">MSFS 2020</a>
+          &nbsp;&nbsp;
+          установка: <em>в Community</em>
+        </div>
+      </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <div class="livery-header">PMDG Boeing 777F UR-CRG (cargo)</div>
+      <div class="livery-content">
+        <img src="livery3.jpg" alt="">
+        <div class="livery-links">
+          скачати:
+          <a href="msfs2024.zip" target="_blank">MSFS 2024</a>
+          &nbsp;&nbsp;
+          установка: <em>розпакувати в Community</em><br>
+          скачати:
+          <a href="msfs2020.zip" target="_blank">MSFS 2020</a>
+          &nbsp;&nbsp;
+          установка: <em>в Community</em>
+        </div>
+      </div>
+    </td>
+
+    <td>
+      <div class="livery-header">PMDG Boeing 777F UR-CRG (cargo)</div>
+      <div class="livery-content">
+        <img src="livery4.jpg" alt="">
+        <div class="livery-links">
+          скачати:
+          <a href="msfs2024.zip" target="_blank">MSFS 2024</a>
+          &nbsp;&nbsp;
+          установка: <em>розпакувати в Community</em><br>
+          скачати:
+          <a href="msfs2020.zip" target="_blank">MSFS 2020</a>
+          &nbsp;&nbsp;
+          установка: <em>в Community</em>
+        </div>
+      </div>
+    </td>
+  </tr>
+</table>
+
   
 <script>
 const database = [
@@ -605,6 +723,7 @@ function findFlight() {
 
 </body>
 </html>
+
 
 
 
