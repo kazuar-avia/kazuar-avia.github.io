@@ -1338,62 +1338,29 @@ function findFlight() {
 }
 </script>
 <script>
-const DIR_ARROWS = ["↑", "↗", "↗", "→", "↘", "↘", "↓", "↙", "↙", "←", "↖", "↖"];
-
-function getMaxCurrentDirection(directions) {
-  let bestIndex = 0;
-  for (let i = 1; i < directions.length; i++) {
-    if (directions[i].current > directions[bestIndex].current) {
-      bestIndex = i;
-    }
-  }
-  return {
-    arrow: DIR_ARROWS[bestIndex],
-    current: directions[bestIndex].current
-  };
-}
-
-function getWeakestDirection(directions) {
-  let worstIndex = 0;
-  for (let i = 1; i < directions.length; i++) {
-    if (directions[i].bias < directions[worstIndex].bias) {
-      worstIndex = i;
-    }
-  }
-  const d = directions[worstIndex];
-  return {
-    arrow: DIR_ARROWS[worstIndex],
-    deficit: Math.max(0, d.normal - d.current)
-  };
-}
-
 async function loadUKBB() {
   const box = document.getElementById("ukbb-demand");
   if (!box) return;
 
-  box.innerHTML = "Завантаження...";
+  box.textContent = "Завантаження...";
 
   try {
-    const res = await fetch("https://newsky.app/api/airport/UKBB");
-    if (!res.ok) throw new Error("HTTP " + res.status);
-
+    const res = await fetch("https://ТУТ_БУДЕ_ТВІЙ_WORKER_URL?icao=UKBB");
     const data = await res.json();
 
-    const paxOut = getMaxCurrentDirection(data.traffic.B.pax.directions);
-    const cargoOut = getMaxCurrentDirection(data.traffic.B.cargo.directions);
-
-    const paxIn = getWeakestDirection(data.traffic.B.pax.directions);
-    const cargoIn = getWeakestDirection(data.traffic.B.cargo.directions);
+    if (!res.ok) {
+      throw new Error(data.error || ("HTTP " + res.status));
+    }
 
     box.innerHTML = `
       <div><strong>Попит на виліт:</strong></div>
-      <div>👥 ${paxOut.current} ${paxOut.arrow} / 📦 ${cargoOut.current} ${cargoOut.arrow}</div>
+      <div>👥 ${data.outbound.pax.current} ${data.outbound.pax.arrow} / 📦 ${data.outbound.cargo.current} ${data.outbound.cargo.arrow}</div>
       <div style="margin-top:4px;"><strong>Попит на приліт:</strong></div>
-      <div>+${paxIn.deficit} 👥 з ${paxIn.arrow} / +${cargoIn.deficit} 📦 з ${cargoIn.arrow}</div>
+      <div>+${data.inbound.pax.deficit} 👥 з ${data.inbound.pax.arrow} / +${data.inbound.cargo.deficit} 📦 з ${data.inbound.cargo.arrow}</div>
     `;
   } catch (e) {
     console.error(e);
-    box.innerHTML = "Не вдалось завантажити";
+    box.textContent = "Помилка завантаження";
   }
 }
 
