@@ -180,7 +180,16 @@ input {
   text-decoration: underline;
   margin: 0 6px;
 }
-  
+.newsky-demand-info {
+  margin-top: 6px;
+  font-size: 11px;
+  line-height: 1.25;
+  color: #333333;
+}
+
+.demand-line {
+  margin-top: 4px;
+}  
 </style>
 </head>
 
@@ -1325,7 +1334,106 @@ function findFlight() {
   }
 }
 </script>
+<script>
+const AIRPORTS = ["UKBB", "UKOO"];
 
+const DIR_ARROWS = ["↑", "↗", "↗", "→", "↘", "↘", "↓", "↙", "↙", "←", "↖", "↖"];
+
+function getMaxCurrentDirection(directions) {
+  let bestIndex = 0;
+  for (let i = 1; i < directions.length; i++) {
+    if (directions[i].current > directions[bestIndex].current) bestIndex = i;
+  }
+  return {
+    index: bestIndex,
+    arrow: DIR_ARROWS[bestIndex],
+    current: directions[bestIndex].current,
+    normal: directions[bestIndex].normal,
+    bias: directions[bestIndex].bias
+  };
+}
+
+function getWeakestDirection(directions) {
+  let worstIndex = 0;
+  for (let i = 1; i < directions.length; i++) {
+    if (directions[i].bias < directions[worstIndex].bias) worstIndex = i;
+  }
+  const d = directions[worstIndex];
+  return {
+    index: worstIndex,
+    arrow: DIR_ARROWS[worstIndex],
+    current: d.current,
+    normal: d.normal,
+    bias: d.bias,
+    deficit: Math.max(0, d.normal - d.current)
+  };
+}
+
+function findAirportCell(icao) {
+  const tds = [...document.querySelectorAll(".airports-table td")];
+  return tds.find(td => {
+    const strong = td.querySelector("strong");
+    return strong && strong.textContent.trim().startsWith(icao);
+  });
+}
+
+function formatAirportInfo(icao, paxOut, cargoOut, paxIn, cargoIn) {
+  const wrap = document.createElement("div");
+  wrap.className = "newsky-demand-info";
+  wrap.innerHTML = `
+    <div class="demand-line">
+      <strong>Попит на виліт:</strong><br>
+      from ${icao}: 👥 ${paxOut.current} pax ${paxOut.arrow}
+      / 📦 ${cargoOut.current} ${cargoOut.arrow}
+    </div>
+    <div class="demand-line">
+      <strong>Попит на приліт:</strong><br>
+      to ${icao}: бажано довезти ${paxIn.deficit} людей з ${paxIn.arrow}
+      / ${cargoIn.deficit} cargo з ${cargoIn.arrow}
+    </div>
+  `;
+  return wrap;
+}
+
+async function loadAirportDemand(icao) {
+  const res = await fetch(`https://newsky.app/api/airport/${icao}`);
+  if (!res.ok) throw new Error(`${icao}: HTTP ${res.status}`);
+  const data = await res.json();
+
+  const paxDirs = data.traffic.B.pax.directions;
+  const cargoDirs = data.traffic.B.cargo.directions;
+
+  return {
+    paxOut: getMaxCurrentDirection(paxDirs),
+    cargoOut: getMaxCurrentDirection(cargoDirs),
+    paxIn: getWeakestDirection(paxDirs),
+    cargoIn: getWeakestDirection(cargoDirs)
+  };
+}
+
+async function initNewskyHints() {
+  for (const icao of AIRPORTS) {
+    const cell = findAirportCell(icao);
+    if (!cell) continue;
+
+    try {
+      const result = await loadAirportDemand(icao);
+      const info = formatAirportInfo(
+        icao,
+        result.paxOut,
+        result.cargoOut,
+        result.paxIn,
+        result.cargoIn
+      );
+      cell.appendChild(info);
+    } catch (err) {
+      console.error("Newsky error:", err);
+    }
+  }
+}
+
+document.addEventListener("DOMContentLoaded", initNewskyHints);
+</script>
 </body>
 </html>
 
