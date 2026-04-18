@@ -287,8 +287,11 @@ input {
   </tr>
 
   <tr>
-    <td style="width:100px;background-color: #ffffff;color: #222222; font-size: 16px;">
-      <strong>UKBB*</strong><br>Бориспіль<br><em style="color: #666666; font-size: 12px;">Marketplace</em></td>
+    <td id="airport-ukbb" style="width:100px;background-color: #ffffff;color: #222222; font-size: 16px;">
+  <strong>UKBB*</strong><br>Бориспіль<br>
+  <em style="color: #666666; font-size: 12px;">Marketplace</em>
+  <div id="ukbb-demand" style="margin-top:6px;font-size:11px;line-height:1.25;color:#333;"></div>
+</td>
     <td style="width:100px;background-color: #ffffff;"><a href="https://contrail.shop/products/ukll-lviv-airport-msfs" target="_blank" style="color: #0077cc; text-decoration: underline;font-size: 16px;">
       <strong>UKLL*</strong><br>Львів</a></td>
     <td style="width:100px;background-color: #ffffff;"><a href="https://contrail.shop/products/ukoo-odesa-airport-msfs" target="_blank" style="color: #0077cc; text-decoration: underline;font-size: 16px;">
@@ -1335,104 +1338,66 @@ function findFlight() {
 }
 </script>
 <script>
-const AIRPORTS = ["UKBB", "UKOO"];
-
 const DIR_ARROWS = ["↑", "↗", "↗", "→", "↘", "↘", "↓", "↙", "↙", "←", "↖", "↖"];
 
 function getMaxCurrentDirection(directions) {
   let bestIndex = 0;
   for (let i = 1; i < directions.length; i++) {
-    if (directions[i].current > directions[bestIndex].current) bestIndex = i;
+    if (directions[i].current > directions[bestIndex].current) {
+      bestIndex = i;
+    }
   }
   return {
-    index: bestIndex,
     arrow: DIR_ARROWS[bestIndex],
-    current: directions[bestIndex].current,
-    normal: directions[bestIndex].normal,
-    bias: directions[bestIndex].bias
+    current: directions[bestIndex].current
   };
 }
 
 function getWeakestDirection(directions) {
   let worstIndex = 0;
   for (let i = 1; i < directions.length; i++) {
-    if (directions[i].bias < directions[worstIndex].bias) worstIndex = i;
+    if (directions[i].bias < directions[worstIndex].bias) {
+      worstIndex = i;
+    }
   }
   const d = directions[worstIndex];
   return {
-    index: worstIndex,
     arrow: DIR_ARROWS[worstIndex],
-    current: d.current,
-    normal: d.normal,
-    bias: d.bias,
     deficit: Math.max(0, d.normal - d.current)
   };
 }
 
-function findAirportCell(icao) {
-  const tds = [...document.querySelectorAll(".airports-table td")];
-  return tds.find(td => {
-    const strong = td.querySelector("strong");
-    return strong && strong.textContent.trim().startsWith(icao);
-  });
-}
+async function loadUKBB() {
+  const box = document.getElementById("ukbb-demand");
+  if (!box) return;
 
-function formatAirportInfo(icao, paxOut, cargoOut, paxIn, cargoIn) {
-  const wrap = document.createElement("div");
-  wrap.className = "newsky-demand-info";
-  wrap.innerHTML = `
-    <div class="demand-line">
-      <strong>Попит на виліт:</strong><br>
-      from ${icao}: 👥 ${paxOut.current} pax ${paxOut.arrow}
-      / 📦 ${cargoOut.current} ${cargoOut.arrow}
-    </div>
-    <div class="demand-line">
-      <strong>Попит на приліт:</strong><br>
-      to ${icao}: бажано довезти ${paxIn.deficit} людей з ${paxIn.arrow}
-      / ${cargoIn.deficit} cargo з ${cargoIn.arrow}
-    </div>
-  `;
-  return wrap;
-}
+  box.innerHTML = "Завантаження...";
 
-async function loadAirportDemand(icao) {
-  const res = await fetch(`https://newsky.app/api/airport/${icao}`);
-  if (!res.ok) throw new Error(`${icao}: HTTP ${res.status}`);
-  const data = await res.json();
+  try {
+    const res = await fetch("https://newsky.app/api/airport/UKBB");
+    if (!res.ok) throw new Error("HTTP " + res.status);
 
-  const paxDirs = data.traffic.B.pax.directions;
-  const cargoDirs = data.traffic.B.cargo.directions;
+    const data = await res.json();
 
-  return {
-    paxOut: getMaxCurrentDirection(paxDirs),
-    cargoOut: getMaxCurrentDirection(cargoDirs),
-    paxIn: getWeakestDirection(paxDirs),
-    cargoIn: getWeakestDirection(cargoDirs)
-  };
-}
+    const paxOut = getMaxCurrentDirection(data.traffic.B.pax.directions);
+    const cargoOut = getMaxCurrentDirection(data.traffic.B.cargo.directions);
 
-async function initNewskyHints() {
-  for (const icao of AIRPORTS) {
-    const cell = findAirportCell(icao);
-    if (!cell) continue;
+    const paxIn = getWeakestDirection(data.traffic.B.pax.directions);
+    const cargoIn = getWeakestDirection(data.traffic.B.cargo.directions);
 
-    try {
-      const result = await loadAirportDemand(icao);
-      const info = formatAirportInfo(
-        icao,
-        result.paxOut,
-        result.cargoOut,
-        result.paxIn,
-        result.cargoIn
-      );
-      cell.appendChild(info);
-    } catch (err) {
-      console.error("Newsky error:", err);
-    }
+    box.innerHTML = `
+      <div><strong>Попит на виліт:</strong></div>
+      <div>👥 ${paxOut.current} ${paxOut.arrow} / 📦 ${cargoOut.current} ${cargoOut.arrow}</div>
+      <div style="margin-top:4px;"><strong>Попит на приліт:</strong></div>
+      <div>+${paxIn.deficit} 👥 з ${paxIn.arrow} / +${cargoIn.deficit} 📦 з ${cargoIn.arrow}</div>
+    `;
+  } catch (e) {
+    console.error(e);
+    box.innerHTML = "Не вдалось завантажити";
   }
 }
 
-document.addEventListener("DOMContentLoaded", initNewskyHints);
+document.addEventListener("DOMContentLoaded", loadUKBB);
 </script>
 </body>
 </html>
