@@ -404,20 +404,21 @@ input {
     
   <tr>
           <td style="width:100px;background-color: #ffffff;"><a style="color: #0077cc; text-decoration: underline;font-size: 16px;" href="https://flightsim.to/file/62167/aeroclub-aeroprakt-ukvn" target="_blank">
-      <strong>UKVN</strong><br>Наливайківка</a></td>
-      <td style="width:100px;background-color: #ffffff;"><a style="color: #0077cc; text-decoration: underline;font-size: 16px;" href="https://flightsim.to/file/91099/ukgw-voroniv-airfield" target="_blank">
-      <strong>UKGV</strong><br>Воронів</a></td>
-      <td style="width:100px;background-color: #ffffff;"><a style="color: #0077cc; text-decoration: underline;font-size: 16px;" href="https://flightsim.to/file/68800/ukng-airport-gogoliv-ukng-gogoliv" target="_blank">
+      <strong>UKVN</strong><br>Наливайківка</a><br><a style="color: #0077cc; text-decoration: underline;font-size: 16px;" href="https://flightsim.to/file/91099/ukgw-voroniv-airfield" target="_blank">
+      <strong>UKGV</strong><br>Воронів</a><br><a style="color: #0077cc; text-decoration: underline;font-size: 16px;" href="https://flightsim.to/file/68800/ukng-airport-gogoliv-ukng-gogoliv" target="_blank">
       <strong>UKNG</strong><br>Гоголів</a></td>
+      
       <td colspan="2" id="top-overloaded-box" style="background-color:#ffffff; padding:8px; font-size:14px; line-height:1.35; color:#222;">
     Завантаження...
   </td>
       <td colspan="2" id="top-deficit-box" style="background-color:#ffffff; padding:8px; font-size:14px; line-height:1.35; color:#222;">
     Завантаження...
   </td>
-<td colspan="2" id="top-domestic-routes-box" style="background-color:#ffffff; padding:8px; font-size:14px; line-height:1.35; color:#222;">
+
+  <td colspan="2" id="top-domestic-routes-box" style="background-color:#ffffff; padding:8px; font-size:14px; line-height:1.35; color:#222;">
     Завантаження місцевих рейсів...
   </td>
+
   </tr>
     
 </table>
@@ -1618,7 +1619,7 @@ function renderTopList(items, title, sign) {
   `;
 }  
 
-  function bearingToIndex12(bearing) {
+function bearingToIndex12(bearing) {
   let bestIndex = 0;
   let bestDiff = 999;
 
@@ -1656,11 +1657,11 @@ function buildDomesticRoutes(airports) {
       const distKm = haversineKm(fromLat, fromLon, toLat, toLon);
       if (distKm < 300) continue;
 
-      // напрямок FROM -> TO
+      // сектор A -> B
       const outBearing = bearingDeg(fromLat, fromLon, toLat, toLon);
       const outIdx = bearingToIndex12(outBearing);
 
-      // зворотний напрямок для TO, звідки має бути приліт
+      // сектор B <- A
       const inBearing = bearingDeg(toLat, toLon, fromLat, fromLon);
       const inIdx = bearingToIndex12(inBearing);
 
@@ -1669,17 +1670,15 @@ function buildDomesticRoutes(airports) {
       const fromCargoDir = from?.traffic?.B?.cargo?.directions?.[outIdx];
       const toCargoDir = to?.traffic?.B?.cargo?.directions?.[inIdx];
 
+      // PAX: беремо не surplus, а просто наявний current у джерелі
+      // і дефіцит у пункті призначення
       if (fromPaxDir && toPaxDir) {
-        const paxSurplus = Math.max(0, fromPaxDir.current - fromPaxDir.normal);
-        const paxDeficit = Math.max(0, toPaxDir.normal - toPaxDir.current);
-        const paxMatch = Math.min(paxSurplus, paxDeficit);
+        const paxAvailable = Math.max(0, fromPaxDir.current);
+        const paxNeed = Math.max(0, toPaxDir.normal - toPaxDir.current);
+        const paxMatch = Math.min(paxAvailable, paxNeed);
 
         if (paxMatch >= 49) {
-          const surplusPct = fromPaxDir.normal > 0
-            ? ((fromPaxDir.current - fromPaxDir.normal) / fromPaxDir.normal) * 100
-            : 0;
-
-          const deficitPct = toPaxDir.normal > 0
+          const paxNeedPct = toPaxDir.normal > 0
             ? ((toPaxDir.normal - toPaxDir.current) / toPaxDir.normal) * 100
             : 0;
 
@@ -1687,24 +1686,25 @@ function buildDomesticRoutes(airports) {
             from: from.icao,
             to: to.icao,
             qty: paxMatch,
-            pct: Math.min(surplusPct, deficitPct),
+            pct: paxNeedPct,
             distKm
           });
         }
       }
 
+      // CARGO: головне — в destination є дефіцит,
+      // а в source є що везти в тому напрямку
       if (fromCargoDir && toCargoDir) {
-        const cargoSurplusUnits = Math.max(0, fromCargoDir.current - fromCargoDir.normal);
-        const cargoDeficitUnits = Math.max(0, toCargoDir.normal - toCargoDir.current);
-        const cargoMatchUnits = Math.min(cargoSurplusUnits, cargoDeficitUnits);
+        const cargoAvailableUnits = Math.max(0, fromCargoDir.current);
+        const cargoNeedUnits = Math.max(0, toCargoDir.normal - toCargoDir.current);
+        const cargoMatchUnits = Math.min(cargoAvailableUnits, cargoNeedUnits);
+
+        const cargoAvailableTons = cargoToTons(cargoAvailableUnits);
+        const cargoNeedTons = cargoToTons(cargoNeedUnits);
         const cargoMatchTons = cargoToTons(cargoMatchUnits);
 
-        if (cargoMatchTons >= 10) {
-          const surplusPct = fromCargoDir.normal > 0
-            ? ((fromCargoDir.current - fromCargoDir.normal) / fromCargoDir.normal) * 100
-            : 0;
-
-          const deficitPct = toCargoDir.normal > 0
+        if (cargoAvailableTons >= 10 && cargoNeedUnits > 0 && cargoMatchTons >= 1) {
+          const cargoNeedPct = toCargoDir.normal > 0
             ? ((toCargoDir.normal - toCargoDir.current) / toCargoDir.normal) * 100
             : 0;
 
@@ -1712,8 +1712,10 @@ function buildDomesticRoutes(airports) {
             from: from.icao,
             to: to.icao,
             qty: cargoMatchTons,
-            pct: Math.min(surplusPct, deficitPct),
-            distKm
+            pct: cargoNeedPct,
+            distKm,
+            availableTons: cargoAvailableTons,
+            needTons: cargoNeedTons
           });
         }
       }
@@ -1754,7 +1756,7 @@ function renderDomesticRoutesTop(data) {
     <strong>📦 ТОП-3 місцеві cargo:</strong><br>
     ${cargoLines}
   `;
-}
+} 
   
 async function loadAirportDump(){
   try {
@@ -1798,6 +1800,8 @@ async function loadAirportDump(){
       .sort((a, b) => b.pct - a.pct)
       .slice(0, 3);
 
+    const domesticTop = buildDomesticRoutes(airportsLoaded);
+
     const overloadedBox = document.getElementById("top-overloaded-box");
     const deficitBox = document.getElementById("top-deficit-box");
     const domesticBox = document.getElementById("top-domestic-routes-box");
@@ -1819,7 +1823,6 @@ async function loadAirportDump(){
     }
 
     if (domesticBox) {
-      const domesticTop = buildDomesticRoutes(airportsLoaded);
       domesticBox.innerHTML = renderDomesticRoutesTop(domesticTop);
     }
 
