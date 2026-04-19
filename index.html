@@ -234,6 +234,12 @@ input {
   color: #8a3a00;
 }
 
+.airport-demand-flags {
+  display: inline-block;
+  margin-left: 2px;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
   
 </style>
 </head>
@@ -1425,6 +1431,23 @@ function cargoToTons(value) {
   return Math.round((value * 82) / 1000);
 }
 
+  function countryCodeToFlag(code) {
+  if (!code || code.length !== 2) return "";
+  const chars = code.toUpperCase().split('');
+  return String.fromCodePoint(
+    127397 + chars[0].charCodeAt(0),
+    127397 + chars[1].charCodeAt(0)
+  );
+}
+
+function codesToFlags(text) {
+  if (!text || text === "—") return "";
+  return text
+    .split(/\s+/)
+    .map(countryCodeToFlag)
+    .join(" ");
+}
+  
 function renderDemandBlock(icao, airportData) {
   const paxDirs = airportData?.traffic?.B?.pax?.directions || [];
   const cargoDirs = airportData?.traffic?.B?.cargo?.directions || [];
@@ -1436,6 +1459,13 @@ function renderDemandBlock(icao, airportData) {
   const paxIn = weakest(paxDirs);
   const cargoIn = weakest(cargoDirs);
 
+  const countryMap = airportDirectionCountries[icao] || {};
+
+const paxOutFlags = codesToFlags(countryMap[paxOut.arrow] || "");
+const cargoOutFlags = codesToFlags(countryMap[cargoOut.arrow] || "");
+const paxInFlags = codesToFlags(countryMap[paxIn.arrow] || "");
+const cargoInFlags = codesToFlags(countryMap[cargoIn.arrow] || "");
+  
   const cargoOutTons = cargoToTons(cargoOut.current);
 
   const box = document.createElement("div");
@@ -1446,19 +1476,23 @@ box.innerHTML = `
     <span class="airport-demand-icon airport-demand-people">👪</span>
     ${paxOut.current}
     <span class="airport-demand-arrow">${paxOut.arrow}</span>
+    <span class="airport-demand-flags">${paxOutFlags}</span>
     <br>
     <span class="airport-demand-icon airport-demand-cargo">📦</span>
-    ${cargoOutTons} т
+    ${cargoOutTons}т
     <span class="airport-demand-arrow">${cargoOut.arrow}</span>
+    <span class="airport-demand-flags">${cargoOutFlags}</span>
   </div>
 
   <div class="airport-demand-line airport-demand-in">
     <img src="ARR1.png" alt="Arrivals" class="airport-demand-header">
     <span class="airport-demand-icon airport-demand-people">👪</span>
     <span class="airport-demand-arrow">${paxIn.arrow}</span>
+    <span class="airport-demand-flags">${paxInFlags}</span>
     <br>
     <span class="airport-demand-icon airport-demand-cargo">📦</span>
     <span class="airport-demand-arrow">${cargoIn.arrow}</span>
+    <span class="airport-demand-flags">${cargoInFlags}</span>
   </div>
 `;
   return box;
@@ -1498,6 +1532,29 @@ async function loadAirportDump() {
   }
 }
 
+  const airportDirectionCountries = {
+  UKOO: {
+    "↑": "UA MD",
+    "↗": "UA",
+    "→": "GE AZ",
+    "↘": "TR",
+    "↓": "TR CY",
+    "↙": "BG GR",
+    "←": "RO",
+    "↖": "MD PL"
+  },
+  UKLL: {
+    "↑": "PL LT",
+    "↗": "UA LT",
+    "→": "UA",
+    "↘": "RO BG",
+    "↓": "RO TR",
+    "↙": "HU HR",
+    "←": "CZ DE",
+    "↖": "PL DK"
+  }
+};
+  
 document.addEventListener("DOMContentLoaded", loadAirportDump);
 </script>
 
