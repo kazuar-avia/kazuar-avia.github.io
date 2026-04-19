@@ -2063,25 +2063,23 @@ function renderDomesticRoutesTop(data) {
   return `${day}.${month}.${year} в ${hours}:${minutes}`;
 }
   
-async function loadAirportDump(){
-const text = await res.text();
-
-const updatedMatch = text.match(/^UPDATED:\s*(.+)$/m);
-if (updatedMatch) {
-  const el = document.getElementById("data-updated");
-  if (el) {
-    el.innerHTML = `📊 Попит оновлено: ${updatedMatch[1]}`;
-  }
-}
-
-const cleanedText = text.replace(/^UPDATED:\s*.+\n*/m, "").trim();
-const blocks = cleanedText.split(/\n\s*---\s*\n/g).map(x => x.trim()).filter(Boolean);
+async function loadAirportDump() {
   try {
     const res = await fetch("./newsky-airports.txt");
     if (!res.ok) throw new Error("Не вдалося відкрити newsky-airports.txt");
 
     const text = await res.text();
-    const blocks = text.split(/\n\s*---\s*\n/g).map(x => x.trim()).filter(Boolean);
+
+    const updatedMatch = text.match(/^UPDATED:\s*(.+)$/m);
+    if (updatedMatch) {
+      const el = document.getElementById("data-updated");
+      if (el) {
+        el.innerHTML = `📊 Попит оновлено: ${updatedMatch[1]}`;
+      }
+    }
+
+    const cleanedText = text.replace(/^UPDATED:\s*.+\n*/m, "").trim();
+    const blocks = cleanedText.split(/\n\s*---\s*\n/g).map(x => x.trim()).filter(Boolean);
 
     const stats = [];
     const airportsLoaded = [];
@@ -2105,12 +2103,11 @@ const blocks = cleanedText.split(/\n\s*---\s*\n/g).map(x => x.trim()).filter(Boo
       }
     }
 
-const positiveAll = collectTopCandidates(stats, "positive");
-const negativeAll = collectTopCandidates(stats, "negative");
+    const positiveAll = collectTopCandidates(stats, "positive");
+    const negativeAll = collectTopCandidates(stats, "negative");
 
-// в обох топах гарантуємо мінімум 1 cargo, якщо він існує
-const topPositive = buildMixedTop(positiveAll, 5, true);
-const topNegative = buildMixedTop(negativeAll, 5, true);
+    const topPositive = buildMixedTop(positiveAll, 5, true);
+    const topNegative = buildMixedTop(negativeAll, 5, true);
 
     const domesticTop = buildDomesticRoutes(airportsLoaded);
 
@@ -2142,7 +2139,7 @@ const topNegative = buildMixedTop(negativeAll, 5, true);
 
     if (domesticCargoBox) {
       domesticCargoBox.innerHTML = `
-        <strong style="font-size:16px;argin-bottom:4px;">📦 ТОП-5 місцеві cargo:</strong><br>
+        <strong style="font-size:16px; margin-bottom:4px;">📦 ТОП-5 місцеві cargo:</strong><br>
         ${domesticTop.cargo.length ? domesticTop.cargo.map(x => `${x.from} → ${x.to}`).join("<br>") : "—"}
       `;
     }
