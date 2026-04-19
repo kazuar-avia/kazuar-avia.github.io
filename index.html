@@ -1411,6 +1411,7 @@ const DIR_ARROWS = ["↑","↗","↗","→","↘","↘","↓","↙","↙","←",
 const DIR_BEARINGS = [0,30,60,90,120,150,180,210,240,270,300,330];
 
 const EXCLUDED_CODES = new Set(["RU", "BY"]);
+const DISPLAY_EXCLUDED_CODES = new Set(["RU", "BY", "UA1", "UA2", "UA3", "UA4", "UA5"]);
 
 const COUNTRY_POINTS = {
   UA1: { lat: 49.8397, lon: 24.0297 },
@@ -1498,21 +1499,103 @@ function weakest(d){
   return {...d[i], index:i, arrow:DIR_ARROWS[i], deficit:Math.max(0, d[i].normal - d[i].current)};
 }
 
-function pick(lat,lon,i){
-  const b = DIR_BEARINGS[i];
-  const tols = [15,22.5,30,40];
+  function getSortedIndicesByCurrentDesc(directions) {
+  return directions
+    .map((x, i) => ({ i, current: x.current }))
+    .sort((a, b) => b.current - a.current)
+    .map(x => x.i);
+}
 
-  for (const t of tols){
-    const c = [];
-    for (const [k,p] of Object.entries(COUNTRY_POINTS)){
-      if (EXCLUDED_CODES.has(k)) continue;
-      const dist = haversineKm(lat,lon,p.lat,p.lon);
-      if (dist < 300 || dist > 5000) continue;
-      if (angularDiff(bearingDeg(lat,lon,p.lat,p.lon), b) <= t) c.push(k);
-    }
-    if (c.length) return rand(c.slice(0,6));
+function getSortedIndicesByWeakestBias(directions) {
+  return directions
+    .map((x, i) => ({ i, bias: x.bias }))
+    .sort((a, b) => a.bias - b.bias)
+    .map(x => x.i);
+}
+
+function chooseDisplayDirection(directions, lat, lon, mode, type) {
+  const indices = mode === "out"
+    ? getSortedIndicesByCurrentDesc(directions)
+    : getSortedIndicesByWeakestBias(directions);
+
+  const minValue = type === "pax" ? 50 : 10;
+
+  for (const idx of indices) {
+    const dir = directions[idx];
+
+    const shownValue = type === "pax"
+      ? (mode === "out" ? demandShown(dir.current) : demandShown(Math.max(0, dir.normal - dir.current)))
+      : (mode === "out" ? cargoShownTons(dir.current) : cargoShownTons(Math.max(0, dir.normal - dir.current)));
+
+    if (shownValue < minValue) continue;
+
+    const country = pickCountryForDirection(lat, lon, idx, false);
+    if (!country) continue;
+
+    return {
+      ...dir,
+      index: idx,
+      arrow: DIR_ARROWS[idx],
+      shown: shownValue,
+      country,
+      countryFlag: flag(country),
+      deficit: Math.max(0, dir.normal - dir.current)
+    };
   }
-  return "UA2";
+
+  // fallback: якщо зовсім нічого не знайшли, дозволяємо UA
+  for (const idx of indices) {
+    const dir = directions[idx];
+
+    const shownValue = type === "pax"
+      ? (mode === "out" ? demandShown(dir.current) : demandShown(Math.max(0, dir.normal - dir.current)))
+      : (mode === "out" ? cargoShownTons(dir.current) : cargoShownTons(Math.max(0, dir.normal - dir.current)));
+
+    if (shownValue < minValue) continue;
+
+    const country = pickCountryForDirection(lat, lon, idx, true);
+    if (!country) continue;
+
+    return {
+      ...dir,
+      index: idx,
+      arrow: DIR_ARROWS[idx],
+      shown: shownValue,
+      country,
+      countryFlag: flag(country),
+      deficit: Math.max(0, dir.normal - dir.current)
+    };
+  }
+
+  return null;
+}
+  
+function pickCountryForDirection(lat, lon, i, allowUA = false) {
+  const b = DIR_BEARINGS[i];
+  const tols = [15, 22.5, 30, 40];
+
+  for (const t of tols) {
+    const candidates = [];
+
+    for (const [k, p] of Object.entries(COUNTRY_POINTS)) {
+      if (EXCLUDED_CODES.has(k)) continue;
+      if (!allowUA && DISPLAY_EXCLUDED_CODES.has(k)) continue;
+
+      const dist = haversineKm(lat, lon, p.lat, p.lon);
+      if (dist < 300 || dist > 5000) continue;
+
+      const brg = bearingDeg(lat, lon, p.lat, p.lon);
+      if (angularDiff(brg, b) <= t) candidates.push(k);
+    }
+
+    if (candidates.length) return rand(candidates.slice(0, 6));
+  }
+
+  return null;
+}
+
+function pick(lat, lon, i, allowUA = false) {
+  return pickCountryForDirection(lat, lon, i, allowUA) || "UA2";
 }
 
 function reverseArrow(a){
@@ -1522,31 +1605,21 @@ function reverseArrow(a){
   }[a] || a;
 }
 
-function renderDemandBlock(icao,a){
+function renderDemandBlock(icao, a) {
   const p = a?.traffic?.B?.pax?.directions || [];
   const c = a?.traffic?.B?.cargo?.directions || [];
   const lat = a?.location?.lat, lon = a?.location?.lon;
   if (!p.length || !c.length || typeof lat !== "number" || typeof lon !== "number") return null;
 
-  const po = maxCurrent(p);
-  const co = maxCurrent(c);
-  const pi = weakest(p);
-  const ci = weakest(c);
+  const po = chooseDisplayDirection(p, lat, lon, "out", "pax");
+  const co = chooseDisplayDirection(c, lat, lon, "out", "cargo");
+  const pi = chooseDisplayDirection(p, lat, lon, "in", "pax");
+  const ci = chooseDisplayDirection(c, lat, lon, "in", "cargo");
 
-  const poF = flag(pick(lat,lon,po.index));
-  const coF = flag(pick(lat,lon,co.index));
-  const piF = flag(pick(lat,lon,pi.index));
-  const ciF = flag(pick(lat,lon,ci.index));
-
-  const poShown = demandShown(po.current);
-  const piShown = demandShown(pi.deficit);
-  const coShownT = cargoShownTons(co.current);
-  const ciShownT = cargoShownTons(ci.deficit);
-
-  const showPO = poShown >= 49;
-  const showCO = coShownT >= 10;
-  const showPI = piShown >= 49;
-  const showCI = ciShownT >= 10;
+  const showPO = !!po;
+  const showCO = !!co;
+  const showPI = !!pi;
+  const showCI = !!ci;
 
   const box = document.createElement("div");
   box.className = "airport-demand-box";
@@ -1554,17 +1627,17 @@ function renderDemandBlock(icao,a){
   const dep = (showPO || showCO) ? `
     <div class="airport-demand-line airport-demand-out">
       <img src="DEP1.png" class="airport-demand-header">
-      ${showPO ? `${formatPax(poShown)}👨‍💼 до ${poF} ${po.arrow}` : ""}
+      ${showPO ? `${formatPax(po.shown)}👨‍💼 до ${po.countryFlag} ${po.arrow}` : ""}
       ${showPO && showCO ? "<br>" : ""}
-      ${showCO ? `${formatCargo(coShownT)} 📦 до ${coF} ${co.arrow}` : ""}
+      ${showCO ? `${formatCargo(co.shown)} 📦 до ${co.countryFlag} ${co.arrow}` : ""}
     </div>` : "";
 
   const arr = (showPI || showCI) ? `
     <div class="airport-demand-line airport-demand-in">
       <img src="ARR1.png" class="airport-demand-header">
-      ${showPI ? `${formatPax(piShown)} 🙋‍♂️ з ${piF} ${reverseArrow(pi.arrow)}` : ""}
+      ${showPI ? `${formatPax(pi.shown)} 🙋‍♂️ з ${pi.countryFlag} ${reverseArrow(pi.arrow)}` : ""}
       ${showPI && showCI ? "<br>" : ""}
-      ${showCI ? `${formatCargo(ciShownT)} 📦 з ${ciF} ${reverseArrow(ci.arrow)}` : ""}
+      ${showCI ? `${formatCargo(ci.shown)} 📦 з ${ci.countryFlag} ${reverseArrow(ci.arrow)}` : ""}
     </div>` : "";
 
   if (!dep && !arr) return null;
