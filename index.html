@@ -1724,6 +1724,29 @@ function renderTopList(items, title) {
   `;
 }
 
+  function ensureAtLeastOneCargo(items, fallbackCargoItems, limit = 5) {
+  const hasCargo = items.some(x => x.type === "cargo");
+  if (hasCargo) return items.slice(0, limit);
+
+  const bestCargo = fallbackCargoItems
+    .filter(Boolean)
+    .sort((a, b) => b.pct - a.pct)[0];
+
+  if (!bestCargo) return items.slice(0, limit);
+
+  const trimmed = items.slice(0, Math.max(0, limit - 1));
+  return [...trimmed, bestCargo]
+    .sort((a, b) => b.pct - a.pct)
+    .slice(0, limit);
+}
+
+function collectTopCandidates(stats, key) {
+  return stats
+    .map(x => x?.[key])
+    .filter(Boolean)
+    .sort((a, b) => b.pct - a.pct);
+}
+  
 function bearingToIndex12(bearing) {
   let bestIndex = 0;
   let bestDiff = 999;
@@ -1940,17 +1963,23 @@ async function loadAirportDump(){
       }
     }
 
-    const topPositive = stats
-      .map(x => x.positive)
-      .filter(Boolean)
-      .sort((a, b) => b.pct - a.pct)
-      .slice(0, 5);
+const positiveAll = collectTopCandidates(stats, "positive");
+const negativeAll = collectTopCandidates(stats, "negative");
 
-    const topNegative = stats
-      .map(x => x.negative)
-      .filter(Boolean)
-      .sort((a, b) => b.pct - a.pct)
-      .slice(0, 5);
+const positiveCargoOnly = positiveAll.filter(x => x.type === "cargo");
+const negativeCargoOnly = negativeAll.filter(x => x.type === "cargo");
+
+const topPositive = ensureAtLeastOneCargo(
+  positiveAll.slice(0, 5),
+  positiveCargoOnly,
+  5
+);
+
+const topNegative = ensureAtLeastOneCargo(
+  negativeAll.slice(0, 5),
+  negativeCargoOnly,
+  5
+);
 
     const domesticTop = buildDomesticRoutes(airportsLoaded);
 
