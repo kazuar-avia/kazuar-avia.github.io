@@ -1471,8 +1471,11 @@ function findFlight() {
 const DIR_ARROWS = ["↑","↗","↗","→","↘","↘","↓","↙","↙","←","↖","↖"];
 const DIR_BEARINGS = [0,30,60,90,120,150,180,210,240,270,300,330];
 
-const EXCLUDED_CODES = new Set(["RU", "BY"]);
-const DISPLAY_EXCLUDED_CODES = new Set(["RU", "BY", "UA1", "UA2", "UA3", "UA4", "UA5"]);
+const EXCLUDED_CODES = new Set(["RU", "BY", "KZ"]);
+const DISPLAY_EXCLUDED_CODES = new Set([
+  "RU", "BY", "KZ",
+  "UA1", "UA2", "UA3", "UA4", "UA5"
+]);
 
 const COUNTRY_POINTS = {
   UA1: { lat: 49.8397, lon: 24.0297 },
