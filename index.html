@@ -1575,58 +1575,89 @@ function renderDemandBlock(icao,a){
 
 function buildAirportStat(airportData) {
   const icao = airportData?.icao;
-  const pax = airportData?.traffic?.B?.pax;
-  const cargo = airportData?.traffic?.B?.cargo;
-  if (!icao || !pax || !cargo) return null;
+  const paxDirs = airportData?.traffic?.B?.pax?.directions || [];
+  const cargoDirs = airportData?.traffic?.B?.cargo?.directions || [];
+  const lat = airportData?.location?.lat;
+  const lon = airportData?.location?.lon;
 
-  const paxDiff = pax.current - pax.normal;
-  const cargoDiffUnits = cargo.current - cargo.normal;
+  if (!icao || !paxDirs.length || !cargoDirs.length || typeof lat !== "number" || typeof lon !== "number") {
+    return null;
+  }
 
-  const paxPct = ((pax.current / pax.normal) - 1) * 100;
-  const cargoPct = ((cargo.current / cargo.normal) - 1) * 100;
+  const po = maxCurrent(paxDirs);
+  const co = maxCurrent(cargoDirs);
+  const pi = weakest(paxDirs);
+  const ci = weakest(cargoDirs);
 
-  const cargoDiffTons = cargoToTons(Math.abs(cargoDiffUnits));
+  const poShown = demandShown(po.current);
+  const coShownT = cargoShownTons(co.current);
+  const piShown = demandShown(pi.deficit);
+  const ciShownT = cargoShownTons(ci.deficit);
+
+  const poFlag = flag(pick(lat, lon, po.index));
+  const coFlag = flag(pick(lat, lon, co.index));
+  const piFlag = flag(pick(lat, lon, pi.index));
+  const ciFlag = flag(pick(lat, lon, ci.index));
 
   const positiveCandidates = [];
   const negativeCandidates = [];
 
-  if (paxDiff > 0) {
+  if (poShown >= 50) {
     positiveCandidates.push({
-      icao, type:"pax", pct:paxPct,
-      label: `${Math.abs(paxDiff)} pax`
+      icao,
+      type: "pax",
+      pct: ((po.current / po.normal) - 1) * 100,
+      qty: poShown,
+      label: `з ${icao} ${formatPax(poShown)}👨‍💼 до ${poFlag} ${po.arrow}`
     });
   }
-  if (cargoDiffUnits > 0) {
+
+  if (coShownT >= 10) {
     positiveCandidates.push({
-      icao, type:"cargo", pct:cargoPct,
-      label: `${cargoDiffTons} т cargo`
+      icao,
+      type: "cargo",
+      pct: ((co.current / co.normal) - 1) * 100,
+      qty: coShownT,
+      label: `з ${icao} ${formatCargo(coShownT)} 📦 до ${coFlag} ${co.arrow}`
     });
   }
 
-  if (paxDiff < 0) {
+  if (piShown >= 50) {
     negativeCandidates.push({
-      icao, type:"pax", pct:Math.abs(paxPct),
-      label: `${Math.abs(paxDiff)} pax`
+      icao,
+      type: "pax",
+      pct: ((pi.deficit / pi.normal) * 100),
+      qty: piShown,
+      label: `${formatPax(piShown)} 🙋‍♂️ з ${piFlag} ${reverseArrow(pi.arrow)} до ${icao}`
     });
   }
-  if (cargoDiffUnits < 0) {
+
+  if (ciShownT >= 10) {
     negativeCandidates.push({
-      icao, type:"cargo", pct:Math.abs(cargoPct),
-      label: `${cargoDiffTons} т cargo`
+      icao,
+      type: "cargo",
+      pct: ((ci.deficit / ci.normal) * 100),
+      qty: ciShownT,
+      label: `${formatCargo(ciShownT)} 📦 з ${ciFlag} ${reverseArrow(ci.arrow)} до ${icao}`
     });
   }
 
-  const bestPositive = positiveCandidates.sort((a,b)=>b.pct-a.pct)[0] || null;
-  const bestNegative = negativeCandidates.sort((a,b)=>b.pct-a.pct)[0] || null;
+  const bestPositive = positiveCandidates.sort((a, b) => b.pct - a.pct)[0] || null;
+  const bestNegative = negativeCandidates.sort((a, b) => b.pct - a.pct)[0] || null;
 
-  return { icao, positive:bestPositive, negative:bestNegative };
+  return {
+    icao,
+    positive: bestPositive,
+    negative: bestNegative
+  };
 }
 
-function renderTopList(items, title, sign) {
-  if (!items.length) return `${title}<br>—`;
+function renderTopList(items, title) {
+  if (!items.length) return `<strong>${title}</strong><br>—`;
+
   return `
     <strong>${title}</strong><br>
-    ${items.map(item => `${item.icao} ${sign}${Math.round(item.pct)}% (${item.label})`).join("<br>")}
+    ${items.map(item => item.label).join("<br>")}
   `;
 }
 
@@ -1647,6 +1678,36 @@ function pickTopUniqueRoutes(routes, count = 5) {
   const result = [];
   const usedPairs = new Set();
   const usedDestinations = new Set();
+
+  for (const route of routes) {
+    const pairKey = `${route.from}-${route.to}`;
+    if (usedPairs.has(pairKey)) continue;
+    if (usedDestinations.has(route.to)) continue;
+
+    result.push(route);
+    usedPairs.add(pairKey);
+    usedDestinations.add(route.to);
+
+    if (result.length === count) return result;
+  }
+
+  for (const route of routes) {
+    const pairKey = `${route.from}-${route.to}`;
+    if (usedPairs.has(pairKey)) continue;
+
+    result.push(route);
+    usedPairs.add(pairKey);
+
+    if (result.length === count) return result;
+  }
+
+  return result;
+}
+
+function pickTopUniqueRoutes(routes, count = 5) {
+  const result = [];
+  const usedDestinations = new Set();
+  const usedPairs = new Set();
 
   for (const route of routes) {
     const pairKey = `${route.from}-${route.to}`;
@@ -1707,115 +1768,70 @@ function buildDomesticRoutes(airports) {
       const fromCargoDir = from?.traffic?.B?.cargo?.directions?.[outIdx];
       const toCargoDir = to?.traffic?.B?.cargo?.directions?.[inIdx];
 
+      // LOCAL PAX:
+      // беремо саме попит у напрямку source -> destination,
+      // а не загальний current по аеропорту
       if (fromPaxDir && toPaxDir) {
         const paxAvailable = demandShown(fromPaxDir.current);
-        const paxNeed = Math.max(0, demandShown(toPaxDir.normal) - demandShown(toPaxDir.current));
+        const paxNeed = Math.max(0, demandShown(toPaxDir.normal - toPaxDir.current));
+        const paxQty = Math.min(paxAvailable, paxNeed);
 
-        if (paxAvailable > 0 && paxNeed > 0) {
+        // жорсткіший фільтр, щоб слабкі 50-80 pax не лізли в топ-5
+        if (paxAvailable >= 100 && paxNeed >= 50 && paxQty >= 50) {
+          const needPct = toPaxDir.normal > 0
+            ? ((toPaxDir.normal - toPaxDir.current) / toPaxDir.normal) * 100
+            : 0;
+
           paxCandidates.push({
             from: from.icao,
             to: to.icao,
-            available: paxAvailable,
-            need: paxNeed,
-            needPct: toPaxDir.normal > 0
-              ? ((toPaxDir.normal - toPaxDir.current) / toPaxDir.normal) * 100
-              : 0,
+            qty: paxQty,
+            pct: needPct,
             distKm,
-            groupKey: `${to.icao}-${inIdx}`
+            score: paxQty * (1 + needPct / 100)
           });
         }
       }
 
+      // LOCAL CARGO:
       if (fromCargoDir && toCargoDir) {
-        const cargoAvailableUnits = Math.max(0, fromCargoDir.current);
-        const cargoNeedUnits = Math.max(0, toCargoDir.normal - toCargoDir.current);
+        const cargoAvailableT = cargoShownTons(fromCargoDir.current);
+        const cargoNeedT = Math.max(0, cargoShownTons(toCargoDir.normal - toCargoDir.current));
+        const cargoQtyT = Math.min(cargoAvailableT, cargoNeedT);
 
-        if (cargoAvailableUnits > 0 && cargoNeedUnits > 0) {
+        if (cargoAvailableT >= 10 && cargoNeedT >= 1 && cargoQtyT >= 1) {
+          const needPct = toCargoDir.normal > 0
+            ? ((toCargoDir.normal - toCargoDir.current) / toCargoDir.normal) * 100
+            : 0;
+
           cargoCandidates.push({
             from: from.icao,
             to: to.icao,
-            availableUnits: cargoAvailableUnits,
-            needUnits: cargoNeedUnits,
-            needPct: toCargoDir.normal > 0
-              ? ((toCargoDir.normal - toCargoDir.current) / toCargoDir.normal) * 100
-              : 0,
+            qty: cargoQtyT,
+            pct: needPct,
             distKm,
-            groupKey: `${to.icao}-${inIdx}`
+            score: cargoQtyT * (1 + needPct / 100)
           });
         }
       }
     }
   }
 
-  const paxGrouped = {};
-  for (const c of paxCandidates) {
-    if (!paxGrouped[c.groupKey]) paxGrouped[c.groupKey] = [];
-    paxGrouped[c.groupKey].push(c);
-  }
-
-  const paxRoutes = [];
-  for (const group of Object.values(paxGrouped)) {
-    const totalAvailable = group.reduce((sum, x) => sum + x.available, 0);
-    if (totalAvailable <= 0) continue;
-
-    for (const item of group) {
-      const qty = Math.round(item.need * (item.available / totalAvailable));
-      if (qty >= 49) {
-        paxRoutes.push({
-          from: item.from,
-          to: item.to,
-          qty,
-          pct: item.needPct,
-          distKm: item.distKm,
-          score: qty * (1 + item.needPct / 100)
-        });
-      }
-    }
-  }
-
-  const cargoGrouped = {};
-  for (const c of cargoCandidates) {
-    if (!cargoGrouped[c.groupKey]) cargoGrouped[c.groupKey] = [];
-    cargoGrouped[c.groupKey].push(c);
-  }
-
-  const cargoRoutes = [];
-  for (const group of Object.values(cargoGrouped)) {
-    const totalAvailableUnits = group.reduce((sum, x) => sum + x.availableUnits, 0);
-    if (totalAvailableUnits <= 0) continue;
-
-    for (const item of group) {
-      const qtyUnits = Math.round(item.needUnits * (item.availableUnits / totalAvailableUnits));
-      const qtyTons = cargoShownTons(qtyUnits);
-
-      if (qtyTons >= 1) {
-        cargoRoutes.push({
-          from: item.from,
-          to: item.to,
-          qty: qtyTons,
-          pct: item.needPct,
-          distKm: item.distKm,
-          score: qtyTons * (1 + item.needPct / 100)
-        });
-      }
-    }
-  }
-
-  paxRoutes.sort((a,b) => {
+  paxCandidates.sort((a, b) => {
     if (b.score !== a.score) return b.score - a.score;
     if (b.qty !== a.qty) return b.qty - a.qty;
     return b.distKm - a.distKm;
   });
 
-  cargoRoutes.sort((a,b) => {
+  cargoCandidates.sort((a, b) => {
     if (b.score !== a.score) return b.score - a.score;
     if (b.qty !== a.qty) return b.qty - a.qty;
     return b.distKm - a.distKm;
   });
 
   return {
-    pax: pickTopUniqueRoutes(paxRoutes, 5),
-    cargo: pickTopUniqueRoutes(cargoRoutes, 5)
+    pax: pickTopUniqueRoutes(paxCandidates, 5),
+    cargo: pickTopUniqueRoutes(cargoCandidates, 5)
   };
 }
 
@@ -1874,7 +1890,6 @@ async function loadAirportDump(){
       .slice(0, 5);
 
     const domesticTop = buildDomesticRoutes(airportsLoaded);
-    const domesticRendered = renderDomesticRoutesTop(domesticTop);
 
     const overloadedBox = document.getElementById("top-overloaded-box");
     const deficitBox = document.getElementById("top-deficit-box");
@@ -1884,30 +1899,28 @@ async function loadAirportDump(){
     if (overloadedBox) {
       overloadedBox.innerHTML = renderTopList(
         topPositive,
-        "🙏 ТОП-5 🙏 чекають виліт:",
-        "+"
+        "🛫 ТОП-5 для Відправлення:"
       );
     }
 
     if (deficitBox) {
       deficitBox.innerHTML = renderTopList(
         topNegative,
-        "👊 ТОП-5 👊 хочуть додому:",
-        "-"
+        "🛬 ТОП-5 для Прибуття:"
       );
     }
 
     if (domesticPaxBox) {
       domesticPaxBox.innerHTML = `
         <strong>🏠 ТОП-5 місцеві pax:</strong><br>
-        ${domesticRendered.paxLines}
+        ${domesticTop.pax.length ? domesticTop.pax.map(x => `${x.from} → ${x.to}`).join("<br>") : "—"}
       `;
     }
 
     if (domesticCargoBox) {
       domesticCargoBox.innerHTML = `
         <strong>📦 ТОП-5 місцеві cargo:</strong><br>
-        ${domesticRendered.cargoLines}
+        ${domesticTop.cargo.length ? domesticTop.cargo.map(x => `${x.from} → ${x.to}`).join("<br>") : "—"}
       `;
     }
 
