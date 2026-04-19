@@ -397,7 +397,7 @@ input {
          <td style="width:100px;background-color: #ffffff;"><a style="color: #0077cc; text-decoration: underline;font-size: 16px;" href="https://flightsim.to/file/69714/ukdr-international-airport-kryvyi-rih-ukdr-lozuvatka" target="_blank">
       <strong>UKDR</strong><br>Кривий Ріг</a></td>
       <td style="width:100px;background-color: #ffffff;color: #888888; font-size: 16px;">
-      <strong>UKKV</strong><br><em>Житомир Q2 2026</em></td>
+      <strong>UKKV</strong><br><em>Житомир<br>Q2 2026</em></td>
       <td style="width:100px;background-color: #ffffff;color: #888888; font-size: 16px;">
       <strong>UKDE</strong><br><em>Запоріжжя Q2 2026</em></td>
   </tr>
@@ -1403,318 +1403,153 @@ const DIR_BEARINGS = [0,30,60,90,120,150,180,210,240,270,300,330];
 const EXCLUDED_CODES = new Set(["RU", "BY"]);
 
 const COUNTRY_POINTS = {
-  UA1: { lat: 49.8397, lon: 24.0297 }, // Львів
-  UA2: { lat: 50.4501, lon: 30.5234 }, // Київ
-  UA3: { lat: 49.9935, lon: 36.2304 }, // Харків
-  UA4: { lat: 49.2328, lon: 28.4810 }, // Вінниця
-  UA5: { lat: 46.4825, lon: 30.7233 }, // Одеса
+  UA1: { lat: 49.8397, lon: 24.0297 },
+  UA2: { lat: 50.4501, lon: 30.5234 },
+  UA3: { lat: 49.9935, lon: 36.2304 },
+  UA4: { lat: 49.2328, lon: 28.4810 },
+  UA5: { lat: 46.4825, lon: 30.7233 },
 
-  MD: { lat: 47.0105, lon: 28.8638 },
-  RO: { lat: 45.9432, lon: 24.9668 },
-  BG: { lat: 42.7339, lon: 25.4858 },
-  GR: { lat: 39.0742, lon: 21.8243 },
-  TR: { lat: 39.9334, lon: 32.8597 },
-  CY: { lat: 35.1856, lon: 33.3823 },
-  GE: { lat: 41.7151, lon: 44.8271 },
-  AM: { lat: 40.1792, lon: 44.4991 },
-  AZ: { lat: 40.4093, lon: 49.8671 },
-  KZ: { lat: 51.1694, lon: 71.4491 },
-  IL: { lat: 31.7683, lon: 35.2137 },
-  EG: { lat: 30.0444, lon: 31.2357 },
+  MD:{lat:47.01,lon:28.86}, RO:{lat:45.94,lon:24.96}, BG:{lat:42.73,lon:25.48},
+  GR:{lat:39.07,lon:21.82}, TR:{lat:39.93,lon:32.86}, CY:{lat:35.18,lon:33.38},
+  GE:{lat:41.71,lon:44.82}, AM:{lat:40.17,lon:44.49}, AZ:{lat:40.40,lon:49.86},
+  KZ:{lat:51.16,lon:71.44}, IL:{lat:31.76,lon:35.21}, EG:{lat:30.04,lon:31.23},
 
-  PL: { lat: 52.2297, lon: 21.0122 },
-  LT: { lat: 54.6872, lon: 25.2797 },
-  LV: { lat: 56.9496, lon: 24.1052 },
-  EE: { lat: 59.4370, lon: 24.7536 },
-  FI: { lat: 60.1699, lon: 24.9384 },
-  SE: { lat: 59.3293, lon: 18.0686 },
-  DK: { lat: 55.6761, lon: 12.5683 },
-  NO: { lat: 59.9139, lon: 10.7522 },
+  PL:{lat:52.22,lon:21.01}, LT:{lat:54.68,lon:25.27}, LV:{lat:56.94,lon:24.10},
+  EE:{lat:59.43,lon:24.75}, FI:{lat:60.16,lon:24.93}, SE:{lat:59.32,lon:18.06},
+  DK:{lat:55.67,lon:12.56}, NO:{lat:59.91,lon:10.75},
 
-  DE: { lat: 52.5200, lon: 13.4050 },
-  FR: { lat: 48.8566, lon: 2.3522 },
-  NL: { lat: 52.3676, lon: 4.9041 },
-  BE: { lat: 50.8503, lon: 4.3517 },
-  LU: { lat: 49.6116, lon: 6.1319 },
-  CH: { lat: 46.9480, lon: 7.4474 },
-  AT: { lat: 48.2082, lon: 16.3738 },
-  CZ: { lat: 50.0755, lon: 14.4378 },
-  SK: { lat: 48.1486, lon: 17.1077 },
-  HU: { lat: 47.4979, lon: 19.0402 },
-  SI: { lat: 46.0569, lon: 14.5058 },
-  HR: { lat: 45.8150, lon: 15.9819 },
-  BA: { lat: 43.8563, lon: 18.4131 },
-  RS: { lat: 44.7866, lon: 20.4489 },
-  ME: { lat: 42.4304, lon: 19.2594 },
-  AL: { lat: 41.3275, lon: 19.8187 },
-  MK: { lat: 41.9973, lon: 21.4280 },
+  DE:{lat:52.52,lon:13.40}, FR:{lat:48.85,lon:2.35}, NL:{lat:52.36,lon:4.90},
+  BE:{lat:50.85,lon:4.35}, CH:{lat:46.94,lon:7.44}, AT:{lat:48.20,lon:16.37},
+  CZ:{lat:50.07,lon:14.43}, SK:{lat:48.14,lon:17.10}, HU:{lat:47.49,lon:19.04},
 
-  IT: { lat: 41.9028, lon: 12.4964 },
-  ES: { lat: 40.4168, lon: -3.7038 },
-  PT: { lat: 38.7223, lon: -9.1393 },
-  GB: { lat: 51.5072, lon: -0.1276 },
-  IE: { lat: 53.3498, lon: -6.2603 },
-  MT: { lat: 35.8989, lon: 14.5146 }
+  IT:{lat:41.90,lon:12.49}, ES:{lat:40.41,lon:-3.70}, GB:{lat:51.50,lon:-0.12}
 };
 
 const FLAG_MAP = {
-  UA1: "🇺🇦", UA2: "🇺🇦", UA3: "🇺🇦", UA4: "🇺🇦", UA5: "🇺🇦",
-  MD: "🇲🇩", RO: "🇷🇴", BG: "🇧🇬", GR: "🇬🇷", TR: "🇹🇷",
-  CY: "🇨🇾", GE: "🇬🇪", AM: "🇦🇲", AZ: "🇦🇿", KZ: "🇰🇿",
-  IL: "🇮🇱", EG: "🇪🇬", PL: "🇵🇱", LT: "🇱🇹", LV: "🇱🇻",
-  EE: "🇪🇪", FI: "🇫🇮", SE: "🇸🇪", DK: "🇩🇰", NO: "🇳🇴",
-  DE: "🇩🇪", FR: "🇫🇷", NL: "🇳🇱", BE: "🇧🇪", LU: "🇱🇺",
-  CH: "🇨🇭", AT: "🇦🇹", CZ: "🇨🇿", SK: "🇸🇰", HU: "🇭🇺",
-  SI: "🇸🇮", HR: "🇭🇷", BA: "🇧🇦", RS: "🇷🇸", ME: "🇲🇪",
-  AL: "🇦🇱", MK: "🇲🇰", IT: "🇮🇹", ES: "🇪🇸", PT: "🇵🇹",
-  GB: "🇬🇧", IE: "🇮🇪", MT: "🇲🇹"
+  UA1:"🇺🇦",UA2:"🇺🇦",UA3:"🇺🇦",UA4:"🇺🇦",UA5:"🇺🇦",
+  MD:"🇲🇩",RO:"🇷🇴",BG:"🇧🇬",GR:"🇬🇷",TR:"🇹🇷",
+  CY:"🇨🇾",GE:"🇬🇪",AM:"🇦🇲",AZ:"🇦🇿",KZ:"🇰🇿",
+  IL:"🇮🇱",EG:"🇪🇬",PL:"🇵🇱",LT:"🇱🇹",LV:"🇱🇻",
+  EE:"🇪🇪",FI:"🇫🇮",SE:"🇸🇪",DK:"🇩🇰",NO:"🇳🇴",
+  DE:"🇩🇪",FR:"🇫🇷",NL:"🇳🇱",BE:"🇧🇪",CH:"🇨🇭",
+  AT:"🇦🇹",CZ:"🇨🇿",SK:"🇸🇰",HU:"🇭🇺",
+  IT:"🇮🇹",ES:"🇪🇸",GB:"🇬🇧"
 };
 
-function findAirportCell(icao) {
-  const cells = [...document.querySelectorAll(".airports-table td")];
-  return cells.find(td => {
-    const strong = td.querySelector("strong");
-    return strong && strong.textContent.trim().startsWith(icao);
-  });
+function findAirportCell(icao){
+  return [...document.querySelectorAll(".airports-table td")]
+    .find(td=>td.querySelector("strong")?.textContent.startsWith(icao));
 }
 
-function toRad(deg) {
-  return deg * Math.PI / 180;
+function toRad(d){return d*Math.PI/180;}
+function haversineKm(a,b,c,d){
+  const R=6371;
+  const x=toRad(c-a),y=toRad(d-b);
+  const t=Math.sin(x/2)**2+Math.cos(toRad(a))*Math.cos(toRad(c))*Math.sin(y/2)**2;
+  return 2*R*Math.asin(Math.sqrt(t));
 }
 
-function haversineKm(lat1, lon1, lat2, lon2) {
-  const R = 6371;
-  const dLat = toRad(lat2 - lat1);
-  const dLon = toRad(lon2 - lon1);
-
-  const a =
-    Math.sin(dLat / 2) ** 2 +
-    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
-    Math.sin(dLon / 2) ** 2;
-
-  return 2 * R * Math.asin(Math.sqrt(a));
+function bearingDeg(a,b,c,d){
+  const φ1=toRad(a),φ2=toRad(c),λ1=toRad(b),λ2=toRad(d);
+  const y=Math.sin(λ2-λ1)*Math.cos(φ2);
+  const x=Math.cos(φ1)*Math.sin(φ2)-Math.sin(φ1)*Math.cos(φ2)*Math.cos(λ2-λ1);
+  return (Math.atan2(y,x)*180/Math.PI+360)%360;
 }
 
-function bearingDeg(lat1, lon1, lat2, lon2) {
-  const φ1 = toRad(lat1);
-  const φ2 = toRad(lat2);
-  const λ1 = toRad(lon1);
-  const λ2 = toRad(lon2);
+function angularDiff(a,b){let d=Math.abs(a-b)%360;return d>180?360-d:d;}
+function rand(a){return a[Math.floor(Math.random()*a.length)]||null;}
+function flag(c){return FLAG_MAP[c]||"—";}
 
-  const y = Math.sin(λ2 - λ1) * Math.cos(φ2);
-  const x =
-    Math.cos(φ1) * Math.sin(φ2) -
-    Math.sin(φ1) * Math.cos(φ2) * Math.cos(λ2 - λ1);
+function cargoToTons(v){return Math.round(v*82/1000);}
+function formatPax(n){return n>999?"999+":n;}
+function formatCargo(n){return n>99?"99т+":`${n}т`;}
 
-  return (Math.atan2(y, x) * 180 / Math.PI + 360) % 360;
+function maxCurrent(d){
+  let i=0;
+  for(let j=1;j<d.length;j++) if(d[j].current>d[i].current)i=j;
+  return {...d[i],index:i,arrow:DIR_ARROWS[i]};
 }
 
-function angularDiff(a, b) {
-  let d = Math.abs(a - b) % 360;
-  return d > 180 ? 360 - d : d;
+function weakest(d){
+  let i=0;
+  for(let j=1;j<d.length;j++) if(d[j].bias<d[i].bias)i=j;
+  return {...d[i],index:i,arrow:DIR_ARROWS[i],deficit:Math.max(0,d[i].normal-d[i].current)};
 }
 
-function randomChoice(arr) {
-  if (!arr.length) return null;
-  return arr[Math.floor(Math.random() * arr.length)];
-}
-
-function codeToFlag(code) {
-  return FLAG_MAP[code] || "—";
-}
-
-function cargoToTons(value) {
-  return Math.round((value * 82) / 1000);
-}
-
-function maxCurrent(directions) {
-  let idx = 0;
-  for (let i = 1; i < directions.length; i++) {
-    if (directions[i].current > directions[idx].current) idx = i;
-  }
-
-  return {
-    index: idx,
-    arrow: DIR_ARROWS[idx],
-    current: directions[idx].current,
-    normal: directions[idx].normal,
-    bias: directions[idx].bias
-  };
-}
-
-function weakest(directions) {
-  let idx = 0;
-  for (let i = 1; i < directions.length; i++) {
-    if (directions[i].bias < directions[idx].bias) idx = i;
-  }
-
-  const d = directions[idx];
-
-  return {
-    index: idx,
-    arrow: DIR_ARROWS[idx],
-    current: d.current,
-    normal: d.normal,
-    bias: d.bias,
-    deficit: Math.max(0, d.normal - d.current)
-  };
-}
-
-function pickCountryForDirection(lat, lon, directionIndex12) {
-  const targetBearing = DIR_BEARINGS[directionIndex12];
-  const tolerances = [15, 22.5, 30, 40];
-
-  for (const tolerance of tolerances) {
-    const candidates = [];
-
-    for (const [code, point] of Object.entries(COUNTRY_POINTS)) {
-      if (EXCLUDED_CODES.has(code)) continue;
-
-      const dist = haversineKm(lat, lon, point.lat, point.lon);
-      if (dist < 300 || dist > 5000) continue;
-
-      const brg = bearingDeg(lat, lon, point.lat, point.lon);
-      const diff = angularDiff(brg, targetBearing);
-
-      if (diff <= tolerance) {
-        candidates.push({
-          code,
-          dist,
-          diff
-        });
-      }
+function pick(lat,lon,i){
+  const b=DIR_BEARINGS[i],tols=[15,22.5,30,40];
+  for(const t of tols){
+    const c=[];
+    for(const [k,p] of Object.entries(COUNTRY_POINTS)){
+      if(EXCLUDED_CODES.has(k))continue;
+      const dist=haversineKm(lat,lon,p.lat,p.lon);
+      if(dist<300||dist>5000)continue;
+      if(angularDiff(bearingDeg(lat,lon,p.lat,p.lon),b)<=t)c.push(k);
     }
-
-    if (candidates.length) {
-      candidates.sort((a, b) => {
-        if (a.diff !== b.diff) return a.diff - b.diff;
-        return a.dist - b.dist;
-      });
-
-      const pool = candidates.slice(0, 6).map(x => x.code);
-      return randomChoice(pool);
-    }
+    if(c.length)return rand(c.slice(0,6));
   }
-
   return "UA2";
 }
 
-function renderDemandBlock(icao, airportData) {
-  const paxDirs = airportData?.traffic?.B?.pax?.directions || [];
-  const cargoDirs = airportData?.traffic?.B?.cargo?.directions || [];
-  const airportLat = airportData?.location?.lat;
-  const airportLon = airportData?.location?.lon;
-
-  if (!paxDirs.length || !cargoDirs.length) return null;
-  if (typeof airportLat !== "number" || typeof airportLon !== "number") return null;
-
-  const paxOut = maxCurrent(paxDirs);
-  const cargoOut = maxCurrent(cargoDirs);
-  const paxIn = weakest(paxDirs);
-  const cargoIn = weakest(cargoDirs);
-
-  const paxOutFlag = codeToFlag(pickCountryForDirection(airportLat, airportLon, paxOut.index));
-  const cargoOutFlag = codeToFlag(pickCountryForDirection(airportLat, airportLon, cargoOut.index));
-  const paxInFlag = codeToFlag(pickCountryForDirection(airportLat, airportLon, paxIn.index));
-  const cargoInFlag = codeToFlag(pickCountryForDirection(airportLat, airportLon, cargoIn.index));
-
-const cargoOutTons = cargoToTons(cargoOut.current);
-const cargoInTons = cargoToTons(cargoIn.deficit);
-
-const showPaxOut = paxOut.current >= 49;
-const showCargoOut = cargoOutTons >= 10;
-const showPaxIn = paxIn.deficit >= 49;
-const showCargoIn = cargoInTons >= 10;
-  
-  const box = document.createElement("div");
-  box.className = "airport-demand-box";
-const departuresHtml = (showPaxOut || showCargoOut) ? `
-  <div class="airport-demand-line airport-demand-out">
-    <img src="DEP1.png" alt="Departures" class="airport-demand-header">
-    ${showPaxOut ? `
-      ${paxOut.current}<span class="airport-demand-icon airport-demand-people"> 👨‍💼</span>
-      до <span class="airport-demand-flags">${paxOutFlag}</span>
-      <span class="airport-demand-arrow">${paxOut.arrow}</span>
-    ` : ``}
-    ${showPaxOut && showCargoOut ? `<br>` : ``}
-    ${showCargoOut ? `
-      ${cargoOutTons}т <span class="airport-demand-icon airport-demand-cargo">📦</span>
-      до <span class="airport-demand-flags">${cargoOutFlag}</span>
-      <span class="airport-demand-arrow">${cargoOut.arrow}</span>
-    ` : ``}
-  </div>
-` : ``;
-
-const arrivalsHtml = (showPaxIn || showCargoIn) ? `
-  <div class="airport-demand-line airport-demand-in">
-    <img src="ARR1.png" alt="Arrivals" class="airport-demand-header">
-    ${showPaxIn ? `
-      ${paxIn.deficit} <span class="airport-demand-icon airport-demand-people"> 🙋‍♂️</span>
-      з <span class="airport-demand-flags">${paxInFlag}</span>
-      <span class="airport-demand-arrow">${reverseArrow(paxIn.arrow)}</span>
-    ` : ``}
-    ${showPaxIn && showCargoIn ? `<br>` : ``}
-    ${showCargoIn ? `
-      ${cargoInTons}т <span class="airport-demand-icon airport-demand-cargo">📦</span>
-      з <span class="airport-demand-flags">${cargoInFlag}</span>
-      <span class="airport-demand-arrow">${reverseArrow(cargoIn.arrow)}</span>
-    ` : ``}
-  </div>
-` : ``;
-
-if (!departuresHtml && !arrivalsHtml) {
-  return null;
+function reverseArrow(a){
+  return {"↑":"↓","↗":"↙","→":"←","↘":"↖","↓":"↑","↙":"↗","←":"→","↖":"↘"}[a]||a;
 }
 
-box.innerHTML = departuresHtml + arrivalsHtml;
+function renderDemandBlock(icao,a){
+  const p=a?.traffic?.B?.pax?.directions||[];
+  const c=a?.traffic?.B?.cargo?.directions||[];
+  const lat=a?.location?.lat,lon=a?.location?.lon;
+  if(!p.length||!c.length||typeof lat!=="number")return null;
+
+  const po=maxCurrent(p),co=maxCurrent(c),pi=weakest(p),ci=weakest(c);
+
+  const poF=flag(pick(lat,lon,po.index));
+  const coF=flag(pick(lat,lon,co.index));
+  const piF=flag(pick(lat,lon,pi.index));
+  const ciF=flag(pick(lat,lon,ci.index));
+
+  const coT=cargoToTons(co.current),ciT=cargoToTons(ci.deficit);
+
+  const showPO=po.current>=49,showCO=coT>=10,showPI=pi.deficit>=49,showCI=ciT>=10;
+
+  const box=document.createElement("div");
+  box.className="airport-demand-box";
+
+  const dep=(showPO||showCO)?`
+    <div class="airport-demand-line airport-demand-out">
+      <img src="DEP1.png" class="airport-demand-header">
+      ${showPO?`${formatPax(po.current)}👨‍💼 до ${poF} ${po.arrow}`:""}
+      ${showPO&&showCO?"<br>":""}
+      ${showCO?`${formatCargo(coT)} 📦 до ${coF} ${co.arrow}`:""}
+    </div>`:"";
+
+  const arr=(showPI||showCI)?`
+    <div class="airport-demand-line airport-demand-in">
+      <img src="ARR1.png" class="airport-demand-header">
+      ${showPI?`${formatPax(pi.deficit)} 🙋‍♂️ з ${piF} ${reverseArrow(pi.arrow)}`:""}
+      ${showPI&&showCI?"<br>":""}
+      ${showCI?`${formatCargo(ciT)} 📦 з ${ciF} ${reverseArrow(ci.arrow)}`:""}
+    </div>`:"";
+
+  if(!dep&&!arr)return null;
+
+  box.innerHTML=dep+arr;
   return box;
 }
 
-  function reverseArrow(arrow) {
-  const map = {
-    "↑": "↓",
-    "↗": "↙",
-    "→": "←",
-    "↘": "↖",
-    "↓": "↑",
-    "↙": "↗",
-    "←": "→",
-    "↖": "↘"
-  };
-  return map[arrow] || arrow;
-}
-  
-async function loadAirportDump() {
-  try {
-    const res = await fetch("./newsky-airports.txt");
-    if (!res.ok) throw new Error("Не вдалося відкрити newsky-airports.txt");
+async function loadAirportDump(){
+  const res=await fetch("./newsky-airports.txt");
+  const text=await res.text();
+  const blocks=text.split(/\n\s*---\s*\n/g).map(x=>x.trim()).filter(Boolean);
 
-    const text = await res.text();
-
-    const blocks = text
-      .split(/\n\s*---\s*\n/g)
-      .map(x => x.trim())
-      .filter(Boolean);
-
-    for (const block of blocks) {
-      try {
-        const airportData = JSON.parse(block);
-        const icao = airportData?.icao;
-        if (!icao) continue;
-
-        const cell = findAirportCell(icao);
-        if (!cell) continue;
-
-        const demandBox = renderDemandBlock(icao, airportData);
-        if (demandBox) {
-          cell.appendChild(demandBox);
-        }
-      } catch (e) {
-        console.error("Помилка JSON блоку:", e);
-      }
-    }
-  } catch (e) {
-    console.error("Помилка завантаження txt:", e);
+  for(const b of blocks){
+    try{
+      const a=JSON.parse(b);
+      const cell=findAirportCell(a?.icao);
+      if(!cell)continue;
+      const el=renderDemandBlock(a.icao,a);
+      if(el)cell.appendChild(el);
+    }catch(e){}
   }
 }
 
