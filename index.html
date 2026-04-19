@@ -1657,61 +1657,51 @@ function buildAirportStat(airportData) {
     return null;
   }
 
-  const po = maxCurrent(paxDirs);
-  const co = maxCurrent(cargoDirs);
-  const pi = weakest(paxDirs);
-  const ci = weakest(cargoDirs);
-
-  const poShown = demandShown(po.current);
-  const coShownT = cargoShownTons(co.current);
-  const piShown = demandShown(pi.deficit);
-  const ciShownT = cargoShownTons(ci.deficit);
-
-  const poFlag = flag(pick(lat, lon, po.index));
-  const coFlag = flag(pick(lat, lon, co.index));
-  const piFlag = flag(pick(lat, lon, pi.index));
-  const ciFlag = flag(pick(lat, lon, ci.index));
+  const po = chooseDisplayDirection(paxDirs, lat, lon, "out", "pax");
+  const co = chooseDisplayDirection(cargoDirs, lat, lon, "out", "cargo");
+  const pi = chooseDisplayDirection(paxDirs, lat, lon, "in", "pax");
+  const ci = chooseDisplayDirection(cargoDirs, lat, lon, "in", "cargo");
 
   const positiveCandidates = [];
   const negativeCandidates = [];
 
-  if (poShown >= 50) {
+  if (po) {
     positiveCandidates.push({
       icao,
       type: "pax",
       pct: ((po.current / po.normal) - 1) * 100,
-      qty: poShown,
-      label: `з ${icao} ${formatPax(poShown)}👨‍💼 до ${poFlag} ${po.arrow}`
+      qty: po.shown,
+      label: `з ${icao} ${formatPax(po.shown)}👨‍💼 до ${po.countryFlag} ${po.arrow}`
     });
   }
 
-  if (coShownT >= 10) {
+  if (co) {
     positiveCandidates.push({
       icao,
       type: "cargo",
       pct: ((co.current / co.normal) - 1) * 100,
-      qty: coShownT,
-      label: `з ${icao} ${formatCargo(coShownT)} 📦 до ${coFlag} ${co.arrow}`
+      qty: co.shown,
+      label: `з ${icao} ${formatCargo(co.shown)} 📦 до ${co.countryFlag} ${co.arrow}`
     });
   }
 
-  if (piShown >= 50) {
+  if (pi) {
     negativeCandidates.push({
       icao,
       type: "pax",
       pct: ((pi.deficit / pi.normal) * 100),
-      qty: piShown,
-      label: `${formatPax(piShown)} 🙋‍♂️ з ${piFlag} ${reverseArrow(pi.arrow)} до ${icao}`
+      qty: pi.shown,
+      label: `${formatPax(pi.shown)} 🙋‍♂️ з ${pi.countryFlag} ${reverseArrow(pi.arrow)} до ${icao}`
     });
   }
 
-  if (ciShownT >= 10) {
+  if (ci) {
     negativeCandidates.push({
       icao,
       type: "cargo",
       pct: ((ci.deficit / ci.normal) * 100),
-      qty: ciShownT,
-      label: `${formatCargo(ciShownT)} 📦 з ${ciFlag} ${reverseArrow(ci.arrow)} до ${icao}`
+      qty: ci.shown,
+      label: `${formatCargo(ci.shown)} 📦 з ${ci.countryFlag} ${reverseArrow(ci.arrow)} до ${icao}`
     });
   }
 
