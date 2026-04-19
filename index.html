@@ -111,7 +111,7 @@ input {
   border: 1px solid #444;
   padding: 8px;
   text-align: center;
-  vertical-align: middle;
+  vertical-align: top;
   font-size: 14px;
 }
 
@@ -405,6 +405,12 @@ input {
       <td style="width:100px;background-color: #ffffff;color: #888888; font-size: 16px;">
       <strong>UKDE</strong><br><em>Запоріжжя Q2 2026</em></td>
   </tr>
+    
+  <tr>
+
+      
+  </tr>
+    
 </table>
 
 
@@ -1623,7 +1629,7 @@ const departuresHtml = (showPaxOut || showCargoOut) ? `
   <div class="airport-demand-line airport-demand-out">
     <img src="DEP1.png" alt="Departures" class="airport-demand-header">
     ${showPaxOut ? `
-      ${paxOut.current}<span class="airport-demand-icon airport-demand-people">👪</span>
+      ${paxOut.current}<span class="airport-demand-icon airport-demand-people">🧍</span>
       до <span class="airport-demand-flags">${paxOutFlag}</span>
       <span class="airport-demand-arrow">${paxOut.arrow}</span>
     ` : ``}
@@ -1640,7 +1646,7 @@ const arrivalsHtml = (showPaxIn || showCargoIn) ? `
   <div class="airport-demand-line airport-demand-in">
     <img src="ARR1.png" alt="Arrivals" class="airport-demand-header">
     ${showPaxIn ? `
-      ${paxIn.deficit} <span class="airport-demand-icon airport-demand-people">👪</span>
+      ${paxIn.deficit} <span class="airport-demand-icon airport-demand-people">🧍</span>
       з <span class="airport-demand-flags">${paxInFlag}</span>
       <span class="airport-demand-arrow">${reverseArrow(paxIn.arrow)}</span>
     ` : ``}
