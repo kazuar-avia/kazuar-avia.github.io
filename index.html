@@ -192,6 +192,10 @@ input {
 
 .airport-demand-line {
   margin-top: 4px;
+  font-size: 14px;   /* ⬅ головне збільшення */
+  font-weight: 500;  /* трохи жирніше, але не bold */
+  font-weight: 500;
+  line-height: 1.4;
 }
 
 .airport-demand-header {
@@ -258,12 +262,7 @@ input {
   font-size: 14px;   /* основний текст */
 }
 
-/* Рядки (виліт/приліт) */
-.airport-demand-line {
-  margin-top: 4px;
-  font-size: 14px;   /* ⬅ головне збільшення */
-  font-weight: 500;  /* трохи жирніше, але не bold */
-}
+
 
 /* Картинки DEP/ARR */
 .airport-demand-header {
@@ -289,11 +288,14 @@ input {
   .flag-icon {
   height: 12px;
     width: 18px;
-      border: 1px solid #555;   /* чорна рамка */
-  border-radius: 2px;
+      border: 1px solid #888;   /* чорна рамка */
+  border-radius: 3px;
   vertical-align: middle;
   margin: 0 1px;
 }
+
+
+  
 </style>
 </head>
 
@@ -1730,7 +1732,7 @@ function renderDemandBlock(icao, a) {
   box.className = "airport-demand-box";
 
   const dep = (showPO || showCO) ? `
-    <div class="airport-demand-line airport-demand-out">
+    <div class=" airport-demand-out">
       <img src="DEP1.png" class="airport-demand-header">
       ${showPO ? `${formatPax(po.shown)}👨‍💼 до ${flagImg(po.country)} ${po.arrow}` : ""}
       ${showPO && showCO ? "<br>" : ""}
@@ -1738,7 +1740,7 @@ function renderDemandBlock(icao, a) {
     </div>` : "";
 
   const arr = (showPI || showCI) ? `
-    <div class="airport-demand-line airport-demand-in">
+    <div class=" airport-demand-in">
       <img src="ARR1.png" class="airport-demand-header">
       ${showPI ? `${formatPax(pi.shown)} 🙋‍♂️ з ${flagImg(pi.country)} ${reverseArrow(pi.arrow)}` : ""}
       ${showPI && showCI ? "<br>" : ""}
