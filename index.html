@@ -1471,6 +1471,13 @@ function rand(a){return a[Math.floor(Math.random()*a.length)]||null;}
 function flag(c){return FLAG_MAP[c]||"—";}
 
 function cargoToTons(v){return Math.round(v*82/1000);}
+  function demandShown(v) {
+  return Math.ceil(v * 0.25);
+}
+
+function cargoShownTons(v) {
+  return Math.round((demandShown(v) * 82) / 1000);
+}
 function formatPax(n){return n>999?"999+":n;}
 function formatCargo(n){return n>99?"99т+":`${n}т`;}
 
@@ -1518,9 +1525,16 @@ function renderDemandBlock(icao,a){
   const piF=flag(pick(lat,lon,pi.index));
   const ciF=flag(pick(lat,lon,ci.index));
 
-  const coT=cargoToTons(co.current),ciT=cargoToTons(ci.deficit);
+  // показуємо так само, як показує Newsky на графіку
+  const poShown = demandShown(po.current);
+  const piShown = demandShown(pi.deficit);
+  const coShownT = cargoShownTons(co.current);
+  const ciShownT = cargoShownTons(ci.deficit);
 
-  const showPO=po.current>=49,showCO=coT>=10,showPI=pi.deficit>=49,showCI=ciT>=10;
+  const showPO=poShown>=49;
+  const showCO=coShownT>=10;
+  const showPI=piShown>=49;
+  const showCI=ciShownT>=10;
 
   const box=document.createElement("div");
   box.className="airport-demand-box";
@@ -1528,17 +1542,17 @@ function renderDemandBlock(icao,a){
   const dep=(showPO||showCO)?`
     <div class="airport-demand-line airport-demand-out">
       <img src="DEP1.png" class="airport-demand-header">
-      ${showPO?`${formatPax(po.current)}👨‍💼 до ${poF} ${po.arrow}`:""}
+      ${showPO?`${formatPax(poShown)}👨‍💼 до ${poF} ${po.arrow}`:""}
       ${showPO&&showCO?"<br>":""}
-      ${showCO?`${formatCargo(coT)} 📦 до ${coF} ${co.arrow}`:""}
+      ${showCO?`${formatCargo(coShownT)} 📦 до ${coF} ${po.arrow}`:""}
     </div>`:"";
 
   const arr=(showPI||showCI)?`
     <div class="airport-demand-line airport-demand-in">
       <img src="ARR1.png" class="airport-demand-header">
-      ${showPI?`${formatPax(pi.deficit)} 🙋‍♂️ з ${piF} ${reverseArrow(pi.arrow)}`:""}
+      ${showPI?`${formatPax(piShown)} 🙋‍♂️ з ${piF} ${reverseArrow(pi.arrow)}`:""}
       ${showPI&&showCI?"<br>":""}
-      ${showCI?`${formatCargo(ciT)} 📦 з ${ciF} ${reverseArrow(ci.arrow)}`:""}
+      ${showCI?`${formatCargo(ciShownT)} 📦 з ${ciF} ${reverseArrow(ci.arrow)}`:""}
     </div>`:"";
 
   if(!dep&&!arr)return null;
@@ -1662,12 +1676,14 @@ function pickTopUniqueByDestination(routes, count = 3) {
   return result;
 }
 
+
+
 function pickTopUniqueRoutes(routes, count = 5) {
   const result = [];
   const usedPairs = new Set();
   const usedDestinations = new Set();
 
-  // Спочатку беремо найкращі маршрути з різними destination
+  // 1-й прохід: різні destination
   for (const route of routes) {
     const pairKey = `${route.from}-${route.to}`;
     if (usedPairs.has(pairKey)) continue;
@@ -1680,7 +1696,7 @@ function pickTopUniqueRoutes(routes, count = 5) {
     if (result.length === count) return result;
   }
 
-  // Потім, якщо не вистачило, добиваємо просто найкращими унікальними парами
+  // 2-й прохід: просто добиваємо кращими парами
   for (const route of routes) {
     const pairKey = `${route.from}-${route.to}`;
     if (usedPairs.has(pairKey)) continue;
@@ -1743,58 +1759,51 @@ function buildDomesticRoutes(airports) {
       const fromCargoDir = from?.traffic?.B?.cargo?.directions?.[outIdx];
       const toCargoDir = to?.traffic?.B?.cargo?.directions?.[inIdx];
 
-      // PAX
+      // PAX — працюємо в "масштабі Newsky"
       if (fromPaxDir && toPaxDir) {
-        const paxAvailable = Math.max(0, fromPaxDir.current);
-        const paxNeed = Math.max(0, toPaxDir.normal - toPaxDir.current);
+        const paxAvailable = demandShown(fromPaxDir.current);
+        const paxNeed = Math.max(0, demandShown(toPaxDir.normal) - demandShown(toPaxDir.current));
+        const rawQty = Math.min(paxAvailable, paxNeed);
 
-        if (paxAvailable > 0 && paxNeed > 0) {
-          const rawQty = Math.min(paxAvailable, paxNeed);
+        if (rawQty >= 49) {
+          const needPct = toPaxDir.normal > 0
+            ? ((toPaxDir.normal - toPaxDir.current) / toPaxDir.normal) * 100
+            : 0;
 
-          if (rawQty >= 49) {
-            const needPct = toPaxDir.normal > 0
-              ? ((toPaxDir.normal - toPaxDir.current) / toPaxDir.normal) * 100
-              : 0;
+          const score = rawQty * (1 + needPct / 100);
 
-            // score: кількість важливіша за %, але % теж враховується
-            const score = rawQty * (1 + needPct / 100);
-
-            paxCandidates.push({
-              from: from.icao,
-              to: to.icao,
-              qty: rawQty,
-              pct: needPct,
-              distKm,
-              score
-            });
-          }
+          paxCandidates.push({
+            from: from.icao,
+            to: to.icao,
+            qty: rawQty,
+            pct: needPct,
+            distKm,
+            score
+          });
         }
       }
 
-      // CARGO
+      // CARGO — теж у "масштабі Newsky"
       if (fromCargoDir && toCargoDir) {
-        const cargoAvailableUnits = Math.max(0, fromCargoDir.current);
-        const cargoNeedUnits = Math.max(0, toCargoDir.normal - toCargoDir.current);
+        const cargoAvailableT = cargoShownTons(fromCargoDir.current);
+        const cargoNeedT = Math.max(0, cargoShownTons(toPaxDir ? 0 : 0)); // placeholder to keep style consistent
+        const cargoNeedRawT = Math.max(0, cargoShownTons(toCargoDir.normal - toCargoDir.current));
+        const rawQtyT = Math.min(cargoAvailableT, cargoNeedRawT);
 
-        const cargoAvailableTons = cargoToTons(cargoAvailableUnits);
-        const cargoNeedTons = cargoToTons(cargoNeedUnits);
-        const rawQtyTons = cargoToTons(Math.min(cargoAvailableUnits, cargoNeedUnits));
-
-        if (cargoAvailableTons >= 10 && cargoNeedUnits > 0 && rawQtyTons >= 1) {
+        if (cargoAvailableT >= 10 && cargoNeedRawT > 0 && rawQtyT >= 1) {
           const needPct = toCargoDir.normal > 0
             ? ((toCargoDir.normal - toCargoDir.current) / toCargoDir.normal) * 100
             : 0;
 
-          const score = rawQtyTons * (1 + needPct / 100);
+          const score = rawQtyT * (1 + needPct / 100);
 
           cargoCandidates.push({
             from: from.icao,
             to: to.icao,
-            qty: rawQtyTons,
+            qty: rawQtyT,
             pct: needPct,
             distKm,
-            score,
-            needTons: cargoNeedTons
+            score
           });
         }
       }
