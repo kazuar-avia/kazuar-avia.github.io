@@ -1662,6 +1662,45 @@ function pickTopUniqueByDestination(routes, count = 3) {
   return result;
 }
 
+function pickTopUniqueByDestination(routes, count = 5) {
+  const result = [];
+  const usedDestinations = new Set();
+
+  for (const route of routes) {
+    if (!usedDestinations.has(route.to)) {
+      result.push(route);
+      usedDestinations.add(route.to);
+    }
+    if (result.length === count) break;
+  }
+
+  if (result.length < count) {
+    for (const route of routes) {
+      if (!result.includes(route)) {
+        result.push(route);
+      }
+      if (result.length === count) break;
+    }
+  }
+
+  return result;
+}
+
+function bearingToIndex12(bearing) {
+  let bestIndex = 0;
+  let bestDiff = 999;
+
+  for (let i = 0; i < DIR_BEARINGS.length; i++) {
+    const diff = angularDiff(bearing, DIR_BEARINGS[i]);
+    if (diff < bestDiff) {
+      bestDiff = diff;
+      bestIndex = i;
+    }
+  }
+
+  return bestIndex;
+}
+
 function buildDomesticRoutes(airports) {
   const paxCandidates = [];
   const cargoCandidates = [];
@@ -1685,11 +1724,9 @@ function buildDomesticRoutes(airports) {
       const distKm = haversineKm(fromLat, fromLon, toLat, toLon);
       if (distKm < 300) continue;
 
-      // напрямок FROM -> TO
       const outBearing = bearingDeg(fromLat, fromLon, toLat, toLon);
       const outIdx = bearingToIndex12(outBearing);
 
-      // напрямок TO <- FROM
       const inBearing = bearingDeg(toLat, toLon, fromLat, fromLon);
       const inIdx = bearingToIndex12(inBearing);
 
@@ -1698,7 +1735,7 @@ function buildDomesticRoutes(airports) {
       const fromCargoDir = from?.traffic?.B?.cargo?.directions?.[outIdx];
       const toCargoDir = to?.traffic?.B?.cargo?.directions?.[inIdx];
 
-      // PAX: доступність у source + дефіцит у destination
+      // PAX
       if (fromPaxDir && toPaxDir) {
         const paxAvailable = Math.max(0, fromPaxDir.current);
         const paxNeed = Math.max(0, toPaxDir.normal - toPaxDir.current);
@@ -1707,8 +1744,6 @@ function buildDomesticRoutes(airports) {
           paxCandidates.push({
             from: from.icao,
             to: to.icao,
-            outIdx,
-            inIdx,
             distKm,
             available: paxAvailable,
             need: paxNeed,
@@ -1720,25 +1755,20 @@ function buildDomesticRoutes(airports) {
         }
       }
 
-      // CARGO: доступність у source + дефіцит у destination
+      // CARGO
       if (fromCargoDir && toCargoDir) {
         const cargoAvailableUnits = Math.max(0, fromCargoDir.current);
         const cargoNeedUnits = Math.max(0, toCargoDir.normal - toCargoDir.current);
 
         const cargoAvailableTons = cargoToTons(cargoAvailableUnits);
-        const cargoNeedTons = cargoToTons(cargoNeedUnits);
 
         if (cargoAvailableTons >= 10 && cargoNeedUnits > 0) {
           cargoCandidates.push({
             from: from.icao,
             to: to.icao,
-            outIdx,
-            inIdx,
             distKm,
             availableUnits: cargoAvailableUnits,
             needUnits: cargoNeedUnits,
-            availableTons: cargoAvailableTons,
-            needTons: cargoNeedTons,
             needPct: toCargoDir.normal > 0
               ? ((toCargoDir.normal - toCargoDir.current) / toCargoDir.normal) * 100
               : 0,
@@ -1749,7 +1779,7 @@ function buildDomesticRoutes(airports) {
     }
   }
 
-  // Розподіл pax попиту між усіма source у секторі destination
+  // PAX: ділимо дефіцит destination між усіма source цього сектора
   const paxGrouped = {};
   for (const c of paxCandidates) {
     if (!paxGrouped[c.groupKey]) paxGrouped[c.groupKey] = [];
@@ -1775,7 +1805,7 @@ function buildDomesticRoutes(airports) {
     }
   }
 
-  // Розподіл cargo попиту між усіма source у секторі destination
+  // CARGO: ділимо дефіцит destination між усіма source цього сектора
   const cargoGrouped = {};
   for (const c of cargoCandidates) {
     if (!cargoGrouped[c.groupKey]) cargoGrouped[c.groupKey] = [];
@@ -1803,23 +1833,8 @@ function buildDomesticRoutes(airports) {
     }
   }
 
-  paxRoutes.sort((a, b) => {
-    if (b.qty !== a.qty) return b.qty - a.qty;
-    if (b.pct !== a.pct) return b.pct - a.pct;
-    return b.distKm - a.distKm;
-  });
-
-  cargoRoutes.sort((a, b) => {
-    if (b.qty !== a.qty) return b.qty - a.qty;
-    if (b.pct !== a.pct) return b.pct - a.pct;
-    return b.distKm - a.distKm;
-  });
-
-  // Якщо cargo надто одноманітний — беремо унікальні destination
-  let cargoTop = pickTopUniqueByDestination(cargoRoutes, 3);
-
-  // fallback: якщо не набралось 3 маршрутів >=10т, послаблюємо поріг до 1т
-  if (cargoTop.length < 3) {
+  // fallback для cargo, якщо жорсткий поріг дає мало варіантів
+  if (cargoRoutes.length < 5) {
     let cargoFallback = [];
 
     for (const group of Object.values(cargoGrouped)) {
@@ -1842,33 +1857,39 @@ function buildDomesticRoutes(airports) {
       }
     }
 
-    cargoFallback.sort((a, b) => {
-      if (b.qty !== a.qty) return b.qty - a.qty;
-      if (b.pct !== a.pct) return b.pct - a.pct;
-      return b.distKm - a.distKm;
-    });
-
-    cargoTop = pickTopUniqueByDestination(cargoFallback, 3);
+    cargoRoutes = cargoFallback;
   }
 
+  paxRoutes.sort((a, b) => {
+    if (b.qty !== a.qty) return b.qty - a.qty;
+    if (b.pct !== a.pct) return b.pct - a.pct;
+    return b.distKm - a.distKm;
+  });
+
+  cargoRoutes.sort((a, b) => {
+    if (b.qty !== a.qty) return b.qty - a.qty;
+    if (b.pct !== a.pct) return b.pct - a.pct;
+    return b.distKm - a.distKm;
+  });
+
   return {
-    pax: paxRoutes.slice(0, 3),
-    cargo: cargoTop
+    pax: pickTopUniqueByDestination(paxRoutes, 5),
+    cargo: pickTopUniqueByDestination(cargoRoutes, 5)
   };
 }
 
 function renderDomesticRoutesTop(data) {
   const paxLines = data.pax.length
-    ? data.pax.map(x => `${x.from} → ${x.to} — ${formatPax(x.qty)} pax (${Math.round(x.pct)}%)`).join("<br>")
+    ? data.pax.map(x => `${x.from} → ${x.to}`).join("<br>")
     : "—";
 
   const cargoLines = data.cargo.length
-    ? data.cargo.map(x => `${x.from} → ${x.to} — ${formatCargo(x.qty)} cargo (${Math.round(x.pct)}%)`).join("<br>")
+    ? data.cargo.map(x => `${x.from} → ${x.to}`).join("<br>")
     : "—";
 
   return { paxLines, cargoLines };
 }
-  
+
 async function loadAirportDump(){
   try {
     const res = await fetch("./newsky-airports.txt");
@@ -1903,13 +1924,13 @@ async function loadAirportDump(){
       .map(x => x.positive)
       .filter(Boolean)
       .sort((a, b) => b.pct - a.pct)
-      .slice(0, 3);
+      .slice(0, 5);
 
     const topNegative = stats
       .map(x => x.negative)
       .filter(Boolean)
       .sort((a, b) => b.pct - a.pct)
-      .slice(0, 3);
+      .slice(0, 5);
 
     const domesticTop = buildDomesticRoutes(airportsLoaded);
     const domesticRendered = renderDomesticRoutesTop(domesticTop);
@@ -1922,7 +1943,7 @@ async function loadAirportDump(){
     if (overloadedBox) {
       overloadedBox.innerHTML = renderTopList(
         topPositive,
-        "🙏 ТОП-3 🙏 чекають виліт:",
+        "🙏 ТОП-5 🙏 чекають виліт:",
         "+"
       );
     }
@@ -1930,21 +1951,21 @@ async function loadAirportDump(){
     if (deficitBox) {
       deficitBox.innerHTML = renderTopList(
         topNegative,
-        "👊 ТОП-3 👊 хочуть додому:",
+        "👊 ТОП-5 👊 хочуть додому:",
         "-"
       );
     }
 
     if (domesticPaxBox) {
       domesticPaxBox.innerHTML = `
-        <strong>🏠 ТОП-3 місцеві pax:</strong><br>
+        <strong>🏠 ТОП-5 місцеві pax:</strong><br>
         ${domesticRendered.paxLines}
       `;
     }
 
     if (domesticCargoBox) {
       domesticCargoBox.innerHTML = `
-        <strong>📦 ТОП-3 місцеві cargo:</strong><br>
+        <strong>📦 ТОП-5 місцеві cargo:</strong><br>
         ${domesticRendered.cargoLines}
       `;
     }
