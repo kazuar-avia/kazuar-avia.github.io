@@ -2025,7 +2025,7 @@ const topNegative = buildMixedTop(negativeAll, 5, true);
 
     if (domesticCargoBox) {
       domesticCargoBox.innerHTML = `
-        <strong style="font-size:16px;>📦 ТОП-5 місцеві cargo:</strong><br>
+        <strong style="font-size:16px;">📦 ТОП-5 місцеві cargo:</strong><br>
         ${domesticTop.cargo.length ? domesticTop.cargo.map(x => `${x.from} → ${x.to}`).join("<br>") : "—"}
       `;
     }
