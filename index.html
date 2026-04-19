@@ -180,16 +180,7 @@ input {
   text-decoration: underline;
   margin: 0 6px;
 }
-.newsky-demand-info {
-  margin-top: 6px;
-  font-size: 11px;
-  line-height: 1.25;
-  color: #333333;
-}
 
-.demand-line {
-  margin-top: 4px;
-}  
 </style>
 </head>
 
@@ -287,10 +278,9 @@ input {
   </tr>
 
   <tr>
-    <td id="airport-ukbb" style="width:100px;background-color: #ffffff;color: #222222; font-size: 16px;">
+    <td style="width:100px;background-color: #ffffff;color: #222222; font-size: 16px;">
   <strong>UKBB*</strong><br>Бориспіль<br>
   <em style="color: #666666; font-size: 12px;">Marketplace</em>
-  <div id="ukbb-demand" style="margin-top:6px;font-size:11px;line-height:1.25;color:#333;"></div>
 </td>
     <td style="width:100px;background-color: #ffffff;"><a href="https://contrail.shop/products/ukll-lviv-airport-msfs" target="_blank" style="color: #0077cc; text-decoration: underline;font-size: 16px;">
       <strong>UKLL*</strong><br>Львів</a></td>
@@ -1336,35 +1326,6 @@ function findFlight() {
     }
   }
 }
-</script>
-<script>
-async function loadUKBB() {
-  const box = document.getElementById("ukbb-demand");
-  if (!box) return;
-
-  box.textContent = "Завантаження...";
-
-  try {
-    const res = await fetch("https://ТУТ_БУДЕ_ТВІЙ_WORKER_URL?icao=UKBB");
-    const data = await res.json();
-
-    if (!res.ok) {
-      throw new Error(data.error || ("HTTP " + res.status));
-    }
-
-    box.innerHTML = `
-      <div><strong>Попит на виліт:</strong></div>
-      <div>👥 ${data.outbound.pax.current} ${data.outbound.pax.arrow} / 📦 ${data.outbound.cargo.current} ${data.outbound.cargo.arrow}</div>
-      <div style="margin-top:4px;"><strong>Попит на приліт:</strong></div>
-      <div>+${data.inbound.pax.deficit} 👥 з ${data.inbound.pax.arrow} / +${data.inbound.cargo.deficit} 📦 з ${data.inbound.cargo.arrow}</div>
-    `;
-  } catch (e) {
-    console.error(e);
-    box.textContent = "Помилка завантаження";
-  }
-}
-
-document.addEventListener("DOMContentLoaded", loadUKBB);
 </script>
 </body>
 </html>
