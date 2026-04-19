@@ -182,11 +182,10 @@ input {
 }
 
 
-<style>
 .airport-demand-box {
   margin-top: 4px;
   font-size: 11px;
-  line-height: 1.1;
+  line-height: 1.08;
   color: #333333;
   text-align: center;
 }
@@ -198,7 +197,8 @@ input {
 .airport-demand-header {
   display: block;
   width: 70px;
-  margin: 2px auto 3px auto;
+  height: 13px;
+  margin: 0 auto 2px auto;
 }
 
 .airport-demand-icon {
@@ -233,7 +233,6 @@ input {
 .airport-demand-in {
   color: #8a3a00;
 }
-</style>
 
   
 </style>
@@ -1443,27 +1442,27 @@ function renderDemandBlock(icao, airportData) {
 
   const box = document.createElement("div");
   box.className = "airport-demand-box";
-  box.innerHTML = `
-    <div class="airport-demand-line airport-demand-out">
-      <img src="DEP1.png" alt="Departures" class="airport-demand-header"><br>
-      <span class="airport-demand-icon airport-demand-people">👪</span>
-      ${paxOut.current}
-      <span class="airport-demand-arrow">${paxOut.arrow}</span>
-      /
-      <span class="airport-demand-icon airport-demand-cargo">📦</span>
-      ${cargoOutTons} т
-      <span class="airport-demand-arrow">${cargoOut.arrow}</span>
-    </div>
+box.innerHTML = `
+  <div class="airport-demand-line airport-demand-out">
+    <img src="DEP1.png" alt="Departures" class="airport-demand-header"><br>
+    <span class="airport-demand-icon airport-demand-people">👪</span>
+    ${paxOut.current}
+    <span class="airport-demand-arrow">${paxOut.arrow}</span>
+    <br>
+    <span class="airport-demand-icon airport-demand-cargo">📦</span>
+    ${cargoOutTons} т
+    <span class="airport-demand-arrow">${cargoOut.arrow}</span>
+  </div>
 
-    <div class="airport-demand-line airport-demand-in">
-      <img src="ARR1.png" alt="Arrivals" class="airport-demand-header"><br>
-      <span class="airport-demand-icon airport-demand-people">👪</span>
-      <span class="airport-demand-arrow">${paxIn.arrow}</span>
-      /
-      <span class="airport-demand-icon airport-demand-cargo">📦</span>
-      <span class="airport-demand-arrow">${cargoIn.arrow}</span>
-    </div>
-  `;
+  <div class="airport-demand-line airport-demand-in">
+    <img src="ARR1.png" alt="Arrivals" class="airport-demand-header"><br>
+    <span class="airport-demand-icon airport-demand-people">👪</span>
+    <span class="airport-demand-arrow">${paxIn.arrow}</span>
+    <br>
+    <span class="airport-demand-icon airport-demand-cargo">📦</span>
+    <span class="airport-demand-arrow">${cargoIn.arrow}</span>
+  </div>
+`;
   return box;
 }
 
