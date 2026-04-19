@@ -2064,15 +2064,18 @@ function renderDomesticRoutesTop(data) {
 }
   
 async function loadAirportDump(){
-  const res = await fetch("./newsky-airports.txt");
-  const lastModified = res.headers.get("last-modified");
+const text = await res.text();
 
-if (lastModified) {
+const updatedMatch = text.match(/^UPDATED:\s*(.+)$/m);
+if (updatedMatch) {
   const el = document.getElementById("data-updated");
   if (el) {
-    el.innerHTML = `📊 Попит оновлено: ${formatDateTime(lastModified)}`;
+    el.innerHTML = `📊 Попит оновлено: ${updatedMatch[1]}`;
   }
 }
+
+const cleanedText = text.replace(/^UPDATED:\s*.+\n*/m, "").trim();
+const blocks = cleanedText.split(/\n\s*---\s*\n/g).map(x => x.trim()).filter(Boolean);
   try {
     const res = await fetch("./newsky-airports.txt");
     if (!res.ok) throw new Error("Не вдалося відкрити newsky-airports.txt");
