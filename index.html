@@ -1647,24 +1647,57 @@ function pick(lat, lon, i, allowUA = false) {
   return pickCountryForDirection(lat, lon, i, allowUA) || "UA2";
 }
 
-  function flagImg(code) {
+function flagImg(code) {
   if (!code) return "";
 
   const map = {
-    UA1:"ua", UA2:"ua", UA3:"ua", UA4:"ua", UA5:"ua",
-    MD:"md", RO:"ro", BG:"bg", GR:"gr", TR:"tr",
-    CY:"cy", GE:"ge", AM:"am", AZ:"az", KZ:"kz",
-    IL:"il", EG:"eg", PL:"pl", LT:"lt", LV:"lv",
-    EE:"ee", FI:"fi", SE:"se", DK:"dk", NO:"no",
-    DE:"de", FR:"fr", NL:"nl", BE:"be", CH:"ch",
-    AT:"at", CZ:"cz", SK:"sk", HU:"hu",
-    IT:"it", ES:"es", GB:"gb"
+    UA1:{cc:"ua", name:"Україна"},
+    UA2:{cc:"ua", name:"Україна"},
+    UA3:{cc:"ua", name:"Україна"},
+    UA4:{cc:"ua", name:"Україна"},
+    UA5:{cc:"ua", name:"Україна"},
+
+    MD:{cc:"md", name:"Молдова"},
+    RO:{cc:"ro", name:"Румунія"},
+    BG:{cc:"bg", name:"Болгарія"},
+    GR:{cc:"gr", name:"Греція"},
+    TR:{cc:"tr", name:"Туреччина"},
+    CY:{cc:"cy", name:"Кіпр"},
+    GE:{cc:"ge", name:"Грузія"},
+    AM:{cc:"am", name:"Вірменія"},
+    AZ:{cc:"az", name:"Азербайджан"},
+    KZ:{cc:"kz", name:"Казахстан"},
+    IL:{cc:"il", name:"Ізраїль"},
+    EG:{cc:"eg", name:"Єгипет"},
+
+    PL:{cc:"pl", name:"Польща"},
+    LT:{cc:"lt", name:"Литва"},
+    LV:{cc:"lv", name:"Латвія"},
+    EE:{cc:"ee", name:"Естонія"},
+    FI:{cc:"fi", name:"Фінляндія"},
+    SE:{cc:"se", name:"Швеція"},
+    DK:{cc:"dk", name:"Данія"},
+    NO:{cc:"no", name:"Норвегія"},
+
+    DE:{cc:"de", name:"Німеччина"},
+    FR:{cc:"fr", name:"Франція"},
+    NL:{cc:"nl", name:"Нідерланди"},
+    BE:{cc:"be", name:"Бельгія"},
+    CH:{cc:"ch", name:"Швейцарія"},
+    AT:{cc:"at", name:"Австрія"},
+    CZ:{cc:"cz", name:"Чехія"},
+    SK:{cc:"sk", name:"Словаччина"},
+    HU:{cc:"hu", name:"Угорщина"},
+
+    IT:{cc:"it", name:"Італія"},
+    ES:{cc:"es", name:"Іспанія"},
+    GB:{cc:"gb", name:"Велика Британія"}
   };
 
-  const cc = map[code];
-  if (!cc) return "—";
+  const entry = map[code];
+  if (!entry) return "—";
 
-  return `<img src="https://flagcdn.com/w20/${cc}.png" class="flag-icon">`;
+  return `<img src="https://flagcdn.com/w20/${entry.cc}.png" class="flag-icon" title="${entry.name}">`;
 }
   
 function reverseArrow(a){
@@ -1696,17 +1729,17 @@ function renderDemandBlock(icao, a) {
   const dep = (showPO || showCO) ? `
     <div class="airport-demand-line airport-demand-out">
       <img src="DEP1.png" class="airport-demand-header">
-      ${showPO ? `${formatPax(po.shown)}👨‍💼 до ${po.countryFlag} ${po.arrow}` : ""}
+      ${showPO ? `${formatPax(po.shown)}👨‍💼 до ${flagImg(po.country)} ${po.arrow}` : ""}
       ${showPO && showCO ? "<br>" : ""}
-      ${showCO ? `${formatCargo(co.shown)} 📦 до ${co.countryFlag} ${co.arrow}` : ""}
+      ${showCO ? `${formatCargo(co.shown)} 📦 до ${flagImg(co.country)} ${co.arrow}` : ""}
     </div>` : "";
 
   const arr = (showPI || showCI) ? `
     <div class="airport-demand-line airport-demand-in">
       <img src="ARR1.png" class="airport-demand-header">
-      ${showPI ? `${formatPax(pi.shown)} 🙋‍♂️ з ${pi.countryFlag} ${reverseArrow(pi.arrow)}` : ""}
+      ${showPI ? `${formatPax(pi.shown)} 🙋‍♂️ з ${flagImg(pi.country)} ${reverseArrow(pi.arrow)}` : ""}
       ${showPI && showCI ? "<br>" : ""}
-      ${showCI ? `${formatCargo(ci.shown)} 📦 з ${ci.countryFlag} ${reverseArrow(ci.arrow)}` : ""}
+      ${showCI ? `${formatCargo(ci.shown)} 📦 з ${flagImg(ci.country)} ${reverseArrow(ci.arrow)}` : ""}
     </div>` : "";
 
   if (!dep && !arr) return null;
@@ -1740,7 +1773,7 @@ function buildAirportStat(airportData) {
       type: "pax",
       pct: ((po.current / po.normal) - 1) * 100,
       qty: po.shown,
-      label: `з ${icao} ${formatPax(po.shown)}👨‍💼 до ${po.countryFlag} ${po.arrow}`
+      label: `з ${icao} ${formatPax(po.shown)}👨‍💼 до ${flagImg(po.country)} ${po.arrow}`
     });
   }
 
@@ -1750,7 +1783,7 @@ function buildAirportStat(airportData) {
       type: "cargo",
       pct: ((co.current / co.normal) - 1) * 100,
       qty: co.shown,
-      label: `з ${icao} ${formatCargo(co.shown)} 📦 до ${co.countryFlag} ${co.arrow}`
+      label: `з ${icao} ${formatCargo(co.shown)} 📦 до ${flagImg(co.country)} ${co.arrow}`
     });
   }
 
@@ -1760,7 +1793,7 @@ function buildAirportStat(airportData) {
       type: "pax",
       pct: ((pi.deficit / pi.normal) * 100),
       qty: pi.shown,
-      label: `${formatPax(pi.shown)} 🙋‍♂️ з ${pi.countryFlag} ${reverseArrow(pi.arrow)} до ${icao}`
+      label: `${formatPax(pi.shown)} 🙋‍♂️ з ${flagImg(pi.country)} ${reverseArrow(pi.arrow)} до ${icao}`
     });
   }
 
@@ -1770,7 +1803,7 @@ function buildAirportStat(airportData) {
       type: "cargo",
       pct: ((ci.deficit / ci.normal) * 100),
       qty: ci.shown,
-      label: `${formatCargo(ci.shown)} 📦 з ${ci.countryFlag} ${reverseArrow(ci.arrow)} до ${icao}`
+      label: `${formatCargo(ci.shown)} 📦 з ${flagImg(ci.country)} ${reverseArrow(ci.arrow)} до ${icao}`
     });
   }
 
