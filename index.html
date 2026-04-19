@@ -395,8 +395,9 @@ input {
 
   <table class="airports-table">
   <tr colspan="3" style="width:900px;background-color: #f4f0c0;">
-    <th class="title" colspan="10">
-      Сценарії аеропортів для MSFS 2020/2024 (платні*, Бориспіль** - тільки в Marketplace MSFS):
+    <th class="title" colspan="9">
+      Скачати сценарії аеропортів для MSFS 2020/2024 (*платні, **тільки в marketplace):
+      <div id="data-updated" style="font-size:12px; text-align:center; margin:3px 0;"></div>
     </th>
   </tr>
 
@@ -2049,7 +2050,29 @@ function renderDomesticRoutesTop(data) {
   return { paxLines, cargoLines };
 }
 
+  function formatDateTime(dateString) {
+  const d = new Date(dateString);
+
+  const day = String(d.getDate()).padStart(2, "0");
+  const month = String(d.getMonth() + 1).padStart(2, "0");
+  const year = d.getFullYear();
+
+  const hours = String(d.getHours()).padStart(2, "0");
+  const minutes = String(d.getMinutes()).padStart(2, "0");
+
+  return `${day}.${month}.${year} в ${hours}:${minutes}`;
+}
+  
 async function loadAirportDump(){
+  const res = await fetch("./newsky-airports.txt");
+  const lastModified = res.headers.get("last-modified");
+
+if (lastModified) {
+  const el = document.getElementById("data-updated");
+  if (el) {
+    el.innerHTML = `📊 Попит оновлено: ${formatDateTime(lastModified)}`;
+  }
+}
   try {
     const res = await fetch("./newsky-airports.txt");
     if (!res.ok) throw new Error("Не вдалося відкрити newsky-airports.txt");
