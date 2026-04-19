@@ -180,7 +180,24 @@ input {
   text-decoration: underline;
   margin: 0 6px;
 }
+.airport-demand-box {
+  margin-top: 6px;
+  font-size: 11px;
+  line-height: 1.25;
+  color: #333333;
+}
 
+.airport-demand-line {
+  margin-top: 4px;
+}
+
+.airport-demand-out {
+  color: #0a6b2d;
+}
+
+.airport-demand-in {
+  color: #8a3a00;
+}
 </style>
 </head>
 
@@ -1327,6 +1344,114 @@ function findFlight() {
   }
 }
 </script>
+
+<script>
+const DIR_ARROWS = ["↑", "↗", "↗", "→", "↘", "↘", "↓", "↙", "↙", "←", "↖", "↖"];
+
+function findAirportCell(icao) {
+  const cells = [...document.querySelectorAll(".airports-table td")];
+  return cells.find(td => {
+    const strong = td.querySelector("strong");
+    return strong && strong.textContent.trim().startsWith(icao);
+  });
+}
+
+function maxCurrent(directions) {
+  let idx = 0;
+  for (let i = 1; i < directions.length; i++) {
+    if (directions[i].current > directions[idx].current) idx = i;
+  }
+  return {
+    index: idx,
+    arrow: DIR_ARROWS[idx],
+    current: directions[idx].current,
+    normal: directions[idx].normal,
+    bias: directions[idx].bias
+  };
+}
+
+function weakest(directions) {
+  let idx = 0;
+  for (let i = 1; i < directions.length; i++) {
+    if (directions[i].bias < directions[idx].bias) idx = i;
+  }
+  const d = directions[idx];
+  return {
+    index: idx,
+    arrow: DIR_ARROWS[idx],
+    current: d.current,
+    normal: d.normal,
+    bias: d.bias,
+    deficit: Math.max(0, d.normal - d.current)
+  };
+}
+
+function renderDemandBlock(icao, airportData) {
+  const paxDirs = airportData?.traffic?.B?.pax?.directions || [];
+  const cargoDirs = airportData?.traffic?.B?.cargo?.directions || [];
+
+  if (!paxDirs.length || !cargoDirs.length) return null;
+
+  const paxOut = maxCurrent(paxDirs);
+  const cargoOut = maxCurrent(cargoDirs);
+  const paxIn = weakest(paxDirs);
+  const cargoIn = weakest(cargoDirs);
+
+  const box = document.createElement("div");
+  box.className = "airport-demand-box";
+  box.innerHTML = `
+    <div class="airport-demand-line airport-demand-out">
+      <strong>Попит на виліт:</strong><br>
+      👥 ${paxOut.current} pax ${paxOut.arrow}
+      / 📦 ${cargoOut.current} ${cargoOut.arrow}
+    </div>
+    <div class="airport-demand-line airport-demand-in">
+      <strong>Попит на приліт:</strong><br>
+      +${paxIn.deficit} 👥 з ${paxIn.arrow}
+      / +${cargoIn.deficit} 📦 з ${cargoIn.arrow}
+    </div>
+  `;
+  return box;
+}
+
+async function loadAirportDump() {
+  try {
+    const res = await fetch("./newsky-airports.txt");
+    if (!res.ok) throw new Error("Не вдалося відкрити newsky-airports.txt");
+
+    const text = await res.text();
+
+    const blocks = text
+      .split(/\n\s*---\s*\n/g)
+      .map(x => x.trim())
+      .filter(Boolean);
+
+    for (const block of blocks) {
+      try {
+        const airportData = JSON.parse(block);
+        const icao = airportData?.icao;
+        if (!icao) continue;
+
+        const cell = findAirportCell(icao);
+        if (!cell) continue;
+
+        const demandBox = renderDemandBlock(icao, airportData);
+        if (demandBox) {
+          cell.appendChild(demandBox);
+        }
+      } catch (e) {
+        console.error("Помилка JSON блоку:", e);
+      }
+    }
+  } catch (e) {
+    console.error("Помилка завантаження txt:", e);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", loadAirportDump);
+</script>
+
+  
 </body>
 </html>
 
