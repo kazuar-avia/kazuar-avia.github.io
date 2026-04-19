@@ -267,12 +267,24 @@ input {
 
 /* Картинки DEP/ARR */
 .airport-demand-header {
-  height: 20px;   /* було 13 — тепер більше */
+  height: 23px;   /* було 13 — тепер більше */
   width: auto;
   display: block;
   margin-bottom: 2px;
 }
 
+  /* Контейнер ТОПів */
+.top-box {
+  text-align: center;
+  font-size: 14px;
+}
+
+/* Заголовок */
+.top-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
   
 </style>
 </head>
@@ -1751,12 +1763,17 @@ function buildAirportStat(airportData) {
 
 function renderTopList(items, title) {
   if (!items.length) {
-    return `<div style="display:inline-block;text-align:left;"><strong>${title}</strong><br>—</div>`;
+    return `
+      <div class="top-box">
+        <div class="top-title">${title}</div>
+        —
+      </div>
+    `;
   }
 
   return `
-    <div style="display:inline-block;text-align:left;">
-      <strong>${title}</strong><br>
+    <div class="top-box">
+      <div class="top-title">${title}</div>
       ${items.map(item => item.label).join("<br>")}
     </div>
   `;
