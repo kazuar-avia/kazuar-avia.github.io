@@ -412,6 +412,12 @@ input {
       <strong>UKGV</strong><br>Воронів</a></td>
       <td style="width:100px;background-color: #ffffff;"><a style="color: #0077cc; text-decoration: underline;font-size: 16px;" href="https://flightsim.to/file/68800/ukng-airport-gogoliv-ukng-gogoliv" target="_blank">
       <strong>UKNG</strong><br>Гоголів</a></td>
+      <td colspan="10" id="top-overloaded-box" style="background-color:#ffffff; padding:8px; font-size:14px; line-height:1.35; color:#222;">
+    Завантаження...
+  </td>
+      <td colspan="10" id="top-deficit-box" style="background-color:#ffffff; padding:8px; font-size:14px; line-height:1.35; color:#222;">
+    Завантаження...
+  </td>
   </tr>
     
 </table>
@@ -1537,19 +1543,150 @@ function renderDemandBlock(icao,a){
   return box;
 }
 
-async function loadAirportDump(){
-  const res=await fetch("./newsky-airports.txt");
-  const text=await res.text();
-  const blocks=text.split(/\n\s*---\s*\n/g).map(x=>x.trim()).filter(Boolean);
+function buildAirportStat(airportData) {
+  const icao = airportData?.icao;
+  const pax = airportData?.traffic?.B?.pax;
+  const cargo = airportData?.traffic?.B?.cargo;
 
-  for(const b of blocks){
-    try{
-      const a=JSON.parse(b);
-      const cell=findAirportCell(a?.icao);
-      if(!cell)continue;
-      const el=renderDemandBlock(a.icao,a);
-      if(el)cell.appendChild(el);
-    }catch(e){}
+  if (!icao || !pax || !cargo) return null;
+
+  const paxDiff = pax.current - pax.normal;
+  const cargoDiffUnits = cargo.current - cargo.normal;
+
+  const paxPct = ((pax.current / pax.normal) - 1) * 100;
+  const cargoPct = ((cargo.current / cargo.normal) - 1) * 100;
+
+  const cargoDiffTons = cargoToTons(Math.abs(cargoDiffUnits));
+
+  const positiveCandidates = [];
+  const negativeCandidates = [];
+
+  if (paxDiff > 0) {
+    positiveCandidates.push({
+      icao,
+      type: "pax",
+      pct: paxPct,
+      value: Math.abs(paxDiff),
+      label: `${Math.abs(paxDiff)} рах`
+    });
+  }
+  if (cargoDiffUnits > 0) {
+    positiveCandidates.push({
+      icao,
+      type: "cargo",
+      pct: cargoPct,
+      value: cargoDiffTons,
+      label: `${cargoDiffTons} т cargo`
+    });
+  }
+
+  if (paxDiff < 0) {
+    negativeCandidates.push({
+      icao,
+      type: "pax",
+      pct: Math.abs(paxPct),
+      value: Math.abs(paxDiff),
+      label: `${Math.abs(paxDiff)} рах`
+    });
+  }
+  if (cargoDiffUnits < 0) {
+    negativeCandidates.push({
+      icao,
+      type: "cargo",
+      pct: Math.abs(cargoPct),
+      value: cargoDiffTons,
+      label: `${cargoDiffTons} т cargo`
+    });
+  }
+
+  const bestPositive = positiveCandidates.sort((a, b) => b.pct - a.pct)[0] || null;
+  const bestNegative = negativeCandidates.sort((a, b) => b.pct - a.pct)[0] || null;
+
+  return {
+    icao,
+    positive: bestPositive,
+    negative: bestNegative
+  };
+}
+
+function renderTopList(items, title, sign) {
+  if (!items.length) return `${title}<br>—`;
+
+  return `
+    <strong>${title}</strong><br>
+    ${items.map(item => `${item.icao} ${sign}${Math.round(item.pct)}% (${item.label})`).join("<br>")}
+  `;
+}  
+  
+async function loadAirportDump(){
+  try {
+    const res = await fetch("./newsky-airports.txt");
+    if (!res.ok) throw new Error("Не вдалося відкрити newsky-airports.txt");
+
+    const text = await res.text();
+    const blocks = text.split(/\n\s*---\s*\n/g).map(x => x.trim()).filter(Boolean);
+
+    const stats = [];
+
+    for (const b of blocks) {
+      try {
+        const a = JSON.parse(b);
+
+        // Рендер під кожним аеропортом
+        const cell = findAirportCell(a?.icao);
+        if (cell) {
+          const el = renderDemandBlock(a.icao, a);
+          if (el) cell.appendChild(el);
+        }
+
+        // Статистика для топів
+        const stat = buildAirportStat(a);
+        if (stat) stats.push(stat);
+
+      } catch (e) {
+        console.error("Помилка JSON блоку:", e);
+      }
+    }
+
+    const topPositive = stats
+      .map(x => x.positive)
+      .filter(Boolean)
+      .sort((a, b) => b.pct - a.pct)
+      .slice(0, 3);
+
+    const topNegative = stats
+      .map(x => x.negative)
+      .filter(Boolean)
+      .sort((a, b) => b.pct - a.pct)
+      .slice(0, 3);
+
+    const overloadedBox = document.getElementById("top-overloaded-box");
+    const deficitBox = document.getElementById("top-deficit-box");
+
+    if (overloadedBox) {
+      overloadedBox.innerHTML = renderTopList(
+        topPositive,
+        "🙏 ТОП-3 🙏 чекають виліт:",
+        "+"
+      );
+    }
+
+    if (deficitBox) {
+      deficitBox.innerHTML = renderTopList(
+        topNegative,
+        "👊 ТОП-3 👊 хочуть додому:",
+        "-"
+      );
+    }
+
+  } catch (e) {
+    console.error("Помилка завантаження txt:", e);
+
+    const overloadedBox = document.getElementById("top-overloaded-box");
+    const deficitBox = document.getElementById("top-deficit-box");
+
+    if (overloadedBox) overloadedBox.textContent = "Не вдалося завантажити статистику";
+    if (deficitBox) deficitBox.textContent = "Не вдалося завантажити статистику";
   }
 }
 
