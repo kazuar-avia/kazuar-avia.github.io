@@ -396,17 +396,14 @@ input {
       <strong>UKKG</strong><br>Кропивницький</a></td>
          <td style="width:100px;background-color: #ffffff;"><a style="color: #0077cc; text-decoration: underline;font-size: 16px;" href="https://flightsim.to/file/69714/ukdr-international-airport-kryvyi-rih-ukdr-lozuvatka" target="_blank">
       <strong>UKDR</strong><br>Кривий Ріг</a></td>
-      <td style="width:100px;background-color: #ffffff;color: #888888; font-size: 16px;">
-      <strong>UKKV</strong><br><em>Житомир<br>Q2 2026</em></td>
+      <td style="width:100px;background-color: #ffffff;"><a style="color: #0077cc; text-decoration: underline;font-size: 16px;" href="https://flightsim.to/file/69654/ukkl-international-chernihiv-airport-ukkl-chernihiv" target="_blank">
+      <strong>UKKL</strong><br>Чернігів</a><div style="color:red">new!</div></td>
       <td style="width:100px;background-color: #ffffff;color: #888888; font-size: 16px;">
       <strong>UKDE</strong><br><em>Запоріжжя Q2 2026</em></td>
   </tr>
     
   <tr>
-    
-<td style="width:100px;background-color: #ffffff;"><a style="color: #0077cc; text-decoration: underline;font-size: 16px;" href="https://flightsim.to/file/69654/ukkl-international-chernihiv-airport-ukkl-chernihiv" target="_blank">
-      <strong>UKKL</strong><br>Чернігів</a><div style="color:red">new!</div></td>
-      <td style="width:100px;background-color: #ffffff;"><a style="color: #0077cc; text-decoration: underline;font-size: 16px;" href="https://flightsim.to/file/62167/aeroclub-aeroprakt-ukvn" target="_blank">
+          <td style="width:100px;background-color: #ffffff;"><a style="color: #0077cc; text-decoration: underline;font-size: 16px;" href="https://flightsim.to/file/62167/aeroclub-aeroprakt-ukvn" target="_blank">
       <strong>UKVN</strong><br>Наливайківка</a></td>
       <td style="width:100px;background-color: #ffffff;"><a style="color: #0077cc; text-decoration: underline;font-size: 16px;" href="https://flightsim.to/file/91099/ukgw-voroniv-airfield" target="_blank">
       <strong>UKGV</strong><br>Воронів</a></td>
@@ -418,8 +415,8 @@ input {
       <td colspan="2" id="top-deficit-box" style="background-color:#ffffff; padding:8px; font-size:14px; line-height:1.35; color:#222;">
     Завантаження...
   </td>
-    <td colspan="2" id="top-deficit-box" style="background-color:#ffffff; padding:8px; font-size:14px; line-height:1.35; color:#222;">
-    Завантаження...
+<td colspan="2" id="top-domestic-routes-box" style="background-color:#ffffff; padding:8px; font-size:14px; line-height:1.35; color:#222;">
+    Завантаження місцевих рейсів...
   </td>
   </tr>
     
@@ -1620,6 +1617,144 @@ function renderTopList(items, title, sign) {
     ${items.map(item => `${item.icao} ${sign}${Math.round(item.pct)}% (${item.label})`).join("<br>")}
   `;
 }  
+
+  function bearingToIndex12(bearing) {
+  let bestIndex = 0;
+  let bestDiff = 999;
+
+  for (let i = 0; i < DIR_BEARINGS.length; i++) {
+    const diff = angularDiff(bearing, DIR_BEARINGS[i]);
+    if (diff < bestDiff) {
+      bestDiff = diff;
+      bestIndex = i;
+    }
+  }
+
+  return bestIndex;
+}
+
+function buildDomesticRoutes(airports) {
+  const paxRoutes = [];
+  const cargoRoutes = [];
+
+  for (const from of airports) {
+    for (const to of airports) {
+      if (!from?.icao || !to?.icao) continue;
+      if (from.icao === to.icao) continue;
+      if (from.countryCode !== "UA" || to.countryCode !== "UA") continue;
+
+      const fromLat = from?.location?.lat;
+      const fromLon = from?.location?.lon;
+      const toLat = to?.location?.lat;
+      const toLon = to?.location?.lon;
+
+      if (
+        typeof fromLat !== "number" || typeof fromLon !== "number" ||
+        typeof toLat !== "number" || typeof toLon !== "number"
+      ) continue;
+
+      const distKm = haversineKm(fromLat, fromLon, toLat, toLon);
+      if (distKm < 300) continue;
+
+      // напрямок FROM -> TO
+      const outBearing = bearingDeg(fromLat, fromLon, toLat, toLon);
+      const outIdx = bearingToIndex12(outBearing);
+
+      // зворотний напрямок для TO, звідки має бути приліт
+      const inBearing = bearingDeg(toLat, toLon, fromLat, fromLon);
+      const inIdx = bearingToIndex12(inBearing);
+
+      const fromPaxDir = from?.traffic?.B?.pax?.directions?.[outIdx];
+      const toPaxDir = to?.traffic?.B?.pax?.directions?.[inIdx];
+      const fromCargoDir = from?.traffic?.B?.cargo?.directions?.[outIdx];
+      const toCargoDir = to?.traffic?.B?.cargo?.directions?.[inIdx];
+
+      if (fromPaxDir && toPaxDir) {
+        const paxSurplus = Math.max(0, fromPaxDir.current - fromPaxDir.normal);
+        const paxDeficit = Math.max(0, toPaxDir.normal - toPaxDir.current);
+        const paxMatch = Math.min(paxSurplus, paxDeficit);
+
+        if (paxMatch >= 49) {
+          const surplusPct = fromPaxDir.normal > 0
+            ? ((fromPaxDir.current - fromPaxDir.normal) / fromPaxDir.normal) * 100
+            : 0;
+
+          const deficitPct = toPaxDir.normal > 0
+            ? ((toPaxDir.normal - toPaxDir.current) / toPaxDir.normal) * 100
+            : 0;
+
+          paxRoutes.push({
+            from: from.icao,
+            to: to.icao,
+            qty: paxMatch,
+            pct: Math.min(surplusPct, deficitPct),
+            distKm
+          });
+        }
+      }
+
+      if (fromCargoDir && toCargoDir) {
+        const cargoSurplusUnits = Math.max(0, fromCargoDir.current - fromCargoDir.normal);
+        const cargoDeficitUnits = Math.max(0, toCargoDir.normal - toCargoDir.current);
+        const cargoMatchUnits = Math.min(cargoSurplusUnits, cargoDeficitUnits);
+        const cargoMatchTons = cargoToTons(cargoMatchUnits);
+
+        if (cargoMatchTons >= 10) {
+          const surplusPct = fromCargoDir.normal > 0
+            ? ((fromCargoDir.current - fromCargoDir.normal) / fromCargoDir.normal) * 100
+            : 0;
+
+          const deficitPct = toCargoDir.normal > 0
+            ? ((toCargoDir.normal - toCargoDir.current) / toCargoDir.normal) * 100
+            : 0;
+
+          cargoRoutes.push({
+            from: from.icao,
+            to: to.icao,
+            qty: cargoMatchTons,
+            pct: Math.min(surplusPct, deficitPct),
+            distKm
+          });
+        }
+      }
+    }
+  }
+
+  paxRoutes.sort((a, b) => {
+    if (b.qty !== a.qty) return b.qty - a.qty;
+    if (b.pct !== a.pct) return b.pct - a.pct;
+    return b.distKm - a.distKm;
+  });
+
+  cargoRoutes.sort((a, b) => {
+    if (b.qty !== a.qty) return b.qty - a.qty;
+    if (b.pct !== a.pct) return b.pct - a.pct;
+    return b.distKm - a.distKm;
+  });
+
+  return {
+    pax: paxRoutes.slice(0, 3),
+    cargo: cargoRoutes.slice(0, 3)
+  };
+}
+
+function renderDomesticRoutesTop(data) {
+  const paxLines = data.pax.length
+    ? data.pax.map(x => `${x.from} → ${x.to} — ${formatPax(x.qty)} pax (${Math.round(x.pct)}%)`).join("<br>")
+    : "—";
+
+  const cargoLines = data.cargo.length
+    ? data.cargo.map(x => `${x.from} → ${x.to} — ${formatCargo(x.qty)} cargo (${Math.round(x.pct)}%)`).join("<br>")
+    : "—";
+
+  return `
+    <strong>🏠 ТОП-3 місцеві pax:</strong><br>
+    ${paxLines}
+    <br><br>
+    <strong>📦 ТОП-3 місцеві cargo:</strong><br>
+    ${cargoLines}
+  `;
+}
   
 async function loadAirportDump(){
   try {
@@ -1630,19 +1765,19 @@ async function loadAirportDump(){
     const blocks = text.split(/\n\s*---\s*\n/g).map(x => x.trim()).filter(Boolean);
 
     const stats = [];
+    const airportsLoaded = [];
 
     for (const b of blocks) {
       try {
         const a = JSON.parse(b);
+        airportsLoaded.push(a);
 
-        // Рендер під кожним аеропортом
         const cell = findAirportCell(a?.icao);
         if (cell) {
           const el = renderDemandBlock(a.icao, a);
           if (el) cell.appendChild(el);
         }
 
-        // Статистика для топів
         const stat = buildAirportStat(a);
         if (stat) stats.push(stat);
 
@@ -1665,6 +1800,7 @@ async function loadAirportDump(){
 
     const overloadedBox = document.getElementById("top-overloaded-box");
     const deficitBox = document.getElementById("top-deficit-box");
+    const domesticBox = document.getElementById("top-domestic-routes-box");
 
     if (overloadedBox) {
       overloadedBox.innerHTML = renderTopList(
@@ -1682,14 +1818,21 @@ async function loadAirportDump(){
       );
     }
 
+    if (domesticBox) {
+      const domesticTop = buildDomesticRoutes(airportsLoaded);
+      domesticBox.innerHTML = renderDomesticRoutesTop(domesticTop);
+    }
+
   } catch (e) {
     console.error("Помилка завантаження txt:", e);
 
     const overloadedBox = document.getElementById("top-overloaded-box");
     const deficitBox = document.getElementById("top-deficit-box");
+    const domesticBox = document.getElementById("top-domestic-routes-box");
 
     if (overloadedBox) overloadedBox.textContent = "Не вдалося завантажити статистику";
     if (deficitBox) deficitBox.textContent = "Не вдалося завантажити статистику";
+    if (domesticBox) domesticBox.textContent = "Не вдалося завантажити місцеві рейси";
   }
 }
 
