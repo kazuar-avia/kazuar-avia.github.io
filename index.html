@@ -1662,25 +1662,33 @@ function pickTopUniqueByDestination(routes, count = 3) {
   return result;
 }
 
-function pickTopUniqueByDestination(routes, count = 5) {
+function pickTopUniqueRoutes(routes, count = 5) {
   const result = [];
+  const usedPairs = new Set();
   const usedDestinations = new Set();
 
+  // Спочатку беремо найкращі маршрути з різними destination
   for (const route of routes) {
-    if (!usedDestinations.has(route.to)) {
-      result.push(route);
-      usedDestinations.add(route.to);
-    }
-    if (result.length === count) break;
+    const pairKey = `${route.from}-${route.to}`;
+    if (usedPairs.has(pairKey)) continue;
+    if (usedDestinations.has(route.to)) continue;
+
+    result.push(route);
+    usedPairs.add(pairKey);
+    usedDestinations.add(route.to);
+
+    if (result.length === count) return result;
   }
 
-  if (result.length < count) {
-    for (const route of routes) {
-      if (!result.includes(route)) {
-        result.push(route);
-      }
-      if (result.length === count) break;
-    }
+  // Потім, якщо не вистачило, добиваємо просто найкращими унікальними парами
+  for (const route of routes) {
+    const pairKey = `${route.from}-${route.to}`;
+    if (usedPairs.has(pairKey)) continue;
+
+    result.push(route);
+    usedPairs.add(pairKey);
+
+    if (result.length === count) return result;
   }
 
   return result;
@@ -1741,17 +1749,25 @@ function buildDomesticRoutes(airports) {
         const paxNeed = Math.max(0, toPaxDir.normal - toPaxDir.current);
 
         if (paxAvailable > 0 && paxNeed > 0) {
-          paxCandidates.push({
-            from: from.icao,
-            to: to.icao,
-            distKm,
-            available: paxAvailable,
-            need: paxNeed,
-            needPct: toPaxDir.normal > 0
+          const rawQty = Math.min(paxAvailable, paxNeed);
+
+          if (rawQty >= 49) {
+            const needPct = toPaxDir.normal > 0
               ? ((toPaxDir.normal - toPaxDir.current) / toPaxDir.normal) * 100
-              : 0,
-            groupKey: `${to.icao}-${inIdx}`
-          });
+              : 0;
+
+            // score: кількість важливіша за %, але % теж враховується
+            const score = rawQty * (1 + needPct / 100);
+
+            paxCandidates.push({
+              from: from.icao,
+              to: to.icao,
+              qty: rawQty,
+              pct: needPct,
+              distKm,
+              score
+            });
+          }
         }
       }
 
@@ -1761,120 +1777,45 @@ function buildDomesticRoutes(airports) {
         const cargoNeedUnits = Math.max(0, toCargoDir.normal - toCargoDir.current);
 
         const cargoAvailableTons = cargoToTons(cargoAvailableUnits);
+        const cargoNeedTons = cargoToTons(cargoNeedUnits);
+        const rawQtyTons = cargoToTons(Math.min(cargoAvailableUnits, cargoNeedUnits));
 
-        if (cargoAvailableTons >= 10 && cargoNeedUnits > 0) {
+        if (cargoAvailableTons >= 10 && cargoNeedUnits > 0 && rawQtyTons >= 1) {
+          const needPct = toCargoDir.normal > 0
+            ? ((toCargoDir.normal - toCargoDir.current) / toCargoDir.normal) * 100
+            : 0;
+
+          const score = rawQtyTons * (1 + needPct / 100);
+
           cargoCandidates.push({
             from: from.icao,
             to: to.icao,
+            qty: rawQtyTons,
+            pct: needPct,
             distKm,
-            availableUnits: cargoAvailableUnits,
-            needUnits: cargoNeedUnits,
-            needPct: toCargoDir.normal > 0
-              ? ((toCargoDir.normal - toCargoDir.current) / toCargoDir.normal) * 100
-              : 0,
-            groupKey: `${to.icao}-${inIdx}`
+            score,
+            needTons: cargoNeedTons
           });
         }
       }
     }
   }
 
-  // PAX: ділимо дефіцит destination між усіма source цього сектора
-  const paxGrouped = {};
-  for (const c of paxCandidates) {
-    if (!paxGrouped[c.groupKey]) paxGrouped[c.groupKey] = [];
-    paxGrouped[c.groupKey].push(c);
-  }
-
-  const paxRoutes = [];
-  for (const group of Object.values(paxGrouped)) {
-    const totalAvailable = group.reduce((sum, x) => sum + x.available, 0);
-    if (totalAvailable <= 0) continue;
-
-    for (const item of group) {
-      const qty = Math.round(item.need * (item.available / totalAvailable));
-      if (qty >= 49) {
-        paxRoutes.push({
-          from: item.from,
-          to: item.to,
-          qty,
-          pct: item.needPct,
-          distKm: item.distKm
-        });
-      }
-    }
-  }
-
-  // CARGO: ділимо дефіцит destination між усіма source цього сектора
-  const cargoGrouped = {};
-  for (const c of cargoCandidates) {
-    if (!cargoGrouped[c.groupKey]) cargoGrouped[c.groupKey] = [];
-    cargoGrouped[c.groupKey].push(c);
-  }
-
-  let cargoRoutes = [];
-  for (const group of Object.values(cargoGrouped)) {
-    const totalAvailableUnits = group.reduce((sum, x) => sum + x.availableUnits, 0);
-    if (totalAvailableUnits <= 0) continue;
-
-    for (const item of group) {
-      const matchUnits = Math.round(item.needUnits * (item.availableUnits / totalAvailableUnits));
-      const qtyTons = cargoToTons(matchUnits);
-
-      if (qtyTons >= 10) {
-        cargoRoutes.push({
-          from: item.from,
-          to: item.to,
-          qty: qtyTons,
-          pct: item.needPct,
-          distKm: item.distKm
-        });
-      }
-    }
-  }
-
-  // fallback для cargo, якщо жорсткий поріг дає мало варіантів
-  if (cargoRoutes.length < 5) {
-    let cargoFallback = [];
-
-    for (const group of Object.values(cargoGrouped)) {
-      const totalAvailableUnits = group.reduce((sum, x) => sum + x.availableUnits, 0);
-      if (totalAvailableUnits <= 0) continue;
-
-      for (const item of group) {
-        const matchUnits = Math.round(item.needUnits * (item.availableUnits / totalAvailableUnits));
-        const qtyTons = cargoToTons(matchUnits);
-
-        if (qtyTons >= 1) {
-          cargoFallback.push({
-            from: item.from,
-            to: item.to,
-            qty: qtyTons,
-            pct: item.needPct,
-            distKm: item.distKm
-          });
-        }
-      }
-    }
-
-    cargoRoutes = cargoFallback;
-  }
-
-  paxRoutes.sort((a, b) => {
+  paxCandidates.sort((a, b) => {
+    if (b.score !== a.score) return b.score - a.score;
     if (b.qty !== a.qty) return b.qty - a.qty;
-    if (b.pct !== a.pct) return b.pct - a.pct;
     return b.distKm - a.distKm;
   });
 
-  cargoRoutes.sort((a, b) => {
+  cargoCandidates.sort((a, b) => {
+    if (b.score !== a.score) return b.score - a.score;
     if (b.qty !== a.qty) return b.qty - a.qty;
-    if (b.pct !== a.pct) return b.pct - a.pct;
     return b.distKm - a.distKm;
   });
 
   return {
-    pax: pickTopUniqueByDestination(paxRoutes, 5),
-    cargo: pickTopUniqueByDestination(cargoRoutes, 5)
+    pax: pickTopUniqueRoutes(paxCandidates, 5),
+    cargo: pickTopUniqueRoutes(cargoCandidates, 5)
   };
 }
 
