@@ -1642,13 +1642,13 @@ const arrivalsHtml = (showPaxIn || showCargoIn) ? `
     ${showPaxIn ? `
       ${paxIn.deficit} <span class="airport-demand-icon airport-demand-people">👪</span>
       з <span class="airport-demand-flags">${paxInFlag}</span>
-      <span class="airport-demand-arrow">${paxIn.arrow}</span>
+      <span class="airport-demand-arrow">${reverseArrow(paxIn.arrow)}</span>
     ` : ``}
     ${showPaxIn && showCargoIn ? `<br>` : ``}
     ${showCargoIn ? `
       ${cargoInTons}т <span class="airport-demand-icon airport-demand-cargo">📦</span>
       з <span class="airport-demand-flags">${cargoInFlag}</span>
-      <span class="airport-demand-arrow">${cargoIn.arrow}</span>
+      <span class="airport-demand-arrow">${reverseArrow(cargoIn.arrow)}</span>
     ` : ``}
   </div>
 ` : ``;
@@ -1661,6 +1661,20 @@ box.innerHTML = departuresHtml + arrivalsHtml;
   return box;
 }
 
+  function reverseArrow(arrow) {
+  const map = {
+    "↑": "↓",
+    "↗": "↙",
+    "→": "←",
+    "↘": "↖",
+    "↓": "↑",
+    "↙": "↗",
+    "←": "→",
+    "↖": "↘"
+  };
+  return map[arrow] || arrow;
+}
+  
 async function loadAirportDump() {
   try {
     const res = await fetch("./newsky-airports.txt");
