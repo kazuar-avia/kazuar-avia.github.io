@@ -1609,33 +1609,55 @@ function renderDemandBlock(icao, airportData) {
   const paxInFlag = codeToFlag(pickCountryForDirection(airportLat, airportLon, paxIn.index));
   const cargoInFlag = codeToFlag(pickCountryForDirection(airportLat, airportLon, cargoIn.index));
 
-  const cargoOutTons = cargoToTons(cargoOut.current);
-  const cargoInTons = cargoToTons(cargoIn.deficit);
+const cargoOutTons = cargoToTons(cargoOut.current);
+const cargoInTons = cargoToTons(cargoIn.deficit);
+
+const showPaxOut = paxOut.current >= 49;
+const showCargoOut = cargoOutTons >= 10;
+const showPaxIn = paxIn.deficit >= 49;
+const showCargoIn = cargoInTons >= 10;
+  
   const box = document.createElement("div");
   box.className = "airport-demand-box";
-  box.innerHTML = `
+const departuresHtml = (showPaxOut || showCargoOut) ? `
   <div class="airport-demand-line airport-demand-out">
     <img src="DEP1.png" alt="Departures" class="airport-demand-header">
-    ${paxOut.current}<span class="airport-demand-icon airport-demand-people">👪</span>
-    до <span class="airport-demand-flags">${paxOutFlag}</span>
-    <span class="airport-demand-arrow">${paxOut.arrow}</span>
-    <br>
-    ${cargoOutTons}т <span class="airport-demand-icon airport-demand-cargo">📦</span>
-    до <span class="airport-demand-flags">${cargoOutFlag}</span>
-    <span class="airport-demand-arrow">${cargoOut.arrow}</span>
+    ${showPaxOut ? `
+      ${paxOut.current}<span class="airport-demand-icon airport-demand-people">👪</span>
+      до <span class="airport-demand-flags">${paxOutFlag}</span>
+      <span class="airport-demand-arrow">${paxOut.arrow}</span>
+    ` : ``}
+    ${showPaxOut && showCargoOut ? `<br>` : ``}
+    ${showCargoOut ? `
+      ${cargoOutTons}т <span class="airport-demand-icon airport-demand-cargo">📦</span>
+      до <span class="airport-demand-flags">${cargoOutFlag}</span>
+      <span class="airport-demand-arrow">${cargoOut.arrow}</span>
+    ` : ``}
   </div>
+` : ``;
 
+const arrivalsHtml = (showPaxIn || showCargoIn) ? `
   <div class="airport-demand-line airport-demand-in">
     <img src="ARR1.png" alt="Arrivals" class="airport-demand-header">
-    ${paxIn.deficit} <span class="airport-demand-icon airport-demand-people">👪</span>
-    з <span class="airport-demand-flags">${paxInFlag}</span>
-    <span class="airport-demand-arrow">${paxIn.arrow}</span>
-    <br>
-    ${cargoInTons}т <span class="airport-demand-icon airport-demand-cargo">📦</span>
-    з <span class="airport-demand-flags">${cargoInFlag}</span>
-    <span class="airport-demand-arrow">${cargoIn.arrow}</span>
+    ${showPaxIn ? `
+      ${paxIn.deficit} <span class="airport-demand-icon airport-demand-people">👪</span>
+      з <span class="airport-demand-flags">${paxInFlag}</span>
+      <span class="airport-demand-arrow">${paxIn.arrow}</span>
+    ` : ``}
+    ${showPaxIn && showCargoIn ? `<br>` : ``}
+    ${showCargoIn ? `
+      ${cargoInTons}т <span class="airport-demand-icon airport-demand-cargo">📦</span>
+      з <span class="airport-demand-flags">${cargoInFlag}</span>
+      <span class="airport-demand-arrow">${cargoIn.arrow}</span>
+    ` : ``}
   </div>
-`;
+` : ``;
+
+if (!departuresHtml && !arrivalsHtml) {
+  return null;
+}
+
+box.innerHTML = departuresHtml + arrivalsHtml;
   return box;
 }
 
