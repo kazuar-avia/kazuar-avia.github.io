@@ -440,17 +440,17 @@ input {
       <strong>UKGV</strong><br>Воронів</a><br><a style="color: #0077cc; text-decoration: underline;font-size: 16px;" href="https://flightsim.to/file/68800/ukng-airport-gogoliv-ukng-gogoliv" target="_blank">
       <strong>UKNG</strong><br>Гоголів</a></td>
       
-      <td colspan="2" id="top-overloaded-box" style="background-color:#ffffff; padding:8px; font-size:14px; line-height:1.35; color:#222;">
+      <td colspan="2" id="top-overloaded-box" style="background-color:#ffffff; padding:8px; font-size:14px; line-height:1.3; color:#222;">
     Завантаження...
   </td>
-      <td colspan="2" id="top-deficit-box" style="background-color:#ffffff; padding:8px; font-size:14px; line-height:1.35; color:#222;">
+      <td colspan="2" id="top-deficit-box" style="background-color:#ffffff; padding:8px; font-size:14px; line-height:1.3; color:#222;">
     Завантаження...
   </td>
 
- <td colspan="2" id="top-domestic-pax-box" style="background-color:#ffffff; padding:8px; font-size:14px; line-height:1.35; color:#222; vertical-align:top;">
+ <td colspan="2" id="top-domestic-pax-box" style="background-color:#ffffff; padding:8px; font-size:14px; line-height:1.3; color:#222; vertical-align:top;">
     Завантаження місцевих pax...
   </td>
-  <td colspan="2" id="top-domestic-cargo-box" style="background-color:#ffffff; padding:8px; font-size:14px; line-height:1.35; color:#222; vertical-align:top;">
+  <td colspan="2" id="top-domestic-cargo-box" style="background-color:#ffffff; padding:8px; font-size:14px; line-height:1.3; color:#222; vertical-align:top;">
     Завантаження місцевих cargo...
   </td>
 
@@ -2018,7 +2018,7 @@ const topNegative = buildMixedTop(negativeAll, 5, true);
 
     if (domesticPaxBox) {
       domesticPaxBox.innerHTML = `
-        <strong>🏠 ТОП-5 місцеві pax:</strong><br>
+        <strong style="font-size:15px;">🏠 ТОП-5 місцеві pax:</strong><br>
         ${domesticTop.pax.length ? domesticTop.pax.map(x => `${x.from} → ${x.to}`).join("<br>") : "—"}
       `;
     }
