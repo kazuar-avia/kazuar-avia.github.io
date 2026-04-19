@@ -1705,29 +1705,37 @@ function buildAirportStat(airportData) {
     });
   }
 
-  const bestPositive = positiveCandidates.sort((a, b) => b.pct - a.pct)[0] || null;
-  const bestNegative = negativeCandidates.sort((a, b) => b.pct - a.pct)[0] || null;
+  const bestPositive = positiveCandidates.slice().sort((a, b) => b.pct - a.pct)[0] || null;
+  const bestNegative = negativeCandidates.slice().sort((a, b) => b.pct - a.pct)[0] || null;
 
   return {
     icao,
     positive: bestPositive,
-    negative: bestNegative
+    negative: bestNegative,
+    positiveCandidates,
+    negativeCandidates
   };
 }
 
 function renderTopList(items, title) {
-  if (!items.length) return `<strong>${title}</strong><br>—`;
+  if (!items.length) {
+    return `<div style="display:inline-block;text-align:left;"><strong>${title}</strong><br>—</div>`;
+  }
 
   return `
-    <strong>${title}</strong><br>
-    ${items.map(item => item.label).join("<br>")}
+    <div style="display:inline-block;text-align:left;">
+      <strong>${title}</strong><br>
+      ${items.map(item => item.label).join("<br>")}
+    </div>
   `;
 }
 
 
 function collectTopCandidates(stats, key) {
+  const arrayKey = key === "positive" ? "positiveCandidates" : "negativeCandidates";
+
   return stats
-    .map(x => x?.[key])
+    .flatMap(x => x?.[arrayKey] || [])
     .filter(Boolean)
     .sort((a, b) => b.pct - a.pct);
 }
@@ -1738,28 +1746,27 @@ function buildMixedTop(allItems, limit = 5, forceOneCargo = false) {
   }
 
   const cargoItems = allItems.filter(x => x.type === "cargo");
-  const nonCargoItems = allItems.filter(x => x.type !== "cargo");
+  const otherItems = allItems.filter(x => x.type !== "cargo");
 
-  // якщо cargo немає взагалі — повертаємо звичайний топ
   if (!cargoItems.length) {
     return allItems.slice(0, limit);
   }
 
   const bestCargo = cargoItems[0];
   const result = [bestCargo];
-  const usedIcaos = new Set([bestCargo.icao + "|" + bestCargo.type + "|" + bestCargo.label]);
+  const usedKeys = new Set([bestCargo.type + "|" + bestCargo.label]);
 
-  for (const item of nonCargoItems) {
-    const key = item.icao + "|" + item.type + "|" + item.label;
-    if (usedIcaos.has(key)) continue;
+  for (const item of otherItems) {
+    const key = item.type + "|" + item.label;
+    if (usedKeys.has(key)) continue;
+
     result.push(item);
-    usedIcaos.add(key);
+    usedKeys.add(key);
+
     if (result.length === limit) break;
   }
 
-  return result
-    .sort((a, b) => b.pct - a.pct)
-    .slice(0, limit);
+  return result.slice(0, limit);
 }
   
 function bearingToIndex12(bearing) {
@@ -1775,35 +1782,6 @@ function bearingToIndex12(bearing) {
   return bestIndex;
 }
 
-function pickTopUniqueRoutes(routes, count = 5) {
-  const result = [];
-  const usedPairs = new Set();
-  const usedDestinations = new Set();
-
-  for (const route of routes) {
-    const pairKey = `${route.from}-${route.to}`;
-    if (usedPairs.has(pairKey)) continue;
-    if (usedDestinations.has(route.to)) continue;
-
-    result.push(route);
-    usedPairs.add(pairKey);
-    usedDestinations.add(route.to);
-
-    if (result.length === count) return result;
-  }
-
-  for (const route of routes) {
-    const pairKey = `${route.from}-${route.to}`;
-    if (usedPairs.has(pairKey)) continue;
-
-    result.push(route);
-    usedPairs.add(pairKey);
-
-    if (result.length === count) return result;
-  }
-
-  return result;
-}
 
 function pickTopUniqueRoutes(routes, count = 5) {
   const result = [];
@@ -1981,7 +1959,8 @@ async function loadAirportDump(){
 const positiveAll = collectTopCandidates(stats, "positive");
 const negativeAll = collectTopCandidates(stats, "negative");
 
-const topPositive = buildMixedTop(positiveAll, 5, false);
+// в обох топах гарантуємо мінімум 1 cargo, якщо він існує
+const topPositive = buildMixedTop(positiveAll, 5, true);
 const topNegative = buildMixedTop(negativeAll, 5, true);
 
     const domesticTop = buildDomesticRoutes(airportsLoaded);
