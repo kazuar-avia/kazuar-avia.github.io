@@ -1431,20 +1431,30 @@ function cargoToTons(value) {
   return Math.round((value * 82) / 1000);
 }
 
-  function countryCodeToFlag(code) {
-  if (!code || code.length !== 2) return "";
-  const chars = code.toUpperCase().split('');
-  return String.fromCodePoint(
-    127397 + chars[0].charCodeAt(0),
-    127397 + chars[1].charCodeAt(0)
-  );
-}
+const FLAG_MAP = {
+  UA: "🇺🇦",
+  MD: "🇲🇩",
+  RO: "🇷🇴",
+  BG: "🇧🇬",
+  GR: "🇬🇷",
+  TR: "🇹🇷",
+  CY: "🇨🇾",
+  GE: "🇬🇪",
+  AZ: "🇦🇿",
+  PL: "🇵🇱",
+  LT: "🇱🇹",
+  CZ: "🇨🇿",
+  DE: "🇩🇪",
+  HU: "🇭🇺",
+  HR: "🇭🇷",
+  DK: "🇩🇰"
+};
 
 function codesToFlags(text) {
-  if (!text || text === "—") return "";
+  if (!text) return "";
   return text
     .split(/\s+/)
-    .map(countryCodeToFlag)
+    .map(code => FLAG_MAP[code] || code)
     .join(" ");
 }
   
