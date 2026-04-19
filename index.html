@@ -240,6 +240,7 @@ input {
   font-size: 12px;
   letter-spacing: 1px;
 }
+
   
 </style>
 </head>
@@ -1387,7 +1388,78 @@ function findFlight() {
 </script>
 
 <script>
-const DIR_ARROWS = ["↑", "↗", "↗", "→", "↘", "↘", "↓", "↙", "↙", "←", "↖", "↖"];
+const DIR_ARROWS = ["↑","↗","↗","→","↘","↘","↓","↙","↙","←","↖","↖"];
+const DIR_BEARINGS = [0,30,60,90,120,150,180,210,240,270,300,330];
+
+const EXCLUDED_CODES = new Set(["RU", "BY"]);
+
+const COUNTRY_POINTS = {
+  UA1: { lat: 49.8397, lon: 24.0297 }, // Львів
+  UA2: { lat: 50.4501, lon: 30.5234 }, // Київ
+  UA3: { lat: 49.9935, lon: 36.2304 }, // Харків
+  UA4: { lat: 49.2328, lon: 28.4810 }, // Вінниця
+  UA5: { lat: 46.4825, lon: 30.7233 }, // Одеса
+
+  MD: { lat: 47.0105, lon: 28.8638 },
+  RO: { lat: 45.9432, lon: 24.9668 },
+  BG: { lat: 42.7339, lon: 25.4858 },
+  GR: { lat: 39.0742, lon: 21.8243 },
+  TR: { lat: 39.9334, lon: 32.8597 },
+  CY: { lat: 35.1856, lon: 33.3823 },
+  GE: { lat: 41.7151, lon: 44.8271 },
+  AM: { lat: 40.1792, lon: 44.4991 },
+  AZ: { lat: 40.4093, lon: 49.8671 },
+  KZ: { lat: 51.1694, lon: 71.4491 },
+  IL: { lat: 31.7683, lon: 35.2137 },
+  EG: { lat: 30.0444, lon: 31.2357 },
+
+  PL: { lat: 52.2297, lon: 21.0122 },
+  LT: { lat: 54.6872, lon: 25.2797 },
+  LV: { lat: 56.9496, lon: 24.1052 },
+  EE: { lat: 59.4370, lon: 24.7536 },
+  FI: { lat: 60.1699, lon: 24.9384 },
+  SE: { lat: 59.3293, lon: 18.0686 },
+  DK: { lat: 55.6761, lon: 12.5683 },
+  NO: { lat: 59.9139, lon: 10.7522 },
+
+  DE: { lat: 52.5200, lon: 13.4050 },
+  FR: { lat: 48.8566, lon: 2.3522 },
+  NL: { lat: 52.3676, lon: 4.9041 },
+  BE: { lat: 50.8503, lon: 4.3517 },
+  LU: { lat: 49.6116, lon: 6.1319 },
+  CH: { lat: 46.9480, lon: 7.4474 },
+  AT: { lat: 48.2082, lon: 16.3738 },
+  CZ: { lat: 50.0755, lon: 14.4378 },
+  SK: { lat: 48.1486, lon: 17.1077 },
+  HU: { lat: 47.4979, lon: 19.0402 },
+  SI: { lat: 46.0569, lon: 14.5058 },
+  HR: { lat: 45.8150, lon: 15.9819 },
+  BA: { lat: 43.8563, lon: 18.4131 },
+  RS: { lat: 44.7866, lon: 20.4489 },
+  ME: { lat: 42.4304, lon: 19.2594 },
+  AL: { lat: 41.3275, lon: 19.8187 },
+  MK: { lat: 41.9973, lon: 21.4280 },
+
+  IT: { lat: 41.9028, lon: 12.4964 },
+  ES: { lat: 40.4168, lon: -3.7038 },
+  PT: { lat: 38.7223, lon: -9.1393 },
+  GB: { lat: 51.5072, lon: -0.1276 },
+  IE: { lat: 53.3498, lon: -6.2603 },
+  MT: { lat: 35.8989, lon: 14.5146 }
+};
+
+const FLAG_MAP = {
+  UA1: "🇺🇦", UA2: "🇺🇦", UA3: "🇺🇦", UA4: "🇺🇦", UA5: "🇺🇦",
+  MD: "🇲🇩", RO: "🇷🇴", BG: "🇧🇬", GR: "🇬🇷", TR: "🇹🇷",
+  CY: "🇨🇾", GE: "🇬🇪", AM: "🇦🇲", AZ: "🇦🇿", KZ: "🇰🇿",
+  IL: "🇮🇱", EG: "🇪🇬", PL: "🇵🇱", LT: "🇱🇹", LV: "🇱🇻",
+  EE: "🇪🇪", FI: "🇫🇮", SE: "🇸🇪", DK: "🇩🇰", NO: "🇳🇴",
+  DE: "🇩🇪", FR: "🇫🇷", NL: "🇳🇱", BE: "🇧🇪", LU: "🇱🇺",
+  CH: "🇨🇭", AT: "🇦🇹", CZ: "🇨🇿", SK: "🇸🇰", HU: "🇭🇺",
+  SI: "🇸🇮", HR: "🇭🇷", BA: "🇧🇦", RS: "🇷🇸", ME: "🇲🇪",
+  AL: "🇦🇱", MK: "🇲🇰", IT: "🇮🇹", ES: "🇪🇸", PT: "🇵🇹",
+  GB: "🇬🇧", IE: "🇮🇪", MT: "🇲🇹"
+};
 
 function findAirportCell(icao) {
   const cells = [...document.querySelectorAll(".airports-table td")];
@@ -1397,11 +1469,61 @@ function findAirportCell(icao) {
   });
 }
 
+function toRad(deg) {
+  return deg * Math.PI / 180;
+}
+
+function haversineKm(lat1, lon1, lat2, lon2) {
+  const R = 6371;
+  const dLat = toRad(lat2 - lat1);
+  const dLon = toRad(lon2 - lon1);
+
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+    Math.sin(dLon / 2) ** 2;
+
+  return 2 * R * Math.asin(Math.sqrt(a));
+}
+
+function bearingDeg(lat1, lon1, lat2, lon2) {
+  const φ1 = toRad(lat1);
+  const φ2 = toRad(lat2);
+  const λ1 = toRad(lon1);
+  const λ2 = toRad(lon2);
+
+  const y = Math.sin(λ2 - λ1) * Math.cos(φ2);
+  const x =
+    Math.cos(φ1) * Math.sin(φ2) -
+    Math.sin(φ1) * Math.cos(φ2) * Math.cos(λ2 - λ1);
+
+  return (Math.atan2(y, x) * 180 / Math.PI + 360) % 360;
+}
+
+function angularDiff(a, b) {
+  let d = Math.abs(a - b) % 360;
+  return d > 180 ? 360 - d : d;
+}
+
+function randomChoice(arr) {
+  if (!arr.length) return null;
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function codeToFlag(code) {
+  return FLAG_MAP[code] || "—";
+}
+
+function cargoToTons(value) {
+  return Math.round((value * 82) / 1000);
+}
+
 function maxCurrent(directions) {
   let idx = 0;
   for (let i = 1; i < directions.length; i++) {
     if (directions[i].current > directions[idx].current) idx = i;
   }
+
   return {
     index: idx,
     arrow: DIR_ARROWS[idx],
@@ -1416,7 +1538,9 @@ function weakest(directions) {
   for (let i = 1; i < directions.length; i++) {
     if (directions[i].bias < directions[idx].bias) idx = i;
   }
+
   const d = directions[idx];
+
   return {
     index: idx,
     arrow: DIR_ARROWS[idx],
@@ -1427,84 +1551,93 @@ function weakest(directions) {
   };
 }
 
-function cargoToTons(value) {
-  return Math.round((value * 82) / 1000);
+function pickCountryForDirection(lat, lon, directionIndex12) {
+  const targetBearing = DIR_BEARINGS[directionIndex12];
+  const tolerances = [15, 22.5, 30, 40];
+
+  for (const tolerance of tolerances) {
+    const candidates = [];
+
+    for (const [code, point] of Object.entries(COUNTRY_POINTS)) {
+      if (EXCLUDED_CODES.has(code)) continue;
+
+      const dist = haversineKm(lat, lon, point.lat, point.lon);
+      if (dist < 300 || dist > 5000) continue;
+
+      const brg = bearingDeg(lat, lon, point.lat, point.lon);
+      const diff = angularDiff(brg, targetBearing);
+
+      if (diff <= tolerance) {
+        candidates.push({
+          code,
+          dist,
+          diff
+        });
+      }
+    }
+
+    if (candidates.length) {
+      candidates.sort((a, b) => {
+        if (a.diff !== b.diff) return a.diff - b.diff;
+        return a.dist - b.dist;
+      });
+
+      const pool = candidates.slice(0, 6).map(x => x.code);
+      return randomChoice(pool);
+    }
+  }
+
+  return "UA2";
 }
 
-const FLAG_MAP = {
-  UA: "🇺🇦",
-  MD: "🇲🇩",
-  RO: "🇷🇴",
-  BG: "🇧🇬",
-  GR: "🇬🇷",
-  TR: "🇹🇷",
-  CY: "🇨🇾",
-  GE: "🇬🇪",
-  AZ: "🇦🇿",
-  PL: "🇵🇱",
-  LT: "🇱🇹",
-  CZ: "🇨🇿",
-  DE: "🇩🇪",
-  HU: "🇭🇺",
-  HR: "🇭🇷",
-  DK: "🇩🇰"
-};
-
-function codesToFlags(text) {
-  if (!text) return "";
-  return text
-    .split(/\s+/)
-    .map(code => FLAG_MAP[code] || code)
-    .join(" ");
-}
-  
 function renderDemandBlock(icao, airportData) {
   const paxDirs = airportData?.traffic?.B?.pax?.directions || [];
   const cargoDirs = airportData?.traffic?.B?.cargo?.directions || [];
+  const airportLat = airportData?.location?.lat;
+  const airportLon = airportData?.location?.lon;
 
   if (!paxDirs.length || !cargoDirs.length) return null;
+  if (typeof airportLat !== "number" || typeof airportLon !== "number") return null;
 
   const paxOut = maxCurrent(paxDirs);
   const cargoOut = maxCurrent(cargoDirs);
   const paxIn = weakest(paxDirs);
   const cargoIn = weakest(cargoDirs);
 
-  const countryMap = airportDirectionCountries[icao] || {};
+  const paxOutFlag = codeToFlag(pickCountryForDirection(airportLat, airportLon, paxOut.index));
+  const cargoOutFlag = codeToFlag(pickCountryForDirection(airportLat, airportLon, cargoOut.index));
+  const paxInFlag = codeToFlag(pickCountryForDirection(airportLat, airportLon, paxIn.index));
+  const cargoInFlag = codeToFlag(pickCountryForDirection(airportLat, airportLon, cargoIn.index));
 
-const paxOutFlags = codesToFlags(countryMap[paxOut.arrow] || "");
-const cargoOutFlags = codesToFlags(countryMap[cargoOut.arrow] || "");
-const paxInFlags = codesToFlags(countryMap[paxIn.arrow] || "");
-const cargoInFlags = codesToFlags(countryMap[cargoIn.arrow] || "");
-  
   const cargoOutTons = cargoToTons(cargoOut.current);
 
   const box = document.createElement("div");
   box.className = "airport-demand-box";
-box.innerHTML = `
-  <div class="airport-demand-line airport-demand-out">
-    <img src="DEP1.png" alt="Departures" class="airport-demand-header">
-    <span class="airport-demand-icon airport-demand-people">👪</span>
-    ${paxOut.current}
-    <span class="airport-demand-arrow">${paxOut.arrow}</span>
-    <span class="airport-demand-flags">${paxOutFlags}</span>
-    <br>
-    <span class="airport-demand-icon airport-demand-cargo">📦</span>
-    ${cargoOutTons}т
-    <span class="airport-demand-arrow">${cargoOut.arrow}</span>
-    <span class="airport-demand-flags">${cargoOutFlags}</span>
-  </div>
+  box.innerHTML = `
+    <div class="airport-demand-line airport-demand-out">
+      <img src="DEP1.png" alt="Departures" class="airport-demand-header">
+      <span class="airport-demand-icon airport-demand-people">👪</span>
+      ${paxOut.current}
+      <span class="airport-demand-arrow">${paxOut.arrow}</span>
+      <span class="airport-demand-flags">${paxOutFlag}</span>
+      <br>
+      <span class="airport-demand-icon airport-demand-cargo">📦</span>
+      ${cargoOutTons} т
+      <span class="airport-demand-arrow">${cargoOut.arrow}</span>
+      <span class="airport-demand-flags">${cargoOutFlag}</span>
+    </div>
 
-  <div class="airport-demand-line airport-demand-in">
-    <img src="ARR1.png" alt="Arrivals" class="airport-demand-header">
-    <span class="airport-demand-icon airport-demand-people">👪</span>
-    <span class="airport-demand-arrow">${paxIn.arrow}</span>
-    <span class="airport-demand-flags">${paxInFlags}</span>
-    <br>
-    <span class="airport-demand-icon airport-demand-cargo">📦</span>
-    <span class="airport-demand-arrow">${cargoIn.arrow}</span>
-    <span class="airport-demand-flags">${cargoInFlags}</span>
-  </div>
-`;
+    <div class="airport-demand-line airport-demand-in">
+      <img src="ARR1.png" alt="Arrivals" class="airport-demand-header">
+      <span class="airport-demand-icon airport-demand-people">👪</span>
+      <span class="airport-demand-arrow">${paxIn.arrow}</span>
+      <span class="airport-demand-flags">${paxInFlag}</span>
+      <br>
+      <span class="airport-demand-icon airport-demand-cargo">📦</span>
+      <span class="airport-demand-arrow">${cargoIn.arrow}</span>
+      <span class="airport-demand-flags">${cargoInFlag}</span>
+    </div>
+  `;
   return box;
 }
 
@@ -1542,29 +1675,6 @@ async function loadAirportDump() {
   }
 }
 
-  const airportDirectionCountries = {
-  UKOO: {
-    "↑": "UA MD",
-    "↗": "UA",
-    "→": "GE AZ",
-    "↘": "TR",
-    "↓": "TR CY",
-    "↙": "BG GR",
-    "←": "RO",
-    "↖": "MD PL"
-  },
-  UKLL: {
-    "↑": "PL LT",
-    "↗": "UA LT",
-    "→": "UA",
-    "↘": "RO BG",
-    "↓": "RO TR",
-    "↙": "HU HR",
-    "←": "CZ DE",
-    "↖": "PL DK"
-  }
-};
-  
 document.addEventListener("DOMContentLoaded", loadAirportDump);
 </script>
 
