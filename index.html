@@ -1553,9 +1553,10 @@ function cleanAmountText(s) {
 function parseCharterResults(text) {
   const data = {
     airports: {},
-    topOut: [],
-    topIn: [],
-    topUA: []
+    topInternationalOut: [],
+    topInternationalIn: [],
+    topDomesticPax: [],
+    topDomesticCargo: []
   };
 
   let section = "header";
@@ -1565,23 +1566,49 @@ function parseCharterResults(text) {
     const line = raw.trim();
     if (!line) continue;
 
-    if (line === "ТОП-5 на виліт") { section = "topOut"; continue; }
-    if (line === "ТОП-5 на прибуття") { section = "topIn"; continue; }
-    if (line === "ТОП по Україні") { section = "topUA"; continue; }
-    if (line.startsWith("----")) { section = "details"; currentAirport = null; continue; }
-
-    if (section === "topOut") {
-      if (!line.startsWith("ТОП") && !line.startsWith("Newsky") && !line.startsWith("Total")) data.topOut.push(line);
+    if (line === "ТОП-5 міжнародних на виліт") {
+      section = "topInternationalOut";
       continue;
     }
 
-    if (section === "topIn") {
-      data.topIn.push(line);
+    if (line === "ТОП-5 міжнародних на приліт") {
+      section = "topInternationalIn";
       continue;
     }
 
-    if (section === "topUA") {
-      data.topUA.push(line);
+    if (line === "ТОП-5 місцевих пасажирських") {
+      section = "topDomesticPax";
+      continue;
+    }
+
+    if (line === "ТОП-5 місцевих карго") {
+      section = "topDomesticCargo";
+      continue;
+    }
+
+    if (line.startsWith("----")) {
+      section = "details";
+      currentAirport = null;
+      continue;
+    }
+
+    if (section === "topInternationalOut") {
+      if (line !== "NONE") data.topInternationalOut.push(line);
+      continue;
+    }
+
+    if (section === "topInternationalIn") {
+      if (line !== "NONE") data.topInternationalIn.push(line);
+      continue;
+    }
+
+    if (section === "topDomesticPax") {
+      if (line !== "NONE") data.topDomesticPax.push(line);
+      continue;
+    }
+
+    if (section === "topDomesticCargo") {
+      if (line !== "NONE") data.topDomesticCargo.push(line);
       continue;
     }
 
@@ -1597,6 +1624,7 @@ function parseCharterResults(text) {
     }
 
     const m = line.match(/^(out|in)\s+(pax|cargo)\s+([A-Z0-9]{4}|NONE)-([A-Z0-9]{4}|NONE)(?:\s+\((\d+)nm\)\s+([^|]+)\|.*)?$/);
+
     if (m && currentAirport) {
       const dir = m[1];
       const mode = m[2];
@@ -1680,12 +1708,6 @@ function renderTopLines(lines, title) {
     </div>`;
 }
 
-function splitDomestic(lines) {
-  return {
-    pax: lines.filter(x => /pax\b/.test(x)),
-    cargo: lines.filter(x => /\d+т|>99т|>99t/.test(x))
-  };
-}
 
 async function loadAirportDump() {
   try {
@@ -1715,12 +1737,33 @@ async function loadAirportDump() {
     const deficitBox = document.getElementById("top-deficit-box");
     const domesticPaxBox = document.getElementById("top-domestic-pax-box");
     const domesticCargoBox = document.getElementById("top-domestic-cargo-box");
-    const domestic = splitDomestic(parsed.topUA);
+if (overloadedBox) {
+  overloadedBox.innerHTML = renderTopLines(
+    parsed.topInternationalOut,
+    "🛫 ТОП-5 міжнар. виліт:"
+  );
+}
 
-    if (overloadedBox) overloadedBox.innerHTML = renderTopLines(parsed.topOut, "🛫 ТОП-5 на виліт:");
-    if (deficitBox) deficitBox.innerHTML = renderTopLines(parsed.topIn, "🛬 ТОП-5 на прибуття:");
-    if (domesticPaxBox) domesticPaxBox.innerHTML = renderTopLines(domestic.pax, "🏠 ТОП місцеві pax:");
-    if (domesticCargoBox) domesticCargoBox.innerHTML = renderTopLines(domestic.cargo, "📦 ТОП місцеві cargo:");
+if (deficitBox) {
+  deficitBox.innerHTML = renderTopLines(
+    parsed.topInternationalIn,
+    "🛬 ТОП-5 міжнар. приліт:"
+  );
+}
+
+if (domesticPaxBox) {
+  domesticPaxBox.innerHTML = renderTopLines(
+    parsed.topDomesticPax,
+    "🏠 ТОП-5 місцеві pax:"
+  );
+}
+
+if (domesticCargoBox) {
+  domesticCargoBox.innerHTML = renderTopLines(
+    parsed.topDomesticCargo,
+    "📦 ТОП-5 місцеві cargo:"
+  );
+}
 
   } catch (e) {
     console.error("Помилка завантаження newsky-charter-results.txt:", e);
