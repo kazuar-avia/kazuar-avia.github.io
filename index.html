@@ -1624,7 +1624,12 @@ function formatCellRecord(record, mode, direction) {
   const target = direction === "out" ? record.to : record.from;
   const word = direction === "out" ? "до" : "з";
 
-  return `${record.amount} <span class="airport-icon">${icon}</span> ${word} ${flagImgByAirport(target)} <span style="font-size:11px; color:#444;">${target}</span>`;
+const amountText = record.amount
+  .replace(/\bpax\b/g, "")
+  .replace(/\s+/g, " ")
+  .trim();
+
+return `${amountText} <span class="airport-icon">${icon}</span> ${word} ${flagImgByAirport(target)} <span style="font-size:11px; color:#444;">${target}</span>`;
 }
 
 function renderCharterBlock(icao, info) {
