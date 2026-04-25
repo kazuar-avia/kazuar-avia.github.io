@@ -1645,6 +1645,41 @@ function parseCharterResults(text) {
   return data;
 }
 
+function formatAirportCellAmount(record, mode) {
+  let amount = String(record.amount || "")
+    .replace(/^~/, "")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  // Для cargo лишаємо як є
+  if (mode === "cargo") {
+    return amount
+      .replace(/>99t/g, ">99т")
+      .replace(/\s*t\b/g, "т")
+      .trim();
+  }
+
+  // Для pax у таблиці аеропортів робимо м'якше:
+  // 50-149  -> ~100
+  // 150-299 -> ~200
+  // 300-450 -> ~350
+  // >450    -> >450
+  if (amount.includes(">450")) {
+    return ">450";
+  }
+
+  const m = amount.match(/(\d+)/);
+  if (!m) return amount.replace(/\bpax\b/gi, "").trim();
+
+  const n = Number(m[1]);
+
+  if (n >= 50 && n <= 149) return "~100";
+  if (n >= 150 && n <= 299) return "~200";
+  if (n >= 300 && n <= 450) return "~350";
+
+  return amount.replace(/\bpax\b/gi, "").trim();
+}
+
 function formatCellRecord(record, mode, direction) {
   if (!record) return "";
 
@@ -1652,12 +1687,9 @@ function formatCellRecord(record, mode, direction) {
   const target = direction === "out" ? record.to : record.from;
   const word = direction === "out" ? "до" : "з";
 
-const amountText = record.amount
-  .replace(/\bpax\b/g, "")
-  .replace(/\s+/g, " ")
-  .trim();
+  const amountText = formatAirportCellAmount(record, mode);
 
-return `${amountText} <span class="airport-icon">${icon}</span> ${word} ${flagImgByAirport(target)} <span style="font-size:11px; color:#444;">${target}</span>`;
+  return `${amountText} <span class="airport-icon">${icon}</span> ${word} ${flagImgByAirport(target)} <span style="font-size:11px; color:#444;">${target}</span>`;
 }
 
 function renderCharterBlock(icao, info) {
@@ -1692,6 +1724,13 @@ function renderCharterBlock(icao, info) {
   return box;
 }
 
+function formatTopPaxAmount(n) {
+  if (n >= 50 && n <= 149) return "~100";
+  if (n >= 150 && n <= 299) return "~200";
+  if (n >= 300 && n <= 450) return "~350";
+  return String(n);
+}
+
 function formatTopLine(line) {
   let s = String(line)
     // прибираємо emoji-прапори з TXT
@@ -1724,10 +1763,15 @@ function formatTopLine(line) {
   // "до" -> стрілка
   s = s.replace(/\s+до\s+/g, " → ");
 
-  // pax -> іконка
-  s = s.replace(/((?:>|~)?\d+)\s*pax\b/gi, "$1 👨‍💼");
+  // >450 pax лишається >450 👨‍💼
+  s = s.replace(/>450\s*pax\b/gi, ">450 👨‍💼");
 
-  // tons -> іконка
+  // pax 50-149 -> ~100, 150-299 -> ~200, 300-450 -> ~350
+  s = s.replace(/\b(\d+)\s*pax\b/gi, function(match, num) {
+    return `${formatTopPaxAmount(Number(num))} 👨‍💼`;
+  });
+
+  // cargo tons -> 📦, як було
   s = s.replace(/((?:>|~)?\d+)\s*т\b/g, "$1 📦");
 
   // distance дрібнішим
