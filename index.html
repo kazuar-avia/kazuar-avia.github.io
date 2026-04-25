@@ -1544,6 +1544,10 @@ function flagImgByAirport(icao) {
   return `<img src="https://flagcdn.com/w20/${entry.cc}.png" class="flag-icon" title="${entry.name}">`;
 }
 
+  function airportNameByCode(icao) {
+  return AIRPORT_NAMES[icao] || "";
+}
+  
 function cleanAmountText(s) {
   return String(s || "")
     .replace(/^~/, "")
@@ -1552,6 +1556,8 @@ function cleanAmountText(s) {
     .trim();
 }
 
+let AIRPORT_NAMES = {};
+  
 function parseCharterResults(text) {
   const data = {
     airports: {},
@@ -1614,16 +1620,19 @@ function parseCharterResults(text) {
       continue;
     }
 
-    const header = line.match(/^([A-Z0-9]{4})\s+\((.*?)\)$/);
-    if (header) {
-      currentAirport = header[1];
-      data.airports[currentAirport] = {
-        name: header[2],
-        out: { pax: null, cargo: null },
-        in: { pax: null, cargo: null }
-      };
-      continue;
-    }
+const header = line.match(/^([A-Z0-9]{4})\s+\((.*?)\)$/);
+if (header) {
+  currentAirport = header[1];
+
+  AIRPORT_NAMES[currentAirport] = header[2];
+
+  data.airports[currentAirport] = {
+    name: header[2],
+    out: { pax: null, cargo: null },
+    in: { pax: null, cargo: null }
+  };
+  continue;
+}
 
     const m = line.match(/^(out|in)\s+(pax|cargo)\s+([A-Z0-9]{4}|NONE)-([A-Z0-9]{4}|NONE)(?:\s+\((\d+)nm\)\s+([^|]+)\|.*)?$/);
 
@@ -1691,7 +1700,7 @@ function formatCellRecord(record, mode, direction) {
 
   const amountText = formatAirportCellAmount(record, mode);
 
-  return `${amountText} <span class="airport-icon">${icon}</span> ${word} ${flagImgByAirport(target)} <span style="font-size:11px; color:#444;">${target}</span>`;
+  return `${amountText} <span class="airport-icon">${icon}</span> ${word} ${flagImgByAirport(target)} <span style="font-size:11px; color:#444;" title="${airportNameByCode(target)}">${target}</span>`;
 }
 
 function renderCharterBlock(icao, info) {
@@ -1758,9 +1767,9 @@ function formatTopLine(line) {
   );
 
   // Додаємо HTML-прапор після кожного ICAO-коду
-  s = s.replace(/\b[A-Z0-9]{4}\b/g, function(code) {
-    return `${code} ${flagImgByAirport(code)}`;
-  });
+s = s.replace(/\b[A-Z0-9]{4}\b/g, function(code) {
+  return `<span title="${airportNameByCode(code)}">${code}</span> ${flagImgByAirport(code)}`;
+});
 
   // "до" -> стрілка
   s = s.replace(/\s+до\s+/g, " → ");
@@ -1810,13 +1819,46 @@ function renderTopLines(lines, title) {
   }
 }
 
+async function loadNewskyAirportNames() {
+  try {
+    const res = await fetch("./newsky-airports.txt?v=" + new Date().getTime());
+    if (!res.ok) throw new Error("Не вдалося відкрити newsky-airports.txt");
+
+    const text = await res.text();
+
+    for (const raw of text.split(/\r?\n/)) {
+      const line = raw.trim();
+
+      if (!line) continue;
+      if (line.startsWith("UPDATED:")) continue;
+      if (line.startsWith("---")) continue;
+      if (!line.startsWith("{")) continue;
+
+      try {
+        const obj = JSON.parse(line);
+
+        if (obj.icao) {
+          // коротка назва: якщо є city — беремо city, якщо нема — name
+          AIRPORT_NAMES[obj.icao] = obj.city || obj.name || obj.icao;
+        }
+      } catch (e) {
+        // пропускаємо битий/неповний JSON-рядок
+      }
+    }
+  } catch (e) {
+    console.warn("Не вдалося прочитати назви аеропортів з newsky-airports.txt:", e);
+  }
+}
+  
 async function loadAirportDump() {
   try {
     const res = await fetch("./newsky-charter-results.txt?v=" + new Date().getTime());
     if (!res.ok) throw new Error("Не вдалося відкрити newsky-charter-results.txt");
 
-    const text = await res.text();
-    const parsed = parseCharterResults(text);
+await loadNewskyAirportNames();
+
+const text = await res.text();
+const parsed = parseCharterResults(text);
 
     const updatedEl = document.getElementById("data-updated");
 if (updatedEl) {
