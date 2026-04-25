@@ -1662,8 +1662,8 @@ function formatAirportCellAmount(record, mode) {
   // Для pax у таблиці аеропортів робимо м'якше:
   // 50-149  -> ~100
   // 150-299 -> ~200
-  // 300-450 -> ~350
-  // >450    -> >450
+  // 300-449 -> ~300
+  // >450    -> >400
   if (amount.includes(">450")) {
     return ">450";
   }
@@ -1675,7 +1675,7 @@ function formatAirportCellAmount(record, mode) {
 
   if (n >= 50 && n <= 149) return "~100";
   if (n >= 150 && n <= 299) return "~200";
-  if (n >= 300 && n <= 450) return "~350";
+  if (n >= 300 && n <= 449) return "~300";
 
   return amount.replace(/\bpax\b/gi, "").trim();
 }
@@ -1727,7 +1727,7 @@ function renderCharterBlock(icao, info) {
 function formatTopPaxAmount(n) {
   if (n >= 50 && n <= 149) return "~100";
   if (n >= 150 && n <= 299) return "~200";
-  if (n >= 300 && n <= 450) return "~350";
+  if (n >= 300 && n <= 449) return "~300";
   return String(n);
 }
 
