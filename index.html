@@ -1,0 +1,1800 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<title> Авіасимерське комьюніті Kazuar Avia</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #ffffff;
+  padding: 40px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 1000px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+th, td {
+  border: 1px solid #555;
+  padding: 10px;
+  text-align: center;
+  font-size: 16px;
+}
+
+th {
+  font-weight: bold;
+}
+
+input {
+  width: 100%;
+  font-size: 20px;
+  text-align: center;
+  border: none;
+  outline: none;
+}
+
+.input-cell {
+  background-color: #e6f3df;
+}
+
+ 
+.livery-table {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 1000px;
+  margin: 10px auto;
+}
+
+.livery-table td {
+  border: 1px solid #666;
+  padding: 5px;
+  vertical-align: middle;
+}
+
+.livery-table img {
+  width: 595px;
+  max-width: 100%;
+  display: block;
+}
+
+.livery-name {
+  font-size: 18px;
+  font-weight: bold;
+  background-color: #e6f3df;
+}
+
+.download-link {
+  margin-top: 5px;
+}
+
+.download-link a {
+  color: #0077cc;
+  text-decoration: underline;
+  font-size: 16px;
+}
+
+.links-table {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 1260px;
+  margin: 10px auto;
+}
+
+.links-table th,
+.links-table td {
+  width: 200px;
+  border: 1px solid #555;
+  padding: 5px;
+  text-align: center;
+}
+
+.links-table img {
+  width: 100%;
+  max-width: 212px;
+  display: block;
+  margin: auto;
+}
+
+.airports-table {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 1260px;
+  margin: 20px auto;
+}
+
+.airports-table th,
+.airports-table td {
+  border: 1px solid #444;
+  padding: 8px;
+  text-align: center;
+  vertical-align: top;
+  font-size: 14px;
+}
+
+.airports-table th.title {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.icon-table {
+  width: 240px;
+  border-collapse: collapse;
+  margin: 5px auto;
+  border: 0px solid #444;
+}
+
+.icon-table td {
+  padding: 4px;
+  text-align: center;
+  border: 0px solid #444;
+}
+
+.icon-table img {
+  width: 100px;
+  height: 37px;
+  display: block;
+  margin: auto;
+  }
+
+  .livery-grid {
+  width: 1000px;
+  margin: 30px auto;
+  border-collapse: collapse;
+}
+
+.livery-grid td {
+  width: 50%;
+  border: 1px solid #000;   /* контур ТІЛЬКИ навколо ячейки */
+  vertical-align: top;
+}
+
+.livery-header {
+  background: #e9f4df;      /* кольоровий заголовок */
+  text-align: center;
+  font-weight: bold;
+  padding: 5px;
+}
+
+.livery-content {
+  padding: 5px;            /* відступ 10px від краю ячейки */
+  text-align: center;
+}
+
+.livery-content img {
+  width: 100%;
+  max-width: 490px;
+  display: block;
+  margin: 0 auto 0px auto;
+}
+
+.livery-links {
+  font-size: 14px;
+}
+
+.livery-links a {
+  color: #0066cc;
+  text-decoration: underline;
+  margin: 0 6px;
+}
+
+
+.airport-demand-box {
+  margin-top: 4px;
+  font-size: 11px;
+  line-height: 1.08;
+  color: #333333;
+  text-align: center;
+}
+
+.airport-demand-line {
+  margin-top: 4px;
+  font-size: 14px;   /* ⬅ головне збільшення */
+  font-weight: 500;  /* трохи жирніше, але не bold */
+  font-weight: 500;
+  line-height: 1.8;
+}
+
+.airport-demand-header {
+  display: block;
+  width: 70px;
+  height: 13px;
+  margin: 0 auto 2px auto;
+}
+
+.airport-demand-icon {
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.airport-demand-people {
+  color: #ffffff;
+  text-shadow:
+    -1px -1px 0 #000,
+     1px -1px 0 #000,
+    -1px  1px 0 #000,
+     1px  1px 0 #000;
+}
+
+.airport-demand-cargo {
+  color: #7a4a16;
+}
+
+.airport-demand-arrow {
+  font-size: 15px;
+  font-weight: 900;
+  display: inline-block;
+  min-width: 14px;
+}
+
+.airport-demand-out {
+  color: #0a6b2d;
+}
+
+.airport-demand-in {
+  color: #8a3a00;
+}
+
+.airport-demand-flags {
+  display: inline-block;
+  margin-left: 1px;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+  /* Загальний текст у ячейках */
+.airports-table td {
+  font-size: 14px;   /* було ~13-14 */
+  line-height: 1.1;
+}
+
+/* Назва аеропорта (ICAO + місто) */
+.airports-table td strong {
+  font-size: 18px;
+}
+
+/* Блок з попитом */
+.airport-demand-box {
+  margin-top: 4px;
+  font-size: 14px;   /* основний текст */
+}
+
+
+
+/* Картинки DEP/ARR */
+.airport-demand-header {
+  height: 23px;   /* було 13 — тепер більше */
+  width: auto;
+  display: block;
+  margin-bottom: 2px;
+}
+
+  /* Контейнер ТОПів */
+.top-box {
+  text-align: center;
+  font-size: 14px;
+}
+
+/* Заголовок */
+.top-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+  
+  .flag-icon {
+  height: 12px;
+    width: 18px;
+      border: 1px solid #888;   /* чорна рамка */
+  border-radius: 3px;
+  vertical-align: middle;
+  margin: 0 1px;
+}
+
+.airport-icon {
+  display: inline-block;
+  height: 13px;
+  text-align: center;
+  vertical-align: -1px;
+  line-height: 1;
+  margin: 0 1px;
+  margin-top: 2px;
+}
+  
+</style>
+</head>
+
+<body>
+
+<h2 style="text-align:center; margin:-15px auto;">ВІТАЮ В УКРАЇНСЬКОМУ АВІАСІМЕРСЬКОМУ КОМ’ЮНІТІ !!!</h2>
+
+<p style="text-align:center;">
+  <em>Нижче наведені посилання на різні ресурси пов’язані з цим, долучайтесь =)</em>
+</p>
+
+<table class="links-table">
+  <tr colspan="4" style="width:1260px;background-color: #caeef2;">
+    <th>Youtube канал Kazuar Avia:</th>
+    <th>Discord де ми спілкуємся:</th>
+    <th>Віртуальна авіакомпанія:</th>
+    <th>Корисні посилання:</th>
+  </tr>
+  <tr>
+      
+    <td>
+      <a href="https://www.youtube.com/@kazuar13" target="_blank"><img src="1.jpg" alt="YouTube Kazuar Avia">
+      </a>
+      
+    </td>
+    <td>
+      <a href="https://discord.gg/7tSkgz2BUv" target="_blank"><img src="2.png" alt="Discord">
+      </a>
+    </td>
+    <td>
+      <a href="https://newsky.app/airline/ukr" target="_blank"><img src="3.png" alt="Virtual Airline">
+      </a>
+    </td>
+      <td>
+
+        <table class="icon-table">
+  <tr>
+    <td>
+      <a href="https://planner.flightsimulator.com/" target="_blank"><img src="charts.png" alt="msfs2024 charts/planner"></a>
+     </td>
+    <td>
+<a href="https://dispatch.simbrief.com/briefing/latest" target="_blank"><img src="simbrief.png" alt="Simbrief"></a>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+<a href="https://my.vatsim.net/home" target="_blank"><img src="vatsim.png" alt="Vatsim"></a>
+    </td>
+    <td>
+<a href="https://vatsim-radar.com/?center=34.26150,49.23896&zoom=6.64" target="_blank"><img src="radar.png" alt="Vatsim Radar"></a>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+<a href="https://ua.ivao.aero/en/resources/weather/airports" target="_blank"><img src="weather.png" alt="Погода по Україні"> </a>
+    </td>
+    <td>
+<a href="https://metar-taf.com/?c=490567.344421.6" target="_blank"><img src="matar.png" alt="METAR по світу"> </a>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+ <a href="https://flightsim.to/" target="_blank"><img src="flightsim.png" alt="flightsim.to"> </a> 
+    </td>
+    <td>
+      <a href="https://www.faa.gov/air_traffic/publications/atpubs/cnt_html/chap3_section_3.html" target="_blank"><img src="3ld.png" alt="3-літерні Коди авіакомпаній"> </a>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <a href="IFR Фразеологія_радіообміну_українською_і_англ. ПРИКЛАД.pdf" target="_blank">
+        <img src="IFR.jpg.png" alt="IFR Фразеологія">
+      </a>
+    </td>
+    <td>
+      <a href="VFR ПВП з Укр і Англ фразеологією і VFR картами укр аеродромів.pdf" target="_blank">
+        <img src="VFR.jpg" alt="VFR ПВП з Укр і Англ фразеологією">
+      </a>
+    </td>
+  </tr>
+</table>
+    </td>
+  </tr>
+</table>
+
+  <table class="airports-table">
+  <tr colspan="3" style="width:900px;background-color: #f4f0c0;">
+    <th class="title" colspan="9">
+      Скачати сценарії аеропортів для MSFS 2020/2024 (*платні, **тільки в marketplace):
+      <div id="data-updated" style="font-size:12px; text-align:center; margin:2px 0; color:#666; font-style:italic;""></div>
+    </th>
+  </tr>
+
+  <tr>
+    <td style="width:140px;background-color: #ffffff;color: #222222; font-size: 16px;">
+  <strong>UKBB*</strong><br>Бориспіль**</td>
+    <td style="width:140px;background-color: #ffffff;"><a href="https://contrail.shop/products/ukll-lviv-airport-msfs" target="_blank" style="color: #0077cc; text-decoration: underline;font-size: 16px;">
+      <strong>UKLL*</strong><br>Львів</a></td>
+    <td style="width:140px;background-color: #ffffff;"><a href="https://contrail.shop/products/ukoo-odesa-airport-msfs" target="_blank" style="color: #0077cc; text-decoration: underline;font-size: 16px;">
+      <strong>UKOO*</strong><br>Одеса</a></td>
+    <td style="width:140px;background-color: #ffffff;"><a href="https://flightsim.to/file/90948/ukkk-kyiv-zhuliany-airport-museum" target="_blank" style="color: #0077cc; text-decoration: underline;font-size: 16px;">
+      <strong>UKKK</strong><br>Жуляни</a></td>
+    <td style="width:140px;background-color: #ffffff;"><a href="https://flightsim.to/file/84765/kharkiv-airport-ukhh" target="_blank" style="color: #0077cc; text-decoration: underline;font-size: 16px;">
+      <strong>UKHH</strong><br>Харків</a></td>
+    <td style="width:140px;background-color: #ffffff;"><a href="https://flightsim.to/file/101575/ukkm-hostomel-airport-kyiv-antonov-2" target="_blank" style="color: #0077cc; text-decoration: underline;font-size: 16px;">
+      <strong>UKKM</strong><br>Гостомель</a></td>
+    <td style="width:140px;background-color: #ffffff;"><a href="https://flightsim.to/file/95508/uklr-rivne-airport" target="_blank" style="color: #0077cc; text-decoration: underline;font-size: 16px;">
+      <strong>UKLR</strong><br>Рівне</a></td>
+    <td style="width:140px;background-color: #ffffff;"><a href="https://flightsim.to/file/55359/ukcc-donetsk-international-airport-2013" target="_blank" style="color: #0077cc; text-decoration: underline;font-size: 16px;">
+      <strong>UKCC</strong><br>Донецьк</a></td>
+    <td style="width:140px;background-color: #ffffff;"><a href="https://drive.google.com/file/d/1BKNR0qwB271tswUTnnl0WXSm8fKTzhov/view?usp=sharing" target="_blank" style="color: #0077cc; text-decoration: underline;font-size: 16px;">
+      <strong>UKFF</strong><br>Сімферополь</a></td>
+ 
+     </tr>
+
+  <tr>
+    <td style="width:140px;background-color: #ffffff;"><a style="color: #0077cc; text-decoration: underline;font-size: 16px;" href="https://flightsim.to/file/88765/ukdd-international-airport-dnipro" target="_blank">
+      <strong>UKDD</strong><br>Дніпро</a></td>
+    <td style="width:140px;background-color: #ffffff;"><a style="color: #0077cc; text-decoration: underline;font-size: 16px;" href="https://flightsim.to/file/67391/international-airport-sumy" target="_blank">
+      <strong>UKHS</strong><br>Суми</a></td>
+    <td style="width:140px;background-color: #ffffff;"><a style="color: #0077cc; text-decoration: underline;font-size: 16px;" href="https://flightsim.to/file/67429/international-airport-cherkasy-ukke-cherkasy" target="_blank">
+      <strong>UKKE</strong><br>Черкаси</a></td>
+    <td style="width:140px;background-color: #ffffff;"><a style="color: #0077cc; text-decoration: underline;font-size: 16px;" href="https://flightsim.to/file/67813/international-airport-uklh-khmelnytskyi-delete-uk62-uklh-khmelnytskyi" target="_blank">
+      <strong>UKLH</strong><br>Хмельницький</a></td>
+    <td style="width:140px;background-color: #ffffff;"><a style="color: #0077cc; text-decoration: underline;font-size: 16px;" href="https://flightsim.to/file/68566/international-airport-ukhp-poltava-ukhp-poltava" target="_blank">
+      <strong>UKHP</strong><br>Полтава</a></td>
+    <td style="width:140px;background-color: #ffffff;"><a style="color: #0077cc; text-decoration: underline;font-size: 16px;" href="https://flightsim.to/file/68605/international-airport-ukcw-luhansk-ukcw-luhansk" target="_blank">
+      <strong>UKCW</strong><br>Луганськ</a></td>
+    <td style="width:140px;background-color: #ffffff;"><a style="color: #0077cc; text-decoration: underline;font-size: 16px;" href="https://flightsim.to/file/68643/international-airport-ukon-mykolaiv-ukon-mykolaiv" target="_blank">
+      <strong>UKON</strong><br>Миколаїв</a></td>
+    <td style="width:140px;background-color: #ffffff;"><a style="color: #0077cc; text-decoration: underline;font-size: 16px;" href="https://flightsim.to/file/68692/international-airport-ukww-vinnytsia-ukww-vinnytsia" target="_blank">
+      <strong>UKWW</strong><br>Вінниця</a></td>
+    <td style="width:140px;background-color: #ffffff;"><a style="color: #0077cc; text-decoration: underline;font-size: 16px;" href="https://flightsim.to/file/68889/international-airport-ukcm-mariupol-ukcm-mariupol" target="_blank">
+      <strong>UKCM</strong><br>Маріуполь</a></td>
+ 
+  </tr>
+    <tr>
+      <td style="width:140px;background-color: #ffffff;"><a style="color: #0077cc; text-decoration: underline;font-size: 16px;" href="https://flightsim.to/file/29255/ivano-frankivsk-intl-airport-ukli" target="_blank">
+      <strong>UKLI</strong><br>Франківськ</a><br><a style="color: #666666; text-decoration: underline;font-size: 14px;" href="https://flightsim.to/file/105181/enchancement-for-ukli-by-pilotalexyyz" target="_blank">+ мій патч</a></td>
+      <td style="width:140px;background-color: #ffffff;"><a style="color: #0077cc; text-decoration: underline;font-size: 16px;" href="https://flightsim.to/file/45653/uzhhorod-international-airport-uklu" target="_blank">
+      <strong>UKLU</strong><br>Ужгород</a></td>
+      <td style="width:140px;background-color: #ffffff;"><a style="color: #0077cc; text-decoration: underline;font-size: 16px;" href="https://flightsim.to/file/28742/kherson-intl-airport-ukoh" target="_blank">
+      <strong>UKOH</strong><br>Херсон</a></td>
+      <td style="width:140px;background-color: #ffffff;"><a style="color: #0077cc; text-decoration: underline;font-size: 16px;" href="https://flightsim.to/file/30106/ternopil-intl-airport-uklt" target="_blank">
+      <strong>UKLT</strong><br>Тернопіль</a></td>
+      <td style="width:140px;background-color: #ffffff;"><a href="https://contrail.shop/products/aviaart-ukln-chernivtsi-leonid-kadeniuk-intl-airport-msfs-2024" target="_blank" style="color: #0077cc; text-decoration: underline;font-size: 16px;">
+      <strong>UKLN*</strong><br>Чернівці</a></td>
+      <td style="width:140px;background-color: #ffffff;"><a style="color: #0077cc; text-decoration: underline;font-size: 16px;" href="https://flightsim.to/file/70471/ukkg-international-airport-kirivohrad-ukkg-kropyvnytskyi" target="_blank">
+      <strong>UKKG</strong><br>Кропивницький</a></td>
+         <td style="width:140px;background-color: #ffffff;"><a style="color: #0077cc; text-decoration: underline;font-size: 16px;" href="https://flightsim.to/file/69714/ukdr-international-airport-kryvyi-rih-ukdr-lozuvatka" target="_blank">
+      <strong>UKDR</strong><br>Кривий Ріг</a></td>
+      <td style="width:140px;background-color: #ffffff;"><a style="color: #0077cc; text-decoration: underline;font-size: 16px;" href="https://flightsim.to/file/69654/ukkl-international-chernihiv-airport-ukkl-chernihiv" target="_blank">
+      <strong>UKKL</strong><br>Чернігів</a></td>
+      <td style="width:140px;background-color: #ffffff;color: #888888; font-size: 16px;">
+      <strong>UKDE</strong><br><em>Запоріжжя Q2 2026</em></td>
+  </tr>
+    
+  <tr>
+          <td style="width:140px;background-color: #ffffff;"><a style="color: #0077cc; text-decoration: underline;font-size: 16px;" href="https://flightsim.to/file/62167/aeroclub-aeroprakt-ukvn" target="_blank">
+      <strong>UKVN</strong><br>Наливайківка</a><br><a style="color: #0077cc; text-decoration: underline;font-size: 16px;" href="https://flightsim.to/file/91099/ukgw-voroniv-airfield" target="_blank">
+      <strong>UKGV</strong><br>Воронів</a><br><a style="color: #0077cc; text-decoration: underline;font-size: 16px;" href="https://flightsim.to/file/68800/ukng-airport-gogoliv-ukng-gogoliv" target="_blank">
+      <strong>UKNG</strong><br>Гоголів</a></td>
+      
+      <td colspan="2" id="top-overloaded-box" style="background-color:#ffffff; padding:8px; font-size:14px; line-height:1.3; color:#222;">
+    Завантаження...
+  </td>
+      <td colspan="2" id="top-deficit-box" style="background-color:#ffffff; padding:8px; font-size:14px; line-height:1.3; color:#222;">
+    Завантаження...
+  </td>
+
+ <td colspan="2" id="top-domestic-pax-box" style="background-color:#ffffff; padding:8px; font-size:14px; line-height:1.3; color:#222; vertical-align:top;">
+    Завантаження місцевих pax...
+  </td>
+  <td colspan="2" id="top-domestic-cargo-box" style="background-color:#ffffff; padding:8px; font-size:14px; line-height:1.3; color:#222; vertical-align:top;">
+    Завантаження місцевих cargo...
+  </td>
+
+  </tr>
+    
+</table>
+
+
+
+
+
+  
+<table>
+
+  <tr>
+<tr>
+  <td colspan="3" style="width:1000px;background-color: #f2cad7;">
+    Підібрати ліврею і літак по номеру рейсу <strong>для віртуальної авіакомпанії Ukraine Classic Air Alliance:</strong>
+  </td>
+</tr>
+    
+    <th>Номер рейсу (3–4 цифри):</th>
+    <th style="width:300px;">Назва авіакомпанії:</th>
+    <th>Тип літака, на якому літали<br>(або рекомендується виконати рейс):</th>
+  </tr>
+  <tr>
+    <td class="input-cell">
+      <input type="number" id="flightNumber" min="100" max="9999" oninput="findFlight()">
+    </td>
+    <td id="airline"></td>
+    <td id="aircraft"></td>
+  </tr>
+</table>
+
+
+
+  
+<!-- ------------------------------------------------------------------------------ Реальні лівреї українських авіакомпаній ------------------------------------------------------------- -->
+   <table class="livery-grid">                                                 
+  <tr>                                                                     
+    <td colspan="2" style="background-color: #fbe694;">
+    <strong>Реальні лівреї українських авіакомпаній:</strong> (яких немає нижче, пошукайте на <a href="https://flightsim.to/" target="_blank">flightsim.to</a>)
+  </td>
+   </tr> 
+
+    <tr>
+    <td>
+      <div class="livery-header">Ukraine International | UR-UIA | PMDG Boeing 737-800</div>
+      <div class="livery-content">
+        <img src="UR-UIA.jpg" alt="Ukraine International<br>PMDG Boeing 737-800 UR-UIA (pax)">
+        <div class="livery-links">
+      скачати з flightsim.to: <a href="https://flightsim.to/file/102122/ukraine-international-airlines-ur-uia-pmdg-b737-800-4k" download target="_blank">MSFS 2024</a> / <a href="https://flightsim.to/file/52154/ukraine-international-airlines-pack-pmdg-737-800" download target="_blank">MSFS 2020</a> <br>
+      <br> <em>установка: як написано на flightsim.to </em>
+        </div>
+      </div>
+    </td>
+
+    <td>
+      <div class="livery-header">Ukraine International | UR-GOA | PMDG Boeing 777-200</div>
+      <div class="livery-content">
+        <img src="ur-goa-772.png" alt="Ukraine International<br>PMDG Boeing 777-200ER UR-GOA (pax)">
+        <div class="livery-links">
+      скачати 777-200ER: <a href="https://flightsim.to/file/96413/ukraine-international-airlines-ur-goa-with-cabin" download target="_blank">MSFS 2024</a> / <a href="https://flightsim.to/file/95474/pmdg-777-200er-ukraine-international-airlines-ur-goa-2018" download target="_blank">MSFS 2020</a> <br>
+      на 777-300 UR-GDK (Fictional): <a href="https://drive.google.com/file/d/1ecGot8NqB5MYKoLb-cf338OT4NOvNHR5/view?usp=sharing" download target="_blank">MSFS 2024</a> / <a href="https://flightsim.to/file/79395/pmdg-b777-300er-ukraine-international-ur-gdk" download target="_blank">MSFS 2020</a> <br>
+      <br><em>установка: як написано на flightsim.to <br>
+      якщо з гугл діска - в папку Community</em>
+        </div>
+      </div>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>
+      <div class="livery-header">Ukraine International | UR-FAA (cargo) | PMDG Boeing 737-800BCF</div>
+      <div class="livery-content">
+        <img src="UR-FAA.jpg" alt="Ukraine International 737-800BCF UR-FAA 2011 (cargo)">
+        <div class="livery-links">
+      скачати: <a href="https://drive.google.com/file/d/1GCm8r-X1IGSuF_1pxNTwJobXId6SGnM7/view?usp=sharing" target="_blank">MSFS 2024</a> / <a href="https://flightsim.to/file/50904/pmdg-737-800bcf-w-cargo-ukraine-international-airlines-cargo-uia-ur-faa" download target="_blank">MSFS 2020</a> <br>
+      <br> <em> установка  MSFS 2024: розпакувати в Community <br> установка  MSFS 2020: як написано на flightsim.to </em>
+        </div>
+      </div>
+    </td>
+
+    <td>
+      <div class="livery-header">Ukraine International | UR-EMA | FSS Embraer 190</div>
+      <div class="livery-content">
+        <img src="UR-EMA.JPG" alt="Ukraine International Embraer 190 UR-EMA (pax)">
+        <div class="livery-links">
+     скачати з flightsim.to: <a href="https://flightsim.to/file/68116/ukraine-international-ur-ema-embraer-190" target="_blank">MSFS 2020/2024</a> <br>
+      <br> <em>установка: як написано на flightsim.to </em>
+        </div>
+      </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <div class="livery-header">Wizzair Ukraine | UR-WUB | Fenix A320 IAE SL</div>
+      <div class="livery-content">
+        <img src="urwub2.JPG" alt="Wizzair Ukraine - Fenix A320 UR-WUB (pax)">
+        <div class="livery-links">
+      скачати: <a href="https://flightsim.to/file/103363/wizzair-ukraine-ur-wub-for-fenix-a320-iae-msfs-2024" target="_blank">MSFS 2024 (як на скріні)</a>
+      / <a href="https://flightsim.to/file/71290/fenix-a320-v2-wizz-air-ukraine-ur-wub-8k-cabin-textures" download target="_blank">MSFS 2020</a> <br>
+      <br> <em> установка: як написано на flightsim.to </em>
+        </div>
+      </div>
+    </td>
+
+    <td>
+      <div class="livery-header">Wizzair Ukraine | UR-WUC | Fenix A320 IAE WL</div>
+      <div class="livery-content">
+        <img src="urwuc.jpg" alt="Aerosvit vs. DonbassAero Fenix A320 UR-DAH (pax)">
+        <div class="livery-links">
+      скачати: <a href="https://flightsim.to/file/103739/wizzair-ukraine-ur-wuc-for-fenix-a320-iae-sl-msfs-2024" download target="_blank">MSFS 2024</a> <br>
+      <br> <em> установка: як написано на flightsim.to </em>
+        </div>
+      </div>
+    </td>
+  </tr>
+
+  <tr>
+      <td>
+      <div class="livery-header">Supernova Airlines | UR-NPA | PMDG 737-800 BDSF</div>
+      <div class="livery-content">
+        <img src="737nova.JPG" alt="Supernova Airlines | UR-NPA | PMDG 737-800 BDSF">
+        <div class="livery-links">
+      скачати: <a href="https://drive.google.com/file/d/1GL3O7He3P6_OJdLT7PH4kgUFtvZZB-dJ/view?usp=sharing" download target="_blank">MSFS 2020</a>
+          / MSFS 2024 (вже є в PMDG OC3)<br>
+      <br> <em>установка: в папку Community</em>
+        </div>
+      </div>
+    </td>
+
+    <td>
+      <div class="livery-header">Aerosvit vs. DonbassAero | UR-DAH | Fenix A320</div>
+      <div class="livery-content">
+        <img src="ur-dah.jpg" alt="Aerosvit vs. DonbassAero Fenix A320 UR-DAH (pax)">
+        <div class="livery-links">
+      скачати: <a href="https://drive.google.com/file/d/1jzk2CkOfW_uua2fAPAnDJKQRPQWBFfZ_/view?usp=sharing" target="_blank">MSFS 2024 (конвертація)</a>
+      / <a href="https://flightsim.to/file/71146/fenix-simulations-a320-v2-aerosvit-ur-dah" download target="_blank">MSFS 2020</a> <br>
+      <br> <em> установка  MSFS 2024: розпакувати в Community <br> установка  MSFS 2020: як написано на flightsim.to </em>
+        </div>
+      </div>
+    </td>
+  </tr>
+     
+    <tr>
+
+      <td>
+      <div class="livery-header">DonbassAero | UR-DAB | Fenix A320</div>
+      <div class="livery-content">
+        <img src="ur-dab.jpg" alt="DonbassAero - Fenix A320 UR-DAB (pax)">
+        <div class="livery-links">
+      скачати: <a href="https://drive.google.com/file/d/1JiwhVo5qPrzSX3MvsvCRUV1oKOUz7hgY/view?usp=sharing" target="_blank">MSFS 2024 (конвертація)</a>
+      / <a href="https://flightsim.to/file/79772/donbassaero-ur-dab-fenix-a320-iae-8ke" download target="_blank">MSFS 2020</a> <br>
+      <br> <em> установка  MSFS 2024: розпакувати в Community <br> установка  MSFS 2020: як написано на flightsim.to </em>
+        </div>
+      </div>
+    </td>
+      <td>
+      <div class="livery-header">Donbassaero | UR-DAB (old) | Fenix A320</div>
+      <div class="livery-content">
+        <img src="urdab-old.JPG" alt="Donbassaero - Fenix A320 UR-DAB (old)">
+        <div class="livery-links">
+            скачати: <a href="https://drive.google.com/file/d/1n70ysWyy3p6jclp19aGuXu53RqfSdaS0/view?usp=drive_link" target="_blank">MSFS 2024 (конвертація)</a>
+      / <a href="https://flightsim.to/file/80804/donbassaero-ur-dab-fenix-a320-v2-8k-textures-crt" download target="_blank">MSFS 2020</a> <br>
+      <br> <em> установка  MSFS 2024: розпакувати в Community <br> установка  MSFS 2020: як написано на flightsim.to </em>
+        </div>
+      </div>
+    </td>
+  </tr>
+
+    <tr>
+
+      <td>
+      <div class="livery-header">DonbassAero | UR-DAF | Fenix A321</div>
+      <div class="livery-content">
+        <img src="urdaf.JPG" alt="DonbassAero - Fenix A321 UR-DAF (pax)">
+        <div class="livery-links">
+      скачати: <a href="https://drive.google.com/file/d/1XlPLh5mnNATTI_31Z8UpaHqMRMl-cOt4/view?usp=sharing" target="_blank">MSFS 2024 (конвертація)</a>
+      / <a href="https://flightsim.to/file/96650/donbassaero-ur-daf-fenix-a321-w-cabin" download target="_blank">MSFS 2020</a> <br>
+      <br> <em> установка  MSFS 2024: розпакувати в Community <br> установка  MSFS 2020: як написано на flightsim.to </em>
+        </div>
+      </div>
+    </td>
+      <td>
+      <div class="livery-header">Windrose | UR-WRI | Fenix A321</div>
+      <div class="livery-content">
+        <img src="ur-wri.jpg" alt="Windrose - Fenix A321 UR-WRI">
+        <div class="livery-links">
+      скачати: <a href="https://drive.google.com/file/d/1Br5haSSdIxu3e1PkXkFMGnwjibzZijLA/view?usp=drive_link" download target="_blank">MSFS 2024</a>  / <a href="https://flightsim.to/file/81805/windrose-airlines-ur-wrj-fenix-a321-8k-textures" download target="_blank">MSFS 2020 (UR-WRJ)</a> <br>
+      <br> <em>установка: для 2024 в папку Community<br>           для 2020 - як написано на flightsim.to </em>
+        </div>
+      </div>
+    </td>
+  </tr>
+     
+<tr>
+    <td>
+      <div class="livery-header">Windrose | UR-WRW | Fenix A320</div>
+      <div class="livery-content">
+        <img src="ur-wrw.jpg" alt="Windrose - Fenix A320 UR-WRW (pax)">
+        <div class="livery-links">
+      скачати: <a href="https://drive.google.com/file/d/1siBJKN3Xmvl32fJxZ09ziSUS-TLJeHM2/view?usp=sharing" target="_blank">MSFS 2024 (конвертація)</a>
+      / <a href="https://flightsim.to/file/70990/fenix-simulations-a320-v2-windrose" download target="_blank">MSFS 2020</a> <br>
+      <br> <em> установка  MSFS 2024: розпакувати в Community <br> установка  MSFS 2020: як написано на flightsim.to </em>
+        </div>
+      </div>
+    </td>
+
+    <td>
+      <div class="livery-header">Windrose | UR-WRX | Fenix A321</div>
+      <div class="livery-content">
+        <img src="ur-wrx.jpg" alt="Windrose - Fenix A321 UR-WRX (pax)">
+        <div class="livery-links">
+      скачати: <a href="https://flightsim.to/file/103332/fenix-a321-windrose-ur-wrx-msfs20-24" download target="_blank">MSFS 2020 / 2024</a> <br>
+      <br> <em> установка  MSFS 2020/2024: як написано на flightsim.to </em>
+        </div>
+      </div>
+    </td>
+  </tr>
+  
+    <tr>
+    <td>
+      <div class="livery-header">Windrose/UIA | UR-WRQ | iniBuilds A330-200</div>
+      <div class="livery-content">
+        <img src="urwrq-AUI.PNG" alt="Windrose/UIA - iniBuilds A330-200 UR-WRQ (pax">
+        <div class="livery-links">
+      скачати: <a href="https://flightsim.to/file/92786/windrose-airlines-ur-wrq-inibuilds-microsoft-a330-200" target="_blank">MSFS 2024</a>
+           <br> <br> <em> Версія лівреї 2016-2017 років, під час польотів за МАУ <br> установка: як написано на flightsim.to </em>
+        </div>
+      </div>
+    </td>
+      
+      <td>
+      <div class="livery-header">Windrose | UR-WRQ | iniBuilds A330-200</div>
+      <div class="livery-content">
+        <img src="urwrq.PNG" alt="Windrose - iniBuilds A330-200 UR-WRQ (pax)">
+        <div class="livery-links">
+      скачати: <a href="https://drive.google.com/file/d/1v9ZT3AQFP93XUsddfOYkSljPCm79PJ18/view?usp=sharing" target="_blank">MSFS 2024</a>
+           <br> <br> <em> Версія оригінальної лівреї 2013-2015 років, без білого носика і МАУ <br> установка: розпакувати в Community </em>
+        </div>
+      </div>
+    </td>
+  </tr>
+
+      <tr>
+      <td>
+      <div class="livery-header">Windrose | UR-RWC | ATR 72-600</div>
+      <div class="livery-content">
+        <img src="ur-rwc.JPG" alt="Windrose - ATR 72-600 UR-RWC (pax)">
+        <div class="livery-links">
+      скачати: <a href="https://flightsim.to/file/55136/windrose-ur-rwc-asobo-atr-72-600" download target="_blank">MSFS 2020/2024</a> <br>
+      <br> <em> установка: як написано на flightsim.to </em>
+        </div>
+      </div>
+    </td>
+
+      <td>
+      <div class="livery-header">Bravo Airways | UR-COC | Fly The Maddog X MD-82</div>
+      <div class="livery-content">
+        <img src="ur-coc.JPG" alt="Bravo Airways - Fly The Maddog X MD-82 UR-COC (pax)">
+        <div class="livery-links">
+      скачати: <a href="https://flightsim.to/file/32001/bravo-airways-livery-for-maddogx-md-82-ukraine" download target="_blank">MSFS 2020</a> <br>
+      <br> <em> установка: як написано на flightsim.to </em>
+        </div>
+      </div>
+    </td>
+    </tr>
+  
+      <tr>
+      <td>
+      <div class="livery-header">SkyUp | PMDG 737-800</div>
+      <div class="livery-content">
+        <img src="skyup.JPG" alt="SkyUp - PMDG 737-800 (pax)">
+        <div class="livery-links">
+      скачати: <a href="https://flightsim.to/file/102386/skyup-collection-pmdg-737-800-msfs-2024" target="_blank">MSFS 2024</a>
+      / <a href="https://flightsim.to/file/53675/skyup-pack-pmdg-737-800" download target="_blank">MSFS 2020</a> <br>
+      <br> <em> установка: як написано на flightsim.to </em>
+        </div>
+      </div>
+    </td>
+
+      <td>
+      <div class="livery-header">Anda Air | UR-CPB | Fly The Maddog X MD-82</div>
+      <div class="livery-content">
+        <img src="ur-cpb.JPG" alt="Anda Air - Fly The Maddog X MD-82 UR-CPB (pax)">
+        <div class="livery-links">
+      скачати: <a href="https://flightsim.to/file/33764/md-82-anda-air-livery-ur-cpb-ukraine" target="_blank">MSFS 2020</a>
+           <br> <br> <em> установка: як написано на flightsim.to </em>
+        </div>
+      </div>
+    </td>
+    </tr>
+     <tr>
+      <td>
+      <div class="livery-header"> Bravo Airways | UR-CRX | MD-82 (Fly the Maddog 20th Ann.)</div>
+      <div class="livery-content">
+        <img src="urcrx.JPG" alt="Bravo Airways | UR-CRX | MD-82 (Fly the Maddog 20th Ann.)">
+        <div class="livery-links">
+      скачати: <a href="https://flightsim.to/file/103943/bravo-airlines-ur-crx-md-82-fly-the-maddog-20th-anniversary" download target="_blank">MSFS 2020 / 2024</a><br>
+      <br> <em>установка: як написано на flightsim.to</em>
+        </div>
+      </div>
+    </td>
+
+ <td>
+      <div class="livery-header">Bukovyna Airlines | UR-CJM | BAe146/Avro RJ (Just Flight)</div>
+      <div class="livery-content">
+        <img src="urcjm.JPG" alt="Bukovyna Airlines | UR-CJM | BAe146/Avro RJ (Just Flight)">
+        <div class="livery-links">
+      скачати: <a href="https://flightsim.to/file/103804/bae146-avro-rj-bukovyna-airlines-mahan" download target="_blank">MSFS 2024</a><br>
+      <br> <em>установка: як написано на flightsim.to</em>
+        </div>
+      </div>
+    </td>
+   </tr> 
+        <tr>
+      <td>
+      <div class="livery-header">Kharkiv Airlines | UR-CLR | PMDG Boeing 737-800</div>
+      <div class="livery-content">
+        <img src="ur-clr.JPG" alt="Kharkiv Airlines - PMDG Boeing 737-800 UR-CLR (pax)">
+        <div class="livery-links">
+      скачати: <a href="https://drive.google.com/file/d/10V8betsaXlsiCxSycJCtkKAnB2UH9c5t/view?usp=sharing" target="_blank">MSFS 2024 (конвертація)</a>
+      / <a href="https://flightsim.to/file/38809/kharkiv-airlines-i-ur-clr-4k-i-pmdg-737-800" download target="_blank">MSFS 2020</a> <br>
+      <br> <em> установка  MSFS 2024: розпакувати в Community <br> установка  MSFS 2020: як написано на flightsim.to </em>
+        </div>
+      </div>
+    </td>
+
+      <td>
+      <div class="livery-header">Bees Airlines | PMDG Boeing 737-800 (pax)</div>
+      <div class="livery-content">
+        <img src="ur-uba.JPG" alt="Bees Airlines | PMDG Boeing 737-800 (pax)">
+        <div class="livery-links">
+      скачати: <a href="https://flightsim.to/file/40345/pmdg-737-800-bees-airline-ur-uba" target="_blank">MSFS 2020/2024</a>
+           <br> <br> <em> установка: як написано на flightsim.to </em>
+        </div>
+      </div>
+    </td>
+    </tr>
+
+        <tr>
+      <td>
+      <div class="livery-header">Aerosvit | UR-DSA (pax) | FSS E190</div>
+      <div class="livery-content">
+        <img src="ur-dsa.JPG" alt="Aerosvit - FSS E190 UR-DSA (pax)">
+        <div class="livery-links">
+      скачати: <a href="https://flightsim.to/file/68115/aerosvit-ur-dsa-embraer-190" target="_blank">MSFS 2020 / 2024</a>
+      <br>
+      <br> <em> установка: як написано на flightsim.to </em>
+        </div>
+      </div>
+    </td>
+
+
+    <td>
+      <div class="livery-header">AeroSvit | UR-AAN | PMDG 737-800</div>
+      <div class="livery-content">
+        <img src="uraan2.JPG" alt="AeroSvit PMDG 737-800 UR-AAN">
+        <div class="livery-links">
+      скачати: <a href="https://flightsim.to/file/40085/aerosvit-ukrainian-airlines-ur-aan" target="_blank">MSFS 2020</a> <br>
+      <br> <em> установка: як написано на flightsim.to </em>
+        </div>
+      </div>
+    </td>
+    </tr>
+<tr>
+      <td>
+      <div class="livery-header">Ukraine Air Enterprise | UR-ABA | Fenix A319</div>
+      <div class="livery-content">
+        <img src="uraba.JPG" alt="Ukraine Air Enterprise | UR-ABA | Fenix A319">
+        <div class="livery-links">
+      скачати: <a href="https://drive.google.com/file/d/1TxM-9dikMmz7YU-MuNZmlsUnXgzgm7tP/view?usp=sharing" download target="_blank">MSFS 2024</a> / <a href="https://flightsim.to/file/81892/ukraine-air-enterprise-ur-aba-fenix-a319-8k-textures" download target="_blank">MSFS 2020</a> <br>
+      <br> <em> установка 2024: в папку Community <br> установка 2020: як написано на flightsim.to</em>
+        </div>
+      </div>
+    </td>
+
+      <td>
+      <div class="livery-header">DART Ukrainian Airlines | UR-CII | Fenix A320</div>
+      <div class="livery-content">
+        <img src="urcii.jpg" alt="DART Ukrainian Airlines | UR-CII | Fenix A320">
+        <div class="livery-links">
+      скачати: <a href="https://drive.google.com/file/d/1mljdd2SyAoaDObsUUuaabUqD0BsJSQjw/view?usp=sharing" download target="_blank">MSFS 2024 (конвертація)</a>
+          / <a href="https://flightsim.to/file/95616/dart-airlines-ur-cii-fenix-a320-w-crt" download target="_blank">MSFS 2020</a> <br>
+      <br> <em> установка 2024: в папку Community <br> установка 2020: як написано на flightsim.to</em>
+        </div>
+      </div>
+    </td>
+   </tr>  
+
+     <tr>
+      <td>
+      <div class="livery-header">SkyLine Express | UR-SLG (2025) | PMDG Boeing 737-800<div style="color:red">new!</div></div>
+      <div class="livery-content">
+        <img src="urslg.JPG" alt="SkyLine Express | UR-SLG (2025) | PMDG Boeing 737-800">
+        <div class="livery-links">
+      скачати:  <a href="https://drive.google.com/file/d/1L4GcQlARziqn9HNNayOV3y35ndRTWGV6/view?usp=sharing" download target="_blank">MSFS 2024 (з реалістичним кокпітом!)</a>
+                    / <a href="https://drive.google.com/file/d/1jh8kxA8C76eRbmkibxeqBR_BTGSiX4Uz/view?usp=sharing" download target="_blank">MSFS 2020</a><br>
+      <br> <em>установка: в папку Community</em>
+        </div>
+      </div>
+    </td>
+
+ <td>
+      <div class="livery-header">SkyLine Express | UR-SLH | PMDG Boeing 737-800</div>
+      <div class="livery-content">
+        <img src="urslh.JPG" alt="SkyLine Express | UR-SLH | PMDG Boeing 737-800">
+        <div class="livery-links">
+      скачати: <a href="https://drive.google.com/file/d/1hlMqonw9URa2yp7PZqhCC94TpY9JD2ns/view?usp=sharing" download target="_blank">MSFS 2024</a>
+          / <a href="https://drive.google.com/file/d/175meRcYI1Il1lR0TLtcWAQqtxA5hR7py/view?usp=sharing" download target="_blank">MSFS 2020</a><br>
+      <br> <em>установка: в папку Community</em>
+        </div>
+      </div>
+    </td>
+   </tr>  
+
+     <tr>
+      <td>
+      <div class="livery-header">SkyLine Express | UR-AZR | PMDG 777-300ER</div>
+      <div class="livery-content">
+        <img src="urazr.JPG" alt="SkyLine Express | UR-AZR | PMDG 777-300ER">
+        <div class="livery-links">
+      скачати: <a href="https://drive.google.com/file/d/1eETVKEj5a29to9HKAiHSXJhz94wSjluE/view?usp=sharing" download target="_blank">MSFS 2024</a>
+          / <a href="https://flightsim.to/file/87969/pmdg-777-300er-skyline-express-ur-azr-ex-azur-air-8k" download target="_blank">MSFS 2020</a><br>
+      <br> <em>установка 2024: в папку Community<br>установка 2020: як написано на flightsim.to</em>
+        </div>
+      </div>
+    </td>
+
+ <td>
+      <div class="livery-header">SkyLine Express | UR-SLW | PMDG 737-900ER</div>
+      <div class="livery-content">
+        <img src="urslw.JPG" alt="SkyLine Express | UR-SLW | PMDG 737-900ER">
+        <div class="livery-links">
+      скачати: <a href="https://drive.google.com/file/d/1bz8e-pe4IuwF6bz7F1UAhFIvIMFfFcNk/view?usp=sharing" download target="_blank">MSFS 2024</a>
+          / <a href="https://flightsim.to/file/79656/skyline-express-i-ur-slw-w-dirty-4k-i-pmdg-737-900er" download target="_blank">MSFS 2020</a><br>
+      <br> <em>установка 2024: в папку Community<br>установка 2020: як написано на flightsim.to</em>
+        </div>
+      </div>
+    </td>
+   </tr> 
+
+     <tr>
+
+     <tr>
+       
+ <td>
+      <div class="livery-header">SkyUp | UR-SQE "Shakhtar" | PMDG 737-700<div style="color:red">new!</div></div>
+      <div class="livery-content">
+        <img src="737skyup.PNG" alt="SkyLine Express | UR-SLW | PMDG 737-900ER">
+        <div class="livery-links">
+      скачати: <a href="https://drive.google.com/file/d/1PQFMn9YiCgnlZBj65NrcBya6Oi5LYExc/view?usp=sharing" download target="_blank">MSFS 2024</a> 
+           / <a href="https://flightsim.to/file/32819/skyup-special-shakhtar-livery-737-700-pmdg" download target="_blank">MSFS 2020</a><br>
+      <br>
+          установка 2024: в папку Community
+          <br> <em>установка 2020: як написано на flightsim.to</em>
+        </div>
+      </div>
+    </td>
+
+ <td>
+      <div class="livery-header">UKRAINE INTERNATIONAL | UR-PSI | PMDG 737-900ER</div>
+      <div class="livery-content">
+        <img src="urpsi.JPG" alt="UKRAINE INTERNATIONAL | UR-PSI | PMDG 737-900ER">
+        <div class="livery-links">
+      скачати: <a href="https://drive.google.com/file/d/10Jy3w0cqJa3qoHkZX0BHcqTGsY3BJngR/view?usp=sharing" download target="_blank">MSFS 2024</a>
+          / <a href="https://flightsim.to/file/50179/pmdg-737-900er-ukraine-international-airlines-ur-psi" download target="_blank">MSFS 2020</a><br>
+      <br> <em>установка 2024: в папку Community<br>установка 2020: як написано на flightsim.to</em>
+        </div>
+      </div>
+    </td>
+       
+   </tr> 
+         <tr>
+       
+ <td>
+      <div class="livery-header">UTair Ukraine | UR-UTQ | PMDG 737-800<div style="color:red">new!</div></div>
+      <div class="livery-content">
+        <img src="urutq.PNG" alt="UTair Ukraine | UR-UTQ | PMDG 737-800">
+        <div class="livery-links">
+      скачати: <a href="https://flightsim.to/addon/107450/pmdg-b737-800-utair-ukranie-ur-utq" download target="_blank">MSFS 2020/2024</a> 
+      
+      <br>
+           <br> <em>установка: як написано на flightsim.to</em>
+        </div>
+      </div>
+    </td>
+
+ <td>
+      <div class="livery-header">...</div>
+      <div class="livery-content">
+        <em>...</em>
+        </div>
+   </td>
+       
+   </tr>  
+   </table>
+
+<!-- ------------------------------------------------------------------------------ Інші лівреї українських авіакомпаній: ------------------------------------------------------------- -->
+   <table class="livery-grid">                                                 
+  <tr>                                                                     
+    <td colspan="2" style="background-color: #f4f0c0;">
+    <strong>Інші лівреї українських авіакомпаній:</strong>
+  </td>
+   </tr> 
+  
+        <tr>
+      <td>
+      <div class="livery-header">Motor Sich - Fokker F27-MK500<br> <em>(як заміна Ан-24)</em></div>
+      <div class="livery-content">
+        <img src="ur-kzr.JPG" alt="Motor Sich - Fokker F27-MK500">
+        <div class="livery-links">
+      скачати: <a href="https://flightsim.to/file/91632/fokker-f27-motor-sich-fictional-an-24-livery" target="_blank">MSFS 2020</a> <br>
+      <br> <em>літак Fokker F27-MK500 безкоштовний - <a href="https://flightsim.to/liveries/fokker-f27-mk-500/" target="_blank">скачати тут</a>
+      <br> установка лівреї: як написано на flightsim.to</em>
+        </div>
+      </div>
+    </td>
+      <td>
+      <div class="livery-header">Air Ukraine - Fokker F28-1000 UR-40393<br> <em>(як заміна Як-40)</em></div> 
+      <div class="livery-content">
+        <img src="f28ukr.JPG" alt="Air Ukraine - Fokker F28-1000 UR-40393">
+        <div class="livery-links">
+      скачати: <a href="https://flightsim.to/file/103743/fokker-f28-1000-air-ukraine-livery-ur-40393-fictional" target="_blank">MSFS 2024</a>
+           <br> <br> <em> установка: як написано на flightsim.to </em>
+        </div>
+      </div>
+    </td>
+     
+    </tr>
+
+  <tr>
+          <td>
+      <div class="livery-header">Skyup Fenix A321 9H-PEB<br> <em>(хвіст не перекрашували в реальності, це був лізинг)</em></div>
+      <div class="livery-content">
+        <img src="skyupA321.JPG" alt="Skyup Fenix A321 9H-PEB">
+        <div class="livery-links">
+      скачати: <a href="https://drive.google.com/file/d/1RuapCW5qln32d6oVHUMlLerSe10aLJd5/view?usp=sharing" target="_blank">MSFS 2020 / 2024</a> <br>
+      <br> <em> установка: в папку Community (в архіві 2 версії- для 2020 i 2024) </em>
+        </div>
+      </div>
+    </td>
+
+      <td>
+      <div class="livery-header">UTair Ukraine - Aerosoft CRJ-550 UR-UTZ<br> <em>(як заміна CRJ-200LR піде)</em> </div> 
+      <div class="livery-content">
+        <img src="ur-utz.JPG" alt="UTair Ukraine - Aerosoft CRJ-550 UR-UTZ">
+        <div class="livery-links">
+      скачати: <a href="https://flightsim.to/file/100140/crj-550-utair-ukraine" target="_blank">MSFS 2020 / 2024</a>
+           <br> <br> <em> установка: як написано на flightsim.to </em>
+        </div>
+      </div>
+    </td>
+    
+  </tr>
+
+<tr>
+<td>
+      <div class="livery-header">Air Ukraine - FSS Boeing 727-200 <br> <em>(Fictional, але як заміна Ту-154 піде)</em></div>
+      <div class="livery-content">
+        <img src="727superAirUkr.JPG" alt="Air Ukraine - FSS Boeing 727-200">
+        <div class="livery-links">
+      скачати: <a href="https://flightsim.to/file/103385/boeing-727-200-super-27-air-ukraine-ur-85499-1995" target="_blank">MSFS 2020 (Super 27 pax) </a> <br>
+      <br> <em> установка лівреї: як написано на flightsim.to</em>
+        </div>
+      </div>
+    </td>
+     
+      <td>
+      <div class="livery-header">Supernova - FSS Boeing 727-200 (cargo) <br> <em>(Fictional)</em> </div> 
+      <div class="livery-content">
+        <img src="727supernova.JPG" alt="Supernova - FSS Boeing 727-200">
+        <div class="livery-links">
+      скачати: <a href="https://drive.google.com/file/d/161N4ML71mnxe-Q4RQcEY41_cG99aUAem/view?usp=sharing" target="_blank">MSFS 2020</a> / <a href="https://flightsim.to/file/103231/b727f-super27-supernova-fictional" target="_blank">MSFS 2020 (Super 27)</a>
+                    <br> <br> <em> установка: як написано на flightsim.to </em>
+        </div>
+      </div>
+    </td>
+</tr>
+
+<tr>
+<td>
+      <div class="livery-header">Dniproavia - PMDG 737-600  <em>(трохи Fictional, в реальності це 737-500)</em></div>
+      <div class="livery-content">
+        <img src="736dnipro.JPG" alt="Dniproavia - PMDG 737-600">
+        <div class="livery-links">
+      скачати: <a href="https://drive.google.com/file/d/1xID2eeza6-vPvy9y9m4ab5HK0jpyJiIA/view?usp=sharing" target="_blank">MSFS 2024 (конвертація)</a>
+      / <a href="https://flightsim.to/file/66100/pmdg-737-600-dniproavia-ur-dnc" target="_blank">MSFS 2020</a> <br>
+      <br> <em> установка  MSFS 2024: розпакувати в Community <br> установка MSFS 2020: як написано на flightsim.to</em>
+        </div>
+      </div>
+    </td>
+     
+      <td>
+      <div class="livery-header">Air Onix - PMDG 737-600 <em>(трохи Fictional, в реальності це 737-500)</em> </div> 
+      <div class="livery-content">
+        <img src="736onix.JPG" alt="Air Onix - PMDG 737-600">
+        <div class="livery-links">
+      скачати: <a href="https://drive.google.com/file/d/1mbJ4VuoDuLJVgQTpkS7chzb2MniiJvIT/view?usp=sharing" target="_blank">MSFS 2024 (конвертація)</a>
+      / <a href="https://flightsim.to/file/55501/pmdg-boeing-737-600-air-onix" target="_blank">MSFS 2020</a>
+           <br> <br> <em> установка  MSFS 2024: розпакувати в Community <br> установка MSFS 2020: як написано на flightsim.to </em>
+        </div>
+      </div>
+    </td>
+</tr>
+
+
+<tr>
+<td>
+      <div class="livery-header">Windrose - iniBuilds A321 LR<br> <em>(трохи Fictional, у Windrose A321ceo)</em></div>
+      <div class="livery-content">
+        <img src="ini321windrose.JPG" alt="Windrose - iniBuilds A321 LR">
+        <div class="livery-links">
+      скачати: <a href="https://flightsim.to/file/91629/inibuilds-airbus-a321lr-ur-wrx-windrose-w-cabin-fictional" target="_blank">MSFS 2024</a> <br>
+      <br> <em> установка лівреї: як написано на flightsim.to</em>
+        </div>
+      </div>
+    </td>
+     
+      <td>
+      <div class="livery-header">Ukraine International - iFly 737 MAX8 UR-MXA<br> <em>(трохи Fictional, МАУ так і не отримала МАХ)</em> </div> 
+      <div class="livery-content">
+        <img src="urmxa.JPG" alt="Ukraine International - iFly 737 MAX8 UR-MXA">
+        <div class="livery-links">
+      скачати: <a href="https://flightsim.to/file/83345/ukraine-international-airlines-ur-mxa" target="_blank">MSFS 2020 / 2024</a>
+           <br> <br> <em> установка: як написано на flightsim.to </em>
+        </div>
+      </div>
+    </td>
+</tr>
+     
+<tr>
+      <td>
+      <div class="livery-header">Windrose - FBW A320neo UR-WRW<br> <em>(насправді це А320сео)</em></div>
+      <div class="livery-content">
+        <img src="urwrwfbw.JPG" alt="Windrose - FBW A320neo UR-WRW">
+        <div class="livery-links">
+      скачати: <a href="https://flightsim.to/file/24511/a32nx-windrose-a320-neo-ukraine" download target="_blank">MSFS 2020/2024</a> <br>
+      <br> <em> Ліврея для безкоштовного A320neo від FBW (flybywiresim.com) <BR> установка: як написано на flightsim.to </em>
+        </div>
+      </div>
+    </td>
+
+      <td>
+      <div class="livery-header">Armed Forces of Ukraine | Inibuilds A321 LR<br> <em>(Fictional)</em></div>
+      <div class="livery-content">
+        <img src="a321mil.JPG" alt="Armed Forces of Ukraine | Inibuilds A321 LR">
+        <div class="livery-links">
+      скачати: <a href="https://flightsim.to/file/100459/inibuilds-a321lr-ukrainian-armed-forces" download target="_blank">MSFS 2024</a> <br>
+      <br> <em> установка: як написано на flightsim.to </em>
+        </div>
+      </div>
+    </td>
+</tr>
+
+ <tr>
+      <td>
+      <div class="livery-header">Armed Forces of Ukraine | Miltech CH-47D (Chinook)<br> <em>(Fictional)</em></div>
+      <div class="livery-content">
+        <img src="chin.JPG" alt="Armed Forces of Ukraine | Miltech CH-47D (Chinook)">
+        <div class="livery-links">
+      скачати: <a href="https://flightsim.to/file/99094/miltech-ch-47d-ukraine-national-guard" download target="_blank">MSFS 2020/2024</a> <br>
+      <br> <em> установка: як написано на flightsim.to </em>
+        </div>
+      </div>
+    </td>
+
+      <td>
+      <div class="livery-header">Armed Forces of Ukraine | A400M Atlas<br> <em>(Fictional)</em></div>
+      <div class="livery-content">
+        <img src="a400mil.JPG" alt="Armed Forces of Ukraine | A400M Atlas">
+        <div class="livery-links">
+      скачати: <a href="https://flightsim.to/file/98529/inibuilds-a400m-atlas-ukrainian-armed-forces" download target="_blank">MSFS 2024</a> <br>
+      <br> <em> установка: як написано на flightsim.to </em>
+        </div>
+      </div>
+    </td>
+</tr>
+
+             <tr>
+
+      <td>
+      <div class="livery-header">Літак контрабандистів - Ан-2 UR-40308<br> <em>(атмосферна реальна ліврея)</em></div> 
+      <div class="livery-content">
+        <img src="an2.JPG" alt="Літак контрабандистів - Ан-2 UR-40308">
+        <div class="livery-links">
+      скачати: <a href="https://flightsim.to/file/100842/ukrainian-an-2-weathered-livery-ur-40308" target="_blank">MSFS 2020 / 2024</a>
+           <br> <br> <em> установка: як написано на flightsim.to </em>
+        </div>
+      </div>
+    </td>
+
+ <td>
+      <div class="livery-header">Аеросвіт | BAe146-200/Avro RJ-85 <br> <em>(Схожий на Ан-148/158)</em></div>
+      <div class="livery-content">
+        <img src="urntq.JPG" alt="Аеросвіт | BAe146-200/Avro RJ-85">
+        <div class="livery-links">
+      скачати: <a href="https://flightsim.to/addon/105677/bae146-200-avro-rj-85-aerosvit" download target="_blank">MSFS 2020/2024</a> <br>
+      <br> <em> установка: як написано на flightsim.to </em>
+        </div>
+      </div>
+    </td>
+     
+    </tr>
+     
+</table>
+
+  <!-- -------------------------------------------------------------Лівреї віртуальної авіакомпанії Ukraine Classic Air Alliance----------------------------------------------------- -->
+  
+<table class="livery-grid">                                                 
+   <tr>
+    <td colspan="2" style="background-color: #c0f6f9;">
+    <strong>Лівреї віртуальної авіакомпанії Ukraine Classic Air Alliance:</strong>
+  </td>
+   </tr>
+
+ <tr>
+    <td>
+      <div class="livery-header">PMDG 737-800 UR-UCA (pax)</div>
+      <div class="livery-content">
+        <img src="thumbnail_small 738 pax UCAA.jpg" alt="PMDG 737-800 UR-UCA (pax)">
+        <div class="livery-links">
+      скачати: <a href="https://drive.google.com/file/d/1kCP4m8HKZyEU41a6D4DK-WYBecEO3oQp/view?usp=sharing" target="_blank">MSFS 2024 </a>
+      / <a href="https://drive.google.com/file/d/10dm_hWtTUocMPR58RcYZalOO1rIGhFku/view?usp=sharing" download target="_blank">MSFS 2020</a> <br>
+      <br> <em> установка: в папку Community </em>
+        </div>
+      </div>
+    </td>
+
+    <td>
+      <div class="livery-header">PMDG 737-800 BCF UR-CAA (cargo)</div>
+      <div class="livery-content">
+        <img src="thumbnail_small 738 Cargo UCAA.jpg" alt="PMDG 737-800 BCF UR-CAA (cargo)">
+        <div class="livery-links">
+      скачати: <a href="https://drive.google.com/file/d/1JsezrmJqAECRqs93poG2RdznBfri1uBA/view?usp=sharing" target="_blank">MSFS 2024 </a>
+      / <a href="https://drive.google.com/file/d/1-aHel8aRcisjs08ufCjc85LmSfaVjUL5/view?usp=sharing" download target="_blank">MSFS 2020</a> <br>
+      <br> <em> установка: в папку Community </em>
+        </div>
+      </div>
+    </td>
+  </tr>
+
+
+   <tr>
+    <td>
+      <div class="livery-header">PMDG Boeing 777F UR-CRG (cargo)</div>
+      <div class="livery-content">
+        <img src="ur-crg.JPG" alt="PMDG Boeing 777F UR-CRG (cargo)">
+        <div class="livery-links">
+      скачати: <a href="https://drive.google.com/file/d/1tX9hB9BGx6kkKs5-yi8qXaU7To9tWuuc/view?usp=sharing" target="_blank">MSFS 2024 </a>
+      <br>
+      <br> <em> установка: в папку Community </em>
+        </div>
+      </div>
+    </td>
+
+        <td>
+      <div class="livery-header">iniBuilds A300-600 PW | UR-LDC (cargo)</div>
+      <div class="livery-content">
+        <img src="ur-ldc.JPG" alt="iniBuilds A300-600 PW | UR-LDC (cargo)">
+        <div class="livery-links">
+      скачати: <a href="https://drive.google.com/file/d/1DOLE2y8uqdDvYZ7MlcG8dKkyhHm6tQ8-/view?usp=sharing" target="_blank">MSFS 2024 </a>
+      <br>
+      <br> <em> установка: розпакувати в папку Community </em>
+        </div>
+      </div>
+    </td>
+ 
+  </tr>
+
+
+   <tr>
+    <td>
+      <div class="livery-header">FSS Embraer 190F silver-blue (cargo)</div>
+      <div class="livery-content">
+        <img src="E190-UCAA-silver-blue.jpg" alt="FSS Embraer 190F silver-blue (cargo)">
+        <div class="livery-links">
+      скачати: <a href="https://drive.google.com/file/d/1kCP4m8HKZyEU41a6D4DK-WYBecEO3oQp/view?usp=sharing" target="_blank">MSFS 2020/2024 </a>
+      <br>
+      <br> <em> установка: в папку Community </em>
+        </div>
+      </div>
+    </td>
+
+    <td>
+      <div class="livery-header">FSS Embraer 190F red-grey (cargo)</div>
+      <div class="livery-content">
+        <img src="E190-UCAA-red-grey.jpg" alt="FSS Embraer 190F red-grey (cargo)">
+        <div class="livery-links">
+      скачати: <a href="https://drive.google.com/file/d/1wT1FIxi3cCrFfORrCfmwcLv8sASi1GP4/view?usp=sharing" target="_blank">MSFS 2020/2024 </a>
+       <br>
+      <br> <em> установка: в папку Community </em>
+        </div>
+      </div>
+    </td>
+  </tr>
+
+  <tr>
+     <td>
+      <div class="livery-header">Укрпошта - ATR 42-600 UR-ATR</div> 
+      <div class="livery-content">
+        <img src="uratr.jpg" alt="UkrPost - ATR 42-600 UR-ATR">
+        <div class="livery-links">
+      скачати: <a href="https://drive.google.com/file/d/15metMs-f0DmrVta1Yj-DLI7P-a2Cd2Cs/view?usp=drive_link" target="_blank">MSFS 2020 / 2024</a>
+           <br> <br> <em> аби був трушний карго - використовуйте <a href="https://dispatch.simbrief.com/airframes/share/651862_1768754942245" target="_blank">цей SimBrif профіль</a>,<br> в GSX ставте галочку "Cargo" в меню "Customize Airplane"<br> Чудово підійде під нагороду <a href="https://newsky.app/award/696d1b3d3dc76275babb991c" target="_blank">Tour de Ukraine</a> <br> установка: в папку Community </em>
+        </div>
+      </div>
+    </td>
+            
+      <td>
+      <div class="livery-header">Укрпошта - E190F UR-OLD, UR-GLD</div>
+      <div class="livery-content">
+        <img src="uroldgld.JPG" alt="Укрпошта - E190F UR-OLD, UR-GLD">
+        <div class="livery-links">
+      скачати: <a href="https://drive.google.com/file/d/1yZyC0TZBwMMnQ_gFhsxbTNNEoURLb91T/view?usp=sharing" target="_blank">MSFS 2020 / 2024</a> <br>
+      <br> <em> Чудово підійде під нагороду <a href="https://newsky.app/award/696d1b3d3dc76275babb991c" target="_blank">Tour de Ukraine</a> <br> установка: в папку Community </em>
+        </div>
+      </div>
+    </td>
+    </tr>
+
+   <tr>
+
+<td>
+      <div class="livery-header">AeroSvit vs Ukraine Classic Air Alliance<br>PMDG 737-800 UR-AAN (pax)</div>
+      <div class="livery-content">
+        <img src="UR-AAN vs UCAA logo.jpg" alt="AeroSvit vs Ukraine Classic Air Alliance PMDG 737-800 UR-AAN (pax)">
+        <div class="livery-links">
+      скачати: <a href="https://drive.google.com/file/d/1Km-JY2YElCA3-HJQBOvzltLpgW2i28Zo/view?usp=sharing" target="_blank">MSFS 2024 </a>
+       <br>
+      <br> <em> установка: в папку Community </em>
+        </div>
+      </div>
+    </td>
+      <td>
+      <div class="livery-header">Укропшта | BAe146 QT/Avro RJ QT | JustFlight <br> <em>(грузовик Укрпошти для віртуальних польотів)</em></div> 
+      <div class="livery-content">
+        <img src="RJukr.JPG" alt="Укропшта | BAe146 QT/Avro RJ QT | JustFlight">
+        <div class="livery-links">
+      скачати: <a href="https://flightsim.to/addon/105323/bae146-300-qt-avro-rj-qt-ukrposhta-fictional" target="_blank">MSFS 2020 / 2024</a>
+           <br> <br> <em> установка: як написано на flightsim.to </em> <br><br>
+          <em> Чудово підійде під нагороду <a href="https://newsky.app/award/696d1b3d3dc76275babb991c" target="_blank">Tour de Ukraine</a> </em>
+        </div>
+      </div>
+    </td> 
+  </tr>
+
+
+  
+</table>
+  
+<br>
+  
+<table>
+
+ <tr>
+  <td colspan="3" style="width:1000px;background-color: #f2cad7;">
+    <strong>Оптимізовані текстури для FSLTL Traffic (1к замість 4к, 5 гагабайт замість 45 гігабайт) </strong>
+  </td>
+</tr>
+     
+  <tr>
+    <td style="font-size:14px; width:1000px; text-align:left; ">
+  <img src="fsltl1k.JPG" style="width:900px; display: flex; justify-content: center;" >    
+      <br>
+Так як з flightsim.to прибрали оптимізовані лівреї для FSLTL трафіка, <strong> пропоную вам скачати мій пак з гугл діска: <a href="https://drive.google.com/file/d/1YBW13LmBPGIC_Kqgyp2tBjiEGRh3JAQJ/view?usp=sharing" download target="_blank">1K Textures for FSLTL Traffic</a> </strong> <br><br> 
+    <em style="font-size:12px; text-align:left;"><strong>Установка:</strong> <br> 1. Скачати  <a href="https://flybywiresim.com/downloads/" download target="_blank"> FBW installer </a> і встановити звідти FSLTL Traffic / Injector (якщо встановлено - то ок) <br>
+    2. Скачати 1К Текстури за посиланням вище <br> 
+    3. У скачаній папці "fsltl-traffic-base" знайдете папку "SimObjects", перетащіть її в оригінальну папку "fsltl-traffic-base" із заміною файлів <br> 
+    4. Скопіюйте файл "MSFSLayoutGenerator (1).exe" зі скаченого архіву в оригінальну папку "fsltl-traffic-base" файл, так щоб цей файл був поряд з "layout.json" <br>
+    5. Перетащіть файл "layout.json" на (поверх, наче це папка) файл "MSFSLayoutGenerator (1).exe", відкриється чорне вікно на пару секунд, потім побачете що файл "layout.json" оновився. Все! <br>
+      (якщо у вас не виходить щось, можете спробувати скопіювати файл "layout.json" з мого архіву в оригінальну папку "fsltl-traffic-base" (із заміною)
+   </em> 
+   </td>
+  </tr>
+</table>
+
+
+  
+<script>
+const database = [
+  {from:100, to:200, airline:"Ukraine International Airlines (МАУ)", aircraft:"738"},
+  {from:701, to:714, airline:"Ukraine International Airlines (МАУ)", aircraft:"738 Грузовий"},
+  {from:661, to:674, airline:"Ukraine International Airlines (МАУ)", aircraft:"767"},
+  {from:771, to:784, airline:"Ukraine International Airlines (МАУ)", aircraft:"777"},
+  {from:903, to:916, airline:"Ukraine International Airlines (МАУ)", aircraft:"E190"},
+  {from:9901, to:9930, airline:"Ukraine International Airlines (МАУ)", aircraft:"738"},
+  {from:1901, to:1932, airline:"Ukraine International Airlines (МАУ)", aircraft:"E190"},
+
+  {from:803, to:892, airline:"AeroSvit", aircraft:"738"},
+  {from:500, to:560, airline:"AeroSvit", aircraft:"736"},
+  {from:540, to:599, airline:"AeroSvit", aircraft:"E145"},
+
+  {from:5501, to:5522, airline:"Air Ukraine", aircraft:"Tu-154"},
+  {from:5601, to:5622, airline:"Air Ukraine", aircraft:"Tu-154"},
+  {from:5551, to:5593, airline:"Air Ukraine", aircraft:"Tu-134"},
+  {from:3401, to:3434, airline:"Air Ukraine", aircraft:"Tu-134"},
+  {from:4001, to:4028, airline:"Air Ukraine", aircraft:"Yak-40"},
+  {from:2401, to:2416, airline:"Air Ukraine", aircraft:"Ан-24"},
+
+  {prefix:33, digits:4, airline:"Donbassaero", aircraft:"A320"},
+
+  {from:7801, to:7808, airline:"UTair Ukraine", aircraft:"ATR 76"},
+  {from:7809, to:7810, airline:"UTair Ukraine", aircraft:"ATR 42"},
+  {from:7811, to:7812, airline:"UTair Ukraine", aircraft:"CRJ"},
+  {from:7813, to:7816, airline:"UTair Ukraine", aircraft:"738"},
+
+  {prefix:66, digits:4, airline:"Dniproavia (Дніпроавіа)", aircraft:"Embraer 145"},
+  {from:6701, to:6702, airline:"Dniproavia (Дніпроавіа)", aircraft:"738"},
+  {from:6703, to:6704, airline:"Dniproavia (Дніпроавіа)", aircraft:"736"},
+  {from:6705, to:6712, airline:"Dniproavia (Дніпроавіа)", aircraft:"Yak-40"},
+
+  {prefix:88, digits:4, airline:"Air Onix", aircraft:"736"},
+
+  {from:8201, to:8218, airline:"Bravo Airways", aircraft:"MD-82/83"},
+  {from:8219, to:8222, airline:"Bravo Airways", aircraft:"A320, 736 (лізинг)"},
+
+  {from:2501, to:2508, airline:"Motor Sich Airlines", aircraft:"Ан-24"},
+  {from:2509, to:2510, airline:"Motor Sich Airlines", aircraft:"Yak-40"},
+
+  {prefix:44, digits:4, airline:"Bees Airlines", aircraft:"737-800"},
+  {prefix:60, digits:4, airline:"AtlasGlobal Ukraine", aircraft:"A320"},
+
+  {from:8701, to:8712, airline:"Bukovyna Airlines", aircraft:"MD82"},
+  {from:8713, to:8716, airline:"Bukovyna Airlines", aircraft:"Avro RJ"},
+
+  {from:8901, to:8906, airline:"UM Air", aircraft:"MD83"},
+  {from:8907, to:8910, airline:"UM Air", aircraft:"MD82"},
+  {from:8911, to:8916, airline:"UM Air", aircraft:"A320"},
+
+  {from:9201, to:9204, airline:"Illich-Avia", aircraft:"Ан-24"},
+  {from:9205, to:9206, airline:"Illich-Avia", aircraft:"Yak-40"},
+
+  {from:9301, to:9308, airline:"Southline", aircraft:"Як-42Д"},
+  {from:9309, to:9312, airline:"Southline", aircraft:"Saab-340"},
+  {from:9313, to:9318, airline:"Southline", aircraft:"Ан-24"},
+
+  {prefix:95, digits:4, airline:"Wizz Air Ukraine", aircraft:"A320"},
+
+  {from:9401, to:9406, airline:"Luhansk Airlines", aircraft:"Ан-24"},
+  {from:9407, to:9414, airline:"Luhansk Airlines", aircraft:"Як-42Д"},
+
+  {from:9601, to:9604, airline:"Lviv Airlines", aircraft:"738"},
+
+  {from:9701, to:9708, airline:"Odessa Airlines", aircraft:"Yak-40"},
+  {from:9709, to:9710, airline:"Odessa Airlines", aircraft:"Ан-24"},
+  {from:9711, to:9712, airline:"Odessa Airlines", aircraft:"Tu-154"},
+
+  {prefix:83, digits:4, airline:"Khors (ХОРС)", aircraft:"MD-82/83"},
+  {from:8307, to:8310, airline:"Khors (ХОРС)", aircraft:"A320"},
+  {from:8313, to:8314, airline:"Khors (ХОРС)", aircraft:"738"},
+
+  {from:8401, to:8404, airline:"YanAir", aircraft:"Saab-340"},
+  {from:8405, to:8408, airline:"YanAir", aircraft:"A320"},
+  {from:8409, to:8418, airline:"YanAir", aircraft:"738"},
+  {from:8413, to:8414, airline:"YanAir", aircraft:"A321"},
+
+  {from:8501, to:8506, airline:"Dart", aircraft:"A319"},
+  {from:8507, to:8516, airline:"Dart", aircraft:"A320"},
+  {from:8517, to:8520, airline:"Dart", aircraft:"A321"},
+  {from:8521, to:8526, airline:"Dart", aircraft:"MD83"},
+
+  {from:8601, to:8606, airline:"Anda Air", aircraft:"A321"},
+  {from:8607, to:8620, airline:"Anda Air", aircraft:"MD83"},
+
+  {from:9801, to:9816, airline:"Aerostar (Business Jets)", aircraft:"Business"},
+  {from:9850, to:9863, airline:"Challenge Aero (Business Jets)", aircraft:"Business"},
+
+  {from:3501, to:3516, airline:"Constanta (Cargo)", aircraft:"738"},
+  {from:6501, to:6511, airline:"Rivne Universal Avia", aircraft:"L410"},
+  {from:6901, to:6909, airline:"Urga", aircraft:"SF34, An-26 (f271)"},
+  {from:3601, to:3609, airline:"Volare Airlines Ukraine", aircraft:"Cargo"},
+
+  {from:3901, to:3914, airline:"Classic Air Alliance", aircraft:"Any with UCAA livery"},
+  {from:4031, to:4078, airline:"Classic Air Alliance", aircraft:"Any with UCAA livery"},
+  {from:5001, to:5026, airline:"Classic Air Alliance", aircraft:"Any with UCAA livery"},
+
+  {from:2901, to:2970, airline:"Молдова рейси пaкси/карго", aircraft:"Any"},
+
+  {from:5101, to:5108, airline:"Supernova Airlines", aircraft:"738 Cargo"}
+];
+
+function findFlight() {
+  const value = document.getElementById("flightNumber").value;
+  const airlineCell = document.getElementById("airline");
+  const aircraftCell = document.getElementById("aircraft");
+
+  airlineCell.textContent = "";
+  aircraftCell.textContent = "";
+
+  if (!value) return;
+
+  const num = parseInt(value);
+  const str = value.toString();
+
+  for (const r of database) {
+    if (r.from && num >= r.from && num <= r.to) {
+      airlineCell.textContent = r.airline;
+      aircraftCell.textContent = r.aircraft;
+      return;
+    }
+    if (r.prefix && str.length === r.digits && str.startsWith(r.prefix.toString())) {
+      airlineCell.textContent = r.airline;
+      aircraftCell.textContent = r.aircraft;
+      return;
+    }
+  }
+}
+</script>
+
+<script>
+function findAirportCell(icao){
+  return [...document.querySelectorAll(".airports-table td")]
+    .find(td => td.querySelector("strong")?.textContent.startsWith(icao));
+}
+
+const ICAO_COUNTRY = {
+  // Ukraine
+  UK: {cc:"ua", name:"Україна"}, UR: {cc:"ua", name:"Україна"},
+
+  // Europe
+  EP: {cc:"pl", name:"Польща"}, ED: {cc:"de", name:"Німеччина"}, EF: {cc:"fi", name:"Фінляндія"},
+  EG: {cc:"gb", name:"Велика Британія"}, EH: {cc:"nl", name:"Нідерланди"}, EB: {cc:"be", name:"Бельгія"},
+  ES: {cc:"se", name:"Швеція"}, EY: {cc:"lt", name:"Литва"},
+  LH: {cc:"hu", name:"Угорщина"}, LOW: {cc:"at", name:"Австрія"}, LO: {cc:"at", name:"Австрія"},
+  LK: {cc:"cz", name:"Чехія"}, LZ: {cc:"sk", name:"Словаччина"}, LR: {cc:"ro", name:"Румунія"},
+  LB: {cc:"bg", name:"Болгарія"}, LG: {cc:"gr", name:"Греція"}, LQ: {cc:"ba", name:"Боснія і Герцеговина"},
+  LD: {cc:"hr", name:"Хорватія"}, LY: {cc:"rs", name:"Сербія"}, LW: {cc:"mk", name:"Північна Македонія"},
+  LI: {cc:"it", name:"Італія"}, LF: {cc:"fr", name:"Франція"}, LS: {cc:"ch", name:"Швейцарія"},
+  LE: {cc:"es", name:"Іспанія"}, LP: {cc:"pt", name:"Португалія"},
+
+  // Turkey / Caucasus / Middle East / Africa
+  LT: {cc:"tr", name:"Туреччина"}, UG: {cc:"ge", name:"Грузія"}, UD: {cc:"am", name:"Вірменія"},
+  UB: {cc:"az", name:"Азербайджан"}, LL: {cc:"il", name:"Ізраїль"}, HE: {cc:"eg", name:"Єгипет"},
+  OE: {cc:"sa", name:"Саудівська Аравія"}, OJ: {cc:"jo", name:"Йорданія"}, OL: {cc:"lb", name:"Ліван"},
+  OM: {cc:"ae", name:"ОАЕ"}, OI: {cc:"ir", name:"Іран"}, OR: {cc:"iq", name:"Ірак"},
+  DT: {cc:"tn", name:"Туніс"}, GM: {cc:"ma", name:"Марокко"},
+
+  // Asia / America
+  UT: {cc:"uz", name:"Узбекистан"}, UA: {cc:"kz", name:"Казахстан"}, VI: {cc:"in", name:"Індія"},
+  VT: {cc:"th", name:"Таїланд"}, VH: {cc:"hk", name:"Гонконг"}, ZB: {cc:"cn", name:"Китай"},
+  KJ: {cc:"us", name:"США"}, CY: {cc:"ca", name:"Канада"}, MD: {cc:"do", name:"Домініканська Республіка"},
+  MM: {cc:"mx", name:"Мексика"}
+};
+
+function countryForAirport(icao) {
+  if (!icao || icao === "NONE") return null;
+  if (ICAO_COUNTRY[icao.slice(0, 3)]) return ICAO_COUNTRY[icao.slice(0, 3)];
+  if (ICAO_COUNTRY[icao.slice(0, 2)]) return ICAO_COUNTRY[icao.slice(0, 2)];
+  return null;
+}
+
+function flagImgByAirport(icao) {
+  const entry = countryForAirport(icao);
+  if (!entry) return "";
+  return `<img src="https://flagcdn.com/w20/${entry.cc}.png" class="flag-icon" title="${entry.name}">`;
+}
+
+function cleanAmountText(s) {
+  return String(s || "")
+    .replace(/^~/, "")
+    .replace(/\s+t\b/g, "т")
+    .replace(/>99t/g, ">99т")
+    .trim();
+}
+
+function parseCharterResults(text) {
+  const data = {
+    airports: {},
+    topOut: [],
+    topIn: [],
+    topUA: []
+  };
+
+  let section = "header";
+  let currentAirport = null;
+
+  for (const raw of text.split(/\r?\n/)) {
+    const line = raw.trim();
+    if (!line) continue;
+
+    if (line === "ТОП-5 на виліт") { section = "topOut"; continue; }
+    if (line === "ТОП-5 на прибуття") { section = "topIn"; continue; }
+    if (line === "ТОП по Україні") { section = "topUA"; continue; }
+    if (line.startsWith("----")) { section = "details"; currentAirport = null; continue; }
+
+    if (section === "topOut") {
+      if (!line.startsWith("ТОП") && !line.startsWith("Newsky") && !line.startsWith("Total")) data.topOut.push(line);
+      continue;
+    }
+
+    if (section === "topIn") {
+      data.topIn.push(line);
+      continue;
+    }
+
+    if (section === "topUA") {
+      data.topUA.push(line);
+      continue;
+    }
+
+    const header = line.match(/^([A-Z0-9]{4})\s+\((.*?)\)$/);
+    if (header) {
+      currentAirport = header[1];
+      data.airports[currentAirport] = {
+        name: header[2],
+        out: { pax: null, cargo: null },
+        in: { pax: null, cargo: null }
+      };
+      continue;
+    }
+
+    const m = line.match(/^(out|in)\s+(pax|cargo)\s+([A-Z0-9]{4}|NONE)-([A-Z0-9]{4}|NONE)(?:\s+\((\d+)nm\)\s+([^|]+)\|.*)?$/);
+    if (m && currentAirport) {
+      const dir = m[1];
+      const mode = m[2];
+      const from = m[3];
+      const to = m[4];
+
+      if (from === "NONE" || to === "NONE") continue;
+
+      data.airports[currentAirport][dir][mode] = {
+        from,
+        to,
+        distNm: m[5] ? Number(m[5]) : null,
+        amount: cleanAmountText(m[6])
+      };
+    }
+  }
+
+  return data;
+}
+
+function formatCellRecord(record, mode, direction) {
+  if (!record) return "";
+
+  const icon = mode === "pax" ? "👨‍💼" : "📦";
+  const target = direction === "out" ? record.to : record.from;
+  const word = direction === "out" ? "до" : "з";
+
+  return `${record.amount} <span class="airport-icon">${icon}</span> ${word} ${flagImgByAirport(target)} <span style="font-size:11px; color:#444;">${target}</span>`;
+}
+
+function renderCharterBlock(icao, info) {
+  if (!info) return null;
+
+  const outPax = formatCellRecord(info.out.pax, "pax", "out");
+  const outCargo = formatCellRecord(info.out.cargo, "cargo", "out");
+  const inPax = formatCellRecord(info.in.pax, "pax", "in");
+  const inCargo = formatCellRecord(info.in.cargo, "cargo", "in");
+
+  const dep = (outPax || outCargo) ? `
+    <div class="airport-demand-out">
+      <img src="DEP1.png" class="airport-demand-header">
+      ${outPax || ""}
+      ${outPax && outCargo ? "<br>" : ""}
+      ${outCargo || ""}
+    </div>` : "";
+
+  const arr = (inPax || inCargo) ? `
+    <div class="airport-demand-in">
+      <img src="ARR1.png" class="airport-demand-header">
+      ${inPax || ""}
+      ${inPax && inCargo ? "<br>" : ""}
+      ${inCargo || ""}
+    </div>` : "";
+
+  if (!dep && !arr) return null;
+
+  const box = document.createElement("div");
+  box.className = "airport-demand-box";
+  box.innerHTML = dep + arr;
+  return box;
+}
+
+function formatTopLine(line) {
+  return line
+    .replace(/\s+до\s+/g, " → ")
+    .replace(/\s+з\s+/g, " з ")
+    .replace(/\((\d+)nm\)/g, '<span style="color:#666; font-size:12px;">($1nm)</span>')
+    .replace(/>99t/g, ">99т");
+}
+
+function renderTopLines(lines, title) {
+  return `
+    <div class="top-box">
+      <div class="top-title">${title}</div>
+      ${lines && lines.length ? lines.map(formatTopLine).join("<br>") : "—"}
+    </div>`;
+}
+
+function splitDomestic(lines) {
+  return {
+    pax: lines.filter(x => /pax\b/.test(x)),
+    cargo: lines.filter(x => /\d+т|>99т|>99t/.test(x))
+  };
+}
+
+async function loadAirportDump() {
+  try {
+    const res = await fetch("./newsky-charter-results.txt?v=" + new Date().getTime());
+    if (!res.ok) throw new Error("Не вдалося відкрити newsky-charter-results.txt");
+
+    const text = await res.text();
+    const parsed = parseCharterResults(text);
+
+    const updatedEl = document.getElementById("data-updated");
+    if (updatedEl) {
+      updatedEl.innerHTML = "📊 Попит оновлено з newsky-charter-results.txt";
+    }
+
+    for (const [icao, info] of Object.entries(parsed.airports)) {
+      const cell = findAirportCell(icao);
+      if (!cell) continue;
+
+      // прибираємо старий блок, якщо скрипт перезапустився
+      cell.querySelectorAll(".airport-demand-box").forEach(x => x.remove());
+
+      const el = renderCharterBlock(icao, info);
+      if (el) cell.appendChild(el);
+    }
+
+    const overloadedBox = document.getElementById("top-overloaded-box");
+    const deficitBox = document.getElementById("top-deficit-box");
+    const domesticPaxBox = document.getElementById("top-domestic-pax-box");
+    const domesticCargoBox = document.getElementById("top-domestic-cargo-box");
+    const domestic = splitDomestic(parsed.topUA);
+
+    if (overloadedBox) overloadedBox.innerHTML = renderTopLines(parsed.topOut, "🛫 ТОП-5 на виліт:");
+    if (deficitBox) deficitBox.innerHTML = renderTopLines(parsed.topIn, "🛬 ТОП-5 на прибуття:");
+    if (domesticPaxBox) domesticPaxBox.innerHTML = renderTopLines(domestic.pax, "🏠 ТОП місцеві pax:");
+    if (domesticCargoBox) domesticCargoBox.innerHTML = renderTopLines(domestic.cargo, "📦 ТОП місцеві cargo:");
+
+  } catch (e) {
+    console.error("Помилка завантаження newsky-charter-results.txt:", e);
+
+    const overloadedBox = document.getElementById("top-overloaded-box");
+    const deficitBox = document.getElementById("top-deficit-box");
+    const domesticPaxBox = document.getElementById("top-domestic-pax-box");
+    const domesticCargoBox = document.getElementById("top-domestic-cargo-box");
+
+    if (overloadedBox) overloadedBox.textContent = "Не вдалося завантажити newsky-charter-results.txt";
+    if (deficitBox) deficitBox.textContent = "Не вдалося завантажити newsky-charter-results.txt";
+    if (domesticPaxBox) domesticPaxBox.textContent = "Не вдалося завантажити місцеві pax";
+    if (domesticCargoBox) domesticCargoBox.textContent = "Не вдалося завантажити місцеві cargo";
+  }
+}
+
+document.addEventListener("DOMContentLoaded", loadAirportDump);
+</script>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
