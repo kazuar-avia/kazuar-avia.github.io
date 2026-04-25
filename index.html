@@ -1772,7 +1772,7 @@ function formatTopLine(line) {
   });
 
   // cargo tons -> 📦, як було
-  s = s.replace(/((?:>|~)?\d+)\s*т\b/g, "$1 📦");
+ s = s.replace(/((?:>|~)?\d+)\s*т(?=\s|$|\()/g, "$1 📦");
 
   // distance дрібнішим
   s = s.replace(
