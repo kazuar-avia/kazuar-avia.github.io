@@ -1791,6 +1791,22 @@ function renderTopLines(lines, title) {
     </div>`;
 }
 
+  async function loadNewskyAirportsUpdatedTime() {
+  try {
+    const res = await fetch("./newsky-airports.txt?v=" + new Date().getTime());
+    if (!res.ok) throw new Error("Не вдалося відкрити newsky-airports.txt");
+
+    const text = await res.text();
+    const firstLine = text.split(/\r?\n/).find(line => line.trim().startsWith("UPDATED:"));
+
+    if (!firstLine) return null;
+
+    return firstLine.replace("UPDATED:", "").trim();
+  } catch (e) {
+    console.warn("Не вдалося прочитати UPDATED з newsky-airports.txt:", e);
+    return null;
+  }
+}
 
 async function loadAirportDump() {
   try {
@@ -1801,9 +1817,13 @@ async function loadAirportDump() {
     const parsed = parseCharterResults(text);
 
     const updatedEl = document.getElementById("data-updated");
-    if (updatedEl) {
-      updatedEl.innerHTML = "📊 Попит оновлено з newsky-charter-results.txt";
-    }
+if (updatedEl) {
+  const updatedTime = await loadNewskyAirportsUpdatedTime();
+
+  updatedEl.innerHTML = updatedTime
+    ? `📊 Попит оновлено: ${updatedTime}`
+    : "📊 Попит оновлено";
+}
 
     for (const [icao, info] of Object.entries(parsed.airports)) {
       const cell = findAirportCell(icao);
