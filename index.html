@@ -1693,11 +1693,28 @@ function renderCharterBlock(icao, info) {
 }
 
 function formatTopLine(line) {
-  return line
+  return String(line)
+    // прибираємо emoji-прапори з TXT, бо вони на Windows можуть виглядати як UA/HU/AT
+    .replace(/[\u{1F1E6}-\u{1F1FF}]{2}/gu, "")
+
+    // додаємо HTML-прапор після кожного ICAO-коду
+    .replace(/\b[A-Z0-9]{4}\b/g, function(code) {
+      return `${code} ${flagImgByAirport(code)}`;
+    })
+
+    // красивіший напрямок
     .replace(/\s+до\s+/g, " → ")
-    .replace(/\s+з\s+/g, " з ")
+
+    // distance дрібнішим
     .replace(/\((\d+)nm\)/g, '<span style="color:#666; font-size:12px;">($1nm)</span>')
-    .replace(/>99t/g, ">99т");
+
+    // t -> т
+    .replace(/>99t/g, ">99т")
+    .replace(/\s+t\b/g, "т")
+
+    // чистимо зайві пробіли
+    .replace(/\s{2,}/g, " ")
+    .trim();
 }
 
 function renderTopLines(lines, title) {
