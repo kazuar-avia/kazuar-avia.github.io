@@ -1693,28 +1693,44 @@ function renderCharterBlock(icao, info) {
 }
 
 function formatTopLine(line) {
-  return String(line)
-    // прибираємо emoji-прапори з TXT, бо вони на Windows можуть виглядати як UA/HU/AT
+  let s = String(line)
+    // прибираємо emoji-прапори з TXT, бо Windows може показувати UA/HU/AT
     .replace(/[\u{1F1E6}-\u{1F1FF}]{2}/gu, "")
+
+    // прибираємо службову іконку на початку рядка
+    .replace(/^\s*(👨‍💼|📦)\s*/u, "")
 
     // додаємо HTML-прапор після кожного ICAO-коду
     .replace(/\b[A-Z0-9]{4}\b/g, function(code) {
       return `${code} ${flagImgByAirport(code)}`;
     })
 
-    // красивіший напрямок
+    // красивий напрямок
     .replace(/\s+до\s+/g, " → ")
-
-    // distance дрібнішим
-    .replace(/\((\d+)nm\)/g, '<span style="color:#666; font-size:12px;">($1nm)</span>')
 
     // t -> т
     .replace(/>99t/g, ">99т")
     .replace(/\s+t\b/g, "т")
 
-    // чистимо зайві пробіли
+    // прибираємо зайві пробіли
     .replace(/\s{2,}/g, " ")
     .trim();
+
+  // cargo: "з UKBB → LHBP >99т" -> "з UKBB → LHBP >99 📦"
+  s = s.replace(/(>|~)?(\d+)\s*т\b/g, function(match, gt, num) {
+    return `${gt || ""}${num} 📦`;
+  });
+
+  // pax outbound/local:
+  // "з UKLL → LOWW >450 pax" -> "з UKLL → LOWW >450 👨‍💼"
+  s = s.replace(/(>|~)?(\d+)\s*pax\b/g, function(match, gt, num) {
+    return `${gt || ""}${num} 👨‍💼`;
+  });
+
+  // distance дрібнішим
+  s = s.replace(/\((\d+)nm\)/g, '<span style="color:#666; font-size:12px;">($1nm)</span>');
+
+  return s;
 }
 
 function renderTopLines(lines, title) {
