@@ -1694,43 +1694,49 @@ function renderCharterBlock(icao, info) {
 
 function formatTopLine(line) {
   let s = String(line)
-    // прибираємо emoji-прапори з TXT, бо Windows може показувати UA/HU/AT
+    // прибираємо emoji-прапори з TXT
     .replace(/[\u{1F1E6}-\u{1F1FF}]{2}/gu, "")
 
-    // прибираємо службову іконку на початку рядка
+    // прибираємо іконку на початку
     .replace(/^\s*(👨‍💼|📦)\s*/u, "")
-
-    // додаємо HTML-прапор після кожного ICAO-коду
-    .replace(/\b[A-Z0-9]{4}\b/g, function(code) {
-      return `${code} ${flagImgByAirport(code)}`;
-    })
-
-    // красивий напрямок
-    .replace(/\s+до\s+/g, " → ")
 
     // t -> т
     .replace(/>99t/g, ">99т")
     .replace(/\s+t\b/g, "т")
 
-    // прибираємо зайві пробіли
+    // чистимо пробіли
     .replace(/\s{2,}/g, " ")
     .trim();
 
-  // cargo: "з UKBB → LHBP >99т" -> "з UKBB → LHBP >99 📦"
-  s = s.replace(/(>|~)?(\d+)\s*т\b/g, function(match, gt, num) {
-    return `${gt || ""}${num} 📦`;
+  // Уніфікуємо OUT-формат:
+  // "з UKBB до LHBP >99т (500nm)" -> ">99т з UKBB до LHBP (500nm)"
+  // "з UKLL до LOWW >450 pax (310nm)" -> ">450 pax з UKLL до LOWW (310nm)"
+  s = s.replace(
+    /^з\s+([A-Z0-9]{4})\s+до\s+([A-Z0-9]{4})\s+((?:>|~)?\d+\s*(?:pax|т))\s+(\(\d+nm\))$/i,
+    "$3 з $1 до $2 $4"
+  );
+
+  // Додаємо HTML-прапор після кожного ICAO-коду
+  s = s.replace(/\b[A-Z0-9]{4}\b/g, function(code) {
+    return `${code} ${flagImgByAirport(code)}`;
   });
 
-  // pax outbound/local:
-  // "з UKLL → LOWW >450 pax" -> "з UKLL → LOWW >450 👨‍💼"
-  s = s.replace(/(>|~)?(\d+)\s*pax\b/g, function(match, gt, num) {
-    return `${gt || ""}${num} 👨‍💼`;
-  });
+  // "до" -> стрілка
+  s = s.replace(/\s+до\s+/g, " → ");
+
+  // pax -> іконка
+  s = s.replace(/((?:>|~)?\d+)\s*pax\b/gi, "$1 👨‍💼");
+
+  // tons -> іконка
+  s = s.replace(/((?:>|~)?\d+)\s*т\b/g, "$1 📦");
 
   // distance дрібнішим
-  s = s.replace(/\((\d+)nm\)/g, '<span style="color:#666; font-size:12px;">($1nm)</span>');
+  s = s.replace(
+    /\((\d+)nm\)/g,
+    '<span style="color:#666; font-size:12px;">($1nm)</span>'
+  );
 
-  return s;
+  return s.replace(/\s{2,}/g, " ").trim();
 }
 
 function renderTopLines(lines, title) {
