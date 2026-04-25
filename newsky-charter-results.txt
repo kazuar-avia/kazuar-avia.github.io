@@ -1,211 +1,178 @@
 Newsky charter recommendations
 Total UK airports: 27
 Max distance: 1500nm
-Minimum pax amount: 50
-Minimum cargo amount: 10t
-Display cap pax: >450 pax
-Display cap cargo: >99t
-
-Outbound filters:
-- origin demand percent must be >= 0%
-- target reverse demand percent must be <= 0%
-
-Outbound formula:
-- shown amount = round(origin value / 3.7 * (1 + origin percent / 100))
-
-Inbound logic:
-- find weakest negative outbound direction from UK airport
-- find airport in that sector with strongest outbound demand back to UK airport
-- inbound shown amount = min(round(source value / 3.5), round(destination value / 2))
+Generated: 25.04.2026 20:21 UTC
 
 ТОП-5 міжнародних на виліт
-📦 з UKBB 🇺🇦 до LHBP 🇭🇺 >99т (500nm)
-👨‍💼 з UKLL 🇺🇦 до LOWW 🇦🇹 >450 pax (310nm)
-👨‍💼 з UKLI 🇺🇦 до LTFM 🇹🇷 307 pax (490nm)
-👨‍💼 з UKLU 🇺🇦 до EPWA 🇵🇱 295 pax (220nm)
-👨‍💼 з UKHH 🇺🇦 до UBBB 🇦🇿 265 pax (820nm)
+👨‍💼 з UKLL 🇺🇦 до LEGE >450 pax (1000nm)
 
 ТОП-5 міжнародних на приліт
-📦 43т з OIIE 🇮🇷 до UKLR 🇺🇦 (1420nm)
-👨‍💼 420 pax з LTAI 🇹🇷 до UKDR 🇺🇦 (680nm)
-👨‍💼 291 pax з LTCG 🇹🇷 до UKLR 🇺🇦 (810nm)
-👨‍💼 262 pax з LGRP 🇬🇷 до UKKK 🇺🇦 (850nm)
-👨‍💼 257 pax з LDPL 🇭🇷 до UKHH 🇺🇦 (960nm)
-
-ТОП-5 місцевих пасажирських
-👨‍💼 з UKDR 🇺🇦 до UKCW 🇺🇦 253 pax (250nm)
-👨‍💼 208 pax з UKLL 🇺🇦 до UKLU 🇺🇦 (100nm)
-👨‍💼 190 pax з UKKM 🇺🇦 до UKLH 🇺🇦 (150nm)
-👨‍💼 166 pax з UKDE 🇺🇦 до UKLL 🇺🇦 (470nm)
-👨‍💼 з UKWW 🇺🇦 до UKOH 🇺🇦 162 pax (220nm)
-
-ТОП-5 місцевих карго
-📦 з UKCC 🇺🇦 до UKCW 🇺🇦 >99т (70nm)
-📦 55т з UKKE 🇺🇦 до UKLI 🇺🇦 (290nm)
-📦 з UKLU 🇺🇦 до UKHH 🇺🇦 47т (560nm)
-📦 з UKOO 🇺🇦 до UKON 🇺🇦 32т (70nm)
-📦 з UKLT 🇺🇦 до UKKK 🇺🇦 13т (200nm)
+👨‍💼 11119 pax з LEMD до UKKV 🇺🇦 (1469nm)
+👨‍💼 11119 pax з LEMD до UKLR 🇺🇦 (1377nm)
+👨‍💼 8144 pax з LEBL до UKLT 🇺🇦 (1105nm)
+👨‍💼 7127 pax з EDDF до UKKG 🇺🇦 (929nm)
+👨‍💼 5527 pax з LTFM до UKDD 🇺🇦 (504nm)
 
 ------------------------------------------------------------
 
-UKBB (Boryspil)
-out pax UKBB-NONE
-out cargo UKBB-LHBP (500nm) >99t | UKBB_cargo_240 1319 / +2% | LHBP_cargo_30 65 / -54%
-in pax LOWS-UKBB (720nm) ~171 pax | LOWS_pax_60 597 / +45% | UKBB_pax_270 726 / -66%
-in cargo EDDV-UKBB (810nm) ~39 t | EDDV_cargo_90 135 / +10% | UKBB_cargo_300 627 / -1%
+UKBB (Boryspil International Airport)
+out pax UKBB-UKKK (17nm) ~>450 pax | UKBB_pax_270 9607 / +353%
+out cargo UKBB-NONE
+in pax UKBB-NONE
+in cargo UKBB-NONE
 
-UKCC (Donetsk)
-out pax UKCC-NONE
-out cargo UKCC-UKCW (70nm) >99t | UKCC_cargo_60 1269 / +1% | UKCW_cargo_210 169 / +0%
-in pax UGSB-UKCC (430nm) ~147 pax | UGSB_pax_300 513 / +17% | UKCC_pax_150 2841 / -12%
-in cargo NONE-UKCC
+UKCC (Donetsk Sergei Prokofiev International Airport)
+out pax UKCC-UKBB (300nm) ~>450 pax | UKCC_pax_300 2822 / +75%
+out cargo UKCC-NONE
+in pax EFKT-UKCC (1242nm) ~272 pax | EFKT_pax_150 951 / +351% | UKCC_pax_300 -39%
+in cargo UKCC-NONE
 
-UKCM (Mariupol)
-out pax UKCM-LTFM (520nm) ~249 pax | UKCM_pax_240 885 / +4% | LTFM_pax_30 2619 / -65%
-out cargo UKCM-UKCW (120nm) ~21 t | UKCM_cargo_30 77 / +1% | UKCW_cargo_180 111 / +0%
-in pax NONE-UKCM
-in cargo NONE-UKCM
+UKCM (Mariupol International Airport)
+out pax UKCM-UKBB (325nm) ~168 pax | UKCM_pax_300 623 / +15%
+out cargo UKCM-NONE
+in pax UTTT-UKCM (1404nm) ~1247 pax | UTTT_pax_240 4365 / -40% | UKCM_pax_30 -31%
+in cargo UKCM-NONE
 
-UKCW (Luhansk)
-out pax UKCW-LHBP (810nm) ~225 pax | UKCW_pax_270 831 / +0% | LHBP_pax_60 937 / -79%
-out cargo UKCW-LHBP (810nm) ~47 t | UKCW_cargo_270 173 / +0% | LHBP_cargo_60 149 / -55%
-in pax LGKR-UKCW (990nm) ~161 pax | LGKR_pax_30 565 / +98% | UKCW_pax_240 523 / -12%
-in cargo NONE-UKCW
+UKCW (Luhansk International Airport)
+out pax UKCW-UKBB (351nm) ~175 pax | UKCW_pax_300 649 / +23%
+out cargo UKCW-NONE
+in pax UKCW-NONE
+in cargo UKCW-NONE
 
-UKDD (Dnipro)
-out pax UKDD-EGKK (1370nm) ~205 pax | UKDD_pax_300 690 / +10% | EGKK_pax_90 1995 / -81%
-out cargo UKDD-LHBP (640nm) ~40 t | UKDD_cargo_270 148 / +1% | LHBP_cargo_60 149 / -55%
-in pax NONE-UKDD
-in cargo UKHH-UKDD (110nm) ~31 t | UKHH_cargo_180 167 / +9% | UKDD_cargo_30 61 / -22%
+UKDD (Dnipro International Airport)
+out pax UKDD-UKBB (203nm) ~240 pax | UKDD_pax_300 887 / +41%
+out cargo UKDD-NONE
+in pax LTFM-UKDD (504nm) ~5527 pax | LTFM_pax_0 19344 / +104% | UKDD_pax_150 -35%
+in cargo UKDD-NONE
 
-UKDE (Zaporizhia)
-out pax UKDE-UBBB (780nm) ~126 pax | UKDE_pax_120 385 / +21% | UBBB_pax_270 7386 / -17%
-out cargo UKDE-LHBP (650nm) ~54 t | UKDE_cargo_270 196 / +1% | LHBP_cargo_60 149 / -55%
-in pax NONE-UKDE
-in cargo NONE-UKDE
+UKDE (Zaporizhzhia International Airport)
+out pax UKDE-UKBB (229nm) ~266 pax | UKDE_pax_300 984 / +154%
+out cargo UKDE-NONE
+in pax UKHH-UKDE (130nm) ~208 pax | UKHH_pax_180 728 / -20% | UKDE_pax_330 -40%
+in cargo UKDE-NONE
 
-UKDR (Kryvyi Rih)
-out pax UKDR-UKCW (250nm) ~253 pax | UKDR_pax_90 925 / +1% | UKCW_pax_240 523 / -12%
-out cargo UKDR-LTFM (450nm) ~45 t | UKDR_cargo_210 164 / +2% | LTFM_cargo_0 12 / -78%
-in pax LTAI-UKDR (680nm) ~420 pax | LTAI_pax_330 53655 / +41% | UKDR_pax_180 840 / -8%
-in cargo EYVI-UKDR (500nm) ~30 t | EYVI_cargo_120 104 / +29% | UKDR_cargo_330 62 / -11%
+UKDR (Kryvyi Rih International Airport)
+out pax UKDR-UKCM (181nm) ~168 pax | UKDR_pax_120 622 / +70%
+out cargo UKDR-NONE
+in pax UKCC-UKDR (181nm) ~806 pax | UKCC_pax_240 2822 / +11% | UKDR_pax_30 -32%
+in cargo UKDR-NONE
 
-UKFF (Simferopol)
-out pax UKFF-NONE
-out cargo UKFF-OJAI (810nm) ~51 t | UKFF_cargo_180 185 / +1% | OJAI_cargo_330 252 / -7%
-in pax UKOO-UKFF (170nm) ~159 pax | UKOO_pax_90 790 / +56% | UKFF_pax_300 318 / -13%
-in cargo LOWS-UKFF (890nm) ~10 t | LOWS_cargo_90 36 / +169% | UKFF_cargo_300 141 / -12%
+UKFF (Simferopol International Airport)
+out pax UKFF-UKCM (189nm) ~165 pax | UKFF_pax_60 611 / +51%
+out cargo UKFF-NONE
+in pax EFKT-UKFF (1390nm) ~272 pax | EFKT_pax_150 951 / +351% | UKFF_pax_300 -27%
+in cargo UKFF-NONE
 
-UKHH (Kharkiv)
-out pax UKHH-UBBB (820nm) ~265 pax | UKHH_pax_120 846 / +16% | UBBB_pax_270 7386 / -17%
-out cargo UKHH-ESSA (860nm) ~58 t | UKHH_cargo_330 198 / +9% | ESSA_cargo_120 92 / -33%
-in pax LDPL-UKHH (960nm) ~257 pax | LDPL_pax_60 936 / +100% | UKHH_pax_270 513 / -43%
-in cargo OIIE-UKHH (1090nm) ~14 t | OIIE_cargo_300 113 / +13% | UKHH_cargo_150 27 / -60%
+UKHH (Kharkiv International Airport)
+out pax UKHH-UKBB (209nm) ~331 pax | UKHH_pax_270 1224 / +37%
+out cargo UKHH-NONE
+in pax UKHH-NONE
+in cargo UKHH-NONE
 
-UKHP (Poltava)
-out pax UKHP-UKHH (80nm) ~82 pax | UKHP_pax_60 304 / +0% | UKHH_pax_210 457 / -24%
-out cargo UKHP-LTFM (560nm) ~14 t | UKHP_cargo_210 49 / +6% | LTFM_cargo_0 12 / -78%
-in pax EHBK-UKHP (1100nm) ~114 pax | EHBK_pax_90 752 / +26% | UKHP_pax_300 228 / -11%
-in cargo LIPR-UKHP (960nm) ~10 t | LIPR_cargo_60 34 / +101% | UKHP_cargo_270 42 / -10%
+UKHP (Suprunovka Airport)
+out pax UKHP-UKBB (143nm) ~81 pax | UKHP_pax_300 301 / +17%
+out cargo UKHP-NONE
+in pax UKHP-NONE
+in cargo UKHP-NONE
 
-UKHS (Sumy)
-out pax UKHS-LKPR (790nm) ~72 pax | UKHS_pax_270 264 / +1% | LKPR_pax_60 390 / -83%
-out cargo UKHS-LROP (520nm) ~14 t | UKHS_cargo_240 49 / +7% | LROP_cargo_30 123 / -4%
-in pax UKCW-UKHS (240nm) ~172 pax | UKCW_pax_270 831 / +0% | UKHS_pax_120 344 / -1%
-in cargo NONE-UKHS
+UKHS (Sumy Airport)
+out pax UKHS-UKBB (151nm) ~86 pax | UKHS_pax_270 317 / +21%
+out cargo UKHS-NONE
+in pax LIRF-UKHS (1074nm) ~2878 pax | LIRF_pax_30 10072 / +70% | UKHS_pax_180 -30%
+in cargo UKHS-NONE
 
-UKKE (Cherkasy)
-out pax UKKE-LTFJ (530nm) ~161 pax | UKKE_pax_180 588 / +1% | LTFJ_pax_330 2153 / -68%
-out cargo UKKE-UBBB (940nm) ~54 t | UKKE_cargo_120 197 / +2% | UBBB_cargo_270 75 / -25%
-in pax EHBK-UKKE (1010nm) ~215 pax | EHBK_pax_90 752 / +26% | UKKE_pax_300 695 / -1%
-in cargo NONE-UKKE
+UKKE (Cherkasy International Airport)
+out pax UKKE-UKCM (259nm) ~184 pax | UKKE_pax_120 682 / +19%
+out cargo UKKE-NONE
+in pax UKHS-UKKE (137nm) ~91 pax | UKHS_pax_210 317 / -8% | UKKE_pax_0 -23%
+in cargo UKKE-NONE
 
-UKKG (Kirovograd)
-out pax UKKG-LGTS (630nm) ~71 pax | UKKG_pax_210 250 / +5% | LGTS_pax_0 341 / -77%
-out cargo UKKG-UKFF (230nm) ~11 t | UKKG_cargo_150 42 / +1% | UKFF_cargo_300 141 / -12%
-in pax NONE-UKKG
-in cargo NONE-UKKG
+UKKG (Kirovograd Airport)
+out pax UKKG-UKCM (226nm) ~95 pax | UKKG_pax_120 351 / +19%
+out cargo UKKG-NONE
+in pax EDDF-UKKG (929nm) ~7127 pax | EDDF_pax_60 24943 / -26% | UKKG_pax_210 -21%
+in cargo UKKG-NONE
 
-UKKK (Kyiv)
-out pax UKKK-EDDH (780nm) ~210 pax | UKKK_pax_300 740 / +5% | EDDH_pax_90 456 / -79%
+UKKK (Ihor Sikorsky Kyiv International Airport (Zhuliany))
+out pax UKKK-UKLL (253nm) ~406 pax | UKKK_pax_270 1501 / +70%
 out cargo UKKK-NONE
-in pax LGRP-UKKK (850nm) ~262 pax | LGRP_pax_330 965 / +54% | UKKK_pax_180 523 / -32%
-in cargo LGKR-UKKK (790nm) ~10 t | LGKR_cargo_0 36 / +98% | UKKK_cargo_210 145 / -16%
+in pax UKKK-NONE
+in cargo UKKK-NONE
 
-UKKM (Kiev)
-out pax UKKM-UKFF (370nm) ~162 pax | UKKM_pax_150 561 / +7% | UKFF_pax_300 318 / -13%
+UKKM (Hostomel Airport)
+out pax UKKM-UKKE (100nm) ~168 pax | UKKM_pax_150 622 / +18%
 out cargo UKKM-NONE
-in pax NONE-UKKM
-in cargo OIIE-UKKM (1290nm) ~41 t | OIIE_cargo_270 150 / +12% | UKKM_cargo_120 81 / -12%
+in pax UBBB-UKKM (1028nm) ~3684 pax | UBBB_pax_270 12895 / +46% | UKKM_pax_60 -31%
+in cargo UKKM-NONE
 
-UKKV (Zhytomyr)
-out pax UKKV-LTFM (550nm) ~59 pax | UKKV_pax_180 215 / +2% | LTFM_pax_330 7517 / -72%
-out cargo UKKV-UKHH (300nm) ~13 t | UKKV_cargo_90 48 / +0% | UKHH_cargo_240 115 / -19%
-in pax UGSB-UKKV (750nm) ~200 pax | UGSB_pax_270 1455 / +26% | UKKV_pax_120 400 / -1%
-in cargo OIIE-UKKV (1330nm) ~22 t | OIIE_cargo_270 150 / +12% | UKKV_cargo_120 43 / -2%
+UKKV (Zhytomyr Airport)
+out pax UKKV-UKKM (59nm) ~89 pax | UKKV_pax_60 331 / +55%
+out cargo UKKV-NONE
+in pax LEMD-UKKV (1469nm) ~11119 pax | LEMD_pax_60 38916 / +29% | UKKV_pax_210 -28%
+in cargo UKKV-NONE
 
-UKLH (Khmelnytskyi)
-out pax UKLH-LGTS (560nm) ~238 pax | UKLH_pax_210 882 / +0% | LGTS_pax_0 341 / -77%
-out cargo UKLH-UBBB (1120nm) ~48 t | UKLH_cargo_120 174 / +2% | UBBB_cargo_270 75 / -25%
-in pax UKKM-UKLH (150nm) ~190 pax | UKKM_pax_210 664 / +6% | UKLH_pax_60 543 / -1%
-in cargo NONE-UKLH
+UKLH (Khmelnytskyi Airport)
+out pax UKLH-UKBB (164nm) ~170 pax | UKLH_pax_60 628 / +14%
+out cargo UKLH-NONE
+in pax LATI-UKLH (565nm) ~1152 pax | LATI_pax_0 4033 / +53% | UKLH_pax_150 -29%
+in cargo UKLH-NONE
 
-UKLI (Ivano-Frankivsk)
-out pax UKLI-LTFM (490nm) ~307 pax | UKLI_pax_150 1022 / +11% | LTFM_pax_300 17622 / -75%
-out cargo UKLI-LTBJ (650nm) ~53 t | UKLI_cargo_180 191 / +2% | LTBJ_cargo_330 39 / -57%
-in pax NONE-UKLI
-in cargo UKKE-UKLI (290nm) ~55 t | UKKE_cargo_240 194 / +2% | UKLI_cargo_90 133 / -4%
+UKLI (Ivano-Frankivsk International Airport)
+out pax UKLI-UKBB (257nm) ~241 pax | UKLI_pax_60 893 / +3%
+out cargo UKLI-NONE
+in pax EFHK-UKLI (687nm) ~1082 pax | EFHK_pax_150 3786 / +43% | UKLI_pax_300 -23%
+in cargo UKLI-NONE
 
-UKLL (Lviv)
-out pax UKLL-LOWW (310nm) >450 pax | UKLL_pax_240 3077 / +2% | LOWW_pax_30 1221 / -72%
+UKLL (Lviv International Airport)
+out pax UKLL-LEGE (1000nm) ~>450 pax | UKLL_pax_240 4146 / +38%
 out cargo UKLL-NONE
-in pax UKDE-UKLL (470nm) ~166 pax | UKDE_pax_240 581 / +20% | UKLL_pax_90 1682 / -16%
-in cargo EDDV-UKLL (560nm) ~39 t | EDDV_cargo_90 135 / +10% | UKLL_cargo_300 555 / -12%
+in pax UKLL-NONE
+in cargo UKLL-NONE
 
-UKLN (Chernivtsi)
-out pax UKLN-EFHK (730nm) ~55 pax | UKLN_pax_0 197 / +3% | EFHK_pax_150 1103 / -58%
+UKLN (Chernivtsi International Airport)
+out pax UKLN-UKLI (64nm) ~82 pax | UKLN_pax_300 303 / +22%
 out cargo UKLN-NONE
-in pax LTAI-UKLN (720nm) ~179 pax | LTAI_pax_300 11159 / +44% | UKLN_pax_150 357 / -4%
-in cargo NONE-UKLN
+in pax LATI-UKLN (489nm) ~1152 pax | LATI_pax_0 4033 / +53% | UKLN_pax_150 -33%
+in cargo UKLN-NONE
 
-UKLR (Rivne)
-out pax UKLR-LUKK (250nm) ~121 pax | UKLR_pax_150 435 / +3% | LUKK_pax_300 4659 / -21%
-out cargo UKLR-EGNX (1030nm) ~50 t | UKLR_cargo_300 184 / +0% | EGNX_cargo_90 970 / -72%
-in pax LTCG-UKLR (810nm) ~291 pax | LTCG_pax_270 8393 / +26% | UKLR_pax_120 582 / -33%
-in cargo OIIE-UKLR (1420nm) ~43 t | OIIE_cargo_270 150 / +12% | UKLR_cargo_120 128 / -1%
+UKLR (Rivne International Airport)
+out pax UKLR-UKLH (81nm) ~177 pax | UKLR_pax_150 656 / +55%
+out cargo UKLR-NONE
+in pax LEMD-UKLR (1377nm) ~11119 pax | LEMD_pax_60 38916 / +29% | UKLR_pax_210 -28%
+in cargo UKLR-NONE
 
-UKLT (Ternopil)
-out pax UKLT-ESSA (670nm) ~60 pax | UKLT_pax_330 209 / +6% | ESSA_pax_120 3140 / -26%
-out cargo UKLT-UKKK (200nm) ~13 t | UKLT_cargo_60 49 / +1% | UKKK_cargo_210 145 / -16%
-in pax NONE-UKLT
-in cargo UKKE-UKLT (250nm) ~18 t | UKKE_cargo_240 194 / +2% | UKLT_cargo_90 36 / -1%
+UKLT (Ternopil International Airport)
+out pax UKLT-UKBB (207nm) ~77 pax | UKLT_pax_60 285 / +15%
+out cargo UKLT-NONE
+in pax LEBL-UKLT (1105nm) ~8144 pax | LEBL_pax_30 28505 / +7% | UKLT_pax_180 -36%
+in cargo UKLT-NONE
 
-UKLU (Uzhhorod)
-out pax UKLU-EPWA (220nm) ~295 pax | UKLU_pax_0 982 / +11% | EPWA_pax_150 5023 / -62%
-out cargo UKLU-UKHH (560nm) ~47 t | UKLU_cargo_90 173 / +1% | UKHH_cargo_240 115 / -19%
-in pax UKLL-UKLU (100nm) ~208 pax | UKLL_pax_180 2292 / +2% | UKLU_pax_30 415 / -25%
-in cargo EYVI-UKLU (380nm) ~42 t | EYVI_cargo_180 148 / +29% | UKLU_cargo_30 98 / -14%
+UKLU (Uzhhorod International Airport)
+out pax UKLU-UKBB (352nm) ~173 pax | UKLU_pax_60 639 / +24%
+out cargo UKLU-NONE
+in pax ESSA-UKLU (678nm) ~4710 pax | ESSA_pax_150 16485 / +155% | UKLU_pax_300 -28%
+in cargo UKLU-NONE
 
-UKOH (Kherson)
-out pax UKOH-EFHK (870nm) ~248 pax | UKOH_pax_330 882 / +4% | EFHK_pax_120 1191 / -56%
-out cargo UKOH-OJAI (920nm) ~29 t | UKOH_cargo_180 107 / +1% | OJAI_cargo_330 252 / -7%
-in pax LDPL-UKOH (790nm) ~219 pax | LDPL_pax_60 936 / +100% | UKOH_pax_270 438 / -23%
-in cargo OIIE-UKOH (1080nm) ~36 t | OIIE_cargo_270 150 / +12% | UKOH_cargo_120 71 / -2%
+UKOH (Kherson International Airport)
+out pax UKOH-UKCC (228nm) ~151 pax | UKOH_pax_60 560 / +40%
+out cargo UKOH-NONE
+in pax ESSA-UKOH (935nm) ~1516 pax | ESSA_pax_120 5307 / +25% | UKOH_pax_270 -34%
+in cargo UKOH-NONE
 
-UKON (Nikolayev)
-out pax UKON-EFHK (840nm) ~141 pax | UKON_pax_0 480 / +9% | EFHK_pax_150 1103 / -58%
+UKON (Mykolaiv International Airport)
+out pax UKON-UKCM (226nm) ~166 pax | UKON_pax_90 614 / +52%
 out cargo UKON-NONE
-in pax EFTU-UKON (880nm) ~161 pax | EFTU_pax_120 564 / +39% | UKON_pax_330 389 / -38%
-in cargo EYVI-UKON (520nm) ~26 t | EYVI_cargo_120 104 / +29% | UKON_cargo_330 52 / -35%
+in pax OEGS-UKON (1367nm) ~287 pax | OEGS_pax_300 1006 / -26% | UKON_pax_90 -30%
+in cargo UKON-NONE
 
-UKOO (Odessa)
-out pax UKOO-LHBP (480nm) >450 pax | UKOO_pax_270 1342 / +56% | LHBP_pax_60 937 / -79%
-out cargo UKOO-UKON (70nm) ~32 t | UKOO_cargo_60 107 / +9% | UKON_cargo_210 110 / -3%
-in pax EFKU-UKOO (1010nm) ~140 pax | EFKU_pax_150 634 / +42% | UKOO_pax_0 279 / -16%
-in cargo EHBK-UKOO (1020nm) ~10 t | EHBK_cargo_90 35 / +102% | UKOO_cargo_300 92 / -13%
+UKOO (Odessa International Airport)
+out pax UKOO-UKLI (284nm) ~271 pax | UKOO_pax_300 1002 / +106%
+out cargo UKOO-NONE
+in pax OLBA-UKOO (788nm) ~2903 pax | OLBA_pax_300 10159 / +52% | UKOO_pax_90 -42%
+in cargo UKOO-NONE
 
-UKWW (Vinnitsa)
-out pax UKWW-UKOH (220nm) ~162 pax | UKWW_pax_120 556 / +8% | UKOH_pax_270 438 / -23%
-out cargo UKWW-LGTS (580nm) ~50 t | UKWW_cargo_210 183 / +1% | LGTS_cargo_0 57 / -20%
-in pax LGRP-UKWW (780nm) ~173 pax | LGRP_pax_330 965 / +54% | UKWW_pax_180 345 / -11%
-in cargo LTFE-UKWW (730nm) ~20 t | LTFE_cargo_330 71 / +39% | UKWW_cargo_180 68 / -1%
+UKWW (Vinnytsia/Gavyryshivka International Airport)
+out pax UKWW-UKCM (377nm) ~153 pax | UKWW_pax_120 565 / +9%
+out cargo UKWW-NONE
+in pax UKBB-UKWW (110nm) ~549 pax | UKBB_pax_210 1920 / -58% | UKWW_pax_0 -39%
+in cargo UKWW-NONE
