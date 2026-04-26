@@ -6,10 +6,10 @@ from typing import Dict, List, Tuple, Optional
 # НАЛАШТУВАННЯ
 # =========================
 
-BASE_DIR = Path(r"C:\Users\maten\Downloads")
+BASE_DIR = Path(os.path.dirname(os.path.abspath(__file__)))
 
 INPUT_FILE = BASE_DIR / "newsky-airports-report.txt"
-OUTPUT_FILE = BASE_DIR / "newsky-charter-results.txt"
+OUTPUT_FILE = BASE_DIR / "newsky-charter-results.tx
 
 MAX_DISTANCE_NM = 1500
 

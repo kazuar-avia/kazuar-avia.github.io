@@ -1,14 +1,15 @@
 from __future__ import annotations
-
 from pathlib import Path
 from datetime import datetime
 import json
 import math
 import re
+import os
 
 # === Налаштування ===
-INPUT_FILE = Path(r"C:\Users\maten\Downloads\newsky-airports.txt")
-OUTPUT_FILE = Path(r"C:\Users\maten\Downloads\newsky-airports-report.txt")
+BASE_DIR = Path(os.path.dirname(os.path.abspath(__file__)))
+INPUT_FILE = BASE_DIR / "newsky-airports.txt"
+OUTPUT_FILE = BASE_DIR / "newsky-airports-report.txt"
 
 DIR_BEARINGS = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330]
 
