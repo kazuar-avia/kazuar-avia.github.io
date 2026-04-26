@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 import re
 from typing import Dict, List, Tuple, Optional
@@ -9,7 +10,7 @@ from typing import Dict, List, Tuple, Optional
 BASE_DIR = Path(os.path.dirname(os.path.abspath(__file__)))
 
 INPUT_FILE = BASE_DIR / "newsky-airports-report.txt"
-OUTPUT_FILE = BASE_DIR / "newsky-charter-results.tx
+OUTPUT_FILE = BASE_DIR / "newsky-charter-results.txt"
 
 MAX_DISTANCE_NM = 1500
 
