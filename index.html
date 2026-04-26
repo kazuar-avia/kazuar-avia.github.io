@@ -11,6 +11,60 @@ body {
   padding: 40px;
 }
 
+  .site-nav {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  width: 300px;
+  z-index: 9999;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 12px 14px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.site-nav-title {
+  font-weight: bold;
+  margin-bottom: 8px;
+  font-size: 15px;
+}
+
+.site-nav a {
+  display: block;
+  color: #1b4d7a;
+  text-decoration: none;
+  margin: 6px 0;
+}
+
+.site-nav a:hover {
+  text-decoration: underline;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* щоб меню не перекривало основний контент зліва */
+body {
+  padding-left: 330px;
+}
+
+/* якщо екран вузький — меню стає звичайним зверху */
+@media (max-width: 900px) {
+  .site-nav {
+    position: static;
+    width: auto;
+    margin: 10px;
+  }
+
+  body {
+    padding-left: 0;
+  }
+}
+  
 table {
   border-collapse: collapse;
   width: 1000px;
@@ -315,7 +369,19 @@ input {
   <em>Нижче наведені посилання на різні ресурси пов’язані з цим, долучайтесь =)</em>
 </p>
 
-<table class="links-table">
+<div class="site-nav">
+  <div class="site-nav-title">Навігація по сайту:</div>
+
+  <a href="#links-section">Корисні посилання</a>
+  <a href="#charter-flights-section">Чартерні рейси UCAA</a>
+  <a href="#regular-flights-section">Регулярні рейси UCAA</a>
+  <a href="#ucaa-liveries-section">Лівреї Ukraine Classic Air Alliance</a>
+  <a href="#real-ukrainian-liveries-section">Реальні лівреї українських АК</a>
+  <a href="#other-ukrainian-liveries-section">Інші лівреї українських АК</a>
+  <a href="#fsltl-textures-section">FSLTL Traffic 1k textures (5 GB)</a>
+</div>
+  
+<table id="links-section" class="links-table" >
   <tr colspan="4" style="width:1485px;background-color: #caeef2;">
     <th>Youtube канал Kazuar Avia:</th>
     <th>Discord де ми спілкуємся:</th>
@@ -393,7 +459,7 @@ input {
   </tr>
 </table>
 
-  <table class="airports-table">
+  <table id="charter-flights-section" class="airports-table">
   <tr colspan="3" style="width:900px;background-color: #f4f0c0;">
     <th class="title" colspan="9">
       Попит на <span style="text-decoration: underline;">ЧАРТЕРНІ РЕЙСИ</span> У NewSky + посилання на сценарії аеропортів для MSFS 2020/2024 (*платні, **тільки в marketplace):
@@ -498,7 +564,7 @@ input {
 
   <tr>
 <tr>
-  <td colspan="3" style="width:1000px;background-color: #f2cad7;">
+  <td id="regular-flights-section" colspan="3" style="width:1000px;background-color: #f2cad7;">
     <strong>Підібрати ліврею і літак для <span style="text-decoration: underline;">РЕГУЛЯРНИХ РЕЙСІВ</span> у NewSky по номеру рейсу для Ukraine Classic Air Alliance:</strong>
   </td>
 </tr>
@@ -521,7 +587,7 @@ input {
   
 <!-- ------------------------------------------------------------------------------ Реальні лівреї українських авіакомпаній ------------------------------------------------------------- -->
    <table class="livery-grid">                                                 
-  <tr>                                                                     
+  <tr id="real-ukrainian-liveries-section">                                                                     
     <td colspan="2" style="background-color: #fbe694;">
     <strong>Реальні лівреї українських авіакомпаній:</strong> (яких немає нижче, пошукайте на <a href="https://flightsim.to/" target="_blank">flightsim.to</a>)
   </td>
@@ -984,7 +1050,7 @@ input {
 
 <!-- ------------------------------------------------------------------------------ Інші лівреї українських авіакомпаній: ------------------------------------------------------------- -->
    <table class="livery-grid">                                                 
-  <tr>                                                                     
+  <tr id="other-ukrainian-liveries-section">                                                                     
     <td colspan="2" style="background-color: #f4f0c0;">
     <strong>Інші лівреї українських авіакомпаній:</strong>
   </td>
@@ -1194,8 +1260,8 @@ input {
   <!-- -------------------------------------------------------------Лівреї віртуальної авіакомпанії Ukraine Classic Air Alliance----------------------------------------------------- -->
   
 <table class="livery-grid">                                                 
-   <tr>
-    <td colspan="2" style="background-color: #c0f6f9;">
+   <tr id="ucaa-liveries-section">
+    <td  colspan="2" style="background-color: #c0f6f9;">
     <strong>Лівреї віртуальної авіакомпанії Ukraine Classic Air Alliance:</strong>
   </td>
    </tr>
@@ -1341,7 +1407,7 @@ input {
   
 <table>
 
- <tr>
+ <tr id="fsltl-textures-section">
   <td colspan="3" style="width:1000px;background-color: #f2cad7;">
     <strong>Оптимізовані текстури для FSLTL Traffic (1к замість 4к, 5 гагабайт замість 45 гігабайт) </strong>
   </td>
