@@ -11,36 +11,48 @@ body {
   padding: 40px;
 }
 
-  .site-nav {
+.site-nav {
   position: fixed;
-  top: 12px;
-  left: 12px;
+  top: 90px;              /* нижче, на рівень першої таблиці */
+  left: 10px;
   width: 300px;
   z-index: 9999;
-  background: rgba(255, 255, 255, 0.95);
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  padding: 12px 14px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+
+  background: #ffffff;
+  border: 1px solid #555; /* як рамки таблиць */
+  border-radius: 0;       /* квадратна рамка */
+  padding: 0;
+
+  box-shadow: none;
   font-size: 14px;
   line-height: 1.35;
 }
 
 .site-nav-title {
   font-weight: bold;
-  margin-bottom: 8px;
+  text-align: center;
+  background: #c0f6f9;    /* голуба шапка як у таблиці */
+  border-bottom: 1px solid #555;
+  padding: 6px 8px;
+  margin: 0;
   font-size: 15px;
 }
 
 .site-nav a {
   display: block;
-  color: #1b4d7a;
-  text-decoration: none;
-  margin: 6px 0;
+  color: #0645ad;
+  text-decoration: underline;
+  padding: 4px 10px;
+  margin: 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.site-nav a:last-child {
+  border-bottom: none;
 }
 
 .site-nav a:hover {
-  text-decoration: underline;
+  background: #fff7c7;
 }
 
 html {
