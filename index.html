@@ -1754,6 +1754,14 @@ function formatTopPaxAmount(n) {
   return String(n);
 }
 
+function formatCargoAmount(n) {
+  if (n >= 10 && n <= 99) {
+    return "~" + Math.floor(n / 10) * 10 + "т";
+  }
+
+  return n + "т";
+}
+  
 function formatTopLine(line) {
   let s = String(line)
     // прибираємо emoji-прапори з TXT
@@ -1795,7 +1803,11 @@ s = s.replace(/\b[A-Z0-9]{4}\b/g, function(code) {
   });
 
   // cargo tons -> 📦, як було
- s = s.replace(/((?:>|~)?\d+)\s*т(?=\s|$|\()/g, "$1т 📦");
+ s = s.replace(/>99\s*т(?=\s|$|\()/g, ">99т 📦");
+
+s = s.replace(/\b(\d+)\s*т(?=\s|$|\()/g, function(match, num) {
+  return `${formatCargoAmount(Number(num))} 📦`;
+});
 
   // distance дрібнішим
   s = s.replace(
