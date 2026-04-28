@@ -1675,12 +1675,22 @@ function formatAirportCellAmount(record, mode) {
     .trim();
 
   // Для cargo лишаємо як є
-  if (mode === "cargo") {
-    return amount
-      .replace(/>99t/g, ">99т")
-      .replace(/\s*t\b/g, "т")
-      .trim();
+  
+if (mode === "cargo") {
+  if (amount.includes(">99")) {
+    return ">99т";
   }
+
+  const m = amount.match(/(\d+)/);
+  if (!m) return amount
+    .replace(/>99t/g, ">99т")
+    .replace(/\s*t\b/g, "т")
+    .trim();
+
+  const n = Number(m[1]);
+  return formatCargoAmount(n);
+}
+  
 
   // Для pax у таблиці аеропортів робимо м'якше:
   // 50-149  -> ~100
