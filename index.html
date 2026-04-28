@@ -1814,9 +1814,13 @@ s = s.replace(/\b[A-Z0-9]{4}\b/g, function(code) {
   });
 
   // cargo tons -> 📦, як було
- s = s.replace(/>99\s*т(?=\s|$|\()/g, ">99т 📦");
+// cargo tons -> округлення + одна 📦
+// >99т не округляємо і не дублюємо коробку
+s = s.replace(/(>)?\s*(\d+)\s*т(?=\s|$|\()/g, function(match, gt, num) {
+  if (gt) {
+    return `>${num}т 📦`;
+  }
 
-s = s.replace(/\b(\d+)\s*т(?=\s|$|\()/g, function(match, num) {
   return `${formatCargoAmount(Number(num))} 📦`;
 });
 
