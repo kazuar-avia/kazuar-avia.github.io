@@ -1778,7 +1778,8 @@ function formatTopLine(line) {
     .replace(/[\u{1F1E6}-\u{1F1FF}]{2}/gu, "")
 
     // прибираємо іконку на початку
-    .replace(/^\s*(👨‍💼|📦)\s*/u, "")
+    .replace(/👨‍💼/gu, "")
+    .replace(/📦/gu, "")
 
     // t -> т
     .replace(/>100t/g, ">99т")
