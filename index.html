@@ -1564,7 +1564,7 @@ function cleanAmountText(s) {
   return String(s || "")
     .replace(/^~/, "")
     .replace(/\s+t\b/g, "т")
-    .replace(/>99t/g, ">99т")
+    .replace(/>100t/g, ">99т")
     .trim();
 }
 
@@ -1677,7 +1677,7 @@ function formatAirportCellAmount(record, mode) {
   // Для cargo лишаємо як є
   
 if (mode === "cargo") {
-  if (amount.includes(">99")) {
+  if (amount.includes(">100")) {
     return ">99т";
   }
 
@@ -1781,7 +1781,7 @@ function formatTopLine(line) {
     .replace(/^\s*(👨‍💼|📦)\s*/u, "")
 
     // t -> т
-    .replace(/>99t/g, ">99т")
+    .replace(/>100t/g, ">99т")
     .replace(/\s+t\b/g, "т")
 
     // чистимо пробіли
