@@ -2225,9 +2225,10 @@ let extraStatus = '';
 
 // DELAY
 
-if (
+iif (
     gs === 0 &&
-    nowTotal > (depTotal + 15)
+    nowTotal > (depTotal + 15) &&
+    nowTotal < arrTotal
 ) {
 
     const delayMinutes =
