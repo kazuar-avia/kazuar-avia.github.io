@@ -1854,7 +1854,178 @@ async function loadVatsimTraffic() {
 
 const logoPath = `LOGOS/${airlineCode}.png`;
 
-           
+           // =========================
+// STATUS SYSTEM
+// =========================
+
+// CURRENT UTC TIME
+
+const nowHour = parseInt(updateTime.substring(0,2));
+const nowMin = parseInt(updateTime.substring(3,5));
+
+const nowTotal = (nowHour * 60) + nowMin;
+
+// DEP TIME
+
+const depTotal = (depHour * 60) + depMin;
+
+// ARR TIME
+
+const arrTotal =
+    depTotal +
+    (enrouteHour * 60) +
+    enrouteMin;
+
+// MIDPOINT TIME ("СЕР")
+
+const midTotal =
+    depTotal +
+    Math.floor(
+        ((enrouteHour * 60) + enrouteMin) / 2
+    );
+
+// GROUNDSPEED
+
+const gs = pilot.groundspeed || 0;
+
+// =========================
+// STATUS LOGIC
+// =========================
+
+let flightStatus = 'EN-ROUTE';
+
+// BOARDING
+
+if (
+    gs === 0 &&
+    nowTotal < depTotal
+) {
+
+    flightStatus = 'BOARDING';
+
+}
+
+// DEBOARDING
+
+else if (
+    gs === 0 &&
+    nowTotal > arrTotal
+) {
+
+    flightStatus = 'DEBOARDING';
+
+}
+
+// ON GROUND
+
+else if (
+    gs >= 0 &&
+    gs <= 4 &&
+    nowTotal >= depTotal &&
+    nowTotal <= arrTotal
+) {
+
+    flightStatus = 'ON GROUND';
+
+}
+
+// TAXI OUT
+
+else if (
+    gs >= 5 &&
+    gs <= 59 &&
+    nowTotal <= midTotal
+) {
+
+    flightStatus = 'TAXI OUT';
+
+}
+
+// TAXI IN
+
+else if (
+    gs >= 5 &&
+    gs <= 59 &&
+    nowTotal > midTotal
+) {
+
+    flightStatus = 'TAXI IN';
+
+}
+
+// DEPARTING
+
+else if (
+    gs >= 60 &&
+    gs <= 229 &&
+    nowTotal <= midTotal
+) {
+
+    flightStatus = 'DEPARTING';
+
+}
+
+// ARRIVING
+
+else if (
+    gs >= 60 &&
+    gs <= 229 &&
+    nowTotal > midTotal
+) {
+
+    flightStatus = 'ARRIVING';
+
+}
+
+// EN-ROUTE
+
+else if (
+    gs >= 230
+) {
+
+    flightStatus = 'EN-ROUTE';
+
+}
+
+// =========================
+// DELAY / LATE
+// =========================
+
+let extraStatus = '';
+
+// DELAY
+
+if (
+    gs === 0 &&
+    nowTotal > (depTotal + 15)
+) {
+
+    const delayMinutes =
+        nowTotal - depTotal;
+
+    extraStatus =
+        ` (delay +${delayMinutes} min)`;
+
+}
+
+// LATE
+
+if (
+    nowTotal > (arrTotal + 10) &&
+    gs > 0
+) {
+
+    const lateMinutes =
+        nowTotal - arrTotal;
+
+    extraStatus =
+        ` (late +${lateMinutes} min)`;
+
+}
+
+// FINAL STATUS
+
+flightStatus += extraStatus;
 
             // =========================
             // CID / NAME
@@ -1899,7 +2070,7 @@ const logoPath = `LOGOS/${airlineCode}.png`;
                     </td>
 
                     <td class="status-cell">
-                        STATUS
+                        ${flightStatus}
                     </td>
 
                    <td class="cid-cell">
