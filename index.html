@@ -532,6 +532,45 @@ border-collapse: collapse;
     font-weight: normal;
     margin-left: 2px;
 } 
+  /* ========================= */
+/* SORT BAR */
+/* ========================= */
+
+.header-top {
+
+    margin-bottom: 6px;
+
+}
+
+.sort-bar {
+
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+
+}
+
+.sort-bar button {
+
+    border: 1px solid #999;
+
+    background: white;
+
+    padding: 3px 7px;
+
+    font-size: 11px;
+
+    cursor: pointer;
+
+    transition: 0.15s;
+
+}
+
+.sort-bar button:hover {
+
+    background: #f0f0f0;
+
+}
 </style>
 </head>
 
@@ -661,10 +700,39 @@ Crackish <br><br>
 
 
 <div class="vatsim-container">
-    <div class="vatsim-header">
+ <div class="vatsim-header">
+
+    <div class="header-top">
         LIVE TRAFFIC VATSIM
-        <span id="vatsim-update-time">оновлено --:--z</span>
+        <span id="vatsim-update-time">
+            оновлено --:--z
+        </span>
     </div>
+
+    <div class="sort-bar">
+        <button onclick="setSort('airline')">
+            AIRLINE ▲▼
+        </button>
+      
+        <button onclick="setSort('dep')">
+            DEP ▲▼
+        </button>
+
+        <button onclick="setSort('arr')">
+            ARR ▲▼
+        </button>
+
+        <button onclick="setSort('deptime')">
+            DEP TIME ▲▼
+        </button>
+
+        <button onclick="setSort('arrtime')">
+            ARR TIME ▲▼
+        </button>
+
+    </div>
+
+</div>
 
     <table class="vatsim-table">
         <tbody id="vatsim-traffic">
@@ -1700,6 +1768,8 @@ Crackish <br><br>
 </table>
 
 <script>
+ let currentSort = '';
+let sortDirection = 1; 
 async function loadVatsimTraffic() {
 
     // =========================
@@ -1794,10 +1864,94 @@ async function loadVatsimTraffic() {
         });
 
         // =========================
-        // BUILD TABLE
-        // =========================
+// SORTING
+// =========================
 
-        let html = '';
+pilots.sort((a, b) => {
+
+    if (!currentSort) return 0;
+
+    const aFP = a.flight_plan;
+    const bFP = b.flight_plan;
+
+    const aCall = a.callsign || '';
+    const bCall = b.callsign || '';
+
+    const aAirline = aCall.substring(0,3);
+    const bAirline = bCall.substring(0,3);
+
+    // DEP
+
+    if (currentSort === 'dep') {
+
+        return (
+            aFP.departure.localeCompare(bFP.departure)
+            * sortDirection
+        );
+
+    }
+
+    // ARR
+
+    if (currentSort === 'arr') {
+
+        return (
+            aFP.arrival.localeCompare(bFP.arrival)
+            * sortDirection
+        );
+
+    }
+
+    // AIRLINE
+
+    if (currentSort === 'airline') {
+
+        return (
+            aAirline.localeCompare(bAirline)
+            * sortDirection
+        );
+
+    }
+
+    // DEP TIME
+
+    if (currentSort === 'deptime') {
+
+        return (
+            aFP.deptime.localeCompare(bFP.deptime)
+            * sortDirection
+        );
+
+    }
+
+    // ARR TIME
+
+    if (currentSort === 'arrtime') {
+
+        const aArr =
+            parseInt(aFP.deptime) +
+            parseInt(aFP.enroute_time);
+
+        const bArr =
+            parseInt(bFP.deptime) +
+            parseInt(bFP.enroute_time);
+
+        return (
+            (aArr - bArr)
+            * sortDirection
+        );
+
+    }
+
+    return 0;
+
+});
+
+// =========================
+// BUILD TABLE
+// =========================
+
+let html = '';
 
         pilots.forEach(pilot => {
 
@@ -2157,6 +2311,23 @@ flightStatus += extraStatus;
 // FIRST LOAD
 // =========================
 
+  function setSort(type) {
+
+    if (currentSort === type) {
+
+        sortDirection *= -1;
+
+    } else {
+
+        currentSort = type;
+        sortDirection = 1;
+
+    }
+
+    loadVatsimTraffic();
+
+}
+  
 loadVatsimTraffic();
 
 // =========================
