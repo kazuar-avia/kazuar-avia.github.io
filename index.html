@@ -1779,40 +1779,115 @@ async function loadVatsimTraffic() {
 
     // TXT файл з авіакомпаніями
     const AIRLINES_TXT = 'listofUKRaircompanies.txt';
-
+    const ALL_3LD_TXT = '3LDALL.txt';
     // =========================
     // LOAD AIRLINES LIST
     // =========================
 
-    let airlineMap = {};
+let airlineMap = {};
+let allAirlineMap = {};
+  
+// =========================
+// LOAD UKR AIRLINES LIST
+// =========================
 
-    try {
+try {
 
-        const txtResponse = await fetch(AIRLINES_TXT);
-        const txtData = await txtResponse.text();
+    const txtResponse = await fetch(AIRLINES_TXT);
+    const txtData = await txtResponse.text();
 
-        const lines = txtData.split('\n');
+    const lines = txtData.split('\n');
 
-        lines.forEach(line => {
+    lines.forEach(line => {
 
-            line = line.trim();
+        line = line.trim();
 
-            if (!line) return;
+        if (!line) return;
 
-            const parts = line.split(/\s+/);
+        const parts = line.split(/\s+/);
 
-            const code = parts.shift().toUpperCase();
-            const name = parts.join(' ');
+        const code = parts.shift().toUpperCase();
+        const name = parts.join(' ');
 
-            airlineMap[code] = name;
+        airlineMap[code] = name;
 
-        });
+    });
 
-    } catch (e) {
+} catch (e) {
 
-        console.error('Помилка читання listofUKRaircompanies.txt', e);
+    console.error('Помилка читання listofUKRaircompanies.txt', e);
+
+}
+
+// =========================
+// LOAD ALL 3LD DATABASE
+// =========================
+
+try {
+
+    const txtResponse = await fetch(ALL_3LD_TXT);
+    const txtData = await txtResponse.text();
+
+    const lines = txtData.split('\n');
+
+    lines.forEach(line => {
+
+        line = line.trim();
+
+        if (!line) return;
+
+        const parts = line.split(/\s+/);
+
+        const code = parts.shift().toUpperCase();
+
+        let name = parts.join(' ');
+
+        // =========================
+// SHORTEN TO 22 CHARS
+// =========================
+
+const originalName = name;
+
+if (name.length > 22) {
+
+    name = name.substring(0,22);
+
+    // remove broken tiny last word
+    const lastSpace = name.lastIndexOf(' ');
+
+    if (lastSpace !== -1) {
+
+        const lastWord =
+            name.substring(lastSpace + 1);
+
+        if (lastWord.length <= 2) {
+
+            name =
+                name.substring(0,lastSpace);
+
+        }
 
     }
+
+}
+
+// add dot ONLY if shortened
+
+if (name !== originalName) {
+
+    name += '.';
+
+}
+
+        allAirlineMap[code] = name;
+
+    });
+
+} catch (e) {
+
+    console.error('Помилка читання 3LDALL.txt', e);
+
+}
 
     // =========================
     // LOAD VATSIM JSON
@@ -1960,8 +2035,11 @@ let html = '';
 
             const airlineCode = callsign.substring(0,3).toUpperCase();
 
-            const airlineName = airlineMap[airlineCode] || 'Unknown Airline';
 
+const airlineName =
+    airlineMap[airlineCode] ||
+    allAirlineMap[airlineCode] ||
+    'Unknown Airline';
             const dep = fp.departure || '----';
             const arr = fp.arrival || '----';
 
