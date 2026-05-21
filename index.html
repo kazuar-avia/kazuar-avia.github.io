@@ -1856,17 +1856,7 @@ async function loadVatsimTraffic() {
             // LOGO
             // =========================
 
-            const logoExtensions = ['png', 'PNG', 'jpg', 'JPG', 'jpeg', 'JPEG'];
-
-            let logoPath = '';
-
-            for (const ext of logoExtensions) {
-
-            const testPath = `LOGOS/${airlineCode}.${ext}`;
-
-            logoPath = testPath;
-
-            break;
+const logoPath = `LOGOS/${airlineCode}.png`;
 
             }
 
