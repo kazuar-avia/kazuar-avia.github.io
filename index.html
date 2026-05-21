@@ -364,6 +364,159 @@ input {
   margin: 0 1px;
   margin-top: 2px;
 }
+
+/* ========================= */
+/* VATSIM LIVE TRAFFIC */
+/* ========================= */
+
+.vatsim-container {
+
+    width: 100%;
+    background: #111;
+    border: 1px solid #2d2d2d;
+    border-radius: 12px;
+    overflow: hidden;
+
+    font-family: Arial, sans-serif;
+    color: white;
+
+}
+
+.vatsim-header {
+
+    padding: 14px 18px;
+
+    background: #1b1b1b;
+
+    font-size: 20px;
+    font-weight: bold;
+
+    border-bottom: 1px solid #2d2d2d;
+
+}
+
+#vatsim-update-time {
+
+    font-size: 14px;
+    color: #aaa;
+
+    margin-left: 10px;
+
+}
+
+.vatsim-table {
+
+    width: 100%;
+    border-collapse: collapse;
+
+}
+
+.vatsim-table tr {
+
+    border-bottom: 1px solid #2a2a2a;
+
+}
+
+.vatsim-table td {
+
+    padding: 12px;
+    vertical-align: middle;
+
+    font-size: 14px;
+
+}
+
+.vatsim-table tr:hover {
+
+    background: #171717;
+
+}
+
+.logo-cell {
+
+    width: 50px;
+    text-align: center;
+
+}
+
+.airline-logo {
+
+    width: 17px;
+    height: 17px;
+
+    object-fit: contain;
+
+    border: 1px solid #666;
+    border-radius: 4px;
+
+    padding: 2px;
+
+    background: #222;
+
+}
+
+.flight-main {
+
+    font-weight: bold;
+
+}
+
+.airline-name {
+
+    color: #b5b5b5;
+    font-weight: normal;
+
+}
+
+.aircraft-type {
+
+    color: #4da6ff;
+    margin-left: 6px;
+
+}
+
+.route-cell {
+
+    font-weight: bold;
+    color: #ddd;
+
+}
+
+.time-cell {
+
+    color: #8fd18f;
+    font-size: 13px;
+
+}
+
+.status-cell {
+
+    color: orange;
+    font-weight: bold;
+
+}
+
+.cid-cell {
+
+    color: #ccc;
+
+}
+
+.cid-small {
+
+    font-size: 12px;
+    color: #888;
+
+}
+
+.no-flights {
+
+    text-align: center;
+    padding: 25px;
+
+    color: #999;
+
+}
   
 </style>
 </head>
@@ -492,6 +645,25 @@ Crackish <br><br>
   </tr>
 </table>
 
+
+<div class="vatsim-container">
+    <div class="vatsim-header">
+        LIVE TRAFFIC VATSIM
+        <span id="vatsim-update-time">оновлено --:--z</span>
+    </div>
+
+    <table class="vatsim-table">
+        <tbody id="vatsim-traffic">
+            <tr>
+                <td>Завантаження...</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+  
   <table id="charter-flights-section" class="airports-table">
   <tr colspan="3" style="width:900px;background-color: #f4f0c0;">
     <th class="title" colspan="9">
@@ -1512,6 +1684,270 @@ Crackish <br><br>
    </td>
   </tr>
 </table>
+
+<script>
+async function loadVatsimTraffic() {
+
+    // =========================
+    // CONFIG
+    // =========================
+
+    const VATSIM_URL = 'https://data.vatsim.net/v3/vatsim-data.json';
+
+    // TXT файл з авіакомпаніями
+    const AIRLINES_TXT = 'listofUKRaircompanies.txt';
+
+    // =========================
+    // LOAD AIRLINES LIST
+    // =========================
+
+    let airlineMap = {};
+
+    try {
+
+        const txtResponse = await fetch(AIRLINES_TXT);
+        const txtData = await txtResponse.text();
+
+        const lines = txtData.split('\n');
+
+        lines.forEach(line => {
+
+            line = line.trim();
+
+            if (!line) return;
+
+            const parts = line.split(/\s+/);
+
+            const code = parts.shift().toUpperCase();
+            const name = parts.join(' ');
+
+            airlineMap[code] = name;
+
+        });
+
+    } catch (e) {
+
+        console.error('Помилка читання listofUKRaircompanies.txt', e);
+
+    }
+
+    // =========================
+    // LOAD VATSIM JSON
+    // =========================
+
+    try {
+
+        const response = await fetch(VATSIM_URL);
+        const data = await response.json();
+
+        // =========================
+        // UPDATE TIME
+        // =========================
+
+        const updateTimestamp = data.general.update_timestamp;
+
+        const updateTime = updateTimestamp.split('T')[1].substring(0,5);
+
+        document.getElementById('vatsim-update-time').innerText =
+            `оновлено ${updateTime}z`;
+
+        // =========================
+        // FILTER PILOTS
+        // =========================
+
+        const pilots = data.pilots.filter(pilot => {
+
+            if (!pilot.flight_plan) return false;
+
+            const dep = pilot.flight_plan.departure || '';
+            const arr = pilot.flight_plan.arrival || '';
+
+            const callsign = pilot.callsign || '';
+
+            const airlineCode = callsign.substring(0,3).toUpperCase();
+
+            // Українські аеропорти
+            const ukraineFlight =
+                dep.startsWith('UK') ||
+                arr.startsWith('UK');
+
+            // Українські авіакомпанії
+            const ukrainianAirline =
+                airlineMap.hasOwnProperty(airlineCode);
+
+            return ukraineFlight || ukrainianAirline;
+
+        });
+
+        // =========================
+        // BUILD TABLE
+        // =========================
+
+        let html = '';
+
+        pilots.forEach(pilot => {
+
+            const fp = pilot.flight_plan;
+
+            const callsign = pilot.callsign || 'N/A';
+
+            const airlineCode = callsign.substring(0,3).toUpperCase();
+
+            const airlineName = airlineMap[airlineCode] || 'Unknown Airline';
+
+            const dep = fp.departure || '----';
+            const arr = fp.arrival || '----';
+
+            const aircraft = fp.aircraft_short || '----';
+
+            // =========================
+            // DEP TIME
+            // =========================
+
+            const depRaw = fp.deptime || '0000';
+
+            const depHour = parseInt(depRaw.substring(0,2));
+            const depMin = parseInt(depRaw.substring(2,4));
+
+            const depFormatted =
+                depRaw.substring(0,2) + ':' +
+                depRaw.substring(2,4);
+
+            // =========================
+            // ENROUTE TIME
+            // =========================
+
+            const enrouteRaw = fp.enroute_time || '0000';
+
+            const enrouteHour = parseInt(enrouteRaw.substring(0,2));
+            const enrouteMin = parseInt(enrouteRaw.substring(2,4));
+
+            // =========================
+            // ARR TIME CALC
+            // =========================
+
+            let totalMinutes =
+                (depHour * 60 + depMin) +
+                (enrouteHour * 60 + enrouteMin);
+
+            totalMinutes = totalMinutes % (24 * 60);
+
+            const arrHour = Math.floor(totalMinutes / 60);
+            const arrMin = totalMinutes % 60;
+
+            const arrFormatted =
+                String(arrHour).padStart(2, '0') + ':' +
+                String(arrMin).padStart(2, '0');
+
+            // =========================
+            // LOGO
+            // =========================
+
+            const logoPath = `LOGOS/${airlineCode}.png`;
+
+            // =========================
+            // CID / NAME
+            // =========================
+
+            const cid = pilot.cid || 'N/A';
+            const name = pilot.name || 'N/A';
+
+            // =========================
+            // ROW
+            // =========================
+
+            html += `
+                <tr>
+                    <td class="logo-cell">
+                        <img
+                            src="${logoPath}"
+                            class="airline-logo"
+                            onerror="this.style.display='none';"
+                        >
+                    </td>
+
+                    <td>
+                        <div class="flight-main">
+                            ${callsign}
+                            <span class="airline-name">
+                                (${airlineName})
+                            </span>
+
+                            <span class="aircraft-type">
+                                ${aircraft}
+                            </span>
+                        </div>
+                    </td>
+
+                    <td class="route-cell">
+                        ${dep} → ${arr}
+                    </td>
+
+                    <td class="time-cell">
+                        DEP ${depFormatted}z
+                        <br>
+                        ARR ${arrFormatted}z
+                    </td>
+
+                    <td class="status-cell">
+                        STATUS
+                    </td>
+
+                    <td class="cid-cell">
+                        ${name}
+                        <br>
+                        <span class="cid-small">
+                            ID: ${cid}
+                        </span>
+                    </td>
+                </tr>
+            `;
+
+        });
+
+        if (html === '') {
+
+            html = `
+                <tr>
+                    <td colspan="6" class="no-flights">
+                        Немає активних рейсів
+                    </td>
+                </tr>
+            `;
+
+        }
+
+        document.getElementById('vatsim-traffic').innerHTML = html;
+
+    } catch (error) {
+
+        console.error(error);
+
+        document.getElementById('vatsim-traffic').innerHTML = `
+            <tr>
+                <td colspan="6">
+                    Помилка завантаження VATSIM
+                </td>
+            </tr>
+        `;
+
+    }
+
+}
+
+// =========================
+// FIRST LOAD
+// =========================
+
+loadVatsimTraffic();
+
+// =========================
+// AUTO REFRESH EVERY 60 SEC
+// =========================
+
+setInterval(loadVatsimTraffic, 60000);
+
+</script>
 
 
   
