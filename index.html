@@ -371,34 +371,39 @@ input {
 
 .vatsim-container {
 
+border-collapse: collapse;
     width: 100%;
-    background: #111;
-    border: 1px solid #2d2d2d;
-    border-radius: 12px;
+    max-width: 1458px;
+    margin: 5px auto;
+
+    background: white;
+
+    border: 1px solid black;
+
     overflow: hidden;
 
     font-family: Arial, sans-serif;
-    color: white;
+    color: black;
 
 }
 
 .vatsim-header {
 
-    padding: 14px 18px;
+    padding: 8px 12px;
 
-    background: #1b1b1b;
+    background: #f3f3f3;
 
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
 
-    border-bottom: 1px solid #2d2d2d;
+    border-bottom: 1px solid black;
 
 }
 
 #vatsim-update-time {
 
-    font-size: 14px;
-    color: #aaa;
+    font-size: 13px;
+    color: #555;
 
     margin-left: 10px;
 
@@ -413,22 +418,24 @@ input {
 
 .vatsim-table tr {
 
-    border-bottom: 1px solid #2a2a2a;
+    border-bottom: 1px solid #d0d0d0;
 
 }
 
 .vatsim-table td {
 
-    padding: 12px;
+    padding: 6px 8px;
     vertical-align: middle;
 
-    font-size: 14px;
+    font-size: 13px;
+
+    line-height: 1.2;
 
 }
 
 .vatsim-table tr:hover {
 
-    background: #171717;
+   background: #f5f5f5;
 
 }
 
@@ -441,8 +448,8 @@ input {
 
 .airline-logo {
 
-    width: 17px;
-    height: 17px;
+    width: 25px;
+    height: 25px;
 
     object-fit: contain;
 
@@ -478,34 +485,40 @@ input {
 .route-cell {
 
     font-weight: bold;
-    color: #ddd;
+    color: black;
 
 }
 
 .time-cell {
 
-    color: #8fd18f;
-    font-size: 13px;
+    color: #006400;
+    font-size: 12px;
+
+    white-space: nowrap;
 
 }
 
 .status-cell {
 
-    color: orange;
+    color: #cc7a00;
     font-weight: bold;
+
+    white-space: nowrap;
 
 }
 
 .cid-cell {
 
-    color: #ccc;
+    color: #333;
+
+    white-space: nowrap;
 
 }
 
 .cid-small {
 
-    font-size: 12px;
-    color: #888;
+    font-size: 11px;
+    color: #666;
 
 }
 
@@ -1843,7 +1856,19 @@ async function loadVatsimTraffic() {
             // LOGO
             // =========================
 
-            const logoPath = `LOGOS/${airlineCode}.png`;
+            const logoExtensions = ['png', 'PNG', 'jpg', 'JPG', 'jpeg', 'JPEG'];
+
+            let logoPath = '';
+
+            for (const ext of logoExtensions) {
+
+            const testPath = `LOGOS/${airlineCode}.${ext}`;
+
+            logoPath = testPath;
+
+            break;
+
+            }
 
             // =========================
             // CID / NAME
@@ -1884,22 +1909,19 @@ async function loadVatsimTraffic() {
                     </td>
 
                     <td class="time-cell">
-                        DEP ${depFormatted}z
-                        <br>
-                        ARR ${arrFormatted}z
+                        DEP ${depFormatted} - ARR ${arrFormatted}
                     </td>
 
                     <td class="status-cell">
                         STATUS
                     </td>
 
-                    <td class="cid-cell">
-                        ${name}
-                        <br>
-                        <span class="cid-small">
-                            ID: ${cid}
-                        </span>
-                    </td>
+                   <td class="cid-cell">
+    ${name}
+    <span class="cid-small">
+        (ID: ${cid})
+    </span>
+</td>
                 </tr>
             `;
 
