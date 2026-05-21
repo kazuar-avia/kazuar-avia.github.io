@@ -526,7 +526,12 @@ border-collapse: collapse;
     color: #999;
 
 }
-  
+ .status-delay {
+    color: #c96b6b;
+    font-size: 11px;
+    font-weight: normal;
+    margin-left: 2px;
+} 
 </style>
 </head>
 
@@ -2003,8 +2008,25 @@ if (
     const delayMinutes =
         nowTotal - depTotal;
 
+    let delayText = '';
+
+    if (delayMinutes > 59) {
+
+        const delayHours =
+            Math.floor(delayMinutes / 60);
+
+        delayText =
+            `delay >${delayHours} hr`;
+
+    } else {
+
+        delayText =
+            `delay +${delayMinutes} min`;
+
+    }
+
     extraStatus =
-        ` (delay +${delayMinutes} min)`;
+        ` <span class="status-delay">(${delayText})</span>`;
 
 }
 
@@ -2018,8 +2040,25 @@ if (
     const lateMinutes =
         nowTotal - arrTotal;
 
+    let lateText = '';
+
+    if (lateMinutes > 59) {
+
+        const lateHours =
+            Math.floor(lateMinutes / 60);
+
+        lateText =
+            `late >${lateHours} hr`;
+
+    } else {
+
+        lateText =
+            `late +${lateMinutes} min`;
+
+    }
+
     extraStatus =
-        ` (late +${lateMinutes} min)`;
+        ` <span class="status-delay">(${lateText})</span>`;
 
 }
 
