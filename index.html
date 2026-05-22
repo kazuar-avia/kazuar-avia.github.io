@@ -1869,8 +1869,14 @@ async function loadNewskyOfflineFlights() {
 
     try {
 
-        const response =
-            await fetch('https://newsky.app/api/airline/ukr');
+const response = await fetch(
+    'https://newsky.app/api/airline-api/flights/ongoing',
+    {
+        headers: {
+            'Authorization': 'Bearer UKR_uSTNynarbU8B8A61nvDLqmSl7Ji8xK'
+        }
+    }
+);
 
         const data =
             await response.json();
