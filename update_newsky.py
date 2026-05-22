@@ -71,6 +71,9 @@ with open("newsky-live.json", "w", encoding="utf-8") as fp:
         indent=2
     )
 
+with open("debug.html", "w", encoding="utf-8") as f:
+    f.write(response.text)
+
 print(
     f"Saved {len(result)} flights"
 )
