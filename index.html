@@ -2706,13 +2706,33 @@ else if (flight.flightType === "cargo") {
 
 }
 
-let offlineText =
-    `Offline ${flightType}`;
+let flightMode = "flight";
 
-if (payloadText) {
+if (flight.schedule) {
 
-    offlineText +=
-        `: ${payloadText}`;
+    flightMode = "scheduled";
+
+}
+
+if (flight.charter) {
+
+    flightMode = "charter";
+
+}
+
+let offlineText = "Offline";
+
+if (flight.type === "pax") {
+
+    offlineText =
+        `Offline pax ${flightMode}`;
+
+}
+
+else if (flight.type === "cargo") {
+
+    offlineText =
+        `Offline cargo ${flightMode}`;
 
 }
     html += `
