@@ -531,7 +531,7 @@ border-collapse: collapse;
 
 }
  .status-delay {
-    color: #red;
+    color: red;
     font-size: 11px;
     font-weight: normal;
     margin-left: 0px;
@@ -794,7 +794,7 @@ Crackish <br><br>
   <tr colspan="3" style="width:900px;background-color: #f4f0c0;">
     <th class="title" colspan="9">
       Попит на <span style="text-decoration: underline;">ЧАРТЕРНІ РЕЙСИ</span> У NewSky + посилання на сценарії аеропортів для MSFS 2020/2024 (*платні, **тільки в marketplace):
-      <div id="data-updated" style="font-size:12px; text-align:center; margin:2px 0; color:#666; font-style:italic;""></div>
+      <div id="data-updated" style="font-size:12px; text-align:center; margin:2px 0; color:#666; font-style:italic;"></div>
     </th>
   </tr>
 
@@ -2185,6 +2185,15 @@ const formattedCallsign =
 const dep = fp.departure || '----';
 const arr = fp.arrival || '----';
 
+          // =========================
+// RU BANNED CHECK
+// =========================
+
+const isRuBanned =
+
+    ruBannedAirports.includes(dep) ||
+    ruBannedAirports.includes(arr);
+
 // =========================
 // AIRLINE NAME
 // =========================
@@ -2199,15 +2208,13 @@ if (isRuBanned) {
     airlineName = 'Pidaravia';
 
 }
+          
 
 // =========================
 // RU BANNED CHECK
 // =========================
 
-const isRuBanned =
 
-    ruBannedAirports.includes(dep) ||
-    ruBannedAirports.includes(arr);
           
             const aircraftCode =
     fp.aircraft_short || '----';
