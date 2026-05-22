@@ -931,27 +931,7 @@ Crackish <br><br>
     </table>
 </div>
 
-<div class="vatsim-container">
 
- <div class="vatsim-header">
-
-    <div class="header-top">
-        LIVE TRAFFIC NEWSKY: українські авіакомпанії
-        <span id="newsky-update-time">
-            оновлено --:--z
-        </span>
-    </div>
-
-</div>
-
-    <table class="vatsim-table">
-        <tbody id="newsky-traffic">
-            <tr>
-                <td>Завантаження...</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
 
   
 <table>
@@ -2074,6 +2054,34 @@ async function loadVatsimTraffic() {
         const response = await fetch(VATSIM_URL);
         const data = await response.json();
 
+// =========================
+// LOAD NEWSKY
+// =========================
+
+let newSkyFlights = [];
+
+try {
+
+    const nsResponse = await fetch(
+        "https://newsky.app/api/airline-api/flights/ongoing",
+        {
+            headers: {
+                "Authorization": "Bearer UKR_uSTNynarbU8B8A61nvDLqmSl7Ji8xK"
+            }
+        }
+    );
+
+    const nsData = await nsResponse.json();
+
+    newSkyFlights =
+        nsData.results || [];
+
+} catch(e) {
+
+    console.error("NewSky error:", e);
+
+}
+      
         // =========================
         // UPDATE TIME
         // =========================
@@ -2598,7 +2606,136 @@ flightStatus += extraStatus;
             `;
 
         });
+// =========================
+// ADD NEWSKY FLIGHTS
+// =========================
 
+newSkyFlights.forEach(flight => {
+
+    const callsign =
+        (flight.airline?.icao || "UKL") +
+        (flight.flightNumber || "");
+
+    const formattedCallsign =
+        callsign.substring(0,3) +
+        '&thinsp;' +
+        callsign.substring(3);
+
+    const aircraft =
+        flight.aircraft?.airframe?.name ||
+        "Unknown";
+
+    const dep =
+        flight.dep?.icao || '----';
+
+    const arr =
+        flight.arr?.icao || '----';
+
+    let depUTC = "--:--";
+
+    if (flight.depTimeAct) {
+
+        const depDate =
+            new Date(flight.depTimeAct);
+
+        depUTC =
+            depDate.getUTCHours()
+            .toString()
+            .padStart(2,'0')
+            +
+            ":" +
+            depDate.getUTCMinutes()
+            .toString()
+            .padStart(2,'0');
+
+    }
+
+    let status = "EN-ROUTE";
+
+    if (!flight.depTimeAct) {
+
+        status = "PLANNED";
+
+    }
+
+    const pilot =
+        flight.pilot?.fullname ||
+        "Unknown";
+
+    let offlineText = "NewSky Offline";
+
+    if (flight.schedule) {
+
+        offlineText =
+            "Scheduled Offline";
+
+    }
+
+    if (flight.charter) {
+
+        offlineText =
+            "Charter Offline";
+
+    }
+
+    html += `
+<tr>
+
+<td class="logo-cell">
+<img
+src="LOGOS/UCAA.png"
+class="airline-logo"
+onerror="this.onerror=null; this.src='LOGOS/nologo.png';"
+>
+</td>
+
+<td class="flight-cell">
+
+<div class="flight-row-top">
+
+<span class="callsign-big">
+${formattedCallsign}
+</span>
+
+<div class="flight-right-side">
+
+<span class="airline-name-new">
+Ukraine Classic Air Alliance
+</span>
+
+<span class="aircraft-row">
+${aircraft}
+</span>
+
+</div>
+
+</div>
+
+</td>
+
+<td class="route-cell">
+${dep} → ${arr}
+</td>
+
+<td class="time-cell">
+DEP ${depUTC}z
+</td>
+
+<td class="status-cell">
+${status}
+</td>
+
+<td class="cid-cell">
+${pilot}
+<span class="cid-small">
+<br>${offlineText}
+</span>
+</td>
+
+</tr>
+`;
+
+});
         if (html === '') {
 
             html = `
@@ -2844,9 +2981,7 @@ ${pilot}
     }
 }
 
-loadNewSkyTraffic();
 
-setInterval(loadNewSkyTraffic, 180000);
 
   
 initVatsim();
