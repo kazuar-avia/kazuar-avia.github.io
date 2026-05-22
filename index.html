@@ -1867,6 +1867,7 @@ async function loadVatsimTraffic() {
     const AIRLINES_TXT = 'listofUKRaircompanies.txt';
     const ALL_3LD_TXT = '3LDALL.txt';
     const ICAO_TYPES_TXT = 'ICAOTYPES_CLEAN.txt';
+    const RU_BANNED_TXT = 'ruBanned.txt';
     // =========================
     // LOAD AIRLINES LIST
     // =========================
@@ -1874,6 +1875,7 @@ async function loadVatsimTraffic() {
 let airlineMap = {};
 let allAirlineMap = {};
 let aircraftMap = {};
+let ruBannedAirports = [];
   
 // =========================
 // LOAD UKR AIRLINES LIST
@@ -2009,7 +2011,27 @@ try {
     console.error('Помилка читання ICAOTYPES_CLEAN.txt', e);
 
 }
-  
+  // =========================
+// LOAD RU BANNED AIRPORTS
+// =========================
+
+try {
+
+    const txtResponse = await fetch(RU_BANNED_TXT);
+
+    const txtData = await txtResponse.text();
+
+    ruBannedAirports =
+        txtData
+            .split('\n')
+            .map(x => x.trim().toUpperCase())
+            .filter(Boolean);
+
+} catch (e) {
+
+    console.error('Помилка читання ruBanned.txt', e);
+
+}
     // =========================
     // LOAD VATSIM JSON
     // =========================
@@ -2160,13 +2182,28 @@ const formattedCallsign =
             const airlineCode = callsign.substring(0,3).toUpperCase();
 
 
-const airlineName =
+let airlineName =
     airlineMap[airlineCode] ||
     allAirlineMap[airlineCode] ||
     'Unknown Airline';
+
+if (isRuBanned) {
+
+    airlineName = 'Pidaravia';
+
+}
             const dep = fp.departure || '----';
             const arr = fp.arrival || '----';
 
+// =========================
+// RU BANNED CHECK
+// =========================
+
+const isRuBanned =
+
+    ruBannedAirports.includes(dep) ||
+    ruBannedAirports.includes(arr);
+          
             const aircraftCode =
     fp.aircraft_short || '----';
 
@@ -2217,7 +2254,13 @@ const aircraft =
             // LOGO
             // =========================
 
-const logoPath = `LOGOS/${airlineCode}.png`;
+let logoPath = `LOGOS/${airlineCode}.png`;
+
+if (isRuBanned) {
+
+    logoPath = 'LOGOS/ruBanned.png';
+
+}
 
            // =========================
 // STATUS SYSTEM
