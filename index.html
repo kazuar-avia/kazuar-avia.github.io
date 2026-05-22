@@ -1854,6 +1854,7 @@ Crackish <br><br>
 
 <script>
  let currentSort = '';
+  let newskyFlights = [];
 let sortDirection = 1; 
   let airlineMap = {};
 let allAirlineMap = {};
@@ -1862,6 +1863,42 @@ let ruBannedAirports = [];
 
 async function preloadStaticData() {
 
+
+
+  // =========================
+// LOAD NEWSKY OFFLINE
+// =========================
+
+async function loadNewskyOfflineFlights() {
+
+    try {
+
+        const response =
+            await fetch('https://newsky.app/api/airline/ukr');
+
+        const data =
+            await response.json();
+
+        console.log('NEWSKY RAW:', data);
+
+        newskyFlights =
+            data.pilots || [];
+
+        console.log(
+            'NEWSKY FLIGHTS:',
+            newskyFlights.length
+        );
+
+    } catch (e) {
+
+        console.error(
+            'NEWSKY ERROR:',
+            e
+        );
+
+    }
+
+}
     // =========================
     // LOAD UKR AIRLINES
     // =========================
@@ -2630,9 +2667,11 @@ flightStatus += extraStatus;
   
 async function initVatsim() {
 
-    await preloadStaticData();
+await preloadStaticData();
 
-    await loadVatsimTraffic();
+await loadNewskyOfflineFlights();
+
+await loadVatsimTraffic();
 
     setInterval(loadVatsimTraffic, 180000);
 
