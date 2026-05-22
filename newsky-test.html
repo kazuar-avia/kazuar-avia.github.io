@@ -167,8 +167,7 @@
                 <th>DEP.TIME</th>
                 <th>STATUS</th>
                 <th>PILOT</th>
-                <th>TYPE</th>
-                <th>SIM</th>
+
             </tr>
         </thead>
 
@@ -198,8 +197,6 @@ async function loadTraffic() {
         const tbody = document.getElementById("trafficBody");
 
         tbody.innerHTML = "";
-
-        data.results.forEach(flight => {
 
 data.results
 .filter(flight => !flight.network?.name)
