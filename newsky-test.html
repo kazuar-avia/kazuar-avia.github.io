@@ -321,7 +321,10 @@ if (!flight.depTimeAct) {
 
         <td class="time-cell">
 
-            DEP ${depUTC} - ARR ${arrUTC}
+            ${status === "PLANNED"
+    ? ""
+    : `DEP ${depUTC} - ARR ${arrUTC}`
+}
 
         </td>
 
