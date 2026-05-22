@@ -1,94 +1,247 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
+
 <head>
-<meta charset="UTF-8">
-<title>NewSky Live Traffic</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-body{
-    background:#111;
-    color:white;
-    font-family:Arial;
-    padding:20px;
-}
+    <title>NewSky Live Traffic</title>
 
-table{
-    width:100%;
-    border-collapse:collapse;
-}
+    <style>
 
-th,td{
-    border:1px solid #333;
-    padding:10px;
-    text-align:left;
-}
+        body{
+            background:#dcdcdc;
+            font-family:Arial, sans-serif;
+            margin:0;
+            padding:0;
+        }
 
-th{
-    background:#222;
-}
+        .wrapper{
+            padding:10px;
+        }
 
-tr:nth-child(even){
-    background:#1a1a1a;
-}
-</style>
+        .header{
+            font-size:18px;
+            font-weight:bold;
+            margin-bottom:10px;
+        }
+
+        .updated{
+            font-size:14px;
+            color:#555;
+            font-weight:normal;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            background:#efefef;
+        }
+
+        th{
+            background:#ffffff;
+            border:1px solid #666;
+            padding:6px;
+            font-size:14px;
+            text-align:center;
+        }
+
+        td{
+            border:1px solid #666;
+            padding:6px;
+            font-size:14px;
+            background:#efefef;
+        }
+
+        .callsign{
+            font-weight:bold;
+            font-size:16px;
+            white-space:nowrap;
+        }
+
+        .aircraft{
+            color:#4169e1;
+        }
+
+        .route{
+            font-weight:bold;
+            text-align:center;
+            white-space:nowrap;
+        }
+
+        .time{
+            color:green;
+            text-align:center;
+            white-space:nowrap;
+        }
+
+        .status{
+            color:#cc7a00;
+            text-align:center;
+            font-weight:bold;
+            white-space:nowrap;
+        }
+
+        .pilot{
+            text-align:center;
+            white-space:nowrap;
+        }
+
+        .sim{
+            text-align:center;
+            color:#555;
+            white-space:nowrap;
+        }
+
+        .type{
+            text-align:center;
+            font-weight:bold;
+            white-space:nowrap;
+        }
+
+    </style>
 </head>
 
 <body>
 
-<h1>Ukraine Classic Air Alliance — Live Traffic</h1>
+<div class="wrapper">
 
-<table>
-<thead>
-<tr>
-    <th>Callsign</th>
-    <th>Aircraft</th>
-    <th>Route</th>
-    <th>Pilot</th>
-    <th>Simulator</th>
-</tr>
-</thead>
+    <div class="header">
+        LIVE TRAFFIC NEWSKY: українські авіакомпанії
+        <span class="updated" id="updated"></span>
+    </div>
 
-<tbody id="trafficBody">
-</tbody>
-</table>
+    <table>
+
+        <thead>
+            <tr>
+                <th>CALLSIGN</th>
+                <th>AIRCRAFT</th>
+                <th>ROUTE</th>
+                <th>DEP.TIME</th>
+                <th>STATUS</th>
+                <th>PILOT</th>
+                <th>TYPE</th>
+                <th>SIM</th>
+            </tr>
+        </thead>
+
+        <tbody id="trafficBody"></tbody>
+
+    </table>
+
+</div>
 
 <script>
 
-const API_KEY = "UKR_uSTNynarbU8B8A61nvDLqmSl7Ji8xK";
-
 async function loadTraffic() {
 
-    const response = await fetch(
-        "https://newsky.app/api/airline-api/flights/ongoing",
-        {
-            headers: {
-                "Authorization": `Bearer ${API_KEY}`
+    try {
+
+        const response = await fetch(
+            "https://newsky.app/api/airline-api/flights/ongoing",
+            {
+                headers: {
+                    "Authorization": "Bearer YOUR_API_KEY_HERE"
+                }
             }
-        }
-    );
+        );
 
-    const data = await response.json();
+        const data = await response.json();
 
-    const tbody = document.getElementById("trafficBody");
+        const tbody = document.getElementById("trafficBody");
 
-    tbody.innerHTML = "";
+        tbody.innerHTML = "";
 
-    data.results.forEach(flight => {
+        data.results.forEach(flight => {
 
-        const row = document.createElement("tr");
+            const tr = document.createElement("tr");
 
-        row.innerHTML = `
-            <td>${flight.airline.icao}${flight.flightNumber}</td>
-            <td>${flight.aircraft.airframe.name}</td>
-            <td>${flight.dep.icao} → ${flight.arr.icao}</td>
-            <td>${flight.pilot.fullname}</td>
-            <td>${flight.simulator}</td>
-        `;
+            const callsign =
+                (flight.airline?.icao || "") +
+                (flight.flightNumber || "");
 
-        tbody.appendChild(row);
+            const aircraft =
+                flight.aircraft?.airframe?.name || "Unknown";
 
-    });
+            const route =
+                `${flight.dep?.icao || "----"} → ${flight.arr?.icao || "----"}`;
 
+            const depTime = new Date(flight.depTimeAct);
+
+            const depUTC =
+                depTime.getUTCHours().toString().padStart(2, "0") +
+                ":" +
+                depTime.getUTCMinutes().toString().padStart(2, "0");
+
+            const pilot =
+                flight.pilot?.fullname || "Unknown";
+
+            const simulator =
+                (flight.simulator || "").toUpperCase();
+
+            const flightType =
+                (flight.type || "").toUpperCase();
+
+            let status = "EN-ROUTE";
+
+            if (flight.arrTimeAct) {
+                status = "ARRIVED";
+            }
+
+            if (flight.emergency) {
+                status = "EMERGENCY";
+            }
+
+            tr.innerHTML = `
+                <td class="callsign">
+                    ${callsign}
+                </td>
+
+                <td>
+                    <div class="aircraft">
+                        ${aircraft}
+                    </div>
+                </td>
+
+                <td class="route">
+                    ${route}
+                </td>
+
+                <td class="time">
+                    DEP ${depUTC}z
+                </td>
+
+                <td class="status">
+                    ${status}
+                </td>
+
+                <td class="pilot">
+                    ${pilot}
+                </td>
+
+                <td class="type">
+                    ${flightType}
+                </td>
+
+                <td class="sim">
+                    ${simulator}
+                </td>
+            `;
+
+            tbody.appendChild(tr);
+        });
+
+        document.getElementById("updated").innerText =
+            "оновлено " +
+            new Date().toUTCString().slice(17, 22) +
+            "z";
+
+    } catch (err) {
+
+        console.error(err);
+
+    }
 }
 
 loadTraffic();
