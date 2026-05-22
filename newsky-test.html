@@ -98,7 +98,53 @@
             font-weight:bold;
             white-space:nowrap;
         }
+.airline-subtitle{
+    color:#666;
+    font-size:13px;
+    line-height:16px;
+}
 
+.aircraft-name{
+    color:#4169e1;
+    font-size:14px;
+    line-height:16px;
+}
+
+.route-cell{
+    text-align:center;
+    font-weight:bold;
+    white-space:nowrap;
+}
+
+.time-cell{
+    text-align:center;
+    color:green;
+    white-space:nowrap;
+}
+
+.status-cell{
+    text-align:center;
+    color:#cc7a00;
+    font-weight:bold;
+    white-space:nowrap;
+}
+
+.pilot-cell{
+    text-align:center;
+    line-height:18px;
+}
+
+.pilot-extra{
+    color:#666;
+    font-size:13px;
+}
+
+.flight-icon{
+    width:15px;
+    height:15px;
+    vertical-align:middle;
+    margin-right:4px;
+}
     </style>
 </head>
 
@@ -155,82 +201,138 @@ async function loadTraffic() {
 
         data.results.forEach(flight => {
 
-            const tr = document.createElement("tr");
+data.results
+.filter(flight => !flight.network?.name)
+.forEach(flight => {
 
-            const callsign =
-                (flight.airline?.icao || "") +
-                (flight.flightNumber || "");
+    const tr = document.createElement("tr");
 
-            const aircraft =
-                flight.aircraft?.airframe?.name || "Unknown";
+    const callsign =
+        (flight.airline?.icao || "") +
+        (flight.flightNumber || "");
 
-            const route =
-                `${flight.dep?.icao || "----"} → ${flight.arr?.icao || "----"}`;
+    const aircraft =
+        flight.aircraft?.airframe?.name || "Unknown";
 
-            const depTime = new Date(flight.depTimeAct);
+    const route =
+        `${flight.dep?.icao || "----"} → ${flight.arr?.icao || "----"}`;
 
-            const depUTC =
-                depTime.getUTCHours().toString().padStart(2, "0") +
-                ":" +
-                depTime.getUTCMinutes().toString().padStart(2, "0");
+    const depTime = new Date(flight.depTimeAct);
 
-            const pilot =
-                flight.pilot?.fullname || "Unknown";
+    const depUTC =
+        depTime.getUTCHours().toString().padStart(2, "0") +
+        ":" +
+        depTime.getUTCMinutes().toString().padStart(2, "0");
 
-            const simulator =
-                (flight.simulator || "").toUpperCase();
+    // -----------------------------------
+    // ARRIVAL TIME (temporary estimate)
+    // -----------------------------------
 
-            const flightType =
-                (flight.type || "").toUpperCase();
+    const arrDate = new Date(depTime.getTime() + (2 * 60 * 60 * 1000));
 
-            let status = "EN-ROUTE";
+    const arrUTC =
+        arrDate.getUTCHours().toString().padStart(2, "0") +
+        ":" +
+        arrDate.getUTCMinutes().toString().padStart(2, "0");
 
-            if (flight.arrTimeAct) {
-                status = "ARRIVED";
-            }
+    // -----------------------------------
+    // STATUS LOGIC
+    // same style as VATSIM
+    // -----------------------------------
 
-            if (flight.emergency) {
-                status = "EMERGENCY";
-            }
+    const now = new Date();
 
-            tr.innerHTML = `
-                <td class="callsign">
-                    ${callsign}
-                </td>
+    const minutesFromDeparture =
+        (now - depTime) / 60000;
 
-                <td>
-                    <div class="aircraft">
-                        ${aircraft}
-                    </div>
-                </td>
+    let status = "EN-ROUTE";
 
-                <td class="route">
-                    ${route}
-                </td>
+    if (minutesFromDeparture < 15) {
+        status = "DEPARTING";
+    }
 
-                <td class="time">
-                    DEP ${depUTC}z
-                </td>
+    if (minutesFromDeparture > 90) {
+        status = "ARRIVING";
+    }
 
-                <td class="status">
-                    ${status}
-                </td>
+    // -----------------------------------
 
-                <td class="pilot">
-                    ${pilot}
-                </td>
+    const pilot =
+        flight.pilot?.fullname || "Unknown";
 
-                <td class="type">
-                    ${flightType}
-                </td>
+    // -----------------------------------
+    // FLIGHT TYPE ICON
+    // -----------------------------------
 
-                <td class="sim">
-                    ${simulator}
-                </td>
-            `;
+    let icon = "iconFree.png";
+    let label = "NewSky Offline";
 
-            tbody.appendChild(tr);
-        });
+    if (flight.schedule) {
+        icon = "iconSchedule.png";
+        label = "Scheduled Offline";
+    }
+
+    if (flight.charter) {
+        icon = "iconCharter.png";
+        label = "Charter Offline";
+    }
+
+    tr.innerHTML = `
+
+        <td class="callsign">
+
+            ${callsign}
+
+        </td>
+
+        <td>
+
+            <div class="airline-subtitle">
+                Ukraine Alliance "UCAA"
+            </div>
+
+            <div class="aircraft-name">
+                ${aircraft}
+            </div>
+
+        </td>
+
+        <td class="route-cell">
+
+            ${route}
+
+        </td>
+
+        <td class="time-cell">
+
+            DEP ${depUTC} - ARR ${arrUTC}
+
+        </td>
+
+        <td class="status-cell">
+
+            ${status}
+
+        </td>
+
+        <td class="pilot-cell">
+
+            ${pilot}
+
+            <div class="pilot-extra">
+
+                <img src="${icon}" class="flight-icon">
+
+                ${label}
+
+            </div>
+
+        </td>
+    `;
+
+    tbody.appendChild(tr);
+
+});});
 
         document.getElementById("updated").innerText =
             "оновлено " +
