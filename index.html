@@ -2182,6 +2182,22 @@ const formattedCallsign =
             const airlineCode = callsign.substring(0,3).toUpperCase();
 
 
+const dep = fp.departure || '----';
+const arr = fp.arrival || '----';
+
+// =========================
+// RU BANNED CHECK
+// =========================
+
+const isRuBanned =
+
+    ruBannedAirports.includes(dep) ||
+    ruBannedAirports.includes(arr);
+
+// =========================
+// AIRLINE NAME
+// =========================
+
 let airlineName =
     airlineMap[airlineCode] ||
     allAirlineMap[airlineCode] ||
@@ -2192,8 +2208,6 @@ if (isRuBanned) {
     airlineName = 'Pidaravia';
 
 }
-            const dep = fp.departure || '----';
-            const arr = fp.arrival || '----';
 
 // =========================
 // RU BANNED CHECK
