@@ -216,21 +216,33 @@ data.results
 
     const depTime = new Date(flight.depTimeAct);
 
-    const depUTC =
+let depUTC = "--:--";
+
+if (flight.depTimeAct) {
+
+    depUTC =
         depTime.getUTCHours().toString().padStart(2, "0") +
         ":" +
         depTime.getUTCMinutes().toString().padStart(2, "0");
+
+}
 
     // -----------------------------------
     // ARRIVAL TIME (temporary estimate)
     // -----------------------------------
 
+let arrUTC = "--:--";
+
+if (flight.depTimeAct) {
+
     const arrDate = new Date(depTime.getTime() + (2 * 60 * 60 * 1000));
 
-    const arrUTC =
+    arrUTC =
         arrDate.getUTCHours().toString().padStart(2, "0") +
         ":" +
         arrDate.getUTCMinutes().toString().padStart(2, "0");
+
+}
 
     // -----------------------------------
     // STATUS LOGIC
@@ -244,6 +256,12 @@ data.results
 
     let status = "EN-ROUTE";
 
+if (!flight.depTimeAct) {
+
+    status = "PLANNED";
+
+} else {
+
     if (minutesFromDeparture < 15) {
         status = "DEPARTING";
     }
@@ -251,6 +269,8 @@ data.results
     if (minutesFromDeparture > 90) {
         status = "ARRIVING";
     }
+
+}
 
     // -----------------------------------
 
