@@ -1773,12 +1773,14 @@ async function loadVatsimTraffic() {
     // TXT файл з авіакомпаніями
     const AIRLINES_TXT = 'listofUKRaircompanies.txt';
     const ALL_3LD_TXT = '3LDALL.txt';
+    const ICAO_TYPES_TXT = 'ICAOTYPES_CLEAN.txt';
     // =========================
     // LOAD AIRLINES LIST
     // =========================
 
 let airlineMap = {};
 let allAirlineMap = {};
+let aircraftMap = {};
   
 // =========================
 // LOAD UKR AIRLINES LIST
@@ -1882,6 +1884,39 @@ if (name !== originalName) {
 
 }
 
+// =========================
+// LOAD ICAO AIRCRAFT TYPES
+// =========================
+
+try {
+
+    const txtResponse = await fetch(ICAO_TYPES_TXT);
+    const txtData = await txtResponse.text();
+
+    const lines = txtData.split('\n');
+
+    lines.forEach(line => {
+
+        line = line.trim();
+
+        if (!line) return;
+
+        const parts = line.split(/\s+/);
+
+        const code = parts.shift().toUpperCase();
+
+        const name = parts.join(' ');
+
+        aircraftMap[code] = name;
+
+    });
+
+} catch (e) {
+
+    console.error('Помилка читання ICAOTYPES_CLEAN.txt', e);
+
+}
+  
     // =========================
     // LOAD VATSIM JSON
     // =========================
@@ -2036,7 +2071,12 @@ const airlineName =
             const dep = fp.departure || '----';
             const arr = fp.arrival || '----';
 
-            const aircraft = fp.aircraft_short || '----';
+            const aircraftCode =
+    fp.aircraft_short || '----';
+
+const aircraft =
+    aircraftMap[aircraftCode] ||
+    aircraftCode;
 
             // =========================
             // DEP TIME
