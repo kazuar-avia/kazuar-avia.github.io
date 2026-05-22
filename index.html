@@ -931,6 +931,28 @@ Crackish <br><br>
     </table>
 </div>
 
+<div class="vatsim-container">
+
+ <div class="vatsim-header">
+
+    <div class="header-top">
+        LIVE TRAFFIC NEWSKY: українські авіакомпанії
+        <span id="newsky-update-time">
+            оновлено --:--z
+        </span>
+    </div>
+
+</div>
+
+    <table class="vatsim-table">
+        <tbody id="newsky-traffic">
+            <tr>
+                <td>Завантаження...</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
   
 <table>
 
@@ -2638,6 +2660,195 @@ async function initVatsim() {
 
 }
 
+async function loadNewSkyTraffic() {
+
+    try {
+
+        const response = await fetch(
+            "https://newsky.app/api/airline-api/flights/ongoing",
+            {
+                headers: {
+                    "Authorization": "Bearer UKR_uSTNynarbU8B8A61nvDLqmSl7Ji8xK"
+                }
+            }
+        );
+
+        const data = await response.json();
+
+        let html = "";
+
+        data.results
+        .filter(flight => !flight.network?.name)
+        .forEach(flight => {
+
+            const callsign =
+                (flight.airline?.icao || "") +
+                (flight.flightNumber || "");
+
+            const formattedCallsign =
+                callsign.substring(0,3) +
+                '&thinsp;' +
+                callsign.substring(3);
+
+            const aircraft =
+                flight.aircraft?.airframe?.name ||
+                "Unknown";
+
+            const dep =
+                flight.dep?.icao || "----";
+
+            const arr =
+                flight.arr?.icao || "----";
+
+            const route =
+                `${dep} → ${arr}`;
+
+            let depUTC = "--:--";
+
+            if (flight.depTimeAct) {
+
+                const depTime =
+                    new Date(flight.depTimeAct);
+
+                depUTC =
+                    depTime.getUTCHours()
+                    .toString()
+                    .padStart(2, "0")
+                    +
+                    ":" +
+                    depTime.getUTCMinutes()
+                    .toString()
+                    .padStart(2, "0");
+            }
+
+            let status = "EN-ROUTE";
+
+            if (!flight.depTimeAct) {
+
+                status = "PLANNED";
+
+            }
+
+            const pilot =
+                flight.pilot?.fullname ||
+                "Unknown";
+
+            let label = "NewSky Offline";
+
+            if (flight.schedule) {
+                label = "Scheduled Offline";
+            }
+
+            if (flight.charter) {
+                label = "Charter Offline";
+            }
+
+            html += `
+
+<tr>
+
+<td class="logo-cell">
+<img
+src="LOGOS/UCAA.png"
+class="airline-logo"
+onerror="this.onerror=null; this.src='LOGOS/nologo.png';"
+>
+</td>
+
+<td class="flight-cell">
+
+<div class="flight-row-top">
+
+<span class="callsign-big">
+${formattedCallsign}
+</span>
+
+<div class="flight-right-side">
+
+<span class="airline-name-new">
+Ukraine Classic Air Alliance
+</span>
+
+<span class="aircraft-row">
+${aircraft}
+</span>
+
+</div>
+
+</div>
+
+</td>
+
+<td class="route-cell">
+${route}
+</td>
+
+<td class="time-cell">
+DEP ${depUTC}z
+</td>
+
+<td class="status-cell">
+${status}
+</td>
+
+<td class="cid-cell">
+${pilot}
+<span class="cid-small">
+<br>${label}
+</span>
+</td>
+
+</tr>
+`;
+        });
+
+        if (!html) {
+
+            html = `
+<tr>
+<td colspan="6" class="no-flights">
+Немає активних рейсів
+</td>
+</tr>
+`;
+
+        }
+
+        document.getElementById(
+            "newsky-traffic"
+        ).innerHTML = html;
+
+        document.getElementById(
+            "newsky-update-time"
+        ).innerText =
+            "оновлено " +
+            new Date()
+            .toUTCString()
+            .slice(17,22) +
+            "z";
+
+    } catch (err) {
+
+        console.error(err);
+
+        document.getElementById(
+            "newsky-traffic"
+        ).innerHTML = `
+<tr>
+<td colspan="6">
+Помилка завантаження NewSky
+</td>
+</tr>
+`;
+
+    }
+}
+
+loadNewSkyTraffic();
+
+setInterval(loadNewSkyTraffic, 180000);
+
+  
 initVatsim();
 
 </script>
