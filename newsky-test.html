@@ -261,17 +261,16 @@ data.results
     // FLIGHT TYPE ICON
     // -----------------------------------
 
-    let icon = "iconFree.png";
+    
     let label = "NewSky Offline";
 
     if (flight.schedule) {
-        icon = "iconSchedule.png";
+        
         label = "Scheduled Offline";
     }
 
     if (flight.charter) {
-        icon = "iconCharter.png";
-        label = "Charter Offline";
+               label = "Charter Offline";
     }
 
     tr.innerHTML = `
