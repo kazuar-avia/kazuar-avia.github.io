@@ -564,6 +564,54 @@ border-collapse: collapse;
     background: #f0f0f0;
 
 }
+
+  /* ========================= */
+/* NEW FLIGHT LAYOUT */
+/* ========================= */
+
+.flight-cell {
+
+    min-width: 330px;
+
+}
+
+.flight-row-top {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    line-height: 1.1;
+
+}
+
+.callsign-big {
+    font-size: 31px;
+    font-weight: bold;
+    color: black;
+    white-space: nowrap;
+    letter-spacing: -0.5px;
+
+}
+
+.airline-name-new {
+    font-size: 13px;
+    color: #8d8d8d;
+    white-space: nowrap;
+    margin-top: 3px;
+
+}
+
+.aircraft-row {
+    font-size: 14px;
+    color: #4b86ff;
+    margin-left: 48px;
+    margin-top: -1px;
+    line-height: 1.1;
+
+}
 </style>
 </head>
 
@@ -2060,7 +2108,10 @@ let html = '';
             const fp = pilot.flight_plan;
 
             const callsign = pilot.callsign || 'N/A';
-
+const formattedCallsign =
+    callsign.substring(0,3) +
+    '&thinsp;' +
+    callsign.substring(3);
             const airlineCode = callsign.substring(0,3).toUpperCase();
 
 
@@ -2368,18 +2419,25 @@ flightStatus += extraStatus;
 >
                     </td>
 
-                    <td>
-                        <div class="flight-main">
-                            ${callsign}
-                            <span class="airline-name">
-                                (${airlineName})
-                            </span> <br>
+<td class="flight-cell">
 
-                            <span class="aircraft-type">
-                                ${aircraft}
-                            </span>
-                        </div>
-                    </td>
+    <div class="flight-row-top">
+
+        <span class="callsign-big">
+            ${formattedCallsign}
+        </span>
+
+        <span class="airline-name-new">
+            ${airlineName}
+        </span>
+
+    </div>
+
+    <div class="aircraft-row">
+        ${aircraft}
+    </div>
+
+</td>
 
                     <td class="route-cell">
                         ${dep} → ${arr}
