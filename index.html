@@ -2232,77 +2232,83 @@ pilots.sort((a, b) => {
 
     if (!currentSort) return 0;
 
-    const aFP = a.flight_plan;
-    const bFP = b.flight_plan;
+    const aFP = a.flight_plan || {};
+    const bFP = b.flight_plan || {};
 
-    const aCall = a.callsign || '';
-    const bCall = b.callsign || '';
+    const aCall = (a.callsign || '').toUpperCase();
+    const bCall = (b.callsign || '').toUpperCase();
 
     const aAirline = aCall.substring(0,3);
     const bAirline = bCall.substring(0,3);
 
-    // DEP
+    // helper
+    const safe = (v) => String(v || '');
 
+    // DEP
     if (currentSort === 'dep') {
 
-        return (
-            aFP.departure.localeCompare(bFP.departure)
-            * sortDirection
-        );
+        return safe(aFP.departure)
+            .localeCompare(safe(bFP.departure))
+            * sortDirection;
 
     }
 
     // ARR
-
     if (currentSort === 'arr') {
 
-        return (
-            aFP.arrival.localeCompare(bFP.arrival)
-            * sortDirection
-        );
+        return safe(aFP.arrival)
+            .localeCompare(safe(bFP.arrival))
+            * sortDirection;
 
     }
 
     // AIRLINE
-
     if (currentSort === 'airline') {
 
-        return (
-            aAirline.localeCompare(bAirline)
-            * sortDirection
-        );
+        return safe(aAirline)
+            .localeCompare(safe(bAirline))
+            * sortDirection;
 
     }
 
     // DEP TIME
-
     if (currentSort === 'deptime') {
 
         return (
-            aFP.deptime.localeCompare(bFP.deptime)
-            * sortDirection
-        );
+            parseInt(aFP.deptime || '0') -
+            parseInt(bFP.deptime || '0')
+        ) * sortDirection;
 
     }
 
     // ARR TIME
+if (currentSort === 'arrtime') {
 
-    if (currentSort === 'arrtime') {
+    function calcArrivalMinutes(fp) {
 
-        const aArr =
-            parseInt(aFP.deptime) +
-            parseInt(aFP.enroute_time);
+        const dep = fp.deptime || '0000';
+        const enr = fp.enroute_time || '0000';
 
-        const bArr =
-            parseInt(bFP.deptime) +
-            parseInt(bFP.enroute_time);
+        const depHour = parseInt(dep.substring(0,2));
+        const depMin  = parseInt(dep.substring(2,4));
+
+        const enrHour = parseInt(enr.substring(0,2));
+        const enrMin  = parseInt(enr.substring(2,4));
 
         return (
-            (aArr - bArr)
-            * sortDirection
-        );
+            (depHour * 60 + depMin) +
+            (enrHour * 60 + enrMin)
+        ) % 1440;
 
     }
+
+    return (
+        (calcArrivalMinutes(aFP) -
+         calcArrivalMinutes(bFP))
+        * sortDirection
+    );
+
+}
 
     return 0;
 
@@ -2371,8 +2377,10 @@ const aircraft =
             // DEP TIME
             // =========================
 
-            const depRaw = fp.deptime || '0000';
-
+            
+const depRaw =
+    String(fp.deptime || '0000')
+    .padStart(4,'0');
             const depHour = parseInt(depRaw.substring(0,2));
             const depMin = parseInt(depRaw.substring(2,4));
 
@@ -2769,7 +2777,12 @@ await loadNewskyOfflineFlights();
 
 await loadVatsimTraffic();
 
-    setInterval(loadVatsimTraffic, 180000);
+   setInterval(async () => {
+
+    await loadNewskyOfflineFlights();
+    await loadVatsimTraffic();
+
+}, 180000);
 
 }
 
