@@ -3,7 +3,6 @@ name: Update NewSky Traffic
 on:
   schedule:
     - cron: "*/5 * * * *"
-
   workflow_dispatch:
 
 permissions:
@@ -32,9 +31,9 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-
+          
           git add newsky-live.json debug.html
-
+          
           if git diff --staged --quiet; then
             echo "No changes"
           else
