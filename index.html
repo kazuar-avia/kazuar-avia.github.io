@@ -2093,7 +2093,7 @@ const logoPath = `LOGOS/${airlineCode}.png`;
 const nowHour = parseInt(updateTime.substring(0,2));
 const nowMin = parseInt(updateTime.substring(3,5));
 
-const nowTotal = (nowHour * 60) + nowMin;
+let nowTotal = (nowHour * 60) + nowMin;
 
 // DEP TIME
 
@@ -2113,7 +2113,23 @@ const midTotal =
     Math.floor(
         ((enrouteHour * 60) + enrouteMin) / 2
     );
+// =========================
+// OVERNIGHT FIX
+// =========================
 
+// if ARR after midnight
+
+if (arrTotal >= 1440) {
+
+    // if current UTC already after midnight too
+
+    if (nowTotal < depTotal) {
+
+        nowTotal += 1440;
+
+    }
+
+}
 // GROUNDSPEED
 
 const gs = pilot.groundspeed || 0;
