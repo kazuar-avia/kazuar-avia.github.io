@@ -2662,28 +2662,65 @@ newSkyFlights.forEach(flight => {
         flight.pilot?.fullname ||
         "Unknown";
 
-    let offlineText = "NewSky Offline";
+    let flightType = "Flight";
 
-    if (flight.schedule) {
+if (flight.schedule) {
 
-        offlineText =
-            "Scheduled Offline";
+    flightType = "Scheduled";
 
-    }
+}
 
-    if (flight.charter) {
+if (flight.charter) {
 
-        offlineText =
-            "Charter Offline";
+    flightType = "Charter";
 
-    }
+}
 
+// =========================
+// PAX / CARGO INFO
+// =========================
+
+let payloadText = "";
+
+if (flight.flightType === "pax") {
+
+    const pax =
+        flight.pax ||
+        flight.passengers ||
+        0;
+
+    payloadText =
+        `${pax} pax`;
+
+}
+
+else if (flight.flightType === "cargo") {
+
+    const cargo =
+        flight.cargo ||
+        flight.cargoWeight ||
+        0;
+
+    payloadText =
+        `${cargo} t cargo`;
+
+}
+
+let offlineText =
+    `Offline ${flightType}`;
+
+if (payloadText) {
+
+    offlineText +=
+        `: ${payloadText}`;
+
+}
     html += `
-<tr>
+<tr style="border-top:3px solid #777;">
 
 <td class="logo-cell">
 <img
-src="LOGOS/UCAA.png"
+src="LOGOS/UCL.png"
 class="airline-logo"
 onerror="this.onerror=null; this.src='LOGOS/nologo.png';"
 >
@@ -2718,7 +2755,7 @@ ${dep} → ${arr}
 </td>
 
 <td class="time-cell">
-DEP ${depUTC}z
+DEP ${depUTC} via NewSky
 </td>
 
 <td class="status-cell">
