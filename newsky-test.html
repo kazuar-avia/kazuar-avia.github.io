@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>NewSky Live Traffic</title>
+
+<style>
+body{
+    background:#111;
+    color:white;
+    font-family:Arial;
+    padding:20px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    border:1px solid #333;
+    padding:10px;
+    text-align:left;
+}
+
+th{
+    background:#222;
+}
+
+tr:nth-child(even){
+    background:#1a1a1a;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Ukraine Classic Air Alliance — Live Traffic</h1>
+
+<table>
+<thead>
+<tr>
+    <th>Callsign</th>
+    <th>Aircraft</th>
+    <th>Route</th>
+    <th>Pilot</th>
+    <th>Simulator</th>
+</tr>
+</thead>
+
+<tbody id="trafficBody">
+</tbody>
+</table>
+
+<script>
+
+const API_KEY = "ТУТ_ТВІЙ_КЛЮЧ";
+
+async function loadTraffic() {
+
+    const response = await fetch(
+        "https://newsky.app/api/airline-api/flights/ongoing",
+        {
+            headers: {
+                "Authorization": `Bearer ${API_KEY}`
+            }
+        }
+    );
+
+    const data = await response.json();
+
+    const tbody = document.getElementById("trafficBody");
+
+    tbody.innerHTML = "";
+
+    data.results.forEach(flight => {
+
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+            <td>${flight.airline.icao}${flight.flightNumber}</td>
+            <td>${flight.aircraft.airframe.name}</td>
+            <td>${flight.dep.icao} → ${flight.arr.icao}</td>
+            <td>${flight.pilot.fullname}</td>
+            <td>${flight.simulator}</td>
+        `;
+
+        tbody.appendChild(row);
+
+    });
+
+}
+
+loadTraffic();
+
+setInterval(loadTraffic, 180000);
+
+</script>
+
+</body>
+</html>
