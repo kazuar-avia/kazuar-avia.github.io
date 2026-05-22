@@ -1854,18 +1854,14 @@ Crackish <br><br>
 
 <script>
  let currentSort = '';
-  let newskyFlights = [];
-let sortDirection = 1; 
-  let airlineMap = {};
+let newskyFlights = [];
+let sortDirection = 1;
+let airlineMap = {};
 let allAirlineMap = {};
 let aircraftMap = {};
 let ruBannedAirports = [];
 
-async function preloadStaticData() {
-
-
-
-  // =========================
+// =========================
 // LOAD NEWSKY OFFLINE
 // =========================
 
@@ -1899,6 +1895,9 @@ async function loadNewskyOfflineFlights() {
     }
 
 }
+
+async function preloadStaticData() {
+
     // =========================
     // LOAD UKR AIRLINES
     // =========================
