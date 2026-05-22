@@ -1855,6 +1855,176 @@ Crackish <br><br>
 <script>
  let currentSort = '';
 let sortDirection = 1; 
+  let airlineMap = {};
+let allAirlineMap = {};
+let aircraftMap = {};
+let ruBannedAirports = [];
+
+async function preloadStaticData() {
+
+    // =========================
+    // LOAD UKR AIRLINES
+    // =========================
+
+    try {
+
+        const txtResponse =
+            await fetch('listofUKRaircompanies.txt');
+
+        const txtData =
+            await txtResponse.text();
+
+        txtData.split('\n').forEach(line => {
+
+            line = line.trim();
+
+            if (!line) return;
+
+            const parts =
+                line.split(/\s+/);
+
+            const code =
+                parts.shift().toUpperCase();
+
+            airlineMap[code] =
+                parts.join(' ');
+
+        });
+
+    } catch (e) {
+
+        console.error(e);
+
+    }
+
+    // =========================
+    // LOAD ALL 3LD
+    // =========================
+
+    try {
+
+        const txtResponse =
+            await fetch('3LDALL.txt');
+
+        const txtData =
+            await txtResponse.text();
+
+        txtData.split('\n').forEach(line => {
+
+            line = line.trim();
+
+            if (!line) return;
+
+            const parts =
+                line.split(/\s+/);
+
+            const code =
+                parts.shift().toUpperCase();
+
+            let name =
+                parts.join(' ');
+
+            const originalName = name;
+
+            if (name.length > 22) {
+
+                name = name.substring(0,22);
+
+                const lastSpace =
+                    name.lastIndexOf(' ');
+
+                if (lastSpace !== -1) {
+
+                    const lastWord =
+                        name.substring(lastSpace + 1);
+
+                    if (lastWord.length <= 2) {
+
+                        name =
+                            name.substring(0,lastSpace);
+
+                    }
+
+                }
+
+            }
+
+            if (name !== originalName) {
+
+                name += '.';
+
+            }
+
+            allAirlineMap[code] = name;
+
+        });
+
+    } catch (e) {
+
+        console.error(e);
+
+    }
+
+    // =========================
+    // LOAD ICAO TYPES
+    // =========================
+
+    try {
+
+        const txtResponse =
+            await fetch('ICAOTYPES_CLEAN.txt');
+
+        const txtData =
+            await txtResponse.text();
+
+        txtData.split('\n').forEach(line => {
+
+            line = line.trim();
+
+            if (!line) return;
+
+            const parts =
+                line.split(/\s+/);
+
+            const code =
+                parts.shift().toUpperCase();
+
+            aircraftMap[code] =
+                parts.join(' ');
+
+        });
+
+    } catch (e) {
+
+        console.error(e);
+
+    }
+
+    // =========================
+    // LOAD RU BANNED
+    // =========================
+
+    try {
+
+        const txtResponse =
+            await fetch('ruBanned.txt');
+
+        const txtData =
+            await txtResponse.text();
+
+        ruBannedAirports =
+            txtData
+                .split('\n')
+                .map(x => x.trim().toUpperCase())
+                .filter(Boolean);
+
+    } catch (e) {
+
+        console.error(e);
+
+    }
+
+}
 async function loadVatsimTraffic() {
 
     // =========================
@@ -1872,166 +2042,7 @@ async function loadVatsimTraffic() {
     // LOAD AIRLINES LIST
     // =========================
 
-let airlineMap = {};
-let allAirlineMap = {};
-let aircraftMap = {};
-let ruBannedAirports = [];
-  
-// =========================
-// LOAD UKR AIRLINES LIST
-// =========================
 
-try {
-
-    const txtResponse = await fetch(AIRLINES_TXT);
-    const txtData = await txtResponse.text();
-
-    const lines = txtData.split('\n');
-
-    lines.forEach(line => {
-
-        line = line.trim();
-
-        if (!line) return;
-
-        const parts = line.split(/\s+/);
-
-        const code = parts.shift().toUpperCase();
-        const name = parts.join(' ');
-
-        airlineMap[code] = name;
-
-    });
-
-} catch (e) {
-
-    console.error('Помилка читання listofUKRaircompanies.txt', e);
-
-}
-
-// =========================
-// LOAD ALL 3LD DATABASE
-// =========================
-
-try {
-
-    const txtResponse = await fetch(ALL_3LD_TXT);
-    const txtData = await txtResponse.text();
-
-    const lines = txtData.split('\n');
-
-    lines.forEach(line => {
-
-        line = line.trim();
-
-        if (!line) return;
-
-        const parts = line.split(/\s+/);
-
-        const code = parts.shift().toUpperCase();
-
-        let name = parts.join(' ');
-
-        // =========================
-// SHORTEN TO 22 CHARS
-// =========================
-
-const originalName = name;
-
-if (name.length > 22) {
-
-    name = name.substring(0,22);
-
-    // remove broken tiny last word
-    const lastSpace = name.lastIndexOf(' ');
-
-    if (lastSpace !== -1) {
-
-        const lastWord =
-            name.substring(lastSpace + 1);
-
-        if (lastWord.length <= 2) {
-
-            name =
-                name.substring(0,lastSpace);
-
-        }
-
-    }
-
-}
-
-// add dot ONLY if shortened
-
-if (name !== originalName) {
-
-    name += '.';
-
-}
-
-        allAirlineMap[code] = name;
-
-    });
-
-} catch (e) {
-
-    console.error('Помилка читання 3LDALL.txt', e);
-
-}
-
-// =========================
-// LOAD ICAO AIRCRAFT TYPES
-// =========================
-
-try {
-
-    const txtResponse = await fetch(ICAO_TYPES_TXT);
-    const txtData = await txtResponse.text();
-
-    const lines = txtData.split('\n');
-
-    lines.forEach(line => {
-
-        line = line.trim();
-
-        if (!line) return;
-
-        const parts = line.split(/\s+/);
-
-        const code = parts.shift().toUpperCase();
-
-        const name = parts.join(' ');
-
-        aircraftMap[code] = name;
-
-    });
-
-} catch (e) {
-
-    console.error('Помилка читання ICAOTYPES_CLEAN.txt', e);
-
-}
-  // =========================
-// LOAD RU BANNED AIRPORTS
-// =========================
-
-try {
-
-    const txtResponse = await fetch(RU_BANNED_TXT);
-
-    const txtData = await txtResponse.text();
-
-    ruBannedAirports =
-        txtData
-            .split('\n')
-            .map(x => x.trim().toUpperCase())
-            .filter(Boolean);
-
-} catch (e) {
-
-    console.error('Помилка читання ruBanned.txt', e);
-
-}
     // =========================
     // LOAD VATSIM JSON
     // =========================
@@ -2617,13 +2628,17 @@ flightStatus += extraStatus;
 
 }
   
-loadVatsimTraffic();
+async function initVatsim() {
 
-// =========================
-// AUTO REFRESH EVERY 60 SEC
-// =========================
+    await preloadStaticData();
 
-setInterval(loadVatsimTraffic, 60000);
+    await loadVatsimTraffic();
+
+    setInterval(loadVatsimTraffic, 180000);
+
+}
+
+initVatsim();
 
 </script>
 
