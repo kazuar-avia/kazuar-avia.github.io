@@ -2109,7 +2109,7 @@ async function loadVatsimTraffic() {
         // FILTER PILOTS
         // =========================
 
-        const pilots = data.pilots.filter(pilot => {
+        let pilots = data.pilots.filter(pilot => {
 
             if (!pilot.flight_plan) return false;
 
@@ -2132,7 +2132,98 @@ async function loadVatsimTraffic() {
             return ukraineFlight || ukrainianAirline;
 
         });
+// =========================
+// ADD NEWSKY OFFLINE
+// =========================
 
+const mappedNewskyFlights = newskyFlights.map(f => {
+
+    const depTime = new Date(f.depTimeAct);
+    const arrTime = new Date(f.arrTimeAct);
+
+    const depHH =
+        String(depTime.getUTCHours()).padStart(2,'0');
+
+    const depMM =
+        String(depTime.getUTCMinutes()).padStart(2,'0');
+
+    const arrHH =
+        String(arrTime.getUTCHours()).padStart(2,'0');
+
+    const arrMM =
+        String(arrTime.getUTCMinutes()).padStart(2,'0');
+
+    const depRaw = depHH + depMM;
+
+    // enroute calc
+
+    let routeMinutes =
+        Math.floor(
+            (arrTime - depTime) / 60000
+        );
+
+    if (routeMinutes < 0) {
+        routeMinutes = 60;
+    }
+
+    const enrHH =
+        String(
+            Math.floor(routeMinutes / 60)
+        ).padStart(2,'0');
+
+    const enrMM =
+        String(
+            routeMinutes % 60
+        ).padStart(2,'0');
+
+    return {
+
+        callsign:
+            (f.airline?.icao || 'OFF') +
+            (f.flightNumber || ''),
+
+        cid:
+            'OFFLINE',
+
+        name:
+            f.pilot?.fullname || 'Unknown Pilot',
+
+        groundspeed: 0,
+
+        network: 'NEWSKY',
+
+        flight_plan: {
+
+            departure:
+                f.dep?.icao || '----',
+
+            arrival:
+                f.arr?.icao || '----',
+
+            deptime:
+                depRaw,
+
+            enroute_time:
+                enrHH + enrMM,
+
+            aircraft_short:
+                f.aircraft?.airframe?.icao || '----'
+
+        },
+
+        newskyOffline: true,
+        newskyData: f
+
+    };
+
+});
+
+// додаємо в загальний масив
+
+pilots = [
+    ...pilots,
+    ...mappedNewskyFlights
+];
         // =========================
 // SORTING
 // =========================
