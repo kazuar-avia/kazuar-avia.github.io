@@ -2420,59 +2420,6 @@ try {
 // SORTING
 // =========================
 
-// =========================
-// ADD NEWSKY FLIGHTS
-// =========================
-
-
-// збираємо всі номери рейсів з VATSIM
-const vatsimFlightNumbers = new Set();
-const matchedNewSkyFlights = {};
-pilots.forEach(pilot => {
-
-    const callsign = pilot.callsign || "";
-
-    // витягуємо тільки цифри рейсу
-    const match = callsign.match(/\d+/);
-
-    if (match) {
-
-        vatsimFlightNumbers.add(match[0]);
-
-    }
-
-});
-
-// фільтруємо NewSky
-newSkyFlights
-.filter(flight => {
-
-    const flightNumber =
-        String(flight.flightNumber || "");
-
-    // якщо рейс є у VATSIM
-    if (vatsimFlightNumbers.has(flightNumber)) {
-
-        // зберігаємо для badge
-        matchedNewSkyFlights[flightNumber] = flight;
-
-        // не показуємо окремим рядком
-        return false;
-
-    }
-
-    // якщо NewSky каже що він online
-    if (flight.network?.name) {
-
-        return false;
-
-    }
-
-    return true;
-
-})
-
-     
 pilots.sort((a, b) => {
 
     if (!currentSort) return 0;
@@ -2954,7 +2901,57 @@ flightStatus += extraStatus;
             `;
 
         });
+// =========================
+// ADD NEWSKY FLIGHTS
+// =========================
 
+
+// збираємо всі номери рейсів з VATSIM
+const vatsimFlightNumbers = new Set();
+const matchedNewSkyFlights = {};
+pilots.forEach(pilot => {
+
+    const callsign = pilot.callsign || "";
+
+    // витягуємо тільки цифри рейсу
+    const match = callsign.match(/\d+/);
+
+    if (match) {
+
+        vatsimFlightNumbers.add(match[0]);
+
+    }
+
+});
+
+// фільтруємо NewSky
+newSkyFlights
+.filter(flight => {
+
+    const flightNumber =
+        String(flight.flightNumber || "");
+
+    // якщо рейс є у VATSIM
+    if (vatsimFlightNumbers.has(flightNumber)) {
+
+        // зберігаємо для badge
+        matchedNewSkyFlights[flightNumber] = flight;
+
+        // не показуємо окремим рядком
+        return false;
+
+    }
+
+    // якщо NewSky каже що він online
+    if (flight.network?.name) {
+
+        return false;
+
+    }
+
+    return true;
+
+})
 .forEach(flight => {
     const callsign =
         (flight.airline?.icao || "UKL") +
