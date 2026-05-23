@@ -141,7 +141,7 @@ input {
 
 .links-table {
   border-collapse: collapse;
-  width: 934px;
+  width: 932px;
   margin: 10px auto;
   table-layout: fixed;
   background: #ffffff;
@@ -157,15 +157,30 @@ input {
 }
 
 .links-table img {
+  display: block;
+  margin: 0 auto 4px auto;
+  border-radius: 4px;
+}
+
+/* великі картинки 1-3 колонок */
+.links-table .main-img {
   width: 100%;
   max-width: 210px;
-  height: 120px;
-  object-fit: cover;
+
+  height: auto !important;
+  object-fit: contain !important;
 
   display: block;
-  margin: 0 auto 8px auto;
+}
 
-  border-radius: 4px;
+/* іконки 4 колонки */
+.links-grid img {
+  width: 100%;
+  max-width: 98px;
+
+  height: auto !important;
+
+  display: block;
 }
 
   .links-table a {
@@ -733,8 +748,12 @@ min-width: 205px;
 .links-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 2px;          /* було 5 */
-    padding: 1px;      /* було 2 */
+
+    column-gap: 2px;
+    row-gap: 0px;
+
+    padding: 0px;
+
     justify-items: center;
     align-items: center;
 }
@@ -748,8 +767,9 @@ min-width: 205px;
 
 /* меценати */
 .supporters {
-    font-size: 13px;       /* зменшили */
-    line-height: 1.15;
+    font-size: 12px;
+    line-height: 1.05;
+    padding: 4px 6px !important;
 }
 
 .supporters .special {
@@ -861,7 +881,7 @@ min-width: 205px;
 
 </td>
 
-    <td  style="margin:5px;" class="supporters">
+    <td class="supporters">
 Коcтянтин Харків <br>
 Коти-анонімуси <br>
 Дмитро Сав. <br>
@@ -872,7 +892,7 @@ WINDROSE Forever <br>
 Юрій Тр. <br>
 Богдан Шк. <br>
 Михайло Ом. <br>
-Crackish <br><br>
+Crackish <br>
 <em>окрема подяка Назару Б.</em>
     </td>
     
