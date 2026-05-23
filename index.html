@@ -2504,8 +2504,10 @@ pilots.sort((a, b) => {
 // ADD NEWSKY FLIGHTS
 // =========================
 
-
+const matchedNewSkyFlights = {};
+     
 // збираємо всі номери рейсів з VATSIM
+     
 const vatsimFlightNumbers = new Set();
 
 pilots.forEach(pilot => {
@@ -3006,9 +3008,9 @@ flightStatus += extraStatus;
                 </tr>
             `;
 
-        });
+ });
 
-.forEach(flight => {
+newSkyFlights.forEach(flight => {
     const callsign =
         (flight.airline?.icao || "UKL") +
         (flight.flightNumber || "");
