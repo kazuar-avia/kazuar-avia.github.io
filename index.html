@@ -675,6 +675,88 @@ min-width: 205px;
     font-weight: 400;
 
 }
+
+  .community-table {
+    width: 934px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    table-layout: fixed;
+    background: #efefef;
+}
+
+.community-table td,
+.community-table th {
+    border: 1px solid #777;
+    vertical-align: top;
+    padding: 6px;
+    text-align: center;
+}
+
+/* однакова ширина колонок */
+.community-table col {
+    width: 20%;
+}
+
+/* заголовки */
+.community-table th {
+    background: #cfe8eb;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 1.1;
+    padding: 6px 4px;
+}
+
+/* картинки перших 3 колонок */
+.community-table .main-img {
+    width: 100%;
+    height: auto;          /* ГОЛОВНЕ — не обрізає */
+    object-fit: contain;   /* показує всю картинку */
+    border-radius: 4px;
+    display: block;
+    margin-bottom: 6px;
+}
+
+/* посилання */
+.community-table a {
+    color: #2459d3;
+    text-decoration: none;
+    font-size: 13px;
+    line-height: 1.1;
+    word-break: break-word;
+}
+
+.community-table a:hover {
+    text-decoration: underline;
+}
+
+/* колонка з маленькими іконками */
+.links-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;              /* мінімальний відступ */
+    padding: 2px;
+    justify-items: center;
+    align-items: center;
+}
+
+.links-grid img {
+    width: 100%;
+    max-width: 92px;       /* можна 95-98 якщо ще влазить */
+    height: auto;
+    display: block;
+}
+
+/* меценати */
+.supporters {
+    font-size: 13px;       /* зменшили */
+    line-height: 1.15;
+}
+
+.supporters .special {
+    margin-top: 8px;
+    font-style: italic;
+}
+  
 </style>
 </head>
 
@@ -712,20 +794,20 @@ min-width: 205px;
   <tr>
       
     <td >
-      <a href="https://www.youtube.com/@kazuar13" target="_blank"><img src="11.png" alt="YouTube Kazuar Avia">
+      <a href="https://www.youtube.com/@kazuar13" target="_blank"><img src="11.png" class="main-img" alt="YouTube Kazuar Avia">
       
       youtube.com/@kazuar13
       </a>
       
     </td>
     <td>
-      <a href="https://discord.gg/7tSkgz2BUv" target="_blank"><img src="22.png" alt="Discord">
+      <a href="https://discord.gg/7tSkgz2BUv" target="_blank"><img src="22.png" class="main-img" alt="Discord">
         
         discord.gg/7tSkgz2BUv
       </a>
     </td>
     <td>
-      <a href="https://newsky.app/airline/UKL" target="_blank"><img src="33.png" alt="Virtual Airline">
+      <a href="https://newsky.app/airline/UKL" target="_blank"><img src="33.png" class="main-img" alt="Virtual Airline">
         
         newsky.app/airline/ukr
       </a>
@@ -735,7 +817,7 @@ min-width: 205px;
         <table class="icon-table">
   <tr>
     <td>
-      <a href="https://planner.flightsimulator.com/" target="_blank"><img src="charts.png" alt="msfs2024 charts/planner"></a>
+      <a href="https://planner.flightsimulator.com/" target="_blank"> <img src="charts.png" alt="msfs2024 charts/planner"></a>
      </td>
     <td>
 <a href="https://dispatch.simbrief.com/briefing/latest" target="_blank"><img src="simbrief.png" alt="Simbrief"></a>
@@ -784,7 +866,7 @@ min-width: 205px;
 </table>
     </td>
 
-    <td style="margin:5px;">
+    <td  style="margin:5px;" class="supporters">
 Коcтянтин Харків <br>
 Коти-анонімуси <br>
 Дмитро Сав. <br>
