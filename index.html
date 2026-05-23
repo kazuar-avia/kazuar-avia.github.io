@@ -2905,8 +2905,54 @@ flightStatus += extraStatus;
 // ADD NEWSKY FLIGHTS
 // =========================
 
-newSkyFlights.forEach(flight => {
+// =========================
+// ADD NEWSKY FLIGHTS
+// =========================
 
+// збираємо всі номери рейсів з VATSIM
+const vatsimFlightNumbers = new Set();
+
+pilots.forEach(pilot => {
+
+    const callsign = pilot.callsign || "";
+
+    // витягуємо тільки цифри рейсу
+    const match = callsign.match(/\d+/);
+
+    if (match) {
+
+        vatsimFlightNumbers.add(match[0]);
+
+    }
+
+});
+
+// фільтруємо NewSky
+newSkyFlights
+.filter(flight => {
+
+    // якщо рейс already online у network → не показуємо
+    if (flight.network?.name) {
+
+        return false;
+
+    }
+
+    // номер рейсу
+    const flightNumber =
+        String(flight.flightNumber || "");
+
+    // якщо такий номер вже є у VATSIM → не показуємо
+    if (vatsimFlightNumbers.has(flightNumber)) {
+
+        return false;
+
+    }
+
+    return true;
+
+})
+.forEach(flight => {
     const callsign =
         (flight.airline?.icao || "UKL") +
         (flight.flightNumber || "");
@@ -2977,7 +3023,7 @@ if (flight.charter) {
 
 let payloadText = "";
 
-if (flight.flightType === "pax") {
+if (flight.type === "pax") {
 
     const pax =
         flight.pax ||
@@ -2989,7 +3035,7 @@ if (flight.flightType === "pax") {
 
 }
 
-else if (flight.flightType === "cargo") {
+else if (flight.type === "cargo") {
 
     const cargo =
         flight.cargo ||
