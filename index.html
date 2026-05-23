@@ -578,10 +578,28 @@ border-collapse: collapse;
 /* ========================= */
 
 .header-top {
+ position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     margin-bottom: 6px;
+    min-height: 24px;
 
 }
 
+  .header-title {
+    text-align: center;
+}
+
+#vatsim-update-time {
+    position: absolute;
+    right: 10px;
+
+    font-size: 13px;
+    color: #555;
+    white-space: nowrap;
+}
 .sort-bar {
 
     display: flex;
@@ -908,12 +926,17 @@ WINDROSE Forever <br>
 <div id="live-traffic" class="vatsim-container" style="margin-top:12px;">
  <div class="vatsim-header">
 
-    <div class="header-top">
+<div class="header-top">
+
+    <div class="header-title">
         LIVE TRAFFIC VATSIM: до/з України + українських авіакомпаній
-        <span id="vatsim-update-time">
-            оновлено --:--z
-        </span>
     </div>
+
+    <div id="vatsim-update-time">
+        оновлено --:--z
+    </div>
+
+</div>
 
     <div class="sort-bar">
         <button onclick="setSort('airline')" style="width:262px; margin-left:34px;">
