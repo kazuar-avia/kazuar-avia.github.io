@@ -69,7 +69,7 @@ html {
 
 /* якщо екран вузький — меню стає звичайним зверху */
 @media (max-width: 900px) {
-  .site-nav { 
+  .site-nav {
     position: static;
     width: auto;
     margin: 10px;
@@ -950,7 +950,7 @@ WINDROSE Forever <br>
             AIRLINE ▲▼
         </button>
       
-        <button onclick="setSort('dep')" style="margin-left:6px;">
+        <button onclick="setSort('dep') style="margin-left:6px;">
             DEP ▲▼
         </button>
 
@@ -958,7 +958,7 @@ WINDROSE Forever <br>
             ARR ▲▼
         </button>
 
-        <button onclick="setSort('deptime')" style="margin-left:6px;">
+        <button onclick="setSort('deptime') style="margin-left:6px;"">
             DEP.TIME ▲▼
         </button>
 
@@ -2500,60 +2500,6 @@ pilots.sort((a, b) => {
 
 });
 
-     // =========================
-// ADD NEWSKY FLIGHTS
-// =========================
-
-const matchedNewSkyFlights = {};
-     
-// збираємо всі номери рейсів з VATSIM
-     
-const vatsimFlightNumbers = new Set();
-
-pilots.forEach(pilot => {
-
-    const callsign = pilot.callsign || "";
-
-    // витягуємо тільки цифри рейсу
-    const match = callsign.match(/\d+/);
-
-    if (match) {
-
-        vatsimFlightNumbers.add(match[0]);
-
-    }
-
-});
-
-// фільтруємо NewSky
-newSkyFlights
-.filter(flight => {
-
-    const flightNumber =
-        String(flight.flightNumber || "");
-
-    // якщо рейс є у VATSIM
-    if (vatsimFlightNumbers.has(flightNumber)) {
-
-        // зберігаємо для badge
-        matchedNewSkyFlights[flightNumber] = flight;
-
-        // не показуємо окремим рядком
-        return false;
-
-    }
-
-    // якщо NewSky каже що він online
-    if (flight.network?.name) {
-
-        return false;
-
-    }
-
-    return true;
-
-})
-
 // =========================
 // BUILD TABLE
 // =========================
@@ -2612,55 +2558,7 @@ if (isRuBanned) {
 const aircraft =
     aircraftMap[aircraftCode] ||
     aircraftCode;
-// =========================
-// MATCH NEWSKY FLIGHT
-// =========================
 
-const callsignMatch =
-    callsign.match(/\d+/);
-
-const flightNumber =
-    callsignMatch
-        ? callsignMatch[0]
-        : null;
-
-const matchedFlight =
-    flightNumber
-        ? matchedNewSkyFlights[flightNumber]
-        : null;
-
-let newSkyBadge = "";
-
-if (matchedFlight) {
-
-    const ukLCallsign =
-        "UKL " + matchedFlight.flightNumber;
-
-    newSkyBadge = `
-        <div style="
-            margin-top:1px;
-            font-size:11px;
-            color:#666;
-            white-space:nowrap;
-        ">
-
-            <img
-                src="LOGOS/UKL.png"
-                style="
-                    height:11px;
-                    vertical-align:middle;
-                    margin-right:3px;
-                "
-            >
-
-            <span style="vertical-align:middle;">
-                ${ukLCallsign}
-            </span>
-
-        </div>
-    `;
-
-}
             // =========================
             // DEP TIME
             // =========================
@@ -2961,17 +2859,11 @@ flightStatus += extraStatus;
 
     <div class="flight-row-top">
 
-        <div>
+        <span class="callsign-big">
+            ${formattedCallsign}
+        </span>
 
-    <span class="callsign-big">
-        ${formattedCallsign}
-    </span>
-
-    ${newSkyBadge}
-
-</div>
-
-<div class="flight-right-side">
+        <div class="flight-right-side">
 
             <span class="airline-name-new">
                 ${airlineName}
@@ -3008,9 +2900,59 @@ flightStatus += extraStatus;
                 </tr>
             `;
 
- });
+        });
+// =========================
+// ADD NEWSKY FLIGHTS
+// =========================
 
-newSkyFlights.forEach(flight => {
+
+// збираємо всі номери рейсів з VATSIM
+const vatsimFlightNumbers = new Set();
+const matchedNewSkyFlights = {};
+pilots.forEach(pilot => {
+
+    const callsign = pilot.callsign || "";
+
+    // витягуємо тільки цифри рейсу
+    const match = callsign.match(/\d+/);
+
+    if (match) {
+
+        vatsimFlightNumbers.add(match[0]);
+
+    }
+
+});
+
+// фільтруємо NewSky
+newSkyFlights
+.filter(flight => {
+
+    const flightNumber =
+        String(flight.flightNumber || "");
+
+    // якщо рейс є у VATSIM
+    if (vatsimFlightNumbers.has(flightNumber)) {
+
+        // зберігаємо для badge
+        matchedNewSkyFlights[flightNumber] = flight;
+
+        // не показуємо окремим рядком
+        return false;
+
+    }
+
+    // якщо NewSky каже що він online
+    if (flight.network?.name) {
+
+        return false;
+
+    }
+
+    return true;
+
+})
+.forEach(flight => {
     const callsign =
         (flight.airline?.icao || "UKL") +
         (flight.flightNumber || "");
@@ -4000,63 +3942,3 @@ document.addEventListener("DOMContentLoaded", loadAirportDump);
   
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
