@@ -201,8 +201,8 @@ input {
   }
 
   .livery-grid {
-  width: 1000px;
-  margin: 30px auto;
+  width: 960px;
+  margin: 10px auto;
   border-collapse: collapse;
 }
 
@@ -785,7 +785,49 @@ Crackish <br><br>
 
 
 
+<div class="vatsim-container">
+ <div class="vatsim-header">
 
+    <div class="header-top">
+        LIVE TRAFFIC VATSIM: до/з України + українських авіакомпаній
+        <span id="vatsim-update-time">
+            оновлено --:--z
+        </span>
+    </div>
+
+    <div class="sort-bar">
+        <button onclick="setSort('airline')" style="width:262px; margin-left:34px;">
+            AIRLINE ▲▼
+        </button>
+      
+        <button onclick="setSort('dep') style="margin-left:6px;">
+            DEP ▲▼
+        </button>
+
+        <button onclick="setSort('arr')">
+            ARR ▲▼
+        </button>
+
+        <button onclick="setSort('deptime') style="margin-left:6px;"">
+            DEP.TIME ▲▼
+        </button>
+
+        <button onclick="setSort('arrtime')">
+            ARR.TIME ▲▼
+        </button>
+
+    </div>
+
+</div>
+
+    <table class="vatsim-table">
+        <tbody id="vatsim-traffic">
+            <tr>
+                <td>Завантаження...</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
 
   
@@ -1016,49 +1058,7 @@ Crackish <br><br>
 </table>
 
 
-<div class="vatsim-container">
- <div class="vatsim-header">
 
-    <div class="header-top">
-        LIVE TRAFFIC VATSIM: до/з України + українських авіакомпаній
-        <span id="vatsim-update-time">
-            оновлено --:--z
-        </span>
-    </div>
-
-    <div class="sort-bar">
-        <button onclick="setSort('airline')" style="width:262px; margin-left:34px;">
-            AIRLINE ▲▼
-        </button>
-      
-        <button onclick="setSort('dep') style="margin-left:6px;">
-            DEP ▲▼
-        </button>
-
-        <button onclick="setSort('arr')">
-            ARR ▲▼
-        </button>
-
-        <button onclick="setSort('deptime') style="margin-left:6px;"">
-            DEP.TIME ▲▼
-        </button>
-
-        <button onclick="setSort('arrtime')">
-            ARR.TIME ▲▼
-        </button>
-
-    </div>
-
-</div>
-
-    <table class="vatsim-table">
-        <tbody id="vatsim-traffic">
-            <tr>
-                <td>Завантаження...</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
 
 
 
