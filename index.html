@@ -2891,12 +2891,49 @@ flightStatus += extraStatus;
                         ${flightStatus}
                     </td>
 
-                   <td class="cid-cell">
+<td class="cid-cell">
     ${name}
     <span class="cid-small">
         <br>(ID: ${cid})
+
+        ${
+            (() => {
+
+                const match =
+                    (callsign || "").match(/\d+/);
+
+                if (!match) return "";
+
+                const flightNumber = match[0];
+
+                if (!matchedNewSkyFlights[flightNumber]) {
+
+                    return "";
+
+                }
+
+                return `
+                    <br>
+                    <img
+                        src="/LOGOS/UKL.png"
+                        style="
+                            height:12px;
+                            vertical-align:middle;
+                            margin-left:4px;
+                        "
+                    >
+                    <span style="
+                        vertical-align:middle;
+                    ">
+                        UKL ${flightNumber}
+                    </span>
+                `;
+
+            })()
+        }
+
     </span>
-    </td>
+</td>
                 </tr>
             `;
 
