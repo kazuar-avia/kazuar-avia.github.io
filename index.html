@@ -69,7 +69,7 @@ html {
 
 /* якщо екран вузький — меню стає звичайним зверху */
 @media (max-width: 900px) {
-  .site-nav {
+  .site-nav { 
     position: static;
     width: auto;
     margin: 10px;
@@ -2558,7 +2558,55 @@ if (isRuBanned) {
 const aircraft =
     aircraftMap[aircraftCode] ||
     aircraftCode;
+// =========================
+// MATCH NEWSKY FLIGHT
+// =========================
 
+const callsignMatch =
+    callsign.match(/\d+/);
+
+const flightNumber =
+    callsignMatch
+        ? callsignMatch[0]
+        : null;
+
+const matchedFlight =
+    flightNumber
+        ? matchedNewSkyFlights[flightNumber]
+        : null;
+
+let newSkyBadge = "";
+
+if (matchedFlight) {
+
+    const ukLCallsign =
+        "UKL " + matchedFlight.flightNumber;
+
+    newSkyBadge = `
+        <div style="
+            margin-top:1px;
+            font-size:11px;
+            color:#666;
+            white-space:nowrap;
+        ">
+
+            <img
+                src="LOGOS/UKL.png"
+                style="
+                    height:11px;
+                    vertical-align:middle;
+                    margin-right:3px;
+                "
+            >
+
+            <span style="vertical-align:middle;">
+                ${ukLCallsign}
+            </span>
+
+        </div>
+    `;
+
+}
             // =========================
             // DEP TIME
             // =========================
@@ -2859,11 +2907,17 @@ flightStatus += extraStatus;
 
     <div class="flight-row-top">
 
-        <span class="callsign-big">
-            ${formattedCallsign}
-        </span>
+        <div>
 
-        <div class="flight-right-side">
+    <span class="callsign-big">
+        ${formattedCallsign}
+    </span>
+
+    ${newSkyBadge}
+
+</div>
+
+<div class="flight-right-side">
 
             <span class="airline-name-new">
                 ${airlineName}
