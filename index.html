@@ -141,23 +141,42 @@ input {
 
 .links-table {
   border-collapse: collapse;
-  width: 100%;
-  max-width: 1458px;
-  margin: 5px auto;
+  width: 934px;
+  margin: 10px auto;
+  table-layout: fixed;
+  background: #ffffff;
 }
 
 .links-table th,
 .links-table td {
-  width: 200px;
   border: 1px solid #555;
-  padding: 5px;
+  padding: 8px;
   text-align: center;
+  vertical-align: top;
+  width: 20%;
 }
 
 .links-table img {
-  width: 220px;
+  width: 100%;
+  max-width: 210px;
+  height: 120px;
+  object-fit: cover;
+
   display: block;
-  margin: 0 auto;
+  margin: 0 auto 8px auto;
+
+  border-radius: 4px;
+}
+
+  .links-table a {
+  color: #0066cc;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.links-table a:hover {
+  text-decoration: underline;
 }
 
 .airports-table {
@@ -181,7 +200,7 @@ input {
 }
 
 .icon-table {
-  width: 240px;
+  width: 200px;
   border-collapse: collapse;
   margin: 5px auto;
   border: 0px solid #444;
@@ -194,8 +213,8 @@ input {
 }
 
 .icon-table img {
-  width: 100px;
-  height: 37px;
+  width: 82px;
+  height: 30px;
   display: block;
   margin: auto;
   }
