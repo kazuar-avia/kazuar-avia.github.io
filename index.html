@@ -433,7 +433,7 @@ border-collapse: collapse;
 
 .vatsim-header {
 
-    padding: 8px 0 0 0;
+    padding: 7px 0 0 0;
 
     background: #F7E6FA;
 
@@ -606,7 +606,7 @@ border-collapse: collapse;
     grid-column: 3;
     justify-self: end;
 
-    font-size: 13px;
+    font-size: 12px;
     color: #555;
     white-space: nowrap;
     font-weight: normal;
@@ -618,14 +618,15 @@ border-collapse: collapse;
     grid-template-columns: 34px 280px 132px 214px 118px minmax(0, 1fr);
     align-items: end;
     width: 100%;
-    padding: 0;
+    padding: 0 0 0 0;
+    border-top: 1px solid rgba(0,0,0,0.08);
 
 }
 
 .sort-group {
     display: grid;
-    gap: 4px;
-    padding: 0 3px;
+    gap: 3px;
+    padding: 4px 3px 3px 3px;
 }
 
 .sort-group.two-buttons {
@@ -639,10 +640,12 @@ border-collapse: collapse;
     background: white;
 
     width: 100%;
-    min-height: 26px;
-    padding: 3px 6px;
+    height: 23px;
+    padding: 2px 5px;
 
-    font-size: 11px;
+    font-size: 10px;
+    font-weight: normal;
+    line-height: 1;
 
     cursor: pointer;
 
@@ -680,6 +683,9 @@ min-width: 205px;
 
 .callsign-big {
 
+    display: inline-block;
+    flex: 0 0 90px;
+
     font-size: 17px;
 
     font-weight: 550;
@@ -690,7 +696,7 @@ min-width: 205px;
 
     letter-spacing: -0.1px;
 
-    min-width: 82px;
+    min-width: 90px;
 
     text-align: left;
 
@@ -3994,9 +4000,6 @@ document.addEventListener("DOMContentLoaded", loadAirportDump);
   
 </body>
 </html>
-
-
-
 
 
 
