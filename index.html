@@ -2319,6 +2319,21 @@ let aircraftMap = {};
 let ruBannedAirports = [];
 let weatherAirports = {};
 
+const MILITARY_CALLSIGNS = [
+    "BILKA",
+    "CNH120",
+    "MYKOLA",
+    "MAKSYM"
+];
+
+function isMilitaryCallsign(callsign) {
+    return MILITARY_CALLSIGNS.includes(
+        String(callsign || "")
+            .replace(/\s+/g, "")
+            .toUpperCase()
+    );
+}
+ 
 const DEFAULT_WEATHER_AIRPORTS = {
     UKBB: {
         icao: 'UKBB',
@@ -3304,6 +3319,12 @@ const aircraft =
             // =========================
 
 let logoPath = `LOGOS/${airlineCode}.png`;
+
+if (isMilitaryCallsign(callsign)) {
+
+    logoPath = 'LOGOS/MILITARY.png';
+
+}
 
 if (isRuBanned) {
 
