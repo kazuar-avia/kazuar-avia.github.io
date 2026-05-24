@@ -433,7 +433,7 @@ border-collapse: collapse;
 
 .vatsim-header {
 
-    padding: 8px 12px;
+    padding: 8px 0 0 0;
 
     background: #F7E6FA;
 
@@ -585,34 +585,51 @@ border-collapse: collapse;
 /* ========================= */
 
 .header-top {
- position: relative;
-    display: flex;
-    justify-content: center;
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
 
-    margin-bottom: 6px;
+    margin-bottom: 7px;
     min-height: 24px;
+    padding: 0 12px;
 
 }
 
   .header-title {
+    grid-column: 2;
     text-align: center;
 }
 
 #vatsim-update-time {
-    position: absolute;
-    right: 10px;
+    position: static;
+    grid-column: 3;
+    justify-self: end;
 
     font-size: 13px;
     color: #555;
     white-space: nowrap;
+    font-weight: normal;
+    margin-left: 0;
 }
 .sort-bar {
 
-    display: flex;
-    gap: 5px;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 34px 280px 132px 214px 118px minmax(0, 1fr);
+    align-items: end;
+    width: 100%;
+    padding: 0;
 
+}
+
+.sort-group {
+    display: grid;
+    gap: 4px;
+    padding: 0 3px;
+}
+
+.sort-group.two-buttons {
+    grid-template-columns: 1fr 1fr;
 }
 
 .sort-bar button {
@@ -621,13 +638,17 @@ border-collapse: collapse;
 
     background: white;
 
-    padding: 3px 7px;
+    width: 100%;
+    min-height: 26px;
+    padding: 3px 6px;
 
     font-size: 11px;
 
     cursor: pointer;
 
     transition: 0.15s;
+    font-family: Arial, sans-serif;
+    white-space: nowrap;
 
 }
 
@@ -946,25 +967,36 @@ WINDROSE Forever <br>
 </div>
 
     <div class="sort-bar">
-        <button onclick="setSort('airline')" style="width:262px; margin-left:34px;">
-            AIRLINE ▲▼
-        </button>
+        <div></div>
+
+        <div class="sort-group">
+            <button onclick="setSort('airline')">
+                AIRLINE ▲▼
+            </button>
+        </div>
       
-        <button onclick="setSort('dep')" style="margin-left:6px;">
-            DEP ▲▼
-        </button>
+        <div class="sort-group two-buttons">
+            <button onclick="setSort('dep')">
+                DEP ▲▼
+            </button>
 
-        <button onclick="setSort('arr')">
-            ARR ▲▼
-        </button>
+            <button onclick="setSort('arr')">
+                ARR ▲▼
+            </button>
+        </div>
 
-        <button onclick="setSort('deptime')" style="margin-left:6px;"">
-            DEP.TIME ▲▼
-        </button>
+        <div class="sort-group two-buttons">
+            <button onclick="setSort('deptime')">
+                DEP.TIME ▲▼
+            </button>
 
-        <button onclick="setSort('arrtime')">
-            ARR.TIME ▲▼
-        </button>
+            <button onclick="setSort('arrtime')">
+                ARR.TIME ▲▼
+            </button>
+        </div>
+
+        <div></div>
+        <div></div>
 
     </div>
 
@@ -3962,10 +3994,6 @@ document.addEventListener("DOMContentLoaded", loadAirportDump);
   
 </body>
 </html>
-
-
-
-
 
 
 
