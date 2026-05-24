@@ -421,12 +421,12 @@ border-collapse: collapse;
     margin: 5px auto;
     background: white;
     border: 1px solid black;
-    overflow: hidden;
+    overflow: visible;
     font-family: Arial, sans-serif;
     color: black;
     background: white;
     border: 1px solid black;
-    overflow: hidden;
+    overflow: visible;
     font-family: Arial, sans-serif;
     color: black;
 }
@@ -740,6 +740,9 @@ border-collapse: collapse;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    text-decoration: none;
+    cursor: pointer;
+    user-select: none;
 }
 
 .weather-choice-box.is-selected {
@@ -767,10 +770,95 @@ border-collapse: collapse;
     text-align: left;
     white-space: normal;
     overflow: visible;
+    z-index: 20;
 }
 
 .weather-report-time {
     font-weight: bold;
+}
+
+.weather-airport-menu {
+    position: absolute;
+    right: -1px;
+    bottom: 23px;
+    z-index: 35;
+    display: none;
+    grid-template-columns: repeat(8, 35px);
+    width: 282px;
+    border: 1px solid #777;
+    border-right: 1px solid #777;
+    background: #f8f8f8;
+    box-shadow: none;
+    gap: 0;
+}
+
+.weather-airport-menu.is-open {
+    display: grid;
+}
+
+.sort-bar .weather-airport-option {
+    appearance: none;
+    box-sizing: border-box;
+    border: 0;
+    border-left: 1px solid #777;
+    border-top: 1px solid #777;
+    background: #f8f8f8;
+    height: 18px;
+    min-height: 0;
+    margin: 0;
+    padding: 4px 0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    cursor: pointer;
+    overflow: hidden;
+    transition: none;
+    white-space: nowrap;
+    width: auto;
+}
+
+.sort-bar .weather-airport-option:nth-child(-n+8) {
+    border-top: 0;
+}
+
+.sort-bar .weather-airport-option:nth-child(8n+1) {
+    border-left: 0;
+}
+
+.weather-airport-code {
+    display: block;
+    color: #0077cc;
+    font-size: 9px;
+    font-weight: bold;
+    line-height: 9px;
+    text-decoration: none;
+}
+
+.weather-airport-city {
+    display: none;
+    margin-top: 1px;
+    color: #0077cc;
+    font-size: 14px;
+    line-height: 1.05;
+    text-decoration: underline;
+}
+
+.sort-bar .weather-airport-option:hover {
+    background: #dfe9df;
+}
+
+.sort-bar .weather-airport-option:hover .weather-airport-code {
+    color: #004f24;
+}
+
+.sort-bar .weather-airport-option.is-disabled {
+    cursor: default;
+    background: #f4f4f4;
+}
+
+.weather-airport-option.is-disabled .weather-airport-code,
+.weather-airport-option.is-disabled .weather-airport-city {
+    color: #888;
+    text-decoration: none;
 }
 
 .sort-group.sort-weather {
@@ -1125,6 +1213,7 @@ WINDROSE Forever <br>
             <div id="weather-choice-box" class="weather-choice-box">
                 Вибери DEP/ARR для LIVE WEATHER / METAR
             </div>
+            <div id="weather-airport-menu" class="weather-airport-menu"></div>
         </div>
 
     </div>
@@ -2323,7 +2412,10 @@ const MILITARY_CALLSIGNS = [
     "BILKA",
     "CNH120",
     "MYKOLA",
-    "MAKSYM"
+    "MAKSYM",
+    "STRILKA",
+    "ORKAD",
+    "SOBAKA"
 ];
 
 const RU_BANNED_CALLSIGN_PREFIXES = [
@@ -2388,6 +2480,32 @@ const DEFAULT_WEATHER_AIRPORTS = {
 
 const MULTI_RUNWAY_AIRPORTS = new Set(['UKBB']);
 const HARD_RUNWAY_SURFACES = ['ASPH', 'CONC', 'BIT', 'PEM', 'PAVED'];
+const WEATHER_MENU_AIRPORTS = [
+    ['UKBB', 'Бориспіль**'],
+    ['UKLL', 'Львів'],
+    ['UKOO', 'Одеса'],
+    ['UKKK', 'Жуляни'],
+    ['UKHH', 'Харків'],
+    ['UKLR', 'Рівне'],
+    ['UKCC', 'Донецьк'],
+    ['UKFF', 'Сімферополь'],
+    ['UKDD', 'Дніпро'],
+    ['UKKM', 'Гостомель'],
+    ['UKLH', 'Хмельницький'],
+    ['UKHP', 'Полтава'],
+    ['UKCW', 'Луганськ'],
+    ['UKON', 'Миколаїв'],
+    ['UKWW', 'Вінниця'],
+    ['UKLI', 'ІФранківськ'],
+    ['UKLU', 'Ужгород'],
+    ['UKOH', 'Херсон'],
+    ['UKLN', 'Чернівці'],
+    ['UKDR', 'Кривий Ріг'],
+    ['UKHS', 'Суми'],
+    ['UKKE', 'Черкаси'],
+    ['UKCM', 'Маріуполь'],
+    ['UKDE', 'Запоріжжя']
+];
 
 function renderWeatherAirport(icao) {
     const code = String(icao || '').trim().toUpperCase();
@@ -2857,12 +2975,58 @@ async function selectWeatherAirport(icao) {
     }
 }
 
+function toggleWeatherAirportMenu(force) {
+    const menu = document.getElementById('weather-airport-menu');
+
+    if (!menu) return;
+
+    const shouldOpen =
+        typeof force === 'boolean'
+            ? force
+            : !menu.classList.contains('is-open');
+
+    menu.classList.toggle('is-open', shouldOpen);
+}
+
+function renderWeatherAirportMenu() {
+    const menu = document.getElementById('weather-airport-menu');
+
+    if (!menu) return;
+
+    menu.innerHTML = WEATHER_MENU_AIRPORTS.map(([label, city]) => {
+        const code = label.replace(/\*/g, '');
+        const enabled = !!weatherAirports[code];
+
+        return `
+            <button
+                type="button"
+                class="weather-airport-option${enabled ? '' : ' is-disabled'}"
+                ${enabled ? `data-weather-airport="${code}"` : 'disabled'}
+            >
+                <span class="weather-airport-code">${label}</span>
+                <span class="weather-airport-city">${city}</span>
+            </button>
+        `;
+    }).join('');
+}
+
 document.addEventListener('click', event => {
     const button = event.target.closest('[data-weather-airport]');
 
-    if (!button) return;
+    if (button) {
+        toggleWeatherAirportMenu(false);
+        selectWeatherAirport(button.dataset.weatherAirport);
+        return;
+    }
 
-    selectWeatherAirport(button.dataset.weatherAirport);
+    if (event.target.closest('#weather-choice-box')) {
+        toggleWeatherAirportMenu();
+        return;
+    }
+
+    if (!event.target.closest('#weather-airport-menu')) {
+        toggleWeatherAirportMenu(false);
+    }
 });
 
 async function preloadStaticData() {
@@ -3949,6 +4113,7 @@ async function initVatsim() {
 
     await preloadStaticData();
     await loadWeatherAirportCoordinates();
+    renderWeatherAirportMenu();
 
     await loadVatsimTraffic();
 
