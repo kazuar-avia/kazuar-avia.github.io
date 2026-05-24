@@ -2326,11 +2326,36 @@ const MILITARY_CALLSIGNS = [
     "MAKSYM"
 ];
 
+const RU_BANNED_CALLSIGN_PREFIXES = [
+    "ALA",
+    "RA0",
+    "RA1",
+    "RA2",
+    "RA3",
+    "RA4",
+    "RA5",
+    "RA6",
+    "RA7",
+    "RA8",
+    "RA9"
+];
+
 function isMilitaryCallsign(callsign) {
     return MILITARY_CALLSIGNS.includes(
         String(callsign || "")
             .replace(/\s+/g, "")
             .toUpperCase()
+    );
+}
+
+function isRuBannedCallsign(callsign) {
+    const normalized =
+        String(callsign || "")
+            .replace(/\s+/g, "")
+            .toUpperCase();
+
+    return RU_BANNED_CALLSIGN_PREFIXES.some(prefix =>
+        normalized.startsWith(prefix)
     );
 }
  
@@ -3244,7 +3269,8 @@ const arr = fp.arrival || '----';
 const isRuBanned =
 
     ruBannedAirports.includes(dep) ||
-    ruBannedAirports.includes(arr);
+    ruBannedAirports.includes(arr) ||
+    isRuBannedCallsign(callsign);
 
 // =========================
 // AIRLINE NAME
