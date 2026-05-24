@@ -2416,6 +2416,39 @@ try {
 
         });
 
+// =========================
+// MATCH NEWSKY FLIGHTS WITH VATSIM
+// =========================
+
+const vatsimFlightNumbers = new Set();
+const matchedNewSkyFlights = {};
+
+pilots.forEach(pilot => {
+
+    const callsign = pilot.callsign || "";
+    const match = callsign.match(/\d+/);
+
+    if (match) {
+
+        vatsimFlightNumbers.add(match[0]);
+
+    }
+
+});
+
+newSkyFlights.forEach(flight => {
+
+    const flightNumber =
+        String(flight.flightNumber || "");
+
+    if (vatsimFlightNumbers.has(flightNumber)) {
+
+        matchedNewSkyFlights[flightNumber] = flight;
+
+    }
+
+});
+
         // =========================
 // SORTING
 // =========================
@@ -2840,6 +2873,32 @@ flightStatus += extraStatus;
 
             const cid = pilot.cid || 'N/A';
             const name = pilot.name || 'N/A';
+            const vatsimFlightNumber =
+                (callsign.match(/\d+/) || [])[0] || "";
+            const matchedNewSkyFlight =
+                matchedNewSkyFlights[vatsimFlightNumber];
+            const newSkyBadge = matchedNewSkyFlight ? `
+        <br>
+        <span style="
+            display:inline-block;
+            margin-top:2px;
+            font-size:11px;
+            color:#666;
+            white-space:nowrap;
+        ">
+            <img
+                src="LOGOS/UKL.png"
+                style="
+                    height:11px;
+                    vertical-align:middle;
+                    margin-right:3px;
+                "
+                onerror="this.style.display='none';"
+            >
+            <span style="vertical-align:middle;">
+                UKL ${matchedNewSkyFlight.flightNumber}
+            </span>
+        </span>` : "";
 
             // =========================
             // ROW
@@ -2894,7 +2953,7 @@ flightStatus += extraStatus;
 <td class="cid-cell">
     ${name}
     <span class="cid-small">
-        <br>(ID: ${cid})        
+        <br>(ID: ${cid})${newSkyBadge}        
         </span>
 </td>
                 </tr>
@@ -2907,23 +2966,6 @@ flightStatus += extraStatus;
 
 
 // збираємо всі номери рейсів з VATSIM
-const vatsimFlightNumbers = new Set();
-const matchedNewSkyFlights = {};
-pilots.forEach(pilot => {
-
-    const callsign = pilot.callsign || "";
-
-    // витягуємо тільки цифри рейсу
-    const match = callsign.match(/\d+/);
-
-    if (match) {
-
-        vatsimFlightNumbers.add(match[0]);
-
-    }
-
-});
-
 // фільтруємо NewSky
 newSkyFlights
 .filter(flight => {
@@ -3096,28 +3138,6 @@ onerror="this.onerror=null; this.src='LOGOS/nologo.png';"
 <span class="callsign-big">
 ${formattedCallsign}
 </span>
-
-<div style="
-margin-top:1px;
-font-size:11px;
-color:#666;
-white-space:nowrap;
-">
-
-<img
-src="LOGOS/UKL.png"
-style="
-height:11px;
-vertical-align:middle;
-margin-right:3px;
-"
->
-
-<span style="vertical-align:middle;">
-UKL ${flight.flightNumber}
-</span>
-
-</div>
 
 </div>
 
@@ -3942,7 +3962,6 @@ document.addEventListener("DOMContentLoaded", loadAirportDump);
   
 </body>
 </html>
-
 
 
 
