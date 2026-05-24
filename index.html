@@ -4165,11 +4165,14 @@ function findFlight() {
 </script>
 
 <script>
-function findAirportCell(icao){
+function findAirportCell(icao) {
   return [...document.querySelectorAll(".airports-table td")]
-    .find(td => td.querySelector("strong")?.textContent.startsWith(icao));
+    .find(td => {
+      const txt = td.querySelector("strong")?.textContent || "";
+      const code = txt.match(/[A-Z0-9]{4}/)?.[0];
+      return code === icao;
+    });
 }
-
 const ICAO_COUNTRY = {
   // Ukraine
   UK: {cc:"ua", name:"Україна"}, UR: {cc:"ua", name:"Україна"},
