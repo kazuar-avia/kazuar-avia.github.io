@@ -485,7 +485,7 @@ border-collapse: collapse;
 
 .logo-cell {
     
-    width: 32px;
+    width: 38px;
     text-align: center;
 
 }
@@ -529,7 +529,30 @@ border-collapse: collapse;
 
 }
 
+.weather-airport-link {
+    appearance: none;
+    border: 0;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    color: inherit;
+    font: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    cursor: pointer;
+    vertical-align: baseline;
+}
+
+.weather-airport-link:hover {
+    color: #0066cc;
+    text-decoration: underline;
+}
+
 .time-cell {
+
+    width: 199px;
+
+    min-width: 199px;
 
     color: #006400;
     font-size: 12px;
@@ -587,39 +610,47 @@ border-collapse: collapse;
 .header-top {
     position: relative;
     display: grid;
-    grid-template-columns: 1fr auto 1fr;
+    grid-template-columns: 39px 276px 132px 199px 118px minmax(0, 1fr);
     align-items: center;
 
-    margin-bottom: 7px;
+    margin-bottom: 6px;
     min-height: 24px;
-    padding: 0 12px;
+    padding: 0;
 
 }
 
   .header-title {
-    grid-column: 2;
-    text-align: center;
+    grid-column: 2 / -1;
+    text-align: left;
 }
 
 #vatsim-update-time {
     position: static;
-    grid-column: 3;
-    justify-self: end;
 
-    font-size: 12px;
-    color: #555;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 23px;
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    line-height: 1;
+    color: #333;
     white-space: nowrap;
     font-weight: normal;
     margin-left: 0;
+    text-align: center;
+    transform: translateY(-1px);
 }
+
 .sort-bar {
 
     display: grid;
-    grid-template-columns: 34px 280px 132px 214px 118px minmax(0, 1fr);
+    grid-template-columns: 39px 276px 132px 199px 118px minmax(0, 1fr);
     align-items: end;
     width: 100%;
     padding: 0 0 0 0;
-    border-top: 1px solid rgba(0,0,0,0.08);
+    border-top: 0;
+    overflow: visible;
 
 }
 
@@ -627,6 +658,36 @@ border-collapse: collapse;
     display: grid;
     gap: 3px;
     padding: 4px 3px 3px 3px;
+}
+
+.sort-time-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    height: 23px;
+    padding: 0 1px 3px 1px;
+}
+
+.sort-group.sort-airline {
+    padding-left: 0;
+    padding-right: 1px;
+}
+
+.sort-group.sort-route,
+.sort-group.sort-time {
+    padding-left: 0;
+    padding-right: 3px;
+}
+
+.sort-group.sort-route {
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.sort-group.sort-time {
+    padding-left: 1px;
+    padding-right: 0;
 }
 
 .sort-group.two-buttons {
@@ -661,14 +722,73 @@ border-collapse: collapse;
 
 }
 
+.weather-choice-box {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-width: 0;
+    height: 23px;
+    padding: 2px 6px;
+    border: 1px solid #999;
+    background: #eeeeee;
+    color: #333;
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    font-weight: normal;
+    line-height: 1.15;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.weather-choice-box.is-selected {
+    font-size: 11px;
+    line-height: 1.2;
+}
+
+.weather-choice-box strong {
+    color: #111;
+    font-weight: bold;
+}
+
+.weather-choice-box.is-selected {
+    position: absolute;
+    display: block;
+    left: 3px;
+    right: 3px;
+    bottom: 3px;
+    background: #cfcfcf;
+    color: #111;
+    align-items: flex-start;
+    justify-content: flex-start;
+    height: auto;
+    min-height: 23px;
+    text-align: left;
+    white-space: normal;
+    overflow: visible;
+}
+
+.weather-report-time {
+    font-weight: bold;
+}
+
+.sort-group.sort-weather {
+    position: relative;
+    grid-column: 5 / span 2;
+    min-height: 30px;
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
   /* ========================= */
 /* NEW FLIGHT LAYOUT */
 /* ========================= */
 
 .flight-cell {
 
-    width: 205px;
-min-width: 205px;
+    width: 276px;
+min-width: 276px;
 }
 
 .flight-row-top {
@@ -966,22 +1086,22 @@ WINDROSE Forever <br>
         LIVE TRAFFIC VATSIM: до/з України + українських авіакомпаній
     </div>
 
-    <div id="vatsim-update-time">
-        оновлено --:--z
-    </div>
-
 </div>
 
     <div class="sort-bar">
-        <div></div>
+        <div class="sort-group sort-time-label">
+            <div id="vatsim-update-time">
+                --:--
+            </div>
+        </div>
 
-        <div class="sort-group">
+        <div class="sort-group sort-airline">
             <button onclick="setSort('airline')">
                 AIRLINE ▲▼
             </button>
         </div>
       
-        <div class="sort-group two-buttons">
+        <div class="sort-group two-buttons sort-route">
             <button onclick="setSort('dep')">
                 DEP ▲▼
             </button>
@@ -991,7 +1111,7 @@ WINDROSE Forever <br>
             </button>
         </div>
 
-        <div class="sort-group two-buttons">
+        <div class="sort-group two-buttons sort-time">
             <button onclick="setSort('deptime')">
                 DEP.TIME ▲▼
             </button>
@@ -1001,8 +1121,11 @@ WINDROSE Forever <br>
             </button>
         </div>
 
-        <div></div>
-        <div></div>
+        <div class="sort-group sort-weather">
+            <div id="weather-choice-box" class="weather-choice-box">
+                Вибери DEP/ARR для LIVE WEATHER / METAR
+            </div>
+        </div>
 
     </div>
 
@@ -2194,6 +2317,513 @@ let sortDirection = 1;
 let allAirlineMap = {};
 let aircraftMap = {};
 let ruBannedAirports = [];
+let weatherAirports = {};
+
+const DEFAULT_WEATHER_AIRPORTS = {
+    UKBB: {
+        icao: 'UKBB',
+        lat: 50.3447,
+        lon: 30.8933,
+        name: 'Kyiv/Boryspil',
+        runways: [
+            { id: '18L', heading: 176 },
+            { id: '36R', heading: 356 },
+            { id: '18R', heading: 176 },
+            { id: '36L', heading: 356 }
+        ]
+    },
+    KBDR: {
+        icao: 'KBDR',
+        lat: 41.166239,
+        lon: -73.13496,
+        name: 'Bridgeport/Sikorsky',
+        runways: [
+            { id: '06', heading: 60 },
+            { id: '24', heading: 240 },
+            { id: '11', heading: 110 },
+            { id: '29', heading: 290 }
+        ]
+    }
+};
+
+const MULTI_RUNWAY_AIRPORTS = new Set(['UKBB']);
+const HARD_RUNWAY_SURFACES = ['ASPH', 'CONC', 'BIT', 'PEM', 'PAVED'];
+
+function renderWeatherAirport(icao) {
+    const code = String(icao || '').trim().toUpperCase();
+
+    if (!/^[A-Z]{4}$/.test(code)) {
+        return code || '----';
+    }
+
+    if (code.startsWith('UK') && !weatherAirports[code]) {
+        return code;
+    }
+
+    return `<button type="button" class="weather-airport-link" data-weather-airport="${code}" title="Погода ${code}">${code}</button>`;
+}
+
+function renderWeatherRoute(dep, arr) {
+    return `${renderWeatherAirport(dep)} → ${renderWeatherAirport(arr)}`;
+}
+
+function readAirportCoordinate(obj, names) {
+    for (const name of names) {
+        const value = obj[name];
+        const number = Number(value);
+
+        if (Number.isFinite(number)) {
+            return number;
+        }
+    }
+
+    return null;
+}
+
+function parseAirportRunways(obj) {
+    if (!Array.isArray(obj.runways)) return [];
+
+    const icao = String(obj.icao || '').trim().toUpperCase();
+    const openRunways = obj.runways.filter(runway => !runway.closed);
+    const hardRunways = openRunways.filter(runway => {
+        const surface = String(runway.surface || '').toUpperCase();
+
+        return HARD_RUNWAY_SURFACES.some(type => surface.includes(type));
+    });
+    const candidates = hardRunways.length ? hardRunways : openRunways;
+    const selectedRunways = MULTI_RUNWAY_AIRPORTS.has(icao)
+        ? candidates
+        : candidates
+            .slice()
+            .sort((a, b) => Number(b.length || 0) - Number(a.length || 0))
+            .slice(0, 1);
+    const runways = [];
+
+    selectedRunways.forEach(runway => {
+        ['le', 'he'].forEach(side => {
+            const end = runway[side];
+            const heading = Number(end?.hdg);
+            const id = String(end?.ident || '').trim().toUpperCase();
+
+            if (id && Number.isFinite(heading)) {
+                runways.push({ id, heading });
+            }
+        });
+    });
+
+    return runways;
+}
+
+function rememberWeatherAirport(obj) {
+    if (!obj || !obj.icao) return;
+
+    const icao = String(obj.icao).trim().toUpperCase();
+    const lat = readAirportCoordinate(obj.location || obj, ['lat', 'latitude']);
+    const lon = readAirportCoordinate(obj.location || obj, ['lon', 'lng', 'longitude']);
+    const runways = parseAirportRunways(obj);
+
+    if (!/^[A-Z]{4}$/.test(icao) || lat === null || lon === null) {
+        return;
+    }
+
+    weatherAirports[icao] = {
+        ...(DEFAULT_WEATHER_AIRPORTS[icao] || {}),
+        icao,
+        lat,
+        lon,
+        name: obj.city || obj.name || icao,
+        runways: runways.length
+            ? runways
+            : (DEFAULT_WEATHER_AIRPORTS[icao]?.runways || [])
+    };
+}
+
+function knotsFromMs(value) {
+    return Math.ceil(Number(value || 0) * 1.943844);
+}
+
+function formatMetarNumber(value, size) {
+    return String(Math.round(value)).padStart(size, '0');
+}
+
+function formatWindDirection(value) {
+    const rounded = Math.round(Number(value || 0) / 10) * 10;
+    const direction = rounded === 360 ? 360 : rounded % 360;
+
+    return formatMetarNumber(direction, 3);
+}
+
+function formatMetarTemperature(value) {
+    const number = Math.round(Number(value || 0));
+    const abs = String(Math.abs(number)).padStart(2, '0');
+
+    return number < 0 ? `M${abs}` : abs;
+}
+
+function dewPointFromTemperatureHumidity(temp, humidity) {
+    const a = 17.27;
+    const b = 237.7;
+    const gamma =
+        (a * temp) / (b + temp) +
+        Math.log(Math.max(1, humidity) / 100);
+
+    return (b * gamma) / (a - gamma);
+}
+
+function metarWeatherCode(code) {
+    const weather = {
+        45: 'FG',
+        48: 'FZFG',
+        51: '-DZ',
+        53: 'DZ',
+        55: '+DZ',
+        56: '-FZDZ',
+        57: 'FZDZ',
+        61: '-RA',
+        63: 'RA',
+        65: '+RA',
+        66: '-FZRA',
+        67: 'FZRA',
+        71: '-SN',
+        73: 'SN',
+        75: '+SN',
+        77: 'SG',
+        80: '-SHRA',
+        81: 'SHRA',
+        82: '+SHRA',
+        85: '-SHSN',
+        86: 'SHSN',
+        95: 'TS',
+        96: 'TSRA',
+        99: '+TSRA'
+    };
+
+    return weather[code] || '';
+}
+
+function weatherIntensity(lightLimit, heavyLimit, value) {
+    if (value >= heavyLimit) return '+';
+    if (value > 0 && value <= lightLimit) return '-';
+
+    return '';
+}
+
+function hasThunderstorm(current) {
+    return [95, 96, 99].includes(Number(current.weather_code));
+}
+
+function precipitationWeather(current) {
+    const rain = Number(current.rain || 0);
+    const showers = Number(current.showers || 0);
+    const snowfall = Number(current.snowfall || 0);
+    const precipitation = Number(current.precipitation || 0);
+    const temp = Number(current.temperature_2m || 0);
+    const rainAmount = Math.max(rain, precipitation);
+    const thunder = hasThunderstorm(current);
+    const visibility = Number(current.visibility || 0);
+    const traceOnly =
+        rainAmount > 0 &&
+        rainAmount < 0.3 &&
+        visibility >= 10000;
+
+    if (snowfall > 0) {
+        return `${weatherIntensity(0.5, 2.5, snowfall)}SN`;
+    }
+
+    if (showers > 0) {
+        const intensity = weatherIntensity(0.5, 2.5, showers);
+
+        return thunder ? `${intensity}TSRA` : `${intensity}SHRA`;
+    }
+
+    if (traceOnly) {
+        return '';
+    }
+
+    if (rainAmount >= 0.3) {
+        const intensity = weatherIntensity(0.5, 7.5, rainAmount);
+
+        if (thunder) return `${intensity}TSRA`;
+        if (temp <= 0) return `${intensity}FZRA`;
+
+        return `${intensity}RA`;
+    }
+
+    if (thunder) return 'TS';
+
+    return '';
+}
+
+function visibilityWeather(current) {
+    const visibility = Number(current.visibility || 0);
+    const humidity = Number(current.relative_humidity_2m || 0);
+    const temp = Number(current.temperature_2m || 0);
+    const dewPoint = Number.isFinite(Number(current.dew_point_2m))
+        ? Number(current.dew_point_2m)
+        : dewPointFromTemperatureHumidity(temp, humidity);
+    const spread = temp - dewPoint;
+    const saturated = spread <= 2 || humidity >= 95;
+    const misty = spread <= 3 || humidity >= 80;
+    const hasPrecipitation =
+        Number(current.precipitation || 0) > 0 ||
+        Number(current.rain || 0) > 0 ||
+        Number(current.showers || 0) > 0 ||
+        Number(current.snowfall || 0) > 0;
+
+    if (visibility > 0 && visibility < 1000 && saturated) {
+        return temp <= 0 ? 'FZFG' : 'FG';
+    }
+
+    if (visibility > 0 && visibility < 1000) {
+        return hasPrecipitation ? '' : 'HZ';
+    }
+
+    if (visibility >= 1000 && visibility <= 6000 && misty) {
+        return 'BR';
+    }
+
+    if (visibility >= 1000 && visibility <= 6000) {
+        return hasPrecipitation ? '' : 'HZ';
+    }
+
+    return '';
+}
+
+function metarWeather(current) {
+    const precipitation = precipitationWeather(current);
+    const visibility = visibilityWeather(current);
+    const codedWeather = metarWeatherCode(current.weather_code);
+
+    const items = [precipitation, visibility].filter(Boolean);
+
+    if (codedWeather && !skipCodedWeather(codedWeather, precipitation, visibility)) {
+        items.push(codedWeather);
+    }
+
+    return [...new Set(items)].join(' ');
+}
+
+function skipCodedWeather(codedWeather, precipitation, visibility) {
+    const precipitationCodes =
+        /^(\+|-)?(RA|SN|DZ|FZRA|FZDZ|SHRA|SHSN|TSRA)$/;
+    const visibilityCodes =
+        /^(FG|FZFG|BR|HZ)$/;
+
+    if (precipitation && precipitationCodes.test(codedWeather)) return true;
+    if (visibility && visibilityCodes.test(codedWeather)) return true;
+    if (precipitation && precipitation.includes('TSRA') && codedWeather === 'TS') return true;
+
+    return false;
+}
+
+function cloudAmount(cover) {
+    if (cover < 12.5) return '';
+    if (cover < 37.5) return 'FEW';
+    if (cover < 62.5) return 'SCT';
+    if (cover < 87.5) return 'BKN';
+    return 'OVC';
+}
+
+function metarClouds(current) {
+    const low = cloudAmount(Number(current.cloud_cover_low || 0));
+    if (low) return `${low}020*`;
+
+    const mid = cloudAmount(Number(current.cloud_cover_mid || 0));
+    if (mid) return `${mid}080*`;
+
+    return '';
+}
+
+function runwayHeadwindScore(windDirection, runwayHeading) {
+    const diff =
+        Math.abs(((windDirection - runwayHeading + 540) % 360) - 180);
+
+    return Math.cos(diff * Math.PI / 180);
+}
+
+function activeRunways(airport, windDirection) {
+    if (!airport.runways || !airport.runways.length) return '';
+
+    let bestHeading = airport.runways[0].heading;
+    let bestScore = -Infinity;
+
+    airport.runways.forEach(runway => {
+        const score = runwayHeadwindScore(windDirection, runway.heading);
+
+        if (score > bestScore) {
+            bestScore = score;
+            bestHeading = runway.heading;
+        }
+    });
+
+    const selected = airport.runways
+        .filter(runway => Math.abs(runway.heading - bestHeading) <= 2)
+        .map(runway => runway.id);
+
+    return selected.length ? `RW${selected.join('/')}` : '';
+}
+
+function buildWeatherUrl(airport) {
+    const params = new URLSearchParams({
+        latitude: airport.lat,
+        longitude: airport.lon,
+        current: [
+            'temperature_2m',
+            'relative_humidity_2m',
+            'dew_point_2m',
+            'precipitation',
+            'rain',
+            'showers',
+            'snowfall',
+            'weather_code',
+            'cloud_cover_low',
+            'cloud_cover_mid',
+            'cloud_cover_high',
+            'pressure_msl',
+            'wind_speed_10m',
+            'wind_direction_10m',
+            'wind_gusts_10m',
+            'visibility'
+        ].join(','),
+        wind_speed_unit: 'ms',
+        timezone: 'GMT',
+        forecast_days: '1'
+    });
+
+    return `https://api.open-meteo.com/v1/forecast?${params.toString()}`;
+}
+
+function buildMetarLikeReport(airport, current) {
+    const windDirection = Math.round(Number(current.wind_direction_10m || 0));
+    const windSpeed = knotsFromMs(current.wind_speed_10m);
+    const windGust = knotsFromMs(current.wind_gusts_10m);
+    const gustText = windGust > windSpeed ? `G${formatMetarNumber(windGust, 2)}` : '';
+    const wind = `${formatMetarNumber(windSpeed, 2)}${gustText}KT`;
+    const visibility = Number(current.visibility || 0) >= 10000
+        ? '9999'
+        : formatMetarNumber(Math.max(0, current.visibility || 0), 4);
+    const temp = Number(current.temperature_2m || 0);
+    const dewPoint = Number.isFinite(Number(current.dew_point_2m))
+        ? Number(current.dew_point_2m)
+        : dewPointFromTemperatureHumidity(temp, Number(current.relative_humidity_2m || 0));
+    const pressure = `Q${formatMetarNumber(Number(current.pressure_msl || 0), 4)}`;
+    const runway = activeRunways(airport, windDirection);
+    const weather = metarWeather(current);
+    const clouds = metarClouds(current);
+    const visibilityLine =
+        visibility === '9999' && !clouds
+            ? 'CAVOK'
+            : [visibility, clouds].filter(Boolean).join(' ');
+    const reportTime = current.time
+        ? `${String(current.time).split('T')[1]?.substring(0, 5) || '--:--'}z`
+        : '--:--z';
+    const runwayText = runway ? `(${runway})` : '';
+
+    return [
+        `<strong>${airport.icao}</strong>&nbsp;<span class="weather-report-time">${reportTime}</span>`,
+        `${formatWindDirection(windDirection)}° ${wind} ${runwayText}`.trim(),
+        `${visibilityLine} ${formatMetarTemperature(temp)}/${formatMetarTemperature(dewPoint)} ${pressure}`,
+        weather
+    ].filter(Boolean).join('<br>');
+}
+
+async function fetchAirportWeatherReport(code) {
+    if (!code.startsWith('UK')) {
+        return fetchRealMetarReport(code);
+    }
+
+    const airport = {
+        ...(DEFAULT_WEATHER_AIRPORTS[code] || {}),
+        ...(weatherAirports[code] || {})
+    };
+
+    if (!airport.lat || !airport.lon) {
+        return `${code}: координаты не найдены`;
+    }
+
+    const res = await fetch(buildWeatherUrl(airport));
+
+    if (!res.ok) {
+        throw new Error(`Open-Meteo ${res.status}`);
+    }
+
+    const data = await res.json();
+
+    return buildMetarLikeReport(airport, data.current || {});
+}
+
+async function fetchRealMetarReport(code) {
+    const res = await fetch(
+        `https://metar.vatsim.net/${encodeURIComponent(code)}?format=json`
+    );
+
+    if (!res.ok) {
+        throw new Error(`VATSIM METAR ${res.status}`);
+    }
+
+    const data = await res.json();
+    const item = Array.isArray(data) ? data[0] : data;
+    const rawMetar = String(item?.metar || '').trim();
+
+    if (!rawMetar) {
+        return `${code}: METAR не знайдено`;
+    }
+
+    return rawMetar.startsWith(code)
+        ? rawMetar.replace(code, `<strong>${code}</strong>`)
+        : `<strong>${code}</strong> ${rawMetar}`;
+}
+
+async function loadWeatherAirportCoordinates() {
+    try {
+        const res = await fetch("./newsky-airports.txt?v=" + new Date().getTime());
+        if (!res.ok) throw new Error("Не вдалося відкрити newsky-airports.txt");
+
+        const text = await res.text();
+
+        for (const raw of text.split(/\r?\n/)) {
+            const line = raw.trim();
+
+            if (!line || line.startsWith("UPDATED:") || line.startsWith("---")) continue;
+            if (!line.startsWith("{")) continue;
+
+            try {
+                rememberWeatherAirport(JSON.parse(line));
+            } catch (e) {
+                // пропускаємо битий JSON-рядок
+            }
+        }
+    } catch (e) {
+        console.warn("Не вдалося прочитати координати з newsky-airports.txt:", e);
+    }
+}
+
+async function selectWeatherAirport(icao) {
+    const code = String(icao || '').trim().toUpperCase();
+    const box = document.getElementById('weather-choice-box');
+
+    if (!box || !/^[A-Z]{4}$/.test(code)) return;
+
+    box.classList.add('is-selected');
+    box.textContent = `${code}: запит погоди...`;
+
+    try {
+        const report = await fetchAirportWeatherReport(code);
+
+        box.innerHTML = report;
+    } catch (e) {
+        console.error("Weather error:", e);
+        box.textContent = `${code}: помилка погоди`;
+    }
+}
+
+document.addEventListener('click', event => {
+    const button = event.target.closest('[data-weather-airport]');
+
+    if (!button) return;
+
+    selectWeatherAirport(button.dataset.weatherAirport);
+});
 
 async function preloadStaticData() {
 
@@ -2424,7 +3054,7 @@ try {
         const updateTime = updateTimestamp.split('T')[1].substring(0,5);
 
         document.getElementById('vatsim-update-time').innerText =
-            `оновлено ${updateTime}z`;
+            updateTime;
 
         // =========================
         // FILTER PILOTS
@@ -2977,7 +3607,7 @@ flightStatus += extraStatus;
 </td>
 
                     <td class="route-cell">
-                        ${dep} → ${arr}
+                        ${renderWeatherRoute(dep, arr)}
                     </td>
 
                     <td class="time-cell">
@@ -3196,7 +3826,7 @@ ${aircraft}
 </td>
 
 <td class="route-cell">
-${dep} → ${arr}
+${renderWeatherRoute(dep, arr)}
 </td>
 
 <td class="time-cell">
@@ -3272,6 +3902,7 @@ ${pilot}
 async function initVatsim() {
 
     await preloadStaticData();
+    await loadWeatherAirportCoordinates();
 
     await loadVatsimTraffic();
 
@@ -3320,7 +3951,7 @@ async function loadNewSkyTraffic() {
                 flight.arr?.icao || "----";
 
             const route =
-                `${dep} → ${arr}`;
+                renderWeatherRoute(dep, arr);
 
             let depUTC = "--:--";
 
@@ -4000,54 +4631,3 @@ document.addEventListener("DOMContentLoaded", loadAirportDump);
   
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
