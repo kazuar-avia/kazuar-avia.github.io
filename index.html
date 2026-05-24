@@ -1159,7 +1159,7 @@ WINDROSE Forever <br>
 
     <td style="width:153px;background-color: #ffffff;">
       <a href="https://contrail.shop/products/l-lviv-airport-msfs" target="_blank" style="color: #0077cc; text-decoration: underline;font-size: 16px;">
-        <strong>L*</strong><br>Львів
+        <strong>UKLL*</strong><br>Львів
       </a>
     </td>
 
@@ -1192,7 +1192,7 @@ WINDROSE Forever <br>
   <tr>
     <td style="width:153px;background-color: #ffffff;">
       <a href="https://flightsim.to/file/95508/r-rivne-airport" target="_blank" style="color: #0077cc; text-decoration: underline;font-size: 16px;">
-        <strong>R</strong><br>Рівне
+        <strong>UKLR</strong><br>Рівне
       </a>
     </td>
 
@@ -1270,7 +1270,7 @@ WINDROSE Forever <br>
   <tr>
     <td style="width:153px;background-color: #ffffff;">
       <a style="color: #0077cc; text-decoration: underline;font-size: 16px;" href="https://flightsim.to/file/29255/ivano-frankivsk-intl-airport-i" target="_blank">
-        <strong>I</strong><br>Франківськ
+        <strong>UKLI</strong><br>Франківськ
       </a>
       <br>
       <a style="color: #666666; text-decoration: underline;font-size: 14px;" href="https://flightsim.to/file/105181/enchancement-for-i-by-pilotalexyyz" target="_blank">
@@ -1280,7 +1280,7 @@ WINDROSE Forever <br>
 
     <td style="width:153px;background-color: #ffffff;">
       <a style="color: #0077cc; text-decoration: underline;font-size: 16px;" href="https://flightsim.to/file/45653/uzhhorod-international-airport-u" target="_blank">
-        <strong>U</strong><br>Ужгород
+        <strong>UKLU</strong><br>Ужгород
       </a>
     </td>
 
@@ -1292,13 +1292,13 @@ WINDROSE Forever <br>
 
     <td style="width:153px;background-color: #ffffff;">
       <a style="color: #0077cc; text-decoration: underline;font-size: 16px;" href="https://flightsim.to/file/30106/ternopil-intl-airport-t" target="_blank">
-        <strong>T</strong><br>Тернопіль
+        <strong>UKLT</strong><br>Тернопіль
       </a>
     </td>
 
     <td style="width:153px;background-color: #ffffff;">
       <a href="https://contrail.shop/products/aviaart-n-chernivtsi-leonid-kadeniuk-intl-airport-msfs-2024" target="_blank" style="color: #0077cc; text-decoration: underline;font-size: 16px;">
-        <strong>N*</strong><br>Чернівці
+        <strong>UKLN*</strong><br>Чернівці
       </a>
     </td>
 
@@ -4165,13 +4165,9 @@ function findFlight() {
 </script>
 
 <script>
-function findAirportCell(icao) {
+function findAirportCell(icao){
   return [...document.querySelectorAll(".airports-table td")]
-    .find(td => {
-      const txt = td.querySelector("strong")?.textContent || "";
-      const code = txt.match(/[A-Z0-9]{4}/)?.[0];
-      return code === icao;
-    });
+    .find(td => td.querySelector("strong")?.textContent.startsWith(icao));
 }
 const ICAO_COUNTRY = {
   // Ukraine
