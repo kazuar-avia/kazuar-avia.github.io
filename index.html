@@ -603,6 +603,13 @@ border-collapse: collapse;
     font-weight: normal;
     margin-left: 0px;
 } 
+
+.status-eta {
+    color: #0066cc;
+    font-size: 11px;
+    font-weight: normal;
+}
+
   /* ========================= */
 /* SORT BAR */
 /* ========================= */
@@ -761,6 +768,7 @@ border-collapse: collapse;
     left: 3px;
     right: 3px;
     bottom: 3px;
+    padding-right: 22px;
     background: #cfcfcf;
     color: #111;
     align-items: flex-start;
@@ -775,6 +783,59 @@ border-collapse: collapse;
 
 .weather-report-time {
     font-weight: bold;
+}
+
+.sort-bar button.weather-source-label,
+.weather-source-label {
+    position: absolute;
+    top: 3px;
+    right: 18px;
+    width: auto;
+    height: auto;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #555;
+    font-family: Arial, sans-serif;
+    font-size: 9px;
+    font-weight: normal;
+    line-height: 10px;
+    cursor: pointer;
+    transition: none;
+    white-space: nowrap;
+}
+
+.sort-bar button.weather-source-label:hover,
+.weather-source-label:hover {
+    background: transparent;
+    color: #006600;
+}
+
+.sort-bar button.weather-source-toggle,
+.weather-source-toggle {
+    position: absolute;
+    top: 1px;
+    right: 4px;
+    width: 12px;
+    height: 12px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #111;
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: none;
+    white-space: normal;
+}
+
+.sort-bar button.weather-source-toggle:hover,
+.weather-source-toggle:hover {
+    background: transparent;
+    color: #006600;
 }
 
 .weather-airport-menu {
@@ -2407,6 +2468,44 @@ let allAirlineMap = {};
 let aircraftMap = {};
 let ruBannedAirports = [];
 let weatherAirports = {};
+let selectedWeatherAirport = '';
+let weatherPreferOpenMeteoFirst = true;
+
+const OPEN_METEO_CURRENT_VARIABLES = [
+    'temperature_2m',
+    'relative_humidity_2m',
+    'dew_point_2m',
+    'precipitation',
+    'rain',
+    'showers',
+    'snowfall',
+    'weather_code',
+    'cloud_cover',
+    'cloud_cover_low',
+    'cloud_cover_mid',
+    'cloud_cover_high',
+    'pressure_msl',
+    'surface_pressure',
+    'wind_speed_10m',
+    'wind_direction_10m',
+    'wind_gusts_10m',
+    'visibility'
+];
+
+const OPEN_METEO_FALLBACK_CURRENT_VARIABLES = [
+    'temperature_2m',
+    'relative_humidity_2m',
+    'precipitation',
+    'weather_code',
+    'cloud_cover',
+    'pressure_msl',
+    'surface_pressure',
+    'wind_speed_10m',
+    'wind_direction_10m',
+    'wind_gusts_10m'
+];
+
+const WEATHER_REQUEST_TIMEOUT_MS = 3000;
 
 const MILITARY_CALLSIGNS = [
     "BILKA",
@@ -2600,6 +2699,195 @@ function knotsFromMs(value) {
     return Math.ceil(Number(value || 0) * 1.943844);
 }
 
+function distanceNm(lat1, lon1, lat2, lon2) {
+    const toRad = value => Number(value) * Math.PI / 180;
+    const r = 3440.065;
+    const dLat = toRad(lat2 - lat1);
+    const dLon = toRad(lon2 - lon1);
+    const a =
+        Math.sin(dLat / 2) ** 2 +
+        Math.cos(toRad(lat1)) *
+        Math.cos(toRad(lat2)) *
+        Math.sin(dLon / 2) ** 2;
+
+    return 2 * r * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
+function isSupportedEtaAircraft(code) {
+    const aircraft = String(code || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+
+    return (
+        /^A(2|3|4)\d{2}/.test(aircraft) ||
+        /^B\d{3}/.test(aircraft) ||
+        /^E(1|2)\d{2}/.test(aircraft) ||
+        /^MD(11|8[0-9])/.test(aircraft)
+    );
+}
+
+function etaSegmentMinutes(distance, speed) {
+    if (distance <= 0 || speed <= 0) return 0;
+
+    return (distance / speed) * 60;
+}
+
+function calculateArrivalEtaMinutes(distance, gs) {
+    if (!Number.isFinite(distance) || distance <= 0 || gs < 60) return null;
+
+    let minutes = 0;
+    let remaining = distance;
+
+    if (remaining > 80) {
+        minutes += etaSegmentMinutes(remaining - 80, gs);
+        remaining = 80;
+    }
+
+    if (remaining > 30) {
+        minutes += etaSegmentMinutes(remaining - 30, Math.min(gs, 250));
+        remaining = 30;
+    }
+
+    if (remaining > 15) {
+        minutes += etaSegmentMinutes(remaining - 15, Math.min(gs, 200));
+        remaining = 15;
+    }
+
+    if (remaining > 0) {
+        minutes += etaSegmentMinutes(remaining, Math.min(gs, 130));
+    }
+
+    return Math.max(1, Math.round(minutes));
+}
+
+function calculateNewSkyGroundspeed(flight, depAirport, lat, lon) {
+    if (!flight?.depTimeAct || !depAirport) return null;
+
+    const depTime = new Date(flight.depTimeAct).getTime();
+    const now = Date.now();
+    const hours = (now - depTime) / 3600000;
+
+    if (!Number.isFinite(hours) || hours <= 0.05) return null;
+
+    const distanceFromDep = distanceNm(lat, lon, depAirport.lat, depAirport.lon);
+    const estimatedGs = distanceFromDep / hours;
+
+    if (!Number.isFinite(estimatedGs)) return null;
+
+    return Math.max(60, Math.min(520, Math.round(estimatedGs)));
+}
+
+function buildLiveStatusFromPosition({
+    dep,
+    arr,
+    aircraftCode,
+    lat,
+    lon,
+    gs,
+    nowTotal,
+    arrTotal,
+    defaultStatus = 'EN-ROUTE',
+    source = 'vatsim'
+}) {
+    const depAirport = weatherAirports?.[dep] || null;
+    const arrAirport = weatherAirports?.[arr] || null;
+    const etaCapableAircraft = isSupportedEtaAircraft(aircraftCode);
+    const canUseLiveEta =
+        etaCapableAircraft &&
+        arrAirport &&
+        Number.isFinite(lat) &&
+        Number.isFinite(lon) &&
+        gs >= 60;
+    const distanceToArr = canUseLiveEta
+        ? distanceNm(lat, lon, arrAirport.lat, arrAirport.lon)
+        : null;
+    const distanceFromDep =
+        etaCapableAircraft &&
+        depAirport &&
+        Number.isFinite(lat) &&
+        Number.isFinite(lon)
+            ? distanceNm(lat, lon, depAirport.lat, depAirport.lon)
+            : null;
+    const liveEtaMinutes = canUseLiveEta
+        ? calculateArrivalEtaMinutes(distanceToArr, gs)
+        : null;
+    const liveEtaTotal =
+        liveEtaMinutes !== null
+            ? nowTotal + liveEtaMinutes
+            : null;
+
+    let status = defaultStatus;
+
+    if (source === 'newsky' && distanceFromDep !== null && distanceFromDep <= 2) {
+        status = 'TAXI OUT';
+    } else if (distanceFromDep !== null && distanceFromDep <= 50) {
+        status = 'DEPARTING';
+    } else if (distanceToArr !== null && distanceToArr <= 14) {
+        status = 'FINAL';
+    } else if (distanceToArr !== null && distanceToArr <= 30) {
+        status = 'ARRIVING';
+    } else if (distanceToArr !== null && distanceToArr <= 80) {
+        status = 'DESCENDING';
+    }
+
+    const canShowEtaByStatus =
+        source === 'newsky'
+            ? ['DESCENDING', 'ARRIVING', 'FINAL'].includes(status)
+            : ['EN-ROUTE', 'DESCENDING', 'ARRIVING', 'FINAL'].includes(status);
+    const canShowEtaByDepartureDistance =
+        distanceFromDep === null ||
+        distanceFromDep > 40;
+    const showLiveEta =
+        liveEtaMinutes !== null &&
+        liveEtaMinutes <= 120 &&
+        canShowEtaByStatus &&
+        canShowEtaByDepartureDistance;
+
+    let etaStatus = '';
+    let etaStatusClosed = false;
+    let extraStatus = '';
+
+    if (showLiveEta) {
+        etaStatus =
+            ` <span class="status-eta"><br>ETA ${formatEtaTime(liveEtaTotal)}`;
+    }
+
+    if (
+        canShowEtaByStatus &&
+        Number.isFinite(arrTotal) &&
+        liveEtaTotal !== null &&
+        liveEtaTotal > (arrTotal + 10)
+    ) {
+        const lateMinutes = liveEtaTotal - arrTotal;
+
+        if (lateMinutes >= 15) {
+            let lateText = '';
+
+            if (lateMinutes > 59) {
+                const lateHours = Math.floor(lateMinutes / 60);
+
+                lateText = `(+>${lateHours} hr)`;
+            } else {
+                lateText = `(+${lateMinutes} min)`;
+            }
+
+            extraStatus =
+                etaStatus
+                    ? ` <span class="status-delay">${lateText}</span></span>`
+                    : ` <span class="status-delay"><br>${lateText}</span>`;
+            etaStatusClosed = !!etaStatus;
+        }
+    }
+
+    return status + etaStatus + extraStatus + (etaStatus && !etaStatusClosed ? '</span>' : '');
+}
+
+function formatEtaTime(totalMinutes) {
+    const normalized = ((Math.round(totalMinutes) % 1440) + 1440) % 1440;
+    const hour = Math.floor(normalized / 60);
+    const minute = normalized % 60;
+
+    return `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
+}
+
 function formatMetarNumber(value, size) {
     return String(Math.round(value)).padStart(size, '0');
 }
@@ -2789,6 +3077,9 @@ function metarClouds(current) {
     const mid = cloudAmount(Number(current.cloud_cover_mid || 0));
     if (mid) return `${mid}080*`;
 
+    const total = cloudAmount(Number(current.cloud_cover || 0));
+    if (total) return `${total}080*`;
+
     return '';
 }
 
@@ -2821,28 +3112,11 @@ function activeRunways(airport, windDirection) {
     return selected.length ? `RW${selected.join('/')}` : '';
 }
 
-function buildWeatherUrl(airport) {
+function buildWeatherUrl(airport, variables = OPEN_METEO_CURRENT_VARIABLES) {
     const params = new URLSearchParams({
         latitude: airport.lat,
         longitude: airport.lon,
-        current: [
-            'temperature_2m',
-            'relative_humidity_2m',
-            'dew_point_2m',
-            'precipitation',
-            'rain',
-            'showers',
-            'snowfall',
-            'weather_code',
-            'cloud_cover_low',
-            'cloud_cover_mid',
-            'cloud_cover_high',
-            'pressure_msl',
-            'wind_speed_10m',
-            'wind_direction_10m',
-            'wind_gusts_10m',
-            'visibility'
-        ].join(','),
+        current: variables.join(','),
         wind_speed_unit: 'ms',
         timezone: 'GMT',
         forecast_days: '1'
@@ -2851,20 +3125,145 @@ function buildWeatherUrl(airport) {
     return `https://api.open-meteo.com/v1/forecast?${params.toString()}`;
 }
 
+function buildMetNoUrl(airport) {
+    const params = new URLSearchParams({
+        lat: airport.lat,
+        lon: airport.lon
+    });
+
+    return `https://api.met.no/weatherapi/locationforecast/2.0/compact?${params.toString()}`;
+}
+
+async function fetchWithTimeout(url, options = {}, timeoutMs = WEATHER_REQUEST_TIMEOUT_MS) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), timeoutMs);
+
+    try {
+        return await fetch(url, {
+            ...options,
+            signal: controller.signal
+        });
+    } catch (e) {
+        if (e?.name === 'AbortError') {
+            throw new Error(`timeout ${Math.round(timeoutMs / 1000)}s`);
+        }
+
+        throw e;
+    } finally {
+        clearTimeout(timeout);
+    }
+}
+
+async function fetchOpenMeteoCurrent(airport) {
+    const attempts = [
+        OPEN_METEO_CURRENT_VARIABLES,
+        OPEN_METEO_FALLBACK_CURRENT_VARIABLES
+    ];
+    let lastError = null;
+
+    for (const variables of attempts) {
+        try {
+            const res = await fetchWithTimeout(buildWeatherUrl(airport, variables));
+
+            if (!res.ok) {
+                const details = await res.text().catch(() => '');
+                throw new Error(`Open-Meteo ${res.status}${details ? `: ${details.slice(0, 120)}` : ''}`);
+            }
+
+            const data = await res.json();
+
+            return {
+                ...(data.current || {}),
+                _weatherSource: 'OPEN-MET'
+            };
+        } catch (e) {
+            lastError = e;
+        }
+    }
+
+    throw lastError || new Error('Open-Meteo request failed');
+}
+
+async function fetchMetNoCurrent(airport) {
+    const res = await fetchWithTimeout(buildMetNoUrl(airport));
+
+    if (!res.ok) {
+        const details = await res.text().catch(() => '');
+        throw new Error(`MET Norway ${res.status}${details ? `: ${details.slice(0, 120)}` : ''}`);
+    }
+
+    const data = await res.json();
+    const item = data?.properties?.timeseries?.[0];
+    const details = item?.data?.instant?.details || {};
+    const nextHour = item?.data?.next_1_hours?.details || {};
+    const precipitation = Number(nextHour.precipitation_amount || 0);
+
+    return {
+        time: item?.time || '',
+        temperature_2m: details.air_temperature,
+        relative_humidity_2m: details.relative_humidity,
+        precipitation,
+        weather_code: precipitation >= 0.3 ? 61 : 0,
+        cloud_cover: details.cloud_area_fraction,
+        cloud_cover_low: details.cloud_area_fraction_low,
+        cloud_cover_mid: details.cloud_area_fraction_medium,
+        cloud_cover_high: details.cloud_area_fraction_high,
+        pressure_msl: details.air_pressure_at_sea_level,
+        wind_speed_10m: details.wind_speed,
+        wind_direction_10m: details.wind_from_direction,
+        wind_gusts_10m: details.wind_speed_of_gust,
+        visibility: details.fog_area_fraction >= 50 ? 800 : 10000,
+        _weatherSource: 'MET.NO'
+    };
+}
+
+async function fetchWeatherModelCurrent(airport) {
+    if (weatherPreferOpenMeteoFirst) {
+        try {
+            return await fetchOpenMeteoCurrent(airport);
+        } catch (openMeteoError) {
+            try {
+                return await fetchMetNoCurrent(airport);
+            } catch (metNoError) {
+                throw new Error(`${openMeteoError?.message || 'Open-Meteo failed'}; ${metNoError?.message || 'MET Norway failed'}`);
+            }
+        }
+    }
+
+    try {
+        return await fetchMetNoCurrent(airport);
+    } catch (metNoError) {
+        try {
+            return await fetchOpenMeteoCurrent(airport);
+        } catch (openMeteoError) {
+            throw new Error(`${metNoError?.message || 'MET Norway failed'}; ${openMeteoError?.message || 'Open-Meteo failed'}`);
+        }
+    }
+}
+
 function buildMetarLikeReport(airport, current) {
     const windDirection = Math.round(Number(current.wind_direction_10m || 0));
-    const windSpeed = knotsFromMs(current.wind_speed_10m);
+    const rawWindSpeed = knotsFromMs(current.wind_speed_10m);
     const windGust = knotsFromMs(current.wind_gusts_10m);
-    const gustText = windGust > windSpeed ? `G${formatMetarNumber(windGust, 2)}` : '';
+    const gustSpread = windGust - rawWindSpeed;
+    const windSpeed =
+        current._weatherSource === 'OPEN-MET' && gustSpread > 0 && gustSpread < 14
+            ? Math.round(rawWindSpeed + gustSpread / 4)
+            : rawWindSpeed;
+    const gustText = gustSpread >= 14 ? `G${formatMetarNumber(windGust, 2)}` : '';
     const wind = `${formatMetarNumber(windSpeed, 2)}${gustText}KT`;
-    const visibility = Number(current.visibility || 0) >= 10000
+    const visibilityValue = Number(current.visibility);
+    const visibility = !Number.isFinite(visibilityValue) || visibilityValue >= 10000
         ? '9999'
-        : formatMetarNumber(Math.max(0, current.visibility || 0), 4);
+        : formatMetarNumber(Math.max(0, visibilityValue), 4);
     const temp = Number(current.temperature_2m || 0);
     const dewPoint = Number.isFinite(Number(current.dew_point_2m))
         ? Number(current.dew_point_2m)
         : dewPointFromTemperatureHumidity(temp, Number(current.relative_humidity_2m || 0));
-    const pressure = `Q${formatMetarNumber(Number(current.pressure_msl || 0), 4)}`;
+    const pressureValue = Number.isFinite(Number(current.pressure_msl))
+        ? Number(current.pressure_msl)
+        : Number(current.surface_pressure || 0);
+    const pressure = `Q${formatMetarNumber(pressureValue, 4)}`;
     const runway = activeRunways(airport, windDirection);
     const weather = metarWeather(current);
     const clouds = metarClouds(current);
@@ -2878,7 +3277,7 @@ function buildMetarLikeReport(airport, current) {
     const runwayText = runway ? `(${runway})` : '';
 
     return [
-        `<strong>${airport.icao}</strong>&nbsp;<span class="weather-report-time">${reportTime}</span>`,
+        `<strong>${airport.icao}</strong>&nbsp;<span class="weather-report-time">${reportTime}</span><button type="button" class="weather-source-label" data-weather-refresh="1" title="Змінити порядок джерел погоди">${current._weatherSource || ''}</button><button type="button" class="weather-source-toggle" data-weather-refresh="1" title="Змінити порядок джерел погоди">↻</button>`,
         `${formatWindDirection(windDirection)}° ${wind} ${runwayText}`.trim(),
         `${visibilityLine} ${formatMetarTemperature(temp)}/${formatMetarTemperature(dewPoint)} ${pressure}`,
         weather
@@ -2899,15 +3298,9 @@ async function fetchAirportWeatherReport(code) {
         return `${code}: координаты не найдены`;
     }
 
-    const res = await fetch(buildWeatherUrl(airport));
+    const current = await fetchWeatherModelCurrent(airport);
 
-    if (!res.ok) {
-        throw new Error(`Open-Meteo ${res.status}`);
-    }
-
-    const data = await res.json();
-
-    return buildMetarLikeReport(airport, data.current || {});
+    return buildMetarLikeReport(airport, current);
 }
 
 async function fetchRealMetarReport(code) {
@@ -2962,6 +3355,7 @@ async function selectWeatherAirport(icao) {
 
     if (!box || !/^[A-Z]{4}$/.test(code)) return;
 
+    selectedWeatherAirport = code;
     box.classList.add('is-selected');
     box.textContent = `${code}: запит погоди...`;
 
@@ -2971,7 +3365,7 @@ async function selectWeatherAirport(icao) {
         box.innerHTML = report;
     } catch (e) {
         console.error("Weather error:", e);
-        box.textContent = `${code}: помилка погоди`;
+        box.textContent = `${code}: ${e?.message || 'помилка погоди'}`;
     }
 }
 
@@ -3011,6 +3405,20 @@ function renderWeatherAirportMenu() {
 }
 
 document.addEventListener('click', event => {
+    const refreshButton = event.target.closest('[data-weather-refresh]');
+
+    if (refreshButton) {
+        event.stopPropagation();
+        toggleWeatherAirportMenu(false);
+        weatherPreferOpenMeteoFirst = !weatherPreferOpenMeteoFirst;
+
+        if (selectedWeatherAirport) {
+            selectWeatherAirport(selectedWeatherAirport);
+        }
+
+        return;
+    }
+
     const button = event.target.closest('[data-weather-airport]');
 
     if (button) {
@@ -3571,6 +3979,39 @@ if (arrTotal >= 1440) {
 // GROUNDSPEED
 
 const gs = pilot.groundspeed || 0;
+const pilotLat = Number(pilot.latitude);
+const pilotLon = Number(pilot.longitude);
+const depAirport = weatherAirports?.[dep] || null;
+const arrAirport = weatherAirports?.[arr] || null;
+const etaCapableAircraft = isSupportedEtaAircraft(aircraftCode);
+const canUseLiveEta =
+    etaCapableAircraft &&
+    arrAirport &&
+    Number.isFinite(pilotLat) &&
+    Number.isFinite(pilotLon) &&
+    gs >= 60;
+const distanceToArr = canUseLiveEta
+    ? distanceNm(pilotLat, pilotLon, arrAirport.lat, arrAirport.lon)
+    : null;
+const distanceFromDep =
+    etaCapableAircraft &&
+    depAirport &&
+    Number.isFinite(pilotLat) &&
+    Number.isFinite(pilotLon)
+        ? distanceNm(pilotLat, pilotLon, depAirport.lat, depAirport.lon)
+        : null;
+const liveEtaMinutes = canUseLiveEta
+    ? calculateArrivalEtaMinutes(distanceToArr, gs)
+    : null;
+const liveEtaTotal =
+    liveEtaMinutes !== null
+        ? nowTotal + liveEtaMinutes
+        : null;
+const canShowEtaByDepartureDistance =
+    distanceFromDep === null ||
+    distanceFromDep > 40;
+let etaStatus = '';
+let etaStatusClosed = false;
 
 // =========================
 // STATUS LOGIC
@@ -3640,6 +4081,51 @@ else if (
 // DEPARTING
 
 else if (
+    distanceFromDep !== null &&
+    distanceFromDep <= 50 &&
+    nowTotal <= midTotal
+) {
+
+    flightStatus = 'DEPARTING';
+
+}
+
+// FINAL
+
+else if (
+    distanceToArr !== null &&
+    distanceToArr <= 14
+) {
+
+    flightStatus = 'FINAL';
+
+}
+
+// ARRIVING
+
+else if (
+    distanceToArr !== null &&
+    distanceToArr <= 30
+) {
+
+    flightStatus = 'ARRIVING';
+
+}
+
+// DESCENDING
+
+else if (
+    distanceToArr !== null &&
+    distanceToArr <= 80
+) {
+
+    flightStatus = 'DESCENDING';
+
+}
+
+// OLD DEPARTING FALLBACK
+
+else if (
     gs >= 60 &&
     gs <= 229 &&
     nowTotal <= midTotal
@@ -3649,7 +4135,7 @@ else if (
 
 }
 
-// ARRIVING
+// OLD ARRIVING FALLBACK
 
 else if (
     gs >= 60 &&
@@ -3676,6 +4162,18 @@ else if (
 // =========================
 
 let extraStatus = '';
+const canShowEtaByStatus =
+    ['EN-ROUTE', 'DESCENDING', 'ARRIVING', 'FINAL'].includes(flightStatus);
+const showLiveEta =
+    liveEtaMinutes !== null &&
+    liveEtaMinutes <= 120 &&
+    canShowEtaByStatus &&
+    canShowEtaByDepartureDistance;
+
+if (showLiveEta) {
+    etaStatus =
+        ` <span class="status-eta"><br>ETA ${formatEtaTime(liveEtaTotal)}`;
+}
 
 // DELAY
 
@@ -3713,38 +4211,54 @@ if (
 // LATE
 
 if (
-    nowTotal > (arrTotal + 10) &&
+    ['EN-ROUTE', 'DESCENDING', 'ARRIVING', 'FINAL'].includes(flightStatus) &&
+    (
+        liveEtaTotal !== null
+            ? liveEtaTotal > (arrTotal + 10)
+            : nowTotal > (arrTotal + 10)
+    ) &&
     gs > 0
 ) {
 
     const lateMinutes =
-        nowTotal - arrTotal;
+        (
+            liveEtaTotal !== null
+                ? liveEtaTotal
+                : nowTotal
+        ) - arrTotal;
 
-    let lateText = '';
+    if (lateMinutes >= 15) {
 
-    if (lateMinutes > 59) {
+        let lateText = '';
 
-        const lateHours =
-            Math.floor(lateMinutes / 60);
+        if (lateMinutes > 59) {
 
-        lateText =
-            `late >${lateHours} hr`;
+            const lateHours =
+                Math.floor(lateMinutes / 60);
 
-    } else {
+            lateText =
+                `(+>${lateHours} hr)`;
 
-        lateText =
-            `late +${lateMinutes} min`;
+        } else {
+
+            lateText =
+                `(+${lateMinutes} min)`;
+
+        }
+
+        extraStatus =
+            etaStatus
+                ? ` <span class="status-delay">${lateText}</span></span>`
+                : ` <span class="status-delay"><br>${lateText}</span>`;
+        etaStatusClosed = !!etaStatus;
 
     }
-
-    extraStatus =
-        ` <span class="status-delay"><br>(${lateText})</span>`;
 
 }
 
 // FINAL STATUS
 
-flightStatus += extraStatus;
+flightStatus += etaStatus + extraStatus + (etaStatus && !etaStatusClosed ? '</span>' : '');
 
             // =========================
             // CID / NAME
@@ -3862,13 +4376,6 @@ newSkyFlights
 
     }
 
-    // якщо NewSky каже що він online
-    if (flight.network?.name) {
-
-        return false;
-
-    }
-
     return true;
 
 })
@@ -3915,8 +4422,41 @@ newSkyFlights
 
     if (!flight.depTimeAct) {
 
-        status = "PLANNED";
+        status = "BOARDING";
 
+    }
+
+    const newSkyAircraftCode =
+        flight.aircraft?.airframe?.icao ||
+        flight.aircraft?.airframe?.ident ||
+        "";
+    const newSkyLat = Number(flight.lastState?.location?.lat);
+    const newSkyLon = Number(flight.lastState?.location?.lon);
+    const newSkyDepAirport = weatherAirports?.[dep] || null;
+    const newSkyGs = calculateNewSkyGroundspeed(
+        flight,
+        newSkyDepAirport,
+        newSkyLat,
+        newSkyLon
+    );
+    const newSkyNow = new Date();
+    const newSkyNowTotal =
+        newSkyNow.getUTCHours() * 60 +
+        newSkyNow.getUTCMinutes();
+
+    if (flight.depTimeAct && newSkyGs !== null) {
+        status = buildLiveStatusFromPosition({
+            dep,
+            arr,
+            aircraftCode: newSkyAircraftCode,
+            lat: newSkyLat,
+            lon: newSkyLon,
+            gs: newSkyGs,
+            nowTotal: newSkyNowTotal,
+            arrTotal: NaN,
+            defaultStatus: status,
+            source: 'newsky'
+        });
     }
 
     const pilot =
@@ -4139,7 +4679,6 @@ async function loadNewSkyTraffic() {
         let html = "";
 
         data.results
-        .filter(flight => !flight.network?.name)
         .forEach(flight => {
 
             const callsign =
@@ -4186,8 +4725,41 @@ async function loadNewSkyTraffic() {
 
             if (!flight.depTimeAct) {
 
-                status = "PLANNED";
+                status = "BOARDING";
 
+            }
+
+            const newSkyAircraftCode =
+                flight.aircraft?.airframe?.icao ||
+                flight.aircraft?.airframe?.ident ||
+                "";
+            const newSkyLat = Number(flight.lastState?.location?.lat);
+            const newSkyLon = Number(flight.lastState?.location?.lon);
+            const newSkyDepAirport = weatherAirports?.[dep] || null;
+            const newSkyGs = calculateNewSkyGroundspeed(
+                flight,
+                newSkyDepAirport,
+                newSkyLat,
+                newSkyLon
+            );
+            const newSkyNow = new Date();
+            const newSkyNowTotal =
+                newSkyNow.getUTCHours() * 60 +
+                newSkyNow.getUTCMinutes();
+
+            if (flight.depTimeAct && newSkyGs !== null) {
+                status = buildLiveStatusFromPosition({
+                    dep,
+                    arr,
+                    aircraftCode: newSkyAircraftCode,
+                    lat: newSkyLat,
+                    lon: newSkyLon,
+                    gs: newSkyGs,
+                    nowTotal: newSkyNowTotal,
+                    arrTotal: NaN,
+                    defaultStatus: status,
+                    source: 'newsky'
+                });
             }
 
             const pilot =
