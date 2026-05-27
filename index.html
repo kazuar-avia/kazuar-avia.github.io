@@ -3794,7 +3794,7 @@ function collectTrafficAirportOptions(pilots, newSkyFlights, direction, vatsimFl
 function trafficFilterLabel(type) {
     const value = type === 'dep' ? depAirportFilter : arrAirportFilter;
 
-    if (value === 'ALL') return 'ALL';
+    if (value === 'ALL') return type === 'dep' ? 'ALL DEP' : 'ALL ARR';
     if (value === 'UA') return 'UA';
 
     return value;
