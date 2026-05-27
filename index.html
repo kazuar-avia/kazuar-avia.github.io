@@ -1479,9 +1479,15 @@ min-width: 276px;
     text-align: center;
 }
 
-#ukraine-live-map .ukraine-charter-popup .leaflet-popup-content a {
-    color: #0b66a8;
+#ukraine-live-map .ukraine-charter-popup .leaflet-popup-content a.airport-popup-scenery-link {
+    color: #0a6b2d;
     text-decoration: underline;
+    text-decoration-color: #0a6b2d;
+}
+
+#ukraine-live-map .ukraine-charter-popup .leaflet-popup-content a.airport-popup-scenery-link:hover {
+    color: #0a6b2d;
+    text-decoration-color: #000000;
 }
 
 #ukraine-live-map .ukraine-charter-popup .leaflet-popup-content strong {
@@ -1785,6 +1791,17 @@ min-width: 276px;
 
 .ukraine-airport-marker.is-ukkk {
     transform: translateX(10px);
+}
+
+	#ukraine-live-map .airport-popup-scenery-link {
+    color: #0a6b2d;
+    text-decoration: underline;
+    text-decoration-color: #0a6b2d;
+}
+
+#ukraine-live-map .airport-popup-scenery-link:hover {
+    color: #0a6b2d;
+    text-decoration-color: #000000;
 }
   
 </style>
@@ -6786,11 +6803,11 @@ function getCharterCellHtml(icao) {
   const links = sceneryLinks[icao];
   if (!links) return null;
 
-  const linksHtml = links.map(link => `
-    <a href="${link.url}" target="_blank" style="color: #0077cc; text-decoration: underline;">
-      <strong>${link.text}</strong>
-    </a>
-  `).join("<br>");
+const linksHtml = links.map(link => `
+  <a href="${link.url}" target="_blank" class="airport-popup-scenery-link">
+    <strong>${link.text}</strong>
+  </a>
+`).join("<br>");
 
   return `
   ${linksHtml}
