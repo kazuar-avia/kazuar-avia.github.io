@@ -1480,14 +1480,14 @@ min-width: 276px;
 }
 
 #ukraine-live-map .ukraine-charter-popup .leaflet-popup-content a.airport-popup-scenery-link {
-    color: #0a6b2d;
+    color: #28E1ED;
     text-decoration: underline;
-    text-decoration-color: #0a6b2d;
+    text-decoration-color: #28E1ED;
 }
 
 #ukraine-live-map .ukraine-charter-popup .leaflet-popup-content a.airport-popup-scenery-link:hover {
     color: #0a6b2d;
-    text-decoration-color: #000000;
+     text-decoration: none;
 }
 
 #ukraine-live-map .ukraine-charter-popup .leaflet-popup-content strong {
@@ -1794,14 +1794,14 @@ min-width: 276px;
 }
 
 	#ukraine-live-map .airport-popup-scenery-link {
-    color: #0a6b2d;
+    color: #28E1ED;
     text-decoration: underline;
     text-decoration-color: #0a6b2d;
 }
 
 #ukraine-live-map .airport-popup-scenery-link:hover {
     color: #0a6b2d;
-    text-decoration-color: #000000;
+	text-decoration: none;
 }
   
 </style>
@@ -6805,7 +6805,7 @@ function getCharterCellHtml(icao) {
 
 const linksHtml = links.map(link => `
   <a href="${link.url}" target="_blank" class="airport-popup-scenery-link">
-    <strong>⬇ ${link.text} ⬇</strong>
+    <strong>${link.text} ⬇</strong>
   </a>
 `).join("<br>");
 
