@@ -433,7 +433,7 @@ border-collapse: collapse;
 
 .vatsim-header {
 
-    padding: 7px 0 0 0;
+    padding: 0;
 
     background: #F7E6FA;
 
@@ -618,10 +618,10 @@ border-collapse: collapse;
     position: relative;
     display: grid;
     grid-template-columns: 39px 276px 132px 199px 118px minmax(0, 1fr);
-    align-items: center;
+    align-items: end;
 
     margin-bottom: 6px;
-    min-height: 24px;
+    min-height: 29px;
     padding: 0;
 
 }
@@ -629,6 +629,193 @@ border-collapse: collapse;
   .header-title {
     grid-column: 2 / -1;
     text-align: left;
+    align-self: end;
+    padding-bottom: 0;
+    transform: translateY(2px);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 22px;
+    line-height: 1;
+}
+
+.ukraine-flag-inline {
+    display: inline-block;
+    width: 25px;
+    height: 18px;
+    margin-left: 4px;
+    vertical-align: 0;
+}
+
+.traffic-filter-strip {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3px;
+    z-index: 30;
+    height: 20px;
+    margin-bottom: 0;
+}
+
+.traffic-filter-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 20px;
+}
+
+.traffic-filter-button,
+.traffic-filter-clear,
+.traffic-filter-option {
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    font-weight: normal;
+    line-height: 1;
+}
+
+.sort-bar .traffic-filter-option {
+    width: 100%;
+    height: 20px;
+    min-height: 0;
+    padding: 3px 1px;
+    border-top: 1px solid #777;
+    border-left: 1px solid #777;
+    border-right: 1px solid #777;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 1.1;
+}
+
+.header-title .traffic-filter-strip {
+    width: 129px;
+    transform: translate(2px, 0);
+}
+
+.traffic-filter-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    width: 100%;
+    height: 20px;
+    padding: 2px 3px;
+    border: 1px solid #999;
+    background: #eeeeee;
+    color: #111;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.traffic-filter-button.is-active {
+    background: #dfe9df;
+    color: #004f24;
+    font-weight: bold;
+}
+
+.traffic-filter-icon {
+    position: relative;
+    display: inline-block;
+    width: 7px;
+    height: 8px;
+    flex: 0 0 7px;
+}
+
+.traffic-filter-icon::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    border-left: 3.5px solid transparent;
+    border-right: 3.5px solid transparent;
+    border-top: 5px solid #111;
+}
+
+.traffic-filter-icon::after {
+    content: "";
+    position: absolute;
+    left: 3px;
+    top: 5px;
+    width: 2px;
+    height: 3px;
+    background: #111;
+}
+
+.traffic-filter-clear {
+    display: none !important;
+    align-items: center;
+    justify-content: center;
+    width: 12px;
+    height: 20px;
+    margin-left: 1px;
+    padding: 0;
+    border: 1px solid #999;
+    background: #eeeeee;
+    color: #333;
+    cursor: pointer;
+}
+
+.traffic-filter-wrap.is-active .traffic-filter-clear {
+    display: flex;
+}
+
+.traffic-filter-button:hover,
+.traffic-filter-clear:hover,
+.traffic-filter-option:hover {
+    background: #dfe9df;
+    color: #004f24;
+}
+
+.traffic-filter-menu {
+    position: absolute;
+    top: 23px;
+    left: 0;
+    z-index: 45;
+    display: none;
+    grid-template-columns: 1fr;
+    width: 100%;
+    overflow: visible;
+    border: 1px solid #777;
+    background: #f8f8f8;
+}
+
+.traffic-filter-menu.is-open {
+    display: grid;
+}
+
+.traffic-filter-option {
+    box-sizing: border-box;
+    height: 20px;
+    min-height: 0;
+    padding: 4px 1px;
+    border: 0;
+    border-left: 1px solid #777;
+    border-top: 1px solid #777;
+    background: #f8f8f8;
+    color: #0077cc;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.traffic-filter-option:first-child {
+    border-top: 0;
+}
+
+.sort-bar .traffic-filter-option.is-clear-filter {
+    color: #cc0000;
+}
+
+.sort-bar .traffic-filter-option.is-ua-filter {
+    background: #fff3a6;
+    color: #0077cc;
+}
+
+.sort-bar .traffic-filter-option.is-ua-filter:hover {
+    background: #ffe66b;
+    color: #004f24;
 }
 
 #vatsim-update-time {
@@ -652,7 +839,7 @@ border-collapse: collapse;
 .sort-bar {
 
     display: grid;
-    grid-template-columns: 39px 276px 132px 199px 118px minmax(0, 1fr);
+    grid-template-columns: 39px 276px 132px 199px 41px minmax(0, 1fr);
     align-items: end;
     width: 100%;
     padding: 0 0 0 0;
@@ -697,6 +884,11 @@ border-collapse: collapse;
     padding-right: 0;
 }
 
+.sort-group.sort-eta {
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
 .sort-group.two-buttons {
     grid-template-columns: 1fr 1fr;
 }
@@ -729,6 +921,40 @@ border-collapse: collapse;
 
 }
 
+.sort-bar button.traffic-filter-option,
+.header-title button.traffic-filter-option {
+    height: 20px;
+    padding: 3px 1px;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 1.1;
+    color: #0077cc;
+    background: #f8f8f8;
+}
+
+.sort-bar button.traffic-filter-option.is-clear-filter,
+.header-title button.traffic-filter-option.is-clear-filter {
+    color: #cc0000;
+    background: #f8f8f8;
+}
+
+.sort-bar button.traffic-filter-option.is-ua-filter,
+.header-title button.traffic-filter-option.is-ua-filter {
+    color: #0077cc;
+    background: #fff3a6;
+}
+
+.sort-bar button.traffic-filter-option:hover,
+.header-title button.traffic-filter-option:hover {
+    color: #004f24;
+    background: #dfe9df;
+}
+
+.sort-bar button.traffic-filter-option.is-ua-filter:hover,
+.header-title button.traffic-filter-option.is-ua-filter:hover {
+    background: #ffe66b;
+}
+
 .weather-choice-box {
     display: flex;
     align-items: center;
@@ -753,8 +979,8 @@ border-collapse: collapse;
 }
 
 .weather-choice-box.is-selected {
-    font-size: 11px;
-    line-height: 1.2;
+    font-size: 13px;
+    line-height: 1.15;
 }
 
 .weather-choice-box strong {
@@ -765,7 +991,7 @@ border-collapse: collapse;
 .weather-choice-box.is-selected {
     position: absolute;
     display: block;
-    left: 3px;
+    left: 8px;
     right: 3px;
     bottom: 3px;
     padding-right: 22px;
@@ -783,6 +1009,11 @@ border-collapse: collapse;
 
 .weather-report-time {
     font-weight: bold;
+}
+
+.real-metar-report {
+    font-size: 13px;
+    line-height: 1.15;
 }
 
 .sort-bar button.weather-source-label,
@@ -924,9 +1155,9 @@ border-collapse: collapse;
 
 .sort-group.sort-weather {
     position: relative;
-    grid-column: 5 / span 2;
+    grid-column: 6;
     min-height: 30px;
-    padding-left: 3px;
+    padding-left: 8px;
     padding-right: 3px;
 }
 
@@ -1232,7 +1463,25 @@ WINDROSE Forever <br>
 <div class="header-top">
 
     <div class="header-title">
-        LIVE TRAFFIC VATSIM: до/з України + українських авіакомпаній
+        LIVE TRAFFIC VATSIM<img class="ukraine-flag-inline" src="UKRFLAG.png" alt="Ukraine">
+
+        <div class="traffic-filter-strip">
+            <div id="dep-filter-wrap" class="traffic-filter-wrap">
+                <button id="dep-filter-button" class="traffic-filter-button" type="button" data-traffic-filter-toggle="dep">
+                    <span class="traffic-filter-icon" aria-hidden="true"></span><span id="dep-filter-label">ALL DEP</span>
+                </button>
+                <button id="dep-filter-clear" class="traffic-filter-clear" type="button" data-traffic-filter-clear="dep" title="Скинути DEP">×</button>
+                <div id="dep-filter-menu" class="traffic-filter-menu"></div>
+            </div>
+
+            <div id="arr-filter-wrap" class="traffic-filter-wrap">
+                <button id="arr-filter-button" class="traffic-filter-button" type="button" data-traffic-filter-toggle="arr">
+                    <span class="traffic-filter-icon" aria-hidden="true"></span><span id="arr-filter-label">ALL ARR</span>
+                </button>
+                <button id="arr-filter-clear" class="traffic-filter-clear" type="button" data-traffic-filter-clear="arr" title="Скинути ARR">×</button>
+                <div id="arr-filter-menu" class="traffic-filter-menu"></div>
+            </div>
+        </div>
     </div>
 
 </div>
@@ -1270,9 +1519,15 @@ WINDROSE Forever <br>
             </button>
         </div>
 
+        <div class="sort-group sort-eta">
+            <button onclick="setSort('eta')">
+                ETA ▼
+            </button>
+        </div>
+
         <div class="sort-group sort-weather">
             <div id="weather-choice-box" class="weather-choice-box">
-                Вибери DEP/ARR для LIVE WEATHER / METAR
+                Вибери DEP/ARR для&nbsp;<strong>LIVE WEATHER</strong>, METAR
             </div>
             <div id="weather-airport-menu" class="weather-airport-menu"></div>
         </div>
@@ -2470,6 +2725,8 @@ let ruBannedAirports = [];
 let weatherAirports = {};
 let selectedWeatherAirport = '';
 let weatherPreferOpenMeteoFirst = true;
+let depAirportFilter = 'ALL';
+let arrAirportFilter = 'ALL';
 
 const OPEN_METEO_CURRENT_VARIABLES = [
     'temperature_2m',
@@ -2548,6 +2805,14 @@ function isRuBannedCallsign(callsign) {
     return RU_BANNED_CALLSIGN_PREFIXES.some(prefix =>
         normalized.startsWith(prefix)
     );
+}
+
+function truncatePilotName(name, maxLength = 20) {
+    const text = String(name || 'N/A').trim();
+
+    if (text.length <= maxLength) return text;
+
+    return text.substring(0, maxLength - 1).trimEnd() + '.';
 }
  
 const DEFAULT_WEATHER_AIRPORTS = {
@@ -2816,12 +3081,14 @@ function buildLiveStatusFromPosition({
 
     let status = defaultStatus;
 
-    if (source === 'newsky' && distanceFromDep !== null && distanceFromDep <= 2) {
+    if (source === 'newsky' && distanceToArr !== null && distanceToArr <= 2) {
+        status = 'TAXI IN';
+    } else if (source === 'newsky' && distanceFromDep !== null && distanceFromDep <= 2) {
         status = 'TAXI OUT';
     } else if (distanceFromDep !== null && distanceFromDep <= 50) {
         status = 'DEPARTING';
     } else if (distanceToArr !== null && distanceToArr <= 14) {
-        status = 'FINAL';
+        status = 'APPROACH';
     } else if (distanceToArr !== null && distanceToArr <= 30) {
         status = 'ARRIVING';
     } else if (distanceToArr !== null && distanceToArr <= 80) {
@@ -2830,8 +3097,8 @@ function buildLiveStatusFromPosition({
 
     const canShowEtaByStatus =
         source === 'newsky'
-            ? ['DESCENDING', 'ARRIVING', 'FINAL'].includes(status)
-            : ['EN-ROUTE', 'DESCENDING', 'ARRIVING', 'FINAL'].includes(status);
+            ? ['DESCENDING', 'ARRIVING', 'APPROACH'].includes(status)
+            : ['EN-ROUTE', 'DESCENDING', 'ARRIVING', 'APPROACH'].includes(status);
     const canShowEtaByDepartureDistance =
         distanceFromDep === null ||
         distanceFromDep > 40;
@@ -2878,6 +3145,62 @@ function buildLiveStatusFromPosition({
     }
 
     return status + etaStatus + extraStatus + (etaStatus && !etaStatusClosed ? '</span>' : '');
+}
+
+function calculateVatsimEtaTotalForSort(pilot, nowTotal) {
+    const fp = pilot?.flight_plan || {};
+    const aircraftCode = fp.aircraft_short || '';
+    const arr = fp.arrival || '';
+    const arrAirport = weatherAirports?.[arr] || null;
+    const lat = Number(pilot?.latitude);
+    const lon = Number(pilot?.longitude);
+    const gs = Number(pilot?.groundspeed || 0);
+
+    if (
+        !isSupportedEtaAircraft(aircraftCode) ||
+        !arrAirport ||
+        !Number.isFinite(lat) ||
+        !Number.isFinite(lon) ||
+        gs < 60
+    ) {
+        return Infinity;
+    }
+
+    const distanceToArr = distanceNm(lat, lon, arrAirport.lat, arrAirport.lon);
+    const etaMinutes = calculateArrivalEtaMinutes(distanceToArr, gs);
+
+    return etaMinutes !== null ? nowTotal + etaMinutes : Infinity;
+}
+
+function calculateNewSkyEtaTotalForSort(flight) {
+    const dep = flight?.dep?.icao || '';
+    const arr = flight?.arr?.icao || '';
+    const aircraftCode =
+        flight?.aircraft?.airframe?.icao ||
+        flight?.aircraft?.airframe?.ident ||
+        '';
+    const depAirport = weatherAirports?.[dep] || null;
+    const arrAirport = weatherAirports?.[arr] || null;
+    const lat = Number(flight?.lastState?.location?.lat);
+    const lon = Number(flight?.lastState?.location?.lon);
+    const now = new Date();
+    const nowTotal = now.getUTCHours() * 60 + now.getUTCMinutes();
+    const gs = calculateNewSkyGroundspeed(flight, depAirport, lat, lon);
+
+    if (
+        !isSupportedEtaAircraft(aircraftCode) ||
+        !arrAirport ||
+        gs === null ||
+        !Number.isFinite(lat) ||
+        !Number.isFinite(lon)
+    ) {
+        return Infinity;
+    }
+
+    const distanceToArr = distanceNm(lat, lon, arrAirport.lat, arrAirport.lon);
+    const etaMinutes = calculateArrivalEtaMinutes(distanceToArr, gs);
+
+    return etaMinutes !== null ? nowTotal + etaMinutes : Infinity;
 }
 
 function formatEtaTime(totalMinutes) {
@@ -3279,8 +3602,7 @@ function buildMetarLikeReport(airport, current) {
     return [
         `<strong>${airport.icao}</strong>&nbsp;<span class="weather-report-time">${reportTime}</span><button type="button" class="weather-source-label" data-weather-refresh="1" title="Змінити порядок джерел погоди">${current._weatherSource || ''}</button><button type="button" class="weather-source-toggle" data-weather-refresh="1" title="Змінити порядок джерел погоди">↻</button>`,
         `${formatWindDirection(windDirection)}° ${wind} ${runwayText}`.trim(),
-        `${visibilityLine} ${formatMetarTemperature(temp)}/${formatMetarTemperature(dewPoint)} ${pressure}`,
-        weather
+        `${visibilityLine} ${formatMetarTemperature(temp)}/${formatMetarTemperature(dewPoint)} ${pressure}${weather ? ` ${weather}` : ''}`
     ].filter(Boolean).join('<br>');
 }
 
@@ -3320,9 +3642,11 @@ async function fetchRealMetarReport(code) {
         return `${code}: METAR не знайдено`;
     }
 
-    return rawMetar.startsWith(code)
+    const report = rawMetar.startsWith(code)
         ? rawMetar.replace(code, `<strong>${code}</strong>`)
         : `<strong>${code}</strong> ${rawMetar}`;
+
+    return `<span class="real-metar-report">${report}</span>`;
 }
 
 async function loadWeatherAirportCoordinates() {
@@ -3404,7 +3728,176 @@ function renderWeatherAirportMenu() {
     }).join('');
 }
 
+function normalizeTrafficAirportCode(code) {
+    return String(code || '').trim().toUpperCase();
+}
+
+function trafficAirportMatches(code, filter) {
+    const airport = normalizeTrafficAirportCode(code);
+    const selected = normalizeTrafficAirportCode(filter || 'ALL');
+
+    if (selected === 'ALL') return true;
+    if (selected === 'UA') return airport.startsWith('UK');
+
+    return airport === selected;
+}
+
+function visibleTrafficItemMatches(dep, arr, exceptType = '') {
+    return (
+        (exceptType === 'dep' || trafficAirportMatches(dep, depAirportFilter)) &&
+        (exceptType === 'arr' || trafficAirportMatches(arr, arrAirportFilter))
+    );
+}
+
+function collectTrafficAirportOptions(pilots, newSkyFlights, direction, vatsimFlightNumbers) {
+    const codes = new Set();
+    const exceptType = direction;
+
+    pilots.forEach(pilot => {
+        const fp = pilot.flight_plan || {};
+        const dep = normalizeTrafficAirportCode(fp.departure);
+        const arr = normalizeTrafficAirportCode(fp.arrival);
+
+        if (!visibleTrafficItemMatches(dep, arr, exceptType)) return;
+
+        const code = normalizeTrafficAirportCode(direction === 'dep' ? fp.departure : fp.arrival);
+
+        if (/^[A-Z0-9]{4}$/.test(code)) {
+            codes.add(code);
+        }
+    });
+
+    newSkyFlights.forEach(flight => {
+        const flightNumber = String(flight.flightNumber || '');
+
+        if (vatsimFlightNumbers && vatsimFlightNumbers.has(flightNumber)) return;
+
+        const dep = normalizeTrafficAirportCode(flight.dep?.icao);
+        const arr = normalizeTrafficAirportCode(flight.arr?.icao);
+
+        if (!visibleTrafficItemMatches(dep, arr, exceptType)) return;
+
+        const code = normalizeTrafficAirportCode(
+            direction === 'dep'
+                ? flight.dep?.icao
+                : flight.arr?.icao
+        );
+
+        if (/^[A-Z0-9]{4}$/.test(code)) {
+            codes.add(code);
+        }
+    });
+
+    return [...codes].sort((a, b) => a.localeCompare(b));
+}
+
+function trafficFilterLabel(type) {
+    const value = type === 'dep' ? depAirportFilter : arrAirportFilter;
+
+    if (value === 'ALL') return 'ALL';
+    if (value === 'UA') return 'UA';
+
+    return value;
+}
+
+function renderTrafficFilterMenu(type, options) {
+    const menu = document.getElementById(`${type}-filter-menu`);
+    const label = document.getElementById(`${type}-filter-label`);
+    const button = document.getElementById(`${type}-filter-button`);
+    const wrap = document.getElementById(`${type}-filter-wrap`);
+    const currentValue = type === 'dep' ? depAirportFilter : arrAirportFilter;
+
+    if (!menu || !label || !button || !wrap) return;
+
+    const hasUkraineAirport =
+        options.some(code => code.startsWith('UK'));
+    const items = [
+        ...(currentValue !== 'ALL' ? [{ value: 'ALL', label: 'NO FILT', extraClass: ' is-clear-filter' }] : []),
+        ...(hasUkraineAirport ? [{ value: 'UA', label: 'ALL UA' }] : []),
+        ...options.map(code => ({ value: code, label: code }))
+    ];
+
+    menu.innerHTML = items.map(item => `
+        <button
+            type="button"
+            class="traffic-filter-option${item.extraClass || (item.value === 'UA' ? ' is-ua-filter' : '')}"
+            data-traffic-filter-type="${type}"
+            data-traffic-filter-value="${item.value}"
+        >${item.label}</button>
+    `).join('');
+
+    label.textContent = trafficFilterLabel(type);
+    button.classList.toggle('is-active', currentValue !== 'ALL');
+    wrap.classList.toggle('is-active', currentValue !== 'ALL');
+}
+
+function renderTrafficFilterMenus(depOptions, arrOptions) {
+    renderTrafficFilterMenu('dep', depOptions);
+    renderTrafficFilterMenu('arr', arrOptions);
+}
+
+function toggleTrafficFilterMenu(type, force) {
+    const menu = document.getElementById(`${type}-filter-menu`);
+    const otherMenu = document.getElementById(`${type === 'dep' ? 'arr' : 'dep'}-filter-menu`);
+
+    if (!menu) return;
+
+    if (otherMenu) {
+        otherMenu.classList.remove('is-open');
+    }
+
+    const shouldOpen =
+        typeof force === 'boolean'
+            ? force
+            : !menu.classList.contains('is-open');
+
+    menu.classList.toggle('is-open', shouldOpen);
+}
+
+function setTrafficAirportFilter(type, value) {
+    if (type === 'dep') {
+        depAirportFilter = value;
+    } else {
+        arrAirportFilter = value;
+    }
+
+    toggleTrafficFilterMenu(type, false);
+    loadVatsimTraffic();
+}
+
 document.addEventListener('click', event => {
+    const filterOption = event.target.closest('[data-traffic-filter-value]');
+
+    if (filterOption) {
+        event.stopPropagation();
+        setTrafficAirportFilter(
+            filterOption.dataset.trafficFilterType,
+            filterOption.dataset.trafficFilterValue
+        );
+        return;
+    }
+
+    const filterClear = event.target.closest('[data-traffic-filter-clear]');
+
+    if (filterClear) {
+        event.stopPropagation();
+        setTrafficAirportFilter(filterClear.dataset.trafficFilterClear, 'ALL');
+        return;
+    }
+
+    const filterToggle = event.target.closest('[data-traffic-filter-toggle]');
+
+    if (filterToggle) {
+        event.stopPropagation();
+        toggleTrafficFilterMenu(filterToggle.dataset.trafficFilterToggle);
+        return;
+    }
+
+    if (!event.target.closest('.traffic-filter-wrap')) {
+        toggleTrafficFilterMenu('dep', false);
+        toggleTrafficFilterMenu('arr', false);
+    }
+
     const refreshButton = event.target.closest('[data-weather-refresh]');
 
     if (refreshButton) {
@@ -3664,6 +4157,9 @@ try {
         const updateTimestamp = data.general.update_timestamp;
 
         const updateTime = updateTimestamp.split('T')[1].substring(0,5);
+        const sortNowHour = parseInt(updateTime.substring(0,2));
+        const sortNowMin = parseInt(updateTime.substring(3,5));
+        const sortNowTotal = (sortNowHour * 60) + sortNowMin;
 
         document.getElementById('vatsim-update-time').innerText =
             updateTime;
@@ -3672,7 +4168,7 @@ try {
         // FILTER PILOTS
         // =========================
 
-        const pilots = data.pilots.filter(pilot => {
+        let pilots = data.pilots.filter(pilot => {
 
             if (!pilot.flight_plan) return false;
 
@@ -3727,6 +4223,20 @@ newSkyFlights.forEach(flight => {
 
     }
 
+});
+
+renderTrafficFilterMenus(
+    collectTrafficAirportOptions(pilots, newSkyFlights, 'dep', vatsimFlightNumbers),
+    collectTrafficAirportOptions(pilots, newSkyFlights, 'arr', vatsimFlightNumbers)
+);
+
+pilots = pilots.filter(pilot => {
+    const fp = pilot.flight_plan || {};
+
+    return (
+        trafficAirportMatches(fp.departure, depAirportFilter) &&
+        trafficAirportMatches(fp.arrival, arrAirportFilter)
+    );
 });
 
         // =========================
@@ -3804,6 +4314,20 @@ pilots.sort((a, b) => {
 
         return (
             (aArr - bArr)
+            * sortDirection
+        );
+
+    }
+
+    // ETA
+
+    if (currentSort === 'eta') {
+
+        const aEta = calculateVatsimEtaTotalForSort(a, sortNowTotal);
+        const bEta = calculateVatsimEtaTotalForSort(b, sortNowTotal);
+
+        return (
+            (aEta - bEta)
             * sortDirection
         );
 
@@ -4000,6 +4524,22 @@ const distanceFromDep =
     Number.isFinite(pilotLon)
         ? distanceNm(pilotLat, pilotLon, depAirport.lat, depAirport.lon)
         : null;
+const groundDistanceFromDep =
+    depAirport &&
+    Number.isFinite(pilotLat) &&
+    Number.isFinite(pilotLon)
+        ? distanceNm(pilotLat, pilotLon, depAirport.lat, depAirport.lon)
+        : null;
+const groundDistanceToArr =
+    arrAirport &&
+    Number.isFinite(pilotLat) &&
+    Number.isFinite(pilotLon)
+        ? distanceNm(pilotLat, pilotLon, arrAirport.lat, arrAirport.lon)
+        : null;
+const minutesFromDep =
+    Math.abs(nowTotal - depTotal);
+const minutesFromArr =
+    Math.abs(nowTotal - arrTotal);
 const liveEtaMinutes = canUseLiveEta
     ? calculateArrivalEtaMinutes(distanceToArr, gs)
     : null;
@@ -4023,7 +4563,8 @@ let flightStatus = 'EN-ROUTE';
 
 if (
     gs === 0 &&
-    nowTotal < depTotal
+    groundDistanceFromDep !== null &&
+    groundDistanceFromDep <= 3
 ) {
 
     flightStatus = 'BOARDING';
@@ -4034,7 +4575,28 @@ if (
 
 else if (
     gs === 0 &&
-    nowTotal > arrTotal
+    groundDistanceToArr !== null &&
+    groundDistanceToArr <= 3
+) {
+
+    flightStatus = 'DEBOARDING';
+
+}
+
+// GROUND TIME FALLBACK
+
+else if (
+    gs === 0 &&
+    minutesFromDep <= minutesFromArr
+) {
+
+    flightStatus = 'BOARDING';
+
+}
+
+else if (
+    gs === 0 &&
+    minutesFromArr < minutesFromDep
 ) {
 
     flightStatus = 'DEBOARDING';
@@ -4090,14 +4652,14 @@ else if (
 
 }
 
-// FINAL
+// APPROACH
 
 else if (
     distanceToArr !== null &&
     distanceToArr <= 14
 ) {
 
-    flightStatus = 'FINAL';
+    flightStatus = 'APPROACH';
 
 }
 
@@ -4163,7 +4725,7 @@ else if (
 
 let extraStatus = '';
 const canShowEtaByStatus =
-    ['EN-ROUTE', 'DESCENDING', 'ARRIVING', 'FINAL'].includes(flightStatus);
+    ['EN-ROUTE', 'DESCENDING', 'ARRIVING', 'APPROACH'].includes(flightStatus);
 const showLiveEta =
     liveEtaMinutes !== null &&
     liveEtaMinutes <= 120 &&
@@ -4211,7 +4773,7 @@ if (
 // LATE
 
 if (
-    ['EN-ROUTE', 'DESCENDING', 'ARRIVING', 'FINAL'].includes(flightStatus) &&
+    ['EN-ROUTE', 'DESCENDING', 'ARRIVING', 'APPROACH'].includes(flightStatus) &&
     (
         liveEtaTotal !== null
             ? liveEtaTotal > (arrTotal + 10)
@@ -4265,7 +4827,7 @@ flightStatus += etaStatus + extraStatus + (etaStatus && !etaStatusClosed ? '</sp
             // =========================
 
             const cid = pilot.cid || 'N/A';
-            const name = pilot.name || 'N/A';
+            const name = truncatePilotName(pilot.name || 'N/A');
             const vatsimFlightNumber =
                 (callsign.match(/\d+/) || [])[0] || "";
             const matchedNewSkyFlight =
@@ -4364,6 +4926,10 @@ newSkyFlights
 
     const flightNumber =
         String(flight.flightNumber || "");
+    const dep =
+        flight.dep?.icao || '';
+    const arr =
+        flight.arr?.icao || '';
 
     // якщо рейс є у VATSIM
     if (vatsimFlightNumbers.has(flightNumber)) {
@@ -4376,8 +4942,23 @@ newSkyFlights
 
     }
 
+    if (
+        !trafficAirportMatches(dep, depAirportFilter) ||
+        !trafficAirportMatches(arr, arrAirportFilter)
+    ) {
+        return false;
+    }
+
     return true;
 
+})
+.sort((a, b) => {
+    if (currentSort !== 'eta') return 0;
+
+    const aEta = calculateNewSkyEtaTotalForSort(a);
+    const bEta = calculateNewSkyEtaTotalForSort(b);
+
+    return (aEta - bEta) * sortDirection;
 })
 .forEach(flight => {
     const callsign =
@@ -4459,9 +5040,10 @@ newSkyFlights
         });
     }
 
-    const pilot =
+    const pilot = truncatePilotName(
         flight.pilot?.fullname ||
-        "Unknown";
+        "Unknown"
+    );
 
     let flightType = "Flight";
 
@@ -4679,6 +5261,14 @@ async function loadNewSkyTraffic() {
         let html = "";
 
         data.results
+        .sort((a, b) => {
+            if (currentSort !== 'eta') return 0;
+
+            const aEta = calculateNewSkyEtaTotalForSort(a);
+            const bEta = calculateNewSkyEtaTotalForSort(b);
+
+            return (aEta - bEta) * sortDirection;
+        })
         .forEach(flight => {
 
             const callsign =
@@ -4762,9 +5352,10 @@ async function loadNewSkyTraffic() {
                 });
             }
 
-            const pilot =
+            const pilot = truncatePilotName(
                 flight.pilot?.fullname ||
-                "Unknown";
+                "Unknown"
+            );
 
             let label = "NewSky Offline";
 
