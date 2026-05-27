@@ -6393,8 +6393,8 @@ if (updatedEl) {
   const updatedTime = await loadNewskyAirportsUpdatedTime();
 
   updatedEl.innerHTML = updatedTime
-    ? `(*платні, **тільки в marketplace) 📊 Попит оновлено: ${updatedTime}`
-    : "(*платні, **тільки в marketplace) 📊 Попит оновлено";
+    ? `📊 Попит оновлено: ${updatedTime}`
+    : "📊 Попит оновлено";
 }
 
     for (const [icao, info] of Object.entries(parsed.airports)) {
