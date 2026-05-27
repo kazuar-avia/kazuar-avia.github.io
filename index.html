@@ -6714,16 +6714,42 @@ function addUkraineAirportMarkers() {
     "UKHS"  // Суми
   ]);
 
-  function getCharterCellHtml(icao) {
-    const section = document.getElementById("charter-flights-section");
-    if (!section) return null;
+function getCharterAirportLinksHtml(icao) {
+  const section = document.getElementById("charter-flights-section");
+  if (!section) return null;
 
-    const cell = [...section.querySelectorAll("td")]
-      .find(td => td.querySelector("strong")?.textContent.trim().startsWith(icao));
+  const cell = [...section.querySelectorAll("td")]
+    .find(td => td.querySelector("strong")?.textContent.trim().startsWith(icao));
 
-    if (!cell) return null;
-    return cell.innerHTML.trim();
-  }
+  if (!cell) return null;
+
+  const links = [...cell.querySelectorAll("a[href]")];
+
+  // Якщо у комірці немає посилань — popup для цього аеропорту не показуємо
+  if (!links.length) return null;
+
+  const popupBox = document.createElement("div");
+  popupBox.className = "ukraine-scenery-popup";
+
+  links.forEach(link => {
+    const clonedLink = link.cloneNode(true);
+
+    clonedLink.style.display = "block";
+    clonedLink.style.margin = "3px 0";
+    clonedLink.style.color = "#0077cc";
+    clonedLink.style.textDecoration = "underline";
+    clonedLink.style.fontSize = "14px";
+    clonedLink.style.lineHeight = "1.15";
+
+    if (!clonedLink.getAttribute("target")) {
+      clonedLink.setAttribute("target", "_blank");
+    }
+
+    popupBox.appendChild(clonedLink);
+  });
+
+  return popupBox.outerHTML;
+}
 
   Object.values(weatherAirports)
     .filter(airport =>
@@ -6767,15 +6793,13 @@ function addUkraineAirportMarkers() {
         title: `${airport.icao} ${airport.name || ""}`.trim()
       }).addTo(window.ukraineAirportLayer);
 
-      const charterHtml = getCharterCellHtml(airport.icao);
-      if (charterHtml) {
-        marker.bindPopup(charterHtml, {
-          className: "ukraine-charter-popup",
-          closeButton: false,
-          autoPan: true
-        });
-      }
-    });
+const charterLinksHtml = getCharterAirportLinksHtml(airport.icao);
+if (charterLinksHtml) {
+  marker.bindPopup(charterLinksHtml, {
+    className: "ukraine-charter-popup",
+    closeButton: false,
+    autoPan: true
+  });
 }
 
 function normalizeHeading(value) {
