@@ -381,6 +381,43 @@ input {
   margin-bottom: 2px;
 }
 
+.airport-demand-box {
+  margin-top: 3px;
+  font-size: 14px;
+  line-height: 1.12;
+  color: #333333;
+  text-align: left;
+}
+
+.airport-demand-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 5px;
+  margin: 2px 0;
+}
+
+.airport-demand-side-icon {
+  width: 28px;
+  height: auto;
+  flex: 0 0 28px;
+  display: block;
+}
+
+.airport-demand-text {
+  flex: 1;
+  white-space: nowrap;
+  line-height: 1.15;
+}
+
+.airport-demand-out {
+  color: #0a6b2d;
+}
+
+.airport-demand-in {
+  color: #8a3a00;
+}
+	
   /* Контейнер ТОПів */
 .top-box {
   text-align: center;
@@ -6307,20 +6344,23 @@ function renderCharterBlock(icao, info) {
   const inPax = formatCellRecord(info.in.pax, "pax", "in");
   const inCargo = formatCellRecord(info.in.cargo, "cargo", "in");
 
-  const dep = (outPax || outCargo) ? `
-    <div class="airport-demand-out">
-      <img src="DEP1.png" class="airport-demand-header">
-      ${outPax || ""}
-      ${outPax && outCargo ? "<br>" : ""}
-      ${outCargo || ""}
+  const depLines = [outPax, outCargo].filter(Boolean).join("<br>");
+  const arrLines = [inPax, inCargo].filter(Boolean).join("<br>");
+
+  const dep = depLines ? `
+    <div class="airport-demand-row airport-demand-out">
+      <img src="DEP3.png" class="airport-demand-side-icon">
+      <div class="airport-demand-text">
+        ${depLines}
+      </div>
     </div>` : "";
 
-  const arr = (inPax || inCargo) ? `
-    <div class="airport-demand-in">
-      <img src="ARR1.png" class="airport-demand-header">
-      ${inPax || ""}
-      ${inPax && inCargo ? "<br>" : ""}
-      ${inCargo || ""}
+  const arr = arrLines ? `
+    <div class="airport-demand-row airport-demand-in">
+      <img src="ARR3.png" class="airport-demand-side-icon">
+      <div class="airport-demand-text">
+        ${arrLines}
+      </div>
     </div>` : "";
 
   if (!dep && !arr) return null;
