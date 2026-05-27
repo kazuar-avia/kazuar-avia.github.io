@@ -6714,16 +6714,92 @@ function addUkraineAirportMarkers() {
     "UKHS"  // Суми
   ]);
 
-  function getCharterCellHtml(icao) {
-    const section = document.getElementById("charter-flights-section");
-    if (!section) return null;
+function getCharterCellHtml(icao) {
+  const sceneryLinks = {
+    UKLL: [
+      { text: "UKLL Львів", url: "https://contrail.shop/products/l-lviv-airport-msfs" }
+    ],
+    UKOO: [
+      { text: "UKOO Одеса", url: "https://contrail.shop/products/ukoo-odesa-airport-msfs" }
+    ],
+    UKKK: [
+      { text: "UKKK Жуляни", url: "https://flightsim.to/file/90948/ukkk-kyiv-zhuliany-airport-museum" }
+    ],
+    UKHH: [
+      { text: "UKHH Харків", url: "https://flightsim.to/file/84765/kharkiv-airport-ukhh" }
+    ],
+    UKKM: [
+      { text: "UKKM Гостомель", url: "https://flightsim.to/file/101575/ukkm-hostomel-airport-kyiv-antonov-2" }
+    ],
+    UKLR: [
+      { text: "UKLR Рівне", url: "https://flightsim.to/file/95508/r-rivne-airport" }
+    ],
+    UKCC: [
+      { text: "UKCC Донецьк", url: "https://flightsim.to/file/55359/ukcc-donetsk-international-airport-2013" }
+    ],
+    UKFF: [
+      { text: "UKFF Сімферополь", url: "https://drive.google.com/file/d/1BKNR0qwB271tswUTnnl0WXSm8fKTzhov/view?usp=sharing" }
+    ],
+    UKDD: [
+      { text: "UKDD Дніпро", url: "https://flightsim.to/file/88765/ukdd-international-airport-dnipro" }
+    ],
+    UKHS: [
+      { text: "UKHS Суми", url: "https://flightsim.to/file/67391/international-airport-sumy" }
+    ],
+    UKKE: [
+      { text: "UKKE Черкаси", url: "https://flightsim.to/file/67429/international-airport-cherkasy-ukke-cherkasy" }
+    ],
+    UKLH: [
+      { text: "UKLH Хмельницький", url: "https://flightsim.to/file/67813/international-airport-h-khmelnytskyi-delete-uk62-h-khmelnytskyi" }
+    ],
+    UKHP: [
+      { text: "UKHP Полтава", url: "https://flightsim.to/file/68566/international-airport-ukhp-poltava-ukhp-poltava" }
+    ],
+    UKCW: [
+      { text: "UKCW Луганськ", url: "https://flightsim.to/file/68605/international-airport-ukcw-luhansk-ukcw-luhansk" }
+    ],
+    UKON: [
+      { text: "UKON Миколаїв", url: "https://flightsim.to/file/68643/international-airport-ukon-mykolaiv-ukon-mykolaiv" }
+    ],
+    UKWW: [
+      { text: "UKWW Вінниця", url: "https://flightsim.to/file/68692/international-airport-ukww-vinnytsia-vinnytsia" }
+    ],
+    UKCM: [
+      { text: "UKCM Маріуполь", url: "https://flightsim.to/file/68889/international-airport-ukcm-mariupol-ukcm-mariupol" }
+    ],
+    UKLI: [
+      { text: "UKLI Франківськ", url: "https://flightsim.to/file/29255/ivano-frankivsk-intl-airport-i" },
+      { text: "+ мій патч", url: "https://flightsim.to/file/105181/enchancement-for-i-by-pilotalexyyz" }
+    ],
+    UKLU: [
+      { text: "UKLU Ужгород", url: "https://flightsim.to/file/45653/uzhhorod-international-airport-u" }
+    ],
+    UKOH: [
+      { text: "UKOH Херсон", url: "https://flightsim.to/file/28742/kherson-intl-airport-ukoh" }
+    ],
+    UKLT: [
+      { text: "UKLT Тернопіль", url: "https://flightsim.to/file/30106/ternopil-intl-airport-t" }
+    ],
+    UKLN: [
+      { text: "UKLN Чернівці", url: "https://contrail.shop/products/aviaart-n-chernivtsi-leonid-kadeniuk-intl-airport-msfs-2024" }
+    ],
+    UKKG: [
+      { text: "UKKG Кропивницький", url: "https://flightsim.to/file/70471/ukkg-international-airport-kirivohrad-ukkg-kropyvnytskyi" }
+    ],
+    UKDR: [
+      { text: "UKDR Кривий Ріг", url: "https://flightsim.to/file/69714/ukdr-international-airport-kryvyi-rih-ukdr-lozuvatka" }
+    ]
+  };
 
-    const cell = [...section.querySelectorAll("td")]
-      .find(td => td.querySelector("strong")?.textContent.trim().startsWith(icao));
+  const links = sceneryLinks[icao];
+  if (!links) return null;
 
-    if (!cell) return null;
-    return cell.innerHTML.trim();
-  }
+  return links.map(link => `
+    <a href="${link.url}" target="_blank" style="color: #0077cc; text-decoration: underline; font-size: 16px;">
+      <strong>${link.text}</strong>
+    </a>
+  `).join("<br>");
+}
 
   Object.values(weatherAirports)
     .filter(airport =>
