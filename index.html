@@ -2036,29 +2036,17 @@ WINDROSE Forever <br>
 <tr>
 
 
-  <!-- TOP DOMESTIC PAX -->
-  <td colspan="3"
-      id="top-domestic-pax-box"
-      style="background-color:#ffffff;
-             padding:6px;
-             font-size:14px;
-             line-height:1.25;
-             color:#222;
-             vertical-align:top;">
-    Завантаження місцевих pax...
-  </td>
-
-  <!-- TOP DOMESTIC CARGO -->
-  <td colspan="3"
-      id="top-domestic-cargo-box"
-      style="background-color:#ffffff;
-             padding:6px;
-             font-size:14px;
-             line-height:1.25;
-             color:#222;
-             vertical-align:top;">
-    Завантаження місцевих cargo...
-  </td>
+<!-- TOP DOMESTIC PAX/CARGO -->
+<td colspan="2"
+    id="top-domestic-mixed-box"
+    style="background-color:#ffffff;
+           padding:6px;
+           font-size:14px;
+           line-height:1.25;
+           color:#222;
+           vertical-align:top;">
+  Завантаження місцевих pax/cargo...
+</td>
 
 
 
@@ -2068,7 +2056,7 @@ WINDROSE Forever <br>
 <tr>
 
   <!-- TOP INTERNATIONAL ARRIVALS -->
-  <td colspan="3"
+  <td colspan="2"
       id="top-deficit-box"
       style="background-color:#ffffff;
              padding:6px;
@@ -2079,7 +2067,7 @@ WINDROSE Forever <br>
   </td>
 
   <!-- TOP INTERNATIONAL DEPARTURES -->
-  <td colspan="3"
+  <td colspan="2"
       id="top-overloaded-box"
       style="background-color:#ffffff;
              padding:6px;
@@ -6409,8 +6397,7 @@ if (updatedEl) {
 
     const overloadedBox = document.getElementById("top-overloaded-box");
     const deficitBox = document.getElementById("top-deficit-box");
-    const domesticPaxBox = document.getElementById("top-domestic-pax-box");
-    const domesticCargoBox = document.getElementById("top-domestic-cargo-box");
+const domesticMixedBox = document.getElementById("top-domestic-mixed-box");
 if (overloadedBox) {
   overloadedBox.innerHTML = renderTopLines(
     parsed.topInternationalOut,
@@ -6425,17 +6412,15 @@ if (deficitBox) {
   );
 }
 
-if (domesticPaxBox) {
-  domesticPaxBox.innerHTML = renderTopLines(
-    parsed.topDomesticPax,
-    "🏠 ТОП-5 місцеві pax:"
-  );
-}
+if (domesticMixedBox) {
+  const mixedDomesticTop = [
+    ...(parsed.topDomesticPax || []).slice(0, 3),
+    ...(parsed.topDomesticCargo || []).slice(0, 2)
+  ];
 
-if (domesticCargoBox) {
-  domesticCargoBox.innerHTML = renderTopLines(
-    parsed.topDomesticCargo,
-    "📦 ТОП-5 місцеві cargo:"
+  domesticMixedBox.innerHTML = renderTopLines(
+    mixedDomesticTop,
+    "🏠 ТОП-5 місцевих pax/cargo:"
   );
 }
 
@@ -6444,13 +6429,11 @@ if (domesticCargoBox) {
 
     const overloadedBox = document.getElementById("top-overloaded-box");
     const deficitBox = document.getElementById("top-deficit-box");
-    const domesticPaxBox = document.getElementById("top-domestic-pax-box");
-    const domesticCargoBox = document.getElementById("top-domestic-cargo-box");
+const domesticMixedBox = document.getElementById("top-domestic-mixed-box");
 
     if (overloadedBox) overloadedBox.textContent = "Не вдалося завантажити newsky-charter-results.txt";
     if (deficitBox) deficitBox.textContent = "Не вдалося завантажити newsky-charter-results.txt";
-    if (domesticPaxBox) domesticPaxBox.textContent = "Не вдалося завантажити місцеві pax";
-    if (domesticCargoBox) domesticCargoBox.textContent = "Не вдалося завантажити місцеві cargo";
+if (domesticMixedBox) domesticMixedBox.textContent = "Не вдалося завантажити місцеві pax/cargo";
   }
 }
 
