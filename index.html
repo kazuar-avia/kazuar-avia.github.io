@@ -7460,6 +7460,8 @@ document.addEventListener("click", async event => {
   const resultBox = popup?.querySelector(`[data-charter-weather-result="${code}"]`);
 
   if (!code || !resultBox) return;
+  const demandBox = popup?.querySelector(`[data-charter-demand-result="${code}"]`);
+if (demandBox) demandBox.innerHTML = "";
 
   resultBox.textContent = `${code}: запит погоди...`;
 
@@ -7487,7 +7489,8 @@ document.addEventListener("click", event => {
   const resultBox = popup?.querySelector(`[data-charter-demand-result="${code}"]`);
 
   if (!code || !resultBox) return;
-
+const weatherBox = popup?.querySelector(`[data-charter-weather-result="${code}"]`);
+if (weatherBox) weatherBox.innerHTML = "";
   const info = newskyCharterDemandByAirport?.[code];
   const demandEl = renderCharterBlock(code, info);
 
