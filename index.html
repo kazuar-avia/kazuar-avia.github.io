@@ -3117,6 +3117,43 @@ function isRuBannedCallsign(callsign) {
     );
 }
 
+function isPrivatePilotCallsign(callsign) {
+    const normalized =
+        String(callsign || "")
+            .replace(/\s+/g, "")
+            .toUpperCase();
+
+    // 5-6 літер, без цифр: URAAT, N12345 не пройде, UKL5001 не пройде
+    return /^[A-Z]{5,6}$/.test(normalized);
+}
+
+function formatPrivatePilotCallsign(callsign) {
+    const normalized =
+        String(callsign || "")
+            .replace(/\s+/g, "")
+            .toUpperCase();
+
+    if (!isPrivatePilotCallsign(normalized)) {
+        return normalized || "N/A";
+    }
+
+    // URAAT -> UR-AAT, DEXYZ -> DE-XYZ, ABCDEF -> AB-CDEF
+    return normalized.slice(0, 2) + "-" + normalized.slice(2);
+}
+
+function formatDisplayCallsign(callsign) {
+    const normalized =
+        String(callsign || "")
+            .replace(/\s+/g, "")
+            .toUpperCase();
+
+    if (isPrivatePilotCallsign(normalized)) {
+        return formatPrivatePilotCallsign(normalized);
+    }
+
+    return normalized.substring(0, 3) + "&thinsp;" + normalized.substring(3);
+}	
+
 function truncatePilotName(name, maxLength = 20) {
     const text = String(name || 'N/A').trim();
 
@@ -4749,12 +4786,9 @@ let html = '';
 
             const fp = pilot.flight_plan;
 
-            const callsign = pilot.callsign || 'N/A';
-const formattedCallsign =
-    callsign.substring(0,3) +
-    '&thinsp;' +
-    callsign.substring(3);
-            const airlineCode = callsign.substring(0,3).toUpperCase();
+const callsign = pilot.callsign || 'N/A';
+const formattedCallsign = formatDisplayCallsign(callsign);
+const airlineCode = callsign.substring(0,3).toUpperCase();
 
 
 const dep = fp.departure || '----';
@@ -4779,10 +4813,16 @@ let airlineName =
     allAirlineMap[airlineCode] ||
     'Unknown Airline';
 
+if (
+    isPrivatePilotCallsign(callsign) &&
+    !isMilitaryCallsign(callsign) &&
+    !isRuBanned
+) {
+    airlineName = 'Private Pilot';
+}
+
 if (isRuBanned) {
-
     airlineName = 'Pidaravia';
-
 }
           
 
@@ -4844,16 +4884,20 @@ const aircraft =
 
 let logoPath = `LOGOS/${airlineCode}.png`;
 
+if (
+    isPrivatePilotCallsign(callsign) &&
+    !isMilitaryCallsign(callsign) &&
+    !isRuBanned
+) {
+    logoPath = 'LOGOS/PP.png';
+}
+
 if (isMilitaryCallsign(callsign)) {
-
     logoPath = 'LOGOS/MILITARY.png';
-
 }
 
 if (isRuBanned) {
-
     logoPath = 'LOGOS/ruBanned.png';
-
 }
 
            // =========================
@@ -6951,10 +6995,20 @@ function trimInfoText(value, maxLen = 13) {
 }
 
 function formatMapCallsign(value) {
-  const raw = String(value || "").trim().toUpperCase();
+  const raw = String(value || "")
+    .replace(/\s+/g, "")
+    .trim()
+    .toUpperCase();
+
   if (!raw) return "N/A";
+
+  if (isPrivatePilotCallsign(raw)) {
+    return formatPrivatePilotCallsign(raw);
+  }
+
   const m = raw.match(/^([A-Z]{3})([A-Z0-9]+)$/);
   if (m) return `${m[1]} ${m[2]}`;
+
   return raw;
 }
 
@@ -7018,7 +7072,11 @@ function initTrafficToMapFocusBinding() {
 }
 
 function getVatsimLogoPath(callsign, dep, arr) {
-  const raw = String(callsign || "").trim().toUpperCase();
+  const raw = String(callsign || "")
+    .replace(/\s+/g, "")
+    .trim()
+    .toUpperCase();
+
   const airlineCode = raw.substring(0, 3);
   const depCode = String(dep || "").toUpperCase();
   const arrCode = String(arr || "").toUpperCase();
@@ -7030,6 +7088,11 @@ function getVatsimLogoPath(callsign, dep, arr) {
 
   if (isMilitaryCallsign(raw)) return "LOGOS/MILITARY.png";
   if (isRuBanned) return "LOGOS/ruBanned.png";
+
+  if (isPrivatePilotCallsign(raw)) {
+    return "LOGOS/PP.png";
+  }
+
   return `LOGOS/${airlineCode}.png`;
 }
 
