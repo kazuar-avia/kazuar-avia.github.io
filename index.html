@@ -1425,23 +1425,84 @@ min-width: 276px;
 }
 
 #ukraine-live-map .ukraine-charter-popup .leaflet-popup-content-wrapper {
-    border-radius: 6px;
-    border: 1px solid #66717c;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+    border-radius: 5px;
     padding: 0;
+    border: 1px solid #3f4a56;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 #ukraine-live-map .ukraine-charter-popup .leaflet-popup-content {
-    margin: 6px 8px;
-    font-family: Arial, sans-serif;
-    font-size: 12px;
+    margin: 4px 6px;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 14px;
     line-height: 1.2;
-    color: #243443;
-    max-width: 250px;
+    color: #1d2733;
+    max-width: none;
+    min-width: 210px;
+    text-align: center;
 }
 
 #ukraine-live-map .ukraine-charter-popup .leaflet-popup-content a {
     color: #0b66a8;
+    text-decoration: underline;
+}
+
+#ukraine-live-map .ukraine-charter-popup .leaflet-popup-content strong {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#ukraine-live-map .ukraine-charter-popup .leaflet-popup-tip {
+    background: #ffffff;
+    border: 1px solid #3f4a56;
+    box-shadow: none;
+}
+
+#ukraine-live-map .airport-popup-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 3px;
+    margin: 5px auto 2px auto;
+}
+
+#ukraine-live-map .airport-popup-weather-btn,
+#ukraine-live-map .airport-popup-demand-btn {
+    display: inline-block;
+    padding: 2px 6px;
+    border: 1px solid #3f4a56;
+    background: #ffffff;
+    color: #1d2733;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1.1;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+#ukraine-live-map .airport-popup-weather-btn:hover,
+#ukraine-live-map .airport-popup-demand-btn:hover {
+    background: #f0f0f0;
+}
+
+#ukraine-live-map .airport-popup-demand-result {
+    margin-top: 4px;
+    padding-top: 3px;
+    border-top: 1px solid #cccccc;
+    text-align: center;
+}
+
+#ukraine-live-map .airport-popup-weather-result {
+    margin-top: 4px;
+    padding-top: 3px;
+    border-top: 1px solid #cccccc;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 12px;
+    line-height: 1.2;
+    color: #1d2733;
+    text-align: left;
+    white-space: nowrap;
+    min-width: 210px;
 }
 
 #ukraine-live-map .leaflet-tile,
@@ -3101,6 +3162,7 @@ let allAirlineMap = {};
 let aircraftMap = {};
 let ruBannedAirports = [];
 let weatherAirports = {};
+let newskyCharterDemandByAirport = {};
 let ourAirportsFallback = {};
 let ourAirportsFallbackLoaded = false;
 let ourAirportsFallbackLoading = null;
@@ -6410,6 +6472,7 @@ await loadNewskyAirportNames();
 
 const text = await res.text();
 const parsed = parseCharterResults(text);
+newskyCharterDemandByAirport = parsed.airports || {};
 
     const updatedEl = document.getElementById("data-updated");
 if (updatedEl) {
@@ -6700,105 +6763,147 @@ function addUkraineAirportMarkers() {
     UKDE: "Запоріжжя"
   };
 
-  const CHARTER_POPUP_BELOW = new Set([
-    "UKLL", // Львів
-    "UKLT", // Тернопіль
-    "UKLR", // Рівне
-    "UKKV", // Житомир
-    "UKKM", // Гостомель
-    "UKKK", // Жуляни
-    "UKBB", // Бориспіль
-    "UKKE", // Черкаси
-    "UKHP", // Полтава
-    "UKHH", // Харків
-    "UKHS"  // Суми
-  ]);
+function renderAirportPopupButtons(icao) {
+  return `
+    <div class="airport-popup-buttons">
+      <button
+        type="button"
+        class="airport-popup-weather-btn"
+        data-charter-weather-airport="${icao}"
+      >
+        LIVE WEATHER
+      </button>
+
+      <button
+        type="button"
+        class="airport-popup-demand-btn"
+        data-charter-demand-airport="${icao}"
+      >
+        Попит у NewSky
+      </button>
+    </div>
+
+    <div class="airport-popup-weather-result" data-charter-weather-result="${icao}"></div>
+    <div class="airport-popup-demand-result" data-charter-demand-result="${icao}"></div>
+  `;
+}
 
 function getCharterCellHtml(icao) {
+  if (icao === "UKBB") {
+    return `
+       <span style="font-size:12px; color:#333;">
+        Придбати тільки в MSFS Marketplace
+      </span>
+        ${renderAirportPopupButtons(icao)}
+    `;
+  }
+  if (icao === "UKDE") {
+    return `
+        <span style="font-size:13px; color:#333;">
+        Сценарій в розробці KazuarAvia
+      </span>
+	    ${renderAirportPopupButtons(icao)}
+    `;
+  }
+  
+    if (icao === "UKKV") {
+    return `
+        <span style="font-size:13px; color:#333;">
+        Сценарій в розробці MrMiran18
+      </span>
+	    ${renderAirportPopupButtons(icao)}
+    `;
+  }
+  
   const sceneryLinks = {
     UKLL: [
-      { text: "UKLL Львів", url: "https://contrail.shop/products/l-lviv-airport-msfs" }
+      { text: "Придбати сценарій UKLL", url: "https://contrail.shop/products/l-lviv-airport-msfs" }
     ],
     UKOO: [
-      { text: "UKOO Одеса", url: "https://contrail.shop/products/ukoo-odesa-airport-msfs" }
+      { text: "Придбати сценарій UKOO", url: "https://contrail.shop/products/ukoo-odesa-airport-msfs" }
     ],
     UKKK: [
-      { text: "UKKK Жуляни", url: "https://flightsim.to/file/90948/ukkk-kyiv-zhuliany-airport-museum" }
+      { text: "Скачати сценарій UKKK", url: "https://flightsim.to/file/90948/ukkk-kyiv-zhuliany-airport-museum" }
     ],
     UKHH: [
-      { text: "UKHH Харків", url: "https://flightsim.to/file/84765/kharkiv-airport-ukhh" }
+      { text: "Скачати сценарій UKHH", url: "https://flightsim.to/file/84765/kharkiv-airport-ukhh" }
     ],
     UKKM: [
-      { text: "UKKM Гостомель", url: "https://flightsim.to/file/101575/ukkm-hostomel-airport-kyiv-antonov-2" }
+      { text: "Скачати сценарій UKKM", url: "https://flightsim.to/file/101575/ukkm-hostomel-airport-kyiv-antonov-2" }
     ],
     UKLR: [
-      { text: "UKLR Рівне", url: "https://flightsim.to/file/95508/r-rivne-airport" }
+      { text: "Скачати сценарій UKLR", url: "https://flightsim.to/file/95508/r-rivne-airport" }
     ],
     UKCC: [
-      { text: "UKCC Донецьк", url: "https://flightsim.to/file/55359/ukcc-donetsk-international-airport-2013" }
+      { text: "Скачати сценарій UKCC", url: "https://flightsim.to/file/55359/ukcc-donetsk-international-airport-2013" }
     ],
     UKFF: [
-      { text: "UKFF Сімферополь", url: "https://drive.google.com/file/d/1BKNR0qwB271tswUTnnl0WXSm8fKTzhov/view?usp=sharing" }
+      { text: "Скачати сценарій UKFF", url: "https://drive.google.com/file/d/1BKNR0qwB271tswUTnnl0WXSm8fKTzhov/view?usp=sharing" }
     ],
     UKDD: [
-      { text: "UKDD Дніпро", url: "https://flightsim.to/file/88765/ukdd-international-airport-dnipro" }
+      { text: "Скачати сценарій UKDD", url: "https://flightsim.to/file/88765/ukdd-international-airport-dnipro" }
     ],
     UKHS: [
-      { text: "UKHS Суми", url: "https://flightsim.to/file/67391/international-airport-sumy" }
+      { text: "Скачати сценарій UKHS", url: "https://flightsim.to/file/67391/international-airport-sumy" }
     ],
     UKKE: [
-      { text: "UKKE Черкаси", url: "https://flightsim.to/file/67429/international-airport-cherkasy-ukke-cherkasy" }
+      { text: "Скачати сценарій UKKE", url: "https://flightsim.to/file/67429/international-airport-cherkasy-ukke-cherkasy" }
     ],
     UKLH: [
-      { text: "UKLH Хмельницький", url: "https://flightsim.to/file/67813/international-airport-h-khmelnytskyi-delete-uk62-h-khmelnytskyi" }
+      { text: "Скачати сценарій UKLH", url: "https://flightsim.to/file/67813/international-airport-h-khmelnytskyi-delete-uk62-h-khmelnytskyi" }
     ],
     UKHP: [
-      { text: "UKHP Полтава", url: "https://flightsim.to/file/68566/international-airport-ukhp-poltava-ukhp-poltava" }
+      { text: "Скачати сценарій UKHP", url: "https://flightsim.to/file/68566/international-airport-ukhp-poltava-ukhp-poltava" }
     ],
     UKCW: [
-      { text: "UKCW Луганськ", url: "https://flightsim.to/file/68605/international-airport-ukcw-luhansk-ukcw-luhansk" }
+      { text: "Скачати сценарій UKCW", url: "https://flightsim.to/file/68605/international-airport-ukcw-luhansk-ukcw-luhansk" }
     ],
     UKON: [
-      { text: "UKON Миколаїв", url: "https://flightsim.to/file/68643/international-airport-ukon-mykolaiv-ukon-mykolaiv" }
+      { text: "Скачати сценарій UKON", url: "https://flightsim.to/file/68643/international-airport-ukon-mykolaiv-ukon-mykolaiv" }
     ],
     UKWW: [
-      { text: "UKWW Вінниця", url: "https://flightsim.to/file/68692/international-airport-ukww-vinnytsia-vinnytsia" }
+      { text: "Скачати сценарій UKWW", url: "https://flightsim.to/file/68692/international-airport-ukww-vinnytsia-vinnytsia" }
     ],
     UKCM: [
-      { text: "UKCM Маріуполь", url: "https://flightsim.to/file/68889/international-airport-ukcm-mariupol-ukcm-mariupol" }
+      { text: "Скачати сценарій UKCM", url: "https://flightsim.to/file/68889/international-airport-ukcm-mariupol-ukcm-mariupol" }
     ],
     UKLI: [
-      { text: "UKLI Франківськ", url: "https://flightsim.to/file/29255/ivano-frankivsk-intl-airport-i" },
-      { text: "+ мій патч", url: "https://flightsim.to/file/105181/enchancement-for-i-by-pilotalexyyz" }
+      { text: "Скачати сценарій UKLI", url: "https://flightsim.to/file/29255/ivano-frankivsk-intl-airport-i" },
+      { text: "+ рекомендую скачати патч", url: "https://flightsim.to/file/105181/enchancement-for-i-by-pilotalexyyz" }
     ],
     UKLU: [
-      { text: "UKLU Ужгород", url: "https://flightsim.to/file/45653/uzhhorod-international-airport-u" }
+      { text: "Скачати сценарій UKLU", url: "https://flightsim.to/file/45653/uzhhorod-international-airport-u" }
     ],
     UKOH: [
-      { text: "UKOH Херсон", url: "https://flightsim.to/file/28742/kherson-intl-airport-ukoh" }
+      { text: "Скачати сценарій UKOH", url: "https://flightsim.to/file/28742/kherson-intl-airport-ukoh" }
     ],
     UKLT: [
-      { text: "UKLT Тернопіль", url: "https://flightsim.to/file/30106/ternopil-intl-airport-t" }
+      { text: "Скачати сценарій UKLT", url: "https://flightsim.to/file/30106/ternopil-intl-airport-t" }
     ],
     UKLN: [
-      { text: "UKLN Чернівці", url: "https://contrail.shop/products/aviaart-n-chernivtsi-leonid-kadeniuk-intl-airport-msfs-2024" }
+      { text: "Придбати сценарій UKLN", url: "https://contrail.shop/products/aviaart-n-chernivtsi-leonid-kadeniuk-intl-airport-msfs-2024" }
     ],
     UKKG: [
-      { text: "UKKG Кропивницький", url: "https://flightsim.to/file/70471/ukkg-international-airport-kirivohrad-ukkg-kropyvnytskyi" }
+      { text: "Скачати сценарій UKKG", url: "https://flightsim.to/file/70471/ukkg-international-airport-kirivohrad-ukkg-kropyvnytskyi" }
     ],
     UKDR: [
-      { text: "UKDR Кривий Ріг", url: "https://flightsim.to/file/69714/ukdr-international-airport-kryvyi-rih-ukdr-lozuvatka" }
+      { text: "Скачати сценарій UKDR", url: "https://flightsim.to/file/69714/ukdr-international-airport-kryvyi-rih-ukdr-lozuvatka" }
     ]
   };
 
   const links = sceneryLinks[icao];
   if (!links) return null;
 
-  return links.map(link => `
-    <a href="${link.url}" target="_blank" style="color: #0077cc; text-decoration: underline; font-size: 16px;">
+  const linksHtml = links.map(link => `
+    <a href="${link.url}" target="_blank" style="color: #0077cc; text-decoration: underline;">
       <strong>${link.text}</strong>
     </a>
   `).join("<br>");
+
+  return `
+  ${linksHtml}
+  ${renderAirportPopupButtons(icao)}
+`;
 }
 
   Object.values(weatherAirports)
@@ -6821,7 +6926,34 @@ function getCharterCellHtml(icao) {
         airport.icao === "UKKM" ? "code-label-left" : ""
       ].filter(Boolean).join(" ");
 
-      const popupAnchorY = CHARTER_POPUP_BELOW.has(airport.icao) ? 22 : -22;
+
+function getAirportPopupAnchor(icao) {
+  const map = window.ukraineLiveMap;
+  const isDefaultZoom =
+    map &&
+    map.getContainer().classList.contains("ukraine-map-default-zoom");
+
+  // На будь-якому НЕ базовому масштабі — стандартний popup
+  if (!isDefaultZoom) {
+    return [0, -15];
+  }
+
+  // X — вліво/вправо, Y — вище/нижче.
+  // Більше Y = popup нижче.
+  const anchors = {
+    UKLU: [30, -15],
+    UKBB: [8, -8],
+    UKKM: [-18, -23],
+    UKKK: [10, -15],
+	UKLH: [0, -8]
+  };
+
+  return anchors[icao] || [0, -15];
+}
+
+const popupAnchor = getAirportPopupAnchor(airport.icao);
+
+
       const icon = L.divIcon({
         className: "",
         html: `
@@ -6835,13 +6967,41 @@ function getCharterCellHtml(icao) {
         `,
         iconSize: [92, 24],
         iconAnchor: [46, 23],
-        popupAnchor: [0, popupAnchorY]
+        popupAnchor: popupAnchor
       });
+
+            const airportZIndex = {
+        UKKK: 3000, // Жуляни — поверх Борисполя
+        UKBB: 2000, // Бориспіль
+        UKKM: 1000  // Гостомель
+      };
 
       const marker = L.marker([airport.lat, airport.lon], {
         icon,
-        title: `${airport.icao} ${airport.name || ""}`.trim()
+        title: `${airport.icao} ${airport.name || ""}`.trim(),
+        zIndexOffset: airportZIndex[airport.icao] || 0,
+        riseOnHover: true
       }).addTo(window.ukraineAirportLayer);
+	  
+	  marker.on("click", () => {
+  const updatedIcon = L.divIcon({
+    className: "",
+    html: `
+      <span class="${markerClasses}">
+        <span class="ukraine-airport-name">${ukrainianAirportNames[airport.icao] || airport.name || ""}</span>
+        <span class="ukraine-airport-code-row">
+          <span class="ukraine-airport-dot"></span>
+          <span class="ukraine-airport-label">${airport.icao}</span>
+        </span>
+      </span>
+    `,
+    iconSize: [92, 24],
+    iconAnchor: [46, 23],
+    popupAnchor: getAirportPopupAnchor(airport.icao)
+  });
+
+  marker.setIcon(updatedIcon);
+});
 
       const charterHtml = getCharterCellHtml(airport.icao);
       if (charterHtml) {
@@ -7287,6 +7447,58 @@ function renderUkraineFlightLayers() {
     clearUkraineActiveFlightRoute();
   }
 }
+
+document.addEventListener("click", async event => {
+  const button = event.target.closest("[data-charter-weather-airport]");
+  if (!button) return;
+
+  event.preventDefault();
+  event.stopPropagation();
+
+  const code = button.dataset.charterWeatherAirport;
+  const popup = button.closest(".leaflet-popup-content");
+  const resultBox = popup?.querySelector(`[data-charter-weather-result="${code}"]`);
+
+  if (!code || !resultBox) return;
+
+  resultBox.textContent = `${code}: запит погоди...`;
+
+  try {
+    let report = await fetchAirportWeatherReport(code);
+
+    // Прибираємо кнопки OPEN-MET / ↻, щоб у popup було просто текстом
+    report = String(report).replace(/<button[\s\S]*?<\/button>/g, "");
+
+    resultBox.innerHTML = report;
+  } catch (e) {
+    resultBox.textContent = `${code}: ${e?.message || "помилка погоди"}`;
+  }
+});
+
+document.addEventListener("click", event => {
+  const button = event.target.closest("[data-charter-demand-airport]");
+  if (!button) return;
+
+  event.preventDefault();
+  event.stopPropagation();
+
+  const code = button.dataset.charterDemandAirport;
+  const popup = button.closest(".leaflet-popup-content");
+  const resultBox = popup?.querySelector(`[data-charter-demand-result="${code}"]`);
+
+  if (!code || !resultBox) return;
+
+  const info = newskyCharterDemandByAirport?.[code];
+  const demandEl = renderCharterBlock(code, info);
+
+  if (!demandEl) {
+    resultBox.innerHTML = `<span style="font-size:12px; color:#666;">Попиту немає</span>`;
+    return;
+  }
+
+  resultBox.innerHTML = "";
+  resultBox.appendChild(demandEl);
+});
 
 document.addEventListener("DOMContentLoaded", loadAirportDump);
 document.addEventListener("DOMContentLoaded", initUkraineLiveMap);
