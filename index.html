@@ -1462,7 +1462,7 @@ min-width: 276px;
     display: flex;
     justify-content: center;
     gap: 3px;
-    margin: 5px auto 2px auto;
+    margin: 4px auto 1px auto;
 }
 
 #ukraine-live-map .airport-popup-weather-btn,
@@ -1486,9 +1486,9 @@ min-width: 276px;
 }
 
 #ukraine-live-map .airport-popup-demand-result {
-    margin-top: 4px;
-    padding-top: 3px;
-    border-top: 1px solid #cccccc;
+    margin-top: 1px;
+    padding-top: 0;
+    border-top: 0;
     text-align: center;
 }
 
@@ -6296,7 +6296,7 @@ function formatCellRecord(record, mode, direction) {
 
   const amountText = formatAirportCellAmount(record, mode);
 
-  return `${amountText} <span class="airport-icon">${icon}</span> ${word} ${flagImgByAirport(target)} <span style="font-size:11px; color:#444;" title="${airportNameByCode(target)}">${target}</span>`;
+return `${amountText} <span class="airport-icon">${icon}</span> ${word} ${flagImgByAirport(target)} <span style="font-size:inherit; color:#444;" title="${airportNameByCode(target)}">${target}</span>`;
 }
 
 function renderCharterBlock(icao, info) {
