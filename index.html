@@ -7253,13 +7253,26 @@ function renderUkraineFlightLayers() {
       ruBannedAirports.includes(dep) ||
       ruBannedAirports.includes(arr) ||
       isRuBannedCallsign(callsign);
-    let airlineName =
-      airlineMap[airlineCode] ||
-      allAirlineMap[airlineCode] ||
-      "Unknown Airline";
-    if (isRuBanned) {
-      airlineName = "Pidaravia";
-    }
+let airlineName =
+  airlineMap[airlineCode] ||
+  allAirlineMap[airlineCode] ||
+  "Unknown Airline";
+
+if (
+  isPrivatePilotCallsign(callsign) &&
+  !isMilitaryCallsign(callsign) &&
+  !isRuBanned
+) {
+  airlineName = "Private Pilot";
+}
+
+if (isRuBanned) {
+  airlineName = "Pidaravia";
+}
+
+if (isMilitaryCallsign(callsign)) {
+  airlineName = "Military flight";
+}
     const aircraftCode = String(pilot?.flight_plan?.aircraft_short || "");
     const aircraftType =
       aircraftMap[aircraftCode] ||
