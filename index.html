@@ -8,6 +8,7 @@
   rel="stylesheet"
   href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
 >
+
 <style>
   * {
   box-sizing: border-box;
@@ -1502,30 +1503,73 @@ min-width: 276px;
 }
 
 #ukraine-live-map .airport-popup-buttons {
-    display: flex;
+    display: grid;
+    grid-template-columns: 112px 112px;
     justify-content: center;
     gap: 3px;
     margin: 4px auto 1px auto;
 }
-
+#ukraine-live-map .airport-popup-charts-btn,
 #ukraine-live-map .airport-popup-weather-btn,
-#ukraine-live-map .airport-popup-demand-btn {
-    display: inline-block;
-    padding: 2px 6px;
+#ukraine-live-map .airport-popup-demand-btn,
+#ukraine-live-map .airport-popup-ground-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 112px;
+    height: 22px;
+    padding: 0 0px;
+
     border: 1px solid #3f4a56;
     background: #ffffff;
     color: #1d2733;
-    font-family: Consolas, "Courier New", monospace;
+
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 12px;
-    font-weight: bold;
-    line-height: 1.1;
+    font-weight: 600;
+    line-height: 1;
+
     cursor: pointer;
     white-space: nowrap;
+    text-align: center;
+    text-decoration: none;
+    box-sizing: border-box;
 }
 
+#ukraine-live-map .airport-popup-demand-btn {
+    font-size: 10px;
+}
+
+#ukraine-live-map .airport-popup-ground-btn {
+    color: #0a6b2d;
+}
+
+#ukraine-live-map .airport-popup-demand-btn {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: -0.2px;
+}
+
+#ukraine-live-map .airport-popup-charts-btn:hover,
 #ukraine-live-map .airport-popup-weather-btn:hover,
-#ukraine-live-map .airport-popup-demand-btn:hover {
+#ukraine-live-map .airport-popup-demand-btn:hover,
+#ukraine-live-map .airport-popup-ground-btn:hover {
     background: #f0f0f0;
+    text-decoration: none;
+}
+
+#ukraine-live-map .airport-popup-charts-btn {
+    text-decoration: none;
+    color: #0F758A;
+}
+
+#ukraine-live-map .airport-popup-charts-btn:hover {
+    text-decoration: none;
+}
+
+#ukraine-live-map .airport-popup-ground-btn {
+    color: #0a6b2d;
 }
 
 #ukraine-live-map .airport-popup-demand-result {
@@ -1630,28 +1674,206 @@ min-width: 276px;
     left: 6px;
     display: flex;
     gap: 4px;
-    padding: 1px;
-    background: #ffffff;
-    border: 1px solid #a9a9a9;
-    border-radius: 4px;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+    padding: 0;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
     margin: 0 !important;
     clear: none !important;
     z-index: 1001;
 }
 
+
 .ukraine-map-layer-control button {
     width: 118px;
-    height: 26px;
-    padding: 0 6px;
-    border: 1px solid #aaa;
+    height: 25px;
+    padding: 0 3px;
+    border: 1px solid #7A0B62;
+    border-radius: 4px;
     background: #fff;
     color: #111;
     font-family: Arial, sans-serif;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: bold;
-    line-height: 24px;
+    line-height: 23px;
     cursor: pointer;
+}
+
+.ukraine-map-reset-view-button {
+    position: absolute;
+    top: 4px;
+    right: 104px;
+    z-index: 1001;
+
+    width: 88px;
+    height: 24px;
+    padding: 0 5px;
+
+    border: 1px solid #1f8a3b;
+    border-radius: 4px;
+    background: #CFF3FC;
+    color: #111;
+
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    font-weight: bold;
+    line-height: 22px;
+
+    cursor: pointer;
+}
+
+.ukraine-map-reset-view-button:hover {
+    background: #f4f4f4;
+}
+
+.ukraine-map-fullscreen-button {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    z-index: 1001;
+
+    width: 95px;
+    height: 24px;
+    padding: 0 5px;
+
+    border: 1px solid #1f8a3b;
+    border-radius: 4px;
+    background: #E1F7F1;
+    color: #111;
+
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    font-weight: bold;
+    line-height: 22px;
+
+    cursor: pointer;
+}
+
+.ukraine-map-fullscreen-button:hover {
+    background: #f4f4f4;
+}
+
+.ukraine-map-flight-list {
+    position: absolute;
+    top: 34px;
+    right: 4px;
+    z-index: 1001;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3px;
+
+    width: 95px;
+    max-height: 470px;
+    overflow-y: auto;
+
+    padding: 3px;
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(120, 120, 120, 0.45);
+    border-radius: 4px;
+}
+
+.ukraine-map-flight-list.is-hidden {
+    display: none;
+}
+
+.ukraine-map-flight-list-button {
+     appearance: none;
+    border: 0;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    width: 100%;
+    min-height: 18px;
+}
+
+.ukraine-map-flight-list-button:hover .ukraine-map-flight-list-row {
+    background: #fff7c7;
+}
+
+.ukraine-map-flight-list-empty {
+    width: 70px;
+    padding: 4px;
+    font-size: 10px;
+    color: #555;
+    text-align: center;
+    background: rgba(255,255,255,0.85);
+    border: 1px solid #999;
+}
+
+.ukraine-map-flight-list-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 4px;
+
+    width: 100%;
+    min-height: 18px;
+
+    padding: 1px 4px;
+
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(120, 65, 0, 0.35);
+    border-radius: 3px;
+
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 14px;
+    color: #8a1e56;
+    white-space: nowrap;
+    box-sizing: border-box;
+}
+
+.ukraine-map-flight-list-logo {
+    width: 13px;
+    height: 13px;
+    object-fit: contain;
+    flex: 0 0 13px;
+}
+
+.ukraine-map-flight-list-callsign {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.ukraine-map-flight-list-title {
+    width: 100%;
+    padding: 1px 1px;
+    margin-bottom: 0px;
+
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 12px;
+    color: #333;
+    text-align: center;
+    white-space: nowrap;
+}
+
+
+#ukraine-live-map.ukraine-map-fullscreen {
+    position: fixed !important;
+    left: 8px;
+    top: 4px;
+    right: 8px;
+    bottom: 8px;
+    width: auto !important;
+    height: auto !important;
+    z-index: 20000;
+    border: 1px solid #333;
+    background: #eef2f3;
+}
+
+body.ukraine-map-fullscreen-active {
+    overflow: hidden;
 }
 
 .ukraine-flight-marker {
@@ -1803,6 +2025,8 @@ min-width: 276px;
     color: #0a6b2d;
 	text-decoration: none;
 }
+
+
   
 </style>
 </head>
@@ -2033,6 +2257,7 @@ WINDROSE Forever <br>
   crossorigin=""
 ></script>
 
+<script src="https://cdn.jsdelivr.net/gh/IvanSanchez/Leaflet.ImageOverlay.Rotated/Leaflet.ImageOverlay.Rotated.js"></script>
   
  <table id="charter-flights-section" class="airports-table">
 
@@ -3033,6 +3258,7 @@ let weatherPreferOpenMeteoFirst = true;
 let depAirportFilter = 'ALL';
 let arrAirportFilter = 'ALL';
 let mapFlightMarkers = {};
+let mapFlightListItems = [];
 
 const OPEN_METEO_CURRENT_VARIABLES = [
     'temperature_2m',
@@ -5682,6 +5908,7 @@ async function initVatsim() {
     await loadWeatherAirportCoordinates();
     await loadOurAirportsFallback();
     initTrafficToMapFocusBinding();
+	initMapFlightListBinding();
     renderWeatherAirportMenu();
     addUkraineAirportMarkers();
 
@@ -6485,9 +6712,11 @@ function initUkraineLiveMap() {
   });
 
   const defaultZoom = map.getZoom();
-  window.ukraineAirportsVisible = true;
-  window.ukraineVatsimVisible = true;
-  window.ukraineNewSkyVisible = true;
+window.ukraineAirportsVisible = true;
+window.ukraineVatsimVisible = true;
+window.ukraineNewSkyVisible = true;
+window.ukraineFlightListVisible = true;
+window.ukraineGroundVisible = false;
 
   function updateMapLabelLayer() {
     if (!window.ukraineAirportsVisible) {
@@ -6550,22 +6779,77 @@ function initUkraineLiveMap() {
   });
 
   map.addControl(new resetControl());
+	const resetViewButton = L.DomUtil.create(
+  "button",
+  "ukraine-map-reset-view-button",
+  map.getContainer()
+);
 
+const fullMapButton = L.DomUtil.create(
+  "button",
+  "ukraine-map-fullscreen-button",
+  map.getContainer()
+);
+
+fullMapButton.type = "button";
+fullMapButton.textContent = "FULL-SCREEN";
+fullMapButton.title = "Відкрити карту на весь екран";
+
+L.DomEvent.disableClickPropagation(fullMapButton);
+L.DomEvent.disableScrollPropagation(fullMapButton);
+
+L.DomEvent.on(fullMapButton, "click", event => {
+  L.DomEvent.preventDefault(event);
+
+  const mapEl = map.getContainer();
+  const isFullscreen = mapEl.classList.toggle("ukraine-map-fullscreen");
+
+  document.body.classList.toggle("ukraine-map-fullscreen-active", isFullscreen);
+
+ fullMapButton.textContent = isFullscreen ? "ЗГОРНУТИ" : "FULL-SCREEN";
+
+  setTimeout(() => {
+    map.invalidateSize();
+
+    if (isFullscreen) {
+      map.setView(map.getCenter(), Math.max(map.getZoom(), 7), {
+        animate: false
+      });
+    }
+  }, 100);
+});
+
+resetViewButton.type = "button";
+resetViewButton.textContent = "RESET VIEW";
+resetViewButton.title = "Повернути стандартний вигляд карти";
+
+L.DomEvent.disableClickPropagation(resetViewButton);
+L.DomEvent.disableScrollPropagation(resetViewButton);
+
+L.DomEvent.on(resetViewButton, "click", event => {
+  L.DomEvent.preventDefault(event);
+
+  map.fitBounds(window.ukraineDefaultMapBounds, {
+    padding: [4, 4]
+  });
+});
   const layerControl = L.Control.extend({
     options: {
       position: "topleft"
     },
     onAdd(controlMap) {
       const container = L.DomUtil.create("div", "leaflet-control ukraine-map-layer-control");
-      const adButton = L.DomUtil.create("button", "", container);
-      const vatsimButton = L.DomUtil.create("button", "", container);
-      const newSkyButton = L.DomUtil.create("button", "", container);
+const adButton = L.DomUtil.create("button", "", container);
+const vatsimButton = L.DomUtil.create("button", "", container);
+const newSkyButton = L.DomUtil.create("button", "", container);
+const flightListButton = L.DomUtil.create("button", "", container);
 
-      function refreshButtons() {
-        adButton.textContent = window.ukraineAirportsVisible ? "Сховати AD" : "Показати AD";
-        vatsimButton.textContent = window.ukraineVatsimVisible ? "Сховати VATSIM" : "Показати VATSIM";
-        newSkyButton.textContent = window.ukraineNewSkyVisible ? "Сховати NewSky" : "Показати NewSky";
-      }
+function refreshButtons() {
+  adButton.textContent = window.ukraineAirportsVisible ? "Сховати AD" : "Показати AD";
+  vatsimButton.textContent = window.ukraineVatsimVisible ? "Сховати VATSIM" : "Показати VATSIM";
+  newSkyButton.textContent = window.ukraineNewSkyVisible ? "Сховати NewSky" : "Показати NewSky";
+flightListButton.textContent = window.ukraineFlightListVisible ? "Сховати LIST" : "Показати LIST";
+}
       window.updateUkraineLayerButtonsText = refreshButtons;
 
       L.DomEvent.disableClickPropagation(container);
@@ -6586,44 +6870,518 @@ function initUkraineLiveMap() {
 
         updateMapLabelLayer();
         refreshButtons();
+		
       });
 
-      L.DomEvent.on(vatsimButton, "click", event => {
-        L.DomEvent.preventDefault(event);
-        window.ukraineVatsimVisible = !window.ukraineVatsimVisible;
+window.ukraineFlightListContainer = L.DomUtil.create(
+  "div",
+  "ukraine-map-flight-list",
+  map.getContainer()
+);
 
-        if (window.ukraineVatsimVisible) {
-          window.ukraineVatsimLayer.addTo(controlMap);
-        } else {
-          controlMap.removeLayer(window.ukraineVatsimLayer);
-        }
+L.DomEvent.disableClickPropagation(window.ukraineFlightListContainer);
+L.DomEvent.disableScrollPropagation(window.ukraineFlightListContainer);
 
-        refreshButtons();
-      });
 
-      L.DomEvent.on(newSkyButton, "click", event => {
-        L.DomEvent.preventDefault(event);
-        window.ukraineNewSkyVisible = !window.ukraineNewSkyVisible;
 
-        if (window.ukraineNewSkyVisible) {
-          window.ukraineNewSkyLayer.addTo(controlMap);
-        } else {
-          controlMap.removeLayer(window.ukraineNewSkyLayer);
-        }
+L.DomEvent.on(vatsimButton, "click", event => {
+  L.DomEvent.preventDefault(event);
+  window.ukraineVatsimVisible = !window.ukraineVatsimVisible;
 
-        refreshButtons();
-      });
+  if (window.ukraineVatsimVisible) {
+    window.ukraineVatsimLayer.addTo(controlMap);
+  } else {
+    controlMap.removeLayer(window.ukraineVatsimLayer);
+  }
 
+  refreshButtons();
+
+  if (typeof renderUkraineFlightList === "function") {
+    renderUkraineFlightList();
+  }
+});
+	  
+	  L.DomEvent.on(flightListButton, "click", event => {
+  L.DomEvent.preventDefault(event);
+
+  window.ukraineFlightListVisible = !window.ukraineFlightListVisible;
+
+  renderUkraineFlightList();
+
+  refreshButtons();
+});
+L.DomEvent.on(newSkyButton, "click", event => {
+  L.DomEvent.preventDefault(event);
+
+  window.ukraineNewSkyVisible = !window.ukraineNewSkyVisible;
+
+  if (window.ukraineNewSkyVisible) {
+    window.ukraineNewSkyLayer.addTo(controlMap);
+  } else {
+    controlMap.removeLayer(window.ukraineNewSkyLayer);
+  }
+
+  refreshButtons();
+
+  if (typeof renderUkraineFlightList === "function") {
+    renderUkraineFlightList();
+  }
+});
       refreshButtons();
       return container;
     }
   });
+  
 
   map.addControl(new layerControl());
 
-  addUkraineAirportMarkers();
-  renderUkraineFlightLayers();
+addUkraineAirportMarkers();
+initUkraineGroundOverlays();
+renderUkraineFlightLayers();
 }
+
+
+const UKRAINE_GROUND_OVERLAYS = {
+  UKHH: {
+    image: "GROUND/UKHH1.png",
+
+    topLeft: L.latLng(49.9329812, 36.2724647),
+    topRight: L.latLng(49.9287886, 36.3138143),
+    bottomLeft: L.latLng(49.9180555, 36.2688136),
+
+    opacity: 0.6,
+    minZoom: 12,
+	focusZoom: 15,
+
+    layer: null,
+    bounds: null,
+    hiddenByUser: false
+  },
+  
+   UKOO: {
+    image: "GROUND/UKOO1.png",
+
+    topLeft: L.latLng(46.4478031, 30.6497654),
+    topRight: L.latLng(46.4452490, 30.7070697),
+    bottomLeft: L.latLng(46.4124833, 30.6464516),
+
+    opacity: 0.5,
+    minZoom: 12,
+	focusZoom: 14,
+
+    layer: null,
+    bounds: null,
+    hiddenByUser: false
+  },
+  
+  UKBB: {
+    image: "GROUND/UKBB1.png",
+
+    topLeft: L.latLng(50.3716243, 30.8763399),
+    topRight: L.latLng(50.3690923, 30.9216884),
+    bottomLeft: L.latLng(50.3169551, 30.8688454),
+
+    opacity: 0.5,
+    minZoom: 12,
+    focusZoom: 13,
+
+    layer: null,
+    bounds: null,
+    hiddenByUser: false
+  },
+  
+  UKKK: {
+  image: "GROUND/UKKK1.png",
+
+  topLeft: L.latLng(50.4146962, 30.4315327),
+  topRight: L.latLng(50.4123319, 30.4722953),
+  bottomLeft: L.latLng(50.4000513, 30.4294415),
+
+  opacity: 0.5,
+  minZoom: 12,
+  focusZoom: 15,
+
+  layer: null,
+  bounds: null,
+  hiddenByUser: false
+},
+
+UKKM: {
+  image: "GROUND/UKKM1.png",
+
+  topLeft: L.latLng(50.6236446, 30.1800685),
+  topRight: L.latLng(50.6211274, 30.2229843),
+  bottomLeft: L.latLng(50.5869610, 30.1747270),
+
+  opacity: 0.5,
+  minZoom: 12,
+  focusZoom: 14,
+
+  layer: null,
+  bounds: null,
+  hiddenByUser: false
+},
+
+
+UKLL: {
+  image: "GROUND/UKLL1.png",
+
+  topLeft: L.latLng(49.8217238, 23.9364748),
+  topRight: L.latLng(49.8197693, 23.9797864),
+  bottomLeft: L.latLng(49.7996611, 23.9340841),
+
+  opacity: 0.5,
+  minZoom: 12,
+  focusZoom: 14,
+
+  layer: null,
+  bounds: null,
+  hiddenByUser: false
+},
+
+UKLU: {
+  image: "GROUND/UKLU1.png",
+
+  topLeft: L.latLng(48.6393928, 22.2486078),
+  topRight: L.latLng(48.6384963, 22.2784821),
+  bottomLeft: L.latLng(48.6312176, 22.2480460),
+
+  opacity: 0.5,
+  minZoom: 12,
+  focusZoom: 15,
+
+  layer: null,
+  bounds: null,
+  hiddenByUser: false
+},
+
+
+UKLI: {
+  image: "GROUND/UKLI1.png",
+
+  topLeft: L.latLng(48.8966512, 24.6640776),
+  topRight: L.latLng(48.8951733, 24.7133845),
+  bottomLeft: L.latLng(48.8759217, 24.6626406),
+
+  opacity: 0.5,
+  minZoom: 12,
+  focusZoom: 14,
+
+  layer: null,
+  bounds: null,
+  hiddenByUser: false
+},
+
+
+UKLN: {
+  image: "GROUND/UKLN1.png",
+
+  topLeft: L.latLng(48.2724044, 25.9628587),
+  topRight: L.latLng(48.2710665, 25.9908936),
+  bottomLeft: L.latLng(48.2500488, 25.9604517),
+
+  opacity: 0.5,
+  minZoom: 12,
+  focusZoom: 14,
+
+  layer: null,
+  bounds: null,
+  hiddenByUser: false
+},
+
+UKLR: {
+  image: "GROUND/UKLR1.png",
+
+  topLeft: L.latLng(50.6150475, 26.1220148),
+  topRight: L.latLng(50.6133026, 26.1689821),
+  bottomLeft: L.latLng(50.5949685, 26.1201629),
+
+  opacity: 0.5,
+  minZoom: 12,
+  focusZoom: 14,
+
+  layer: null,
+  bounds: null,
+  hiddenByUser: false
+},
+
+
+UKWW: {
+  image: "GROUND/UKWW1.png",
+
+  topLeft: L.latLng(49.2526810, 28.5918873),
+  topRight: L.latLng(49.2509358, 28.6301138),
+  bottomLeft: L.latLng(49.2317116, 28.5896413),
+
+  opacity: 0.65,
+  minZoom: 12,
+  focusZoom: 14,
+
+  layer: null,
+  bounds: null,
+  hiddenByUser: false
+},
+
+
+UKDR: {
+  image: "GROUND/UKDR1.png",
+
+  topLeft: L.latLng(48.0576950, 33.2087830),
+  topRight: L.latLng(48.0562235, 33.2244440),
+  bottomLeft: L.latLng(48.0321731, 33.2034179),
+
+  opacity: 0.4,
+  minZoom: 12,
+  focusZoom: 14,
+
+  layer: null,
+  bounds: null,
+  hiddenByUser: false
+},
+
+UKON: {
+  image: "GROUND/UKON1.png",
+
+  topLeft: L.latLng(47.0688169, 31.9070716),
+  topRight: L.latLng(47.0654217, 31.9482540),
+  bottomLeft: L.latLng(47.0485817, 31.9034773),
+
+  opacity: 0.65,
+  minZoom: 12,
+  focusZoom: 14,
+
+  layer: null,
+  bounds: null,
+  hiddenByUser: false
+},
+
+
+UKOH: {
+  image: "GROUND/UKOH1.png",
+
+  topLeft: L.latLng(46.6884600, 32.4969399),
+  topRight: L.latLng(46.6869350, 32.5180859),
+  bottomLeft: L.latLng(46.6653836, 32.4934049),
+
+  opacity: 0.65,
+  minZoom: 12,
+  focusZoom: 14,
+
+  layer: null,
+  bounds: null,
+  hiddenByUser: false
+},
+
+UKCC: {
+  image: "GROUND/UKCC1.png",
+
+  topLeft: L.latLng(48.0842405, 37.6863480),
+  topRight: L.latLng(48.0842405, 37.7629367),
+  bottomLeft: L.latLng(48.0582882, 37.6863480),
+
+  opacity: 0.5,
+  minZoom: 12,
+  focusZoom: 13,
+
+  layer: null,
+  bounds: null,
+  hiddenByUser: false
+},
+
+UKDD: {
+  image: "GROUND/UKDD1.png",
+
+  topLeft: L.latLng(48.3717761, 35.0798476),
+  topRight: L.latLng(48.3687047, 35.1238289),
+  bottomLeft: L.latLng(48.3527022, 35.0768303),
+
+  opacity: 0.65,
+  minZoom: 12,
+  focusZoom: 14,
+
+  layer: null,
+  bounds: null,
+  hiddenByUser: false
+},
+
+UKDE: {
+  image: "GROUND/UKDE1.png",
+
+  topLeft: L.latLng(47.8864934, 35.2853161),
+  topRight: L.latLng(47.8864934, 35.3447448),
+  bottomLeft: L.latLng(47.8494829, 35.2853161),
+
+  opacity: 0.6,
+  minZoom: 12,
+  focusZoom: 14,
+
+  layer: null,
+  bounds: null,
+  hiddenByUser: false
+}
+  
+};
+
+function getGroundOverlayBottomRight(config) {
+  return L.latLng(
+    config.bottomLeft.lat + (config.topRight.lat - config.topLeft.lat),
+    config.bottomLeft.lng + (config.topRight.lng - config.topLeft.lng)
+  );
+}
+
+function prepareGroundOverlayConfig(config) {
+  const bottomRight = getGroundOverlayBottomRight(config);
+
+  config.bounds = L.latLngBounds([
+    config.topLeft,
+    config.topRight,
+    config.bottomLeft,
+    bottomRight
+  ]);
+
+  config.center = config.bounds.getCenter();
+}
+
+function initUkraineGroundOverlays() {
+  const map = window.ukraineLiveMap;
+
+  if (!map || typeof L === "undefined" || !L.imageOverlay?.rotated) return;
+
+  Object.entries(UKRAINE_GROUND_OVERLAYS).forEach(([icao, config]) => {
+    prepareGroundOverlayConfig(config);
+
+    config.layer = L.imageOverlay.rotated(
+      config.image,
+      config.topLeft,
+      config.topRight,
+      config.bottomLeft,
+      {
+        opacity: config.opacity ?? 0.6,
+        interactive: false
+      }
+    );
+  });
+
+  updateUkraineGroundOverlayVisibility();
+
+  map.on("zoomend moveend", updateUkraineGroundOverlayVisibility);
+}
+
+function isGroundOverlayVisible(icao) {
+  const map = window.ukraineLiveMap;
+  const config = UKRAINE_GROUND_OVERLAYS[icao];
+
+  return !!(
+    map &&
+    config &&
+    config.layer &&
+    map.hasLayer(config.layer)
+  );
+}
+
+function updateUkraineGroundOverlayVisibility() {
+  const map = window.ukraineLiveMap;
+
+  if (!map) return;
+
+  const mapBounds = map.getBounds();
+  const zoom = map.getZoom();
+
+  Object.entries(UKRAINE_GROUND_OVERLAYS).forEach(([icao, config]) => {
+    if (!config.layer || !config.bounds) return;
+
+    const shouldShow =
+      !config.hiddenByUser &&
+      zoom >= (config.minZoom ?? 12) &&
+      mapBounds.intersects(config.bounds);
+
+    if (shouldShow) {
+      if (!map.hasLayer(config.layer)) {
+        config.layer.addTo(map);
+      }
+
+      if (config.layer.bringToBack) {
+        config.layer.bringToBack();
+      }
+
+      if (window.ukraineAirportLayer && map.hasLayer(window.ukraineAirportLayer)) {
+        window.ukraineAirportLayer.eachLayer(layer => {
+          if (layer.bringToFront) layer.bringToFront();
+        });
+      }
+
+    } else {
+      if (map.hasLayer(config.layer)) {
+        map.removeLayer(config.layer);
+      }
+    }
+  });
+
+  refreshGroundPopupButtons();
+}
+
+function showGroundOverlayForAirport(icao, focusMap = false) {
+  const map = window.ukraineLiveMap;
+  const config = UKRAINE_GROUND_OVERLAYS[icao];
+
+  if (!map || !config || !config.layer) return;
+
+  config.hiddenByUser = false;
+
+if (focusMap && config.center) {
+  map.setView(config.center, config.focusZoom ?? 15, {
+    animate: true
+  });
+}
+
+  updateUkraineGroundOverlayVisibility();
+
+  if (!map.hasLayer(config.layer)) {
+    config.layer.addTo(map);
+  }
+
+  if (config.layer.bringToBack) {
+    config.layer.bringToBack();
+  }
+
+  refreshGroundPopupButtons();
+}
+
+function hideGroundOverlayForAirport(icao) {
+  const map = window.ukraineLiveMap;
+  const config = UKRAINE_GROUND_OVERLAYS[icao];
+
+  if (!map || !config || !config.layer) return;
+
+  config.hiddenByUser = true;
+
+  if (map.hasLayer(config.layer)) {
+    map.removeLayer(config.layer);
+  }
+
+  refreshGroundPopupButtons();
+}
+
+function toggleGroundOverlayForAirport(icao) {
+  if (isGroundOverlayVisible(icao)) {
+    hideGroundOverlayForAirport(icao);
+  } else {
+    showGroundOverlayForAirport(icao, true);
+  }
+}
+
+function refreshGroundPopupButtons() {
+  document
+    .querySelectorAll("[data-charter-ground-airport]")
+    .forEach(button => {
+      const icao = button.dataset.charterGroundAirport;
+
+      button.textContent = isGroundOverlayVisible(icao)
+        ? "Сховати GND"
+        : "Показати GND";
+    });
+}
+
 
 function addUkraineAirportMarkers() {
   if (!window.ukraineLiveMap || typeof L === "undefined") return;
@@ -6668,12 +7426,61 @@ function addUkraineAirportMarkers() {
   };
 
 function renderAirportPopupButtons(icao) {
+  const code = String(icao || "").trim().toUpperCase();
+  const hasGround = !!UKRAINE_GROUND_OVERLAYS?.[code];
+
+  const noChartsAirports = new Set([
+    "UKLH", // Хмельницький
+    "UKFF", // Сімферополь
+    "UKCM", // Маріуполь
+    "UKCW", // Луганськ
+    "UKKG", // Кропивницький
+    "UKKE", // Черкаси
+    "UKHP", // Полтава
+    "UKHS"  // Суми
+  ]);
+
+  const chartsUrls = {
+    UKKM: "https://vacc-ua.org/static/files/charts/UKKM_JEPP.pdf"
+  };
+
+  const chartsUrl =
+    chartsUrls[code] ||
+    `https://vacc-ua.org/static/files/charts/${code}.pdf`;
+
+  const chartsButton = noChartsAirports.has(code)
+    ? ""
+    : `
+      <a
+        class="airport-popup-charts-btn"
+        href="${chartsUrl}"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Charts PDF
+      </a>
+    `;
+
   return `
+    <div class="airport-popup-buttons">
+      ${hasGround ? `
+        <button
+          type="button"
+          class="airport-popup-ground-btn"
+          data-charter-ground-airport="${code}"
+        >
+          ${isGroundOverlayVisible(code) ? "Сховати GND" : "Показати GND"}
+        </button>
+      ` : ""}
+
+      ${chartsButton}
+    </div>
+
     <div class="airport-popup-buttons">
       <button
         type="button"
         class="airport-popup-weather-btn"
-        data-charter-weather-airport="${icao}"
+        data-charter-weather-airport="${code}"
       >
         LIVE WEATHER
       </button>
@@ -6681,14 +7488,14 @@ function renderAirportPopupButtons(icao) {
       <button
         type="button"
         class="airport-popup-demand-btn"
-        data-charter-demand-airport="${icao}"
+        data-charter-demand-airport="${code}"
       >
         Попит у NewSky
       </button>
     </div>
 
-    <div class="airport-popup-weather-result" data-charter-weather-result="${icao}"></div>
-    <div class="airport-popup-demand-result" data-charter-demand-result="${icao}"></div>
+    <div class="airport-popup-weather-result" data-charter-weather-result="${code}"></div>
+    <div class="airport-popup-demand-result" data-charter-demand-result="${code}"></div>
   `;
 }
 
@@ -7043,6 +7850,23 @@ function focusMapFlightByCallsign(callsign) {
   return true;
 }
 
+
+
+function initMapFlightListBinding() {
+  if (window.mapFlightListBindingDone) return;
+  window.mapFlightListBindingDone = true;
+
+  document.addEventListener("click", event => {
+    const button = event.target.closest("[data-map-list-callsign]");
+    if (!button) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    focusMapFlightByCallsign(button.dataset.mapListCallsign);
+  });
+}
+
 function initTrafficToMapFocusBinding() {
   if (window.trafficToMapFocusBindingDone) return;
   window.trafficToMapFocusBindingDone = true;
@@ -7061,6 +7885,8 @@ function initTrafficToMapFocusBinding() {
     }
   });
 }
+
+
 
 function getVatsimLogoPath(callsign, dep, arr) {
   const raw = String(callsign || "")
@@ -7197,6 +8023,74 @@ function showUkraineActiveFlightRoute(depCoords, depIcao, aircraftCoords, arrCoo
   addEndpointIcaoLabel(routeLayer, arrCoords, arrIcao);
 }
 
+function addUkraineFlightListItem({
+  callsign,
+  displayCallsign,
+  logoPath,
+  heading,
+  source
+}) {
+  mapFlightListItems.push({
+    callsign,
+    displayCallsign,
+    logoPath,
+    heading,
+    source
+  });
+}
+
+function renderUkraineFlightList() {
+  const box = window.ukraineFlightListContainer;
+
+  if (!box) return;
+
+box.classList.toggle(
+  "is-hidden",
+  window.ukraineFlightListVisible === false
+);
+
+if (window.ukraineFlightListVisible === false) {
+  box.innerHTML = "";
+  return;
+}
+
+box.classList.remove("is-hidden");
+
+  const visibleItems = mapFlightListItems.filter(item => {
+    if (item.source === "vatsim" && !window.ukraineVatsimVisible) return false;
+    if (item.source === "newsky" && !window.ukraineNewSkyVisible) return false;
+    return true;
+  });
+
+if (!visibleItems.length) {
+  box.innerHTML = "";
+  box.classList.add("is-hidden");
+  return;
+}
+
+box.innerHTML = `
+    <div class="ukraine-map-flight-list-title">Flights LIST:</div>
+  ` + visibleItems.map(item => `
+    <button
+      type="button"
+      class="ukraine-map-flight-list-button"
+      data-map-list-callsign="${item.callsign}"
+      title="${item.callsign}"
+    >
+      <span class="ukraine-map-flight-list-row ${item.source}">
+        <img
+          class="ukraine-map-flight-list-logo"
+          src="${item.logoPath}"
+          onerror="this.onerror=null; this.src='LOGOS/nologo.png';"
+        >
+        <span class="ukraine-map-flight-list-callsign">
+          ${item.displayCallsign}
+        </span>
+      </span>
+    </button>
+  `).join("");
+}
+
 function renderUkraineFlightLayers() {
   if (!window.ukraineLiveMap || typeof L === "undefined") return;
 
@@ -7215,6 +8109,7 @@ function renderUkraineFlightLayers() {
   window.ukraineNewSkyLayer.clearLayers();
   clearUkraineActiveFlightRoute();
   mapFlightMarkers = {};
+  mapFlightListItems = [];
 
   const vatsimFlights = Array.isArray(window.ukraineMapVatsimFlights) ? window.ukraineMapVatsimFlights : [];
   const newSkyFlights = Array.isArray(window.ukraineMapNewSkyFlights) ? window.ukraineMapNewSkyFlights : [];
@@ -7294,6 +8189,14 @@ if (isMilitaryCallsign(callsign)) {
       marker,
       source: "vatsim"
     };
+	
+	addUkraineFlightListItem({
+  callsign,
+  displayCallsign,
+  logoPath,
+  heading,
+  source: "vatsim"
+});
 
     marker.bindPopup(
       `${airlineShort}<br>${aircraftShort}<br>ALT ${altitudeText}<br>HDG ${headingText}<br>${dep} → ${arr}`,
@@ -7350,6 +8253,14 @@ if (isMilitaryCallsign(callsign)) {
       marker,
       source: "newsky"
     };
+	
+	addUkraineFlightListItem({
+  callsign,
+  displayCallsign,
+  logoPath,
+  heading,
+  source: "newsky"
+});
 
     marker.bindPopup(
       `${airlineShort}<br>${aircraftShort}<br>HDG ${headingText}<br>${dep} → ${arr}`,
@@ -7382,7 +8293,22 @@ if (isMilitaryCallsign(callsign)) {
     window.ukraineLiveMap.removeLayer(window.ukraineNewSkyLayer);
     clearUkraineActiveFlightRoute();
   }
+  
+ renderUkraineFlightList(); 
 }
+
+document.addEventListener("click", event => {
+  const button = event.target.closest("[data-charter-ground-airport]");
+  if (!button) return;
+
+  event.preventDefault();
+  event.stopPropagation();
+
+  const code = button.dataset.charterGroundAirport;
+  if (!code) return;
+
+  toggleGroundOverlayForAirport(code);
+});
 
 document.addEventListener("click", async event => {
   const button = event.target.closest("[data-charter-weather-airport]");
