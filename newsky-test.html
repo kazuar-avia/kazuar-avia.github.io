@@ -6,10 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>NewSky Live Traffic</title>
-<link
-  rel="stylesheet"
-  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <style>
 
         body{
@@ -188,6 +186,15 @@
     font-size: 12px;
     line-height: 1.2;
 }
+
+        #ukhhMap{
+    width:100%;
+    height:700px;
+    margin-top:12px;
+    border:1px solid #666;
+    background:#dcdcdc;
+}
+        
     </style>
 </head>
 
@@ -229,6 +236,8 @@
     </div>
 </div>
 
+<div id="ukhhMap"></div>
+    
 <script
   src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
   integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
@@ -552,6 +561,45 @@ out geom;
 }
 
 document.addEventListener("DOMContentLoaded", initUkhhTestMap);
+
+// ======================
+// UKHH MAP TEST
+// ======================
+
+const map = L.map("ukhhMap", {
+    zoomControl: true
+}).setView([49.9245, 36.2895], 15);
+
+L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
+    maxZoom: 19,
+    attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
+}).addTo(map);
+
+// Маркер аеропорту
+L.marker([49.9245, 36.2895])
+    .addTo(map)
+    .bindPopup("UKHH Харків");
+
+// ----------------------
+// PNG overlay
+// ----------------------
+// Заміни назву файла, якщо треба
+const ukhhOverlayUrl = "UKHH_overlay.png";
+
+// Початкові bounds для тесту
+const ukhhOverlayBounds = [
+    [49.9140, 36.2620], // south-west
+    [49.9335, 36.3135]  // north-east
+];
+
+const ukhhOverlay = L.imageOverlay(ukhhOverlayUrl, ukhhOverlayBounds, {
+    opacity: 0.82,
+    interactive: false,
+    zIndex: 10
+}).addTo(map);
+
+// Щоб карта одразу відкривала потрібну зону
+map.fitBounds(ukhhOverlayBounds);
     
 </script>
 
