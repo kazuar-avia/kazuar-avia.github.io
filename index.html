@@ -4757,6 +4757,29 @@ async function preloadStaticData() {
 
 }
 
+	function isRuBannedAirport(icao) {
+    return ruBannedAirports.includes(
+        String(icao || "").trim().toUpperCase()
+    );
+}
+
+function isUkrAirlineCode(code) {
+    return airlineMap.hasOwnProperty(
+        String(code || "").trim().toUpperCase()
+    );
+}
+
+function shouldHideUkrAirlineRuRoute(airlineCode, dep, arr) {
+    return (
+        isUkrAirlineCode(airlineCode) &&
+        (
+            isRuBannedAirport(dep) ||
+            isRuBannedAirport(arr)
+        )
+    );
+}
+
+	
 function normalizeFlightMatchText(value) {
     return String(value || "")
         .toUpperCase()
@@ -4861,7 +4884,13 @@ try {
 
     newSkyFlights =
         nsData.results || [];
+newSkyFlights = newSkyFlights.filter(flight => {
+    const airlineCode = String(flight.airline?.icao || "UKL").trim().toUpperCase();
+    const dep = String(flight.dep?.icao || "").trim().toUpperCase();
+    const arr = String(flight.arr?.icao || "").trim().toUpperCase();
 
+    return !shouldHideUkrAirlineRuRoute(airlineCode, dep, arr);
+});
 } catch(e) {
 
     console.error("NewSky error:", e);
@@ -4886,29 +4915,33 @@ try {
         // FILTER PILOTS
         // =========================
 
-        let pilots = data.pilots.filter(pilot => {
+let pilots = data.pilots.filter(pilot => {
 
-            if (!pilot.flight_plan) return false;
+    if (!pilot.flight_plan) return false;
 
-            const dep = pilot.flight_plan.departure || '';
-            const arr = pilot.flight_plan.arrival || '';
+    const dep = String(pilot.flight_plan.departure || '').trim().toUpperCase();
+    const arr = String(pilot.flight_plan.arrival || '').trim().toUpperCase();
 
-            const callsign = pilot.callsign || '';
+    const callsign = String(pilot.callsign || '').trim().toUpperCase();
+    const airlineCode = callsign.substring(0, 3);
 
-            const airlineCode = callsign.substring(0,3).toUpperCase();
+    // Українська авіакомпанія + виліт/приліт з ruBanned = ховаємо
+    if (shouldHideUkrAirlineRuRoute(airlineCode, dep, arr)) {
+        return false;
+    }
 
-            // Українські аеропорти
-            const ukraineFlight =
-                dep.startsWith('UK') ||
-                arr.startsWith('UK');
+    // Українські аеропорти
+    const ukraineFlight =
+        dep.startsWith('UK') ||
+        arr.startsWith('UK');
 
-            // Українські авіакомпанії
-            const ukrainianAirline =
-                airlineMap.hasOwnProperty(airlineCode);
+    // Українські авіакомпанії
+    const ukrainianAirline =
+        isUkrAirlineCode(airlineCode);
 
-            return ukraineFlight || ukrainianAirline;
+    return ukraineFlight || ukrainianAirline;
 
-        });
+});
 
 // =========================
 // MATCH NEWSKY FLIGHTS WITH VATSIM
