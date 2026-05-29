@@ -4428,9 +4428,10 @@ function collectTrafficAirportOptions(pilots, newSkyFlights, direction, vatsimFl
     });
 
     newSkyFlights.forEach(flight => {
-        const flightNumber = String(flight.flightNumber || '');
-
-        if (vatsimFlightNumbers && vatsimFlightNumbers.has(flightNumber)) return;
+if (
+    vatsimFlightNumbers &&
+    hasMatchingNewSkyFlight(vatsimFlightNumbers, flight)
+) return;
 
         const dep = normalizeTrafficAirportCode(flight.dep?.icao);
         const arr = normalizeTrafficAirportCode(flight.arr?.icao);
@@ -4755,6 +4756,63 @@ async function preloadStaticData() {
     }
 
 }
+
+function normalizeFlightMatchText(value) {
+    return String(value || "")
+        .toUpperCase()
+        .replace(/[\s\-]/g, "")
+        .trim();
+}
+
+function getVatsimFlightMatchKeys(pilot) {
+    const callsign = normalizeFlightMatchText(pilot?.callsign || "");
+
+    // регулярні/авіакомпанійні позивні типу UKL788W, WRC701, AUI123
+    const m = callsign.match(/^([A-Z]{3})(\d[A-Z0-9]*)$/);
+
+    if (!m) return [];
+
+    const airline = m[1];
+    const number = m[2];
+
+    return [
+        `${airline}${number}`, // UKL788W
+        number                  // 788W
+    ];
+}
+
+function getNewSkyFlightMatchKeys(flight) {
+    const airline = normalizeFlightMatchText(flight?.airline?.icao || "UKL");
+    let number = normalizeFlightMatchText(flight?.flightNumber || "");
+
+    if (!number) return [];
+
+    // якщо раптом NewSky дасть не 788W, а UKL788W
+    number = number.replace(/^[A-Z]{3}(?=\d)/, "");
+
+    return [
+        `${airline}${number}`, // UKL788W
+        number                  // 788W
+    ];
+}
+
+function hasMatchingNewSkyFlight(vatsimFlightNumbers, flight) {
+    return getNewSkyFlightMatchKeys(flight)
+        .some(key => vatsimFlightNumbers.has(key));
+}
+
+function findMatchedNewSkyFlightForPilot(matchedNewSkyFlights, pilot) {
+    const keys = getVatsimFlightMatchKeys(pilot);
+
+    for (const key of keys) {
+        if (matchedNewSkyFlights[key]) {
+            return matchedNewSkyFlights[key];
+        }
+    }
+
+    return null;
+}
+	
 async function loadVatsimTraffic() {
 
     // =========================
@@ -4861,29 +4919,19 @@ const matchedNewSkyFlights = {};
 const visibleNewSkyFlights = [];
 
 pilots.forEach(pilot => {
-
-    const callsign = pilot.callsign || "";
-    const match = callsign.match(/\d+/);
-
-    if (match) {
-
-        vatsimFlightNumbers.add(match[0]);
-
-    }
-
+    getVatsimFlightMatchKeys(pilot).forEach(key => {
+        vatsimFlightNumbers.add(key);
+    });
 });
 
 newSkyFlights.forEach(flight => {
+    const keys = getNewSkyFlightMatchKeys(flight);
 
-    const flightNumber =
-        String(flight.flightNumber || "");
-
-    if (vatsimFlightNumbers.has(flightNumber)) {
-
-        matchedNewSkyFlights[flightNumber] = flight;
-
+    if (keys.some(key => vatsimFlightNumbers.has(key))) {
+        keys.forEach(key => {
+            matchedNewSkyFlights[key] = flight;
+        });
     }
-
 });
 
 renderTrafficFilterMenus(
@@ -5496,10 +5544,8 @@ flightStatus += etaStatus + extraStatus + (etaStatus && !etaStatusClosed ? '</sp
 
             const cid = pilot.cid || 'N/A';
             const name = truncatePilotName(pilot.name || 'N/A');
-            const vatsimFlightNumber =
-                (callsign.match(/\d+/) || [])[0] || "";
-            const matchedNewSkyFlight =
-                matchedNewSkyFlights[vatsimFlightNumber];
+const matchedNewSkyFlight =
+    findMatchedNewSkyFlightForPilot(matchedNewSkyFlights, pilot);
             const newSkyBadge = matchedNewSkyFlight ? `
                 <span style="
             display:inline-block;
@@ -5593,22 +5639,22 @@ newSkyFlights
 .filter(flight => {
 
     const flightNumber =
-        String(flight.flightNumber || "");
-    const dep =
-        flight.dep?.icao || '';
-    const arr =
-        flight.arr?.icao || '';
+    String(flight.flightNumber || "");
+const dep =
+    flight.dep?.icao || '';
+const arr =
+    flight.arr?.icao || '';
 
-    // якщо рейс є у VATSIM
-    if (vatsimFlightNumbers.has(flightNumber)) {
+// якщо рейс є у VATSIM
+if (vatsimFlightNumbers.has(flightNumber)) {
 
-        // зберігаємо для badge
-        matchedNewSkyFlights[flightNumber] = flight;
+    // зберігаємо для badge
+    matchedNewSkyFlights[flightNumber] = flight;
 
-        // не показуємо окремим рядком
-        return false;
+    // не показуємо окремим рядком
+    return false;
 
-    }
+}
 
     if (
         !trafficAirportMatches(dep, depAirportFilter) ||
