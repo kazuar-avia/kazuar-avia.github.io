@@ -2026,7 +2026,36 @@ body.ukraine-map-fullscreen-active {
 	text-decoration: none;
 }
 
+.click-fullscreen-img {
+    width: 980px;
+    max-width: 100%;
+    height: auto;
+    cursor: zoom-in;
+    display: block;
+    margin: 0 auto;
+}
 
+.image-fullscreen-overlay {
+    display: none;
+    position: fixed;
+    z-index: 99999;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.92);
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-out;
+}
+
+.image-fullscreen-overlay img {
+    max-width: 96vw;
+    max-height: 96vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+}
   
 </style>
 </head>
@@ -2258,7 +2287,25 @@ WINDROSE Forever <br>
 ></script>
 
 <script src="https://cdn.jsdelivr.net/gh/IvanSanchez/Leaflet.ImageOverlay.Rotated/Leaflet.ImageOverlay.Rotated.js"></script>
-  
+
+<table id="FSLTL_addon" class="airports-table" style="margin-top: -6px;">
+ <tr style="background-color: #FFFACD;">
+    <th class="title" colspan="6">
+      Скачати аддон для FSLTL з укр. лівреями і моделями => <span style="text-decoration: underline;"><a href="https://drive.google.com/file/d/17f1qY6Ai0lcExQDQdHPYtdHZAk5CFjR3/view?usp=sharing" download target="_blank">СКАЧАТИ ТУТ</a></span> <= FSLTL_UA_ADDON_part1
+    </th>
+  </tr>
+<tr>
+  <td colspan="6" style="padding:4px; background:#ffffff;">
+    <img
+      src="MyCollages1.png"
+      alt="Preview"
+      class="click-fullscreen-img"
+      onclick="openFullscreenImage(this.src)"
+    >
+  </td>
+</tr>
+</table>
+	
  <table id="charter-flights-section" class="airports-table">
 
   <tr style="background-color: #f4f0c0;">
@@ -8448,6 +8495,27 @@ document.addEventListener("DOMContentLoaded", loadAirportDump);
 document.addEventListener("DOMContentLoaded", initUkraineLiveMap);
 </script>
 
+		<div id="imageFullscreenOverlay" class="image-fullscreen-overlay" onclick="closeFullscreenImage()">
+  <img id="imageFullscreenImg" src="" alt="">
+</div>
+
+		<script>
+function openFullscreenImage(src) {
+    const overlay = document.getElementById("imageFullscreenOverlay");
+    const img = document.getElementById("imageFullscreenImg");
+
+    img.src = src;
+    overlay.style.display = "flex";
+}
+
+function closeFullscreenImage() {
+    const overlay = document.getElementById("imageFullscreenOverlay");
+    const img = document.getElementById("imageFullscreenImg");
+
+    overlay.style.display = "none";
+    img.src = "";
+}
+</script>
   
 </body>
 </html>
