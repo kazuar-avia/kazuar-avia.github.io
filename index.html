@@ -474,6 +474,9 @@ border-collapse: collapse;
 }
 
 .vatsim-header {
+    position: relative;
+    z-index: 3000;
+    overflow: visible;
 
     padding: 0;
 
@@ -499,6 +502,7 @@ border-collapse: collapse;
     
     width: 100%;
     border-collapse: collapse;
+    table-layout: fixed;
 
 }
 
@@ -614,14 +618,24 @@ border-collapse: collapse;
 
 .cid-cell {
 
-    width: 155px;
-
-    min-width: 170px;
+    width: 170px;
+    max-width: 170px;
+    overflow: hidden;
+    text-overflow: clip;
 
     color: #555;
 
     white-space: nowrap;
 
+}
+
+.pilot-name-short {
+    display: inline-block;
+    max-width: 158px;
+    overflow: hidden;
+    text-overflow: clip;
+    white-space: nowrap;
+    vertical-align: bottom;
 }
 
 .cid-small {
@@ -658,6 +672,7 @@ border-collapse: collapse;
 
 .header-top {
     position: relative;
+    z-index: 3001;
     display: grid;
     grid-template-columns: 39px 276px 132px 199px 118px minmax(0, 1fr);
     align-items: end;
@@ -668,8 +683,10 @@ border-collapse: collapse;
 
 }
 
-  .header-title {
+.header-title {
     grid-column: 2 / -1;
+    position: relative;
+    z-index: 3002;
     text-align: left;
     align-self: end;
     padding-bottom: 0;
@@ -679,6 +696,44 @@ border-collapse: collapse;
     gap: 6px;
     font-size: 22px;
     line-height: 1;
+}
+
+.live-header-actions {
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding-right: 5px;
+    font-family: Arial, sans-serif;
+}
+
+#vatsim-header-update-time {
+    min-width: 46px;
+    color: #555;
+    font-size: 16px;
+    line-height: 1;
+    text-align: right;
+}
+
+.live-refresh-button {
+    width: 29px;
+    height: 19px;
+    padding: 0;
+    border: 1px solid #999;
+    border-radius: 0;
+    background: #eeeeee;
+    color: #111;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 17px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.live-refresh-button:hover {
+    background: #dfe9df;
+    color: #004f24;
 }
 
 .ukraine-flag-inline {
@@ -694,7 +749,7 @@ border-collapse: collapse;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 3px;
-    z-index: 30;
+    z-index: 4000;
     height: 20px;
     margin-bottom: 0;
 }
@@ -813,7 +868,7 @@ border-collapse: collapse;
     position: absolute;
     top: 23px;
     left: 0;
-    z-index: 45;
+    z-index: 5000;
     display: none;
     grid-template-columns: 1fr;
     width: 100%;
@@ -888,6 +943,16 @@ border-collapse: collapse;
     border-top: 0;
     overflow: visible;
 
+}
+
+.vatsim-map-table {
+    width: 100%;
+    margin: 0;
+    border-collapse: collapse;
+}
+
+.vatsim-map-table .ukraine-map-cell {
+    padding: 0;
 }
 
 .sort-group {
@@ -1088,7 +1153,7 @@ border-collapse: collapse;
 .weather-source-toggle {
     position: absolute;
     top: 1px;
-    right: 4px;
+    right: 10px;
     width: 12px;
     height: 12px;
     padding: 0;
@@ -1517,7 +1582,7 @@ min-width: 276px;
     align-items: center;
     justify-content: center;
 
-    width: 112px;
+    width: 102px;
     height: 22px;
     padding: 0 0px;
 
@@ -1616,7 +1681,7 @@ min-width: 276px;
 }
 
 #ukraine-live-map .leaflet-right {
-    right: 0;
+    right: 4px;
 }
 
 #ukraine-live-map .leaflet-bottom {
@@ -1703,7 +1768,7 @@ min-width: 276px;
 .ukraine-map-reset-view-button {
     position: absolute;
     top: 4px;
-    right: 104px;
+    right: 111px;
     z-index: 1001;
 
     width: 88px;
@@ -1733,7 +1798,7 @@ min-width: 276px;
     right: 4px;
     z-index: 1001;
 
-    width: 95px;
+    width: 102px;
     height: 24px;
     padding: 0 5px;
 
@@ -1764,9 +1829,10 @@ min-width: 276px;
     grid-template-columns: 1fr;
     gap: 3px;
 
-    width: 95px;
-    max-height: 470px;
+    width: 102px;
+    max-height: 520px;
     overflow-y: auto;
+    overflow-x: hidden;
 
     padding: 3px;
     background: rgba(255, 255, 255, 0.72);
@@ -1858,6 +1924,96 @@ min-width: 276px;
     white-space: nowrap;
 }
 
+.ukraine-map-atc-list {
+    position: absolute;
+    left: 4px;
+    bottom: 6px;
+    z-index: 1001;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3px;
+
+    width: 122px;
+    max-height: 190px;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    padding: 3px;
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(120, 120, 120, 0.45);
+    border-radius: 4px;
+}
+
+.ukraine-map-atc-list.is-hidden {
+    display: none;
+}
+
+.ukraine-map-atc-list-title {
+    width: 100%;
+    padding: 1px 1px;
+    margin-bottom: 0;
+
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 12px;
+    color: #333;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.ukraine-map-atc-list-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+
+    width: 100%;
+    min-height: 18px;
+    padding: 2px 4px;
+
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(20, 90, 130, 0.35);
+    border-radius: 3px;
+
+    font-family: Arial, sans-serif;
+    color: #0F758A;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.ukraine-map-atc-list-row:hover {
+    background: #e8f7f3;
+}
+
+.ukraine-map-atc-callsign {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 12px;
+    color: #0F758A;
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.ukraine-map-atc-frequency {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 12px;
+    color: #8a1e56;
+    flex: 0 0 auto;
+}
+
 
 #ukraine-live-map.ukraine-map-fullscreen {
     position: fixed !important;
@@ -1874,6 +2030,156 @@ min-width: 276px;
 
 body.ukraine-map-fullscreen-active {
     overflow: hidden;
+}
+
+body.ukraine-map-fullscreen-active .site-nav {
+    display: none;
+}
+
+#ukraine-live-map.ukraine-map-fullscreen .leaflet-control-zoom a,
+#ukraine-live-map.ukraine-map-fullscreen .ukraine-map-reset-control a {
+    width: 35px;
+    height: 35px;
+    line-height: 34px;
+    font-size: 16px;
+}
+
+#ukraine-live-map.ukraine-map-fullscreen .ukraine-map-layer-control {
+    top: -83px;
+    gap: 5px;
+}
+
+#ukraine-live-map.ukraine-map-fullscreen .ukraine-map-layer-control button {
+    width: 157px;
+    height: 33px;
+    padding: 0 4px;
+    font-size: 13px;
+    line-height: 31px;
+}
+
+#ukraine-live-map.ukraine-map-fullscreen .ukraine-map-reset-view-button {
+    right: 152px;
+    width: 117px;
+    height: 32px;
+    padding: 0 7px;
+    font-size: 13px;
+    line-height: 30px;
+}
+
+#ukraine-live-map.ukraine-map-fullscreen .ukraine-map-fullscreen-button {
+    width: 136px;
+    height: 32px;
+    padding: 0 7px;
+    font-size: 13px;
+    line-height: 30px;
+}
+
+#ukraine-live-map.ukraine-map-fullscreen .ukraine-map-flight-list {
+    top: 62px;
+    width: 178px;
+    max-height: 820px;
+    gap: 4px;
+    padding: 5px;
+}
+
+#ukraine-live-map.ukraine-map-fullscreen .ukraine-map-flight-list-title {
+    font-size: 16px;
+    line-height: 20px;
+}
+
+#ukraine-live-map.ukraine-map-fullscreen .ukraine-map-flight-list-button {
+    min-height: 30px;
+}
+
+#ukraine-live-map.ukraine-map-fullscreen .ukraine-map-flight-list-row {
+    min-height: 30px;
+    gap: 6px;
+    padding: 1px 5px;
+    font-size: 16px;
+}
+
+#ukraine-live-map.ukraine-map-fullscreen .ukraine-map-flight-list-logo {
+    width: 19px;
+    height: 19px;
+    flex-basis: 19px;
+}
+
+#ukraine-live-map.ukraine-map-fullscreen .ukraine-map-atc-list {
+    left: 8px;
+    bottom: 8px;
+    width: 170px;
+    max-height: 300px;
+    gap: 4px;
+    padding: 5px;
+}
+
+#ukraine-live-map.ukraine-map-fullscreen .ukraine-map-atc-list-title {
+    font-size: 16px;
+    line-height: 20px;
+}
+
+#ukraine-live-map.ukraine-map-fullscreen .ukraine-map-atc-list-row {
+    min-height: 28px;
+    padding: 2px 6px;
+}
+
+#ukraine-live-map.ukraine-map-fullscreen .ukraine-map-atc-callsign,
+#ukraine-live-map.ukraine-map-fullscreen .ukraine-map-atc-frequency {
+    font-size: 15px;
+    line-height: 16px;
+}
+
+#ukraine-live-map.ukraine-map-fullscreen .ukraine-flight-marker {
+    width: 72px;
+}
+
+#ukraine-live-map.ukraine-map-fullscreen .ukraine-flight-callsign {
+    margin-bottom: 3px;
+    padding: 1px 6px;
+    font-size: 16px;
+    line-height: 19px;
+    gap: 5px;
+}
+
+#ukraine-live-map.ukraine-map-fullscreen .ukraine-flight-callsign-logo {
+    width: 14px;
+    height: 14px;
+}
+
+#ukraine-live-map.ukraine-map-fullscreen .ukraine-flight-icon-wrap {
+    width: 34px;
+    height: 34px;
+    border-width: 2px;
+}
+
+#ukraine-live-map.ukraine-map-fullscreen .ukraine-flight-icon {
+    font-size: 20px;
+}
+
+#ukraine-live-map.ukraine-map-fullscreen .ukraine-airport-code-row {
+    gap: 4px;
+    padding: 1px 4px;
+}
+
+#ukraine-live-map.ukraine-map-fullscreen .ukraine-airport-dot {
+    width: 10px;
+    height: 10px;
+}
+
+#ukraine-live-map.ukraine-map-fullscreen .ukraine-airport-label,
+#ukraine-live-map.ukraine-map-fullscreen .ukraine-airport-name {
+    font-size: 9px;
+    line-height: 9px;
+}
+
+#ukraine-live-map.ukraine-map-fullscreen .ukraine-airport-marker.name-label-below .ukraine-airport-name {
+    transform: translateY(22px);
+}
+
+#ukraine-live-map.ukraine-map-fullscreen .ukraine-flight-popup .leaflet-popup-content {
+    margin: 5px 7px;
+    font-size: 15px;
+    line-height: 1.18;
 }
 
 .ukraine-flight-marker {
@@ -2206,9 +2512,23 @@ WINDROSE Forever <br>
                 <div id="arr-filter-menu" class="traffic-filter-menu"></div>
             </div>
         </div>
+        <div class="live-header-actions">
+            <span id="vatsim-header-update-time">--:--</span>
+            <button id="live-traffic-refresh-button" class="live-refresh-button" type="button" title="Оновити LIVE TRAFFIC і карту">↻</button>
+        </div>
     </div>
 
 </div>
+
+<table id="ukraine-map-section" class="airports-table vatsim-map-table">
+  <tr>
+    <td class="ukraine-map-cell">
+      <div id="ukraine-live-map">
+        <div class="ukraine-map-fallback">Завантаження карти України...</div>
+      </div>
+    </td>
+  </tr>
+</table>
 
     <div class="sort-bar">
         <div class="sort-group sort-time-label">
@@ -2268,17 +2588,6 @@ WINDROSE Forever <br>
         </tbody>
     </table>
 </div>
-
-
-<table id="ukraine-map-section" class="airports-table" style="margin-top: -6px;">
-  <tr>
-    <td class="ukraine-map-cell">
-      <div id="ukraine-live-map">
-        <div class="ukraine-map-fallback">Завантаження карти України...</div>
-      </div>
-    </td>
-  </tr>
-</table>
 
 <script
   src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
@@ -4909,6 +5218,7 @@ async function loadVatsimTraffic() {
 
         const response = await fetch(VATSIM_URL);
         const data = await response.json();
+        setUkraineMapAtc(data.controllers || []);
 
 // =========================
 // LOAD NEWSKY
@@ -4957,6 +5267,10 @@ newSkyFlights = newSkyFlights.filter(flight => {
 
         document.getElementById('vatsim-update-time').innerText =
             updateTime;
+        const headerUpdateTimeEl = document.getElementById('vatsim-header-update-time');
+        if (headerUpdateTimeEl) {
+            headerUpdateTimeEl.innerText = updateTime;
+        }
 
         // =========================
         // FILTER PILOTS
@@ -5699,7 +6013,7 @@ const matchedNewSkyFlight =
                     </td>
 
 <td class="cid-cell">
-    ${name}
+    <span class="pilot-name-short">${name}</span>
     <span class="cid-small">
         <br>(ID: ${cid})${newSkyBadge}        
         </span>
@@ -5964,7 +6278,7 @@ ${status}
 </td>
 
 <td class="cid-cell">
-${pilot}
+<span class="pilot-name-short">${pilot}</span>
 <span class="cid-small">
 <br>${offlineText}
 </span>
@@ -5993,6 +6307,7 @@ ${pilot}
     } catch (error) {
 
         console.error(error);
+        setUkraineMapAtc([]);
 
         document.getElementById('vatsim-traffic').innerHTML = `
             <tr>
@@ -6037,10 +6352,26 @@ async function initVatsim() {
 	initMapFlightListBinding();
     renderWeatherAirportMenu();
     addUkraineAirportMarkers();
+    const liveRefreshButton = document.getElementById('live-traffic-refresh-button');
+    if (liveRefreshButton) {
+        liveRefreshButton.addEventListener('click', async () => {
+            liveRefreshButton.disabled = true;
+            const headerUpdateTimeEl = document.getElementById('vatsim-header-update-time');
+            const sortUpdateTimeEl = document.getElementById('vatsim-update-time');
+            if (headerUpdateTimeEl) headerUpdateTimeEl.innerText = '--:--';
+            if (sortUpdateTimeEl) sortUpdateTimeEl.innerText = '--:--';
+            try {
+                await new Promise(resolve => setTimeout(resolve, 500));
+                await loadVatsimTraffic();
+            } finally {
+                liveRefreshButton.disabled = false;
+            }
+        });
+    }
 
     await loadVatsimTraffic();
 
-    setInterval(loadVatsimTraffic, 60000);
+    setInterval(loadVatsimTraffic, 30000);
 
 }
 
@@ -6830,14 +7161,27 @@ function initUkraineLiveMap() {
     [44.0, 22.1],
     [52.4, 40.3]
   );
+  const ukraineDefaultFitPadding = {
+    paddingTopLeft: [4, 25],
+    paddingBottomRight: [4, 4]
+  };
+  const ukraineDefaultZoomBoost = 1;
 
   window.ukraineDefaultMapBounds = ukraineBounds;
 
-  map.fitBounds(ukraineBounds, {
-    padding: [4, 4]
-  });
+  map.fitBounds(ukraineBounds, ukraineDefaultFitPadding);
+  const ukraineDefaultMapCenter = map.getCenter();
+  const ukraineDefaultMapZoom = map.getZoom() + ukraineDefaultZoomBoost;
 
-  const defaultZoom = map.getZoom();
+  function applyUkraineDefaultMapView(targetMap) {
+    targetMap.setView(ukraineDefaultMapCenter, ukraineDefaultMapZoom, {
+      animate: false
+    });
+  }
+
+  applyUkraineDefaultMapView(map);
+
+  const defaultZoom = ukraineDefaultMapZoom;
 window.ukraineAirportsVisible = true;
 window.ukraineVatsimVisible = true;
 window.ukraineNewSkyVisible = true;
@@ -6895,9 +7239,7 @@ window.ukraineGroundVisible = false;
       L.DomEvent.disableClickPropagation(container);
       L.DomEvent.on(link, "click", event => {
         L.DomEvent.preventDefault(event);
-        controlMap.fitBounds(window.ukraineDefaultMapBounds, {
-          padding: [4, 4]
-        });
+        applyUkraineDefaultMapView(controlMap);
       });
 
       return container;
@@ -6955,9 +7297,7 @@ L.DomEvent.disableScrollPropagation(resetViewButton);
 L.DomEvent.on(resetViewButton, "click", event => {
   L.DomEvent.preventDefault(event);
 
-  map.fitBounds(window.ukraineDefaultMapBounds, {
-    padding: [4, 4]
-  });
+  applyUkraineDefaultMapView(map);
 });
   const layerControl = L.Control.extend({
     options: {
@@ -7007,6 +7347,34 @@ window.ukraineFlightListContainer = L.DomUtil.create(
 
 L.DomEvent.disableClickPropagation(window.ukraineFlightListContainer);
 L.DomEvent.disableScrollPropagation(window.ukraineFlightListContainer);
+
+window.ukraineAtcListContainer = L.DomUtil.create(
+  "div",
+  "ukraine-map-atc-list is-hidden",
+  map.getContainer()
+);
+
+L.DomEvent.disableClickPropagation(window.ukraineAtcListContainer);
+L.DomEvent.disableScrollPropagation(window.ukraineAtcListContainer);
+
+L.DomEvent.on(window.ukraineAtcListContainer, "mouseover", event => {
+  const row = event.target.closest(".ukraine-map-atc-list-row");
+  if (!row) return;
+  showUkraineAtcSector(row.dataset.atcIcao, row.dataset.atcRange, row.dataset.atcCallsign);
+});
+
+L.DomEvent.on(window.ukraineAtcListContainer, "mouseout", event => {
+  const row = event.target.closest(".ukraine-map-atc-list-row");
+  if (!row) return;
+  clearUkraineAtcSector();
+});
+
+L.DomEvent.on(window.ukraineAtcListContainer, "click", event => {
+  const row = event.target.closest(".ukraine-map-atc-list-row");
+  if (!row) return;
+  L.DomEvent.preventDefault(event);
+  focusUkraineAtcSector(row.dataset.atcIcao, row.dataset.atcRange, row.dataset.atcCallsign);
+});
 
 
 
@@ -8074,6 +8442,160 @@ function setUkraineMapFlights(vatsimPilots, newSkyFlights) {
   renderUkraineFlightLayers();
 }
 
+function escapeMapPanelText(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function setUkraineMapAtc(controllers) {
+  window.ukraineMapAtcControllers = Array.isArray(controllers)
+    ? controllers.filter(controller => {
+        const callsign = String(controller?.callsign || "").trim().toUpperCase();
+        return /^UK[A-Z0-9]{2}_[A-Z0-9]+$/.test(callsign);
+      })
+    : [];
+
+  renderUkraineAtcList();
+}
+
+function getUkraineAtcIcao(callsign) {
+  const match = String(callsign || "").trim().toUpperCase().match(/^(UK[A-Z0-9]{2})_/);
+  return match ? match[1] : "";
+}
+
+function getUkraineAtcRange(controller) {
+  const range = Number(controller?.visual_range);
+  if (Number.isFinite(range) && range > 0) return range;
+
+  const callsign = String(controller?.callsign || "").trim().toUpperCase();
+  if (callsign.includes("_GND") || callsign.includes("_DEL")) return 10;
+  if (callsign.includes("_TWR")) return 25;
+  if (callsign.includes("_APP") || callsign.includes("_DEP")) return 60;
+  if (callsign.includes("_CTR")) return 150;
+
+  return 30;
+}
+
+function getUkraineAtcAirportCoords(icao) {
+  const airport = weatherAirports?.[String(icao || "").trim().toUpperCase()];
+  if (!airport) return null;
+
+  const lat = Number(airport.lat);
+  const lon = Number(airport.lon);
+  if (!Number.isFinite(lat) || !Number.isFinite(lon)) return null;
+
+  return [lat, lon];
+}
+
+function ensureUkraineAtcSectorLayer() {
+  if (!window.ukraineLiveMap || typeof L === "undefined") return null;
+
+  if (!window.ukraineAtcSectorLayer) {
+    window.ukraineAtcSectorLayer = L.layerGroup();
+  }
+
+  if (!window.ukraineLiveMap.hasLayer(window.ukraineAtcSectorLayer)) {
+    window.ukraineAtcSectorLayer.addTo(window.ukraineLiveMap);
+  }
+
+  return window.ukraineAtcSectorLayer;
+}
+
+function clearUkraineAtcSector() {
+  if (window.ukraineAtcSectorLayer) {
+    window.ukraineAtcSectorLayer.clearLayers();
+  }
+}
+
+function drawUkraineAtcSector(icao, rangeNm, callsign, shouldFit) {
+  const coords = getUkraineAtcAirportCoords(icao);
+  if (!coords || typeof L === "undefined") return;
+
+  const layer = ensureUkraineAtcSectorLayer();
+  if (!layer) return;
+
+  const range = Number(rangeNm);
+  const safeRangeNm = Number.isFinite(range) && range > 0 ? range : 30;
+  const circle = L.circle(coords, {
+    radius: safeRangeNm * 1852,
+    color: "#0F758A",
+    weight: 2,
+    opacity: 0.9,
+    fillColor: "#0F758A",
+    fillOpacity: 0.08,
+    interactive: false
+  }).addTo(layer);
+
+  L.tooltip({
+    permanent: false,
+    direction: "top",
+    className: "ukraine-atc-sector-tooltip",
+    offset: [0, -4]
+  })
+    .setLatLng(coords)
+    .setContent(`${escapeMapPanelText(callsign || icao)} ${safeRangeNm}nm`)
+    .addTo(layer);
+
+  if (shouldFit && window.ukraineLiveMap) {
+    window.ukraineLiveMap.fitBounds(circle.getBounds(), {
+      padding: [30, 30],
+      maxZoom: 10
+    });
+  }
+}
+
+function showUkraineAtcSector(icao, rangeNm, callsign) {
+  clearUkraineAtcSector();
+  drawUkraineAtcSector(icao, rangeNm, callsign, false);
+}
+
+function focusUkraineAtcSector(icao, rangeNm, callsign) {
+  clearUkraineAtcSector();
+  drawUkraineAtcSector(icao, rangeNm, callsign, true);
+}
+
+function renderUkraineAtcList() {
+  const box = window.ukraineAtcListContainer;
+  if (!box) return;
+
+  const controllers = Array.isArray(window.ukraineMapAtcControllers)
+    ? [...window.ukraineMapAtcControllers].sort((a, b) =>
+        String(a.callsign || "").localeCompare(String(b.callsign || ""))
+      )
+    : [];
+
+  if (!controllers.length) {
+    box.innerHTML = "";
+    box.classList.add("is-hidden");
+    return;
+  }
+
+  box.classList.remove("is-hidden");
+  box.innerHTML = `
+    <div class="ukraine-map-atc-list-title">ATC online:</div>
+  ` + controllers.map(controller => {
+    const callsign = String(controller?.callsign || "").trim().toUpperCase();
+    const frequency = String(controller?.frequency || "").trim();
+    const icao = getUkraineAtcIcao(callsign);
+    const range = getUkraineAtcRange(controller);
+    return `
+      <div
+        class="ukraine-map-atc-list-row"
+        title="${escapeMapPanelText(callsign)} ${escapeMapPanelText(frequency)} ${range}nm"
+        data-atc-icao="${escapeMapPanelText(icao)}"
+        data-atc-range="${escapeMapPanelText(range)}"
+        data-atc-callsign="${escapeMapPanelText(callsign)}"
+      >
+        <span class="ukraine-map-atc-callsign">${escapeMapPanelText(callsign)}</span>
+        <span class="ukraine-map-atc-frequency">${escapeMapPanelText(frequency)}</span>
+      </div>
+    `;
+  }).join("");
+}
+
 function ensureUkraineActiveRouteLayer() {
   if (!window.ukraineLiveMap || typeof L === "undefined") return null;
 
@@ -8234,6 +8756,7 @@ function renderUkraineFlightLayers() {
   window.ukraineVatsimLayer.clearLayers();
   window.ukraineNewSkyLayer.clearLayers();
   clearUkraineActiveFlightRoute();
+  clearUkraineAtcSector();
   mapFlightMarkers = {};
   mapFlightListItems = [];
 
