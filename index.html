@@ -6509,15 +6509,16 @@ ${status}
   
 async function initVatsim() {
 
-    await preloadStaticData();
-    await loadWeatherAirportCoordinates();
-    await loadUkraineAtcSectorBoundaries();
-    await loadUkraineAtcLowerSectors();
-    await loadOurAirportsFallback();
-    initTrafficToMapFocusBinding();
-	initMapFlightListBinding();
     renderWeatherAirportMenu();
-    addUkraineAirportMarkers();
+
+    setTimeout(() => {
+        initTrafficToMapFocusBinding();
+	    initMapFlightListBinding();
+        renderWeatherAirportMenu();
+        addUkraineAirportMarkers();
+        renderUkraineFlightLayers();
+    }, 0);
+
     const liveRefreshButton = document.getElementById('live-traffic-refresh-button');
     if (liveRefreshButton) {
         liveRefreshButton.addEventListener('click', async () => {
@@ -6534,6 +6535,15 @@ async function initVatsim() {
             }
         });
     }
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+    await preloadStaticData();
+    await loadWeatherAirportCoordinates();
+    renderWeatherAirportMenu();
+    addUkraineAirportMarkers();
+    await loadUkraineAtcSectorBoundaries();
+    await loadUkraineAtcLowerSectors();
+    loadOurAirportsFallback();
 
     await loadVatsimTraffic();
 
