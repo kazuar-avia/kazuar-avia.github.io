@@ -3674,6 +3674,7 @@ let sortDirection = 1;
 let allAirlineMap = {};
 let aircraftMap = {};
 let ruBannedAirports = [];
+let ruBannedAirlines = [];
 let weatherAirports = {};
 let newskyCharterDemandByAirport = {};
 let ourAirportsFallback = {};
@@ -3733,6 +3734,7 @@ const MILITARY_CALLSIGNS = [
 ];
 
 const RU_BANNED_CALLSIGN_PREFIXES = [
+    "AFL",
     "ALA",
     "RA0",
     "RA1",
@@ -3759,6 +3761,9 @@ function isRuBannedCallsign(callsign) {
         String(callsign || "")
             .replace(/\s+/g, "")
             .toUpperCase();
+    const airlineCode = normalized.slice(0, 3);
+
+    if (ruBannedAirlines.includes(airlineCode)) return true;
 
     return RU_BANNED_CALLSIGN_PREFIXES.some(prefix =>
         normalized.startsWith(prefix)
@@ -5242,6 +5247,26 @@ async function preloadStaticData() {
             txtData
                 .split('\n')
                 .map(x => x.trim().toUpperCase())
+                .filter(Boolean);
+
+    } catch (e) {
+
+        console.error(e);
+
+    }
+
+    try {
+
+        const txtResponse =
+            await fetch('ruBanned_airlines.txt');
+
+        const txtData =
+            await txtResponse.text();
+
+        ruBannedAirlines =
+            txtData
+                .split('\n')
+                .map(x => x.trim().toUpperCase().split(/\s+/)[0])
                 .filter(Boolean);
 
     } catch (e) {
