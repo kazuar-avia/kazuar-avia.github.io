@@ -1557,7 +1557,7 @@ min-width: 276px;
     line-height: 1.2;
     color: #1d2733;
     max-width: none;
-    min-width: 210px;
+    min-width: 214px;
     text-align: center;
 }
 
@@ -1585,7 +1585,7 @@ min-width: 276px;
 
 #ukraine-live-map .airport-popup-buttons {
     display: grid;
-    grid-template-columns: 112px 112px;
+    grid-template-columns: 102px 102px;
     justify-content: center;
     gap: 3px;
     margin: 4px auto 1px auto;
@@ -2390,6 +2390,15 @@ body.ukraine-map-fullscreen-active .site-nav {
 
 .ukraine-airport-marker.is-ukkm {
     transform: translate(-18px, -8px);
+}
+
+.ukraine-airport-marker.is-uklc {
+    align-items: flex-end;
+    transform: translateX(-30px);
+}
+
+.ukraine-airport-marker.is-uklc .ukraine-airport-code-row {
+    flex-direction: row-reverse;
 }
 
 .ukraine-airport-marker.name-label-below .ukraine-airport-name {
@@ -3863,10 +3872,13 @@ const UKRAINE_QUICK_AIRPORTS = {
     UKBB: { icao: 'UKBB', lat: 50.3447, lon: 30.8933, name: 'Kyiv/Boryspil' },
     UKKK: { icao: 'UKKK', lat: 50.4017, lon: 30.4497, name: 'Kyiv/Zhuliany' },
     UKKM: { icao: 'UKKM', lat: 50.6035, lon: 30.1919, name: 'Hostomel' },
+    UKKV: { icao: 'UKKV', lat: 50.270556, lon: 28.738611, name: 'Житомир' },
     UKLL: { icao: 'UKLL', lat: 49.8125, lon: 23.9561, name: 'Lviv' },
     UKOO: { icao: 'UKOO', lat: 46.4268, lon: 30.6765, name: 'Odesa' },
     UKHH: { icao: 'UKHH', lat: 49.9248, lon: 36.2900, name: 'Kharkiv' },
+    UKLC: { icao: 'UKLC', lat: 50.679822, lon: 25.486725, name: 'Луцьк' },
     UKLR: { icao: 'UKLR', lat: 50.6071, lon: 26.1416, name: 'Rivne' },
+    UKKL: { icao: 'UKKL', lat: 51.405313, lon: 31.155302, name: 'Чернігів' },
     UKCC: { icao: 'UKCC', lat: 48.0736, lon: 37.7397, name: 'Donetsk' },
     UKFF: { icao: 'UKFF', lat: 45.0522, lon: 33.9751, name: 'Simferopol' },
     UKDD: { icao: 'UKDD', lat: 48.3572, lon: 35.1006, name: 'Dnipro' },
@@ -4656,6 +4668,7 @@ async function fetchAirportWeatherReport(code) {
 
     const airport = {
         ...(DEFAULT_WEATHER_AIRPORTS[code] || {}),
+        ...(UKRAINE_QUICK_AIRPORTS[code] || {}),
         ...(weatherAirports[code] || {})
     };
 
@@ -8160,6 +8173,9 @@ function addUkraineAirportMarkers() {
     UKKK: "Жуляни",
     UKHH: "Харків",
     UKKM: "Гостомель",
+    UKKV: "Житомир",
+    UKLC: "Луцьк",
+    UKKL: "Чернігів",
     UKLR: "Рівне",
     UKCC: "Донецьк",
     UKFF: "Сімферополь",
@@ -8194,7 +8210,9 @@ function renderAirportPopupButtons(icao) {
     "UKKG", // Кропивницький
     "UKKE", // Черкаси
     "UKHP", // Полтава
-    "UKHS"  // Суми
+    "UKHS", // Суми
+    "UKLC", // Луцьк
+    "UKKL"  // Чернігів
   ]);
 
   const chartsUrls = {
@@ -8299,6 +8317,12 @@ function getCharterCellHtml(icao) {
     UKKM: [
       { text: "Скачати сценарій UKKM", url: "https://flightsim.to/file/101575/ukkm-hostomel-airport-kyiv-antonov-2" }
     ],
+    UKLC: [
+      { text: "Скачати сценарій UKLC", url: "https://flightsim.to/addon/69729/uklc-lutsk-airport-wings-of-volyn-flying-club" }
+    ],
+    UKKL: [
+      { text: "Скачати сценарій UKKL", url: "https://flightsim.to/addon/69654/ukkl-international-chernihiv-airport-ukkl-chernihiv" }
+    ],
     UKLR: [
       { text: "Скачати сценарій UKLR", url: "https://flightsim.to/file/95508/r-rivne-airport" }
     ],
@@ -8392,6 +8416,7 @@ const linksHtml = links.map(link => `
         airport.icao === "UKLU" ? "is-uklu" : "",
         airport.icao === "UKBB" ? "is-ukbb" : "",
         airport.icao === "UKKM" ? "is-ukkm" : "",
+        airport.icao === "UKLC" ? "is-uklc" : "",
         airport.icao === "UKKK" ? "is-ukkk" : "",
         airport.icao === "UKLH" || airport.icao === "UKBB" ? "name-label-below" : "",
         airport.icao === "UKKM" ? "code-label-left" : ""
