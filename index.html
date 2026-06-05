@@ -1111,7 +1111,7 @@ border-collapse: collapse;
     text-align: left;
     white-space: normal;
     overflow: visible;
-    z-index: 20;
+    z-index: 30050;
 }
 
 .weather-report-time {
@@ -1127,7 +1127,7 @@ border-collapse: collapse;
 .weather-source-label {
     position: absolute;
     top: 3px;
-    right: 18px;
+    right: 25px;
     width: auto;
     height: auto;
     padding: 0;
@@ -1180,7 +1180,7 @@ border-collapse: collapse;
     position: absolute;
     right: -1px;
     bottom: 23px;
-    z-index: 35;
+    z-index: 30060;
     display: none;
     grid-template-columns: repeat(8, 35px);
     width: 282px;
@@ -1266,6 +1266,7 @@ border-collapse: collapse;
     min-height: 30px;
     padding-left: 8px;
     padding-right: 3px;
+    z-index: 30040;
 }
 
   /* ========================= */
@@ -1934,8 +1935,8 @@ min-width: 276px;
     grid-template-columns: 1fr;
     gap: 3px;
 
-    width: 122px;
-    max-height: 190px;
+    width: 210px;
+    max-height: 340px;
     overflow-y: auto;
     overflow-x: hidden;
 
@@ -1975,7 +1976,7 @@ min-width: 276px;
 
     width: 100%;
     min-height: 18px;
-    padding: 2px 4px;
+    padding: 2px 3px;
 
     background: rgba(255, 255, 255, 0.92);
     border: 1px solid rgba(20, 90, 130, 0.35);
@@ -2001,6 +2002,7 @@ min-width: 276px;
     color: #0F758A;
     flex: 1 1 auto;
     min-width: 0;
+    text-align: left;
 }
 
 .ukraine-map-atc-frequency {
@@ -2011,7 +2013,71 @@ min-width: 276px;
     font-weight: bold;
     line-height: 12px;
     color: #8a1e56;
-    flex: 0 0 auto;
+    flex: 0 0 54px;
+    text-align: right;
+}
+
+.ukraine-atc-sector-tooltip {
+    padding: 3px 5px;
+    border: 1px solid rgba(15, 117, 138, 0.55);
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.92);
+    color: #0F758A;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 13px;
+    text-align: center;
+}
+
+.ukraine-atc-sector-frequency {
+    color: #8a1e56;
+}
+
+.ukraine-atc-sector-limits {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    margin-top: 3px;
+}
+
+.ukraine-atc-sector-limit {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 34px;
+    color: #1d4f8f;
+    font-size: 11px;
+    line-height: 10px;
+}
+
+.ukraine-atc-sector-limit-upper {
+    display: block;
+    width: 100%;
+    padding-bottom: 1px;
+    border-bottom: 1px solid currentColor;
+}
+
+.ukraine-atc-sector-limit-lower {
+    display: block;
+    width: 100%;
+    padding-top: 1px;
+}
+
+.ukraine-atc-sector-limits-tooltip {
+    padding: 2px 3px;
+    border: 1px solid rgba(29, 79, 143, 0.45);
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: none;
+}
+
+.ukraine-atc-sector-limits-tooltip::before {
+    display: none;
+}
+
+.ukraine-atc-sector-limits-tooltip .ukraine-atc-sector-limits {
+    margin-top: 0;
 }
 
 
@@ -2107,26 +2173,30 @@ body.ukraine-map-fullscreen-active .site-nav {
 #ukraine-live-map.ukraine-map-fullscreen .ukraine-map-atc-list {
     left: 8px;
     bottom: 8px;
-    width: 170px;
-    max-height: 300px;
+    width: 310px;
+    max-height: 560px;
     gap: 4px;
     padding: 5px;
 }
 
 #ukraine-live-map.ukraine-map-fullscreen .ukraine-map-atc-list-title {
-    font-size: 16px;
-    line-height: 20px;
+    font-size: 14px;
+    line-height: 18px;
 }
 
 #ukraine-live-map.ukraine-map-fullscreen .ukraine-map-atc-list-row {
-    min-height: 28px;
-    padding: 2px 6px;
+    min-height: 24px;
+    padding: 2px 5px;
 }
 
 #ukraine-live-map.ukraine-map-fullscreen .ukraine-map-atc-callsign,
 #ukraine-live-map.ukraine-map-fullscreen .ukraine-map-atc-frequency {
-    font-size: 15px;
-    line-height: 16px;
+    font-size: 13px;
+    line-height: 15px;
+}
+
+#ukraine-live-map.ukraine-map-fullscreen .ukraine-map-atc-frequency {
+    flex-basis: 64px;
 }
 
 #ukraine-live-map.ukraine-map-fullscreen .ukraine-flight-marker {
@@ -4598,6 +4668,75 @@ async function loadWeatherAirportCoordinates() {
     }
 }
 
+async function loadUkraineAtcSectorBoundaries() {
+    try {
+        const res = await fetch("./uk-vatsim-sectors.json?v=" + new Date().getTime());
+        if (!res.ok) throw new Error(`UK sectors HTTP ${res.status}`);
+
+        const data = await res.json();
+        const features = Array.isArray(data?.features) ? data.features : [];
+
+        window.ukraineAtcSectorFeatures = {};
+        features.forEach(feature => {
+            const id = String(feature?.properties?.id || "").trim().toUpperCase();
+            if (id) {
+                window.ukraineAtcSectorFeatures[id] = feature;
+            }
+        });
+    } catch (e) {
+        console.warn("Не вдалося прочитати uk-vatsim-sectors.json:", e);
+        window.ukraineAtcSectorFeatures = {};
+    }
+}
+
+async function loadUkraineAtcLowerSectors() {
+    try {
+        const sources = [
+            "./uk-vatglasses-full.json",
+            "./uk-vatglasses-lower-sectors.json"
+        ];
+
+        let data = null;
+        let sourceName = "";
+
+        for (const source of sources) {
+            try {
+                const res = await fetch(source + "?v=" + new Date().getTime());
+                if (!res.ok) continue;
+                data = await res.json();
+                sourceName = source;
+                break;
+            } catch (e) {
+                // Try the next local sector source.
+            }
+        }
+
+        if (!data) throw new Error("No local VATGlasses lower sector source");
+
+        const positions = data?.positions && typeof data.positions === "object" ? data.positions : {};
+        const airspace = Array.isArray(data?.airspace) ? data.airspace : [];
+
+        const byOwner = {};
+        airspace.forEach(item => {
+            (Array.isArray(item?.owner) ? item.owner : []).forEach(owner => {
+                const key = String(owner || "").trim().toUpperCase();
+                if (!key) return;
+                if (!byOwner[key]) byOwner[key] = [];
+                byOwner[key].push(item);
+            });
+        });
+
+        window.ukraineAtcLowerSectorData = {
+            positions,
+            byOwner,
+            canDrawPolygons: sourceName.includes("uk-vatglasses-full.json") || Boolean(data?.airports)
+        };
+    } catch (e) {
+        console.warn("Не вдалося прочитати uk-vatglasses-lower-sectors.json:", e);
+        window.ukraineAtcLowerSectorData = { positions: {}, byOwner: {}, canDrawPolygons: false };
+    }
+}
+
 function parseCsvLine(line) {
     const result = [];
     let current = '';
@@ -6347,6 +6486,8 @@ async function initVatsim() {
 
     await preloadStaticData();
     await loadWeatherAirportCoordinates();
+    await loadUkraineAtcSectorBoundaries();
+    await loadUkraineAtcLowerSectors();
     await loadOurAirportsFallback();
     initTrafficToMapFocusBinding();
 	initMapFlightListBinding();
@@ -7357,13 +7498,37 @@ window.ukraineAtcListContainer = L.DomUtil.create(
 L.DomEvent.disableClickPropagation(window.ukraineAtcListContainer);
 L.DomEvent.disableScrollPropagation(window.ukraineAtcListContainer);
 
+function getUkraineAtcRowKey(row) {
+  return [
+    row?.dataset?.atcIcao || "",
+    row?.dataset?.atcCallsign || "",
+    row?.dataset?.atcPosition || ""
+  ].join("|");
+}
+
+function clearPinnedUkraineAtcSector() {
+  window.ukrainePinnedAtcSectorKey = "";
+  clearUkraineAtcSector();
+}
+
 L.DomEvent.on(window.ukraineAtcListContainer, "mouseover", event => {
+  if (window.ukrainePinnedAtcSectorKey) return;
+
   const row = event.target.closest(".ukraine-map-atc-list-row");
   if (!row) return;
-  showUkraineAtcSector(row.dataset.atcIcao, row.dataset.atcRange, row.dataset.atcCallsign);
+  showUkraineAtcSector(
+    row.dataset.atcIcao,
+    row.dataset.atcRange,
+    row.dataset.atcCallsign,
+    row.dataset.atcName,
+    row.dataset.atcFrequency,
+    row.dataset.atcPosition
+  );
 });
 
 L.DomEvent.on(window.ukraineAtcListContainer, "mouseout", event => {
+  if (window.ukrainePinnedAtcSectorKey) return;
+
   const row = event.target.closest(".ukraine-map-atc-list-row");
   if (!row) return;
   clearUkraineAtcSector();
@@ -7373,7 +7538,27 @@ L.DomEvent.on(window.ukraineAtcListContainer, "click", event => {
   const row = event.target.closest(".ukraine-map-atc-list-row");
   if (!row) return;
   L.DomEvent.preventDefault(event);
-  focusUkraineAtcSector(row.dataset.atcIcao, row.dataset.atcRange, row.dataset.atcCallsign);
+
+  const key = getUkraineAtcRowKey(row);
+  if (window.ukrainePinnedAtcSectorKey === key) {
+    clearPinnedUkraineAtcSector();
+    return;
+  }
+
+  window.ukrainePinnedAtcSectorKey = key;
+  focusUkraineAtcSector(
+    row.dataset.atcIcao,
+    row.dataset.atcRange,
+    row.dataset.atcCallsign,
+    row.dataset.atcName,
+    row.dataset.atcFrequency,
+    row.dataset.atcPosition
+  );
+});
+
+map.on("click", () => {
+  if (!window.ukrainePinnedAtcSectorKey) return;
+  clearPinnedUkraineAtcSector();
 });
 
 
@@ -8450,33 +8635,359 @@ function escapeMapPanelText(value) {
     .replace(/"/g, "&quot;");
 }
 
+const DEBUG_SHOW_ALL_UK_ATC_SECTORS = false;
+const DEBUG_SHOW_UK_FIR_ATC_SECTORS = false;
+const DEBUG_SHOW_UK_LOWER_ATC_SECTORS = false;
+const UKRAINE_ATC_USE_LOWER_SECTOR_POLYGONS = true;
+const UKRAINE_ATC_FIR_TEST_SECTORS = [
+  { id: "UKBV", frequency: "124.675" },
+  { id: "UKDV", frequency: "125.125" },
+  { id: "UKLV", frequency: "134.050" },
+  { id: "UKOV", frequency: "132.200" },
+  { id: "UKR", frequency: "123.475" },
+  { id: "UKFV", frequency: "TEST" }
+];
+const UKRAINE_ATC_LOWER_TEST_PREFIXES = ["UK"];
+const UKRAINE_ATC_EXCLUDED_LOWER_TEST_POSITIONS = new Set(["KFC", "DDR", "LLR", "OOR", "UCR", "KOI", "KPS", "BMS", "HWS", "HSI", "HPT", "DRT", "ORS", "OWS", "ONI"]);
+const UKRAINE_ATC_TWR_WITH_TMA_AIRSPACE = new Set(["UT1"]);
+const UKRAINE_ATC_POSITION_DISPLAY_NAMES = {
+  BV1: "Kyiv Radar (BV1+2)",
+  BV2: "Kyiv Radar (BV1+2)",
+  BV3: "Kyiv Radar (BV2+3)",
+  BV4: "Kyiv Radar (BV2+3)",
+  BV5: "Kyiv Radar (BV5)",
+  BT2: "Boryspil Tower"
+};
+
+const UKRAINE_ATC_OUTER_HULL_POSITIONS = new Set(["BV2", "BV3", "BV4", "BV5", "DER", "DA1", "HV2", "HV3"]);
+const UKRAINE_ATC_OUTER_BOUNDARY_POSITIONS = new Set(["ODA", "HT1"]);
+
+const UKRAINE_ATC_MANUAL_AIRSPACE = {
+  ODA: {
+    manualOnly: true,
+    sectors: [
+      {
+        kind: "APP",
+        name: "Odesa Radar",
+        min: 10,
+        max: 195,
+        points: [
+          [47.04389, 29.62444],
+          [46.96500, 29.58889],
+          [46.95750, 29.55306],
+          [46.94083, 29.57222],
+          [46.95000, 29.63833],
+          [46.92194, 29.65194],
+          [46.92750, 29.72333],
+          [46.85806, 29.74806],
+          [46.88639, 29.88556],
+          [46.75861, 29.97056],
+          [46.56056, 29.94306],
+          [46.54556, 29.88000],
+          [46.43972, 30.05028],
+          [46.42639, 30.15972],
+          [46.38194, 30.09139],
+          [46.39806, 29.94306],
+          [46.35806, 29.89083],
+          [46.38472, 29.81139],
+          [46.46806, 29.74806],
+          [46.43583, 29.65194],
+          [46.36583, 29.67111],
+          [46.06667, 30.43333],
+          [46.01500, 30.53000],
+          [45.86500, 31.10000],
+          [46.07333, 31.43500],
+          [46.31667, 31.53333],
+          [46.55528, 31.54111],
+          [46.77667, 31.35000],
+          [46.97528, 30.87528],
+          [47.15778, 30.43111],
+          [47.04389, 29.62444]
+        ]
+      }
+    ]
+  },
+  UT1: {
+    sectors: [
+      {
+        kind: "TWR",
+        name: "CTR Uzhhorod EAST",
+        min: 0,
+        max: 50,
+        points: [
+          [48.68694, 22.34111],
+          [48.66639, 22.38167],
+          [48.62972, 22.49833],
+          [48.62194, 22.53611],
+          [48.38417, 22.40917],
+          [48.43667, 22.19417],
+          [48.47333, 22.14639],
+          [48.56722, 22.16083],
+          [48.60889, 22.19194],
+          [48.62111, 22.21556],
+          [48.62028, 22.23000],
+          [48.64694, 22.25083],
+          [48.66861, 22.28944],
+          [48.68694, 22.34111]
+        ]
+      },
+      {
+        kind: "TWR",
+        name: "CTR Uzhhorod WEST",
+        min: 0,
+        max: 50,
+        points: [
+          [48.78972, 21.98111],
+          [48.75778, 22.20056],
+          [48.68694, 22.34111],
+          [48.68694, 22.34111],
+          [48.47333, 22.14639],
+          [48.50000, 22.01111],
+          [48.51583, 21.92889],
+          [48.60083, 21.81361],
+          [48.76250, 21.87000],
+          [48.78972, 21.98111]
+        ]
+      }
+    ]
+  }
+};
+
+const UKRAINE_ATC_VIRTUAL_POSITIONS = {
+  BV1: {
+    basePositionId: "BV2",
+    displayName: "Kyiv Radar (BV1+2)",
+    mode: "ALL"
+  },
+  HV3: {
+    basePositionId: "HV2",
+    displayName: "Kharkiv Radar",
+    mode: "ALL"
+  },
+  UT1_TMA: {
+    basePositionId: "UT1",
+    displayName: "Uzhgorod Tower (TMA)",
+    mode: "TMA"
+  },
+  UT1_CTR: {
+    basePositionId: "UT1",
+    displayName: "Uzhgorod Tower (CTR)",
+    mode: "CTR"
+  },
+  BT2: {
+    basePositionId: "BT1",
+    displayName: "Boryspil Tower",
+    mode: "ALL"
+  }
+};
+
+const UKRAINE_ATC_FIR_NAMES = {
+  UKBV: "Kyiv Radar",
+  UKDV: "Dnipro Radar",
+  UKFV: "Simferopol Radar",
+  UKLV: "Lviv Radar",
+  UKOV: "Odesa Radar",
+  UKR: "Ukraine Radar"
+};
+
+const UKRAINE_ATC_AIRPORT_NAMES = {
+  UKBB: "Boryspil",
+  UKKK: "Kyiv",
+  UKKM: "Gostomel",
+  UKLL: "Lviv",
+  UKOO: "Odesa",
+  UKHH: "Kharkiv",
+  UKDD: "Dnipro",
+  UKFF: "Simferopol",
+  UKCC: "Donetsk",
+  UKLR: "Rivne",
+  UKLH: "Khmelnytskyi",
+  UKHP: "Poltava",
+  UKCW: "Luhansk",
+  UKON: "Mykolaiv",
+  UKWW: "Vinnytsia",
+  UKLI: "Ivano-Frankivsk",
+  UKLU: "Uzhhorod",
+  UKOH: "Kherson",
+  UKLT: "Ternopil",
+  UKLN: "Chernivtsi",
+  UKKG: "Kropyvnytskyi",
+  UKDR: "Kryvyi Rih",
+  UKHS: "Sumy",
+  UKKE: "Cherkasy",
+  UKCM: "Mariupol",
+  UKDE: "Zaporizhzhia"
+};
+
 function setUkraineMapAtc(controllers) {
-  window.ukraineMapAtcControllers = Array.isArray(controllers)
+  const liveControllers = Array.isArray(controllers)
     ? controllers.filter(controller => {
         const callsign = String(controller?.callsign || "").trim().toUpperCase();
-        return /^UK[A-Z0-9]{2}_[A-Z0-9]+$/.test(callsign);
+        if (callsign.includes("_ATIS")) return false;
+        return /^(UK[A-Z0-9]{2}|UKR)_[A-Z0-9]+$/.test(callsign);
       })
     : [];
+
+  const fakeSectorControllers = DEBUG_SHOW_ALL_UK_ATC_SECTORS
+    ? Object.keys(window.ukraineAtcSectorFeatures || {})
+        .sort((a, b) => a.localeCompare(b))
+        .map(id => ({
+          callsign: `${id}_CTR`,
+          frequency: "TEST",
+          visual_range: 150,
+          isTemporarySectorPreview: true
+        }))
+    : [];
+
+  const fakeFirControllers = DEBUG_SHOW_UK_FIR_ATC_SECTORS
+    ? UKRAINE_ATC_FIR_TEST_SECTORS
+        .filter(sector => window.ukraineAtcSectorFeatures?.[sector.id])
+        .map(sector => {
+          const id = String(sector.id || "").trim().toUpperCase();
+          return {
+          callsign: `${id}_CTR`,
+          frequency: String(sector.frequency || "TEST").trim(),
+          visual_range: 150,
+          vatglassesPositionId: "__VATSIM_SECTOR__",
+          isTemporarySectorPreview: true
+          };
+        })
+    : [];
+
+  const fakeLowerControllers = DEBUG_SHOW_UK_LOWER_ATC_SECTORS
+    ? Object.entries(window.ukraineAtcLowerSectorData?.positions || {})
+        .filter(([id, position]) => {
+          const positionId = String(id || "").trim().toUpperCase();
+          const type = String(position?.type || "").trim().toUpperCase();
+          if (type === "ATIS") return false;
+          if (UKRAINE_ATC_EXCLUDED_LOWER_TEST_POSITIONS.has(positionId)) return false;
+          if (type !== "APP" && type !== "CTR" && type !== "TWR" && type !== "GND" && type !== "DEL") return false;
+
+          const pre = Array.isArray(position?.pre) ? position.pre : [];
+          return pre.some(code => {
+            const airportCode = String(code || "").trim().toUpperCase();
+            return UKRAINE_ATC_LOWER_TEST_PREFIXES.some(prefix => airportCode.startsWith(prefix));
+          });
+        })
+        .sort((a, b) => String(a[1]?.callsign || a[0]).localeCompare(String(b[1]?.callsign || b[0])))
+        .flatMap(([id, position]) => {
+          const positionId = String(id || "").trim().toUpperCase();
+          const baseController = {
+            callsign: `${String(position?.pre?.[0] || id).toUpperCase()}_${String(position?.type || "ATC").toUpperCase()}`,
+            frequency: String(position?.frequency || "").trim(),
+            vatglassesPositionId: id,
+            vatglassesDisplayName: UKRAINE_ATC_POSITION_DISPLAY_NAMES[positionId] || String(position?.callsign || id).trim(),
+            isTemporarySectorPreview: true
+          };
+
+          if (positionId !== "UT1") return [baseController];
+
+          return ["UT1_CTR", "UT1_TMA"].map(virtualId => ({
+            ...baseController,
+            vatglassesPositionId: virtualId,
+            vatglassesDisplayName: UKRAINE_ATC_VIRTUAL_POSITIONS[virtualId].displayName
+          }));
+        })
+    : [];
+
+  const fakeControllers = [...fakeSectorControllers, ...fakeFirControllers, ...fakeLowerControllers];
+
+  window.ukraineMapAtcControllers = fakeControllers.length
+    ? fakeControllers
+    : liveControllers;
 
   renderUkraineAtcList();
 }
 
 function getUkraineAtcIcao(callsign) {
-  const match = String(callsign || "").trim().toUpperCase().match(/^(UK[A-Z0-9]{2})_/);
+  const match = String(callsign || "").trim().toUpperCase().match(/^(UK[A-Z0-9]{2}|UKR)_/);
   return match ? match[1] : "";
 }
 
 function getUkraineAtcRange(controller) {
+  const callsign = String(controller?.callsign || "").trim().toUpperCase();
+  if (callsign.includes("_GND") || callsign.includes("_DEL")) return 1;
+  if (callsign.includes("_TWR")) return 10;
+
   const range = Number(controller?.visual_range);
   if (Number.isFinite(range) && range > 0) return range;
 
-  const callsign = String(controller?.callsign || "").trim().toUpperCase();
-  if (callsign.includes("_GND") || callsign.includes("_DEL")) return 10;
-  if (callsign.includes("_TWR")) return 25;
   if (callsign.includes("_APP") || callsign.includes("_DEP")) return 60;
   if (callsign.includes("_CTR")) return 150;
 
   return 30;
+}
+
+function getUkraineAtcVatglassesPositionId(controller) {
+  if (controller?.vatglassesPositionId) {
+    return String(controller.vatglassesPositionId).trim().toUpperCase();
+  }
+
+  const data = window.ukraineAtcLowerSectorData;
+  const positions = data?.positions || {};
+  const callsign = String(controller?.callsign || "").trim().toUpperCase();
+  const icao = getUkraineAtcIcao(callsign);
+  const type = callsign.split("_").pop();
+  const frequency = String(controller?.frequency || "").trim();
+
+  const candidates = Object.entries(positions).filter(([, position]) => {
+    const pre = Array.isArray(position?.pre) ? position.pre.map(code => String(code).toUpperCase()) : [];
+    const positionType = String(position?.type || "").trim().toUpperCase();
+    if (positionType === "ATIS") return false;
+    return pre.includes(icao) && positionType === type;
+  });
+
+  if (!candidates.length) return "";
+
+  const frequencyMatch = candidates.find(([, position]) =>
+    frequency && String(position?.frequency || "").trim() === frequency
+  );
+
+  return String((frequencyMatch || candidates[0])[0]).toUpperCase();
+}
+
+function getUkraineAtcRoleName(callsign) {
+  const suffix = String(callsign || "").trim().toUpperCase().split("_").slice(1).join("_");
+  if (suffix.includes("GND")) return "Ground";
+  if (suffix.includes("DEL")) return "Delivery";
+  if (suffix.includes("TWR")) return "Tower";
+  if (suffix.includes("APP")) return "Approach";
+  if (suffix.includes("DEP")) return "Departure";
+  if (suffix.includes("CTR") || suffix.includes("RAD") || suffix.includes("RDR")) return "Radar";
+  return suffix || "ATC";
+}
+
+function getUkraineAtcDisplayName(controller) {
+  if (controller?.vatglassesDisplayName) {
+    return String(controller.vatglassesDisplayName).trim();
+  }
+
+  const positionId = getUkraineAtcVatglassesPositionId(controller);
+  if (UKRAINE_ATC_VIRTUAL_POSITIONS[positionId]?.displayName) {
+    return UKRAINE_ATC_VIRTUAL_POSITIONS[positionId].displayName;
+  }
+
+  const vatglassesName = window.ukraineAtcLowerSectorData?.positions?.[positionId]?.callsign;
+  if (vatglassesName) return String(vatglassesName).trim();
+
+  const callsign = String(controller?.callsign || "").trim().toUpperCase();
+  const icao = getUkraineAtcIcao(callsign);
+  const role = getUkraineAtcRoleName(callsign);
+
+  if (role === "Radar" && UKRAINE_ATC_FIR_NAMES[icao]) {
+    return UKRAINE_ATC_FIR_NAMES[icao];
+  }
+
+  const baseName =
+    UKRAINE_ATC_AIRPORT_NAMES[icao] ||
+    UKRAINE_ATC_FIR_NAMES[icao]?.replace(/\s+Radar$/i, "") ||
+    icao;
+
+  return `${baseName} ${role}`.trim();
+}
+
+function getUkraineAtcListDisplayName(displayName) {
+  return String(displayName || "").trim().replace(/\bINFORMATION\b/gi, "INFO");
 }
 
 function getUkraineAtcAirportCoords(icao) {
@@ -8510,15 +9021,608 @@ function clearUkraineAtcSector() {
   }
 }
 
-function drawUkraineAtcSector(icao, rangeNm, callsign, shouldFit) {
+function formatVatglassesAltitudeLimit(value) {
+  const limit = Number(value);
+  if (!Number.isFinite(limit)) return "";
+  if (limit <= 0) return "SFC";
+  if (limit >= 100) return `FL${Math.round(limit)}`;
+  return String(Math.round(limit * 100));
+}
+
+function getVatglassesSectorLimitsHtml(limits) {
+  const items = (Array.isArray(limits) ? limits : [])
+    .map(limit => {
+      const upper = formatVatglassesAltitudeLimit(limit?.max);
+      const lower = formatVatglassesAltitudeLimit(limit?.min);
+      if (!upper || !lower) return "";
+
+      return `
+        <span class="ukraine-atc-sector-limit">
+          <span class="ukraine-atc-sector-limit-upper">${escapeMapPanelText(upper)}</span>
+          <span class="ukraine-atc-sector-limit-lower">${escapeMapPanelText(lower)}</span>
+        </span>
+      `;
+    })
+    .filter(Boolean);
+
+  if (!items.length) return "";
+
+  return `<div class="ukraine-atc-sector-limits">${items.join("")}</div>`;
+}
+
+function getUkraineAtcSectorTooltipContent(displayName, frequency, fallback, limits) {
+  const title = escapeMapPanelText(displayName || fallback || "ATC");
+  const freq = String(frequency || "").trim();
+  const limitsHtml = getVatglassesSectorLimitsHtml(limits);
+  if (!freq) return `${title}${limitsHtml}`;
+
+  return `${title}<br><span class="ukraine-atc-sector-frequency">${escapeMapPanelText(freq)}</span>${limitsHtml}`;
+}
+
+function parseVatglassesCoord(value, isLongitude) {
+  const raw = String(value || "").trim();
+  const degLength = isLongitude ? 3 : 2;
+  if (raw.length < degLength + 4) return null;
+
+  const deg = Number(raw.slice(0, degLength));
+  const min = Number(raw.slice(degLength, degLength + 2));
+  const sec = Number(raw.slice(degLength + 2));
+  if (![deg, min, sec].every(Number.isFinite)) return null;
+
+  return deg + (min / 60) + (sec / 3600);
+}
+
+function vatglassesPointsToLatLngs(points) {
+  return (Array.isArray(points) ? points : [])
+    .map(point => {
+      if (!Array.isArray(point) || point.length < 2) return null;
+      const lat = parseVatglassesCoord(point[0], false);
+      const lon = parseVatglassesCoord(point[1], true);
+      return Number.isFinite(lat) && Number.isFinite(lon) ? [lat, lon] : null;
+    })
+    .filter(Boolean);
+}
+
+function getLatLngsCenter(latLngs) {
+  const points = Array.isArray(latLngs) ? latLngs.filter(point => Array.isArray(point) && point.length >= 2) : [];
+  if (!points.length) return null;
+
+  const sum = points.reduce((acc, point) => {
+    acc.lat += point[0];
+    acc.lon += point[1];
+    return acc;
+  }, { lat: 0, lon: 0 });
+
+  return [sum.lat / points.length, sum.lon / points.length];
+}
+
+function getOuterLatLngHull(latLngs) {
+  const points = (Array.isArray(latLngs) ? latLngs : [])
+    .filter(point => Array.isArray(point) && point.length >= 2)
+    .map(point => [Number(point[0]), Number(point[1])])
+    .filter(point => Number.isFinite(point[0]) && Number.isFinite(point[1]))
+    .sort((a, b) => a[1] === b[1] ? a[0] - b[0] : a[1] - b[1]);
+
+  const unique = [];
+  points.forEach(point => {
+    const last = unique[unique.length - 1];
+    if (!last || last[0] !== point[0] || last[1] !== point[1]) {
+      unique.push(point);
+    }
+  });
+
+  if (unique.length <= 3) return unique;
+
+  const cross = (origin, a, b) =>
+    (a[1] - origin[1]) * (b[0] - origin[0]) -
+    (a[0] - origin[0]) * (b[1] - origin[1]);
+
+  const lower = [];
+  unique.forEach(point => {
+    while (lower.length >= 2 && cross(lower[lower.length - 2], lower[lower.length - 1], point) <= 0) {
+      lower.pop();
+    }
+    lower.push(point);
+  });
+
+  const upper = [];
+  [...unique].reverse().forEach(point => {
+    while (upper.length >= 2 && cross(upper[upper.length - 2], upper[upper.length - 1], point) <= 0) {
+      upper.pop();
+    }
+    upper.push(point);
+  });
+
+  return lower.slice(0, -1).concat(upper.slice(0, -1));
+}
+
+function getLatLngBoundaryKey(point) {
+  return `${Number(point[0]).toFixed(5)},${Number(point[1]).toFixed(5)}`;
+}
+
+function getLatLngBoundaryLoops(polygons) {
+  const edges = new Map();
+  const pointsByKey = new Map();
+
+  (Array.isArray(polygons) ? polygons : []).forEach(latLngs => {
+    const points = (Array.isArray(latLngs) ? latLngs : [])
+      .filter(point => Array.isArray(point) && point.length >= 2)
+      .map(point => [Number(point[0]), Number(point[1])])
+      .filter(point => Number.isFinite(point[0]) && Number.isFinite(point[1]));
+
+    if (points.length < 3) return;
+
+    if (getLatLngBoundaryKey(points[0]) === getLatLngBoundaryKey(points[points.length - 1])) {
+      points.pop();
+    }
+
+    points.forEach(point => pointsByKey.set(getLatLngBoundaryKey(point), point));
+
+    for (let i = 0; i < points.length; i += 1) {
+      const a = getLatLngBoundaryKey(points[i]);
+      const b = getLatLngBoundaryKey(points[(i + 1) % points.length]);
+      if (a === b) continue;
+
+      const key = [a, b].sort().join("|");
+      const edge = edges.get(key) || { a, b, count: 0 };
+      edge.count += 1;
+      edges.set(key, edge);
+    }
+  });
+
+  const boundaryEdges = [...edges.values()].filter(edge => edge.count === 1);
+  const adjacency = new Map();
+
+  boundaryEdges.forEach((edge, index) => {
+    const id = String(index);
+    [edge.a, edge.b].forEach(key => {
+      if (!adjacency.has(key)) adjacency.set(key, []);
+      adjacency.get(key).push({ id, edge });
+    });
+  });
+
+  const unused = new Set(boundaryEdges.map((_, index) => String(index)));
+  const loops = [];
+
+  while (unused.size) {
+    const firstId = unused.values().next().value;
+    const first = boundaryEdges[Number(firstId)];
+    unused.delete(firstId);
+
+    const start = first.a;
+    let current = first.b;
+    const loopKeys = [start, current];
+
+    while (current !== start && loopKeys.length < boundaryEdges.length + 2) {
+      const nextEntry = (adjacency.get(current) || []).find(entry => unused.has(entry.id));
+      if (!nextEntry) break;
+
+      unused.delete(nextEntry.id);
+      const next = nextEntry.edge.a === current ? nextEntry.edge.b : nextEntry.edge.a;
+      current = next;
+      loopKeys.push(current);
+    }
+
+    if (loopKeys.length >= 4 && loopKeys[0] === loopKeys[loopKeys.length - 1]) {
+      loops.push(loopKeys.map(key => pointsByKey.get(key)).filter(Boolean));
+    }
+  }
+
+  return loops.sort((a, b) => Math.abs(getLatLngPolygonArea(b)) - Math.abs(getLatLngPolygonArea(a)));
+}
+
+function getLatLngPolygonArea(latLngs) {
+  const points = Array.isArray(latLngs) ? latLngs : [];
+  if (points.length < 3) return 0;
+
+  let area = 0;
+  for (let i = 0; i < points.length; i += 1) {
+    const a = points[i];
+    const b = points[(i + 1) % points.length];
+    area += (a[1] * b[0]) - (b[1] * a[0]);
+  }
+  return area / 2;
+}
+
+function getNorthernInnerLatLng(latLngs) {
+  const points = Array.isArray(latLngs) ? latLngs : [];
+  const north = points.reduce((best, point) => {
+    if (!Array.isArray(point) || point.length < 2) return north;
+    if (!best) return point;
+    if (point[0] > best[0]) return point;
+    if (point[0] === best[0] && point[1] > best[1]) return point;
+    return best;
+  }, null);
+
+  const center = getLatLngsCenter(points);
+  if (!north || !center) return north;
+
+  return [
+    north[0] + ((center[0] - north[0]) * 0.34),
+    north[1] + ((center[1] - north[1]) * 0.34)
+  ];
+}
+
+function getVatglassesAirspaceKind(item, positionType, positionId) {
+  const group = String(item?.group || "").trim().toUpperCase();
+  const type = String(positionType || "").trim().toUpperCase();
+  const owner = String(positionId || "").trim().toUpperCase();
+  const label = `${item?.comment || ""} ${item?.id || ""}`.trim().toUpperCase();
+  const isTmaLike = group === "APP" ||
+    label.includes("_TMA") ||
+    label.includes("_APP") ||
+    label.includes("_ZONE");
+  const isCtrLike = label.includes("_CTR") ||
+    (group === "TWR" && !label.includes("_TMA") && !label.includes("_APP") && !label.includes("_ZONE"));
+
+  if (type === "APP") {
+    return isTmaLike ? "APP" : "";
+  }
+
+  if (type === "TWR") {
+    if (owner === "UT1" && label.includes("UZHHOROD WEST")) return "APP";
+    if (isCtrLike) return "TWR";
+    if (UKRAINE_ATC_TWR_WITH_TMA_AIRSPACE.has(owner) && isTmaLike) return "APP";
+    return "";
+  }
+
+  if (type === "CTR") return group !== "APP" && group !== "TWR" ? "CTR" : "";
+
+  return "APP";
+}
+
+function shouldDrawVatglassesAirspaceForPosition(item, positionType, positionId) {
+  return Boolean(getVatglassesAirspaceKind(item, positionType, positionId));
+}
+
+function getVatglassesAirspaceStyle(airspaceKind) {
+  const kind = String(airspaceKind || "").trim().toUpperCase();
+
+  if (kind === "TWR") {
+    return {
+      color: "#0057B8",
+      weight: 2,
+      opacity: 0.95,
+      dashArray: "8 4 2 4",
+      fillOpacity: 0,
+      interactive: false
+    };
+  }
+
+  return {
+    color: "#0F758A",
+    weight: 2,
+    opacity: 0.9,
+    fillColor: "#0F758A",
+    fillOpacity: 0.08,
+    interactive: false
+  };
+}
+
+function getVatglassesSectorAltitudeLimits(item, sector, positionId, airspaceKind) {
+  const owner = String(positionId || "").trim().toUpperCase();
+  const kind = String(airspaceKind || "").trim().toUpperCase();
+  const label = `${item?.comment || ""} ${item?.id || ""}`.trim().toUpperCase();
+
+  if (owner === "BV5" && kind === "APP") {
+    return { min: 13, max: 54 };
+  }
+
+  if (owner === "DER" && kind === "APP") {
+    return { min: 13, max: 79 };
+  }
+
+  if (owner === "DA1" && kind === "APP") {
+    return { min: 15, max: 155 };
+  }
+
+  if ((owner === "HV2" || owner === "HV3") && kind === "APP") {
+    return { min: 13, max: 205 };
+  }
+
+  if (owner === "ODA" && kind === "APP") {
+    return { min: 10, max: 195 };
+  }
+
+  if ((owner === "BV3" || owner === "BV4") && kind === "APP") {
+    return { min: 15, max: 95 };
+  }
+
+  if (owner === "BT1" && kind === "TWR" && label.includes("UKBB")) {
+    return { min: 0, max: 29 };
+  }
+
+  if (owner === "DET" && kind === "TWR" && label.includes("UKDE_CTR")) {
+    return { min: 0, max: 20 };
+  }
+
+  if (owner === "DT1" && kind === "TWR" && label.includes("UKDD_CTR")) {
+    return { min: 0, max: 25 };
+  }
+
+  if (owner === "KT1" && kind === "TWR" && label.includes("UKHH_CTR")) {
+    return { min: 0, max: 25 };
+  }
+
+  if (owner === "OTI" && kind === "TWR" && label.includes("UKOO_CTR")) {
+    return { min: 0, max: 20 };
+  }
+
+  if (owner === "LT1" && kind === "TWR" && label.includes("UKLL_CTR")) {
+    return { min: 0, max: 25 };
+  }
+
+  if (label.includes("UKLU_TMA_APP")) {
+    return { min: 50, max: 85 };
+  }
+
+  if (label.includes("UZHHOROD WEST")) {
+    return { min: 50, max: 85 };
+  }
+
+  return {
+    min: Number(sector?.min),
+    max: Number(sector?.max)
+  };
+}
+
+function shouldDrawVatglassesSectorForPosition(item, sector, airspaceKind, positionId) {
+  const owner = String(positionId || "").trim().toUpperCase();
+  const kind = String(airspaceKind || "").trim().toUpperCase();
+  const label = `${item?.comment || ""} ${item?.id || ""}`.trim().toUpperCase();
+  const max = Number(sector?.max);
+  const min = Number(sector?.min);
+
+  if (owner === "LA1" && kind === "APP" && label.includes("UKLL_TMA") && Number.isFinite(max) && max <= 32) {
+    return false;
+  }
+
+  if ((owner === "BV3" || owner === "BV4") && kind === "APP") {
+    return label.includes("UKBB_TMA") && Number.isFinite(max) && max >= 89;
+  }
+
+  if (owner === "BV5" && kind === "APP") {
+    return label.includes("UKBV_TMA_BV5");
+  }
+
+  return true;
+}
+
+function addUkraineAtcSectorAltitudeLabel(layer, latLngs, min, max) {
+  if (!layer) return;
+
+  const safeMin = Number(min);
+  const safeMax = Number(max);
+  if (!Number.isFinite(safeMin) || !Number.isFinite(safeMax)) return;
+
+  const labelLatLng = getNorthernInnerLatLng(latLngs);
+  const limitsHtml = getVatglassesSectorLimitsHtml([{ min: safeMin, max: safeMax }]);
+  if (!labelLatLng || !limitsHtml) return;
+
+  L.tooltip({
+    permanent: false,
+    direction: "bottom",
+    className: "ukraine-atc-sector-limits-tooltip",
+    offset: [0, 4]
+  })
+    .setLatLng(labelLatLng)
+    .setContent(limitsHtml)
+    .addTo(layer);
+}
+
+function drawManualUkraineAtcAirspace(owner, layer, drawn) {
+  const virtual = UKRAINE_ATC_VIRTUAL_POSITIONS[owner];
+  const baseOwner = virtual?.basePositionId || owner;
+  const manual = UKRAINE_ATC_MANUAL_AIRSPACE[baseOwner];
+  if (!manual || !Array.isArray(manual.sectors)) return;
+
+  manual.sectors.forEach(sector => {
+    if (virtual?.mode === "TMA") return;
+    if (virtual?.mode === "CTR" && String(sector.kind || "").toUpperCase() !== "TWR") return;
+
+    const latLngs = Array.isArray(sector.points) ? sector.points : [];
+    if (latLngs.length < 3) return;
+
+    const polygon = L.polygon(latLngs, getVatglassesAirspaceStyle(sector.kind)).addTo(layer);
+    drawn.push(polygon);
+    addUkraineAtcSectorAltitudeLabel(layer, latLngs, sector.min, sector.max);
+  });
+}
+
+function drawUkraineAtcLowerSector(positionId, shouldFit, displayName, frequency) {
+  if (!UKRAINE_ATC_USE_LOWER_SECTOR_POLYGONS) return false;
+  if (!window.ukraineAtcLowerSectorData?.canDrawPolygons) return false;
+
+  const owner = String(positionId || "").trim().toUpperCase();
+  const virtual = UKRAINE_ATC_VIRTUAL_POSITIONS[owner];
+  const baseOwner = virtual?.basePositionId || owner;
+  const sectors = window.ukraineAtcLowerSectorData?.byOwner?.[baseOwner] || [];
+  const positionType = window.ukraineAtcLowerSectorData?.positions?.[baseOwner]?.type;
+  if (!sectors.length || typeof L === "undefined") return false;
+
+  const layer = ensureUkraineAtcSectorLayer();
+  if (!layer) return false;
+
+  const drawn = [];
+  const manual = UKRAINE_ATC_MANUAL_AIRSPACE[baseOwner];
+  if (manual?.manualOnly) {
+    drawManualUkraineAtcAirspace(owner, layer, drawn);
+    if (!drawn.length) return false;
+
+    const bounds = L.featureGroup(drawn).getBounds();
+    if (bounds.isValid()) {
+      L.tooltip({
+        permanent: false,
+        direction: "center",
+        className: "ukraine-atc-sector-tooltip"
+      })
+        .setLatLng(bounds.getCenter())
+        .setContent(getUkraineAtcSectorTooltipContent(displayName, frequency, owner))
+        .addTo(layer);
+
+      if (shouldFit && window.ukraineLiveMap) {
+        window.ukraineLiveMap.fitBounds(bounds, {
+          padding: [30, 30],
+          maxZoom: 10
+        });
+      }
+    }
+
+    return true;
+  }
+
+  const outerHullPoints = [];
+  const outerBoundaryPolygons = [];
+  let outerHullLimits = null;
+
+  sectors.forEach(item => {
+    const airspaceKind = getVatglassesAirspaceKind(item, positionType, baseOwner);
+    if (!airspaceKind) return;
+    if (virtual?.mode === "TMA" && airspaceKind !== "APP") return;
+    if (virtual?.mode === "CTR") return;
+
+    (Array.isArray(item?.sectors) ? item.sectors : []).forEach(sector => {
+      if (!shouldDrawVatglassesSectorForPosition(item, sector, airspaceKind, baseOwner)) return;
+
+      const latLngs = vatglassesPointsToLatLngs(sector?.points);
+      if (latLngs.length < 3) return;
+
+      const limits = getVatglassesSectorAltitudeLimits(item, sector, baseOwner, airspaceKind);
+      if (UKRAINE_ATC_OUTER_BOUNDARY_POSITIONS.has(baseOwner)) {
+        outerBoundaryPolygons.push(latLngs);
+        outerHullLimits = limits;
+        return;
+      }
+
+      if (UKRAINE_ATC_OUTER_HULL_POSITIONS.has(baseOwner) && airspaceKind === "APP") {
+        outerHullPoints.push(...latLngs);
+        outerHullLimits = limits;
+        return;
+      }
+
+      const polygon = L.polygon(latLngs, getVatglassesAirspaceStyle(airspaceKind)).addTo(layer);
+      drawn.push(polygon);
+      addUkraineAtcSectorAltitudeLabel(layer, latLngs, limits?.min, limits?.max);
+    });
+  });
+
+  if (outerBoundaryPolygons.length) {
+    const loops = getLatLngBoundaryLoops(outerBoundaryPolygons);
+    const boundary = loops[0] || [];
+    if (boundary.length >= 3) {
+      const polygon = L.polygon(boundary, getVatglassesAirspaceStyle(positionType === "TWR" ? "TWR" : "APP")).addTo(layer);
+      drawn.push(polygon);
+      addUkraineAtcSectorAltitudeLabel(layer, boundary, outerHullLimits?.min, outerHullLimits?.max);
+    }
+  }
+
+  if (outerHullPoints.length >= 3) {
+    const hull = getOuterLatLngHull(outerHullPoints);
+    if (hull.length >= 3) {
+      const polygon = L.polygon(hull, getVatglassesAirspaceStyle("APP")).addTo(layer);
+      drawn.push(polygon);
+      addUkraineAtcSectorAltitudeLabel(layer, hull, outerHullLimits?.min, outerHullLimits?.max);
+    }
+  }
+
+  drawManualUkraineAtcAirspace(owner, layer, drawn);
+
+  if (!drawn.length) return false;
+
+  const bounds = L.featureGroup(drawn).getBounds();
+  if (bounds.isValid()) {
+    L.tooltip({
+      permanent: false,
+      direction: "center",
+      className: "ukraine-atc-sector-tooltip"
+    })
+      .setLatLng(bounds.getCenter())
+      .setContent(getUkraineAtcSectorTooltipContent(displayName, frequency, owner))
+      .addTo(layer);
+
+    if (shouldFit && window.ukraineLiveMap) {
+      window.ukraineLiveMap.fitBounds(bounds, {
+        padding: [30, 30],
+        maxZoom: 10
+      });
+    }
+  }
+
+  return true;
+}
+
+function drawUkraineAtcSector(icao, rangeNm, callsign, shouldFit, displayName, frequency, positionId) {
+  if (drawUkraineAtcLowerSector(positionId, shouldFit, displayName, frequency)) {
+    return;
+  }
+
   const coords = getUkraineAtcAirportCoords(icao);
-  if (!coords || typeof L === "undefined") return;
+  if (typeof L === "undefined") return;
 
   const layer = ensureUkraineAtcSectorLayer();
   if (!layer) return;
 
+  const sectorId = String(icao || "").trim().toUpperCase();
+  const sectorFeature = window.ukraineAtcSectorFeatures?.[sectorId];
+  const tooltipContent = getUkraineAtcSectorTooltipContent(displayName, frequency, callsign || sectorId);
+  if (sectorFeature) {
+    const sectorStyle = {
+      color: "#0F758A",
+      weight: 2,
+      opacity: 0.9,
+      fillColor: "#0F758A",
+      fillOpacity: 0.08,
+      interactive: false
+    };
+    const polygonLayers = [];
+    const polygonLayer = L.geoJSON(sectorFeature, {
+      style: sectorStyle
+    }).addTo(layer);
+    polygonLayers.push(polygonLayer);
+
+    if (sectorId === "UKR" && window.ukraineAtcSectorFeatures?.UKFV) {
+      polygonLayers.push(L.geoJSON(window.ukraineAtcSectorFeatures.UKFV, {
+      style: {
+          ...sectorStyle,
+          fillOpacity: 0
+        }
+      }).addTo(layer));
+    }
+
+    const fitLayer = polygonLayers.length > 1
+      ? L.featureGroup(polygonLayers)
+      : polygonLayer;
+
+    const labelLat = Number(sectorFeature?.properties?.label_lat);
+    const labelLon = Number(sectorFeature?.properties?.label_lon);
+    if (Number.isFinite(labelLat) && Number.isFinite(labelLon)) {
+      L.tooltip({
+        permanent: false,
+        direction: "center",
+        className: "ukraine-atc-sector-tooltip"
+      })
+        .setLatLng([labelLat, labelLon])
+        .setContent(tooltipContent)
+        .addTo(layer);
+    }
+
+    if (shouldFit && window.ukraineLiveMap) {
+      window.ukraineLiveMap.fitBounds(fitLayer.getBounds(), {
+        padding: [30, 30],
+        maxZoom: 8
+      });
+    }
+
+    return;
+  }
+
+  if (!coords) return;
+
   const range = Number(rangeNm);
   const safeRangeNm = Number.isFinite(range) && range > 0 ? range : 30;
+  const safeCallsign = String(callsign || "").trim().toUpperCase();
+  const isGroundPosition = safeCallsign.includes("_GND");
+  const isDeliveryPosition = safeCallsign.includes("_DEL");
   const circle = L.circle(coords, {
     radius: safeRangeNm * 1852,
     color: "#0F758A",
@@ -8533,28 +9637,28 @@ function drawUkraineAtcSector(icao, rangeNm, callsign, shouldFit) {
     permanent: false,
     direction: "top",
     className: "ukraine-atc-sector-tooltip",
-    offset: [0, -4]
+    offset: (isGroundPosition || isDeliveryPosition) ? [0, -15] : [0, -4]
   })
     .setLatLng(coords)
-    .setContent(`${escapeMapPanelText(callsign || icao)} ${safeRangeNm}nm`)
+    .setContent(`${tooltipContent}<br><span class="ukraine-atc-sector-frequency">${safeRangeNm}nm</span>`)
     .addTo(layer);
 
   if (shouldFit && window.ukraineLiveMap) {
     window.ukraineLiveMap.fitBounds(circle.getBounds(), {
       padding: [30, 30],
-      maxZoom: 10
+      maxZoom: (isGroundPosition || isDeliveryPosition) ? 17 : 10
     });
   }
 }
 
-function showUkraineAtcSector(icao, rangeNm, callsign) {
+function showUkraineAtcSector(icao, rangeNm, callsign, displayName, frequency, positionId) {
   clearUkraineAtcSector();
-  drawUkraineAtcSector(icao, rangeNm, callsign, false);
+  drawUkraineAtcSector(icao, rangeNm, callsign, false, displayName, frequency, positionId);
 }
 
-function focusUkraineAtcSector(icao, rangeNm, callsign) {
+function focusUkraineAtcSector(icao, rangeNm, callsign, displayName, frequency, positionId) {
   clearUkraineAtcSector();
-  drawUkraineAtcSector(icao, rangeNm, callsign, true);
+  drawUkraineAtcSector(icao, rangeNm, callsign, true, displayName, frequency, positionId);
 }
 
 function renderUkraineAtcList() {
@@ -8563,7 +9667,7 @@ function renderUkraineAtcList() {
 
   const controllers = Array.isArray(window.ukraineMapAtcControllers)
     ? [...window.ukraineMapAtcControllers].sort((a, b) =>
-        String(a.callsign || "").localeCompare(String(b.callsign || ""))
+        getUkraineAtcDisplayName(a).localeCompare(getUkraineAtcDisplayName(b))
       )
     : [];
 
@@ -8579,17 +9683,23 @@ function renderUkraineAtcList() {
   ` + controllers.map(controller => {
     const callsign = String(controller?.callsign || "").trim().toUpperCase();
     const frequency = String(controller?.frequency || "").trim();
+    const displayName = getUkraineAtcDisplayName(controller);
+    const listDisplayName = getUkraineAtcListDisplayName(displayName);
+    const positionId = getUkraineAtcVatglassesPositionId(controller);
     const icao = getUkraineAtcIcao(callsign);
     const range = getUkraineAtcRange(controller);
     return `
       <div
         class="ukraine-map-atc-list-row"
-        title="${escapeMapPanelText(callsign)} ${escapeMapPanelText(frequency)} ${range}nm"
+        title="${escapeMapPanelText(displayName)} ${escapeMapPanelText(frequency)} ${range}nm"
         data-atc-icao="${escapeMapPanelText(icao)}"
         data-atc-range="${escapeMapPanelText(range)}"
         data-atc-callsign="${escapeMapPanelText(callsign)}"
+        data-atc-name="${escapeMapPanelText(displayName)}"
+        data-atc-frequency="${escapeMapPanelText(frequency)}"
+        data-atc-position="${escapeMapPanelText(positionId)}"
       >
-        <span class="ukraine-map-atc-callsign">${escapeMapPanelText(callsign)}</span>
+        <span class="ukraine-map-atc-callsign">${escapeMapPanelText(listDisplayName)}</span>
         <span class="ukraine-map-atc-frequency">${escapeMapPanelText(frequency)}</span>
       </div>
     `;
@@ -8756,7 +9866,9 @@ function renderUkraineFlightLayers() {
   window.ukraineVatsimLayer.clearLayers();
   window.ukraineNewSkyLayer.clearLayers();
   clearUkraineActiveFlightRoute();
-  clearUkraineAtcSector();
+  if (!window.ukrainePinnedAtcSectorKey) {
+    clearUkraineAtcSector();
+  }
   mapFlightMarkers = {};
   mapFlightListItems = [];
 
