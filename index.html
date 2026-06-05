@@ -19,15 +19,15 @@ body {
   background: #ffffff;
 
   margin: 0;
-  padding: 10px 0;
+  padding: 4px 0 6px;
 
   overflow-x: hidden;
 }
 
 .site-nav {
   position: fixed;
-  top: 76px;
-  left: calc(50% - 716px);
+  top: 63px;
+  left: calc(50% - 712px);
   width: 240px;
   z-index: 9999;
 
@@ -46,7 +46,7 @@ body {
   text-align: center;
   background: #FFEE8C;    
   border-bottom: 1px solid #555;
-  padding: 4px 4px;
+  padding: 5px 4px;
   margin: 0;
   font-size: 15px;
 }
@@ -55,7 +55,7 @@ body {
   display: block;
   color: #0645ad;
   text-decoration: none;
-  padding: 4px 10px;
+  padding: 3px 10px;
   margin: 0;
   border-bottom: 1px solid #ddd;
 }
@@ -154,7 +154,7 @@ input {
 .links-table {
   border-collapse: collapse;
   width: 932px;
-  margin: 10px auto;
+  margin: 0 auto 6px;
   table-layout: fixed;
   background: #ffffff;
 }
@@ -162,7 +162,7 @@ input {
 .links-table th,
 .links-table td {
   border: 1px solid #555;
-  padding: 8px;
+  padding: 5px 8px;
   text-align: center;
   vertical-align: top;
   width: 20%;
@@ -170,8 +170,23 @@ input {
 
 .links-table img {
   display: block;
-  margin: 0 auto 4px auto;
+  margin: 0 auto 2px auto;
   border-radius: 4px;
+}
+
+body > h2[style*="text-align:center"] {
+  margin: 0 auto !important;
+  padding-top: 8px !important;
+  line-height: 1.1;
+}
+
+body > h2[style*="text-align:center"] + p[style*="text-align:center"] {
+  margin: 1px auto 7px !important;
+  line-height: 1.05;
+}
+
+#live-traffic.vatsim-container {
+  margin-top: 4px !important;
 }
 
 /* великі картинки 1-3 колонок */
@@ -3844,6 +3859,34 @@ const DEFAULT_WEATHER_AIRPORTS = {
 
 const MULTI_RUNWAY_AIRPORTS = new Set(['UKBB']);
 const HARD_RUNWAY_SURFACES = ['ASPH', 'CONC', 'BIT', 'PEM', 'PAVED'];
+const UKRAINE_QUICK_AIRPORTS = {
+    UKBB: { icao: 'UKBB', lat: 50.3447, lon: 30.8933, name: 'Kyiv/Boryspil' },
+    UKKK: { icao: 'UKKK', lat: 50.4017, lon: 30.4497, name: 'Kyiv/Zhuliany' },
+    UKKM: { icao: 'UKKM', lat: 50.6035, lon: 30.1919, name: 'Hostomel' },
+    UKLL: { icao: 'UKLL', lat: 49.8125, lon: 23.9561, name: 'Lviv' },
+    UKOO: { icao: 'UKOO', lat: 46.4268, lon: 30.6765, name: 'Odesa' },
+    UKHH: { icao: 'UKHH', lat: 49.9248, lon: 36.2900, name: 'Kharkiv' },
+    UKLR: { icao: 'UKLR', lat: 50.6071, lon: 26.1416, name: 'Rivne' },
+    UKCC: { icao: 'UKCC', lat: 48.0736, lon: 37.7397, name: 'Donetsk' },
+    UKFF: { icao: 'UKFF', lat: 45.0522, lon: 33.9751, name: 'Simferopol' },
+    UKDD: { icao: 'UKDD', lat: 48.3572, lon: 35.1006, name: 'Dnipro' },
+    UKHS: { icao: 'UKHS', lat: 50.8583, lon: 34.7625, name: 'Sumy' },
+    UKKE: { icao: 'UKKE', lat: 49.4156, lon: 31.9953, name: 'Cherkasy' },
+    UKLH: { icao: 'UKLH', lat: 49.3597, lon: 26.9334, name: 'Khmelnytskyi' },
+    UKHP: { icao: 'UKHP', lat: 49.5686, lon: 34.3972, name: 'Poltava' },
+    UKCW: { icao: 'UKCW', lat: 48.4174, lon: 39.3741, name: 'Luhansk' },
+    UKON: { icao: 'UKON', lat: 47.0579, lon: 31.9198, name: 'Mykolaiv' },
+    UKWW: { icao: 'UKWW', lat: 49.2425, lon: 28.6138, name: 'Vinnytsia' },
+    UKCM: { icao: 'UKCM', lat: 47.0761, lon: 37.4496, name: 'Mariupol' },
+    UKLI: { icao: 'UKLI', lat: 48.8842, lon: 24.6861, name: 'Ivano-Frankivsk' },
+    UKLU: { icao: 'UKLU', lat: 48.6343, lon: 22.2634, name: 'Uzhhorod' },
+    UKOH: { icao: 'UKOH', lat: 46.6765, lon: 32.5064, name: 'Kherson' },
+    UKLT: { icao: 'UKLT', lat: 49.5242, lon: 25.7001, name: 'Ternopil' },
+    UKLN: { icao: 'UKLN', lat: 48.2593, lon: 25.9808, name: 'Chernivtsi' },
+    UKKG: { icao: 'UKKG', lat: 48.5428, lon: 32.2850, name: 'Kropyvnytskyi' },
+    UKDR: { icao: 'UKDR', lat: 48.0433, lon: 33.2099, name: 'Kryvyi Rih' },
+    UKDE: { icao: 'UKDE', lat: 47.8670, lon: 35.3157, name: 'Zaporizhzhia' }
+};
 const WEATHER_MENU_AIRPORTS = [
     ['UKBB', 'Бориспіль**'],
     ['UKLL', 'Львів'],
@@ -8331,7 +8374,10 @@ const linksHtml = links.map(link => `
 `;
 }
 
-  Object.values(weatherAirports)
+  Object.values({
+      ...UKRAINE_QUICK_AIRPORTS,
+      ...weatherAirports
+    })
     .filter(airport =>
       airport &&
       airport.icao &&
