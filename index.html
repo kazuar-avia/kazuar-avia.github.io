@@ -9056,6 +9056,10 @@ function getUkraineAtcVatglassesPositionId(controller) {
   const type = callsign.split("_").pop();
   const frequency = String(controller?.frequency || "").trim();
 
+  if (UKRAINE_ATC_FIR_NAMES[icao] && type === "CTR") {
+    return "__VATSIM_SECTOR__";
+  }
+	
   const candidates = Object.entries(positions).filter(([, position]) => {
     const pre = Array.isArray(position?.pre) ? position.pre.map(code => String(code).toUpperCase()) : [];
     const positionType = String(position?.type || "").trim().toUpperCase();
