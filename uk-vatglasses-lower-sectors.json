@@ -1,0 +1,221 @@
+{
+  "source": "https://github.com/lennycolton/vatglasses-data/blob/main/data/uk.json",
+  "positions": {
+    "DA1": { "callsign": "Dnipro Radar", "frequency": "119.400", "type": "APP", "pre": ["UKDD"] },
+    "DER": { "callsign": "Zaporizhzhia Radar", "frequency": "119.200", "type": "APP", "pre": ["UKDE"] },
+    "HV2": { "callsign": "Kharkiv Radar", "frequency": "118.800", "type": "APP", "pre": ["UKHH"] },
+    "HV3": { "callsign": "Kharkiv Radar", "frequency": "133.900", "type": "APP", "pre": ["UKHV"] },
+    "LIA": { "callsign": "Franko Radar", "frequency": "127.300", "type": "APP", "pre": ["UKLI"] },
+    "LA1": { "callsign": "Lviv Radar", "frequency": "120.525", "type": "APP", "pre": ["UKLL"] },
+    "ODA": { "callsign": "Odesa Radar", "frequency": "120.900", "type": "APP", "pre": ["UKOO"] },
+    "BG1": { "callsign": "Boryspil Ground", "frequency": "127.925", "type": "GND", "pre": ["UKBB"] },
+    "BG2": { "callsign": "Boryspil Ground", "frequency": "118.050", "type": "GND", "pre": ["UKBB"] },
+    "LG1": { "callsign": "Lviv Ground", "frequency": "120.050", "type": "GND", "pre": ["UKLL"] },
+    "OG1": { "callsign": "Odesa Ground", "frequency": "127.700", "type": "GND", "pre": ["UKOO"] },
+    "BT1": { "callsign": "Boryspil Tower", "frequency": "119.300", "type": "TWR", "pre": ["UKBB"] },
+    "BT2": { "callsign": "Boryspil Tower", "frequency": "119.650", "type": "TWR", "pre": ["UKBB"] },
+    "DT1": { "callsign": "Dnipro Tower", "frequency": "118.600", "type": "TWR", "pre": ["UKDD"] },
+    "DET": { "callsign": "Zaporizhzhia Tower", "frequency": "120.050", "type": "TWR", "pre": ["UKDE"] },
+    "DRT": { "callsign": "Kryvyi Rih Tower", "frequency": "120.300", "type": "TWR", "pre": ["UKDR"] },
+    "HPT": { "callsign": "Poltava Tower", "frequency": "120.600", "type": "TWR", "pre": ["UKHP"] },
+    "HT1": { "callsign": "Kherson Tower", "frequency": "121.200", "type": "TWR", "pre": ["UKOH"] },
+    "KT1": { "callsign": "Kharkiv Tower", "frequency": "118.100", "type": "TWR", "pre": ["UKHH"] },
+    "LIT": { "callsign": "Franko Tower", "frequency": "134.850", "type": "TWR", "pre": ["UKLI"] },
+    "LT1": { "callsign": "Lviv Tower", "frequency": "128.000", "type": "TWR", "pre": ["UKLL"] },
+    "OTI": { "callsign": "Odesa Tower", "frequency": "125.500", "type": "TWR", "pre": ["UKOO"] }
+  },
+  "airspace": [
+    {
+      "id": "Lviv",
+      "comment": "UKLL_CTR",
+      "group": "TWR",
+      "owner": ["LT1", "LA1"],
+      "sectors": [{
+        "min": 25,
+        "max": 32,
+        "points": [
+          ["495900", "0233800"],
+          ["495535", "0233021"],
+          ["492816", "0240627"],
+          ["494157", "0242834"],
+          ["500430", "0235348"],
+          ["500300", "0234700"],
+          ["495900", "0233800"]
+        ]
+      }]
+    },
+    {
+      "id": "Ivano-Frankivsk",
+      "comment": "UKLI_CTR",
+      "group": "TWR",
+      "owner": ["LIT", "LIA"],
+      "sectors": [{
+        "min": 0,
+        "max": 34,
+        "points": [
+          ["484308", "0244854"],
+          ["484915", "0241327"],
+          ["490417", "0241825"],
+          ["485542", "0250818"],
+          ["484630", "0250406"],
+          ["484806", "0245430"],
+          ["484308", "0244854"]
+        ]
+      }]
+    },
+    {
+      "id": "Ivano-Frankivsk",
+      "comment": "UKLI_TMA_Z1",
+      "group": "TWR",
+      "owner": ["LIT", "LIA"],
+      "sectors": [{
+        "min": 20,
+        "max": 94,
+        "points": [
+          ["484915", "0241327"],
+          ["485521", "0241257"],
+          ["490425", "0241831"],
+          ["491146", "0243728"],
+          ["491034", "0245215"],
+          ["490026", "0250756"],
+          ["485044", "0251000"],
+          ["484140", "0250426"],
+          ["483706", "0245648"],
+          ["484308", "0244854"],
+          ["484915", "0241327"]
+        ]
+      }]
+    },
+    {
+      "id": "Kharkiv",
+      "comment": "UKHH_CTR",
+      "group": "TWR",
+      "owner": ["KT1", "HV2", "HV3"],
+      "sectors": [{
+        "min": 0,
+        "max": 12,
+        "points": [
+          ["500050", "0360141"],
+          ["500329", "0363402"],
+          ["495025", "0363354"],
+          ["494759", "0360417"],
+          ["500050", "0360141"]
+        ]
+      }]
+    },
+    {
+      "id": "Dnipro",
+      "comment": "UKDD_CTR",
+      "group": "TWR",
+      "owner": ["DT1", "DA1"],
+      "sectors": [{
+        "min": 0,
+        "max": 14,
+        "points": [
+          ["482649", "0344957"],
+          ["482649", "0352225"],
+          ["481601", "0352222"],
+          ["481601", "0345000"],
+          ["482649", "0344957"]
+        ]
+      }]
+    },
+    {
+      "id": "Zaporizhzhia",
+      "comment": "UKDE_CTR",
+      "group": "TWR",
+      "owner": ["DET", "DER"],
+      "sectors": [{
+        "min": 13,
+        "max": 19,
+        "points": [
+          ["480423", "0351751"],
+          ["480529", "0352545"],
+          ["480159", "0353811"],
+          ["475711", "0353508"],
+          ["473732", "0352259"],
+          ["473624", "0351951"],
+          ["474100", "0350327"],
+          ["480423", "0351751"]
+        ]
+      }]
+    },
+    {
+      "id": "Kryvyi Rih",
+      "comment": "UKDR_TMA",
+      "group": "TWR",
+      "owner": ["DRT"],
+      "sectors": [{
+        "min": 13,
+        "max": 99,
+        "points": [
+          ["473958", "0332813"],
+          ["474154", "0331542"],
+          ["474400", "0330300"],
+          ["474600", "0325000"],
+          ["480136", "0325228"],
+          ["480706", "0325318"],
+          ["481130", "0325800"],
+          ["482000", "0325954"],
+          ["482000", "0333454"],
+          ["481532", "0333424"],
+          ["473958", "0332813"]
+        ]
+      }]
+    },
+    {
+      "id": "Poltava",
+      "comment": "UKHP_TMA",
+      "group": "TWR",
+      "owner": ["HPT", "HV3"],
+      "sectors": [{
+        "min": 0,
+        "max": 99,
+        "points": [
+          ["491848", "0333700"],
+          ["492205", "0345242"],
+          ["494648", "0345724"],
+          ["494648", "0340406"],
+          ["491848", "0333700"]
+        ]
+      }]
+    },
+    {
+      "id": "Kherson",
+      "comment": "UKOH_CTR_DV",
+      "group": "TWR",
+      "owner": ["HT1"],
+      "sectors": [{
+        "min": 0,
+        "max": 49,
+        "points": [
+          ["464827", "0325324"],
+          ["464627", "0325753"],
+          ["464130", "0325310"],
+          ["464600", "0325300"],
+          ["464827", "0325324"]
+        ]
+      }]
+    },
+    {
+      "id": "Odesa",
+      "comment": "UKOO_CTR",
+      "group": "TWR",
+      "owner": ["OTI", "ODA"],
+      "sectors": [{
+        "min": 0,
+        "max": 19,
+        "points": [
+          ["463401", "0302705"],
+          ["463641", "0303949"],
+          ["463251", "0304130"],
+          ["463336", "0304515"],
+          ["461652", "0305231"],
+          ["461327", "0303607"],
+          ["462546", "0303044"],
+          ["463401", "0302705"]
+        ]
+      }]
+    }
+  ]
+}
