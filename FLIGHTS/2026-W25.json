@@ -131,6 +131,168 @@
                         "elev": 995
                     }
                 }
+            },
+            {
+                "_id": "6a36e1b4a5e61d69a7a758ee",
+                "aircraft": {
+                    "name": "Boeing 737-800",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "217D",
+                "free": false,
+                "schedule": false,
+                "charter": true,
+                "payload": {
+                    "pax": 163,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-06-20T19:05:00.000Z",
+                "duration": 115,
+                "arrTime": "2026-06-20T21:00:00.000Z",
+                "depTimeAct": "2026-06-20T19:02:43.954Z",
+                "delay": -69,
+                "takeoffTimeAct": "2026-06-20T19:03:02.983Z",
+                "durationAct": 48,
+                "arrTimeAct": "2026-06-20T19:51:03.044Z",
+                "open": "2026-06-20T19:01:40.963Z",
+                "close": "2026-06-20T19:53:50.078Z",
+                "rating": 9.57,
+                "simulator": "msfs",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 267,
+                        "fuel": 2021,
+                        "expenses": 8443,
+                        "penalties": 0,
+                        "revenue": 30600,
+                        "balance": 22157,
+                        "prices": {
+                            "ticketPrice": 153,
+                            "cargoUnitPrice": 189,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 163,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 3,
+                                "C": 28,
+                                "Y": 132
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1968,
+                        "aircraft": 4700,
+                        "handling": 815,
+                        "landing": 960
+                    },
+                    "revenue": {
+                        "tickets": 30600,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 5.48m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -40,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 43
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 4.21m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -3,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.1,
+                                        "rate": 142
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.10G (142 ft/min, normal  conditions)<br/>Distance from threshold: 551m (accepted range: 190-763m)<br/>Average centerline deviation: 1.92m<br/>Max centerline deviation: 4.21m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.1,
+                                        "rate": 142
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-06-20T18:53:40.499Z",
+                "updatedAt": "2026-06-20T19:53:50.155Z",
+                "dep": {
+                    "icao": "VQPR",
+                    "name": "Paro International Airport",
+                    "city": "Paro",
+                    "location": {
+                        "lat": 27.4032,
+                        "lon": 89.424599,
+                        "elev": 7364
+                    }
+                },
+                "arr": {
+                    "icao": "VNKT",
+                    "name": "Tribhuvan International Airport",
+                    "city": "Kathmandu",
+                    "location": {
+                        "lat": 27.6966,
+                        "lon": 85.3591,
+                        "elev": 4390
+                    }
+                },
+                "actArr": {
+                    "icao": "VNKT",
+                    "name": "Tribhuvan International Airport",
+                    "city": "Kathmandu",
+                    "location": {
+                        "lat": 27.6966,
+                        "lon": 85.3591,
+                        "elev": 4390
+                    }
+                }
             }
         ]
     }
