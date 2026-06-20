@@ -417,6 +417,162 @@
                         "elev": 1039
                     }
                 }
+            },
+            {
+                "_id": "69d3643dc739a30ec82cee12",
+                "aircraft": {
+                    "name": "Airbus A330-200",
+                    "icao": "A332"
+                },
+                "type": "pax",
+                "flightNumber": "2929",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 50,
+                    "cargo": 41,
+                    "weights": {
+                        "cargo": 5740
+                    }
+                },
+                "depTime": "2026-04-06T08:30:00.000Z",
+                "duration": 60,
+                "arrTime": "2026-04-06T09:30:00.000Z",
+                "depTimeAct": "2026-04-06T08:04:17.239Z",
+                "delay": -29,
+                "takeoffTimeAct": "2026-04-06T08:12:11.115Z",
+                "durationAct": 49,
+                "arrTimeAct": "2026-04-06T09:01:23.472Z",
+                "open": "2026-04-06T07:48:00.664Z",
+                "close": "2026-04-06T09:04:50.151Z",
+                "rating": 8.5,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 300,
+                        "fuel": 4678,
+                        "expenses": 22360,
+                        "penalties": 250,
+                        "revenue": 9365,
+                        "balance": -13245,
+                        "prices": {
+                            "ticketPrice": 93,
+                            "cargoUnitPrice": 115,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 50,
+                            "cargo": 41,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 50
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 5289,
+                        "aircraft": 15350,
+                        "handling": 321,
+                        "landing": 1400
+                    },
+                    "revenue": {
+                        "tickets": 4650,
+                        "cargo": 4715
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight departed 10 minutes too early (max 15 minutes before scheduled is allowed)",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 250
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 36
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.05G (100 ft/min, normal  conditions)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.05,
+                                        "rate": 100
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No BEACON lights for 3631s when required",
+                            "penalty": {
+                                "points": -100,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-04-06T07:43:57.196Z",
+                "updatedAt": "2026-04-06T09:04:50.238Z",
+                "dep": {
+                    "icao": "GCLA",
+                    "name": "La Palma Airport",
+                    "city": "Sta Cruz de la Palma, La Palma Island",
+                    "location": {
+                        "lat": 28.626499,
+                        "lon": -17.7556,
+                        "elev": 107
+                    }
+                },
+                "arr": {
+                    "icao": "LPMA",
+                    "name": "Madeira International Airport Cristiano Ronaldo",
+                    "city": "Funchal",
+                    "location": {
+                        "lat": 32.697899,
+                        "lon": -16.7745,
+                        "elev": 192
+                    }
+                },
+                "actArr": {
+                    "icao": "LPMA",
+                    "name": "Madeira International Airport Cristiano Ronaldo",
+                    "city": "Funchal",
+                    "location": {
+                        "lat": 32.697899,
+                        "lon": -16.7745,
+                        "elev": 192
+                    }
+                }
             }
         ]
     },
@@ -4795,6 +4951,149 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "69d364b1c739a30ec82cf602",
+                "aircraft": {
+                    "name": "Airbus A321",
+                    "icao": "A321"
+                },
+                "type": "pax",
+                "flightNumber": "8JX",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 215,
+                    "cargo": 39,
+                    "weights": {
+                        "cargo": 5460
+                    }
+                },
+                "depTime": "2026-04-06T08:20:00.000Z",
+                "duration": 85,
+                "arrTime": "2026-04-06T09:45:00.000Z",
+                "depTimeAct": "2026-04-06T08:20:52.463Z",
+                "delay": -7,
+                "takeoffTimeAct": "2026-04-06T08:24:23.473Z",
+                "durationAct": 74,
+                "arrTimeAct": "2026-04-06T09:38:01.522Z",
+                "open": "2026-04-06T07:53:02.675Z",
+                "close": "2026-04-06T09:42:03.569Z",
+                "rating": 9.38,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 444,
+                        "fuel": 3500,
+                        "expenses": 11275,
+                        "penalties": 0,
+                        "revenue": 32940,
+                        "balance": 21665,
+                        "prices": {
+                            "ticketPrice": 126,
+                            "cargoUnitPrice": 150,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 215,
+                            "cargo": 39,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 215
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3957,
+                        "aircraft": 4978,
+                        "handling": 1179,
+                        "landing": 1161
+                    },
+                    "revenue": {
+                        "tickets": 27090,
+                        "cargo": 5850
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 12.79m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -62,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 57
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.33G (328 ft/min, challenging  conditions)<br/>Distance from threshold: 550m (accepted range: 203-816m)<br/>Average centerline deviation: 6.86m<br/>Max centerline deviation: 12.79m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 61
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.33,
+                                        "rate": 328
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-04-06T07:45:53.315Z",
+                "updatedAt": "2026-04-06T09:42:03.653Z",
+                "dep": {
+                    "icao": "LUKK",
+                    "name": "Chişinău International Airport",
+                    "city": "Chişinău",
+                    "location": {
+                        "lat": 46.9277,
+                        "lon": 28.931,
+                        "elev": 399
+                    }
+                },
+                "arr": {
+                    "icao": "LHBP",
+                    "name": "Budapest Liszt Ferenc International Airport",
+                    "city": "Budapest",
+                    "location": {
+                        "lat": 47.43018,
+                        "lon": 19.262393,
+                        "elev": 495
+                    }
+                },
+                "actArr": {
+                    "icao": "LHBP",
+                    "name": "Budapest Liszt Ferenc International Airport",
+                    "city": "Budapest",
+                    "location": {
+                        "lat": 47.43018,
+                        "lon": 19.262393,
+                        "elev": 495
+                    }
+                }
             }
         ]
     },
@@ -6720,6 +7019,134 @@
                         "lat": 36.898701,
                         "lon": 30.800501,
                         "elev": 177
+                    }
+                }
+            },
+            {
+                "_id": "69d372aec739a30ec82e453a",
+                "aircraft": {
+                    "name": "Boeing 737-800",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "1204",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 174,
+                    "cargo": 27,
+                    "weights": {
+                        "cargo": 2295
+                    }
+                },
+                "depTime": "2026-04-06T09:10:00.000Z",
+                "duration": 121,
+                "arrTime": "2026-04-06T11:11:00.000Z",
+                "depTimeAct": "2026-04-06T09:04:18.141Z",
+                "delay": -8,
+                "takeoffTimeAct": "2026-04-06T09:09:29.135Z",
+                "durationAct": 114,
+                "arrTimeAct": "2026-04-06T11:03:19.189Z",
+                "open": "2026-04-06T08:45:37.200Z",
+                "close": "2026-04-06T11:08:15.212Z",
+                "rating": 10,
+                "simulator": "msfs",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 761,
+                        "fuel": 4673,
+                        "expenses": 13250,
+                        "penalties": 0,
+                        "revenue": 24525,
+                        "balance": 11275,
+                        "prices": {
+                            "ticketPrice": 120,
+                            "cargoUnitPrice": 135,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 174,
+                            "cargo": 27,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 174
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 5283,
+                        "aircraft": 6175,
+                        "handling": 1132,
+                        "landing": 660
+                    },
+                    "revenue": {
+                        "tickets": 20880,
+                        "cargo": 3645
+                    },
+                    "violations": [
+                        {
+                            "title": "Great touchdown: 1.19G (168 ft/min, normal  conditions)<br/>Distance from threshold: 611m (accepted range: 194-779m)<br/>Average centerline deviation: 1.80m<br/>Max centerline deviation: 2.48m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 38
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.19,
+                                        "rate": 168
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-04-06T08:45:34.073Z",
+                "updatedAt": "2026-04-06T11:08:15.288Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "LDDU",
+                    "name": "Dubrovnik Ruđer Bošković Airport",
+                    "city": "Čilipi",
+                    "location": {
+                        "lat": 42.562247,
+                        "lon": 18.265543,
+                        "elev": 527
+                    }
+                },
+                "actArr": {
+                    "icao": "LDDU",
+                    "name": "Dubrovnik Ruđer Bošković Airport",
+                    "city": "Čilipi",
+                    "location": {
+                        "lat": 42.562247,
+                        "lon": 18.265543,
+                        "elev": 527
                     }
                 }
             }
