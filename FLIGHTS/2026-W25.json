@@ -6875,6 +6875,149 @@
                         "elev": 202
                     }
                 }
+            },
+            {
+                "_id": "6a37f368a5e61d69a7be0699",
+                "aircraft": {
+                    "name": "Boeing 737-800",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "82B",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 101,
+                    "cargo": 25,
+                    "weights": {
+                        "cargo": 2275
+                    }
+                },
+                "depTime": "2026-06-21T14:35:00.000Z",
+                "duration": 30,
+                "arrTime": "2026-06-21T15:05:00.000Z",
+                "depTimeAct": "2026-06-21T14:29:11.428Z",
+                "delay": -12,
+                "takeoffTimeAct": "2026-06-21T14:29:18.454Z",
+                "durationAct": 24,
+                "arrTimeAct": "2026-06-21T14:52:48.487Z",
+                "open": "2026-06-21T14:28:40.723Z",
+                "close": "2026-06-21T14:54:25.498Z",
+                "rating": 9.86,
+                "simulator": "msfs",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 81,
+                        "fuel": 1147,
+                        "expenses": 6348,
+                        "penalties": 0,
+                        "revenue": 6556,
+                        "balance": 208,
+                        "prices": {
+                            "ticketPrice": 44,
+                            "cargoUnitPrice": 44,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 101,
+                            "cargo": 25,
+                            "paxByClass": {
+                                "F": 2,
+                                "C": 17,
+                                "Y": 82
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1297,
+                        "aircraft": 3925,
+                        "handling": 466,
+                        "landing": 660
+                    },
+                    "revenue": {
+                        "tickets": 5456,
+                        "cargo": 1100
+                    },
+                    "violations": [
+                        {
+                            "title": "Average touchdown: 1.44G (376 ft/min, normal  conditions)<br/>Distance from threshold: 619m (accepted range: 174-699m)<br/>Average centerline deviation: 1.43m<br/>Max centerline deviation: 2.25m",
+                            "penalty": {
+                                "points": -10,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.44,
+                                        "rate": 376
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Max G exceeded: 2.02G (max allowed: 2G)",
+                            "penalty": {
+                                "points": -4,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 36
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-06-21T14:21:28.936Z",
+                "updatedAt": "2026-06-21T14:54:25.572Z",
+                "dep": {
+                    "icao": "UKLN",
+                    "name": "Chernivtsi International Airport",
+                    "city": "Chernivtsi",
+                    "location": {
+                        "lat": 48.259300231933594,
+                        "lon": 25.98080062866211,
+                        "elev": 826
+                    }
+                },
+                "arr": {
+                    "icao": "LRSV",
+                    "name": "Suceava Stefan cel Mare Airport",
+                    "city": "Suceava",
+                    "location": {
+                        "lat": 47.6875,
+                        "lon": 26.35409927368164,
+                        "elev": 1375
+                    }
+                },
+                "actArr": {
+                    "icao": "LRSV",
+                    "name": "Suceava Stefan cel Mare Airport",
+                    "city": "Suceava",
+                    "location": {
+                        "lat": 47.6875,
+                        "lon": 26.35409927368164,
+                        "elev": 1375
+                    }
+                }
             }
         ]
     },
