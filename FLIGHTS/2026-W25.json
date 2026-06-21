@@ -6416,6 +6416,194 @@
                         "elev": 4390
                     }
                 }
+            },
+            {
+                "_id": "6a3759f3a5e61d69a7b1a1ac",
+                "aircraft": {
+                    "name": "Boeing 777-300ER",
+                    "icao": "B77W"
+                },
+                "type": "pax",
+                "flightNumber": "217D",
+                "free": false,
+                "schedule": false,
+                "charter": true,
+                "payload": {
+                    "pax": 429,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-06-21T03:40:00.000Z",
+                "duration": 430,
+                "arrTime": "2026-06-21T10:50:00.000Z",
+                "depTimeAct": "2026-06-21T03:39:06.172Z",
+                "delay": -87,
+                "takeoffTimeAct": "2026-06-21T03:39:27.228Z",
+                "durationAct": 343,
+                "arrTimeAct": "2026-06-21T09:22:43.821Z",
+                "open": "2026-06-21T03:38:39.593Z",
+                "close": "2026-06-21T09:23:49.865Z",
+                "rating": 6.35,
+                "simulator": "msfs",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 2568,
+                        "fuel": 44838,
+                        "expenses": 94712,
+                        "penalties": 0,
+                        "revenue": 273296,
+                        "balance": 178584,
+                        "prices": {
+                            "ticketPrice": 464,
+                            "cargoUnitPrice": 485,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 429,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 27,
+                                "C": 79,
+                                "Y": 323
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 49591,
+                        "aircraft": 34123,
+                        "handling": 2574,
+                        "landing": 8424
+                    },
+                    "revenue": {
+                        "tickets": 273296,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 6.78m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -45,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 38
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Unstable approach below 400ft: vertical speed below -1500 ft/min (actual -1610 ft/min)",
+                            "penalty": {
+                                "points": -55,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "spoilers",
+                                "payload": {
+                                    "system": {
+                                        "fps": 34
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Speeding when vacating runway (going 64KT, accepted max 50KT)",
+                            "penalty": {
+                                "points": -100,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Uncomfortable touchdown: 1.81G (610 ft/min, normal  conditions)<br/>Distance from threshold: 324m (accepted range: 178-716m)<br/>Average centerline deviation: 1.74m<br/>Max centerline deviation: 3.25m",
+                            "penalty": {
+                                "points": -93,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.81,
+                                        "rate": 610
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Max G exceeded: 2.36G (max allowed: 2G)",
+                            "penalty": {
+                                "points": -72,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-06-21T03:26:43.022Z",
+                "updatedAt": "2026-06-21T09:23:50.013Z",
+                "dep": {
+                    "icao": "FKKD",
+                    "name": "Douala International Airport",
+                    "city": "Douala",
+                    "location": {
+                        "lat": 4.0060801506,
+                        "lon": 9.719479560849999,
+                        "elev": 33
+                    }
+                },
+                "arr": {
+                    "icao": "LTFM",
+                    "name": "İstanbul Airport",
+                    "city": "Arnavutköy, Istanbul",
+                    "location": {
+                        "lat": 41.261297,
+                        "lon": 28.741951,
+                        "elev": 325
+                    }
+                },
+                "actArr": {
+                    "icao": "LTBA",
+                    "name": "İstanbul Atatürk Airport",
+                    "city": "Bakırköy, Istanbul",
+                    "location": {
+                        "lat": 40.971913,
+                        "lon": 28.823714,
+                        "elev": 163
+                    }
+                }
             }
         ]
     },
