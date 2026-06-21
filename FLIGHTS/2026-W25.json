@@ -11564,6 +11564,164 @@
                         "elev": 7630
                     }
                 }
+            },
+            {
+                "_id": "6a37889aa5e61d69a7b3b7a2",
+                "aircraft": {
+                    "name": "Boeing 777 Freighter",
+                    "icao": "B77L"
+                },
+                "type": "cargo",
+                "flightNumber": "29W",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 0,
+                    "cargo": 605,
+                    "weights": {
+                        "cargo": 76835
+                    }
+                },
+                "depTime": "2026-06-21T07:20:00.000Z",
+                "duration": 280,
+                "arrTime": "2026-06-21T12:00:00.000Z",
+                "depTimeAct": "2026-06-21T07:12:54.102Z",
+                "delay": -34,
+                "takeoffTimeAct": "2026-06-21T07:16:17.113Z",
+                "durationAct": 250,
+                "arrTimeAct": "2026-06-21T11:26:20.042Z",
+                "open": "2026-06-21T07:07:17.103Z",
+                "close": "2026-06-21T11:27:43.085Z",
+                "rating": 7.99,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 2154,
+                        "fuel": 31852,
+                        "expenses": 55817,
+                        "penalties": 0,
+                        "revenue": 151855,
+                        "balance": 96038,
+                        "prices": {
+                            "ticketPrice": 251,
+                            "cargoUnitPrice": 251,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 1,
+                                "fuel": 0.8,
+                                "ground": 0.85
+                            }
+                        },
+                        "payload": {
+                            "pax": 0,
+                            "cargo": 605,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 28807,
+                        "aircraft": 25175,
+                        "handling": 635,
+                        "landing": 1200
+                    },
+                    "revenue": {
+                        "tickets": 0,
+                        "cargo": 151855
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 7.15m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -51,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.28G (246 ft/min, normal  conditions)<br/>Distance from threshold: 215m (accepted range: 191-767m)<br/>Average centerline deviation: 4.70m<br/>Max centerline deviation: 7.15m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.28,
+                                        "rate": 246
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 683ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-06-21T06:45:46.767Z",
+                "updatedAt": "2026-06-21T11:27:43.171Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "UTDD",
+                    "name": "Dushanbe International Airport",
+                    "city": "Dushanbe",
+                    "location": {
+                        "lat": 38.543746,
+                        "lon": 68.822977,
+                        "elev": 2575
+                    }
+                },
+                "actArr": {
+                    "icao": "UTDD",
+                    "name": "Dushanbe International Airport",
+                    "city": "Dushanbe",
+                    "location": {
+                        "lat": 38.543746,
+                        "lon": 68.822977,
+                        "elev": 2575
+                    }
+                }
             }
         ]
     },
