@@ -1208,5 +1208,199 @@
                 }
             }
         ]
+    },
+    {
+        "pilot_id": "695807ad3dc76275ba8a6e4b",
+        "fullname": "Alex Zaugarov",
+        "avatar": "695807ad3dc76275ba8a6e4b1767377295052",
+        "flights": [
+            {
+                "_id": "6a397f45a5e61d69a7df14a7",
+                "aircraft": {
+                    "name": "Embraer Phenom 300",
+                    "icao": "E55P"
+                },
+                "type": "pax",
+                "flightNumber": "94Q",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 6,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-06-22T18:55:00.000Z",
+                "duration": 70,
+                "arrTime": "2026-06-22T20:05:00.000Z",
+                "depTimeAct": "2026-06-22T18:52:41.322Z",
+                "delay": -9,
+                "takeoffTimeAct": "2026-06-22T18:57:53.930Z",
+                "durationAct": 58,
+                "arrTimeAct": "2026-06-22T19:56:03.467Z",
+                "open": "2026-06-22T18:36:47.811Z",
+                "close": "2026-06-22T19:59:33.875Z",
+                "rating": 8.9,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 341,
+                        "fuel": 564,
+                        "expenses": 2292,
+                        "penalties": 0,
+                        "revenue": 2808,
+                        "balance": 516,
+                        "prices": {
+                            "ticketPrice": 117,
+                            "cargoUnitPrice": 135,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 6,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 6,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 645,
+                        "aircraft": 1395,
+                        "handling": 42,
+                        "landing": 210
+                    },
+                    "revenue": {
+                        "tickets": 2808,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 5.57m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -24,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 33
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 6.40m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -36,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.17G (18 ft/min, normal  conditions)<br/>Distance from threshold: 865m (accepted range: 179-717m)<br/>Average centerline deviation: 4.13m<br/>Max centerline deviation: 6.40m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.17,
+                                        "rate": 18
+                                    },
+                                    "weather": {
+                                        "windDir": 10.43,
+                                        "windSpd": 3.06,
+                                        "windX": -1.69
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on landing: 1013mb instead of 1005.96mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.17,
+                                        "rate": 18
+                                    },
+                                    "weather": {
+                                        "windDir": 10.43,
+                                        "windSpd": 3.06,
+                                        "windX": -1.69
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-06-22T18:30:29.712Z",
+                "updatedAt": "2026-06-22T19:59:33.956Z",
+                "dep": {
+                    "icao": "UACC",
+                    "name": "Nursultan Nazarbayev International Airport",
+                    "city": "Astana",
+                    "location": {
+                        "lat": 51.027035,
+                        "lon": 71.467094,
+                        "elev": 1165
+                    }
+                },
+                "arr": {
+                    "icao": "UAUU",
+                    "name": "Kostanay West Airport",
+                    "city": "Kostanay",
+                    "location": {
+                        "lat": 53.20690155029297,
+                        "lon": 63.55030059814453,
+                        "elev": 595
+                    }
+                },
+                "actArr": {
+                    "icao": "UAUU",
+                    "name": "Kostanay West Airport",
+                    "city": "Kostanay",
+                    "location": {
+                        "lat": 53.20690155029297,
+                        "lon": 63.55030059814453,
+                        "elev": 595
+                    }
+                }
+            }
+        ]
     }
 ]
