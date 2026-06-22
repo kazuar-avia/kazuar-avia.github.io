@@ -1206,6 +1206,154 @@
                         "elev": 755
                     }
                 }
+            },
+            {
+                "_id": "6a3998cc840ade899ed8da16",
+                "aircraft": {
+                    "name": "Airbus A330-200",
+                    "icao": "A332"
+                },
+                "type": "pax",
+                "flightNumber": "22RR",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 366,
+                    "cargo": 45,
+                    "weights": {
+                        "cargo": 4410
+                    }
+                },
+                "depTime": "2026-06-22T20:40:00.000Z",
+                "duration": 80,
+                "arrTime": "2026-06-22T22:00:00.000Z",
+                "depTimeAct": "2026-06-22T20:47:36.553Z",
+                "delay": 3,
+                "takeoffTimeAct": "2026-06-22T20:47:40.291Z",
+                "durationAct": 76,
+                "arrTimeAct": "2026-06-22T22:03:21.646Z",
+                "open": "2026-06-22T20:47:27.933Z",
+                "close": "2026-06-22T22:08:35.093Z",
+                "rating": 9.54,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 509,
+                        "fuel": 7121,
+                        "expenses": 28111,
+                        "penalties": 0,
+                        "revenue": 56962,
+                        "balance": 28851,
+                        "prices": {
+                            "ticketPrice": 122,
+                            "cargoUnitPrice": 138,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 366,
+                            "cargo": 45,
+                            "paxByClass": {
+                                "F": 10,
+                                "C": 20,
+                                "Y": 336
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 8051,
+                        "aircraft": 16205,
+                        "handling": 2655,
+                        "landing": 1200
+                    },
+                    "revenue": {
+                        "tickets": 50752,
+                        "cargo": 6210
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 6.87m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -46,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 36
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.43G (400 ft/min, challenging  conditions)<br/>Distance from threshold: 185m (accepted range: 179-719m)<br/>Average centerline deviation: 1.21m<br/>Max centerline deviation: 2.89m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.43,
+                                        "rate": 400
+                                    },
+                                    "weather": {
+                                        "windDir": 310.59,
+                                        "windSpd": 3.22,
+                                        "windX": 0.43
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-06-22T20:19:24.176Z",
+                "updatedAt": "2026-06-22T22:08:35.189Z",
+                "dep": {
+                    "icao": "EVRA",
+                    "name": "Riga International Airport",
+                    "city": "Riga",
+                    "location": {
+                        "lat": 56.920752,
+                        "lon": 23.970711,
+                        "elev": 36
+                    }
+                },
+                "arr": {
+                    "icao": "UKLR",
+                    "name": "Rivne International Airport",
+                    "city": "Rivne",
+                    "location": {
+                        "lat": 50.60710144042969,
+                        "lon": 26.141599655151367,
+                        "elev": 755
+                    }
+                },
+                "actArr": {
+                    "icao": "UKLR",
+                    "name": "Rivne International Airport",
+                    "city": "Rivne",
+                    "location": {
+                        "lat": 50.60710144042969,
+                        "lon": 26.141599655151367,
+                        "elev": 755
+                    }
+                }
             }
         ]
     },
