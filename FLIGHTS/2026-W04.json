@@ -1362,6 +1362,230 @@
                         "elev": 172
                     }
                 }
+            },
+            {
+                "_id": "696dfc8b3dc76275bad1125d",
+                "aircraft": {
+                    "name": "Airbus A330-200",
+                    "icao": "A332"
+                },
+                "type": "pax",
+                "flightNumber": "3355",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 321,
+                    "cargo": 63,
+                    "weights": {
+                        "cargo": 7119
+                    }
+                },
+                "depTime": "2026-01-19T10:30:00.000Z",
+                "duration": 65,
+                "arrTime": "2026-01-19T11:35:00.000Z",
+                "depTimeAct": "2026-01-19T11:00:13.292Z",
+                "delay": 31,
+                "takeoffTimeAct": "2026-01-19T11:15:46.312Z",
+                "durationAct": 50,
+                "arrTimeAct": "2026-01-19T12:05:37.376Z",
+                "open": "2026-01-19T09:42:55.888Z",
+                "close": "2026-01-19T12:11:11.416Z",
+                "rating": 7.77,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 284,
+                        "fuel": 4038,
+                        "expenses": 22972,
+                        "penalties": 2568,
+                        "revenue": 37419,
+                        "balance": 11879,
+                        "prices": {
+                            "ticketPrice": 94,
+                            "cargoUnitPrice": 115,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 321,
+                            "cargo": 63,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 321
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4565,
+                        "aircraft": 14410,
+                        "handling": 2107,
+                        "landing": 1890
+                    },
+                    "revenue": {
+                        "tickets": 30174,
+                        "cargo": 7245
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight delayed 16 minutes (max 15 minutes after scheduled is allowed)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 2568
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 15.86m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -107,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (947m from threshold beyond 838m max accepted)",
+                            "penalty": {
+                                "points": -38,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 33
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.08,
+                                        "rate": 153
+                                    },
+                                    "weather": {
+                                        "windDir": 328.4,
+                                        "windSpd": 3.15,
+                                        "windX": -1.15
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.08G (153 ft/min, challenging  conditions)<br/>Distance from threshold: 947m (accepted range: 209-838m)<br/>Average centerline deviation: 12.03m<br/>Max centerline deviation: 15.86m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 33
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.08,
+                                        "rate": 153
+                                    },
+                                    "weather": {
+                                        "windDir": 328.4,
+                                        "windSpd": 3.15,
+                                        "windX": -1.15
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No BEACON lights for 339s when required",
+                            "penalty": {
+                                "points": -78,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        },
+                        {
+                            "title": "Fuel used 0 kg is lower than estimated minimum 4038 kg.",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 33
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.08,
+                                        "rate": 153
+                                    },
+                                    "weather": {
+                                        "windDir": 328.4,
+                                        "windSpd": 3.15,
+                                        "windX": -1.15
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-01-19T09:42:35.400Z",
+                "updatedAt": "2026-01-19T12:11:11.495Z",
+                "dep": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
             }
         ]
     },
@@ -1737,6 +1961,167 @@
                         "lat": 39.862598,
                         "lon": 4.21865,
                         "elev": 302
+                    }
+                }
+            },
+            {
+                "_id": "696e0df13dc76275bad237a1",
+                "aircraft": {
+                    "name": "Airbus A330-200",
+                    "icao": "A332"
+                },
+                "type": "pax",
+                "flightNumber": "26TG",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 406,
+                    "cargo": 58,
+                    "weights": {
+                        "cargo": 4060
+                    }
+                },
+                "depTime": "2026-01-19T11:50:00.000Z",
+                "duration": 170,
+                "arrTime": "2026-01-19T14:40:00.000Z",
+                "depTimeAct": "2026-01-19T11:23:37.761Z",
+                "delay": -26,
+                "takeoffTimeAct": "2026-01-19T11:32:16.865Z",
+                "durationAct": 162,
+                "arrTimeAct": "2026-01-19T14:13:56.674Z",
+                "open": "2026-01-19T11:08:37.095Z",
+                "close": "2026-01-19T14:21:07.622Z",
+                "rating": 8.45,
+                "simulator": "xp",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1040,
+                        "fuel": 14835,
+                        "expenses": 40492,
+                        "penalties": 2233,
+                        "revenue": 67512,
+                        "balance": 24787,
+                        "prices": {
+                            "ticketPrice": 144,
+                            "cargoUnitPrice": 156,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 406,
+                            "cargo": 58,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 406
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 16408,
+                        "aircraft": 20010,
+                        "handling": 2949,
+                        "landing": 1125
+                    },
+                    "revenue": {
+                        "tickets": 58464,
+                        "cargo": 9048
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight departed 11 minutes too early (max 15 minutes before scheduled is allowed)",
+                            "penalty": {
+                                "points": -55,
+                                "cash": 2233
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.13G (42 ft/min, normal  conditions)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 23
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.13,
+                                        "rate": 42
+                                    },
+                                    "weather": {
+                                        "windDir": 309.05,
+                                        "windSpd": 8.86,
+                                        "windX": -5.75
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No BEACON lights for 10655s when required",
+                            "penalty": {
+                                "points": -100,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-01-19T10:56:49.615Z",
+                "updatedAt": "2026-01-19T14:21:07.766Z",
+                "dep": {
+                    "icao": "DTTA",
+                    "name": "Tunis Carthage International Airport",
+                    "city": "Tunis",
+                    "location": {
+                        "lat": 36.851002,
+                        "lon": 10.2272,
+                        "elev": 22
+                    }
+                },
+                "arr": {
+                    "icao": "LUKK",
+                    "name": "Chişinău International Airport",
+                    "city": "Chişinău",
+                    "location": {
+                        "lat": 46.9277,
+                        "lon": 28.931,
+                        "elev": 399
+                    }
+                },
+                "actArr": {
+                    "icao": "LUKK",
+                    "name": "Chişinău International Airport",
+                    "city": "Chişinău",
+                    "location": {
+                        "lat": 46.9277,
+                        "lon": 28.931,
+                        "elev": 399
                     }
                 }
             }
@@ -2209,6 +2594,559 @@
                         "lat": 47.867000579833984,
                         "lon": 35.31570053100586,
                         "elev": 373
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "pilot_id": "696878073dc76275ba379264",
+        "fullname": "Timofii Mateich",
+        "avatar": "default",
+        "flights": [
+            {
+                "_id": "696e23f13dc76275bad44b53",
+                "aircraft": {
+                    "name": "Boeing 777-200ER",
+                    "icao": "B772"
+                },
+                "type": "pax",
+                "flightNumber": "3421",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 294,
+                    "cargo": 52,
+                    "weights": {
+                        "cargo": 4680
+                    }
+                },
+                "depTime": "2026-01-19T12:50:00.000Z",
+                "duration": 75,
+                "arrTime": "2026-01-19T14:05:00.000Z",
+                "depTimeAct": "2026-01-19T12:40:29.458Z",
+                "delay": -18,
+                "takeoffTimeAct": "2026-01-19T12:46:03.466Z",
+                "durationAct": 61,
+                "arrTimeAct": "2026-01-19T13:46:52.320Z",
+                "open": "2026-01-19T12:40:18.469Z",
+                "close": "2026-01-19T13:48:20.796Z",
+                "rating": 10,
+                "simulator": "msfs",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 334,
+                        "fuel": 7158,
+                        "expenses": 24665,
+                        "penalties": 0,
+                        "revenue": 42180,
+                        "balance": 17515,
+                        "prices": {
+                            "ticketPrice": 118,
+                            "cargoUnitPrice": 144,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 294,
+                            "cargo": 52,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 294
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 8093,
+                        "aircraft": 12805,
+                        "handling": 1922,
+                        "landing": 1845
+                    },
+                    "revenue": {
+                        "tickets": 34692,
+                        "cargo": 7488
+                    },
+                    "violations": [
+                        {
+                            "title": "Great touchdown: 1.27G (312 ft/min, challenging  conditions)<br/>Distance from threshold: 404m (accepted range: 197-790m)<br/>Average centerline deviation: 0.84m<br/>Max centerline deviation: 2.03m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 33
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.27,
+                                        "rate": 312
+                                    },
+                                    "weather": {
+                                        "windDir": 147.72,
+                                        "windSpd": 7.92,
+                                        "windX": -1.71
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-01-19T12:30:41.361Z",
+                "updatedAt": "2026-01-19T13:48:20.872Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "actArr": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "pilot_id": "65c4b8e789b94c0b98d281bd",
+        "fullname": "Maryan Rch",
+        "avatar": "65c4b8e789b94c0b98d281bd1707397401669",
+        "flights": [
+            {
+                "_id": "696e67c3c9ec2c72bd510b73",
+                "aircraft": {
+                    "name": "Airbus A330-200",
+                    "icao": "A332"
+                },
+                "type": "pax",
+                "flightNumber": "30J",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 321,
+                    "cargo": 39,
+                    "weights": {
+                        "cargo": 5187
+                    }
+                },
+                "depTime": "2026-01-19T17:35:00.000Z",
+                "duration": 200,
+                "arrTime": "2026-01-19T20:55:00.000Z",
+                "depTimeAct": "2026-01-19T17:39:03.666Z",
+                "delay": 13,
+                "takeoffTimeAct": "2026-01-19T17:49:26.672Z",
+                "durationAct": 199,
+                "arrTimeAct": "2026-01-19T21:08:18.905Z",
+                "open": "2026-01-19T17:27:30.037Z",
+                "close": "2026-01-19T21:14:15.964Z",
+                "rating": 10,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1383,
+                        "fuel": 18455,
+                        "expenses": 48338,
+                        "penalties": 0,
+                        "revenue": 58068,
+                        "balance": 9730,
+                        "prices": {
+                            "ticketPrice": 160,
+                            "cargoUnitPrice": 172,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 321,
+                            "cargo": 39,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 321
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 20864,
+                        "aircraft": 21810,
+                        "handling": 3774,
+                        "landing": 1890
+                    },
+                    "revenue": {
+                        "tickets": 51360,
+                        "cargo": 6708
+                    },
+                    "violations": [
+                        {
+                            "title": "Great touchdown: 1.38G (344 ft/min, challenging  conditions)<br/>Distance from threshold: 403m (accepted range: 209-838m)<br/>Average centerline deviation: 2.04m<br/>Max centerline deviation: 4.65m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.38,
+                                        "rate": 344
+                                    },
+                                    "weather": {
+                                        "windDir": 270,
+                                        "windSpd": 2.74,
+                                        "windX": 2.72
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-01-19T17:20:03.935Z",
+                "updatedAt": "2026-01-19T21:14:16.109Z",
+                "dep": {
+                    "icao": "EGCC",
+                    "name": "Manchester Airport",
+                    "city": "Manchester, Greater Manchester",
+                    "location": {
+                        "lat": 53.349375,
+                        "lon": -2.279521,
+                        "elev": 257
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "pilot_id": "695ce1b43dc76275ba0f240e",
+        "fullname": "Nazar Pilot",
+        "avatar": "default",
+        "flights": [
+            {
+                "_id": "696e8bdf3dc76275bae2647b",
+                "aircraft": {
+                    "name": "Boeing 737-800 Freighter",
+                    "icao": "B738"
+                },
+                "type": "cargo",
+                "flightNumber": "917I",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 0,
+                    "cargo": 148,
+                    "weights": {
+                        "cargo": 19536
+                    }
+                },
+                "depTime": "2026-01-19T20:10:00.000Z",
+                "duration": 70,
+                "arrTime": "2026-01-19T21:20:00.000Z",
+                "depTimeAct": "2026-01-19T20:06:31.072Z",
+                "delay": -10,
+                "takeoffTimeAct": "2026-01-19T20:08:44.075Z",
+                "durationAct": 61,
+                "arrTimeAct": "2026-01-19T21:09:39.105Z",
+                "open": "2026-01-19T19:54:47.381Z",
+                "close": "2026-01-19T21:14:59.208Z",
+                "rating": 10,
+                "simulator": "msfs",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 351,
+                        "fuel": 2990,
+                        "expenses": 8529,
+                        "penalties": 0,
+                        "revenue": 17316,
+                        "balance": 8787,
+                        "prices": {
+                            "ticketPrice": 96,
+                            "cargoUnitPrice": 117,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 0,
+                            "cargo": 148,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3381,
+                        "aircraft": 4514,
+                        "handling": 67,
+                        "landing": 567
+                    },
+                    "revenue": {
+                        "tickets": 0,
+                        "cargo": 17316
+                    },
+                    "violations": [
+                        {
+                            "title": "Great touchdown: 1.26G (289 ft/min, challenging  conditions)<br/>Distance from threshold: 654m (accepted range: 176-705m)<br/>Average centerline deviation: 1.65m<br/>Max centerline deviation: 4.59m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.26,
+                                        "rate": 289
+                                    },
+                                    "weather": {
+                                        "windDir": 302.47,
+                                        "windSpd": 3.35,
+                                        "windX": 2.08
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-01-19T19:54:07.122Z",
+                "updatedAt": "2026-01-19T21:15:00.225Z",
+                "dep": {
+                    "icao": "UKOO",
+                    "name": "Odessa International Airport",
+                    "city": "Odessa",
+                    "location": {
+                        "lat": 46.4268,
+                        "lon": 30.6765,
+                        "elev": 172
+                    }
+                },
+                "arr": {
+                    "icao": "UKHS",
+                    "name": "Sumy Airport",
+                    "city": "Sumy",
+                    "location": {
+                        "lat": 50.858299,
+                        "lon": 34.762501,
+                        "elev": 594
+                    }
+                },
+                "actArr": {
+                    "icao": "UKHS",
+                    "name": "Sumy Airport",
+                    "city": "Sumy",
+                    "location": {
+                        "lat": 50.858299,
+                        "lon": 34.762501,
+                        "elev": 594
+                    }
+                }
+            },
+            {
+                "_id": "696fcb903dc76275ba004f91",
+                "aircraft": {
+                    "name": "Boeing 737-800 Freighter",
+                    "icao": "B738"
+                },
+                "type": "cargo",
+                "flightNumber": "246G",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 0,
+                    "cargo": 82,
+                    "weights": {
+                        "cargo": 8528
+                    }
+                },
+                "depTime": "2026-01-20T18:50:00.000Z",
+                "duration": 50,
+                "arrTime": "2026-01-20T19:40:00.000Z",
+                "depTimeAct": "2026-01-20T18:53:16.232Z",
+                "delay": -5,
+                "takeoffTimeAct": "2026-01-20T18:55:41.229Z",
+                "durationAct": 40,
+                "arrTimeAct": "2026-01-20T19:35:26.252Z",
+                "open": "2026-01-20T18:42:02.859Z",
+                "close": "2026-01-20T19:41:09.341Z",
+                "rating": 10,
+                "simulator": "msfs",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 209,
+                        "fuel": 1838,
+                        "expenses": 6778,
+                        "penalties": 0,
+                        "revenue": 8774,
+                        "balance": 1996,
+                        "prices": {
+                            "ticketPrice": 86,
+                            "cargoUnitPrice": 107,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 0,
+                            "cargo": 82,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2078,
+                        "aircraft": 4015,
+                        "handling": 37,
+                        "landing": 648
+                    },
+                    "revenue": {
+                        "tickets": 0,
+                        "cargo": 8774
+                    },
+                    "violations": [
+                        {
+                            "title": "Great touchdown: 1.17G (168 ft/min, challenging  conditions)<br/>Distance from threshold: 465m (accepted range: 176-705m)<br/>Average centerline deviation: 1.10m<br/>Max centerline deviation: 1.88m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 33
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.17,
+                                        "rate": 168
+                                    },
+                                    "weather": {
+                                        "windDir": 233.13,
+                                        "windSpd": 2.23,
+                                        "windX": -2.2
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-01-20T18:38:08.585Z",
+                "updatedAt": "2026-01-20T19:41:09.428Z",
+                "dep": {
+                    "icao": "UKOO",
+                    "name": "Odessa International Airport",
+                    "city": "Odessa",
+                    "location": {
+                        "lat": 46.4268,
+                        "lon": 30.6765,
+                        "elev": 172
+                    }
+                },
+                "arr": {
+                    "icao": "UKKE",
+                    "name": "Cherkasy International Airport",
+                    "city": "Cherkasy",
+                    "location": {
+                        "lat": 49.4156,
+                        "lon": 31.9953,
+                        "elev": 375
+                    }
+                },
+                "actArr": {
+                    "icao": "UKKE",
+                    "name": "Cherkasy International Airport",
+                    "city": "Cherkasy",
+                    "location": {
+                        "lat": 49.4156,
+                        "lon": 31.9953,
+                        "elev": 375
                     }
                 }
             }
