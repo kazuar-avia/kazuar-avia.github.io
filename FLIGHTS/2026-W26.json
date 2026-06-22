@@ -461,39 +461,39 @@
         ]
     },
     {
-        "pilot_id": "697926b59da57b990a364d04",
-        "fullname": "Bond Matvii",
-        "avatar": "default",
+        "pilot_id": "67267eeeeac32c34bb94afed",
+        "fullname": "Jeka Korzun",
+        "avatar": "67267eeeeac32c34bb94afed1730645334705",
         "flights": [
             {
-                "_id": "6a391bd3a5e61d69a7d5dd8f",
+                "_id": "6a39356ba5e61d69a7d815f7",
                 "aircraft": {
-                    "name": "Airbus A340-600",
-                    "icao": "A346"
+                    "name": "Airbus A380",
+                    "icao": "A388"
                 },
                 "type": "pax",
-                "flightNumber": "67N",
+                "flightNumber": "76C",
                 "free": true,
                 "schedule": false,
                 "charter": false,
                 "payload": {
-                    "pax": 371,
-                    "cargo": 50,
+                    "pax": 383,
+                    "cargo": 99,
                     "weights": {
-                        "cargo": 5900
+                        "cargo": 11286
                     }
                 },
-                "depTime": "2026-06-22T12:05:00.000Z",
-                "duration": 125,
-                "arrTime": "2026-06-22T14:10:00.000Z",
-                "depTimeAct": "2026-06-22T12:08:49.205Z",
-                "delay": 50,
-                "takeoffTimeAct": "2026-06-22T12:08:49.205Z",
-                "durationAct": 171,
-                "arrTimeAct": "2026-06-22T15:00:11.979Z",
-                "open": "2026-06-22T11:26:14.897Z",
-                "close": "2026-06-22T15:09:26.018Z",
-                "rating": 9.03,
+                "depTime": "2026-06-22T13:30:00.000Z",
+                "duration": 115,
+                "arrTime": "2026-06-22T15:25:00.000Z",
+                "depTimeAct": "2026-06-22T13:27:03.732Z",
+                "delay": -19,
+                "takeoffTimeAct": "2026-06-22T13:33:47.746Z",
+                "durationAct": 92,
+                "arrTimeAct": "2026-06-22T15:06:17.734Z",
+                "open": "2026-06-22T13:23:59.746Z",
+                "close": "2026-06-22T15:10:26.402Z",
+                "rating": 7.19,
                 "simulator": "msfs2024",
                 "network": {
                     "name": null
@@ -501,100 +501,115 @@
                 "emergency": false,
                 "result": {
                     "totals": {
-                        "distance": 1352,
-                        "fuel": 21550,
-                        "expenses": 52566,
+                        "distance": 679,
+                        "fuel": 16960,
+                        "expenses": 58921,
                         "penalties": 0,
-                        "revenue": 81460,
-                        "balance": 28894,
+                        "revenue": 136940,
+                        "balance": 78019,
                         "prices": {
-                            "ticketPrice": 145,
-                            "cargoUnitPrice": 156,
+                            "ticketPrice": 142,
+                            "cargoUnitPrice": 154,
                             "costScalars": {
                                 "timeAcceleration": 1,
-                                "dep": 0.9,
-                                "arr": 0.9,
+                                "dep": 1,
+                                "arr": 1,
                                 "fuel": 1,
-                                "ground": 0.9
+                                "ground": 1
                             }
                         },
                         "payload": {
-                            "pax": 371,
-                            "cargo": 50,
+                            "pax": 383,
+                            "cargo": 99,
                             "paxByClass": {
-                                "F": 23,
-                                "C": 68,
-                                "Y": 280
+                                "F": 73,
+                                "C": 255,
+                                "Y": 55
                             }
                         }
                     },
                     "expenses": {
-                        "fuel": 24363,
-                        "aircraft": 23593,
-                        "handling": 2405,
-                        "landing": 2205
+                        "fuel": 18758,
+                        "aircraft": 32900,
+                        "handling": 4263,
+                        "landing": 3000
                     },
                     "revenue": {
-                        "tickets": 73660,
-                        "cargo": 7800
+                        "tickets": 121694,
+                        "cargo": 15246
                     },
                     "violations": [
                         {
-                            "title": "Uncomfortable touchdown: 1.89G (473 ft/min, challenging  conditions)<br/>Distance from threshold: 748m (accepted range: 211-846m)<br/>Average centerline deviation: 0.76m<br/>Max centerline deviation: 1.32m",
+                            "title": "Off centerline landing (deviation 21.77m from centerline, perfect score under 4m in normal conditions)",
                             "penalty": {
-                                "points": -97,
+                                "points": -281,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 22
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.18G (180 ft/min, normal  conditions)<br/>Distance from threshold: 747m (accepted range: 202-812m)<br/>Average centerline deviation: 10.49m<br/>Max centerline deviation: 21.77m",
+                            "penalty": {
+                                "points": 0,
                                 "cash": 0
                             },
                             "entry": {
                                 "type": "landing",
                                 "payload": {
                                     "system": {
-                                        "fps": 41
+                                        "fps": 22
                                     },
                                     "touchDown": {
-                                        "gForce": 1.89,
-                                        "rate": 473
+                                        "gForce": 1.18,
+                                        "rate": 180
                                     },
                                     "weather": {
-                                        "windDir": 340,
-                                        "windSpd": 16.88,
-                                        "windX": -1.66
+                                        "windDir": 160,
+                                        "windSpd": 9.14,
+                                        "windX": -1.91
                                     }
                                 }
                             }
                         }
                     ]
                 },
-                "createdAt": "2026-06-22T11:26:11.325Z",
-                "updatedAt": "2026-06-22T15:09:26.096Z",
+                "createdAt": "2026-06-22T13:15:23.967Z",
+                "updatedAt": "2026-06-22T15:10:26.480Z",
                 "dep": {
-                    "icao": "UKCC",
-                    "city": "Donetsk",
+                    "icao": "HAAB",
+                    "name": "Addis Ababa Bole International Airport",
+                    "city": "Addis Ababa",
                     "location": {
-                        "lat": 48.075072,
-                        "lon": 37.72527,
-                        "elev": 791
-                    },
-                    "name": "Donetsk Sergei Prokofiev International Airport"
+                        "lat": 8.97789,
+                        "lon": 38.799301,
+                        "elev": 7630
+                    }
                 },
                 "arr": {
-                    "icao": "UBBB",
-                    "name": "Heydar Aliyev International Airport",
-                    "city": "Baku",
+                    "icao": "HUEN",
+                    "name": "Entebbe International Airport",
+                    "city": "Kampala",
                     "location": {
-                        "lat": 40.467498779296875,
-                        "lon": 50.04669952392578,
-                        "elev": 10
+                        "lat": 0.042386,
+                        "lon": 32.443501,
+                        "elev": 3782
                     }
                 },
                 "actArr": {
-                    "icao": "UBBB",
-                    "name": "Heydar Aliyev International Airport",
-                    "city": "Baku",
+                    "icao": "HUEN",
+                    "name": "Entebbe International Airport",
+                    "city": "Kampala",
                     "location": {
-                        "lat": 40.467498779296875,
-                        "lon": 50.04669952392578,
-                        "elev": 10
+                        "lat": 0.042386,
+                        "lon": 32.443501,
+                        "elev": 3782
                     }
                 }
             }
