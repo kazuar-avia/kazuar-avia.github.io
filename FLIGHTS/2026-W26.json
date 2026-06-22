@@ -590,6 +590,187 @@
                         "elev": 364
                     }
                 }
+            },
+            {
+                "_id": "6a395498a5e61d69a7db14c2",
+                "aircraft": {
+                    "name": "Boeing 737-800 Freighter",
+                    "icao": "B738"
+                },
+                "type": "cargo",
+                "flightNumber": "827Q",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 0,
+                    "cargo": 127,
+                    "weights": {
+                        "cargo": 17272
+                    }
+                },
+                "depTime": "2026-06-22T15:40:00.000Z",
+                "duration": 55,
+                "arrTime": "2026-06-22T16:35:00.000Z",
+                "depTimeAct": "2026-06-22T15:38:31.718Z",
+                "delay": -13,
+                "takeoffTimeAct": "2026-06-22T15:42:16.741Z",
+                "durationAct": 40,
+                "arrTimeAct": "2026-06-22T16:22:15.817Z",
+                "open": "2026-06-22T15:37:48.928Z",
+                "close": "2026-06-22T16:29:29.854Z",
+                "rating": 6.5,
+                "simulator": "msfs",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 216,
+                        "fuel": 2265,
+                        "expenses": 6560,
+                        "penalties": 20000,
+                        "revenue": 16637,
+                        "balance": -9923,
+                        "prices": {
+                            "ticketPrice": 110,
+                            "cargoUnitPrice": 131,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 0,
+                            "cargo": 127,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2049,
+                        "aircraft": 3730,
+                        "handling": 133,
+                        "landing": 648
+                    },
+                    "revenue": {
+                        "tickets": 0,
+                        "cargo": 16637
+                    },
+                    "violations": [
+                        {
+                            "title": "MLW exceeded: 6944kg above maximum landing weight of 66361kg",
+                            "penalty": {
+                                "points": -300,
+                                "cash": 20000
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.37,
+                                        "rate": 270
+                                    },
+                                    "weather": {
+                                        "windDir": 269.83,
+                                        "windSpd": 2.07,
+                                        "windX": -0.09
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (782m from threshold beyond 744m max accepted)",
+                            "penalty": {
+                                "points": -13,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.37,
+                                        "rate": 270
+                                    },
+                                    "weather": {
+                                        "windDir": 269.83,
+                                        "windSpd": 2.07,
+                                        "windX": -0.09
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.65G (473 ft/min, challenging  conditions)<br/>Distance from threshold: 782m (accepted range: 185-744m)<br/>Average centerline deviation: 1.11m<br/>Max centerline deviation: 2.68m",
+                            "penalty": {
+                                "points": -37,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "bounce",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.65,
+                                        "rate": 473
+                                    },
+                                    "weather": {
+                                        "windDir": 269.93,
+                                        "windSpd": 2.03,
+                                        "windX": -0.06
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-06-22T15:28:24.947Z",
+                "updatedAt": "2026-06-22T16:29:29.941Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "UKDD",
+                    "name": "Dnipro International Airport",
+                    "city": "Dnipro",
+                    "location": {
+                        "lat": 48.357201,
+                        "lon": 35.100601,
+                        "elev": 481
+                    }
+                },
+                "actArr": {
+                    "icao": "UKDD",
+                    "name": "Dnipro International Airport",
+                    "city": "Dnipro",
+                    "location": {
+                        "lat": 48.357201,
+                        "lon": 35.100601,
+                        "elev": 481
+                    }
+                }
             }
         ]
     },
