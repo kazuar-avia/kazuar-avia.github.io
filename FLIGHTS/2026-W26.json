@@ -2265,6 +2265,159 @@
                         "elev": 1375
                     }
                 }
+            },
+            {
+                "_id": "6a3a72b0a5e61d69a7ee571c",
+                "aircraft": {
+                    "name": "Embraer Phenom 300",
+                    "icao": "E55P"
+                },
+                "type": "pax",
+                "flightNumber": "420I",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 6,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-06-23T12:05:00.000Z",
+                "duration": 30,
+                "arrTime": "2026-06-23T12:35:00.000Z",
+                "depTimeAct": "2026-06-23T11:51:41.845Z",
+                "delay": -33,
+                "takeoffTimeAct": "2026-06-23T11:52:28.554Z",
+                "durationAct": 10,
+                "arrTimeAct": "2026-06-23T12:02:16.830Z",
+                "open": "2026-06-23T11:49:55.019Z",
+                "close": "2026-06-23T12:03:40.632Z",
+                "rating": 9.25,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 37,
+                        "fuel": 89,
+                        "expenses": 1564,
+                        "penalties": 0,
+                        "revenue": 1056,
+                        "balance": -508,
+                        "prices": {
+                            "ticketPrice": 44,
+                            "cargoUnitPrice": 44,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 6,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 6,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 101,
+                        "aircraft": 1238,
+                        "handling": 36,
+                        "landing": 189
+                    },
+                    "revenue": {
+                        "tickets": 1056,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 8.61m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -75,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    },
+                                    "weather": {
+                                        "windDir": 288.01,
+                                        "windSpd": 3.31,
+                                        "windX": -2.77
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.14G (77 ft/min, challenging  conditions)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 23
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.14,
+                                        "rate": 77
+                                    },
+                                    "weather": {
+                                        "windDir": 278.84,
+                                        "windSpd": 3.71,
+                                        "windX": -3.01
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-06-23T11:49:04.172Z",
+                "updatedAt": "2026-06-23T12:03:40.697Z",
+                "dep": {
+                    "icao": "LRSV",
+                    "name": "Suceava Stefan cel Mare Airport",
+                    "city": "Suceava",
+                    "location": {
+                        "lat": 47.6875,
+                        "lon": 26.35409927368164,
+                        "elev": 1375
+                    }
+                },
+                "arr": {
+                    "icao": "UKLN",
+                    "name": "Chernivtsi International Airport",
+                    "city": "Chernivtsi",
+                    "location": {
+                        "lat": 48.259300231933594,
+                        "lon": 25.98080062866211,
+                        "elev": 826
+                    }
+                },
+                "actArr": {
+                    "icao": "UKLN",
+                    "name": "Chernivtsi International Airport",
+                    "city": "Chernivtsi",
+                    "location": {
+                        "lat": 48.259300231933594,
+                        "lon": 25.98080062866211,
+                        "elev": 826
+                    }
+                }
             }
         ]
     },
