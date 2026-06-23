@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Кабінет пілота — Ukraine Classic Air Alliance</title>
+  <style>
+    *{box-sizing:border-box} :root{--cyan:#caeef2;--pink:#f7e7f8;--yellow:#ffee8c;--green:#dff5e8;--blue:#0645ad;--line:#555;--muted:#666}
+    body{font-family:Arial,sans-serif;background:#fff;margin:0;padding:10px 8px 28px;color:#111;font-size:14px}
+    a{color:var(--blue)} button{font:inherit}.page{width:934px;max-width:100%;margin:auto}
+    .topline{border-top:3px solid #9acfd4;padding-top:7px;text-align:center}.topline h1{font-size:21px;margin:0}.topline p{font-style:italic;margin:2px 0 10px}
+    .nav{display:flex;position:relative;border:1px solid var(--line);background:var(--cyan);margin-bottom:6px;align-items:stretch}
+    .nav a{padding:7px 10px;border-right:1px solid var(--line);font-size:14px;line-height:1.15;white-space:nowrap;font-weight:bold;text-decoration:none}.nav a.active{background:var(--yellow);color:#111}.nav .spacer{flex:1}.nav .updated{padding:4px 8px;color:#444;font-size:11px;line-height:1.25;white-space:nowrap;align-self:center}
+    .bar{display:flex;align-items:center;gap:10px;border:1px solid var(--line);background:var(--pink);padding:6px 8px;margin-top:6px}.bar h2{font-size:17px;margin:0;flex:1}.flag{display:inline-block;width:22px;height:14px;background:linear-gradient(#1d70b7 50%,#ffd700 50%);vertical-align:-2px;margin-left:5px;border:1px solid #888}
+    .periods,.metrics{display:flex;gap:4px;flex-wrap:wrap}.periods button,.metrics button,.close,.pilot-link{border:1px solid #777;background:#fff;padding:4px 9px;cursor:pointer}.periods button.active,.metrics button.active{background:#d8f5e6;border-color:#17804c;font-weight:bold}.periods button:hover,.metrics button:hover,.pilot-link:hover{background:#fff7c7}
+    #dashboardView .bar{gap:6px;padding-left:6px;padding-right:5px}#dashboardView .bar h2{flex:0 0 auto;white-space:nowrap}#dashboardView .periods{flex:1;flex-wrap:nowrap;gap:3px}#dashboardView .periods button{padding:4px 6px;font-size:13px;white-space:nowrap}
+    .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:6px 0}.card{border:1px solid var(--line);padding:8px;background:#fff}.card:nth-child(1){background:#eef9fa}.card:nth-child(2){background:#fffbe3}.card:nth-child(3){background:#f7edf8}.card:nth-child(4){background:#edf8ef}.card small{display:block;color:var(--muted);margin-bottom:3px}.card strong{font-size:19px}.card span{display:block;font-size:11px;color:#555;margin-top:2px}
+    .calendar-control{position:relative;display:inline-flex;flex:0 0 42px;width:42px}.calendar-button{width:42px;font-size:16px;line-height:1;padding:3px 2px!important;pointer-events:none}.calendar-button.active{background:#d8f5e6!important;border-color:#17804c!important}.date-picker-proxy{position:absolute;inset:0;width:42px;height:100%;opacity:0;cursor:pointer}.dashboard-summary{display:grid;grid-template-columns:minmax(0,1fr) 235px;gap:7px;margin:6px 0}.dashboard-finance-grid{display:grid;grid-template-columns:minmax(0,1fr) 182px;gap:7px;min-width:0}.dashboard-finance{border:1px solid var(--line);min-width:0;overflow:hidden}.dashboard-finance-body{display:grid;grid-template-columns:205px 276px;gap:8px;align-items:center;padding:9px 9px 0}.dashboard-finance .finance-pie{width:185px;height:185px;margin:0 auto}.dashboard-finance .finance-legend{grid-template-columns:1fr;gap:2px;font-size:13.2px}.dashboard-finance .finance-legend div{grid-template-columns:78px 12px 1fr;gap:5px}.dashboard-finance .finance-legend div>strong:first-child{text-align:right;white-space:nowrap}.dashboard-finance .finance-special-first{border-top:1px solid #999;margin-top:4px;padding-top:6px}.dashboard-finance .finance-total{margin-top:2px;padding-top:4px}.dashboard-mini-pies{display:grid;grid-template-columns:1fr;gap:7px;align-content:start}.mini-pie-block{border:1px solid var(--line);min-width:0;height:122px;text-align:center;background:#fff;overflow:hidden}.mini-pie-title{font-weight:bold;font-size:11px;border-bottom:1px solid #888;padding:4px 3px;margin-bottom:4px;background:#edf8ef}.mini-pie-block:nth-child(2) .mini-pie-title{background:#fffbe3}.mini-pie{width:82px;height:82px;border-radius:50%;border:1px solid #777;margin:0 auto 3px;position:relative;overflow:hidden;background:#f6f6f6}.finance-pie{position:relative;overflow:hidden}.pie-hit-map{position:absolute;inset:0;width:100%;height:100%;border-radius:50%;pointer-events:none}.pie-hit-map path{pointer-events:auto;cursor:help}.mini-pie-labels{display:flex;justify-content:center;gap:2px;flex-wrap:wrap;align-content:start;height:23px;padding:0 2px 4px;overflow:hidden}.mini-pie-labels.aircraft-labels{display:grid;grid-template-columns:repeat(4,auto);grid-auto-rows:10px;gap:1px 2px;justify-content:center;height:22px}.flight-type-badge,.aircraft-type-badge{display:inline-block;padding:1px 4px;border-radius:5px;color:#fff;font-size:9px;font-weight:bold;line-height:1.05;box-shadow:inset 0 0 0 1px #0002;white-space:nowrap}.aircraft-type-badge{min-width:34px}.dashboard-cards{display:grid;grid-template-columns:1fr;gap:6px;margin:0}.dashboard-cards .card{min-height:55px}.dashboard-cards .card strong{font-size:18px}.dashboard-table-wrap{overflow:auto}.dashboard-flight-table{table-layout:fixed;min-width:920px;font-size:12.5px}.dashboard-flight-table th{font-size:12px}.dashboard-flight-table th,.dashboard-flight-table td{padding:6px;vertical-align:middle}.dashboard-flight-table td.finance-click-cell{padding:6px;text-align:right;cursor:pointer;font-weight:bold}.dashboard-flight-table td.finance-click-cell:hover,.dashboard-flight-table td.finance-click-cell:focus{background:#fff7c7;outline:0}.flight-note{display:block;color:#666;font-size:11px;margin-top:2px}.flight-meta-row{display:flex;justify-content:space-between;align-items:baseline;gap:6px;color:#555;font-size:11px;margin-top:3px}.flight-meta-row strong{color:#111;white-space:nowrap}.route-airports{white-space:nowrap}.airport-flag{display:inline-block;box-sizing:border-box;width:18px;height:12px;object-fit:cover;border:1px solid #888;border-radius:3px;vertical-align:-2px;margin:0 2px}.airport-flag-missing{background:#fff}.route-duration{display:block;text-align:center;color:#555;font-size:11px;margin-top:3px;font-family:Arial,sans-serif;font-weight:normal}.flight-number-link{display:inline-block;padding:2px 6px;border-radius:5px;color:#fff!important;font-size:11px;font-weight:bold;text-decoration:none;line-height:1.2;box-shadow:inset 0 0 0 1px #0002;white-space:nowrap}.flight-number-link:hover{filter:brightness(.92);text-decoration:none}.flight-number-charter{background:#f39a0a}.flight-number-schedule{background:#55ad55}.flight-number-free{background:#8b8b8b}.flight-load-detail{display:inline-block;margin:0;font-size:12px;white-space:nowrap}.load-kind-icon{display:inline-block;margin-left:3px;font-size:10px;line-height:1;vertical-align:1px}.landing-line{display:block;color:#555;font-size:10px;margin-top:3px;white-space:nowrap}.rating-cell{cursor:pointer;text-align:center!important}.rating-cell:hover,.rating-cell:focus{background:#fff7c7;outline:0}.rating-badge{display:inline-block;box-sizing:border-box;min-width:48px;padding:3px 7px;border:1px solid transparent;border-radius:4px;color:#fff;font-size:13px;font-weight:bold;line-height:1.1;text-align:center}.rating-perfect{background:#35a94e;border:2px solid #d6ae22;color:#fff}.rating-9{background:#3dad55}.rating-8{background:#69b878}.rating-7{background:#178ddd}.rating-6{background:#4dbbe7}.rating-5{background:#ee9328}.rating-low{background:#d34242}.rating-none{background:#888}
+    .layout{display:grid;grid-template-columns:1fr;gap:6px}.panel{border:1px solid var(--line);min-width:0}.panel-title{background:var(--cyan);border-bottom:1px solid var(--line);padding:6px 8px;font-weight:bold;text-align:center}.panel-body{padding:7px}
+    table{border-collapse:collapse;width:100%}th,td{border:1px solid #888;padding:6px 7px;text-align:left}th{background:#ececec;font-size:12px}.rank{text-align:center;width:36px;font-weight:bold}.num{text-align:right;white-space:nowrap}.medal{font-size:16px}.pilot-link{border:0;color:var(--blue);padding:0;text-decoration:underline;background:transparent;text-align:left}.role{font-size:11px;color:#555;display:block;margin-top:2px}.positive{color:#08783f;font-weight:bold}.negative{color:#a40000;font-weight:bold}
+    .legend{font-size:11px;color:#555;margin-top:6px}.role-list{display:grid;gap:5px}.role-item{border:1px solid #aaa;padding:7px;background:#fff}.role-item strong{display:block}.role-item span{font-size:12px;color:#555}.role-item.gold{background:#fff9d9}.role-item.blue{background:#eef8fa}.role-item.green{background:#edf8ef}
+    .formula{margin-top:6px;border:1px solid var(--line);background:#fffbe3;padding:8px;line-height:1.4}.formula code{font-family:Consolas,monospace;font-size:12px}.demo{font-size:11px;color:#777;text-align:center;margin:8px 0 0}
+    [hidden]{display:none!important}
+    #pilotsView .summary{border:1px solid var(--line);background:#eef9fa;padding:6px 9px;display:flex;gap:24px;flex-wrap:wrap}
+    #pilotsView .summary strong{font-size:16px}#pilotsView .summary small{color:var(--muted)}
+    #pilotsView .bar{flex-direction:column;align-items:stretch;gap:6px}#pilotsView .bar h2{flex:none;white-space:nowrap}
+    #pilotsView .table-wrap{overflow-x:auto;border:1px solid var(--line);margin-top:6px}
+    #pilotsView table{table-layout:fixed;min-width:900px}#pilotsView th,#pilotsView td{padding:5px;word-break:normal;overflow-wrap:normal;hyphens:none}
+    #pilotsView th{font-size:11px;white-space:normal;line-height:1.15;vertical-align:middle}#pilotsView th.sortable{cursor:pointer}#pilotsView th.sortable:hover{background:#fff7c7}
+    .pilot-name{font-weight:bold;border:0;background:transparent;color:var(--blue);text-decoration:underline;padding:0;cursor:pointer;text-align:left}.pilot-id{display:block;color:#777;font-size:9px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.empty{color:#888}.note{font-size:11px;color:#666;margin:7px 2px}.loading{text-align:center;padding:24px}.sort-mark{color:#08783f}.cell-small{font-size:11px;line-height:1.2}
+    .pilot-picker-list{position:absolute;left:50%;top:100%;transform:translateX(-50%);z-index:20;width:720px;display:grid;grid-template-columns:repeat(3,1fr);grid-auto-flow:column;gap:3px;border:1px solid #555;background:#fff;padding:5px;box-shadow:0 5px 18px #0004}.pilot-picker-list button{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:5px;border:1px solid #bbb;background:#fff;padding:4px 6px;text-align:left;cursor:pointer;font-size:12.5px;line-height:1.25;min-height:27px;align-items:center}.pilot-picker-list button strong{white-space:nowrap}.pilot-picker-list button:hover{background:#fff7c7;border-color:#777}.picker-rank{text-align:center;color:#666}.picker-hours{font-family:Consolas,monospace;white-space:nowrap;color:#555}.profile-empty{border:1px solid var(--line);padding:36px 12px;text-align:center;color:#666;margin-top:6px;background:#fafafa}.profile-page{margin-top:6px}.profile-page .profile{padding:0}
+    .company-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:6px 0}.company-card{border:1px solid var(--line);padding:7px;background:#eef9fa}.company-card:nth-child(2){background:#fffbe3}.company-card:nth-child(3){background:#f7edf8}.company-card:nth-child(4){background:#edf8ef}.company-card small{display:block;color:#666}.company-card strong{display:block;font-size:18px;margin-top:2px}.finance-layout{display:grid;grid-template-columns:310px 1fr;gap:7px}.finance-chart,.company-panel{border:1px solid var(--line)}.company-heading{background:var(--cyan);border-bottom:1px solid var(--line);padding:6px 8px;font-weight:bold;text-align:center}.company-finance-select{border:1px solid #777;background:#fff;margin-left:5px;padding:2px 20px 2px 5px;font:inherit;font-weight:bold;cursor:pointer}.finance-body{padding:10px}.finance-pie{width:230px;height:230px;border-radius:50%;margin:0 auto 10px;border:1px solid #777}.finance-legend{display:grid;grid-template-columns:1fr 1fr;gap:4px 10px;font-size:11px}.finance-legend div{display:grid;grid-template-columns:12px 1fr auto;gap:5px;align-items:center}.finance-total{font-weight:bold;border-top:1px solid #999;padding-top:3px}.finance-dot{width:11px;height:11px;border:1px solid #555}.company-note{border:1px solid #aaa;background:#fffbe3;padding:7px;margin-top:7px;font-size:11px;line-height:1.35}.company-table-wrap{overflow-x:auto}.company-table{table-layout:fixed;min-width:760px}.company-table th,.company-table td{padding:5px;font-size:11px}.company-table th[data-company-sort]{cursor:pointer}.company-table th[data-company-sort]:hover{background:#fff7c7}.company-sort-mark{color:#08783f}.company-section{margin-top:7px}
+    dialog{border:1px solid #333;padding:0;width:760px;max-width:calc(100vw - 22px);box-shadow:0 8px 30px #0005}dialog::backdrop{background:#0006}.modal-head{display:flex;align-items:center;background:var(--cyan);border-bottom:1px solid #555;padding:8px 10px}.modal-head h2{font-size:18px;margin:0;flex:1}.close{font-weight:bold}.flight-info-dialog{width:700px}.flight-info-dialog.finance-mode{width:630px}.flight-info-dialog.finance-mode .flight-info-body{font-size:14px}.flight-info-body{padding:10px;font-size:13px;line-height:1.45}.flight-info-body table{margin-bottom:8px}.flight-info-body th{width:43%;background:#eee}.flight-info-section{font-weight:bold;background:#eee;border:1px solid #888;padding:5px;margin-top:8px}.flight-finance-list{border:1px solid #aaa;border-top:0}.flight-finance-row{display:grid;grid-template-columns:12px minmax(0,1fr) auto;gap:7px;align-items:center;padding:5px 8px}.flight-finance-row+.flight-finance-row{border-top:1px solid #ddd}.flight-finance-row strong{white-space:nowrap}.flight-finance-subtotal{border-top:1px solid #888!important;font-weight:bold;background:#fafafa}.flight-finance-result{border:1px solid #777!important;background:#fffbe3;font-size:14px;font-weight:bold;padding:7px 8px}.finance-status{color:#666;font-weight:normal!important}.salary-formula-heading{background:#ffef00!important;color:#111}.salary-formula-table th{width:27%}.salary-formula-table td:nth-child(2){font-family:Consolas,monospace;font-size:12px}.salary-formula-table tr[title],.salary-numeric-formula[title],.flight-finance-result[title]{cursor:help}.salary-formula-table tr[title]:hover{background:#fffbe3}.rate-card-row td{background:#f7fbfc}.rate-pilot-cell{background:#e5f2f5!important;vertical-align:middle!important;text-align:center;white-space:nowrap}.salary-pilot-profile-link{display:inline-block;margin:0 0 0 3px;border:0;background:transparent;color:var(--blue);font:inherit;font-weight:bold;text-decoration:underline;cursor:pointer}.rate-final-row td{border-top:2px solid #777;border-bottom:3px solid #222;background:#edf8ef;font-weight:bold}.rate-context{color:#777;font-family:Arial,sans-serif;font-size:11px;font-weight:normal}.salary-operational-end th,.salary-operational-end td{border-bottom:3px solid #222}.salary-subtotal-row th,.salary-subtotal-row td{border-top:2px solid #555;background:#fffbe3;font-weight:bold}.management-bonus-row th{background:#a8e719}.management-bonus-row td{border-top:2px solid #777;border-bottom:2px solid #777}.salary-numeric-formula{border:1px solid #888;background:#f7f7f7;padding:7px 9px;margin:8px 0;font-family:Consolas,monospace;font-size:12px;line-height:1.35}.violation-list{margin:0;padding:0;list-style:none}.violation-list li{display:grid;grid-template-columns:72px minmax(0,1fr);gap:7px;border:1px solid #aaa;border-top:0;padding:6px 8px}.violation-points{color:#a40000;font-weight:bold;white-space:nowrap}.violation-points.ok{color:#08783f}.flight-info-footer{border:1px solid #aaa;border-top:0;background:#fafafa;padding:6px 8px;color:#444}.detail-button{border:0;background:transparent;color:var(--blue);text-decoration:underline;padding:0;cursor:pointer;font:inherit;font-weight:bold}.profile{padding:10px}.identity{display:flex;gap:10px;align-items:center;margin-bottom:8px}.avatar{width:58px;height:58px;border:1px solid #555;background:linear-gradient(145deg,#caeef2,#f7e7f8);display:grid;place-items:center;font-size:25px;font-weight:bold}.identity h3{margin:0 0 3px;font-size:19px}.badge{display:inline-block;border:1px solid #777;background:var(--yellow);padding:2px 6px;font-size:11px}.profile-cards{grid-template-columns:repeat(5,1fr)}.profile-cards .card strong{font-size:16px}.split{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}.mini-title{font-weight:bold;background:#eee;border:1px solid #888;border-bottom:0;padding:5px}.route{font-family:Consolas,monospace;font-weight:bold}.progress{height:12px;border:1px solid #777;background:#eee;margin-top:5px}.progress i{display:block;height:100%;background:#69bd79;width:72%}
+    @media(max-width:720px){body{padding:4px}.nav{overflow:auto}.nav .updated{display:none}.cards,.company-summary{grid-template-columns:1fr 1fr}.layout,.split,.finance-layout,.dashboard-summary,.dashboard-finance-body{grid-template-columns:1fr}.dashboard-cards{grid-template-columns:1fr 1fr}.dashboard-finance .finance-legend{grid-template-columns:1fr 1fr}.profile-cards{grid-template-columns:1fr 1fr}.bar{align-items:flex-start;flex-direction:column}.bar h2{width:100%}#dashboardView .periods{flex-wrap:wrap}#dashboardView .periods button{font-size:12px}.pilot-picker-list{width:min(720px,calc(100vw - 12px));grid-template-columns:1fr;grid-template-rows:none!important;grid-auto-flow:row;max-height:420px;overflow:auto}}
+  </style>
+  <style>
+    .pilot-rate-table{width:100%;table-layout:fixed;border-collapse:collapse;margin:0 0 8px;font-size:12px;line-height:1.2}
+    .pilot-rate-table th,.pilot-rate-table td{border:1px solid #aaa;padding:5px 4px;vertical-align:middle}
+    .pilot-rate-table th{background:#eef5f7;text-align:left;white-space:nowrap}
+    .pilot-rate-table th:nth-child(1){width:22%}.pilot-rate-table th:nth-child(2){width:9%}.pilot-rate-table th:nth-child(3){width:30%}.pilot-rate-table th:nth-child(4){width:29%}.pilot-rate-table th:nth-child(5){width:10%}
+    .pilot-rate-table td{white-space:nowrap}
+    .pilot-rate-table th:nth-child(n+2),.pilot-rate-table td:nth-child(n+2){text-align:center}
+    .pilot-rate-table .rate-context{font-size:10.5px;color:#777}
+    .pilot-rate-table .salary-pilot-profile-link{margin:0;padding:0;font-size:12px;white-space:nowrap}
+    .pilot-rate-total{background:#edf8ef;color:#08783f;font-weight:bold}
+    .salary-operational-end th,.salary-operational-end td{border-bottom:0!important}
+    .salary-subtotal-row th,.salary-subtotal-row td{border-top:3px solid #222!important;background:#fff7dc!important;font-weight:bold}
+    .salary-mastery-row th,.salary-mastery-row td,.salary-crosswind-row th,.salary-crosswind-row td{background:#fff!important}
+    .salary-mastery-row th,.salary-crosswind-row th{font-weight:normal!important;text-indent:10px}
+    .management-bonus-row th,.management-bonus-row td{background:#e4f6fb!important;border-top:2px solid #86b9c5!important;border-bottom:2px solid #86b9c5!important}
+    .salary-deduction-row th,.salary-deduction-row td{background:#fff0f0!important}
+    .salary-deductions-start th,.salary-deductions-start td{border-top:3px solid #d48b8b!important}
+    .salary-section{margin-top:8px}
+    .salary-section .salary-formula-table{margin:0}
+    .salary-incident-item{margin-top:4px;line-height:1.25}
+    .salary-incident-item+ .salary-incident-item{border-top:1px dotted #c99;padding-top:5px}
+    .salary-incident-item span{display:inline-block;margin-top:1px}
+    .salary-formula-table td:last-child,.salary-formula-table td:last-child .positive,.salary-formula-table td:last-child .negative{color:#111!important}
+    .salary-formula-table{table-layout:fixed}
+    .salary-formula-table td:last-child{width:10%}
+    .salary-formula-table tr:not(.salary-subtotal-row):not(.management-bonus-row) td:last-child{font-weight:normal!important}
+    .salary-final-result{background:#dff3df!important;border-color:#5d9b65!important}
+    .salary-final-result strong{color:#111!important}
+    .salary-final-result span,.salary-final-result strong{font-weight:bold}
+    .salary-final-result{grid-template-columns:auto auto!important;justify-content:end;gap:14px!important;padding:5px 9px!important;width:max-content;max-width:100%;margin:8px 0 0 auto!important}
+    .salary-final-result span:first-child{display:none}
+    .finance-row-note{display:inline;margin-left:8px;color:#666;font-size:13px;font-weight:normal}
+    .dashboard-flight-table th:nth-child(n+3),.dashboard-flight-table td:nth-child(n+3){text-align:center}
+    .dashboard-flight-table td.finance-click-cell{font-size:14px;text-align:center}
+    .date-flight-meta{display:flex;align-items:center;justify-content:space-between;gap:5px;margin-top:3px}
+    .date-flight-time{color:#666;font-size:11px;white-space:nowrap}
+    .payload-value{display:inline-flex;align-items:center;justify-content:center;gap:3px;white-space:nowrap}
+    .payload-value .load-kind-icon{font-size:14px}
+    .dashboard-sort-head,.dashboard-filter-head{position:relative;padding:0}
+    .dashboard-sort-button,.dashboard-filter-button{display:flex;width:100%;height:100%;align-items:center;border:0;background:transparent;padding:6px 8px;color:#111;font:inherit;font-weight:bold;cursor:pointer}
+    .dashboard-sort-button{position:relative;justify-content:center;text-align:center}
+    .dashboard-filter-button{position:relative;justify-content:space-between;text-align:left;gap:5px;padding:6px 8px}
+    .dashboard-sort-button .dashboard-sort-label,.dashboard-filter-button .dashboard-filter-label{display:block;line-height:1.05;min-width:0}
+    .dashboard-sort-icon{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:10px;line-height:.7;font-size:11px;color:#666;flex:0 0 auto}
+    .dashboard-sort-icon{position:absolute;right:6px;top:50%;transform:translateY(-50%)}
+    .dashboard-flight-table th:nth-child(7) .dashboard-sort-icon,.dashboard-flight-table th:nth-child(8) .dashboard-sort-icon{right:1px;font-size:10px}
+    .dashboard-flight-table th:nth-child(8) .dashboard-sort-icon{right:-6px}
+    .dashboard-flight-table th:nth-child(7) .dashboard-sort-button,.dashboard-flight-table th:nth-child(8) .dashboard-sort-button{padding-right:14px}
+    .dashboard-sort-button.active .dashboard-sort-icon,.dashboard-filter-button.active .dashboard-filter-hint{color:#08783f}
+    .dashboard-filter-button.active .dashboard-filter-hint{position:absolute;right:20px;top:50%;transform:translateY(-50%)}
+    .dashboard-filter-hint{display:inline-flex;align-items:center;gap:3px;color:#888;font-size:10px;font-weight:normal;white-space:nowrap;flex:0 0 auto}
+    .dashboard-filter-funnel{position:relative;display:inline-block;width:9px;height:9px;vertical-align:-1px}
+    .dashboard-filter-funnel::before{content:"";position:absolute;left:0;top:0;width:0;height:0;border-left:4.5px solid transparent;border-right:4.5px solid transparent;border-top:5px solid currentColor}
+    .dashboard-filter-funnel::after{content:"";position:absolute;left:3.5px;top:4px;width:2px;height:4px;background:currentColor}
+    .dashboard-filter-button.has-reset{padding-right:20px}
+    .dashboard-filter-reset{position:absolute;right:2px;top:50%;transform:translateY(-50%);z-index:2;width:16px;height:17px;padding:0;border:1px solid #b3261e;border-radius:3px;background:#fff1f0;color:#b00000;font-size:13px;font-weight:bold;line-height:14px;text-align:center;cursor:pointer}
+    .dashboard-filter-reset:hover,.dashboard-filter-reset:focus{background:#ffd9d6;border-color:#7d0000;outline:0}
+    .dashboard-flight-table th:nth-child(5) .dashboard-sort-button{justify-content:flex-start;text-align:left;padding-left:4px;padding-right:3px}
+    .dashboard-flight-table th:nth-child(5) .dashboard-sort-label{transform:translateX(-3px)}
+    .dashboard-flight-table th:nth-child(5) .dashboard-sort-icon{right:-4px}
+    .dashboard-sort-button .dashboard-sort-up,.dashboard-sort-button .dashboard-sort-down{opacity:.35}
+    .dashboard-sort-button[data-direction="asc"] .dashboard-sort-up,.dashboard-sort-button[data-direction="desc"] .dashboard-sort-down{color:#08783f;opacity:1}
+    .dashboard-sort-button[data-direction="asc"] .dashboard-sort-down,.dashboard-sort-button[data-direction="desc"] .dashboard-sort-up{opacity:.2}
+    .dashboard-pilot-filter-list,.dashboard-aircraft-filter-list{position:fixed;left:0;top:0;z-index:50;width:230px;max-height:280px;overflow:auto;border:1px solid #666;background:#fff;padding:4px;box-shadow:0 5px 15px #0004}
+    .dashboard-aircraft-filter-list{width:250px}
+    .dashboard-pilot-filter-list button,.dashboard-aircraft-filter-list button{display:flex;width:100%;align-items:center;justify-content:space-between;gap:8px;border:0;border-bottom:1px solid #ddd;background:#fff;padding:5px 7px;text-align:left;font:inherit;cursor:pointer}
+    .dashboard-pilot-filter-list button:last-child,.dashboard-aircraft-filter-list button:last-child{border-bottom:0}
+    .dashboard-pilot-filter-list button:hover,.dashboard-pilot-filter-list button.active,.dashboard-aircraft-filter-list button:hover,.dashboard-aircraft-filter-list button.active{background:#fff7c7}
+    .dashboard-pilot-filter-list small,.dashboard-aircraft-filter-list small{color:#666;white-space:nowrap}
+    .rating-badge.rating-perfect{position:relative;overflow:hidden;border-color:#ffd21f;box-shadow:0 0 0 1px #8b6500,0 0 5px #ffc400;animation:rating-gold-pulse 2.4s ease-in-out infinite}
+    .rating-badge.rating-perfect::after{content:"";position:absolute;inset:-70% -120%;background:linear-gradient(110deg,transparent 42%,rgba(255,255,255,.75) 50%,transparent 58%);transform:translateX(-55%);animation:rating-gold-shine 3.2s ease-in-out infinite;pointer-events:none}
+    @keyframes rating-gold-pulse{0%,100%{box-shadow:0 0 0 1px #8b6500,0 0 3px rgba(255,196,0,.55)}50%{box-shadow:0 0 0 1px #ffdc45,0 0 9px rgba(255,196,0,.95)}}
+    @keyframes rating-gold-shine{0%,55%{transform:translateX(-55%)}85%,100%{transform:translateX(55%)}}
+    @media (prefers-reduced-motion:reduce){.rating-badge.rating-perfect,.rating-badge.rating-perfect::after{animation:none}}
+    .finance-row-note.finance-row-note-break{display:block;margin-left:0}
+    .finance-pilot-profile-link{display:inline;border:0;background:transparent;color:var(--blue);margin-left:8px;padding:0;font:inherit;font-size:inherit;text-decoration:underline;cursor:pointer}
+    .flight-info-dialog.finance-mode .flight-finance-row>strong.negative{font-weight:normal}
+    .flight-info-dialog.finance-mode .flight-finance-subtotal>strong,.flight-info-dialog.finance-mode .flight-finance-result>strong{font-weight:bold}
+    .flight-info-dialog.finance-mode .flight-finance-subtotal,.flight-info-dialog.finance-mode .flight-finance-subtotal>strong{font-weight:bold!important}
+    .company-final-result{margin-top:8px}
+    .flight-popup-jump{display:block;margin-top:9px;border:1px solid #777;background:#eee;color:#111;padding:4px 8px;font:inherit;font-weight:normal;text-decoration:none;cursor:pointer}
+    .flight-popup-jump:hover{background:#fff7c7}
+    .flight-popup-jump.jump-company{margin-right:auto;margin-top:4px}
+    .flight-popup-jump.jump-salary{margin-left:auto}
+    .dashboard-summary{grid-template-columns:minmax(0,1fr) 165px!important}
+    .dashboard-cards{grid-template-rows:repeat(5,1fr)!important;height:100%!important;gap:4px!important}
+    .dashboard-cards .card{min-height:0!important;padding:2px 8px!important;display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:flex-start!important;gap:1px!important}
+    .dashboard-cards .card span{display:block!important;color:var(--muted)!important;font-size:11px!important;line-height:11px!important;margin:0!important}
+    .dashboard-cards .card small{display:block!important;margin:0!important;line-height:11px!important}
+    .dashboard-cards .card strong{display:block!important;margin:2px 0 0!important;line-height:18px!important}
+    .dashboard-cards .card:nth-child(1){background:#eef9fa}
+    .dashboard-cards .card:nth-child(2){background:#fffbe3}
+    .dashboard-cards .card:nth-child(3){background:#f0f4ff}
+    .dashboard-cards .card:nth-child(4){background:#f7edf8}
+    .dashboard-cards .card:nth-child(5){background:#edf8ef}
+    .modal-head h2.finance-title{font-weight:normal}
+    .modal-head h2.finance-title strong{font-weight:bold}
+    .flight-info-dialog.salary-mode .flight-info-body{font-family:Arial,sans-serif;font-size:14px}
+    .flight-info-dialog.salary-mode{width:732px}
+    .flight-info-dialog.salary-mode .salary-formula-table,.flight-info-dialog.salary-mode .salary-formula-table th,.flight-info-dialog.salary-mode .salary-formula-table td{font-family:Arial,sans-serif;font-size:14px}
+    .flight-info-dialog.salary-mode .salary-formula-table td:nth-child(2){font-family:Arial,sans-serif;font-size:14px}
+    .flight-info-dialog.salary-mode .pilot-rate-table{font-family:Arial,sans-serif;font-size:13px}
+    .flight-info-dialog.salary-mode .pilot-rate-table .rate-context{font-size:12px}
+    .flight-info-dialog.salary-mode .pilot-rate-table .salary-pilot-profile-link{font-size:13px}
+    .flight-info-dialog.salary-mode .salary-numeric-formula{font-family:Arial,sans-serif;font-size:13px}
+    .salary-formula-table td.insurance-look-left{text-align:center!important;color:#666!important;font-size:16px;font-weight:bold!important}
+    .dashboard-finance-grid{align-items:stretch!important}
+    .dashboard-finance-body{padding-bottom:2px!important;transform:translate(20px,-3px);transform-origin:left top}
+    .dashboard-mini-pies{height:100%!important;grid-template-rows:1fr 1fr!important;align-content:stretch!important;gap:6px!important}
+    .mini-pie-block{height:auto!important;display:flex!important;flex-direction:column!important}
+    .mini-pie-title{flex:0 0 auto!important;padding-top:1px!important;padding-bottom:1px!important;margin-bottom:2px!important;line-height:1.05!important}
+    .mini-pie{width:82px!important;height:82px!important;margin:0 auto 2px!important;flex:0 0 82px!important}
+    .mini-pie-labels{height:31px!important;min-height:31px!important;padding:0 4px 3px!important;gap:3px!important;align-content:center!important;align-items:center!important;flex:1 0 auto!important;overflow:visible!important}
+    #dashboardFlightTypeLegend{display:block!important;text-align:center!important;line-height:1.15!important}
+    #dashboardFlightTypeLegend .flight-type-badge{margin:1px!important}
+    .mini-pie-labels.aircraft-labels{height:31px!important;min-height:31px!important;grid-template-columns:repeat(4,auto)!important;grid-auto-rows:auto!important;align-content:center!important;align-items:center!important;gap:2px 3px!important}
+    .flight-type-badge,.aircraft-type-badge{font-size:10px!important;line-height:1.1!important;padding:2px 5px!important}
+    .aircraft-type-badge{min-width:34px!important}
+    .calendar-control{flex:0 0 48px!important;width:48px!important;height:28px}
+    .calendar-button{box-sizing:border-box;width:100%!important;height:28px;padding:3px 8px!important;pointer-events:none!important;cursor:pointer}
+    .date-picker-proxy{inset:0!important;width:100%!important;height:100%!important;pointer-events:auto!important;cursor:pointer}
+    .date-picker-proxy::-webkit-calendar-picker-indicator{position:absolute;inset:0;width:100%;height:100%;margin:0;padding:0;cursor:pointer}
+    .dashboard-flight-table td.profit-routine-loss{color:#1769aa!important}
+    .dashboard-flight-table td.profit-incident-red{color:#a40000!important;background:#fff0f0}
+    .dashboard-flight-table td.profit-incident-orange{color:#b85500!important}
+    .profit-incident-note{display:block;margin-top:2px;font-size:9px;font-weight:normal;line-height:1.1;white-space:normal}
+    .profit-incident-note.profit-note-muted{color:#777!important}
+    .profit-incident-note.profit-note-compensation{color:#b85500!important}
+  </style>
+</head>
+<body>
+<main class="page">
+  <header class="topline">
+    <h1>КАБІНЕТ ПІЛОТІВ UKRAINE CLASSIC AIR ALLIANCE</h1>
+    <p>Статистика польотів, рейтинг екіпажу та особистий заробіток</p>
+  </header>
+  <nav class="nav" aria-label="Навігація">
+    <a href="index.html">← На головну</a><a class="active" href="#dashboard" data-view-link="dashboard">Диспетчерська</a><a href="#pilots" data-view-link="pilots">Пілоти</a><a href="#profile" data-view-link="profile" id="profileTabLink" aria-expanded="false">Профіль: пілот не вибраний</a><span class="pilot-picker-list" id="pilotPickerList" hidden></span><a href="#company" data-view-link="company">Флот</a><span class="spacer"></span><span class="updated" id="dataStatus">Завантаження бази…</span>
+  </nav>
+
+  <section id="dashboardView" class="app-view">
+  <section class="bar">
+    <h2>ПЕРІОД:</h2>
+    <div class="periods" aria-label="Період диспетчерської">
+      <button data-period="today" class="active">За сьогодні (з 00:00 UTC)</button><button data-period="weekToDate">З початку тижня</button><button data-period="previousWeek">Минулий тиждень</button><button data-period="monthToDate">З початку місяця</button><button data-period="previousMonth">Минулий місяць</button><button data-period="sinceRestructure">з 01.05</button><button data-period="all">Весь період</button><span class="calendar-control"><button type="button" id="dashboardCalendarButton" class="calendar-button" title="Вибрати дату" aria-label="Вибрати дату">📅</button><input type="date" id="dashboardDatePicker" class="date-picker-proxy" aria-label="Вибрати дату"></span>
+    </div>
+  </section>
+
+  <div class="dashboard-summary">
+    <div class="dashboard-finance-grid"><section class="dashboard-finance"><div class="company-heading">ФІНАНСОВЕ КОЛО · <span id="dashboardFinancePeriod">За сьогодні</span></div><div class="dashboard-finance-body"><div class="finance-pie" id="dashboardFinancePie"></div><div class="finance-legend" id="dashboardFinanceLegend"></div></div></section><div class="dashboard-mini-pies"><div class="mini-pie-block"><div class="mini-pie-title">ТИП РЕЙСУ</div><div class="mini-pie" id="dashboardFlightTypePie"></div><div class="mini-pie-labels" id="dashboardFlightTypeLegend"></div></div><div class="mini-pie-block"><div class="mini-pie-title">ТИП ЛІТАКА</div><div class="mini-pie" id="dashboardAircraftTypePie"></div><div class="mini-pie-labels aircraft-labels" id="dashboardAircraftTypeLegend"></div></div></div></div>
+    <div class="dashboard-cards">
+      <div class="card"><small>Пілотів літало за період</small><strong id="pilotCount">—</strong><span>завантаження…</span></div>
+      <div class="card"><small>Рейсів виконано за період</small><strong id="completedFlightsCount">—</strong><span></span></div>
+      <div class="card"><small>Наліт пілотів за період</small><strong id="totalHours">—</strong><span id="flightsLabel">завантаження…</span></div>
+      <div class="card"><small>Загальний баланс авіакомпанії</small><strong id="companyBalance">—</strong><span>рейси мінус постійні витрати АК (оцінка)</span></div>
+      <div class="card"><small>Зарплата пілотам</small><strong id="pilotPayroll">—</strong><span>з урахуванням страхування</span></div>
+    </div>
+  </div>
+
+  <div class="layout">
+    <section class="panel">
+      <div class="panel-title">ВИКОНАНІ РЕЙСИ ЗА ВИБРАНИЙ ПЕРІОД</div>
+      <div class="dashboard-table-wrap"><table class="dashboard-flight-table"><colgroup><col style="width:11%"><col style="width:14%"><col style="width:14%"><col style="width:20%"><col style="width:8%"><col style="width:12%"><col style="width:12%"><col style="width:9%"></colgroup><thead><tr><th class="dashboard-sort-head"><button type="button" class="dashboard-sort-button" data-dashboard-sort="date" aria-pressed="false"><span class="dashboard-sort-label">Дата /<br>Рейс</span><span class="dashboard-sort-icon" aria-hidden="true"><span class="dashboard-sort-up">▲</span><span class="dashboard-sort-down">▼</span></span></button></th><th class="dashboard-filter-head dashboard-pilot-filter-head"><button type="button" id="dashboardPilotFilterButton" class="dashboard-filter-button dashboard-pilot-filter-button" aria-expanded="false"><span class="dashboard-filter-label">Пілот</span><span class="dashboard-filter-hint">(фільтр <i class="dashboard-filter-funnel" aria-hidden="true"></i>)</span></button><span id="dashboardPilotFilterList" class="dashboard-pilot-filter-list" hidden></span></th><th>Маршрут</th><th class="dashboard-filter-head dashboard-aircraft-filter-head"><button type="button" id="dashboardAircraftFilterButton" class="dashboard-filter-button dashboard-aircraft-filter-button" aria-expanded="false"><span class="dashboard-filter-label">Літак</span><span class="dashboard-filter-hint">(фільтр <i class="dashboard-filter-funnel" aria-hidden="true"></i>)</span></button><span id="dashboardAircraftFilterList" class="dashboard-aircraft-filter-list" hidden></span></th><th>Пейлоад</th><th class="dashboard-sort-head"><button type="button" class="dashboard-sort-button" data-dashboard-sort="rating" aria-pressed="false"><span class="dashboard-sort-label">Рейтинг /<br>посадка</span><span class="dashboard-sort-icon" aria-hidden="true"><span class="dashboard-sort-up">▲</span><span class="dashboard-sort-down">▼</span></span></button></th><th class="dashboard-sort-head"><button type="button" class="dashboard-sort-button" data-dashboard-sort="profit" aria-pressed="false"><span class="dashboard-sort-label">Прибуток<br>авіакомпанії</span><span class="dashboard-sort-icon" aria-hidden="true"><span class="dashboard-sort-up">▲</span><span class="dashboard-sort-down">▼</span></span></button></th><th class="dashboard-sort-head"><button type="button" class="dashboard-sort-button" data-dashboard-sort="salary" aria-pressed="false"><span class="dashboard-sort-label">Зарплата<br>пілота</span><span class="dashboard-sort-icon" aria-hidden="true"><span class="dashboard-sort-up">▲</span><span class="dashboard-sort-down">▼</span></span></button></th></tr></thead><tbody id="dashboardFlights"><tr><td colspan="8" class="loading">Завантаження…</td></tr></tbody></table></div>
+    </section>
+  </div>
+  </section>
+
+  <section id="pilotsView" class="app-view" hidden>
+    <div class="summary"><span><small>Пілотів у базі</small><br><strong id="allPilots">—</strong></span><span><small>Літали за період</small><br><strong id="activePilots">—</strong></span><span><small>Рейсів за період</small><br><strong id="periodFlights">—</strong></span><span><small>Наліт за період</small><br><strong id="periodHours">—</strong></span></div>
+    <section class="bar">
+      <h2>ПЕРІОД СТАТИСТИКИ:</h2>
+      <div class="periods">
+        <button data-period="today" class="active">За сьогодні (з 00:00 UTC)</button><button data-period="weekToDate">З початку тижня</button><button data-period="previousWeek">Минулий тиждень</button><button data-period="monthToDate">З початку місяця</button><button data-period="previousMonth">Минулий місяць</button><button data-period="all">Весь період</button>
+      </div>
+    </section>
+    <div class="table-wrap">
+      <table>
+        <colgroup><col style="width:4%"><col style="width:15%"><col style="width:11%"><col style="width:8%"><col style="width:10%"><col style="width:12%"><col style="width:12%"><col style="width:17%"><col style="width:11%"></colgroup>
+        <thead><tr><th class="rank">№</th><th class="sortable" data-sort="name">Пілот</th><th class="sortable num" data-sort="minutes">Наліт<br>за період</th><th class="sortable num" data-sort="completed">Рейсів<br>за період</th><th class="sortable num" data-sort="rating">Середній рейтинг<br>за період</th><th class="sortable num" data-sort="salary">Зарплата<br>за період*</th><th class="sortable num" data-sort="balance">Зароблено для АК<br>за період</th><th>Улюблений літак<br>за період</th><th>Улюблений аеропорт<br>за період</th></tr></thead>
+        <tbody id="pilotsTable"><tr><td colspan="9" class="loading">Завантаження…</td></tr></tbody>
+      </table>
+    </div>
+    <p class="note">* Зарплата: $65 / год × коефіцієнти + 1% балансу рейсу після фактичного страхового покриття. Страховий випадок — <code>penalties</code> від $150 000; місячний ліміт покриття — $1 000 000, утримання пілота — до $2 500.</p>
+    <section class="panel" style="margin-top:6px">
+      <div class="panel-title">ТАБЛИЦЯ ЛІДЕРІВ</div>
+      <div class="panel-body">
+        <div class="metrics" style="margin-bottom:6px"><button class="active" data-metric="hours">За нальотом</button><button data-metric="balance">За прибутком АК</button><button data-metric="salary">За заробітком</button><button data-metric="rating">За рейтингом</button></div>
+        <table>
+          <thead><tr><th class="rank">№</th><th>Пілот / посада</th><th>Рейси</th><th id="metricHead" class="num">Наліт</th></tr></thead>
+          <tbody id="leaderboard"></tbody>
+        </table>
+        <div class="legend">Натисніть на ім’я, щоб відкрити персональну статистику. Таблиця формується з архівної бази та файлу поточного тижня.</div>
+      </div>
+    </section>
+  </section>
+
+  <section id="profileView" class="app-view" hidden>
+    <div class="profile-page" id="profilePageContent"><div class="profile-empty">Пілот не вибраний. Натисніть стрілку біля вкладки профілю та виберіть пілота зі списку.</div></div>
+  </section>
+
+  <section id="companyView" class="app-view" hidden>
+    <div class="company-summary">
+      <div class="company-card"><small>Баланс за вибраний період</small><strong id="companyPeriodBalance">—</strong><span id="companyPeriodLabel">завантаження…</span></div>
+      <div class="company-card"><small>Частка доходу у фінансовому колі</small><strong id="companyRevenueShare">—</strong><span>мета — понад 50%</span></div>
+      <div class="company-card"><small>Флот</small><strong id="companyFleetCount">—</strong><span id="companyFleetTypes">—</span></div>
+      <div class="company-card"><small>Регулярна мережа</small><strong id="companyScheduleCount">—</strong><span id="companyScheduleDays">—</span></div>
+    </div>
+    <div class="finance-layout">
+      <section class="finance-chart"><div class="company-heading">ФІНАНСОВЕ КОЛО · <select class="company-finance-select" id="companyFinancePeriod"><option value="today">За сьогодні</option><option value="yesterday">За вчора</option><option value="weekToDate">З початку тижня</option><option value="previousWeek">Минулий тиждень</option><option value="monthToDate" selected>З початку місяця</option><option value="previousMonth">Минулий місяць</option><option value="sinceRestructure">З 01.05.2026</option><option value="all">Весь період</option></select></div><div class="finance-body"><div class="finance-pie" id="financePie"></div><div class="finance-legend" id="financeLegend"></div></div></section>
+      <section class="company-panel"><div class="company-heading">ЗВІДКИ БЕРУТЬСЯ ВИТРАТИ</div><div style="padding:8px;line-height:1.45"><p><strong>Fleet</strong> — витрати літаків у виконаних рейсах плюс щоденна оренда та базове обслуговування всього флоту.</p><p><strong>Schedulers</strong> — плата за активні регулярні маршрути, незалежно від фактичних польотів.</p><p><strong>Insurance</strong> — $100 000 на місяць; активується для рейсів з <code>penalties</code> від $150 000 і покриває до $1 000 000 за календарний місяць.</p><p><strong>Airports, Handling, Fuel і Penalties</strong> — рейсові та калібровані витрати NewSky.</p><div class="company-note">Реструктуризація АК та початок контрольного періоду — 01.05.2026. Витрати сучасного флоту і мережі застосовуються з цієї дати.</div></div></section>
+    </div>
+    <section class="company-panel company-section"><div class="company-heading">ФЛОТ ЗА ТИПАМИ</div><div class="company-table-wrap"><table class="company-table"><colgroup><col style="width:10%"><col style="width:20%"><col style="width:8%"><col style="width:9%"><col style="width:9%"><col style="width:14%"><col style="width:14%"><col style="width:16%"></colgroup><thead><tr><th data-company-sort="icao">Тип</th><th data-company-sort="variants">Варіанти</th><th data-company-sort="aircraft" class="num">Бортів*</th><th data-company-sort="flights" class="num">Рейсів</th><th data-company-sort="minutes" class="num">Наліт</th><th data-company-sort="revenue" class="num">Дохід рейсів</th><th data-company-sort="expenses" class="num">Витрати рейсів</th><th data-company-sort="balance" class="num">Баланс рейсів</th></tr></thead><tbody id="fleetTypesBody"><tr><td colspan="8" class="loading">Завантаження…</td></tr></tbody></table></div><div class="company-note" style="margin:7px">* Кількість бортів і варіанти беруться з останнього експорту флоту. Рейси, наліт і фінанси автоматично перераховуються з архіву та поточного live-тижня.</div></section>
+  </section>
+  <dialog id="flightInfoDialog" class="flight-info-dialog"><div class="modal-head"><h2 id="flightInfoTitle">Деталі рейсу</h2><button type="button" class="close" id="flightInfoClose" aria-label="Закрити">×</button></div><div class="flight-info-body" id="flightInfoBody"></div></dialog>
+  <p class="demo">Прототип інтерфейсу · Ukraine Classic Air Alliance</p>
+</main>
+
+<script type="application/x-disabled">
+const pilots=[
+ {id:'695ce1b43dc76275ba0f240e',name:'Nazar Pilot',role:'Командир повітряного судна',flights:5,hours:13.6,balance:46780,salary:1264,rating:9.66,aircraft:'Boeing 737 MAX 8',icao:'B38M',routes:'UKBB → LEIB',joined:'05.01.2026',last:'UKL 1204 · 19.06.2026',monthHours:37.2,totalHours:84.7},
+ {id:'p2',name:'Андрій Коваль',role:'Капітан-інструктор',flights:7,hours:18.4,balance:42110,salary:1718,rating:9.42,aircraft:'Airbus A320neo',icao:'A20N',routes:'UKLL → LOWW',joined:'12.09.2024',last:'UKL 731 · 20.06.2026',monthHours:45.6,totalHours:236.3},
+ {id:'p3',name:'Олексій Бондар',role:'Другий пілот',flights:6,hours:16.2,balance:38840,salary:1482,rating:9.18,aircraft:'Boeing 737-800',icao:'B738',routes:'UKKK → LROP',joined:'20.02.2025',last:'UKL 457 · 20.06.2026',monthHours:39.1,totalHours:128.8},
+ {id:'p4',name:'Михайло Романюк',role:'Командир повітряного судна',flights:4,hours:12.8,balance:35120,salary:1195,rating:9.57,aircraft:'Boeing 787-9',icao:'B789',routes:'EPWA → EGLL',joined:'03.06.2024',last:'UKL 591W · 18.06.2026',monthHours:31.7,totalHours:304.5},
+ {id:'p5',name:'Віктор Савчук',role:'Другий пілот',flights:5,hours:11.7,balance:28690,salary:1088,rating:8.96,aircraft:'Embraer E195-E2',icao:'E295',routes:'UKOO → LTFM',joined:'17.11.2025',last:'UKL 888 · 19.06.2026',monthHours:28.4,totalHours:72.2},
+ {id:'p6',name:'Ірина Левченко',role:'Пілот-стажер',flights:4,hours:8.0,balance:-6620,salary:724,rating:8.71,aircraft:'ATR 72-600',icao:'AT76',routes:'UKHH → UKLL',joined:'01.05.2026',last:'UKL 216 · 17.06.2026',monthHours:19.3,totalHours:19.3}
+];
+const factors={day:.18,week:1,month:3.42,all:8.9}; let period='week',metric='hours';
+const metricInfo={hours:['Наліт',p=>formatHours(p.hours*factors[period])],balance:['Прибуток АК',p=>money(p.balance*factors[period],true)],salary:['Заробіток',p=>money(p.salary*factors[period])],rating:['Сер. рейтинг',p=>(p.rating-(period==='day'?.08:0)).toFixed(2)]};
+const sortValue=(p)=>metric==='rating'?p.rating:p[metric]*factors[period];
+function money(v,signed=false){v=Math.round(v);return `${signed&&v>=0?'+':''}${v<0?'−':''}$${Math.abs(v).toLocaleString('uk-UA')}`}
+function formatHours(h){const min=Math.round(h*60);return `${Math.floor(min/60)} год ${String(min%60).padStart(2,'0')} хв`}
+function render(){
+ const rows=[...pilots].sort((a,b)=>sortValue(b)-sortValue(a)); document.querySelector('#metricHead').textContent=metricInfo[metric][0];
+ document.querySelector('#leaderboard').innerHTML=rows.map((p,i)=>`<tr><td class="rank"><span class="medal">${['🥇','🥈','🥉'][i]||i+1}</span></td><td><button class="pilot-link" data-id="${p.id}">${p.name}</button><span class="role">${p.role}</span></td><td class="num">${Math.max(1,Math.round(p.flights*factors[period]))}</td><td class="num ${metric==='balance'?(p.balance>=0?'positive':'negative'):''}">${metricInfo[metric][1](p)}</td></tr>`).join('');
+ const f=factors[period]; document.querySelector('#totalHours').textContent=formatHours(86.7*f);document.querySelector('#flightsLabel').textContent=`${Math.round(31*f)} завершених рейсів`;document.querySelector('#companyBalance').textContent=money(184920*f,true);document.querySelector('#pilotPayroll').textContent=money(12640*f);
+ document.querySelectorAll('.pilot-link').forEach(b=>b.onclick=()=>openPilot(b.dataset.id));
+}
+function openPilot(id){const p=pilots.find(x=>x.id===id);const d=document.querySelector('#pilotDialog');document.querySelector('#profile').innerHTML=`
+ <div class="identity"><div class="avatar">${p.name.split(' ').map(x=>x[0]).join('').slice(0,2)}</div><div><h3>${p.name}</h3><span class="badge">${p.role}</span> <small>ID: ${p.id}</small><br><small>В авіакомпанії з ${p.joined}</small></div></div>
+ <div class="cards profile-cards"><div class="card"><small>Наліт загалом</small><strong>${formatHours(p.totalHours)}</strong></div><div class="card"><small>Цього місяця</small><strong>${formatHours(p.monthHours)}</strong></div><div class="card"><small>Рейсів за тиждень</small><strong>${p.flights}</strong></div><div class="card"><small>Баланс для АК</small><strong class="${p.balance>=0?'positive':'negative'}">${money(p.balance,true)}</strong></div><div class="card"><small>Заробіток</small><strong>${money(p.salary)}</strong></div></div>
+ <div class="split"><div><div class="mini-title">Льотна статистика</div><table><tr><th>Середній рейтинг</th><td class="num">${p.rating.toFixed(2)} / 10</td></tr><tr><th>Улюблений літак</th><td>${p.aircraft} (${p.icao})</td></tr><tr><th>Частий маршрут</th><td class="route">${p.routes}</td></tr><tr><th>Останній рейс</th><td>${p.last}</td></tr></table></div><div><div class="mini-title">Прогрес і заробіток</div><table><tr><th>Місце за нальотом</th><td class="num">#${[...pilots].sort((a,b)=>b.hours-a.hours).findIndex(x=>x.id===p.id)+1}</td></tr><tr><th>Місце за прибутком АК</th><td class="num">#${[...pilots].sort((a,b)=>b.balance-a.balance).findIndex(x=>x.id===p.id)+1}</td></tr><tr><th>Ставка / год</th><td class="num">$65</td></tr><tr><th>Наступна відзнака</th><td>100 годин<div class="progress"><i style="width:${Math.min(100,p.totalHours)}%"></i></div></td></tr></table></div></div>`;d.showModal();}
+document.querySelectorAll('[data-period]').forEach(b=>b.onclick=()=>{period=b.dataset.period;document.querySelectorAll('[data-period]').forEach(x=>x.classList.toggle('active',x===b));render()});
+document.querySelectorAll('[data-metric]').forEach(b=>b.onclick=()=>{metric=b.dataset.metric;document.querySelectorAll('[data-metric]').forEach(x=>x.classList.toggle('active',x===b));render()});
+document.querySelector('.close').onclick=()=>document.querySelector('#pilotDialog').close();document.querySelector('#pilotDialog').onclick=e=>{if(e.target===e.currentTarget)e.currentTarget.close()};render();
+</script>
+<script src="flights-loader.js?v=20260622-17"></script>
+<script src="insurance-policy.js?v=20260622-9"></script>
+<script src="aircraft-difficulty-coefficients.js?v=20260622-2"></script>
+<script src="pilot-pay-policy.js?v=20260623-19"></script>
+<script src="incident-compensation-policy.js?v=20260623-5"></script>
+<script src="pilot-profile.js?v=20260622-13"></script>
+<script src="app-navigation.js?v=20260621-7"></script>
+<script type="module" src="pilot-cabinet.js?v=20260623-112"></script>
+<script type="module" src="pilots-list.js?v=20260622-9"></script>
+<script type="module" src="company.js?v=20260622-15"></script>
+</body>
+</html>
