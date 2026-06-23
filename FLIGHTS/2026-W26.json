@@ -1816,6 +1816,178 @@
                         "elev": 755
                     }
                 }
+            },
+            {
+                "_id": "6a3abc8e840ade899edc781a",
+                "aircraft": {
+                    "name": "Airbus A330-200",
+                    "icao": "A332"
+                },
+                "type": "pax",
+                "flightNumber": "66Y",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 366,
+                    "cargo": 40,
+                    "weights": {
+                        "cargo": 3720
+                    }
+                },
+                "depTime": "2026-06-23T17:20:00.000Z",
+                "duration": 95,
+                "arrTime": "2026-06-23T18:55:00.000Z",
+                "depTimeAct": "2026-06-23T17:24:58.739Z",
+                "delay": -10,
+                "takeoffTimeAct": "2026-06-23T17:27:25.159Z",
+                "durationAct": 77,
+                "arrTimeAct": "2026-06-23T18:44:41.294Z",
+                "open": "2026-06-23T17:12:03.015Z",
+                "close": "2026-06-23T18:50:33.698Z",
+                "rating": 7.46,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 533,
+                        "fuel": 7446,
+                        "expenses": 28526,
+                        "penalties": 0,
+                        "revenue": 59424,
+                        "balance": 30898,
+                        "prices": {
+                            "ticketPrice": 129,
+                            "cargoUnitPrice": 144,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 366,
+                            "cargo": 40,
+                            "paxByClass": {
+                                "F": 10,
+                                "C": 20,
+                                "Y": 336
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 8418,
+                        "aircraft": 16255,
+                        "handling": 2653,
+                        "landing": 1200
+                    },
+                    "revenue": {
+                        "tickets": 53664,
+                        "cargo": 5760
+                    },
+                    "violations": [
+                        {
+                            "title": "Short landing (73m from threshold before 179m min accepted)",
+                            "penalty": {
+                                "points": -89,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 44
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.56,
+                                        "rate": 521
+                                    },
+                                    "weather": {
+                                        "windDir": 359.84,
+                                        "windSpd": 2.57,
+                                        "windX": 1.42
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.56G (521 ft/min, challenging  conditions)<br/>Distance from threshold: 73m (accepted range: 179-719m)<br/>Average centerline deviation: 0.63m<br/>Max centerline deviation: 1.06m",
+                            "penalty": {
+                                "points": -15,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 44
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.56,
+                                        "rate": 521
+                                    },
+                                    "weather": {
+                                        "windDir": 359.84,
+                                        "windSpd": 2.57,
+                                        "windX": 1.42
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 735ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 42
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-06-23T17:04:14.102Z",
+                "updatedAt": "2026-06-23T18:50:33.792Z",
+                "dep": {
+                    "icao": "LBSF",
+                    "name": "Sofia Airport",
+                    "city": "Sofia",
+                    "location": {
+                        "lat": 42.696357,
+                        "lon": 23.417671,
+                        "elev": 1742
+                    }
+                },
+                "arr": {
+                    "icao": "UKLR",
+                    "name": "Rivne International Airport",
+                    "city": "Rivne",
+                    "location": {
+                        "lat": 50.60710144042969,
+                        "lon": 26.141599655151367,
+                        "elev": 755
+                    }
+                },
+                "actArr": {
+                    "icao": "UKLR",
+                    "name": "Rivne International Airport",
+                    "city": "Rivne",
+                    "location": {
+                        "lat": 50.60710144042969,
+                        "lon": 26.141599655151367,
+                        "elev": 755
+                    }
+                }
             }
         ]
     },
