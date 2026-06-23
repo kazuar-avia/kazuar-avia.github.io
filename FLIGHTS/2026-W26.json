@@ -1988,6 +1988,154 @@
                         "elev": 755
                     }
                 }
+            },
+            {
+                "_id": "6a3af79d840ade899eddca87",
+                "aircraft": {
+                    "name": "Airbus A330-200",
+                    "icao": "A332"
+                },
+                "type": "pax",
+                "flightNumber": "11R",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 366,
+                    "cargo": 38,
+                    "weights": {
+                        "cargo": 4826
+                    }
+                },
+                "depTime": "2026-06-23T21:30:00.000Z",
+                "duration": 40,
+                "arrTime": "2026-06-23T22:10:00.000Z",
+                "depTimeAct": "2026-06-23T21:34:23.887Z",
+                "delay": -2,
+                "takeoffTimeAct": "2026-06-23T21:41:47.902Z",
+                "durationAct": 26,
+                "arrTimeAct": "2026-06-23T22:07:35.945Z",
+                "open": "2026-06-23T21:24:10.896Z",
+                "close": "2026-06-23T22:11:27.801Z",
+                "rating": 8.78,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 134,
+                        "fuel": 3044,
+                        "expenses": 18501,
+                        "penalties": 0,
+                        "revenue": 30722,
+                        "balance": 12221,
+                        "prices": {
+                            "ticketPrice": 67,
+                            "cargoUnitPrice": 75,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 1,
+                                "fuel": 0.8,
+                                "ground": 0.85
+                            }
+                        },
+                        "payload": {
+                            "pax": 366,
+                            "cargo": 38,
+                            "paxByClass": {
+                                "F": 10,
+                                "C": 20,
+                                "Y": 336
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2753,
+                        "aircraft": 12715,
+                        "handling": 1833,
+                        "landing": 1200
+                    },
+                    "revenue": {
+                        "tickets": 27872,
+                        "cargo": 2850
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 9.28m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -29,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Uncomfortable touchdown: 1.87G (764 ft/min, challenging  conditions)<br/>Distance from threshold: 319m (accepted range: 179-719m)<br/>Average centerline deviation: 5.13m<br/>Max centerline deviation: 9.28m",
+                            "penalty": {
+                                "points": -93,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 42
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.87,
+                                        "rate": 764
+                                    },
+                                    "weather": {
+                                        "windDir": 269.97,
+                                        "windSpd": 1.67,
+                                        "windX": 0.78
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-06-23T21:16:13.040Z",
+                "updatedAt": "2026-06-23T22:11:27.929Z",
+                "dep": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "arr": {
+                    "icao": "UKLR",
+                    "name": "Rivne International Airport",
+                    "city": "Rivne",
+                    "location": {
+                        "lat": 50.60710144042969,
+                        "lon": 26.141599655151367,
+                        "elev": 755
+                    }
+                },
+                "actArr": {
+                    "icao": "UKLR",
+                    "name": "Rivne International Airport",
+                    "city": "Rivne",
+                    "location": {
+                        "lat": 50.60710144042969,
+                        "lon": 26.141599655151367,
+                        "elev": 755
+                    }
+                }
             }
         ]
     },
