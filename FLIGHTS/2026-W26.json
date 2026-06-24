@@ -2293,6 +2293,167 @@
                         "elev": 383
                     }
                 }
+            },
+            {
+                "_id": "6a3bcb0f840ade899edfc498",
+                "aircraft": {
+                    "name": "ATR 72-600",
+                    "icao": "AT76"
+                },
+                "type": "pax",
+                "flightNumber": "100M",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 72,
+                    "cargo": 11,
+                    "weights": {
+                        "cargo": 1353
+                    }
+                },
+                "depTime": "2026-06-24T12:30:00.000Z",
+                "duration": 70,
+                "arrTime": "2026-06-24T13:40:00.000Z",
+                "depTimeAct": "2026-06-24T12:27:09.893Z",
+                "delay": 11,
+                "takeoffTimeAct": "2026-06-24T12:37:47.677Z",
+                "durationAct": 73,
+                "arrTimeAct": "2026-06-24T13:51:02.426Z",
+                "open": "2026-06-24T12:24:37.290Z",
+                "close": "2026-06-24T13:54:53.471Z",
+                "rating": 7.6,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 260,
+                        "fuel": 940,
+                        "expenses": 4019,
+                        "penalties": 0,
+                        "revenue": 8758,
+                        "balance": 4739,
+                        "prices": {
+                            "ticketPrice": 103,
+                            "cargoUnitPrice": 122,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 72,
+                            "cargo": 11,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 72
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1063,
+                        "aircraft": 2143,
+                        "handling": 588,
+                        "landing": 225
+                    },
+                    "revenue": {
+                        "tickets": 7416,
+                        "cargo": 1342
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 17.49m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -219,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 33
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.47G (371 ft/min, normal  conditions)<br/>Distance from threshold: 484m (accepted range: 201-807m)<br/>Average centerline deviation: 10.13m<br/>Max centerline deviation: 17.49m",
+                            "penalty": {
+                                "points": -18,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 36
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.47,
+                                        "rate": 371
+                                    },
+                                    "weather": {
+                                        "windDir": 20.31,
+                                        "windSpd": 10.1,
+                                        "windX": 9.58
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No BEACON lights for 40s when required",
+                            "penalty": {
+                                "points": -3,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-06-24T12:18:23.618Z",
+                "updatedAt": "2026-06-24T13:54:53.574Z",
+                "dep": {
+                    "icao": "LROP",
+                    "name": "Bucharest Henri Coandă International Airport",
+                    "city": "Otopeni",
+                    "location": {
+                        "lat": 44.572127,
+                        "lon": 26.103396,
+                        "elev": 314
+                    }
+                },
+                "arr": {
+                    "icao": "LUKK",
+                    "name": "Chişinău International Airport",
+                    "city": "Chişinău",
+                    "location": {
+                        "lat": 46.9277,
+                        "lon": 28.931,
+                        "elev": 399
+                    }
+                },
+                "actArr": {
+                    "icao": "LUKK",
+                    "name": "Chişinău International Airport",
+                    "city": "Chişinău",
+                    "location": {
+                        "lat": 46.9277,
+                        "lon": 28.931,
+                        "elev": 399
+                    }
+                }
             }
         ]
     },
