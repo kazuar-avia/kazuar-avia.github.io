@@ -1233,6 +1233,178 @@
                         "elev": 412
                     }
                 }
+            },
+            {
+                "_id": "6a3c3615a5e61d69a70ed638",
+                "aircraft": {
+                    "name": "Boeing 737-800",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "217D",
+                "free": false,
+                "schedule": false,
+                "charter": true,
+                "payload": {
+                    "pax": 147,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-06-24T20:10:00.000Z",
+                "duration": 35,
+                "arrTime": "2026-06-24T20:45:00.000Z",
+                "depTimeAct": "2026-06-24T20:03:28.341Z",
+                "delay": -18,
+                "takeoffTimeAct": "2026-06-24T20:03:47.315Z",
+                "durationAct": 24,
+                "arrTimeAct": "2026-06-24T20:27:18.357Z",
+                "open": "2026-06-24T20:02:24.897Z",
+                "close": "2026-06-24T20:29:26.405Z",
+                "rating": 8.66,
+                "simulator": "msfs",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 105,
+                        "fuel": 1023,
+                        "expenses": 6521,
+                        "penalties": 0,
+                        "revenue": 15879,
+                        "balance": 9358,
+                        "prices": {
+                            "ticketPrice": 79,
+                            "cargoUnitPrice": 90,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 147,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 10,
+                                "C": 24,
+                                "Y": 113
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 996,
+                        "aircraft": 4100,
+                        "handling": 735,
+                        "landing": 690
+                    },
+                    "revenue": {
+                        "tickets": 15879,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 5.12m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -18,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 47
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (1068m from threshold beyond 737m max accepted)",
+                            "penalty": {
+                                "points": -116,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 46
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.4,
+                                        "rate": 358
+                                    },
+                                    "weather": {
+                                        "windDir": 270.02,
+                                        "windSpd": 1.02,
+                                        "windX": -1.02
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.40G (358 ft/min, normal  conditions)<br/>Distance from threshold: 1068m (accepted range: 184-737m)<br/>Average centerline deviation: 3.46m<br/>Max centerline deviation: 5.12m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 46
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.4,
+                                        "rate": 358
+                                    },
+                                    "weather": {
+                                        "windDir": 270.02,
+                                        "windSpd": 1.02,
+                                        "windX": -1.02
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-06-24T19:55:01.394Z",
+                "updatedAt": "2026-06-24T20:29:26.505Z",
+                "dep": {
+                    "icao": "VQPR",
+                    "name": "Paro International Airport",
+                    "city": "Paro",
+                    "location": {
+                        "lat": 27.4032,
+                        "lon": 89.424599,
+                        "elev": 7364
+                    }
+                },
+                "arr": {
+                    "icao": "VEBD",
+                    "name": "Bagdogra Airport",
+                    "city": "Siliguri",
+                    "location": {
+                        "lat": 26.68120002746582,
+                        "lon": 88.32859802246094,
+                        "elev": 412
+                    }
+                },
+                "actArr": {
+                    "icao": "VEBD",
+                    "name": "Bagdogra Airport",
+                    "city": "Siliguri",
+                    "location": {
+                        "lat": 26.68120002746582,
+                        "lon": 88.32859802246094,
+                        "elev": 412
+                    }
+                }
             }
         ]
     },
