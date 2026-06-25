@@ -5794,6 +5794,198 @@
                         "elev": 362
                     }
                 }
+            },
+            {
+                "_id": "6a3d04b6840ade899ee39508",
+                "aircraft": {
+                    "name": "Boeing 737-800",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "40Y",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 170,
+                    "cargo": 18,
+                    "weights": {
+                        "cargo": 2196
+                    }
+                },
+                "depTime": "2026-06-25T11:05:00.000Z",
+                "duration": 135,
+                "arrTime": "2026-06-25T13:20:00.000Z",
+                "depTimeAct": "2026-06-25T11:23:48.880Z",
+                "delay": 26,
+                "takeoffTimeAct": "2026-06-25T11:32:25.895Z",
+                "durationAct": 134,
+                "arrTimeAct": "2026-06-25T13:46:05.105Z",
+                "open": "2026-06-25T10:37:00.253Z",
+                "close": "2026-06-25T13:49:43.142Z",
+                "rating": 8.61,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 869,
+                        "fuel": 7085,
+                        "expenses": 15184,
+                        "penalties": 6285,
+                        "revenue": 28380,
+                        "balance": 6911,
+                        "prices": {
+                            "ticketPrice": 150,
+                            "cargoUnitPrice": 160,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 170,
+                            "cargo": 18,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 170
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 6408,
+                        "aircraft": 6250,
+                        "handling": 852,
+                        "landing": 1674
+                    },
+                    "revenue": {
+                        "tickets": 25500,
+                        "cargo": 2880
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight delayed 4 minutes (max 15 minutes after scheduled is allowed)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 340
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline takeoff (deviation 11.69m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "weather": {
+                                        "windDir": 314.01,
+                                        "windSpd": 10.55,
+                                        "windX": 8.68
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "MLW exceeded: 986kg above maximum landing weight of 66361kg",
+                            "penalty": {
+                                "points": -89,
+                                "cash": 5945
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.37,
+                                        "rate": 181
+                                    },
+                                    "weather": {
+                                        "windDir": 90,
+                                        "windSpd": 14.33,
+                                        "windX": 1.46
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.37G (181 ft/min, normal  conditions)<br/>Distance from threshold: 247m (accepted range: 209-839m)<br/>Average centerline deviation: 0.67m<br/>Max centerline deviation: 1.51m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.37,
+                                        "rate": 181
+                                    },
+                                    "weather": {
+                                        "windDir": 90,
+                                        "windSpd": 14.33,
+                                        "windX": 1.46
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-06-25T10:36:38.543Z",
+                "updatedAt": "2026-06-25T13:49:43.242Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "EDDM",
+                    "name": "Munich Airport",
+                    "city": "Munich",
+                    "location": {
+                        "lat": 48.353802,
+                        "lon": 11.7861,
+                        "elev": 1487
+                    }
+                },
+                "actArr": {
+                    "icao": "EDDM",
+                    "name": "Munich Airport",
+                    "city": "Munich",
+                    "location": {
+                        "lat": 48.353802,
+                        "lon": 11.7861,
+                        "elev": 1487
+                    }
+                }
             }
         ]
     },
