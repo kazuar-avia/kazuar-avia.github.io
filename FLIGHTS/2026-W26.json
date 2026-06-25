@@ -6918,7 +6918,7 @@
     },
     {
         "pilot_id": "695ce1b43dc76275ba0f240e",
-        "fullname": "Nazar Piiot",
+        "fullname": "Nazar Pilot",
         "avatar": "695ce1b43dc76275ba0f240e1782381430624",
         "flights": [
             {
@@ -7365,6 +7365,154 @@
                         "lat": 50.345001,
                         "lon": 30.894699,
                         "elev": 427
+                    }
+                }
+            },
+            {
+                "_id": "6a3d5a53a5e61d69a71fed91",
+                "aircraft": {
+                    "name": "Boeing 737-800",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "1204",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 169,
+                    "cargo": 23,
+                    "weights": {
+                        "cargo": 2622
+                    }
+                },
+                "depTime": "2026-06-25T17:05:00.000Z",
+                "duration": 82,
+                "arrTime": "2026-06-25T18:27:00.000Z",
+                "depTimeAct": "2026-06-25T17:10:11.931Z",
+                "delay": 4,
+                "takeoffTimeAct": "2026-06-25T17:11:41.940Z",
+                "durationAct": 79,
+                "arrTimeAct": "2026-06-25T18:30:58.974Z",
+                "open": "2026-06-25T16:45:05.886Z",
+                "close": "2026-06-25T18:34:16.021Z",
+                "rating": 9.6,
+                "simulator": "msfs",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 540,
+                        "fuel": 3563,
+                        "expenses": 9679,
+                        "penalties": 0,
+                        "revenue": 25090,
+                        "balance": 15411,
+                        "prices": {
+                            "ticketPrice": 129,
+                            "cargoUnitPrice": 143,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 169,
+                            "cargo": 23,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 169
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3223,
+                        "aircraft": 4875,
+                        "handling": 852,
+                        "landing": 729
+                    },
+                    "revenue": {
+                        "tickets": 21801,
+                        "cargo": 3289
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 4.45m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -7,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.53G (449 ft/min, normal  conditions)<br/>Distance from threshold: 424m (accepted range: 194-777m)<br/>Average centerline deviation: 2.45m<br/>Max centerline deviation: 4.45m",
+                            "penalty": {
+                                "points": -33,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.53,
+                                        "rate": 449
+                                    },
+                                    "weather": {
+                                        "windDir": 100.01,
+                                        "windSpd": 6,
+                                        "windX": 4.77
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-06-25T16:41:55.410Z",
+                "updatedAt": "2026-06-25T18:34:16.419Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "LBBG",
+                    "name": "Burgas Airport",
+                    "city": "Burgas",
+                    "location": {
+                        "lat": 42.569917,
+                        "lon": 27.515173,
+                        "elev": 135
+                    }
+                },
+                "actArr": {
+                    "icao": "LBBG",
+                    "name": "Burgas Airport",
+                    "city": "Burgas",
+                    "location": {
+                        "lat": 42.569917,
+                        "lon": 27.515173,
+                        "elev": 135
                     }
                 }
             }
