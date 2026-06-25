@@ -1686,6 +1686,159 @@
                         "elev": 648
                     }
                 }
+            },
+            {
+                "_id": "6a3d0e59a5e61d69a719d0b6",
+                "aircraft": {
+                    "name": "Boeing 737-800",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "217D",
+                "free": false,
+                "schedule": false,
+                "charter": true,
+                "payload": {
+                    "pax": 184,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-06-25T11:30:00.000Z",
+                "duration": 35,
+                "arrTime": "2026-06-25T12:05:00.000Z",
+                "depTimeAct": "2026-06-25T11:24:23.459Z",
+                "delay": -17,
+                "takeoffTimeAct": "2026-06-25T11:24:42.464Z",
+                "durationAct": 23,
+                "arrTimeAct": "2026-06-25T11:48:09.508Z",
+                "open": "2026-06-25T11:23:49.199Z",
+                "close": "2026-06-25T11:49:30.538Z",
+                "rating": 8.44,
+                "simulator": "msfs",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 110,
+                        "fuel": 1078,
+                        "expenses": 6735,
+                        "penalties": 0,
+                        "revenue": 14536,
+                        "balance": 7801,
+                        "prices": {
+                            "ticketPrice": 79,
+                            "cargoUnitPrice": 90,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 184,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 184
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1050,
+                        "aircraft": 4075,
+                        "handling": 920,
+                        "landing": 690
+                    },
+                    "revenue": {
+                        "tickets": 14536,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 5.49m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -41,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 46
+                                    },
+                                    "weather": {
+                                        "windDir": 269.99,
+                                        "windSpd": 1.01,
+                                        "windX": -0.75
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Uncomfortable touchdown: 1.94G (622 ft/min, normal  conditions)<br/>Distance from threshold: 272m (accepted range: 184-737m)<br/>Average centerline deviation: 1.51m<br/>Max centerline deviation: 2.40m",
+                            "penalty": {
+                                "points": -115,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 46
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.94,
+                                        "rate": 622
+                                    },
+                                    "weather": {
+                                        "windDir": 270.08,
+                                        "windSpd": 1.1,
+                                        "windX": -1.1
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-06-25T11:17:45.943Z",
+                "updatedAt": "2026-06-25T11:49:30.610Z",
+                "dep": {
+                    "icao": "VQPR",
+                    "name": "Paro International Airport",
+                    "city": "Paro",
+                    "location": {
+                        "lat": 27.4032,
+                        "lon": 89.424599,
+                        "elev": 7364
+                    }
+                },
+                "arr": {
+                    "icao": "VEBD",
+                    "name": "Bagdogra Airport",
+                    "city": "Siliguri",
+                    "location": {
+                        "lat": 26.68120002746582,
+                        "lon": 88.32859802246094,
+                        "elev": 412
+                    }
+                },
+                "actArr": {
+                    "icao": "VEBD",
+                    "name": "Bagdogra Airport",
+                    "city": "Siliguri",
+                    "location": {
+                        "lat": 26.68120002746582,
+                        "lon": 88.32859802246094,
+                        "elev": 412
+                    }
+                }
             }
         ]
     },
