@@ -1083,6 +1083,7 @@ window.UCAADashboardFlightUI = {
   openFlightInfo,
   directFlightFinance,
   airportWithFlag,
+  countryForAirport,
   flightOperation,
   flightPayloadKind,
   flightLoad,
