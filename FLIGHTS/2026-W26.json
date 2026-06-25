@@ -2011,6 +2011,193 @@
                         "elev": 10
                     }
                 }
+            },
+            {
+                "_id": "6a3d66a3a5e61d69a72110d6",
+                "aircraft": {
+                    "name": "Boeing 737-800 Freighter",
+                    "icao": "B738"
+                },
+                "type": "cargo",
+                "flightNumber": "812K",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 0,
+                    "cargo": 187,
+                    "weights": {
+                        "cargo": 19635
+                    }
+                },
+                "depTime": "2026-06-25T17:45:00.000Z",
+                "duration": 80,
+                "arrTime": "2026-06-25T19:05:00.000Z",
+                "depTimeAct": "2026-06-25T17:42:48.296Z",
+                "delay": -2,
+                "takeoffTimeAct": "2026-06-25T17:43:03.308Z",
+                "durationAct": 80,
+                "arrTimeAct": "2026-06-25T19:03:29.465Z",
+                "open": "2026-06-25T17:42:04.318Z",
+                "close": "2026-06-25T19:06:19.496Z",
+                "rating": -0.2,
+                "simulator": "msfs",
+                "network": {
+                    "name": null
+                },
+                "emergency": true,
+                "result": {
+                    "totals": {
+                        "distance": 466,
+                        "fuel": 3832,
+                        "expenses": 0,
+                        "penalties": 0,
+                        "revenue": 0,
+                        "balance": 0,
+                        "prices": {
+                            "ticketPrice": 122,
+                            "cargoUnitPrice": 138,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 0,
+                            "cargo": 187,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3466,
+                        "aircraft": 4680,
+                        "handling": 196,
+                        "landing": 1215
+                    },
+                    "revenue": {
+                        "tickets": 0,
+                        "cargo": 25806
+                    },
+                    "violations": [
+                        {
+                            "title": "Tail strike on landing (pitch: 14.2, max: 12.0)",
+                            "penalty": {
+                                "points": -400,
+                                "cash": 150000
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 33
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.43,
+                                        "rate": 0
+                                    },
+                                    "weather": {
+                                        "windDir": 270,
+                                        "windSpd": 1.05,
+                                        "windX": -0.9
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Emergency Declared",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "emergency",
+                                "payload": {
+                                    "system": {
+                                        "fps": 44
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 4.93m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -11,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 35
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.20G (241 ft/min, normal  conditions)<br/>Distance from threshold: 529m (accepted range: 203-815m)<br/>Average centerline deviation: 2.34m<br/>Max centerline deviation: 4.93m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.2,
+                                        "rate": 241
+                                    },
+                                    "weather": {
+                                        "windDir": 269.98,
+                                        "windSpd": 1.07,
+                                        "windX": -0.94
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-06-25T17:34:27.302Z",
+                "updatedAt": "2026-06-25T19:06:19.592Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                },
+                "actArr": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                }
             }
         ]
     },
