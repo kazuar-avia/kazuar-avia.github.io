@@ -8806,6 +8806,154 @@
                         "elev": 495
                     }
                 }
+            },
+            {
+                "_id": "6a3ecf8d840ade899eeaa48c",
+                "aircraft": {
+                    "name": "Airbus A320",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "193K",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 121,
+                    "cargo": 35,
+                    "weights": {
+                        "cargo": 2870
+                    }
+                },
+                "depTime": "2026-06-26T19:35:00.000Z",
+                "duration": 130,
+                "arrTime": "2026-06-26T21:45:00.000Z",
+                "depTimeAct": "2026-06-26T19:27:33.344Z",
+                "delay": 6,
+                "takeoffTimeAct": "2026-06-26T19:36:07.341Z",
+                "durationAct": 135,
+                "arrTimeAct": "2026-06-26T21:51:18.340Z",
+                "open": "2026-06-26T19:16:38.300Z",
+                "close": "2026-06-26T21:56:19.383Z",
+                "rating": 9.74,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 831,
+                        "fuel": 5477,
+                        "expenses": 14441,
+                        "penalties": 0,
+                        "revenue": 23317,
+                        "balance": 8876,
+                        "prices": {
+                            "ticketPrice": 147,
+                            "cargoUnitPrice": 158,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 121,
+                            "cargo": 35,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 121
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 6192,
+                        "aircraft": 6875,
+                        "handling": 744,
+                        "landing": 630
+                    },
+                    "revenue": {
+                        "tickets": 17787,
+                        "cargo": 5530
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 5.57m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -26,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 45
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.25G (212 ft/min, normal  conditions)<br/>Distance from threshold: 518m (accepted range: 169-680m)<br/>Average centerline deviation: 2.37m<br/>Max centerline deviation: 5.57m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 65
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.25,
+                                        "rate": 212
+                                    },
+                                    "weather": {
+                                        "windDir": 269.9,
+                                        "windSpd": 2.15,
+                                        "windX": -0.54
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-06-26T19:14:21.376Z",
+                "updatedAt": "2026-06-26T21:56:19.474Z",
+                "dep": {
+                    "icao": "EFRO",
+                    "name": "Rovaniemi Airport",
+                    "city": "Rovaniemi",
+                    "location": {
+                        "lat": 66.564796447754,
+                        "lon": 25.830400466919,
+                        "elev": 642
+                    }
+                },
+                "arr": {
+                    "icao": "ENSB",
+                    "name": "Svalbard Airport, Longyear",
+                    "city": "Longyearbyen",
+                    "location": {
+                        "lat": 78.246101379395,
+                        "lon": 15.465600013733,
+                        "elev": 88
+                    }
+                },
+                "actArr": {
+                    "icao": "ENSB",
+                    "name": "Svalbard Airport, Longyear",
+                    "city": "Longyearbyen",
+                    "location": {
+                        "lat": 78.246101379395,
+                        "lon": 15.465600013733,
+                        "elev": 88
+                    }
+                }
             }
         ]
     },
