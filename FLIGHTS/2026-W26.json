@@ -308,6 +308,178 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6a3e3bb7a5e61d69a72db7bb",
+                "aircraft": {
+                    "name": "Airbus A320",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "6016",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 171,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-06-26T08:55:00.000Z",
+                "duration": 130,
+                "arrTime": "2026-06-26T11:05:00.000Z",
+                "depTimeAct": "2026-06-26T09:15:54.892Z",
+                "delay": 15,
+                "takeoffTimeAct": "2026-06-26T09:21:38.937Z",
+                "durationAct": 118,
+                "arrTimeAct": "2026-06-26T11:19:59.989Z",
+                "open": "2026-06-26T09:09:27.902Z",
+                "close": "2026-06-26T11:23:29.932Z",
+                "rating": 9.15,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 823,
+                        "fuel": 4635,
+                        "expenses": 11474,
+                        "penalties": 513,
+                        "revenue": 24795,
+                        "balance": 12808,
+                        "prices": {
+                            "ticketPrice": 145,
+                            "cargoUnitPrice": 156,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 171,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 171
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4192,
+                        "aircraft": 5850,
+                        "handling": 838,
+                        "landing": 594
+                    },
+                    "revenue": {
+                        "tickets": 24795,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight delayed 6 minutes (max 15 minutes after scheduled is allowed)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 513
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (805m from threshold beyond 785m max accepted)",
+                            "penalty": {
+                                "points": -7,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.72,
+                                        "rate": 576
+                                    },
+                                    "weather": {
+                                        "windDir": 270.04,
+                                        "windSpd": 8.96,
+                                        "windX": -3.93
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Uncomfortable touchdown: 1.72G (576 ft/min, normal  conditions)<br/>Distance from threshold: 805m (accepted range: 196-785m)<br/>Average centerline deviation: 1.89m<br/>Max centerline deviation: 3.03m",
+                            "penalty": {
+                                "points": -78,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.72,
+                                        "rate": 576
+                                    },
+                                    "weather": {
+                                        "windDir": 270.04,
+                                        "windSpd": 8.96,
+                                        "windX": -3.93
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-06-26T08:43:35.467Z",
+                "updatedAt": "2026-06-26T11:23:30.035Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "LDDU",
+                    "name": "Dubrovnik Ruđer Bošković Airport",
+                    "city": "Čilipi",
+                    "location": {
+                        "lat": 42.562247,
+                        "lon": 18.265543,
+                        "elev": 527
+                    }
+                },
+                "actArr": {
+                    "icao": "LDDU",
+                    "name": "Dubrovnik Ruđer Bošković Airport",
+                    "city": "Čilipi",
+                    "location": {
+                        "lat": 42.562247,
+                        "lon": 18.265543,
+                        "elev": 527
+                    }
+                }
             }
         ]
     },
