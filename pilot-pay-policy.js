@@ -46,6 +46,34 @@
     return 1;
   }
 
+  function utcDayKey(date) {
+    return Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
+  }
+
+  function streakDaysForFlight(list, currentDate) {
+    const currentDay = utcDayKey(currentDate);
+    const flownDays = new Set(
+      list
+        .map(flight => flightDate(flight))
+        .filter(date => Number.isFinite(date.getTime()) && date <= currentDate)
+        .map(utcDayKey)
+    );
+    if (!flownDays.has(currentDay)) return 0;
+    if (!flownDays.has(currentDay - 86400000)) return 0;
+    let streak = 1;
+    for (let offset = 1; offset <= 8; offset += 1) {
+      if (!flownDays.has(currentDay - offset * 86400000)) break;
+      streak += 1;
+    }
+    return streak;
+  }
+
+  function streakCoefficient(streakDays) {
+    const days = Math.max(0, Number(streakDays) || 0);
+    if (days >= 9) return 2;
+    return 1 + days * 0.10;
+  }
+
   function buildContextMap(flights) {
     if (contextCache.has(flights)) return contextCache.get(flights);
     const result = new Map();
@@ -67,10 +95,13 @@
         const last30 = throughCurrent.filter(prior => elapsed(prior) <= 30 * 86400000).length;
         const totalFlights = index + 1;
         const loyaltyK = loyaltyCoefficient(firstDate, currentDate, totalFlights);
-        const regularityK = regularityCoefficient(last10, last20, last30);
+        const baseRegularityK = regularityCoefficient(last10, last20, last30);
+        const streakDays = streakDaysForFlight(list, currentDate);
+        const streakK = streakCoefficient(streakDays);
+        const regularityK = baseRegularityK * streakK;
         result.set(flight, {
           firstDate, currentDate, membershipDays:Math.floor((currentDate-firstDate)/86400000), totalFlights,
-          last10, last20, last30, loyaltyK, regularityK
+          last10, last20, last30, loyaltyK, baseRegularityK, streakDays, streakK, regularityK
         });
       });
     });
@@ -286,7 +317,7 @@
       insuranceCase:0, insuranceLandingRelated:false, seriousIncident:false, seriousIncidentPenalty:0, seriousIncidentReasons:[], seriousIncidentItems:[], incidentLandingRelated:false, managementBonusBlocked:false, landingBonusesBlocked:false, fdrPenalty:0, fdrRawTotal:0, fdrCap:1500, fdrCapped:false, fdrItems:[], fdrBlocksBonuses:false, fdrBlocksLandingBonuses:false, companyUncovered:0, loyaltyK:1, regularityK:1, effectiveHourlyRate:RULE.hourlyRate,
       salaryBeforeSkill:0, masteryAdjustment:0, crosswindAdjustment:0, salaryBeforeDeductions:0, totalDeductions:0, salaryBeforeBonus:0
     };
-    const fallbackContext = {firstDate:flightDate(flight),currentDate:flightDate(flight),membershipDays:0,totalFlights:1,last10:1,last20:1,last30:1,loyaltyK:1,regularityK:1.05};
+    const fallbackContext = {firstDate:flightDate(flight),currentDate:flightDate(flight),membershipDays:0,totalFlights:1,last10:1,last20:1,last30:1,loyaltyK:1,baseRegularityK:1.05,streakDays:1,streakK:1.10,regularityK:1.155};
     const context = allFlights ? (buildContextMap(allFlights).get(flight) || fallbackContext) : fallbackContext;
     const rateK = Math.min(2, 1 + (context.loyaltyK - 1) + (context.regularityK - 1));
     const effectiveHourlyRate = RULE.hourlyRate * rateK;
@@ -344,12 +375,12 @@
       insurancePayout:covered, insuranceCase, insuranceLandingRelated, seriousIncident, seriousIncidentPenalty:incidentPenalty, seriousIncidentReasons:incidentReasons, seriousIncidentItems:incidentItems, incidentLandingRelated, bonusesBlocked, managementBonusBlocked, landingBonusesBlocked, companyUncovered, earningsBeforeDeductions,
       fdrPenalty, fdrRawTotal:fdr.rawTotal, fdrCap:fdr.cap, fdrCapped:fdr.capped, fdrItems:fdr.items, fdrHardTouchdown:fdr.hardTouchdown, fdrBlocksBonuses:fdr.blocksBonuses, fdrBlocksLandingBonuses:fdr.blocksLandingBonuses,
       salaryBeforeSkill, masteryAdjustment, crosswindAdjustment, salaryBeforeDeductions, totalDeductions, salaryBeforeBonus,
-      loyaltyK:context.loyaltyK, regularityK:context.regularityK,
+      loyaltyK:context.loyaltyK, regularityK:context.regularityK, baseRegularityK:context.baseRegularityK || context.regularityK, streakDays:context.streakDays || 0, streakK:context.streakK || 1,
       effectiveHourlyRate, rateK, context, ratingK
     };
   }
 
   const pay = (flight, insurancePayout = 0, allFlights = null) => breakdown(flight, insurancePayout, allFlights).total;
 
-  window.UCAAPilotPay = {RULE, aircraftCoefficient, landingFpm, masteryCoefficient, ratingCoefficient, delayedPenalty, seriousIncidentViolations, seriousIncidentReasons, seriousIncidentPenalty, seriousIncidentDetails, isLandingRelated, fdrAnalysis, loyaltyCoefficient, regularityCoefficient, buildContextMap, breakdown, pay};
+  window.UCAAPilotPay = {RULE, aircraftCoefficient, landingFpm, masteryCoefficient, ratingCoefficient, delayedPenalty, seriousIncidentViolations, seriousIncidentReasons, seriousIncidentPenalty, seriousIncidentDetails, isLandingRelated, fdrAnalysis, loyaltyCoefficient, regularityCoefficient, streakCoefficient, buildContextMap, breakdown, pay};
 })();

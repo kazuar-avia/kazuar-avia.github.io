@@ -83,7 +83,7 @@ const pilotAvatarUrl = value => {
   const hash = String(value || 'default').trim();
   return `https://newsky.app/api/pilot/avatar/${encodeURIComponent(hash && hash !== 'null' ? hash : 'default')}`;
 };
-const dashboardPilotCellHtml = pilot => `<td class="dashboard-pilot-cell" data-pilot-id="${esc(pilot.id)}" role="button" tabindex="0"><span class="dashboard-pilot-card"><img class="dashboard-pilot-avatar" src="${esc(pilotAvatarUrl(pilot.avatar))}" alt="${esc(pilot.name)}" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='https://newsky.app/api/pilot/avatar/default'}"><span class="dashboard-pilot-name">${esc(pilot.name)}</span></span></td>`;
+const dashboardPilotCellHtml = pilot => `<td class="dashboard-pilot-cell" data-pilot-id="${esc(pilot.id)}" role="button" tabindex="0"><span class="dashboard-pilot-card"><img class="dashboard-pilot-avatar" src="${esc(pilotAvatarUrl(pilot.avatar))}" alt="${esc(pilot.name)}" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='https://newsky.app/api/pilot/avatar/default'}"><span class="dashboard-pilot-name">${pilotNameWithStreak(pilot)}</span></span></td>`;
 const bindDashboardPilotCells = () => {
   $$('.dashboard-pilot-cell').forEach(cell => {
     cell.onclick = () => showPilotProfile(cell.dataset.pilotId);
@@ -165,6 +165,50 @@ function formatMinutes(minutes) {
 
 function dateOf(flight) {
   return new Date(flight.times.actualArrival || flight.times.closed || flight.times.takeoff || flight.times.scheduledDeparture);
+}
+
+function utcDayKey(date) {
+  return Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
+}
+
+function flightStreakForPilot(pilotId, flights = app.flights, now = app.referenceNow || new Date()) {
+  if (!pilotId || !Array.isArray(flights) || !flights.length) return 0;
+  const pilotDays = new Set();
+  flights.forEach(flight => {
+    if (flight.status !== 'completed' || flight.pilot?.id !== pilotId) return;
+    const date = dateOf(flight);
+    if (!Number.isFinite(date.getTime())) return;
+    pilotDays.add(utcDayKey(date));
+  });
+  const today = utcDayKey(now);
+  const dayMs = 86400000;
+  let streak = 0;
+  for (let offset = 1; offset <= 9; offset += 1) {
+    if (!pilotDays.has(today - offset * dayMs)) break;
+    streak += 1;
+  }
+  if (!streak) return 0;
+  if (pilotDays.has(today)) streak += 1;
+  return Math.min(9, streak);
+}
+
+function flightStreakBadge(pilotId, flights = app.flights, now = app.referenceNow || new Date()) {
+  const streak = flightStreakForPilot(pilotId, flights, now);
+  if (!streak) return '';
+  const maxed = streak >= 9;
+  const hot = streak >= 5 && streak < 9;
+  const label = maxed ? 'Літає 9+ днів підряд' : `Літає ${streak} ${streak === 1 ? 'день' : 'дні/днів'} підряд`;
+  return `<span class="flight-streak-badge ${maxed ? 'flight-streak-max' : hot ? 'flight-streak-hot' : ''}" title="${esc(label)}">🔥${streak > 1 && !maxed ? `<span class="flight-streak-count">${streak}</span>` : ''}</span>`;
+}
+
+function pilotNameWithStreak(pilot) {
+  const name = String(pilot?.name || 'Пілот').trim();
+  const badge = flightStreakBadge(pilot?.id);
+  if (!badge) return esc(name);
+  const parts = name.split(/\s+/);
+  const last = parts.pop() || name;
+  const head = parts.join(' ');
+  return `${head ? `${esc(head)} ` : ''}<span class="pilot-name-tail">${esc(last)}${badge}</span>`;
 }
 
 function completedDateOf(flight) {
@@ -988,7 +1032,7 @@ function renderPilotsCardsPage() {
     const awards = pilotCardAwardsHtml(pilot, period);
     const awardsBlock = awards ? `<div class="pilot-card-awards">${awards}</div>` : '';
     const lifetime = lifetimeRows.get(pilot.id) || pilot;
-    return `<article class="pilot-card" data-pilot-id="${esc(pilot.id)}"><div class="pilot-card-row pilot-card-row-open pilot-card-name">#${index+1} ${esc(pilot.name)}</div><div class="pilot-card-row pilot-card-row-open pilot-card-visual-row"><div class="pilot-card-main"><img class="pilot-card-avatar" src="${esc(pilotAvatarUrl(pilot.avatar))}" alt="${esc(pilot.name)}" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='https://newsky.app/api/pilot/avatar/default'}"></div><div class="pilot-card-stats"><div class="pilot-card-side">${pilot.completedFlights.length}<small>рейсів</small></div><div class="pilot-card-rating"><span class="rating-badge ${pilotCardsRatingClass(pilot.rating)}">${rating}</span></div><div class="pilot-card-side">${hours}<small>годин</small></div></div></div><div class="pilot-card-row pilot-card-row-open pilot-card-money">Прибуток АК: <span class="${pilot.companyProfit>=0?'positive':'negative'}">${money(pilot.companyProfit,true)}</span><br>Зарплата: ${money(pilot.salary)}</div><div class="pilot-card-row pilot-card-awards">${awards}</div><div class="pilot-card-row pilot-card-dates">Перший політ: ${lifetime.first?dateOf(lifetime.first).toLocaleDateString('uk-UA',{timeZone:'UTC'}):'—'}<br>Крайній політ: ${lifetime.last?dateOf(lifetime.last).toLocaleDateString('uk-UA',{timeZone:'UTC'}):'—'}</div></article>`;
+    return `<article class="pilot-card" data-pilot-id="${esc(pilot.id)}"><div class="pilot-card-row pilot-card-row-open pilot-card-name"><span class="pilot-card-rank">#${index+1}</span> ${pilotNameWithStreak(pilot)}</div><div class="pilot-card-row pilot-card-row-open pilot-card-visual-row"><div class="pilot-card-main"><img class="pilot-card-avatar" src="${esc(pilotAvatarUrl(pilot.avatar))}" alt="${esc(pilot.name)}" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='https://newsky.app/api/pilot/avatar/default'}"></div><div class="pilot-card-stats"><div class="pilot-card-side">${pilot.completedFlights.length}<small>рейсів</small></div><div class="pilot-card-rating"><span class="rating-badge ${pilotCardsRatingClass(pilot.rating)}">${rating}</span></div><div class="pilot-card-side">${hours}<small>годин</small></div></div></div><div class="pilot-card-row pilot-card-row-open pilot-card-money">Прибуток АК: <span class="${pilot.companyProfit>=0?'positive':'negative'}">${money(pilot.companyProfit,true)}</span><br>Зарплата: ${money(pilot.salary)}</div><div class="pilot-card-row pilot-card-awards">${awards}</div><div class="pilot-card-row pilot-card-dates">Перший політ: ${lifetime.first?dateOf(lifetime.first).toLocaleDateString('uk-UA',{timeZone:'UTC'}):'—'}<br>Крайній політ: ${lifetime.last?dateOf(lifetime.last).toLocaleDateString('uk-UA',{timeZone:'UTC'}):'—'}</div></article>`;
   }).join('') : `<div class="loading">За період «${esc(pilotCardsPeriodLabel(period))}» завершених рейсів немає</div>`}</div>`;
   $$('#pilotsView [data-pilots-period]').forEach(button => button.onclick = () => {
     app.pilotsPeriod = button.dataset.pilotsPeriod || 'all';
@@ -1125,7 +1169,7 @@ function pilotFinanceDetailRows(flight, direct) {
   const grossSalary = Math.max(0, Number(pay?.salaryBeforeDeductions) || 0)
     + Math.max(0, Number(pay?.managementBonus) || 0);
   const deductions = Math.max(0, Number(pay?.totalDeductions) || 0);
-  const salaryRow = `<div class="flight-finance-row"><i class="finance-dot" style="background:#e89ac7"></i><span>Зарплата пілота<button type="button" class="finance-pilot-profile-link" data-pilot-id="${esc(flight.pilot.id)}">${esc(flight.pilot.name)}</button></span><strong class="negative">${grossSalary?'−':''}${money(grossSalary)}</strong></div>`;
+  const salaryRow = `<div class="flight-finance-row"><i class="finance-dot" style="background:#e89ac7"></i><span>Зарплата пілота<button type="button" class="finance-pilot-profile-link" data-pilot-id="${esc(flight.pilot.id)}">${pilotNameWithStreak(flight.pilot)}</button></span><strong class="negative">${grossSalary?'−':''}${money(grossSalary)}</strong></div>`;
   const penaltyRow = deductions
     ? `<div class="flight-finance-row" title="Повна сума штрафів та особистої відповідальності пілота за цей рейс."><i class="finance-dot" style="background:#a45a7f"></i><span>Штраф пілота</span><strong class="positive">+${money(deductions)}</strong></div>`
     : '';
@@ -1252,6 +1296,13 @@ function pilotSalaryDetails(flight) {
   const loyaltyRate = PAY_RULE.hourlyRate * pay.loyaltyK;
   const loyaltyBonus = loyaltyRate - PAY_RULE.hourlyRate;
   const regularityBonus = pay.effectiveHourlyRate - loyaltyRate;
+  const baseRegularityK = Number(pay.baseRegularityK || pay.regularityK || 1);
+  const streakDays = Number(pay.streakDays || 0);
+  const streakK = Number(pay.streakK || 1);
+  const streakText = streakDays >= 9 ? '9+ вогників' : streakDays > 0 ? `${streakDays} вогн${streakDays === 1 ? 'ик' : 'ики/иків'}` : 'без вогників';
+  const regularityFormulaText = streakK > 1
+    ? `× ${baseRegularityK.toFixed(2)} × ${streakK.toFixed(2)}`
+    : `× ${baseRegularityK.toFixed(2)}`;
   const rateCapText = pay.rateK >= 2 ? ' · застосовано ліміт ×2' : '';
   const loyaltyTooltip = [
     'Лояльність: коефіцієнт за стаж у авіакомпанії та загальну кількість завершених рейсів.',
@@ -1268,6 +1319,8 @@ function pilotSalaryDetails(flight) {
   ].join('\n');
   const regularityTooltip = [
     'Регулярність: коефіцієнт за активність перед конкретним рейсом.',
+    `Додатково множиться на flight streak на дату рейсу: ${streakText} → ×${streakK.toFixed(2)}.`,
+    '1 вогник — ×1,10; 2 — ×1,20; 8 — ×1,80; 9+ — ×2,00.',
     '×1,05 — від 1 рейсу за останні 30 днів.',
     '×1,10 — від 5 рейсів за останні 10 днів.',
     '×1,20 — від 10 рейсів за останні 20 днів.',
@@ -1372,12 +1425,19 @@ function pilotSalaryDetails(flight) {
   ].join('\n');
   const managementBonusRow = `<tr class="management-bonus-row" title="${tip(managementBonusTooltip)}"><th>Премія від керівництва</th><td>${managementMessage}</td><td class="num ${pay.managementBonus?'positive':''}">${pay.managementBonus?`+${money(pay.managementBonus)}`:'$0'}</td></tr>`;
   const salarySubtotal = `<tr class="salary-subtotal-row" title="Зароблена зарплата після оплати підготовки, польоту, льотних коефіцієнтів та бонусів за посадку і crosswind, але до премії керівництва й штрафів."><th>Зарплата пілота</th><td>до Премії і Штрафів</td><td class="num ${pay.salaryBeforeDeductions>=0?'positive':'negative'}">${money(pay.salaryBeforeDeductions,true)}</td></tr>`;
-  return `<div class="flight-info-section" style="margin-top:0">ФОРМУЛА ЗАРПЛАТИ ЗА РЕЙС</div><table class="salary-formula-table"><tr title="Базова погодинна ставка однакова для всіх пілотів до врахування лояльності та регулярності."><th>Ставка</th><td>Базова ставка</td><td class="num">$${PAY_RULE.hourlyRate}/год</td></tr><tr title="${tip(loyaltyTooltip)}"><th>Лояльність</th><td>× ${pay.loyaltyK.toFixed(2)} · ${pay.context.membershipDays} дн. в АК · ${pay.context.totalFlights} рейсів</td><td class="num positive">${money(loyaltyBonus,true)}/год</td></tr><tr title="${tip(regularityTooltip)}"><th>Регулярність</th><td>× ${pay.regularityK.toFixed(2)} · ${pay.context.last10}/10 дн. · ${pay.context.last20}/20 дн. · ${pay.context.last30}/30 дн.</td><td class="num positive">${money(regularityBonus,true)}/год</td></tr><tr title="Лояльність і регулярність формують персональну ставку, але разом не можуть підняти її вище подвійної базової ставки."><th>Ставка пілота</th><td>$${PAY_RULE.hourlyRate} × ${pay.loyaltyK.toFixed(2)} × ${pay.regularityK.toFixed(2)}${rateCapText}</td><td class="num positive">${money(pay.effectiveHourlyRate)}/год</td></tr><tr title="За кожен завершений рейс оплачується одна додаткова година на передпольотну підготовку."><th>Підготовка до польоту</th><td>1 год × ${money(pay.effectiveHourlyRate)}</td><td class="num">${money(pay.preparationPay)}</td></tr><tr title="Фактичний льотний час оплачується за персональною ставкою до застосування льотних коефіцієнтів."><th>Політ</th><td>${pay.flightHours.toLocaleString('uk-UA',{minimumFractionDigits:2,maximumFractionDigits:2})} год × ${money(pay.effectiveHourlyRate)}</td><td class="num">${money(pay.flightBasePay)}</td></tr><tr title="${tip(routeTooltip)}"><th>Коефіцієнт за маршрут</th><td>${routeText}</td><td class="num ${routeBonus>=0?'positive':'negative'}">${money(routeBonus,true)}</td></tr><tr title="${tip(['Коефіцієнт береться з редагованого довідника ICAO.', 'Для cargo може використовуватися окремий запис із F.', 'Невідомий тип тимчасово отримує ×1,25.'])}"><th>Коефіцієнт за складність літака</th><td>× ${pay.aircraftK.toFixed(2)} (${aircraftPercent?`+${aircraftPercent}%`:'без доплати'}, ${esc(flight.aircraft.icao)})</td><td class="num ${aircraftBonus>=0?'positive':'negative'}">${money(aircraftBonus,true)}</td></tr><tr title="${tip(onlineTooltip)}"><th>Online (VATSIM)</th><td>× ${pay.onlineK.toFixed(2)} (${onlinePercent?`+${onlinePercent}%`:'OFFLINE'})</td><td class="num ${onlineBonus>=0?'positive':''}">${money(onlineBonus,true)}</td></tr><tr title="${tip(masteryTooltip)}"><th>Майстерність</th><td>${pay.fpm?`${Math.round(pay.fpm)} fpm × ${pay.masteryK.toFixed(2)}`:'FPM не визначено · × 1.00'}</td><td class="num ${masteryDelta>0?'positive':masteryDelta<0?'negative':''}">${money(masteryDelta,true)}</td></tr><tr title="${tip(['Кожен вузол бокового вітру додає 2% до нарахувань перед утриманнями.', '1 kt — +2%.', '5 kt — +10%.', '10 kt — +20%.'])}"><th>Доплата за crosswind</th><td>${pay.crosswindKt?`${pay.crosswindKt.toFixed(0)} kt · +${Math.round((pay.crosswindK-1)*100)}%`:'Дані відсутні · +0%'}</td><td class="num positive">${money(crosswindDelta,true)}</td></tr>${salarySubtotal}${managementBonusRow}<tr title="Пілот компенсує 10% грошового штрафу NewSky саме за затримку рейсу."><th>Затримка рейсу</th><td>${pay.delayCash?`10% від ${money(pay.delayCash)}`:'Відсутня'}</td><td class="num ${pay.delayDeduction?'negative':''}">${pay.delayDeduction?`−${money(pay.delayDeduction)}`:''}</td></tr>${insuranceRows}${fdrRows}</table><div class="salary-numeric-formula" title="${tip(['Підсумкова формула:', 'персональна ставка використовується для підготовки та польоту;', 'льотні коефіцієнти діють лише на політ;', 'майстерність і crosswind формують зарплату до премії та утримань;', 'після премії окремо віднімаються штрафи й особиста відповідальність.'])}">${formula}</div><div class="flight-finance-row flight-finance-result" title="Фінальна виплата або заборгованість пілота за цей завершений рейс."><span></span><span>${pay.total>=0?'Зарплата пілота':'Штраф пілота'}</span><strong class="${pay.total>=0?'positive':'negative'}">${money(pay.total,true)}</strong></div>`;
+  return `<div class="flight-info-section" style="margin-top:0">ФОРМУЛА ЗАРПЛАТИ ЗА РЕЙС</div><table class="salary-formula-table"><tr title="Базова погодинна ставка однакова для всіх пілотів до врахування лояльності та регулярності."><th>Ставка</th><td>Базова ставка</td><td class="num">$${PAY_RULE.hourlyRate}/год</td></tr><tr title="${tip(loyaltyTooltip)}"><th>Лояльність</th><td>× ${pay.loyaltyK.toFixed(2)} · ${pay.context.membershipDays} дн. в АК · ${pay.context.totalFlights} рейсів</td><td class="num positive">${money(loyaltyBonus,true)}/год</td></tr><tr title="${tip(regularityTooltip)}"><th>Регулярність</th><td>${regularityFormulaText} · ${pay.context.last10}/10 дн. · ${pay.context.last20}/20 дн. · ${pay.context.last30}/30 дн. · ${streakText}</td><td class="num positive">${money(regularityBonus,true)}/год</td></tr><tr title="Лояльність і регулярність формують персональну ставку, але разом не можуть підняти її вище подвійної базової ставки."><th>Ставка пілота</th><td>$${PAY_RULE.hourlyRate} × ${pay.loyaltyK.toFixed(2)} × ${baseRegularityK.toFixed(2)}${streakK>1?` × ${streakK.toFixed(2)}`:''}${rateCapText}</td><td class="num positive">${money(pay.effectiveHourlyRate)}/год</td></tr><tr title="За кожен завершений рейс оплачується одна додаткова година на передпольотну підготовку."><th>Підготовка до польоту</th><td>1 год × ${money(pay.effectiveHourlyRate)}</td><td class="num">${money(pay.preparationPay)}</td></tr><tr title="Фактичний льотний час оплачується за персональною ставкою до застосування льотних коефіцієнтів."><th>Політ</th><td>${pay.flightHours.toLocaleString('uk-UA',{minimumFractionDigits:2,maximumFractionDigits:2})} год × ${money(pay.effectiveHourlyRate)}</td><td class="num">${money(pay.flightBasePay)}</td></tr><tr title="${tip(routeTooltip)}"><th>Коефіцієнт за маршрут</th><td>${routeText}</td><td class="num ${routeBonus>=0?'positive':'negative'}">${money(routeBonus,true)}</td></tr><tr title="${tip(['Коефіцієнт береться з редагованого довідника ICAO.', 'Для cargo може використовуватися окремий запис із F.', 'Невідомий тип тимчасово отримує ×1,25.'])}"><th>Коефіцієнт за складність літака</th><td>× ${pay.aircraftK.toFixed(2)} (${aircraftPercent?`+${aircraftPercent}%`:'без доплати'}, ${esc(flight.aircraft.icao)})</td><td class="num ${aircraftBonus>=0?'positive':'negative'}">${money(aircraftBonus,true)}</td></tr><tr title="${tip(onlineTooltip)}"><th>Online (VATSIM)</th><td>× ${pay.onlineK.toFixed(2)} (${onlinePercent?`+${onlinePercent}%`:'OFFLINE'})</td><td class="num ${onlineBonus>=0?'positive':''}">${money(onlineBonus,true)}</td></tr><tr title="${tip(masteryTooltip)}"><th>Майстерність</th><td>${pay.fpm?`${Math.round(pay.fpm)} fpm × ${pay.masteryK.toFixed(2)}`:'FPM не визначено · × 1.00'}</td><td class="num ${masteryDelta>0?'positive':masteryDelta<0?'negative':''}">${money(masteryDelta,true)}</td></tr><tr title="${tip(['Кожен вузол бокового вітру додає 2% до нарахувань перед утриманнями.', '1 kt — +2%.', '5 kt — +10%.', '10 kt — +20%.'])}"><th>Доплата за crosswind</th><td>${pay.crosswindKt?`${pay.crosswindKt.toFixed(0)} kt · +${Math.round((pay.crosswindK-1)*100)}%`:'Дані відсутні · +0%'}</td><td class="num positive">${money(crosswindDelta,true)}</td></tr>${salarySubtotal}${managementBonusRow}<tr title="Пілот компенсує 10% грошового штрафу NewSky саме за затримку рейсу."><th>Затримка рейсу</th><td>${pay.delayCash?`10% від ${money(pay.delayCash)}`:'Відсутня'}</td><td class="num ${pay.delayDeduction?'negative':''}">${pay.delayDeduction?`−${money(pay.delayDeduction)}`:''}</td></tr>${insuranceRows}${fdrRows}</table><div class="salary-numeric-formula" title="${tip(['Підсумкова формула:', 'персональна ставка використовується для підготовки та польоту;', 'льотні коефіцієнти діють лише на політ;', 'майстерність і crosswind формують зарплату до премії та утримань;', 'після премії окремо віднімаються штрафи й особиста відповідальність.'])}">${formula}</div><div class="flight-finance-row flight-finance-result" title="Фінальна виплата або заборгованість пілота за цей завершений рейс."><span></span><span>${pay.total>=0?'Зарплата пілота':'Штраф пілота'}</span><strong class="${pay.total>=0?'positive':'negative'}">${money(pay.total,true)}</strong></div>`;
 }
 
 function arrangeSalaryDetails(body, flight) {
   const payout = pilotInsuranceCoverage.get(flight) || 0;
   const pay = window.UCAAPilotPay.breakdown(flight, payout, app.flights);
+  const baseRegularityK = Number(pay.baseRegularityK || pay.regularityK || 1);
+  const streakDays = Number(pay.streakDays || 0);
+  const streakK = Number(pay.streakK || 1);
+  const streakText = streakDays >= 9 ? '9+ вогників' : streakDays > 0 ? `${streakDays} вогн${streakDays === 1 ? 'ик' : 'ики/иків'}` : 'без вогників';
+  const regularityFormulaText = streakK > 1
+    ? `× ${baseRegularityK.toFixed(2)} × ${streakK.toFixed(2)}`
+    : `× ${baseRegularityK.toFixed(2)}`;
   const rows = [...body.querySelectorAll('.salary-formula-table tr')];
   const byLabel = label => rows.find(row => row.querySelector('th')?.textContent.trim() === label);
   const base = byLabel('Ставка');
@@ -1385,11 +1445,11 @@ function arrangeSalaryDetails(body, flight) {
   const regularity = byLabel('Регулярність');
   const rate = byLabel('Ставка пілота');
   if (base && loyalty && regularity && rate) {
-    const regularityReason = pay.regularityK >= 1.30 || pay.regularityK === 1.05
+    const regularityReason = baseRegularityK >= 1.30 || baseRegularityK === 1.05
       ? `${pay.context.last30} рейсів / 30 днів`
-      : pay.regularityK === 1.20
+      : baseRegularityK === 1.20
         ? `${pay.context.last20} рейсів / 20 днів`
-        : pay.regularityK === 1.10
+        : baseRegularityK === 1.10
           ? `${pay.context.last10} рейсів / 10 днів`
           : 'коефіцієнт не активний';
     const loyaltyBonus = PAY_RULE.hourlyRate * (pay.loyaltyK - 1);
@@ -1413,6 +1473,7 @@ function arrangeSalaryDetails(body, flight) {
     ]);
     const rateRegularityTip = tip([
       'Регулярність: доплата за активність перед конкретним рейсом.',
+      `Flight streak на дату рейсу: ${streakText} → ×${streakK.toFixed(2)}.`,
       '×1,05 — від 1 рейсу за останні 30 днів.',
       '×1,10 — від 5 рейсів за останні 10 днів.',
       '×1,20 — від 10 рейсів за останні 20 днів.',
@@ -1422,12 +1483,12 @@ function arrangeSalaryDetails(body, flight) {
     ]);
     const rateTotalTip = tip([
       'Підсумкова персональна ставка рахується як:',
-      'базова ставка + бонус за лояльність + бонус за регулярність.',
+      'базова ставка + бонус за лояльність + бонус за регулярність із множником flight streak.',
       'Загальний ліміт — не більше подвійної базової ставки.'
     ]);
     const rateTable = document.createElement('table');
     rateTable.className = 'pilot-rate-table';
-    rateTable.innerHTML = `<thead><tr><th title="${rateTotalTip}">Ставка пілота</th><th title="${rateBaseTip}">Базова</th><th title="${rateLoyaltyTip}">Лояльність <span class="rate-context">(${pay.context.membershipDays} днів / ${pay.context.totalFlights} рейсів)</span></th><th title="${rateRegularityTip}">Регулярність <span class="rate-context">(${regularityReason})</span></th><th title="${rateTotalTip}">Ставка</th></tr></thead><tbody><tr><td title="${rateTotalTip}"><button type="button" class="salary-pilot-profile-link" data-pilot-id="${esc(flight.pilot.id)}">${esc(flight.pilot.name)}</button></td><td title="${rateBaseTip}">$${PAY_RULE.hourlyRate} / год</td><td title="${rateLoyaltyTip}">$${PAY_RULE.hourlyRate} / год × ${pay.loyaltyK.toFixed(2)} <strong class="positive">${money(loyaltyBonus,true)} / год</strong></td><td title="${rateRegularityTip}">$${PAY_RULE.hourlyRate} / год × ${pay.regularityK.toFixed(2)} <strong class="positive">${money(regularityBonus,true)} / год</strong></td><td class="pilot-rate-total" title="${rateTotalTip}">${money(pay.effectiveHourlyRate)} / год</td></tr></tbody>`;
+    rateTable.innerHTML = `<thead><tr><th title="${rateTotalTip}">Ставка пілота</th><th title="${rateBaseTip}">Базова</th><th title="${rateLoyaltyTip}">Лояльність <span class="rate-context">(${pay.context.membershipDays} днів / ${pay.context.totalFlights} рейсів)</span></th><th title="${rateRegularityTip}">Регулярність <span class="rate-context">(${regularityReason})</span></th><th title="${rateTotalTip}">Ставка</th></tr></thead><tbody><tr><td title="${rateTotalTip}"><button type="button" class="salary-pilot-profile-link" data-pilot-id="${esc(flight.pilot.id)}">${pilotNameWithStreak(flight.pilot)}</button></td><td title="${rateBaseTip}">$${PAY_RULE.hourlyRate}/год</td><td title="${rateLoyaltyTip}">$${PAY_RULE.hourlyRate}/год×${pay.loyaltyK.toFixed(2)} <strong class="positive">${money(loyaltyBonus,true)}/год</strong></td><td title="${rateRegularityTip}">$${PAY_RULE.hourlyRate}/год×${baseRegularityK.toFixed(2)}${streakK>1?`×${streakK.toFixed(2)}🔥`:''} <strong class="positive">${money(regularityBonus,true)}/год</strong></td><td class="pilot-rate-total" title="${rateTotalTip}">${money(pay.effectiveHourlyRate)}/год</td></tr></tbody>`;
     body.querySelector('.salary-formula-table').before(rateTable);
     [base, loyalty, regularity, rate].forEach(row => row.remove());
   }
@@ -1703,7 +1764,7 @@ function renderDashboardPilotFilter(completed) {
   button.textContent = selected ? `${selected.name} ▾` : 'Пілот ▾';
   button.title = selected ? `Фільтр: ${selected.name}` : 'Вибрати пілота';
   button.classList.toggle('active', Boolean(selected));
-  list.innerHTML = `<button type="button" data-dashboard-pilot="" class="${selected?'':'active'}"><span>Усі пілоти</span><small>${completed.length} рейсів</small></button>${pilots.map(pilot => `<button type="button" data-dashboard-pilot="${esc(pilot.id)}" class="${pilot.id===app.dashboardPilotId?'active':''}"><span>${esc(pilot.name)}</span><small>${pilot.flights}</small></button>`).join('')}`;
+  list.innerHTML = `<button type="button" data-dashboard-pilot="" class="${selected?'':'active'}"><span>Усі пілоти</span><small>${completed.length} рейсів</small></button>${pilots.map(pilot => `<button type="button" data-dashboard-pilot="${esc(pilot.id)}" class="${pilot.id===app.dashboardPilotId?'active':''}"><span>${pilotNameWithStreak(pilot)}</span><small>${pilot.flights}</small></button>`).join('')}`;
   button.onclick = event => {
     event.stopPropagation();
     const rect = button.getBoundingClientRect();
@@ -1785,7 +1846,7 @@ function render() {
   $('#leaderboard').innerHTML = rows.length ? rows.map((p, index) => `
     <tr>
       <td class="rank"><span class="medal">${['🥇','🥈','🥉'][index] || index + 1}</span></td>
-      <td><button class="pilot-link" data-id="${esc(p.id)}">${esc(p.name)}</button><span class="role">${esc(p.role)}</span></td>
+      <td><button class="pilot-link" data-id="${esc(p.id)}">${pilotNameWithStreak(p)}</button><span class="role">${esc(p.role)}</span></td>
       <td class="num">${p.completed}${p.failed ? ` <small title="Незавершені">(+${p.failed})</small>` : ''}</td>
       <td class="num ${app.metric === 'balance' ? (p.balance >= 0 ? 'positive' : 'negative') : ''}">${metric.display(p)}</td>
     </tr>`).join('') : '<tr><td colspan="4" style="text-align:center;padding:18px">За цей період рейсів немає</td></tr>';
@@ -1895,7 +1956,7 @@ function renderDashboardFilters(completed) {
       pilotList.hidden = true;
       render();
     };
-    pilotList.innerHTML = `<button type="button" data-dashboard-pilot="" class="${selectedPilot ? '' : 'active'}"><span>Усі пілоти</span><small>${pilotMenuFlights.length} рейсів</small></button>${pilots.map(pilot => `<button type="button" data-dashboard-pilot="${esc(pilot.id)}" class="${pilot.id === app.dashboardPilotId ? 'active' : ''}"><span>${esc(pilot.name)}</span><small>${pilot.flights}</small></button>`).join('')}`;
+    pilotList.innerHTML = `<button type="button" data-dashboard-pilot="" class="${selectedPilot ? '' : 'active'}"><span>Усі пілоти</span><small>${pilotMenuFlights.length} рейсів</small></button>${pilots.map(pilot => `<button type="button" data-dashboard-pilot="${esc(pilot.id)}" class="${pilot.id === app.dashboardPilotId ? 'active' : ''}"><span>${pilotNameWithStreak(pilot)}</span><small>${pilot.flights}</small></button>`).join('')}`;
     pilotButton.onclick = event => {
       event.stopPropagation();
       const rect = pilotButton.getBoundingClientRect();

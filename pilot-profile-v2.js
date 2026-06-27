@@ -107,6 +107,44 @@
   const esc = value => String(value ?? '').replace(/[&<>"]/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[char]));
   const sum = (items, fn) => items.reduce((total, item) => total + (Number(fn(item)) || 0), 0);
   const dateOf = flight => new Date(flight.times?.actualArrival || flight.times?.closed || flight.times?.takeoff || flight.times?.scheduledDeparture);
+  const utcDayKey = date => Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
+  function flightStreakForPilot(pilotId, flights = availableFlights, now = referenceNow || new Date()) {
+    if (!pilotId || !Array.isArray(flights) || !flights.length) return 0;
+    const pilotDays = new Set();
+    flights.forEach(flight => {
+      if (flight.status !== 'completed' || flight.pilot?.id !== pilotId) return;
+      const date = dateOf(flight);
+      if (!Number.isFinite(date.getTime())) return;
+      pilotDays.add(utcDayKey(date));
+    });
+    const today = utcDayKey(now);
+    const dayMs = 86400000;
+    let streak = 0;
+    for (let offset = 1; offset <= 9; offset += 1) {
+      if (!pilotDays.has(today - offset * dayMs)) break;
+      streak += 1;
+    }
+    if (!streak) return 0;
+    if (pilotDays.has(today)) streak += 1;
+    return Math.min(9, streak);
+  }
+  function flightStreakBadge(pilotId, flights = availableFlights, now = referenceNow || new Date()) {
+    const streak = flightStreakForPilot(pilotId, flights, now);
+    if (!streak) return '';
+    const maxed = streak >= 9;
+    const hot = streak >= 5 && streak < 9;
+    const label = maxed ? 'Літає 9+ днів підряд' : `Літає ${streak} ${streak === 1 ? 'день' : 'дні/днів'} підряд`;
+    return `<span class="flight-streak-badge ${maxed ? 'flight-streak-max' : hot ? 'flight-streak-hot' : ''}" title="${esc(label)}">🔥${streak > 1 && !maxed ? `<span class="flight-streak-count">${streak}</span>` : ''}</span>`;
+  }
+  const pilotNameWithStreak = pilot => {
+    const name = String(pilot?.name || 'Пілот').trim();
+    const badge = flightStreakBadge(pilot?.id);
+    if (!badge) return esc(name);
+    const parts = name.split(/\s+/);
+    const last = parts.pop() || name;
+    const head = parts.join(' ');
+    return `${head ? `${esc(head)} ` : ''}<span class="pilot-name-tail">${esc(last)}${badge}</span>`;
+  };
   const pilotAvatarUrl = value => {
     const hash = String(value || 'default').trim();
     return `https://newsky.app/api/pilot/avatar/${encodeURIComponent(hash && hash !== 'null' ? hash : 'default')}`;
@@ -976,8 +1014,8 @@
         .profile-v2 .profile-avatar-wrap{position:relative;box-sizing:border-box;width:108px;height:108px;margin-top:4px}
         .profile-v2 .profile-avatar{box-sizing:border-box;width:108px;height:108px;border:1px solid #555;background:#eef8fa;object-fit:cover}
         .profile-v2 .profile-sim-badge{position:absolute;left:1px;bottom:21px;box-sizing:border-box;max-width:100px;padding:1px 4px;border:1px solid #333;border-radius:4px;background:rgba(245,245,245,.9);color:#111;font:700 10px/12px Arial,sans-serif;text-align:center;white-space:nowrap;cursor:help}
-        .profile-empty-picker{padding:12px;background:#fafafa}.profile-empty-title{font-weight:bold;margin-bottom:8px;color:#111}.profile-inline-picker{position:static!important;left:auto!important;top:auto!important;transform:none!important;z-index:1!important;width:min(864px,100%)!important;margin:0 auto!important;text-align:left}.profile-inline-picker button{grid-template-columns:30px 18px minmax(0,1fr) auto!important;gap:8px!important;padding-left:10px!important;padding-right:10px!important}.profile-inline-picker button strong{padding-right:10px;overflow:hidden;text-overflow:ellipsis}.profile-inline-picker .picker-hours{padding-left:10px}
-        .profile-v2 .profile-person{min-width:0;padding-top:0}.profile-v2 .profile-identity h3{display:flex;align-items:center;min-height:52px;margin:0 0 4px;font-size:24px;line-height:26px}.profile-v2 .profile-newsky-row{display:flex;align-items:center;gap:2px;margin:0 0 2px;font-size:13px;white-space:nowrap}.profile-v2 .profile-badge{display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;border:1px solid #777;background:#ddd;padding:1px 3px;color:#111;font-size:13px;line-height:17px;text-decoration:none;white-space:nowrap;cursor:pointer}.profile-v2 .profile-badge:hover,.profile-v2 .profile-badge:focus{background:#c8ddeb;color:#111;text-decoration:none}.profile-v2 .profile-badge.profile-tip:hover{background:#c8ddeb}.profile-v2 .profile-person small{font-size:13px;line-height:18px}
+        .profile-empty-picker{padding:12px;background:#fafafa}.profile-empty-title{font-weight:bold;margin-bottom:8px;color:#111}.profile-inline-picker{position:static!important;left:auto!important;top:auto!important;transform:none!important;z-index:1!important;width:min(909px,100%)!important;margin:0 auto!important;text-align:left}.profile-inline-picker button{grid-template-columns:24px 18px minmax(0,1fr) auto!important;gap:8px!important;padding-left:5px!important;padding-right:10px!important}.profile-inline-picker button strong{padding-right:10px;overflow:hidden;text-overflow:ellipsis}.profile-inline-picker .picker-hours{padding-left:10px}
+        .profile-v2 .profile-person{min-width:0;padding-top:0}.profile-v2 .profile-identity h3{display:block;max-width:100%;white-space:normal;min-height:52px;margin:0 0 4px;font-size:24px;line-height:26px}.profile-v2 .profile-identity h3 .pilot-name-tail{white-space:normal}.profile-v2 .profile-newsky-row{display:flex;align-items:center;gap:2px;margin:0 0 2px;font-size:13px;white-space:nowrap}.profile-v2 .profile-badge{display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;border:1px solid #777;background:#ddd;padding:1px 3px;color:#111;font-size:13px;line-height:17px;text-decoration:none;white-space:nowrap;cursor:pointer}.profile-v2 .profile-badge:hover,.profile-v2 .profile-badge:focus{background:#c8ddeb;color:#111;text-decoration:none}.profile-v2 .profile-badge.profile-tip:hover{background:#c8ddeb}.profile-v2 .profile-person small{font-size:13px;line-height:18px}
         .profile-v2 .profile-aircraft-awards{box-sizing:border-box;min-width:0;width:calc(100% - 5px);height:117px;display:flex;flex-wrap:wrap;align-content:flex-start;gap:0;overflow:hidden;margin:-1px 0 0 5px;padding:0 5px 0 0}
         .profile-v2 .profile-aircraft-awards.scrollable{overflow-x:hidden;overflow-y:auto;scrollbar-width:thin}
         .profile-v2 .profile-aircraft-awards.scrollable::-webkit-scrollbar-track{margin-top:10px}
@@ -1038,6 +1076,7 @@
         .profile-v2 .profile-rank-medal{display:inline-block;font-size:18px;line-height:1;vertical-align:-2px;margin-left:3px;transform:translateY(-2px)}
         .profile-v2 .profile-rank-medal.anti{display:inline-block}
         .profile-v2 .profile-divider{color:#888;padding:0 5px}
+        .profile-v2 .profile-rank-place{color:#777;font-weight:normal}
         .profile-v2 .profile-period-bar{display:flex;align-items:center;gap:6px;border:1px solid #555;background:#f7e7f8;padding:5px 5px 5px 6px;margin-top:7px}
         .profile-v2 .profile-period-bar strong{white-space:nowrap;font-size:15px}.profile-v2 .profile-period-buttons{display:flex;gap:3px;align-items:center;flex-wrap:nowrap;min-width:0;flex:1}
         .profile-v2 .profile-period-buttons button{border:1px solid #777;background:#fff;padding:4px 6px;cursor:pointer;white-space:nowrap;font-size:13px;font-weight:normal}
@@ -1190,7 +1229,7 @@
 
   function pickerButtonsHtml(pilots) {
     return pilots.map((pilot,index) =>
-      `<button type="button" data-picker-pilot="${esc(pilot.id)}"><span class="picker-rank">#${index+1}</span><img class="picker-avatar" src="${esc(pilotAvatarUrl(pilot.avatar))}" alt="${esc(pilot.name)}" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='https://newsky.app/api/pilot/avatar/default'}"><strong>${esc(pilot.name)}</strong><span class="picker-hours">${compactTime(pilot.minutes)}</span></button>`
+      `<button type="button" data-picker-pilot="${esc(pilot.id)}"><span class="picker-rank">#${index+1}</span><img class="picker-avatar" src="${esc(pilotAvatarUrl(pilot.avatar))}" alt="${esc(pilot.name)}" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='https://newsky.app/api/pilot/avatar/default'}"><strong>${pilotNameWithStreak(pilot)}</strong><span class="picker-hours">${compactTime(pilot.minutes)}</span></button>`
     ).join('');
   }
 
@@ -1382,7 +1421,7 @@
     const rankOf = (ranking,id=current.id) => ranking.findIndex(item => (item.summary?.id || item.id) === id)+1;
     const medalForRank = rank => rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : '';
     const rankHtml = (rank,total=0) => rank > 0
-      ? `#${rank} місце${medalForRank(rank)?`<span class="profile-rank-medal" aria-label="${rank} місце">${medalForRank(rank)}</span>`:total>1&&rank===total?`<span class="profile-rank-medal anti" aria-label="Суперантигерой рейтингу">😎</span>`:''}`
+      ? `<span class="profile-rank-place">#${rank} місце</span>${medalForRank(rank)?`<span class="profile-rank-medal" aria-label="${rank} місце">${medalForRank(rank)}</span>`:total>1&&rank===total?`<span class="profile-rank-medal anti" aria-label="Суперантигерой рейтингу">😎</span>`:''}`
       : '—';
     const lastFlightDate = summary => summary.completed.length
       ? dateOf([...summary.completed].sort((a,b) => dateOf(b)-dateOf(a))[0])
@@ -1587,7 +1626,7 @@
     const selectedAircraft = aircraftOptions.find(item => item.key === current.aircraft);
 
     page.content.innerHTML = `<div class="profile-v2">
-      <div class="profile-identity"><div class="profile-avatar-wrap"><img class="profile-avatar" src="${esc(avatar)}" alt="${esc(lifetime.name)}" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='https://newsky.app/api/pilot/avatar/default'}">${simBadge}</div><div class="profile-person"><h3>${esc(lifetime.name)}</h3><div class="profile-newsky-row"><a class="profile-badge profile-tip" data-tooltip="Відкрити профіль пілота у NewSky" href="https://newsky.app/pilot/${encodeURIComponent(lifetime.id)}" target="_blank" rel="noopener noreferrer">NewSky</a><a class="profile-badge profile-tip" data-tooltip="Відкрити список всіх нагород у NewSky" href="https://newsky.app/airline/ukl/awards" target="_blank" rel="noopener noreferrer">Список Awards</a></div><small>Перший політ: ${firstCompleted?dateOf(firstCompleted).toLocaleDateString('uk-UA',{timeZone:'UTC'}):'—'}</small><br><small>Крайній політ: ${lastCompleted?dateOf(lastCompleted).toLocaleDateString('uk-UA',{timeZone:'UTC'}):'—'}</small></div>${aircraftAwardsHtml(lifetime)}</div>
+      <div class="profile-identity"><div class="profile-avatar-wrap"><img class="profile-avatar" src="${esc(avatar)}" alt="${esc(lifetime.name)}" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='https://newsky.app/api/pilot/avatar/default'}">${simBadge}</div><div class="profile-person"><h3>${pilotNameWithStreak(lifetime)}</h3><div class="profile-newsky-row"><a class="profile-badge profile-tip" data-tooltip="Відкрити профіль пілота у NewSky" href="https://newsky.app/pilot/${encodeURIComponent(lifetime.id)}" target="_blank" rel="noopener noreferrer">NewSky</a><a class="profile-badge profile-tip" data-tooltip="Відкрити список всіх нагород у NewSky" href="https://newsky.app/airline/ukl/awards" target="_blank" rel="noopener noreferrer">Список Awards</a></div><small>Перший політ: ${firstCompleted?dateOf(firstCompleted).toLocaleDateString('uk-UA',{timeZone:'UTC'}):'—'}</small><br><small>Крайній політ: ${lastCompleted?dateOf(lastCompleted).toLocaleDateString('uk-UA',{timeZone:'UTC'}):'—'}</small></div>${aircraftAwardsHtml(lifetime)}</div>
       <div class="profile-section-title">ЗАГАЛЬНА ІНФОРМАЦІЯ ПРО ПІЛОТА</div>
       <table class="profile-overall"><colgroup><col style="width:14%"><col style="width:19%"><col style="width:16.7%"><col style="width:20%"><col style="width:calc(13.3% + 8px)"><col style="width:calc(17% - 8px)"></colgroup><tbody>
         <tr><th>Наліт за весь час</th><td class="profile-tip" data-tooltip="${esc(hoursValueTip)}">${compactTime(lifetime.minutes)}<span class="profile-divider">|</span>${rankHtml(hoursRank,hoursRanking.length)}</td><th>Прибуток для АК</th><td class="profile-tip" data-tooltip="${esc(profitValueTip)}">${money(lifetime.companyProfit,true)}<span class="profile-divider">|</span>${rankHtml(profitRank,profitRanking.length)}</td><th class="profile-tip" data-tooltip="${esc(cleanNameTip)}">Польотів без штрафів</th><td class="profile-tip" data-tooltip="${esc(cleanValueTip)}">${currentQuality.cleanPct.toFixed(0)}%<span class="profile-divider">|</span>${rankHtml(cleanRank,cleanRanking.length)}</td></tr>
