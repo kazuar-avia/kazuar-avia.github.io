@@ -18,7 +18,7 @@ const compactMinutesC = value => {
 let companyDataCache = null;
 let companyFlightsCache = [];
 let fleetRowsCache = [];
-const fleetSort = {key:'aircraft', direction:-1};
+const fleetSort = {key:'flights', direction:-1};
 let financePeriod = 'monthToDate';
 
 const closeDateC = flight => new Date(flight.times.closed || flight.times.actualArrival || flight.times.takeoff || flight.times.scheduledDeparture);
@@ -82,7 +82,7 @@ function aggregateFleet(data, flights) {
   const variantToBase = new Map();
   const rows = new Map();
   data.fleet.types.forEach(type => {
-    const row = {icao:type.icao, variants:[...type.variants], aircraft:type.aircraft, flights:0, minutes:0, revenue:0, expenses:0, balance:0};
+    const row = {icao:type.icao, variants:[...type.variants], aircraft:type.aircraft, flights:0, minutes:0, revenue:0, expenses:0, balance:0, balancePerAircraft:0};
     rows.set(type.icao, row);
     variantToBase.set(type.icao, type.icao);
     type.variants.forEach(variant => variantToBase.set(variant, type.icao));
@@ -90,7 +90,7 @@ function aggregateFleet(data, flights) {
   flights.filter(flight => flight.status === 'completed').forEach(flight => {
     const variant = flight.aircraft.icao || 'UNKNOWN';
     const base = variantToBase.get(variant) || variant;
-    if (!rows.has(base)) rows.set(base, {icao:base, variants:[variant], aircraft:0, flights:0, minutes:0, revenue:0, expenses:0, balance:0});
+    if (!rows.has(base)) rows.set(base, {icao:base, variants:[variant], aircraft:0, flights:0, minutes:0, revenue:0, expenses:0, balance:0, balancePerAircraft:0});
     const row = rows.get(base);
     if (!row.variants.includes(variant)) row.variants.push(variant);
     row.flights += 1;
@@ -98,6 +98,9 @@ function aggregateFleet(data, flights) {
     row.revenue += Number(flight.finance.revenue) || 0;
     row.expenses += (Number(flight.finance.expenses) || 0) + (Number(flight.finance.penalties) || 0);
     row.balance += Number(flight.finance.balance) || 0;
+  });
+  rows.forEach(row => {
+    row.balancePerAircraft = row.aircraft ? row.balance / row.aircraft : row.balance;
   });
   return [...rows.values()].sort((a,b) => b.aircraft-a.aircraft || b.flights-a.flights || a.icao.localeCompare(b.icao));
 }
@@ -109,6 +112,14 @@ function renderFleetTable() {
     return ((a[fleetSort.key] || 0) - (b[fleetSort.key] || 0)) * fleetSort.direction || a.icao.localeCompare(b.icao);
   });
   $c('#fleetTypesBody').innerHTML = rows.map(type => `<tr><td><strong>${escC(type.icao)}</strong></td><td>${escC(type.variants.join(', '))}</td><td class="num">${type.aircraft || '—'}</td><td class="num">${type.flights}</td><td class="num">${compactMinutesC(type.minutes)}</td><td class="num positive">${moneyC(type.revenue)}</td><td class="num negative">${moneyC(type.expenses)}</td><td class="num ${type.balance >= 0 ? 'positive' : 'negative'}">${moneyC(type.balance, true)}</td></tr>`).join('');
+  $c('#fleetTypesBody').querySelectorAll('tr').forEach((row, index) => {
+    const type = rows[index];
+    if (!type) return;
+    const cell = document.createElement('td');
+    cell.className = `num ${type.balancePerAircraft >= 0 ? 'positive' : 'negative'}`;
+    cell.textContent = moneyC(type.balancePerAircraft, true);
+    row.appendChild(cell);
+  });
   document.querySelectorAll('#companyView [data-company-sort]').forEach(header => {
     header.querySelector('.company-sort-mark')?.remove();
     if (header.dataset.companySort === fleetSort.key) header.insertAdjacentHTML('beforeend', ` <span class="company-sort-mark">${fleetSort.direction < 0 ? '▼' : '▲'}</span>`);
@@ -185,7 +196,7 @@ Promise.all([
   renderCompany(data, loaded.flights);
 }).catch(error => {
   console.error(error);
-  $c('#fleetTypesBody').innerHTML = '<tr><td colspan="8" class="loading negative">Не вдалося завантажити дані флоту або польотів</td></tr>';
+  $c('#fleetTypesBody').innerHTML = '<tr><td colspan="9" class="loading negative">Не вдалося завантажити дані флоту або польотів</td></tr>';
 });
 
 addEventListener('ucaa-flights-updated', event => {

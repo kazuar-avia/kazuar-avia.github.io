@@ -14,6 +14,25 @@
     free:{label:'Free', color:'#8b8b8b'},
     schedule:{label:'Schedule', color:'#55ad55'}
   };
+  const MONTH_AWARD_COLORS = [
+    '#c8e6f5','#b9d8f0','#d2e9c7','#c5e2b3','#eadc94','#f2c987',
+    '#f2b778','#eda36f','#e2c06f','#d8a862','#ccd9ea','#bfd8ee'
+  ];
+  const MONTH_AWARD_MONTHS = ['СІЧ','ЛЮТ','БЕР','КВІ','ТРА','ЧЕР','ЛИП','СЕР','ВЕР','ЖОВ','ЛИС','ГРУ'];
+  function monthlyAwardPeriods() {
+    const dates = availableFlights.map(dateOf).filter(date => date instanceof Date && !Number.isNaN(date.getTime()));
+    if (!dates.length) return [];
+    const first = new Date(Math.min(...dates.map(date => date.getTime())));
+    const now = new Date();
+    const lastCompletedMonth = new Date(Date.UTC(now.getUTCFullYear(),now.getUTCMonth(),1));
+    const cursor = new Date(Date.UTC(first.getUTCFullYear(),first.getUTCMonth(),1));
+    const periods = [];
+    while (cursor < lastCompletedMonth) {
+      periods.push({year:cursor.getUTCFullYear(),month:cursor.getUTCMonth()});
+      cursor.setUTCMonth(cursor.getUTCMonth()+1);
+    }
+    return periods;
+  }
   // Редагований довідник сімейств для нагород: ICAO рейсу → ICAO, що пишеться на відзнаці.
   const AIRCRAFT_AWARD_FAMILIES = {
     A318:'A320',A319:'A320',A320:'A320',A321:'A320',
@@ -72,12 +91,26 @@
   let availableFlights = [];
   let insuranceCoverage = new Map();
   let aircraftAwardStatsCache = null;
+  let newskyAwardRequirements = null;
+  let newskyAwardStatsCache = null;
+  let newskyAwardRequirementsPromise = null;
+  let companyFleetTypes = new Set();
+  let companyFleetPromise = null;
+  let profileFlightsSignature = '';
+  let profileSummaryCache = new Map();
+  let profileOverallCache = null;
+  let monthlyAwardsCache = null;
   let referenceNow = new Date();
   let current = null;
+  const isMobileProfileView = () => document.body.classList.contains('mobile-cabinet') || Boolean(window.matchMedia?.('(max-width: 940px)').matches || window.innerWidth <= 940);
 
   const esc = value => String(value ?? '').replace(/[&<>"]/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[char]));
   const sum = (items, fn) => items.reduce((total, item) => total + (Number(fn(item)) || 0), 0);
   const dateOf = flight => new Date(flight.times?.actualArrival || flight.times?.closed || flight.times?.takeoff || flight.times?.scheduledDeparture);
+  const pilotAvatarUrl = value => {
+    const hash = String(value || 'default').trim();
+    return `https://newsky.app/api/pilot/avatar/${encodeURIComponent(hash && hash !== 'null' ? hash : 'default')}`;
+  };
   const money = (value, signed = false) => {
     const amount = Math.round(Number(value) || 0);
     return `${amount < 0 ? '−' : signed && amount > 0 ? '+' : ''}$${Math.abs(amount).toLocaleString('uk-UA')}`;
@@ -184,8 +217,32 @@
       .sort((a,b) => b.count - a.count || a.key.localeCompare(b.key))[0] || null;
   }
 
-  function summarize(id, flights) {
+  function profileCacheSignature(flights = availableFlights) {
+    const list = Array.isArray(flights) ? flights : [];
+    let latest = 0;
+    for (const flight of list) latest = Math.max(latest,dateOf(flight).getTime() || 0);
+    return `${list.length}:${latest}`;
+  }
+
+  function resetProfileCaches(signature = profileCacheSignature()) {
+    profileFlightsSignature = signature;
+    profileSummaryCache = new Map();
+    profileOverallCache = null;
+    monthlyAwardsCache = null;
+    aircraftAwardStatsCache = null;
+    newskyAwardStatsCache = null;
+  }
+
+  function cachedSummaryKey(id, flights, scope = '') {
+    const list = Array.isArray(flights) ? flights : [];
+    if (scope) return `${profileFlightsSignature}|${scope}|${id}`;
+    if (list === availableFlights) return `${profileFlightsSignature}|all|${id}`;
+    return '';
+  }
+
+  function summarizeRaw(id, flights) {
     const list = flights.filter(flight => flight.pilot.id === id);
+    const latestIdentity = [...list].sort((a,b) => dateOf(b) - dateOf(a))[0]?.pilot || null;
     const completed = list.filter(flight => flight.status === 'completed');
     const rows = completed.map(flight => ({flight, direct:directFlightFinance(flight)}));
     const ratings = completed.map(flight => Number(flight.rating)).filter(value => value > 0);
@@ -195,7 +252,7 @@
     const avatar = [...list].sort((a,b) => dateOf(b) - dateOf(a)).find(flight => flight.pilot?.avatar)?.pilot?.avatar || 'default';
     return {
       id,
-      name:list[0]?.pilot?.name || 'Пілот',
+      name:latestIdentity?.name || 'Пілот',
       avatar,
       list,
       completed,
@@ -212,9 +269,59 @@
     };
   }
 
+  function summarize(id, flights, scope = '') {
+    const key = cachedSummaryKey(id,flights,scope);
+    if (!key) return summarizeRaw(id,flights);
+    if (!profileSummaryCache.has(key)) profileSummaryCache.set(key,summarizeRaw(id,flights));
+    return profileSummaryCache.get(key);
+  }
+
+  function allPilotIds() {
+    return [...new Set(availableFlights.map(flight => flight.pilot?.id).filter(Boolean))];
+  }
+
+  function overallSummaries() {
+    const key = profileFlightsSignature || profileCacheSignature();
+    if (profileOverallCache?.key === key) return profileOverallCache.items;
+    const items = allPilotIds().map(id => summarize(id,availableFlights,'all'));
+    profileOverallCache = {key,items};
+    return items;
+  }
+
   function avatarUrl(value) {
     const hash = String(value || 'default').trim();
     return `https://newsky.app/api/pilot/avatar/${encodeURIComponent(hash && hash !== 'null' ? hash : 'default')}`;
+  }
+
+  function simulatorLabel(value) {
+    const raw = String(value || '').trim().toLowerCase();
+    if (!raw) return '';
+    if (raw === 'msfs2024' || raw === 'msfs24') return 'MSFS 2024';
+    if (raw === 'msfs2020' || raw === 'msfs20' || raw === 'msfs') return 'MSFS 2020';
+    if (raw === 'xp12' || raw === 'xplane12' || raw === 'x-plane 12') return 'X-PLANE 12';
+    if (raw === 'xp11' || raw === 'xplane11' || raw === 'x-plane 11') return 'X-PLANE 11';
+    if (raw === 'xp' || raw === 'xplane' || raw === 'x-plane') return 'X-PLANE';
+    return raw.toUpperCase();
+  }
+
+  function simulatorSummary(flights) {
+    const completed = (flights || []).filter(flight => flight.status === 'completed');
+    const counts = new Map();
+    completed.forEach(flight => {
+      const label = simulatorLabel(flight.operations?.simulator);
+      if (label) counts.set(label,(counts.get(label) || 0) + 1);
+    });
+    const total = [...counts.values()].reduce((acc,value) => acc + value,0);
+    const entries = [...counts].map(([label,count]) => ({
+      label,
+      count,
+      percent:total ? count / total * 100 : 0
+    })).sort((a,b) => b.count-a.count || a.label.localeCompare(b.label,'uk'));
+    const leader = entries[0] || null;
+    const tooltip = entries.length > 1
+      ? entries.map(entry => `${entry.label}: ${entry.count} ${flightWord(entry.count)} (${entry.percent.toFixed(0)}%)`).join('\n')
+      : leader ? `${leader.label}: ${leader.count} ${flightWord(leader.count)} (${leader.percent.toFixed(0)}%)` : '';
+    return {leader,entries,total,tooltip};
   }
 
   function aircraftAwardFamily(flight) {
@@ -311,6 +418,261 @@
 
   function aircraftAwardStats(pilotId) {
     return buildAircraftAwardStatsCache().byPilot.get(pilotId) || [];
+  }
+
+  function loadNewskyAwardRequirements() {
+    if (newskyAwardRequirements) return Promise.resolve(newskyAwardRequirements);
+    if (newskyAwardRequirementsPromise) return newskyAwardRequirementsPromise;
+    newskyAwardRequirementsPromise = fetch('ukl_awards_requirements_v1_1.json')
+      .then(response => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.json();
+      })
+      .then(data => {
+        newskyAwardRequirements = data;
+        newskyAwardStatsCache = null;
+        if (availableFlights.length) buildNewskyAwardStatsCache();
+        dispatchEvent(new CustomEvent('ucaa-profile-awards-updated'));
+        if (current) render();
+        return data;
+      })
+      .catch(error => {
+        console.warn('Не вдалося завантажити умови нагород NewSky:', error);
+        return null;
+      });
+    return newskyAwardRequirementsPromise;
+  }
+
+  function loadCompanyFleetTypes() {
+    if (companyFleetPromise) return companyFleetPromise;
+    companyFleetPromise = fetch('COMPANY/company-data.json', {cache:'default'})
+      .then(response => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.json();
+      })
+      .then(data => {
+        const types = new Set();
+        (data?.fleet?.aircraft || []).forEach(aircraft => {
+          [aircraft?.icao,aircraft?.variant].forEach(value => {
+            const code = String(value || '').trim().toUpperCase();
+            if (code) types.add(code);
+          });
+        });
+        companyFleetTypes = types;
+        if (current) render();
+        return types;
+      })
+      .catch(error => {
+        console.warn('Не вдалося завантажити перелік флоту для підказки складності:',error);
+        return companyFleetTypes;
+      });
+    return companyFleetPromise;
+  }
+
+  function newskyAwardFlightTime(flight) {
+    return new Date(
+      flight?.times?.actualArrival
+      || flight?.times?.closed
+      || flight?.times?.takeoff
+      || flight?.times?.actualDeparture
+      || flight?.times?.scheduledDeparture
+    );
+  }
+
+  function newskyAwardAirframes(award) {
+    const requested = (award?.require?.airframes || [])
+      .map(token => String(token || '').trim())
+      .filter(Boolean);
+    if (!requested.length) return null;
+    const groups = newskyAwardRequirements?.aircraftGroups || {};
+    const categoryPattern = /^(?:all|pax|passenger|cargo)(?:_(?:xs|s|m|l|xl|bizjet))?$/i;
+    const exact = requested.filter(token => !groups[token] && !categoryPattern.test(token));
+    // Exact ICAO requirements have priority over broad NewSky categories.
+    if (exact.length) return new Set(exact.map(token => token.toUpperCase()));
+    const accepted = new Set();
+    requested.forEach(token => {
+      const group = groups[token];
+      if (Array.isArray(group)) group.forEach(icao => accepted.add(String(icao).toUpperCase()));
+    });
+    // NewSky зараховує A350-900 до XL-турів; у допоміжному списку v1.1 він помилково лишився тільки в pax_l.
+    if (requested.includes('pax_xl')) {
+      accepted.add('A359');
+      accepted.add('A359U');
+    }
+    // NewSky зараховує Avro RJ100 до малого пасажирського класу в Short Haul Kings.
+    if (requested.includes('pax_s')) accepted.add('RJ1H');
+    return accepted;
+  }
+
+  function isNewskyAwardEligibleFlight(flight, award, acceptedAirframes) {
+    if (flight?.status !== 'completed') return false;
+    const time = newskyAwardFlightTime(flight);
+    if (!Number.isFinite(time.getTime())) return false;
+    const from = award.activeFrom ? new Date(award.activeFrom) : null;
+    const to = award.activeTo ? new Date(award.activeTo) : null;
+    if (from && time < from) return false;
+    if (to && time > to) return false;
+    const minimumRating = Number(award?.require?.minRating) || 0;
+    if (minimumRating > 0 && Number(flight.rating) < minimumRating) return false;
+    const icao = String(flight?.aircraft?.icao || '').toUpperCase();
+    const requested = (award?.require?.airframes || [])
+      .map(token => String(token || '').trim())
+      .filter(Boolean);
+    if (!requested.length || requested.some(token => token.toLowerCase() === 'all')) return true;
+    const groups = newskyAwardRequirements?.aircraftGroups || {};
+    const categoryPattern = /^(?:all|pax|passenger|cargo)(?:_(?:xs|s|m|l|xl|bizjet))?$/i;
+    const exact = requested.filter(token => !groups[token] && !categoryPattern.test(token));
+    if (exact.length) return acceptedAirframes?.has(icao) || false;
+    if (acceptedAirframes?.has(icao)) return true;
+    const flightType = String(flight?.flightType || flight?.type || '').toLowerCase();
+    const wantsCargo = requested.some(token => /^cargo(?:_|$)/i.test(token));
+    const wantsPax = requested.some(token => /^(?:pax|passenger)(?:_|$)/i.test(token));
+    const hasExpandedSizeCategory = requested.some(token =>
+      /_(?:xs|s|m|l|xl|bizjet)$/i.test(token) && Array.isArray(groups[token])
+    );
+    if (hasExpandedSizeCategory) return false;
+    // If a size expansion is unavailable, fall back to the requested purpose.
+    if (wantsCargo && flightType === 'cargo') return true;
+    if (wantsPax && flightType !== 'cargo') return true;
+    return false;
+  }
+
+  function evaluateNewskyAward(pilotFlights, award) {
+    const legs = Array.isArray(award?.legs) ? award.legs : [];
+    if (!legs.length || award?.deleted || !award?.started) return null;
+    const acceptedAirframes = newskyAwardAirframes(award);
+    const eligible = pilotFlights
+      .filter(flight => isNewskyAwardEligibleFlight(flight, award, acceptedAirframes))
+      .sort((a,b) => newskyAwardFlightTime(a) - newskyAwardFlightTime(b));
+    const routeKey = (dep, arr) => `${String(dep || '').toUpperCase()}-${String(arr || '').toUpperCase()}`;
+    const matchedFlights = [];
+    const ordered = award?.require?.ordered;
+    if (ordered === 'sequence') {
+      for (let startIndex = 0; startIndex < legs.length && matchedFlights.length !== legs.length; startIndex += 1) {
+        const candidate = [];
+        let legOffset = 0;
+        for (const flight of eligible) {
+          const leg = legs[(startIndex + legOffset) % legs.length];
+          if (routeKey(flight.departure?.icao, flight.arrival?.icao) === routeKey(leg.dep, leg.arr)) {
+            candidate.push(flight);
+            legOffset += 1;
+            if (legOffset === legs.length) break;
+          }
+        }
+        if (candidate.length === legs.length) matchedFlights.push(...candidate);
+      }
+    } else if (ordered === 'sequence_start') {
+      let legIndex = 0;
+      for (const flight of eligible) {
+        const leg = legs[legIndex];
+        if (!leg) break;
+        if (routeKey(flight.departure?.icao, flight.arrival?.icao) === routeKey(leg.dep, leg.arr)) {
+          matchedFlights.push(flight);
+          legIndex += 1;
+        }
+      }
+    } else {
+      const remaining = new Map();
+      legs.forEach(leg => {
+        const key = routeKey(leg.dep, leg.arr);
+        remaining.set(key, (remaining.get(key) || 0) + 1);
+      });
+      for (const flight of eligible) {
+        const key = routeKey(flight.departure?.icao, flight.arrival?.icao);
+        const count = remaining.get(key) || 0;
+        if (!count) continue;
+        matchedFlights.push(flight);
+        if (count === 1) remaining.delete(key);
+        else remaining.set(key, count - 1);
+      }
+    }
+    if (matchedFlights.length !== legs.length) return null;
+    return {award, matchedFlights};
+  }
+
+  function buildNewskyAwardStatsCache() {
+    if (newskyAwardStatsCache) return newskyAwardStatsCache;
+    const byPilot = new Map();
+    const byAward = new Map();
+    const completed = availableFlights.filter(flight => flight.status === 'completed' && flight.pilot?.id);
+    const pilotIds = [...new Set(completed.map(flight => flight.pilot.id))];
+    if (!newskyAwardRequirements?.awards) {
+      newskyAwardStatsCache = {byPilot, byAward, totalPilots:pilotIds.length};
+      return newskyAwardStatsCache;
+    }
+    pilotIds.forEach(pilotId => {
+      const pilotFlights = completed.filter(flight => flight.pilot.id === pilotId);
+      const earned = newskyAwardRequirements.awards
+        .map(award => evaluateNewskyAward(pilotFlights, award))
+        .filter(Boolean);
+      byPilot.set(pilotId, earned);
+      earned.forEach(result => {
+        const holders = byAward.get(result.award.id) || [];
+        holders.push({
+          pilotId,
+          pilotName:pilotFlights[0]?.pilot?.name || 'Пілот',
+          result
+        });
+        byAward.set(result.award.id, holders);
+      });
+    });
+    newskyAwardStatsCache = {byPilot, byAward, totalPilots:pilotIds.length};
+    return newskyAwardStatsCache;
+  }
+
+  function newskyAwardLargeImage(award) {
+    return String(award?.imageXs || '').replace(/_xs(?=$|[?#])/i, '');
+  }
+
+  function newskyAwardAirframeLabel(award) {
+    const requested = award?.require?.airframes || [];
+    if (!requested.length) return 'Без обмеження за типом літака';
+    const groupNames = {
+      pax_s:'пасажирські S',
+      pax_m:'пасажирські M',
+      pax_l:'пасажирські L',
+      pax_xl:'пасажирські XL',
+      cargo:'вантажні'
+    };
+    return requested.map(token => {
+      const group = newskyAwardRequirements?.aircraftGroups?.[token];
+      return Array.isArray(group)
+        ? `категорія ${groupNames[token] || token}`
+        : String(token);
+    }).join('<br>');
+  }
+
+  function newskyAwardTooltipHtml(result, pilotId) {
+    const award = result.award;
+    const stats = buildNewskyAwardStatsCache();
+    const holders = stats.byAward.get(award.id) || [];
+    const otherHolders = holders.filter(holder => holder.pilotId !== pilotId).length;
+    const percent = stats.totalPilots ? Math.round(otherHolders / stats.totalPilots * 100) : 0;
+    const minimumRating = Number(award?.require?.minRating) || 0;
+    const periodFrom = award.activeFrom
+      ? new Date(award.activeFrom).toLocaleDateString('uk-UA',{timeZone:'UTC'})
+      : 'без обмеження';
+    const periodTo = award.activeTo
+      ? new Date(award.activeTo).toLocaleDateString('uk-UA',{timeZone:'UTC'})
+      : 'безстроково';
+    const holdersCaption = otherHolders === 0
+      ? 'Більше ніхто не отримав цю нагороду (поки що!)'
+      : `Нагороду також мають ${otherHolders} ${otherHolders === 1 ? 'людина' : 'людей'} в авіакомпанії (${percent}%).`;
+    return [
+      `<div class="newsky-award-tooltip-head"><strong>${esc(award.title)}</strong><img src="${esc(newskyAwardLargeImage(award))}" alt=""></div>`,
+      `<div><strong>Потрібно виконати:</strong> ${award.legs.length} ${flightWord(award.legs.length)}${minimumRating ? `<br><strong>Мінімальний рейтинг:</strong> ${minimumRating.toFixed(minimumRating % 1 ? 1 : 0)}` : ''}<br><strong>Період:</strong> ${periodFrom} — ${periodTo}</div>`,
+      `<div><strong>Літаки:</strong><br>${newskyAwardAirframeLabel(award)}</div>`,
+      `<div>${holdersCaption}</div>`
+    ].join('');
+  }
+
+  function newskyAwardsHtml(pilotId) {
+    if (!newskyAwardRequirements) return '';
+    const results = buildNewskyAwardStatsCache().byPilot.get(pilotId) || [];
+    return results.map(result => {
+      const award = result.award;
+      return `<a class="newsky-achievement-award" href="${esc(award.url)}" target="_blank" rel="noopener noreferrer" data-award-tooltip="${esc(newskyAwardTooltipHtml(result,pilotId))}" aria-label="${esc(award.title)}"><img src="${esc(newskyAwardLargeImage(award))}" alt="${esc(award.title)}"></a>`;
+    }).join('');
   }
 
   function aircraftAwardManufacturer(family) {
@@ -440,14 +802,118 @@
     return `<svg class="aircraft-award-decor" viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="aircraft-award-${uid}" x1="0%" y1="100%" x2="100%" y2="0%">${gradient}</linearGradient></defs><g transform="translate(0, -1.5)" fill="url(#aircraft-award-${uid})">${left}${right}<polygon class="aircraft-award-wreath-part" points="45,71.5 55,71.5 57,80 43,80"/><rect class="aircraft-award-wreath-part" x="36" y="80" width="28" height="4" rx="1"/></g></svg>`;
   }
 
+  function monthlyAwardQuality(rows) {
+    const eligible = rows.filter(row => Number(row.flight.rating) > 0 && !row.flight.operations?.emergency);
+    const clean = eligible.filter(row => {
+      const pay = row.direct.pilotPay || {};
+      return Math.max(0,Number(row.flight.finance?.penalties)||0) === 0
+        && Math.max(0,Number(pay.delayDeduction)||0) === 0
+        && Math.max(0,Number(pay.fdrPenalty)||0) === 0
+        && Math.max(0,Number(pay.incidentLiability)||0) === 0
+        && Math.max(0,Number(pay.insuranceLiability)||0) === 0
+        && !pay.seriousIncident
+        && Math.max(0,Number(pay.insuranceCase)||0) === 0;
+    });
+    return {
+      eligible:eligible.length,
+      clean:clean.length,
+      percent:eligible.length ? clean.length/eligible.length*100 : 0
+    };
+  }
+
+  function buildMonthlyAwardsCache() {
+    const key = profileFlightsSignature || profileCacheSignature();
+    if (monthlyAwardsCache?.key === key) return monthlyAwardsCache.byPilot;
+    const pilotIds = allPilotIds();
+    const byPilot = new Map(pilotIds.map(id => [id,[]]));
+    monthlyAwardPeriods().forEach(({year,month}) => {
+      const start = new Date(Date.UTC(year,month,1));
+      const end = new Date(Date.UTC(year,month+1,1));
+      const monthFlights = availableFlights.filter(flight => {
+        const date = dateOf(flight);
+        return date >= start && date < end;
+      });
+      const candidates = pilotIds.map(id => {
+        const summary = summarize(id,monthFlights,`month:${year}-${month}`);
+        const ratedFlights = summary.completed.filter(flight => Number(flight.rating) > 0 && !flight.operations?.emergency);
+        const scheduledFlights = summary.completed.filter(flight => Boolean(flight.operations?.scheduled));
+        const charterFlights = summary.completed.filter(flight => Boolean(flight.operations?.charter));
+        const difficulty = summary.completed.length
+          ? sum(summary.completed,flight => window.UCAAPilotPay.aircraftCoefficient(flight.aircraft?.icao,flight.flightType))/summary.completed.length
+          : 0;
+        return {
+          id,
+          name:summary.name,
+          flights:summary.completed.length,
+          ratedFlights:ratedFlights.length,
+          minutes:summary.minutes,
+          rating:ratedFlights.length ? sum(ratedFlights,flight => flight.rating)/ratedFlights.length : 0,
+          companyProfit:summary.companyProfit,
+          salary:summary.salary,
+          difficulty,
+          scheduledFlights:scheduledFlights.length,
+          charterFlights:charterFlights.length,
+          quality:monthlyAwardQuality(summary.rows)
+        };
+      }).filter(item => item.flights > 0);
+      const definitions = [
+        {key:'hours',emoji:'⏱️',label:'Найбільший наліт',value:item=>item.minutes,format:value=>formatMinutes(value)},
+        {key:'flights',emoji:'🛫',label:'Найбільша кількість рейсів',value:item=>item.flights,format:value=>`${value} ${flightWord(value)}`},
+        {key:'rating',emoji:'✅',label:'Найвищий середній рейтинг',value:item=>item.rating,format:value=>value.toFixed(2),eligible:item=>item.ratedFlights>=10},
+        {key:'profit',emoji:'💵',label:'Найбільший прибуток для авіакомпанії',value:item=>item.companyProfit,format:value=>money(value,true)},
+        {key:'salary',emoji:'👷',label:'Найбільша зарплата пілота',value:item=>item.salary,format:value=>money(value,true)},
+        {key:'difficulty',emoji:'⚙️',label:'Найвища середня складність літака',value:item=>item.difficulty,format:value=>value.toFixed(2),eligible:item=>item.difficulty>0},
+        {key:'clean',emoji:'🧑‍✈️',label:'Найбільший відсоток польотів без штрафів',value:item=>item.quality.percent,format:(value,item)=>`${value.toFixed(0)}% (${item.quality.clean}/${item.quality.eligible})`,eligible:item=>item.quality.eligible>=10},
+        {key:'scheduleFlights',emoji:'📅',label:'Найбільше schedule-рейсів',shortLabel:'SCHED',variant:'schedule',value:item=>item.scheduledFlights,format:value=>`${value} ${flightWord(value)}`,eligible:item=>item.scheduledFlights>=5},
+        {key:'charterFlights',emoji:'📅',label:'Найбільше charter-рейсів',shortLabel:'CHART',variant:'charter',value:item=>item.charterFlights,format:value=>`${value} ${flightWord(value)}`,eligible:item=>item.charterFlights>=5}
+      ];
+      definitions.forEach(definition => {
+        const ranked = candidates.filter(item => definition.eligible ? definition.eligible(item) : true)
+          .sort((a,b) => definition.value(b)-definition.value(a) || b.flights-a.flights || a.name.localeCompare(b.name,'uk'));
+        const winner = ranked[0];
+        if (!winner) return;
+        const monthName = new Date(Date.UTC(year,month,1)).toLocaleDateString('uk-UA',{month:'long',year:'numeric',timeZone:'UTC'});
+        if (!byPilot.has(winner.id)) byPilot.set(winner.id,[]);
+        byPilot.get(winner.id).push({
+          ...definition,
+          year,
+          month,
+          monthName,
+          value:definition.value(winner),
+          formatted:definition.format(definition.value(winner),winner),
+          flights:winner.flights
+        });
+      });
+    });
+    byPilot.forEach(awards => awards.sort((a,b) => b.year-a.year || b.month-a.month));
+    monthlyAwardsCache = {key,byPilot};
+    return byPilot;
+  }
+
+  function monthlyAwardsForPilot(pilotId) {
+    return buildMonthlyAwardsCache().get(pilotId) || [];
+  }
+
+  function monthlyAwardsHtml(pilotId) {
+    return monthlyAwardsForPilot(pilotId).map(award => {
+      const label = `${award.label} · ${award.monthName}`;
+      const tooltip = `<div><strong>${esc(award.label)}</strong><br>${esc(award.monthName)}<br>${esc(award.formatted)} за місяць</div>`;
+      const variantClass = award.variant ? ` monthly-award-${award.variant}` : '';
+      const text = award.shortLabel || `${MONTH_AWARD_MONTHS[award.month]} ${String(award.year).slice(-2)}`;
+      return `<span class="monthly-achievement-award${variantClass}" style="--month-award-color:${MONTH_AWARD_COLORS[award.month]}" data-award-tooltip="${esc(tooltip)}" aria-label="${esc(label)}"><span class="monthly-award-diamond"><span class="monthly-award-emoji">${award.emoji}</span><span class="monthly-award-date">${esc(text)}</span><span class="monthly-award-medal">🥇</span></span></span>`;
+    }).join('');
+  }
+
   function aircraftAwardsHtml(summary) {
     const awards = aircraftAwardStats(summary.id);
-    if (!awards.length) return '<div class="profile-aircraft-awards empty">Нагороди за типами літаків ще не отримані</div>';
-    return `<div class="profile-aircraft-awards" aria-label="Нагороди за типами літаків">${awards.map((award,index) => {
+    const monthlyAwards = monthlyAwardsHtml(summary.id);
+    const newskyAwards = newskyAwardsHtml(summary.id);
+    if (!awards.length && !monthlyAwards && !newskyAwards) return '<div class="profile-aircraft-awards empty">Нагороди ще не отримані</div>';
+    return `<div class="profile-aircraft-awards" aria-label="Нагороди пілота">${awards.map((award,index) => {
       const familyAwards = buildAircraftAwardStatsCache().byFamily.get(award.family) || [];
       const tooltip = aircraftAwardTooltipHtml(award,familyAwards);
       return `<span class="aircraft-award level-${award.level} manufacturer-${aircraftAwardManufacturer(award.family)} ${award.leader?'aircraft-award-leader':''}" data-award-tooltip="${esc(tooltip)}">${aircraftAwardDecor(award.level,`${summary.id}-${award.family}-${index}`)}<span class="aircraft-award-circle"><span>${esc(award.family)}</span></span></span>`;
-    }).join('')}</div>`;
+    }).join('')}${monthlyAwards}${newskyAwards}</div>`;
   }
 
   function wireAircraftAwardTooltips(root) {
@@ -470,10 +936,32 @@
       tooltip.style.top = `${Math.round(top)}px`;
     };
     const hide = () => { tooltip.hidden = true; };
-    root.querySelectorAll('.aircraft-award[data-award-tooltip]').forEach(element => {
+    root.querySelectorAll('[data-award-tooltip]').forEach(element => {
       element.addEventListener('mouseenter',() => show(element));
       element.addEventListener('mouseleave',hide);
     });
+    const awardsZone = root.querySelector('.profile-aircraft-awards:not(.empty)');
+    if (awardsZone) {
+      const updateAwardsScroll = () => {
+        const rowTops = [];
+        [...awardsZone.children].forEach(element => {
+          const top = element.offsetTop - (parseFloat(getComputedStyle(element).marginTop) || 0);
+          if (!rowTops.some(existing => Math.abs(existing - top) <= 8)) rowTops.push(top);
+        });
+        awardsZone.classList.toggle('scrollable', rowTops.length >= 3);
+      };
+      awardsZone.classList.remove('scrollable');
+      awardsZone.scrollTop = 0;
+      requestAnimationFrame(() => requestAnimationFrame(updateAwardsScroll));
+      awardsZone.querySelectorAll('img').forEach(image => {
+        if (!image.complete) image.addEventListener('load',updateAwardsScroll,{once:true});
+      });
+      if (window.ResizeObserver) {
+        const observer = new ResizeObserver(updateAwardsScroll);
+        observer.observe(awardsZone);
+        setTimeout(() => observer.disconnect(),1500);
+      }
+    }
   }
 
   function ensureProfilePage() {
@@ -484,10 +972,15 @@
       const style = document.createElement('style');
       style.id = 'ucaa-profile-v2-style';
       style.textContent = `
-        .profile-v2{padding:0}.profile-v2 .profile-identity{display:grid;grid-template-columns:112px 174px minmax(0,1fr);column-gap:6px;align-items:start;min-height:112px;margin:-4px 0 6px}
-        .profile-v2 .profile-avatar{box-sizing:border-box;width:108px;height:108px;margin-top:4px;border:1px solid #555;background:#eef8fa;object-fit:cover}
-        .profile-v2 .profile-person{min-width:0;padding-top:0}.profile-v2 .profile-identity h3{display:flex;align-items:center;min-height:52px;margin:0 0 4px;font-size:24px;line-height:26px}.profile-v2 .profile-badge{display:inline-block;border:1px solid #777;background:#ffee8c;padding:2px 7px;font-size:13px}.profile-v2 .profile-person small{font-size:14px;line-height:18px}
-        .profile-v2 .profile-aircraft-awards{box-sizing:border-box;min-width:0;width:calc(100% - 5px);height:117px;display:flex;flex-wrap:wrap;align-content:flex-start;gap:0;overflow:hidden;margin: -5px 0 0 5px;padding:0 5px 0 0}
+        .profile-v2{padding:0}.profile-v2 .profile-identity{display:grid;grid-template-columns:112px 164px minmax(0,1fr);column-gap:6px;align-items:start;min-height:108px;margin:-4px 0 -2px}
+        .profile-v2 .profile-avatar-wrap{position:relative;box-sizing:border-box;width:108px;height:108px;margin-top:4px}
+        .profile-v2 .profile-avatar{box-sizing:border-box;width:108px;height:108px;border:1px solid #555;background:#eef8fa;object-fit:cover}
+        .profile-v2 .profile-sim-badge{position:absolute;left:1px;bottom:21px;box-sizing:border-box;max-width:100px;padding:1px 4px;border:1px solid #333;border-radius:4px;background:rgba(245,245,245,.9);color:#111;font:700 10px/12px Arial,sans-serif;text-align:center;white-space:nowrap;cursor:help}
+        .profile-empty-picker{padding:12px;background:#fafafa}.profile-empty-title{font-weight:bold;margin-bottom:8px;color:#111}.profile-inline-picker{position:static!important;left:auto!important;top:auto!important;transform:none!important;z-index:1!important;width:min(864px,100%)!important;margin:0 auto!important;text-align:left}.profile-inline-picker button{grid-template-columns:30px 18px minmax(0,1fr) auto!important;gap:8px!important;padding-left:10px!important;padding-right:10px!important}.profile-inline-picker button strong{padding-right:10px;overflow:hidden;text-overflow:ellipsis}.profile-inline-picker .picker-hours{padding-left:10px}
+        .profile-v2 .profile-person{min-width:0;padding-top:0}.profile-v2 .profile-identity h3{display:flex;align-items:center;min-height:52px;margin:0 0 4px;font-size:24px;line-height:26px}.profile-v2 .profile-newsky-row{display:flex;align-items:center;gap:2px;margin:0 0 2px;font-size:13px;white-space:nowrap}.profile-v2 .profile-badge{display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;border:1px solid #777;background:#ddd;padding:1px 3px;color:#111;font-size:13px;line-height:17px;text-decoration:none;white-space:nowrap;cursor:pointer}.profile-v2 .profile-badge:hover,.profile-v2 .profile-badge:focus{background:#c8ddeb;color:#111;text-decoration:none}.profile-v2 .profile-badge.profile-tip:hover{background:#c8ddeb}.profile-v2 .profile-person small{font-size:13px;line-height:18px}
+        .profile-v2 .profile-aircraft-awards{box-sizing:border-box;min-width:0;width:calc(100% - 5px);height:117px;display:flex;flex-wrap:wrap;align-content:flex-start;gap:0;overflow:hidden;margin:-1px 0 0 5px;padding:0 5px 0 0}
+        .profile-v2 .profile-aircraft-awards.scrollable{overflow-x:hidden;overflow-y:auto;scrollbar-width:thin}
+        .profile-v2 .profile-aircraft-awards.scrollable::-webkit-scrollbar-track{margin-top:10px}
         .profile-v2 .profile-aircraft-awards.empty{display:flex;align-items:center;color:#777;font-size:11px}
         .profile-v2 .aircraft-award{position:relative;display:inline-flex;flex:0 0 67px;width:67px;height:67px;margin:0 -15px -15px 0;align-items:center;justify-content:center;isolation:isolate;overflow:hidden;cursor:help}
         .profile-v2 .aircraft-award-bg-stand{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
@@ -517,8 +1010,21 @@
         .profile-v2 .level-2 .aircraft-award-decor,.profile-v2 .level-3 .aircraft-award-decor,.profile-v2 .level-4 .aircraft-award-decor{filter:drop-shadow(0 2px 4px rgba(0,0,0,.35))}
         .profile-v2 .aircraft-award-leader::after{content:"";position:absolute;z-index:7;top:-17px;left:-36px;width:16px;height:103px;background:linear-gradient(90deg,transparent,#ffffffb8,transparent);transform:rotate(23deg);animation:aircraft-award-shine 5.4s ease-in-out infinite;pointer-events:none}
         @keyframes aircraft-award-shine{0%,60%{left:-36px;opacity:0}64%{opacity:.85}87%{left:85px;opacity:.7}91%,100%{left:85px;opacity:0}}
+        .profile-v2 .monthly-achievement-award{position:relative;display:inline-flex;flex:0 0 43px;width:43px;height:43px;margin:13px 3px 0 2px;align-items:center;justify-content:center;cursor:help}
+        .profile-v2 .aircraft-award + .monthly-achievement-award{margin-left:14px}
+        .profile-v2 .monthly-award-diamond{position:relative;display:block;width:30px;height:30px;transform:rotate(45deg);border:1px solid #9a7b18;border-radius:4px;background:var(--month-award-color);box-shadow:0 0 0 1px rgba(230,188,58,.75),0 2px 5px #0004,inset 0 0 0 1px rgba(255,255,255,.55),inset 0 0 8px rgba(255,255,255,.28)}
+        .profile-v2 .monthly-award-schedule .monthly-award-diamond{border-color:#2f8d3e;box-shadow:0 0 0 1px rgba(65,166,78,.85),0 2px 5px #0004,inset 0 0 0 1px rgba(255,255,255,.55),inset 0 0 8px rgba(255,255,255,.25)}
+        .profile-v2 .monthly-award-charter .monthly-award-diamond{border-color:#d17909;box-shadow:0 0 0 1px rgba(243,154,10,.9),0 2px 5px #0004,inset 0 0 0 1px rgba(255,255,255,.55),inset 0 0 8px rgba(255,255,255,.25)}
+        .profile-v2 .monthly-award-date{position:absolute;left:50%;top:50%;width:38px;transform:translate(-50%,-50%) rotate(-45deg);color:#3b3216;font:700 8px/1 Arial,sans-serif;text-align:center;white-space:nowrap;text-shadow:0 1px #fff}
+        .profile-v2 .monthly-award-emoji{position:absolute;left:-5px;top:-4px;z-index:2;width:18px;transform:rotate(-45deg);font:15px/18px Arial,sans-serif;text-align:center;filter:drop-shadow(0 1px 1px #fff)}
+        .profile-v2 .monthly-award-medal{position:absolute;right:-3px;bottom:-5px;z-index:2;width:18px;transform:rotate(-45deg);font:15px/18px Arial,sans-serif;text-align:center;filter:drop-shadow(0 1px 1px #fff)}
+        .profile-v2 .monthly-achievement-award + .newsky-achievement-award{margin-left:9px}
+        .profile-v2 .newsky-achievement-award{box-sizing:border-box;display:inline-flex;flex:0 0 auto;width:auto;height:35px;margin:17px 6px 0 1px;align-items:center;justify-content:center;padding:0;background:transparent;cursor:pointer;text-decoration:none}
+        .profile-v2 .aircraft-award + .newsky-achievement-award{margin-left:16px}
+        .profile-v2 .newsky-achievement-award img{box-sizing:border-box;display:block;width:auto;height:35px;max-width:none;border:1px solid #708999;border-radius:5px;box-shadow:0 1px 3px #0002;object-fit:contain}
         .profile-aircraft-award-tooltip{position:fixed;z-index:1000;box-sizing:border-box;width:max-content;max-width:350px;padding:8px 10px;border:1px solid #666;background:#fff;color:#222;font:12px/1.35 Arial,sans-serif;text-align:left;box-shadow:0 5px 16px #0004;pointer-events:none}
         .profile-aircraft-award-tooltip>div+div{margin-top:7px;padding-top:7px;border-top:1px dotted #bbb}.profile-aircraft-award-tooltip strong{font-weight:bold}
+        .profile-aircraft-award-tooltip .newsky-award-tooltip-head{display:flex;flex-direction:column;align-items:center;gap:3px;padding:0;font-size:14px;text-align:center}.profile-aircraft-award-tooltip .newsky-award-tooltip-head strong{display:block;margin:0}.profile-aircraft-award-tooltip .newsky-award-tooltip-head img{display:block;flex:0 0 auto;width:280px;max-width:100%;height:auto;margin:0;object-fit:contain}
         .profile-v2 table{border-collapse:collapse;width:100%}.profile-v2 th,.profile-v2 td{border:1px solid #888;padding:5px;text-align:left}
         .profile-v2 th{background:#eee}.profile-v2 .num{text-align:right}.profile-v2 .positive{color:#08783f;font-weight:bold}.profile-v2 .negative{color:#a40000;font-weight:bold}
         .profile-v2 .profile-section-title{font-weight:bold;text-align:center;background:#c7eef2;border:1px solid #777;padding:5px;margin-top:8px}
@@ -527,6 +1033,7 @@
         .profile-v2 .profile-tip{position:relative;cursor:help}.profile-v2 .profile-tip:hover{background:#fffbe3}
         .profile-v2 .profile-tooltip-box{position:absolute;left:50%;top:calc(100% + 5px);transform:translateX(-50%);z-index:100;width:max-content;max-width:350px;padding:7px 9px;border:1px solid #666;background:#fff;color:#222;font-family:Arial,sans-serif;font-size:11px;font-weight:normal;line-height:1.35;text-align:left;white-space:pre-line;box-shadow:0 4px 12px #0003;opacity:0;visibility:hidden;pointer-events:none}
         .profile-v2 .profile-tip:hover .profile-tooltip-box{opacity:1;visibility:visible}
+        .profile-v2 .profile-tooltip-section{display:block;white-space:pre-line}.profile-v2 .profile-tooltip-rule{height:0;margin:5px 0;border:0;border-top:1px solid #ccc}
         .profile-v2 .profile-tooltip-excluded{display:block;margin-top:6px;color:#888;font-style:italic;white-space:pre-line}
         .profile-v2 .profile-rank-medal{display:inline-block;font-size:18px;line-height:1;vertical-align:-2px;margin-left:3px;transform:translateY(-2px)}
         .profile-v2 .profile-rank-medal.anti{display:inline-block}
@@ -564,7 +1071,7 @@
         .profile-v2 .profile-card:nth-child(1){background:#eef9fa}.profile-v2 .profile-card:nth-child(2){background:#fffbe3}.profile-v2 .profile-card:nth-child(3){background:#f0f4ff}.profile-v2 .profile-card:nth-child(4){background:#f7edf8}.profile-v2 .profile-card:nth-child(5){background:#edf8ef}
         .profile-v2 .profile-card small,.profile-v2 .profile-card span{color:#666;font-size:11px;line-height:11px}.profile-v2 .profile-card strong{font-size:18px;line-height:18px;margin:2px 0 0}
         .profile-v2 .profile-flights-panel{border:1px solid #777;margin-top:7px}.profile-v2 .profile-flights-title{font-weight:bold;text-align:center;background:#c7eef2;border-bottom:1px solid #777;padding:5px}
-        .profile-v2 .profile-flight-window{max-height:430px;overflow-y:auto;overflow-x:auto}.profile-v2 .profile-flight-table{table-layout:fixed;min-width:850px;font-size:12.5px}
+        .profile-v2 .profile-flight-window{overflow-x:auto;overflow-y:visible}.profile-v2 .profile-flight-table{table-layout:fixed;min-width:850px;font-size:12.5px}
         .profile-v2 .profile-flight-table th{position:sticky;top:0;z-index:2;text-align:center;font-size:12px;padding:6px}.profile-v2 .profile-flight-table td{padding:6px;vertical-align:middle}
         .profile-v2 .profile-flight-table td:not(:first-child){text-align:center}.profile-v2 .profile-flight-table td.finance-click-cell{font-size:14px;cursor:pointer;font-weight:bold}
         .profile-v2 .profile-flight-table td.finance-click-cell:hover,.profile-v2 .profile-flight-table td.finance-click-cell:focus{background:#fff7c7;outline:0}
@@ -575,6 +1082,46 @@
         .profile-v2 .profile-aircraft-list button{display:flex;justify-content:space-between;gap:6px;width:100%;border:1px solid #bbb;background:#fff;padding:5px;text-align:left;cursor:pointer}.profile-v2 .profile-aircraft-list button+button{margin-top:2px}.profile-v2 .profile-aircraft-list button:hover,.profile-v2 .profile-aircraft-list button.active{background:#fff7c7}
         .profile-v2 .profile-note{font-size:11px;color:#666;margin:6px 0}.profile-v2 .pie-hit-map{position:absolute;inset:0;width:100%;height:100%;border-radius:50%;pointer-events:none}.profile-v2 .pie-hit-map path{pointer-events:auto;cursor:help}
         @media(max-width:720px){.profile-v2 .profile-identity{grid-template-columns:112px minmax(0,1fr)}.profile-v2 .profile-aircraft-awards{grid-column:1/-1}.profile-v2 .profile-period-bar{align-items:flex-start;flex-direction:column}.profile-v2 .profile-period-buttons{flex-wrap:wrap}.profile-v2 .profile-finance-grid,.profile-v2 .profile-finance-body{grid-template-columns:1fr}.profile-v2 .profile-cards{grid-template-columns:1fr 1fr}}
+        body.mobile-cabinet .profile-v2 .profile-overall{display:block;table-layout:auto;width:100%}
+        body.mobile-cabinet .profile-v2 .profile-overall colgroup{display:none}
+        body.mobile-cabinet .profile-v2 .profile-overall tbody{display:grid;grid-template-columns:max-content minmax(0,1fr)}
+        body.mobile-cabinet .profile-v2 .profile-overall tr{display:contents}
+        body.mobile-cabinet .profile-v2 .profile-overall th,body.mobile-cabinet .profile-v2 .profile-overall td{display:block;min-width:0;padding:5px 6px;font-size:11px;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:clip}
+        body.mobile-cabinet .profile-v2 .profile-overall th{width:auto;max-width:none;justify-self:stretch;box-sizing:border-box}
+        body.mobile-cabinet .profile-v2 .profile-overall td{text-align:left}
+        body.mobile-cabinet .profile-v2 .profile-overall tbody tr:nth-child(1) th:nth-of-type(1){order:1}
+        body.mobile-cabinet .profile-v2 .profile-overall tbody tr:nth-child(1) td:nth-of-type(1){order:2}
+        body.mobile-cabinet .profile-v2 .profile-overall tbody tr:nth-child(2) th:nth-of-type(1){order:3}
+        body.mobile-cabinet .profile-v2 .profile-overall tbody tr:nth-child(2) td:nth-of-type(1){order:4}
+        body.mobile-cabinet .profile-v2 .profile-overall tbody tr:nth-child(3) th:nth-of-type(1){order:5}
+        body.mobile-cabinet .profile-v2 .profile-overall tbody tr:nth-child(3) td:nth-of-type(1){order:6}
+        body.mobile-cabinet .profile-v2 .profile-overall tbody tr:nth-child(4) th:nth-of-type(1){order:7}
+        body.mobile-cabinet .profile-v2 .profile-overall tbody tr:nth-child(4) td:nth-of-type(1){order:8}
+        body.mobile-cabinet .profile-v2 .profile-overall tbody tr:nth-child(1) th:nth-of-type(2){order:9}
+        body.mobile-cabinet .profile-v2 .profile-overall tbody tr:nth-child(1) td:nth-of-type(2){order:10}
+        body.mobile-cabinet .profile-v2 .profile-overall tbody tr:nth-child(2) th:nth-of-type(2){order:11}
+        body.mobile-cabinet .profile-v2 .profile-overall tbody tr:nth-child(2) td:nth-of-type(2){order:12}
+        body.mobile-cabinet .profile-v2 .profile-overall tbody tr:nth-child(3) th:nth-of-type(2){order:13}
+        body.mobile-cabinet .profile-v2 .profile-overall tbody tr:nth-child(3) td:nth-of-type(2){order:14}
+        body.mobile-cabinet .profile-v2 .profile-overall tbody tr:nth-child(4) th:nth-of-type(2){order:15}
+        body.mobile-cabinet .profile-v2 .profile-overall tbody tr:nth-child(4) td:nth-of-type(2){order:16}
+        body.mobile-cabinet .profile-v2 .profile-overall tbody tr:nth-child(1) th:nth-of-type(3){order:17}
+        body.mobile-cabinet .profile-v2 .profile-overall tbody tr:nth-child(1) td:nth-of-type(3){order:18}
+        body.mobile-cabinet .profile-v2 .profile-overall tbody tr:nth-child(2) th:nth-of-type(3){order:19}
+        body.mobile-cabinet .profile-v2 .profile-overall tbody tr:nth-child(2) td:nth-of-type(3){order:20}
+        body.mobile-cabinet .profile-v2 .profile-overall tbody tr:nth-child(3) th:nth-of-type(3){order:21}
+        body.mobile-cabinet .profile-v2 .profile-overall tbody tr:nth-child(3) td:nth-of-type(3){order:22}
+        body.mobile-cabinet .profile-v2 .profile-overall tbody tr:nth-child(4) th:nth-of-type(3){order:23}
+        body.mobile-cabinet .profile-v2 .profile-overall tbody tr:nth-child(4) td:nth-of-type(3){order:24}
+        body.mobile-cabinet .profile-v2 .profile-overall th,body.mobile-cabinet .profile-v2 .profile-overall td{cursor:pointer}
+        .mobile-profile-info-tooltip{position:fixed;left:8px;right:8px;bottom:10px;z-index:2000;box-sizing:border-box;max-height:55vh;overflow:auto;padding:9px 11px;border:1px solid #555;background:#fff;color:#222;font:12px/1.35 Arial,sans-serif;text-align:left;box-shadow:0 5px 18px #0005;white-space:pre-line}
+        .mobile-profile-info-tooltip[hidden]{display:none}.mobile-profile-info-tooltip .profile-tooltip-rule{height:0;margin:6px 0;border:0;border-top:1px solid #ccc}.mobile-profile-info-tooltip .profile-tooltip-excluded{display:block;margin-top:6px;color:#888;font-style:italic}
+        body.mobile-cabinet .profile-v2 .profile-finance:not(.profile-airline-benefit) .profile-finance-pie{display:none}
+        body.mobile-cabinet .profile-v2 .profile-finance:not(.profile-airline-benefit) .profile-finance-body{display:block;height:auto;padding:8px;text-align:center}
+        body.mobile-cabinet .profile-v2 .profile-finance:not(.profile-airline-benefit) .profile-finance-legend{display:inline-block;text-align:left}
+        body.mobile-cabinet .profile-v2 .profile-airline-benefit .profile-finance-body{display:block;height:auto;padding:8px;text-align:center}
+        body.mobile-cabinet .profile-v2 .profile-airline-benefit .profile-finance-pie{display:none}
+        body.mobile-cabinet .profile-v2 .profile-airline-benefit .profile-finance-legend{display:inline-block;text-align:left}
       `;
       document.head.appendChild(style);
     }
@@ -619,20 +1166,47 @@
 
   function renderPicker() {
     const page = ensureProfilePage();
-    const pilots = [...new Set(availableFlights.map(flight => flight.pilot.id))]
-      .map(id => summarize(id, availableFlights))
-      .sort((a,b) => b.minutes - a.minutes || a.name.localeCompare(b.name));
+    const pilots = pickerPilots();
     page.pickerList.style.gridTemplateRows = `repeat(${Math.ceil(pilots.length / 3)}, auto)`;
-    page.pickerList.innerHTML = pilots.map((pilot,index) =>
-      `<button type="button" data-picker-pilot="${esc(pilot.id)}"><span class="picker-rank">#${index+1}</span><strong>${esc(pilot.name)}</strong><span class="picker-hours">${compactTime(pilot.minutes)}</span></button>`
-    ).join('');
-    page.pickerList.querySelectorAll('[data-picker-pilot]').forEach(button => button.onclick = () => open(button.dataset.pickerPilot, availableFlights));
+    page.pickerList.innerHTML = pickerButtonsHtml(pilots);
+    bindPickerButtons(page.pickerList);
     page.pickerButton.onclick = event => {
       event.preventDefault();
       event.stopPropagation();
-      page.pickerList.hidden = !page.pickerList.hidden;
-      page.pickerButton.setAttribute('aria-expanded', String(!page.pickerList.hidden));
+      current = null;
+      renderEmptyProfilePicker();
+      page.pickerList.hidden = true;
+      page.pickerButton.setAttribute('aria-expanded', 'false');
+      if (location.hash !== '#profile') location.hash = 'profile';
     };
+    if (!current) renderEmptyProfilePicker();
+  }
+
+  function pickerPilots() {
+    return [...new Set(availableFlights.map(flight => flight.pilot.id))]
+      .map(id => summarize(id, availableFlights))
+      .sort((a,b) => b.minutes - a.minutes || a.name.localeCompare(b.name));
+  }
+
+  function pickerButtonsHtml(pilots) {
+    return pilots.map((pilot,index) =>
+      `<button type="button" data-picker-pilot="${esc(pilot.id)}"><span class="picker-rank">#${index+1}</span><img class="picker-avatar" src="${esc(pilotAvatarUrl(pilot.avatar))}" alt="${esc(pilot.name)}" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='https://newsky.app/api/pilot/avatar/default'}"><strong>${esc(pilot.name)}</strong><span class="picker-hours">${compactTime(pilot.minutes)}</span></button>`
+    ).join('');
+  }
+
+  function bindPickerButtons(root) {
+    root.querySelectorAll('[data-picker-pilot]').forEach(button => button.onclick = () => open(button.dataset.pickerPilot, availableFlights));
+  }
+
+  function renderEmptyProfilePicker() {
+    const page = ensureProfilePage();
+    const pilots = pickerPilots();
+    page.content.innerHTML = `<div class="profile-empty profile-empty-picker"><div class="profile-empty-title">Виберіть пілота <span class="muted">(нумерація за загальним нальотом за АК)</span></div><div class="pilot-picker-list profile-inline-picker">${pickerButtonsHtml(pilots)}</div></div>`;
+    const inlineList = page.content.querySelector('.profile-inline-picker');
+    if (inlineList) {
+      inlineList.style.gridTemplateRows = `repeat(${Math.ceil(pilots.length / 3)}, auto)`;
+      bindPickerButtons(inlineList);
+    }
   }
 
   function profileFinanceData(summary) {
@@ -792,11 +1366,11 @@
   function render() {
     if (!current || !window.UCAADashboardFlightUI) return;
     const page = ensureProfilePage();
-    const lifetime = summarize(current.id,current.flights);
+    const lifetime = summarize(current.id,availableFlights,'all');
     const selectedFlights = filterPeriod(lifetime.list,current.period);
-    const selected = summarize(current.id,selectedFlights);
-    const monthSummary = summarize(current.id,filterPeriod(lifetime.list,'monthToDate'));
-    const weekSummary = summarize(current.id,filterPeriod(lifetime.list,'weekToDate'));
+    const selected = summarize(current.id,selectedFlights,`selected:${current.period}:${current.customDate || ''}`);
+    const monthSummary = summarize(current.id,filterPeriod(lifetime.list,'monthToDate'),'monthToDate');
+    const weekSummary = summarize(current.id,filterPeriod(lifetime.list,'weekToDate'),'weekToDate');
     const completed = selected.completed;
     const rows = sortedRows(completed);
     const first = [...lifetime.list].sort((a,b) => dateOf(a)-dateOf(b))[0];
@@ -804,8 +1378,7 @@
     const firstCompleted = completedChronologically[0] || first;
     const lastCompleted = completedChronologically[completedChronologically.length-1] || first;
     const aircraft = selected.aircraft?.key.split('|');
-    const allIds = [...new Set(current.flights.map(flight => flight.pilot.id))];
-    const overall = allIds.map(id => summarize(id,current.flights));
+    const overall = overallSummaries();
     const rankOf = (ranking,id=current.id) => ranking.findIndex(item => (item.summary?.id || item.id) === id)+1;
     const medalForRank = rank => rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : '';
     const rankHtml = (rank,total=0) => rank > 0
@@ -946,7 +1519,39 @@
     const regularityK = Number(latestPay?.regularityK) || 1;
     const loyaltyTip = 'Лояльність залежить від часу в авіакомпанії та загальної кількості рейсів.\n\n×1.05 — 1 день і 1 рейс\n×1.10 — 7 днів і 5 рейсів\n×1.15 — 14 днів і 10 рейсів\n×1.20 — 1 місяць і 15 рейсів\n×1.25 — 2 місяці і 20 рейсів\n×1.30 — 3 місяці і 30 рейсів\n×1.35 — 4 місяці і 40 рейсів\n×1.40 — 5 місяців і 50 рейсів\n×1.45 — 6 місяців і 60 рейсів\n×1.50 — понад 6 місяців і понад 60 рейсів';
     const regularityTip = 'Регулярність залежить від кількості рейсів за останні періоди.\n\n×1.05 — 1 рейс за 30 днів\n×1.10 — 5 рейсів за 10 днів\n×1.20 — 10 рейсів за 20 днів\n×1.30 — 15 рейсів за 30 днів\n×1.40 — 20 рейсів за 30 днів\n×1.50 — 30+ рейсів за 30 днів';
-    const difficultyTip = 'Середнє арифметичне коефіцієнтів складності всіх літаків, на яких пілот виконував рейси. Вищий показник означає складніший у середньому флот.';
+    const difficultyVisibleTypes = new Set(companyFleetTypes);
+    availableFlights.forEach(flight => {
+      const code = String(flight.aircraft?.icao || '').trim().toUpperCase();
+      if (!code) return;
+      difficultyVisibleTypes.add(code);
+      if (String(flight.flightType || '').toLowerCase() === 'cargo'
+        && window.UCAAAircraftDifficulty?.coefficients?.[`${code}F`] != null) {
+        difficultyVisibleTypes.add(`${code}F`);
+      }
+    });
+    const defaultDifficulty = Number(window.UCAAAircraftDifficulty?.defaultCoefficient || 1.25);
+    const difficultyGroups = new Map();
+    Object.entries(window.UCAAAircraftDifficulty?.coefficients || {}).forEach(([icao,value]) => {
+      const coefficient = Number(value);
+      const code = String(icao).toUpperCase();
+      if (!Number.isFinite(coefficient) || !difficultyVisibleTypes.has(code) || coefficient === defaultDifficulty) return;
+      const codes = difficultyGroups.get(coefficient) || [];
+      codes.push(code);
+      difficultyGroups.set(coefficient,codes);
+    });
+    const difficultyRows = [...difficultyGroups.entries()]
+      .map(([coefficient,codes]) => ({
+        coefficient,
+        text:`${coefficient.toFixed(2).replace('.',',')} — ${codes.sort((a,b) => a.localeCompare(b)).join(', ')}`
+      }));
+    difficultyRows.push({
+      coefficient:defaultDifficulty,
+      text:`${defaultDifficulty.toFixed(2).replace('.',',')} — усі інші типи, відсутні у списку.`
+    });
+    const difficultyTip = [
+      'Середнє арифметичне коефіцієнтів складності літаків, на яких пілот виконував рейси.',
+      ...difficultyRows.sort((a,b) => a.coefficient-b.coefficient).map(row => row.text)
+    ].join('\n@@LINE@@\n');
     const crosswindTip = 'Середня сила бокового вітру під час посадок, для яких доступні погодні дані.\nВищий середній crosswind дає вище місце.\nЯкщо значення однакові, вище пілот із середнім FPM ближчим до нуля.';
     const metricTooltip = (ranking,fullRanking,valueFn,formatFn,label) => {
       if (!ranking.length) return `Рейтинг «${label}» ще не сформовано.`;
@@ -970,6 +1575,10 @@
     const difficultyValueTip = ratedTip(difficultyRanking,difficultyFullRanking,averageDifficulty,value=>value.toFixed(2),'середня складність літака');
     const crosswindValueTip = ratedTip(crosswindRanking,crosswindFullRanking,averageCrosswind,value=>`${value.toFixed(1)} kt`,'середній crosswind');
     const avatar = avatarUrl(lifetime.avatar);
+    const simStats = simulatorSummary(lifetime.completed);
+    const simBadge = simStats.leader
+      ? `<span class="profile-sim-badge profile-tip" data-tooltip="${esc(simStats.tooltip)}">${esc(simStats.leader.label)}</span>`
+      : '';
     const aircraftOptions = [...new Map(completed.map(flight => [aircraftKey(flight),{
       key:aircraftKey(flight),
       icao:String(flight.aircraft?.icao || '').toUpperCase(),
@@ -978,7 +1587,7 @@
     const selectedAircraft = aircraftOptions.find(item => item.key === current.aircraft);
 
     page.content.innerHTML = `<div class="profile-v2">
-      <div class="profile-identity"><img class="profile-avatar" src="${esc(avatar)}" alt="${esc(lifetime.name)}" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='https://newsky.app/api/pilot/avatar/default'}"><div class="profile-person"><h3>${esc(lifetime.name)}</h3><span class="profile-badge">Пілот</span><br><small>Перший політ: ${firstCompleted?dateOf(firstCompleted).toLocaleDateString('uk-UA',{timeZone:'UTC'}):'—'}</small><br><small>Крайній політ: ${lastCompleted?dateOf(lastCompleted).toLocaleDateString('uk-UA',{timeZone:'UTC'}):'—'}</small></div>${aircraftAwardsHtml(lifetime)}</div>
+      <div class="profile-identity"><div class="profile-avatar-wrap"><img class="profile-avatar" src="${esc(avatar)}" alt="${esc(lifetime.name)}" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='https://newsky.app/api/pilot/avatar/default'}">${simBadge}</div><div class="profile-person"><h3>${esc(lifetime.name)}</h3><div class="profile-newsky-row"><a class="profile-badge profile-tip" data-tooltip="Відкрити профіль пілота у NewSky" href="https://newsky.app/pilot/${encodeURIComponent(lifetime.id)}" target="_blank" rel="noopener noreferrer">NewSky</a><a class="profile-badge profile-tip" data-tooltip="Відкрити список всіх нагород у NewSky" href="https://newsky.app/airline/ukl/awards" target="_blank" rel="noopener noreferrer">Список Awards</a></div><small>Перший політ: ${firstCompleted?dateOf(firstCompleted).toLocaleDateString('uk-UA',{timeZone:'UTC'}):'—'}</small><br><small>Крайній політ: ${lastCompleted?dateOf(lastCompleted).toLocaleDateString('uk-UA',{timeZone:'UTC'}):'—'}</small></div>${aircraftAwardsHtml(lifetime)}</div>
       <div class="profile-section-title">ЗАГАЛЬНА ІНФОРМАЦІЯ ПРО ПІЛОТА</div>
       <table class="profile-overall"><colgroup><col style="width:14%"><col style="width:19%"><col style="width:16.7%"><col style="width:20%"><col style="width:calc(13.3% + 8px)"><col style="width:calc(17% - 8px)"></colgroup><tbody>
         <tr><th>Наліт за весь час</th><td class="profile-tip" data-tooltip="${esc(hoursValueTip)}">${compactTime(lifetime.minutes)}<span class="profile-divider">|</span>${rankHtml(hoursRank,hoursRanking.length)}</td><th>Прибуток для АК</th><td class="profile-tip" data-tooltip="${esc(profitValueTip)}">${money(lifetime.companyProfit,true)}<span class="profile-divider">|</span>${rankHtml(profitRank,profitRanking.length)}</td><th class="profile-tip" data-tooltip="${esc(cleanNameTip)}">Польотів без штрафів</th><td class="profile-tip" data-tooltip="${esc(cleanValueTip)}">${currentQuality.cleanPct.toFixed(0)}%<span class="profile-divider">|</span>${rankHtml(cleanRank,cleanRanking.length)}</td></tr>
@@ -1000,7 +1609,18 @@
       const [mainText,excludedText=''] = String(element.dataset.tooltip || '').split('\n@@EXCLUDED@@\n');
       const box = document.createElement('span');
       box.className = 'profile-tooltip-box';
-      box.textContent = mainText;
+      const sections = mainText.split('\n@@LINE@@\n');
+      sections.forEach((section,index) => {
+        if (index) {
+          const rule = document.createElement('hr');
+          rule.className = 'profile-tooltip-rule';
+          box.appendChild(rule);
+        }
+        const text = document.createElement('span');
+        text.className = 'profile-tooltip-section';
+        text.textContent = section;
+        box.appendChild(text);
+      });
       if (excludedText) {
         const excluded = document.createElement('em');
         excluded.className = 'profile-tooltip-excluded';
@@ -1008,6 +1628,49 @@
         box.appendChild(excluded);
       }
       element.appendChild(box);
+    });
+    const getMobileProfileTooltip = () => {
+      let box = document.getElementById('mobileProfileInfoTooltip');
+      if (!box) {
+        box = document.createElement('div');
+        box.id = 'mobileProfileInfoTooltip';
+        box.className = 'mobile-profile-info-tooltip';
+        box.hidden = true;
+        document.body.appendChild(box);
+        document.addEventListener('click', event => {
+          if (!isMobileProfileView()) return;
+          if (box.hidden) return;
+          if (box.contains(event.target)) return;
+          if (event.target.closest?.('.profile-overall')) return;
+          box.hidden = true;
+        });
+        document.addEventListener('keydown', event => {
+          if (event.key === 'Escape') box.hidden = true;
+        });
+      }
+      return box;
+    };
+    const profileOverallTipSource = cell => {
+      if (cell?.matches?.('.profile-tip[data-tooltip]')) return cell;
+      const next = cell?.nextElementSibling;
+      if (next?.matches?.('.profile-tip[data-tooltip]')) return next;
+      const prev = cell?.previousElementSibling;
+      if (prev?.matches?.('.profile-tip[data-tooltip]')) return prev;
+      return null;
+    };
+    page.content.querySelectorAll('.profile-overall th,.profile-overall td').forEach(cell => {
+      cell.addEventListener('click', event => {
+        if (!isMobileProfileView()) return;
+        const source = profileOverallTipSource(cell);
+        if (!source) return;
+        const sourceBox = source.querySelector('.profile-tooltip-box');
+        if (!sourceBox) return;
+        event.preventDefault();
+        event.stopPropagation();
+        const mobileBox = getMobileProfileTooltip();
+        mobileBox.innerHTML = sourceBox.innerHTML;
+        mobileBox.hidden = false;
+      });
     });
     renderFinanceAndPies(selected);
     page.content.querySelectorAll('[data-profile-period]').forEach(button => button.onclick = () => {
@@ -1074,14 +1737,21 @@
     page.pickerButton.setAttribute('aria-expanded','false');
     page.pickerList.hidden = true;
     const tab = document.querySelector('#profileTabLink');
-    if (tab) tab.textContent = `Профіль ${lifetime.name}`;
+    if (tab) tab.textContent = 'Профіль Пілота';
+  }
+
+  function warmProfileCaches() {
+    if (!availableFlights.length) return;
+    overallSummaries();
+    buildAircraftAwardStatsCache();
+    buildMonthlyAwardsCache();
+    if (newskyAwardRequirements) buildNewskyAwardStatsCache();
   }
 
   function open(id, flights) {
     setFlights(flights);
     const latest = [...availableFlights].sort((a,b) => dateOf(b)-dateOf(a))[0];
     referenceNow = latest ? new Date(dateOf(latest).getTime()+1) : new Date();
-    const pilotFlights = availableFlights.filter(flight => flight.pilot.id === id);
     current = {
       id,
       flights:availableFlights,
@@ -1096,9 +1766,19 @@
   }
 
   function setFlights(flights) {
-    availableFlights = Array.isArray(flights) ? flights : [];
-    aircraftAwardStatsCache = null;
+    const nextFlights = Array.isArray(flights) ? flights : [];
+    const nextSignature = profileCacheSignature(nextFlights);
+    const sameFlights = nextSignature === profileFlightsSignature && nextFlights.length === availableFlights.length;
+    if (sameFlights) {
+      if (current) current.flights = availableFlights;
+      return;
+    }
+    availableFlights = nextFlights;
+    resetProfileCaches(nextSignature);
+    loadNewskyAwardRequirements();
+    loadCompanyFleetTypes();
     insuranceCoverage = window.UCAAInsurance?.coverageMap(availableFlights) || new Map();
+    warmProfileCaches();
     renderPicker();
     if (current) {
       const latest = [...availableFlights].sort((a,b) => dateOf(b)-dateOf(a))[0];
@@ -1109,10 +1789,13 @@
   }
 
   addEventListener('hashchange', () => {
-    if (location.hash === '#profile' && !current) {
+    if (location.hash === '#profile') {
       const page = ensureProfilePage();
-      page.pickerList.hidden = false;
-      page.pickerButton.setAttribute('aria-expanded','true');
+      if (!current) {
+        renderEmptyProfilePicker();
+      }
+      page.pickerList.hidden = true;
+      page.pickerButton.setAttribute('aria-expanded','false');
     }
   });
   function mostActiveMonthPilot() {
@@ -1123,15 +1806,15 @@
   }
   document.addEventListener('click', event => {
     const page = ensureProfilePage();
-    if (event.target.closest('#profileTabLink') && !current) {
-      const id = mostActiveMonthPilot();
-      if (id) {
-        event.preventDefault();
-        open(id,availableFlights);
-        return;
-      }
+    if (event.target.closest('#profileTabLink')) {
+      current = null;
+      renderEmptyProfilePicker();
+      page.pickerList.hidden = true;
+      page.pickerButton.setAttribute('aria-expanded','false');
+      if (location.hash !== '#profile') location.hash = 'profile';
+      return;
     }
-    if (!event.target.closest('#profileTabLink') && !event.target.closest('#pilotPickerList')) {
+    if (!event.target.closest('#pilotPickerList')) {
       page.pickerList.hidden = true;
       page.pickerButton.setAttribute('aria-expanded','false');
     }
@@ -1141,5 +1824,32 @@
     }
   });
 
-  window.UCAAPilotProfile = {open,setFlights};
+  function cardAwards(pilotId) {
+    const aircraftAwards = aircraftAwardStats(pilotId);
+    const aircraft = {
+      bronze:aircraftAwards.filter(award => award.level === 2).length,
+      silver:aircraftAwards.filter(award => award.level === 3).length,
+      gold:aircraftAwards.filter(award => award.level === 4).length
+    };
+    const monthly = monthlyAwardsForPilot(pilotId).length;
+    const newsky = newskyAwardRequirements ? (buildNewskyAwardStatsCache().byPilot.get(pilotId) || []).length : 0;
+    return {aircraft, monthly, newsky};
+  }
+
+  function cardAircraftAwardsHtml(pilotId) {
+    const awards = aircraftAwardStats(pilotId);
+    if (!awards.length) return '';
+    const bestLevel = Math.max(...awards.map(award => award.level || 0));
+    const visible = awards
+      .filter(award => bestLevel > 1 ? award.level === bestLevel : award.level === 1 && award.flights.length >= 5)
+      .sort((a,b) => b.level-a.level || b.flights.length-a.flights.length || a.family.localeCompare(b.family,'uk'))
+      .slice(0,2);
+    return visible.map((award,index) => {
+      const familyAwards = buildAircraftAwardStatsCache().byFamily.get(award.family) || [];
+      const tooltip = aircraftAwardTooltipHtml(award,familyAwards);
+      return `<span class="pilot-card-aircraft-award level-${award.level} manufacturer-${aircraftAwardManufacturer(award.family)} ${award.leader?'aircraft-award-leader':''}" data-award-tooltip="${esc(tooltip)}" title="${esc(tooltip.replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim())}">${aircraftAwardDecor(award.level,`pilot-card-${pilotId}-${award.family}-${index}`)}<span class="aircraft-award-circle"><span>${esc(award.family)}</span></span></span>`;
+    }).join('');
+  }
+
+  window.UCAAPilotProfile = {open,setFlights,cardAwards,cardAircraftAwardsHtml,warmProfileCaches};
 })();

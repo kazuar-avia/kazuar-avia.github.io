@@ -186,6 +186,33 @@
     archiveFlights.forEach(flight => unique.set(flight.id, flight));
     currentFlights.forEach(flight => unique.set(flight.id, flight));
     const flights = [...unique.values()];
+    const latestPilotIdentity = new Map();
+    flights.forEach(flight => {
+      const pilotId = String(flight.pilot?.id || '');
+      if (!pilotId) return;
+      const timestamp = new Date(
+        flight.times?.closed
+        || flight.times?.actualArrival
+        || flight.times?.takeoff
+        || flight.times?.actualDeparture
+        || flight.times?.scheduledDeparture
+        || 0
+      ).getTime();
+      const known = latestPilotIdentity.get(pilotId);
+      if (!known || timestamp > known.timestamp) {
+        latestPilotIdentity.set(pilotId,{
+          timestamp,
+          name:flight.pilot?.name || known?.name || 'Pilot',
+          avatar:flight.pilot?.avatar || known?.avatar || null
+        });
+      }
+    });
+    flights.forEach(flight => {
+      const identity = latestPilotIdentity.get(String(flight.pilot?.id || ''));
+      if (!identity) return;
+      flight.pilot.name = identity.name;
+      if (identity.avatar) flight.pilot.avatar = identity.avatar;
+    });
     const latest = [...currentFlights].sort((a, b) => new Date(b.times.actualArrival || b.times.closed) - new Date(a.times.actualArrival || a.times.closed))[0] || null;
 
     return {

@@ -14,6 +14,7 @@ const app = {
   flights: [],
   referenceNow: null,
   period: 'today',
+  pilotsPeriod: 'monthToDate',
   customDate: null,
   dashboardPilotId: null,
   dashboardAircraftId: null,
@@ -21,11 +22,79 @@ const app = {
   metric: 'hours'
 };
 let pilotInsuranceCoverage = new Map();
+let pilotCardsMonthlyCache = null;
+let mobileModeManualOverride = false;
+
+function setMobileCabinetMode(enabled, manual = false) {
+  if (manual) mobileModeManualOverride = true;
+  document.body.classList.toggle('mobile-cabinet', Boolean(enabled));
+  if (enabled) {
+    const picker = document.querySelector('#pilotPickerList');
+    const profileTab = document.querySelector('#profileTabLink');
+    if (picker) picker.hidden = true;
+    if (profileTab) profileTab.setAttribute('aria-expanded', 'false');
+  }
+  const button = document.querySelector('#versionModeButton');
+  if (button) {
+    button.textContent = enabled ? '\u{1F5A5}\uFE0F' : '\u{1F4F1}';
+    button.setAttribute('aria-label', enabled ? '\u0417\u0432\u0438\u0447\u0430\u0439\u043D\u0430 \u0432\u0435\u0440\u0441\u0456\u044F' : '\u041C\u043E\u0431\u0456\u043B\u044C\u043D\u0430 \u0432\u0435\u0440\u0441\u0456\u044F');
+  }
+}
+
+function bindMobileModeTrigger(root = document) {
+  const bind = (selector, enabled) => {
+    const trigger = root.querySelector(selector);
+    if (!trigger || trigger.dataset.mobileBound) return;
+    trigger.dataset.mobileBound = '1';
+    const activate = event => {
+      event.preventDefault();
+      setMobileCabinetMode(enabled, true);
+    };
+    trigger.addEventListener('click', activate);
+    trigger.addEventListener('keydown', event => {
+      if (event.key === 'Enter' || event.key === ' ') activate(event);
+    });
+  };
+  bind('#mobileModeTrigger', true);
+  bind('#desktopModeTrigger', false);
+}
+
+function bindVersionModeButton() {
+  const button = document.querySelector('#versionModeButton');
+  if (!button || button.dataset.versionBound) return;
+  button.dataset.versionBound = '1';
+  button.addEventListener('click', event => {
+    event.preventDefault();
+    setMobileCabinetMode(!document.body.classList.contains('mobile-cabinet'), true);
+  });
+}
+
+function autoMobileCabinetMode() {
+  if (mobileModeManualOverride) return;
+  const shouldUseMobile = window.matchMedia?.('(max-width: 940px)').matches || window.innerWidth <= 940;
+  setMobileCabinetMode(shouldUseMobile);
+}
 
 const $ = selector => document.querySelector(selector);
 const $$ = selector => [...document.querySelectorAll(selector)];
 const esc = value => String(value ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const tip = lines => esc(Array.isArray(lines) ? lines.join('\n') : lines);
+const pilotAvatarUrl = value => {
+  const hash = String(value || 'default').trim();
+  return `https://newsky.app/api/pilot/avatar/${encodeURIComponent(hash && hash !== 'null' ? hash : 'default')}`;
+};
+const dashboardPilotCellHtml = pilot => `<td class="dashboard-pilot-cell" data-pilot-id="${esc(pilot.id)}" role="button" tabindex="0"><span class="dashboard-pilot-card"><img class="dashboard-pilot-avatar" src="${esc(pilotAvatarUrl(pilot.avatar))}" alt="${esc(pilot.name)}" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='https://newsky.app/api/pilot/avatar/default'}"><span class="dashboard-pilot-name">${esc(pilot.name)}</span></span></td>`;
+const bindDashboardPilotCells = () => {
+  $$('.dashboard-pilot-cell').forEach(cell => {
+    cell.onclick = () => showPilotProfile(cell.dataset.pilotId);
+    cell.onkeydown = event => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        showPilotProfile(cell.dataset.pilotId);
+      }
+    };
+  });
+};
 
 const ICAO_COUNTRY = {
   UK:{cc:'ua',name:'Україна'}, UR:{cc:'ua',name:'Україна'},
@@ -114,6 +183,140 @@ function formatLiveDataStatus(current, archive, fallbackLatest = null) {
   return `за цей тиждень: ${currentFlights.length} рейсів · минулі тижні: ${archiveFlights.length}<br>оновлено ${updatedAt}`;
 }
 
+function formatRankUpdatedAt(value) {
+  const date = new Date(value);
+  if (!Number.isFinite(date.getTime())) return '';
+  const parts = new Intl.DateTimeFormat('uk-UA', {
+    timeZone: 'UTC',
+    day: '2-digit',
+    month: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    hourCycle: 'h23'
+  }).formatToParts(date).reduce((acc, part) => {
+    acc[part.type] = part.value;
+    return acc;
+  }, {});
+  return `${parts.day}.${parts.month} в ${parts.hour}:${parts.minute} UTC`;
+}
+
+async function loadNewskyRankSubtitleLegacy() {
+  const subtitle = $('#newskyRankSubtitle');
+  if (!subtitle) return;
+  try {
+    const response = await fetch('newsky-rank.json', {cache: 'no-store'});
+    if (!response.ok) throw new Error(`rank json ${response.status}`);
+    const data = await response.json();
+    const airline = data.airline || {};
+    const rank = Number(airline.rank);
+    const flights = Number(airline.flights);
+    const aboveFlights = Number(data.above?.flights);
+    const toNext = Number.isFinite(aboveFlights) && Number.isFinite(flights)
+      ? Math.max(1, aboveFlights - flights + 1)
+      : Number(data.above?.difference || 0) + 1;
+    const toTop = Number(data.topTarget?.neededFlights);
+    const updated = formatRankUpdatedAt(data.updatedAt);
+    if (!Number.isFinite(rank) || !Number.isFinite(flights)) return;
+    const cleanFlightWord = value => {
+      const n = Math.abs(Math.round(Number(value) || 0));
+      if (n % 10 === 1 && n % 100 !== 11) return '\u043F\u043E\u043B\u0456\u0442';
+      if ([2,3,4].includes(n % 10) && ![12,13,14].includes(n % 100)) return '\u043F\u043E\u043B\u044C\u043E\u0442\u0438';
+      return '\u043F\u043E\u043B\u044C\u043E\u0442\u0456\u0432';
+    };
+    const flightWord = value => {
+      const n = Math.abs(Math.round(Number(value) || 0));
+      if (n % 10 === 1 && n % 100 !== 11) return 'політ';
+      if ([2,3,4].includes(n % 10) && ![12,13,14].includes(n % 100)) return 'польоти';
+      return 'польотів';
+    };
+    const toTopText = Number.isFinite(toTop) ? `${toTop.toLocaleString('uk-UA')} ${flightWord(toTop)}` : '—';
+    subtitle.innerHTML = `<span class="rank-subtitle-main">📊 Ми #${rank} у <a href="https://newsky.app/airlines" target="_blank" rel="noopener">рейтингу NewSky</a>!</span> Виконано ${flights.toLocaleString('uk-UA')} ${flightWord(flights)} за крайні 30 днів! 🔥<br><span class="rank-subtitle-extra">До наступного місця: ${toNext.toLocaleString('uk-UA')} ${flightWord(toNext)}, до ТОП-10: ${toTopText}. <a class="rank-join-link" href="https://newsky.app/airline/ukl/join" target="_blank" rel="noopener">Долучайся!</a>${updated ? ` (оновлено ${updated})` : ''}</span>`;
+    subtitle.innerHTML = `<span class="rank-subtitle-main"><span id="mobileModeTrigger" class="mobile-mode-trigger" role="button" tabindex="0" aria-label="РњРѕР±С–Р»СЊРЅР° РІРµСЂСЃС–СЏ">рџ”Ґ</span> рџ“Љ РњРё #${rank} Сѓ <a href="https://newsky.app/airlines" target="_blank" rel="noopener">СЂРµР№С‚РёРЅРіСѓ NewSky</a>!</span> Р’РёРєРѕРЅР°РЅРѕ ${flights.toLocaleString('uk-UA')} ${flightWord(flights)} Р·Р° РєСЂР°Р№РЅС– 30 РґРЅС–РІ!<br><span class="rank-subtitle-extra">Р”Рѕ РЅР°СЃС‚СѓРїРЅРѕРіРѕ РјС–СЃС†СЏ: ${toNext.toLocaleString('uk-UA')} ${flightWord(toNext)}, РґРѕ РўРћРџ-10: ${toTopText}. <a class="rank-join-link" href="https://newsky.app/airline/ukl/join" target="_blank" rel="noopener">Р”РѕР»СѓС‡Р°Р№СЃСЏ!</a>${updated ? ` (РѕРЅРѕРІР»РµРЅРѕ ${updated})` : ''}</span>`;
+    bindMobileModeTrigger(subtitle);
+    subtitle.innerHTML = `<span class="rank-desktop-line"><span class="rank-subtitle-main"><span id="mobileModeTrigger" class="mobile-mode-trigger" role="button" tabindex="0" aria-label="\u041C\u043E\u0431\u0456\u043B\u044C\u043D\u0430 \u0432\u0435\u0440\u0441\u0456\u044F">\u{1F4CA}</span> \u041C\u0438 #${rank} \u0443 <a href="https://newsky.app/airlines" target="_blank" rel="noopener">\u0440\u0435\u0439\u0442\u0438\u043D\u0433\u0443 NewSky</a>!</span> \u0412\u0438\u043A\u043E\u043D\u0430\u043D\u043E ${flights.toLocaleString('uk-UA')} ${cleanFlightWord(flights)} \u0437\u0430 \u043A\u0440\u0430\u0439\u043D\u0456 30 \u0434\u043D\u0456\u0432! <span id="desktopModeTrigger" class="mobile-mode-trigger" role="button" tabindex="0" aria-label="\u0417\u0432\u0438\u0447\u0430\u0439\u043D\u0430 \u0432\u0435\u0440\u0441\u0456\u044F">\u{1F525}</span></span><span class="rank-mobile-line">\u0412\u0438\u043A\u043E\u043D\u0430\u043D\u043E ${flights.toLocaleString('uk-UA')} ${cleanFlightWord(flights)} / 30 \u0434\u043D\u0456\u0432 \u{1F525} #${rank} \u043C\u0456\u0441\u0446\u0435 NewSky!</span><br><span class="rank-subtitle-extra">\u0414\u043E \u043D\u0430\u0441\u0442\u0443\u043F\u043D\u043E\u0433\u043E \u043C\u0456\u0441\u0446\u044F: ${toNext.toLocaleString('uk-UA')} ${cleanFlightWord(toNext)}, \u0434\u043E \u0422\u041E\u041F-10: ${Number.isFinite(toTop) ? `${toTop.toLocaleString('uk-UA')} ${cleanFlightWord(toTop)}` : '\u2014'}. <a class="rank-join-link" href="https://newsky.app/airline/ukl/join" target="_blank" rel="noopener">\u0414\u043E\u043B\u0443\u0447\u0430\u0439\u0441\u044F!</a>${updated ? ` (\u043E\u043D\u043E\u0432\u043B\u0435\u043D\u043E ${updated})` : ''}</span>`;
+    bindMobileModeTrigger(subtitle);
+  } catch (error) {
+    console.warn('Не вдалося оновити рейтинг NewSky', error);
+  }
+}
+
+function rankAirlineFlights(airline) {
+  return Number(airline?.stats?.recentFlights ?? airline?.recentFlights ?? airline?.flights ?? 0) || 0;
+}
+
+function rankAirlineName(airline) {
+  return airline?.fullname || airline?.shortname || airline?.icao || '—';
+}
+
+function rankAirlineFlag(airline) {
+  const code = String(airline?.countryCode || '').trim().toLowerCase();
+  if (!code) return '';
+  return `<img src="https://flagcdn.com/w20/${esc(code)}.png" class="rank-tooltip-flag" alt="${esc(code.toUpperCase())}" title="${esc(code.toUpperCase())}">`;
+}
+
+function rankTooltipRow(airlines, index) {
+  const airline = airlines[index];
+  if (!airline) return '';
+  const isOurs = String(airline.icao || '').toUpperCase() === 'UKL';
+  return `<div class="rank-tooltip-row${isOurs ? ' ours' : ''}">
+    <span class="rank-tooltip-place">#${index + 1}</span>
+    <span class="rank-tooltip-name">${esc(rankAirlineName(airline))}</span>
+    <span class="rank-tooltip-flights">${rankAirlineFlights(airline).toLocaleString('uk-UA')}</span>
+    <span class="rank-tooltip-country">${rankAirlineFlag(airline)}</span>
+  </div>`;
+}
+
+function buildNewskyRankTooltip(airlines, ourIndex) {
+  const rows = [];
+  const used = new Set();
+  const addRow = index => {
+    if (index < 0 || index >= airlines.length || used.has(index)) return;
+    rows.push(rankTooltipRow(airlines, index));
+    used.add(index);
+  };
+  for (let index = 0; index < Math.min(10, airlines.length); index += 1) addRow(index);
+  if (ourIndex > 10) rows.push('<div class="rank-tooltip-ellipsis">...</div>');
+  const catchingIndex = ourIndex - 1;
+  if (catchingIndex !== 0 && catchingIndex !== 9) addRow(catchingIndex);
+  addRow(ourIndex);
+  const belowIndex = ourIndex + 1;
+  if (belowIndex !== 9) addRow(belowIndex);
+  return rows.join('');
+}
+
+async function loadNewskyRankSubtitle() {
+  const subtitle = $('#newskyRankSubtitle');
+  if (!subtitle) return;
+  try {
+    const response = await fetch('FLIGHTS/airlines.json', {cache: 'no-store'});
+    if (!response.ok) throw new Error(`rank json ${response.status}`);
+    const data = await response.json();
+    const airlines = (Array.isArray(data) ? data : (data.airlines || data.data || [])).filter(Boolean);
+    const ourIndex = airlines.findIndex(airline => String(airline?.icao || '').toUpperCase() === 'UKL');
+    if (ourIndex < 0) return;
+    const rank = ourIndex + 1;
+    const flights = rankAirlineFlights(airlines[ourIndex]);
+    const aboveFlights = ourIndex > 0 ? rankAirlineFlights(airlines[ourIndex - 1]) : flights;
+    const top10Flights = airlines[9] ? rankAirlineFlights(airlines[9]) : flights;
+    const toNext = ourIndex > 0 ? Math.max(1, aboveFlights - flights + 1) : 0;
+    const toTop = rank > 10 ? Math.max(1, top10Flights - flights + 1) : 0;
+    const updated = formatRankUpdatedAt(data.updatedAt);
+    const cleanFlightWord = value => {
+      const n = Math.abs(Math.round(Number(value) || 0));
+      if (n % 10 === 1 && n % 100 !== 11) return '\u043F\u043E\u043B\u0456\u0442';
+      if ([2,3,4].includes(n % 10) && ![12,13,14].includes(n % 100)) return '\u043F\u043E\u043B\u044C\u043E\u0442\u0438';
+      return '\u043F\u043E\u043B\u044C\u043E\u0442\u0456\u0432';
+    };
+    const rankTooltip = buildNewskyRankTooltip(airlines, ourIndex);
+    const rankLink = `<a class="rank-tooltip-link" href="https://newsky.app/airlines" target="_blank" rel="noopener">\u0440\u0435\u0439\u0442\u0438\u043D\u0433\u0443 NewSky<span class="rank-tooltip-box">${rankTooltip}</span></a>`;
+    const toTopText = rank > 10 ? `${toTop.toLocaleString('uk-UA')} ${cleanFlightWord(toTop)}` : '\u2014';
+    subtitle.innerHTML = `<span class="rank-desktop-line"><span class="rank-subtitle-main"><span id="mobileModeTrigger" class="mobile-mode-trigger" role="button" tabindex="0" aria-label="\u041C\u043E\u0431\u0456\u043B\u044C\u043D\u0430 \u0432\u0435\u0440\u0441\u0456\u044F">\u{1F4CA}</span> \u041C\u0438 #${rank} \u0443 ${rankLink}!</span> \u0412\u0438\u043A\u043E\u043D\u0430\u043D\u043E ${flights.toLocaleString('uk-UA')} ${cleanFlightWord(flights)} \u0437\u0430 \u043A\u0440\u0430\u0439\u043D\u0456 30 \u0434\u043D\u0456\u0432! <span id="desktopModeTrigger" class="mobile-mode-trigger" role="button" tabindex="0" aria-label="\u0417\u0432\u0438\u0447\u0430\u0439\u043D\u0430 \u0432\u0435\u0440\u0441\u0456\u044F">\u{1F525}</span></span><span class="rank-mobile-line">\u0412\u0438\u043A\u043E\u043D\u0430\u043D\u043E ${flights.toLocaleString('uk-UA')} ${cleanFlightWord(flights)} / 30 \u0434\u043D\u0456\u0432 \u{1F525} #${rank} \u043C\u0456\u0441\u0446\u0435 NewSky!</span><br><span class="rank-subtitle-extra">\u0414\u043E \u043D\u0430\u0441\u0442\u0443\u043F\u043D\u043E\u0433\u043E \u043C\u0456\u0441\u0446\u044F: ${toNext.toLocaleString('uk-UA')} ${cleanFlightWord(toNext)}, \u0434\u043E \u0422\u041E\u041F-10: ${toTopText}. <a class="rank-join-link" href="https://newsky.app/airline/ukl/join" target="_blank" rel="noopener">\u0414\u043E\u043B\u0443\u0447\u0430\u0439\u0441\u044F!</a>${updated ? ` (\u043E\u043D\u043E\u0432\u043B\u0435\u043D\u043E ${updated})` : ''}</span>`;
+    bindMobileModeTrigger(subtitle);
+  } catch (error) {
+    console.warn('Не вдалося оновити рейтинг NewSky', error);
+  }
+}
+
 function referenceDate(latest) {
   const actualNow = new Date();
   if (!latest) return actualNow;
@@ -167,6 +370,11 @@ function periodBounds(period) {
   } else if (period === 'previousMonth') {
     start = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - 1, 1));
     end = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1));
+  } else if (String(period || '').startsWith('month:')) {
+    const [, value] = String(period).split(':');
+    const [year, month] = String(value || '').split('-').map(Number);
+    start = new Date(Date.UTC(year || now.getUTCFullYear(), (month || 1) - 1, 1));
+    end = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth() + 1, 1));
   }
   return {start, end};
 }
@@ -419,6 +627,393 @@ const metricInfo = {
   salary: { label: 'Зарплата*', value: p => p.salary, display: p => money(p.salary) },
   rating: { label: 'Сер. рейтинг', value: p => p.rating, display: p => p.rating ? p.rating.toFixed(2) : '—' }
 };
+
+function pilotCardsRatingClass(rating) {
+  const value = Number(rating) || 0;
+  if (value >= 10) return 'rating-perfect';
+  if (value >= 9) return 'rating-9';
+  if (value >= 8) return 'rating-8';
+  if (value >= 7) return 'rating-7';
+  if (value >= 6) return 'rating-6';
+  if (value >= 5) return 'rating-5';
+  return value > 0 ? 'rating-low' : 'rating-none';
+}
+
+function pilotCardsPeriodLabel(period = app.pilotsPeriod) {
+  if (String(period || '').startsWith('month:')) {
+    const date = pilotCardsPeriodMonthStart(period);
+    if (date) return `${String(date.getUTCMonth() + 1).padStart(2,'0')}.${date.getUTCFullYear()}`;
+  }
+  if (period === 'previousMonth') {
+    const date = pilotCardsPeriodMonthStart(period);
+    return `Минулий місяць (${String((date?.getUTCMonth() ?? 0) + 1).padStart(2,'0')})`;
+  }
+  const labels = {
+    today:'За сьогодні (з 00:00 UTC)',
+    weekToDate:'З початку тижня',
+    previousWeek:'Минулий тиждень',
+    monthToDate:'З початку місяця',
+    previousMonth:'Минулий місяць',
+    sinceRestructure:'з 01.05',
+    all:'Весь період'
+  };
+  return labels[period] || 'Весь період';
+}
+
+function pilotCardsPeriodMonthStart(period) {
+  const now = app.referenceNow || new Date();
+  if (period === 'previousMonth') return new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - 1, 1));
+  if (!String(period || '').startsWith('month:')) return null;
+  const [year, month] = String(period).slice(6).split('-').map(Number);
+  if (!year || !month) return null;
+  return new Date(Date.UTC(year, month - 1, 1));
+}
+
+function pilotCardsMonthKey(date) {
+  return `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2,'0')}`;
+}
+
+function pilotCardsMonthShortLabel(date) {
+  const month = date.toLocaleDateString('uk-UA', {month:'short', timeZone:'UTC'}).replace('.', '').toUpperCase().slice(0,3);
+  return `${month} ${String(date.getUTCFullYear()).slice(-2)}`;
+}
+
+function pilotCardsPeriodOptions() {
+  const completedDates = app.flights
+    .filter(flight => flight.status === 'completed')
+    .map(dateOf)
+    .filter(date => !Number.isNaN(date.getTime()));
+  const now = app.referenceNow || new Date();
+  const current = pilotCardsMonthStart(now);
+  const first = completedDates.length
+    ? pilotCardsMonthStart(new Date(Math.min(...completedDates.map(date => date.getTime()))))
+    : new Date(Date.UTC(2026,0,1));
+  const previous = new Date(Date.UTC(current.getUTCFullYear(), current.getUTCMonth() - 1, 1));
+  const options = [['monthToDate','З початку місяця']];
+  for (let cursor = previous; cursor >= first; cursor = new Date(Date.UTC(cursor.getUTCFullYear(), cursor.getUTCMonth() - 1, 1))) {
+    const key = cursor.getTime() === previous.getTime()
+      ? 'previousMonth'
+      : `month:${pilotCardsMonthKey(cursor)}`;
+    const label = cursor.getTime() === previous.getTime()
+      ? `Минулий місяць (${String(cursor.getUTCMonth() + 1).padStart(2,'0')})`
+      : `${String(cursor.getUTCMonth() + 1).padStart(2,'0')}.${cursor.getUTCFullYear()}`;
+    options.push([key,label]);
+  }
+  options.push(['all','Весь період']);
+  return options;
+}
+
+function pilotCardSummary(pilot) {
+  const completed = pilot.flights.filter(flight => flight.status === 'completed');
+  const ratings = completed.map(flight => Number(flight.rating)).filter(value => value > 0);
+  const first = [...completed].sort((a,b) => dateOf(a) - dateOf(b))[0] || null;
+  const last = [...completed].sort((a,b) => dateOf(b) - dateOf(a))[0] || null;
+  const avatarFlight = [...pilot.flights].reverse().find(flight => flight.pilot?.avatar) || pilot.flights[0];
+  return {
+    ...pilot,
+    completedFlights:completed,
+    first,
+    last,
+    avatar:avatarFlight?.pilot?.avatar || 'default',
+    rating:ratings.length ? sum(ratings, value => value) / ratings.length : 0,
+    minutes:sum(completed, flight => flight.times.durationMinutes),
+    companyProfit:sum(completed, flight => directFlightFinance(flight).companyProfit),
+    salary:sum(completed, pilotPay)
+  };
+}
+
+function pilotCardLiveMedals(pilots) {
+  const medalMap = new Map(pilots.map(pilot => [pilot.id, 0]));
+  const ranked = [
+    pilot => pilot.minutes,
+    pilot => pilot.completedFlights.length,
+    pilot => pilot.rating,
+    pilot => pilot.companyProfit,
+    pilot => pilot.salary
+  ];
+  ranked.forEach(valueFn => {
+    [...pilots]
+      .filter(pilot => pilot.completedFlights.length >= 10 && valueFn(pilot) > 0)
+      .sort((a,b) => valueFn(b) - valueFn(a) || a.name.localeCompare(b.name,'uk'))
+      .slice(0,3)
+      .forEach(pilot => medalMap.set(pilot.id, (medalMap.get(pilot.id) || 0) + 1));
+  });
+  return medalMap;
+}
+
+function pilotCardsMonthStart(date) {
+  return new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), 1));
+}
+
+function pilotCardsMonthLabel(date) {
+  return date.toLocaleDateString('uk-UA', {month:'long', year:'numeric', timeZone:'UTC'});
+}
+
+function pilotCardsNextAwardDate(date) {
+  return new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth() + 1, 1))
+    .toLocaleDateString('uk-UA', {day:'2-digit', month:'2-digit', year:'numeric', timeZone:'UTC'});
+}
+
+function pilotCardsCleanQuality(flights) {
+  const eligible = flights.filter(flight => Number(flight.rating) > 0 && !flight.operations?.emergency);
+  let clean = 0;
+  eligible.forEach(flight => {
+    const finance = directFlightFinance(flight);
+    const pay = finance.pilotPay || {};
+    const isClean = Math.max(0,Number(flight.finance?.penalties)||0) === 0
+      && Math.max(0,Number(pay.delayDeduction)||0) === 0
+      && Math.max(0,Number(pay.fdrPenalty)||0) === 0
+      && Math.max(0,Number(pay.incidentLiability)||0) === 0
+      && Math.max(0,Number(pay.insuranceLiability)||0) === 0
+      && !pay.seriousIncident
+      && Math.max(0,Number(pay.insuranceCase)||0) === 0;
+    if (isClean) clean += 1;
+  });
+  return {
+    eligible:eligible.length,
+    clean,
+    percent:eligible.length ? clean / eligible.length * 100 : 0
+  };
+}
+
+function pilotCardsMonthSummary(pilotId, pilotFlights) {
+  const completed = pilotFlights.filter(flight => flight.status === 'completed');
+  const rated = completed.filter(flight => Number(flight.rating) > 0 && !flight.operations?.emergency);
+  const finances = completed.map(flight => directFlightFinance(flight));
+  return {
+    id:pilotId,
+    name:completed[0]?.pilot?.name || pilotFlights[0]?.pilot?.name || '',
+    flights:completed.length,
+    ratedFlights:rated.length,
+    minutes:sum(completed, flight => flight.times.durationMinutes),
+    rating:rated.length ? sum(rated, flight => Number(flight.rating) || 0) / rated.length : 0,
+    companyProfit:sum(finances, finance => finance.companyProfit),
+    salary:sum(completed, pilotPay),
+    difficulty:completed.length ? sum(completed, flight => aircraftCoefficient(flight.aircraft?.icao, flight.flightType)) / completed.length : 0,
+    scheduledFlights:completed.filter(flight => Boolean(flight.operations?.scheduled)).length,
+    charterFlights:completed.filter(flight => Boolean(flight.operations?.charter)).length,
+    quality:pilotCardsCleanQuality(completed)
+  };
+}
+
+function buildPilotCardsMonthlyCache() {
+  const completed = app.flights.filter(flight => flight.status === 'completed' && flight.pilot?.id);
+  const latest = completed.reduce((max, flight) => Math.max(max, dateOf(flight).getTime() || 0), 0);
+  const earned = new Map();
+  const pending = new Map();
+  const monthAwards = new Map();
+  const currentMonth = pilotCardsMonthStart(app.referenceNow || new Date());
+  const cacheKey = `${completed.length}:${latest}:${pilotCardsMonthKey(currentMonth)}`;
+  if (pilotCardsMonthlyCache?.cacheKey === cacheKey) return pilotCardsMonthlyCache;
+  const byMonth = new Map();
+  completed.forEach(flight => {
+    const date = dateOf(flight);
+    const monthStart = pilotCardsMonthStart(date);
+    const key = pilotCardsMonthKey(monthStart);
+    if (!byMonth.has(key)) byMonth.set(key, {monthStart, flights:[]});
+    byMonth.get(key).flights.push(flight);
+  });
+
+  const definitions = [
+    {key:'hours', emoji:'⏱️', label:'Найбільший наліт', value:item=>item.minutes, format:value=>formatMinutes(value), eligible:item=>item.minutes>0},
+    {key:'flights', emoji:'🛫', label:'Найбільша кількість рейсів', value:item=>item.flights, format:value=>`${value} рейсів`, eligible:item=>item.flights>0},
+    {key:'rating', emoji:'✅', label:'Найвищий середній рейтинг', value:item=>item.rating, format:value=>value.toFixed(2), eligible:item=>item.ratedFlights>=10},
+    {key:'profit', emoji:'💵', label:'Найбільший прибуток авіакомпанії', value:item=>item.companyProfit, format:value=>money(value,true), eligible:item=>item.companyProfit>0},
+    {key:'salary', emoji:'👷', label:'Найбільша зарплата пілота', value:item=>item.salary, format:value=>money(value,true), eligible:item=>item.salary>0},
+    {key:'difficulty', emoji:'⚙️', label:'Найвища середня складність літака', value:item=>item.difficulty, format:value=>value.toFixed(2), eligible:item=>item.difficulty>0},
+    {key:'clean', emoji:'🧑‍✈️', label:'Найбільший відсоток польотів без штрафів', value:item=>item.quality.percent, format:(value,item)=>`${value.toFixed(0)}% (${item.quality.clean}/${item.quality.eligible})`, eligible:item=>item.quality.eligible>=10},
+    {key:'scheduleFlights', emoji:'📅', label:'Найбільше schedule-рейсів', value:item=>item.scheduledFlights, format:value=>`${value} рейсів`, eligible:item=>item.scheduledFlights>=5},
+    {key:'charterFlights', emoji:'📅', label:'Найбільше charter-рейсів', value:item=>item.charterFlights, format:value=>`${value} рейсів`, eligible:item=>item.charterFlights>=5}
+  ];
+
+  byMonth.forEach(({monthStart, flights}) => {
+    const pilotGroups = new Map();
+    flights.forEach(flight => {
+      const list = pilotGroups.get(flight.pilot.id) || [];
+      list.push(flight);
+      pilotGroups.set(flight.pilot.id, list);
+    });
+    const candidates = [...pilotGroups.entries()]
+      .map(([pilotId, pilotFlights]) => pilotCardsMonthSummary(pilotId, pilotFlights))
+      .filter(item => item.flights > 0);
+    const isCurrent = monthStart.getTime() === currentMonth.getTime();
+    definitions.forEach(definition => {
+      const ranked = candidates
+        .filter(item => definition.eligible(item))
+        .sort((a,b) => definition.value(b) - definition.value(a) || b.flights - a.flights || a.name.localeCompare(b.name,'uk'));
+      const winner = ranked[0];
+      if (!winner) return;
+      const runnerUp = ranked.find(item => item.id !== winner.id) || null;
+      const award = {
+        key:definition.key,
+        emoji:definition.emoji,
+        label:definition.label,
+        month:pilotCardsMonthLabel(monthStart),
+        monthShort:pilotCardsMonthShortLabel(monthStart),
+        monthKey:pilotCardsMonthKey(monthStart),
+        awardDate:pilotCardsNextAwardDate(monthStart),
+        value:definition.value(winner),
+        formatted:definition.format(definition.value(winner), winner),
+        runnerUp:runnerUp ? {
+          id:runnerUp.id,
+          name:runnerUp.name,
+          value:definition.value(runnerUp),
+          formatted:definition.format(definition.value(runnerUp), runnerUp)
+        } : null
+      };
+      const target = isCurrent ? pending : earned;
+      const current = target.get(winner.id) || [];
+      current.push(award);
+      target.set(winner.id, current);
+      if (!isCurrent) {
+        const monthMap = monthAwards.get(award.monthKey) || new Map();
+        const monthPilotAwards = monthMap.get(winner.id) || [];
+        monthPilotAwards.push(award);
+        monthMap.set(winner.id, monthPilotAwards);
+        monthAwards.set(award.monthKey, monthMap);
+      }
+    });
+  });
+
+  pilotCardsMonthlyCache = {cacheKey, earned, pending, monthAwards};
+  return pilotCardsMonthlyCache;
+}
+
+function pilotCardPendingIcon(pending) {
+  if (pending.length > 1) return `<b class="multi">${pending.length}</b>`;
+  const emoji = pending[0]?.emoji || '';
+  const allowed = new Set(['✅','⏱️','👷','🧑‍✈️','🛫','💵','⚙️']);
+  return `<b>${allowed.has(emoji) ? emoji : '🛫'}</b>`;
+}
+
+function pilotCardAwardTooltipLine(award) {
+  return `• ${esc(award.label)}<br><span class="tooltip-award-month">${esc(award.month)}</span><br><span class="tooltip-award-value">${esc(award.formatted)} за місяць</span>`;
+}
+
+function pilotCardPastAwardsTooltip(awards, specific = false) {
+  if (!awards.length) return '';
+  const header = specific
+    ? `Пілот отримав ${awards.length} ${awards.length === 1 ? 'нагороду' : 'нагороди'} за ${esc(awards[0].month)}:`
+    : `Пілот вже отримав ${awards.length} нагород за минулі періоди:`;
+  return `<div><strong>${header}</strong><br>${awards.map(pilotCardAwardTooltipLine).join('<br>')}</div>`;
+}
+
+function pilotCardLiveAwardsTooltip(awards) {
+  if (!awards.length) return '';
+  const month = awards[0].month;
+  const header = awards.length === 1
+    ? `Пілот поки що лідирує у битві за нагороду за ${esc(month)}:`
+    : `Пілот поки що лідирує у битві за нагородами за ${esc(month)}:`;
+  const rows = awards.map(award => {
+    const chase = award.runnerUp
+      ? `але його переслідує ${esc(award.runnerUp.name)} з ${esc(award.runnerUp.formatted)}.`
+      : 'і його ніхто не переслідує.';
+    return `${pilotCardAwardTooltipLine(award)}<br>${chase}`;
+  });
+  return `<div><strong>${header}</strong><br>${rows.join('<br><br>')}</div>`;
+}
+
+function pilotCardDiamondHtml(kind, awards, tooltip, centerText = null, extraClass = '') {
+  if (!awards.length) return '';
+  const isLive = kind === 'pending';
+  const icon = isLive
+    ? pilotCardPendingIcon(awards)
+    : (centerText ? `<b${awards.length > 1 ? ' class="multi"' : ''}>${awards.length > 1 ? awards.length : '↩'}</b>` : `<b>↩</b>`);
+  const text = centerText || (isLive ? 'LIVE' : String(awards.length));
+  return `<span class="pilot-card-diamond ${kind} ${extraClass}" data-award-tooltip="${esc(tooltip)}"><i></i>${icon}<span>${esc(text)}</span><em>🥇</em></span>`;
+}
+
+function pilotCardAwardsHtml(pilot, period = app.pilotsPeriod) {
+  const monthly = buildPilotCardsMonthlyCache();
+  const earned = monthly.earned.get(pilot.id) || [];
+  const pending = monthly.pending.get(pilot.id) || [];
+  const selectedMonth = pilotCardsPeriodMonthStart(period);
+  const selectedMonthAwards = selectedMonth ? (monthly.monthAwards.get(pilotCardsMonthKey(selectedMonth))?.get(pilot.id) || []) : [];
+  const showLive = period === 'monthToDate';
+  const pieces = [];
+  const aircraftAwards = window.UCAAPilotProfile?.cardAircraftAwardsHtml?.(pilot.id) || '';
+  if (aircraftAwards) pieces.push(aircraftAwards);
+  if (selectedMonthAwards.length > 0) {
+    pieces.push(pilotCardDiamondHtml('earned', selectedMonthAwards, pilotCardPastAwardsTooltip(selectedMonthAwards, true), selectedMonthAwards[0].monthShort, 'month-specific'));
+  } else if (!selectedMonth && earned.length > 0) {
+    pieces.push(pilotCardDiamondHtml('earned', earned, pilotCardPastAwardsTooltip(earned, false)));
+  }
+  if (showLive && pending.length > 0) pieces.push(pilotCardDiamondHtml('pending', pending, pilotCardLiveAwardsTooltip(pending)));
+  return pieces.join('');
+}
+
+function wirePilotCardsAwardTooltips() {
+  document.querySelector('#pilotCardsAwardTooltip')?.remove();
+  const tooltip = document.createElement('div');
+  tooltip.id = 'pilotCardsAwardTooltip';
+  tooltip.className = 'profile-aircraft-award-tooltip';
+  tooltip.hidden = true;
+  document.body.appendChild(tooltip);
+  const show = element => {
+    tooltip.innerHTML = element.dataset.awardTooltip || '';
+    tooltip.hidden = false;
+    const rect = element.getBoundingClientRect();
+    const width = tooltip.offsetWidth;
+    const height = tooltip.offsetHeight;
+    tooltip.style.left = `${Math.min(window.innerWidth - width - 8, Math.max(8, rect.left + rect.width / 2 - width / 2))}px`;
+    tooltip.style.top = `${Math.min(window.innerHeight - height - 8, Math.max(8, rect.bottom + 6))}px`;
+  };
+  const hide = () => { tooltip.hidden = true; };
+  $$('#pilotsView [data-award-tooltip]').forEach(element => {
+    if (element.title) {
+      element.dataset.nativeTitle = element.title;
+      element.removeAttribute('title');
+    }
+    element.addEventListener('mouseenter', () => show(element));
+    element.addEventListener('mouseleave', hide);
+  });
+}
+
+function renderPilotsCardsPage() {
+  const view = $('#pilotsView');
+  if (!view) return;
+  const period = app.pilotsPeriod || 'all';
+  const periodFlights = flightsForPeriod(period);
+  const lifetimeRows = new Map(
+    aggregatePilotFlights(app.flights).map(pilot => [pilot.id, pilotCardSummary(pilot)])
+  );
+  const pilotRows = aggregatePilotFlights(periodFlights)
+    .filter(pilot => pilot.completed > 0)
+    .map(pilotCardSummary)
+    .sort((a,b) => b.completedFlights.length - a.completedFlights.length || b.minutes - a.minutes || a.name.localeCompare(b.name,'uk'));
+  const periodButtons = pilotCardsPeriodOptions();
+  view.innerHTML = `<section class="bar pilots-period-bar"><h2>ПЕРІОД:</h2><div class="periods" aria-label="Період сторінки пілотів">${periodButtons.map(([key,label]) => `<button data-pilots-period="${key}" class="${period===key?'active':''}">${label}</button>`).join('')}</div><div class="pilots-active-count">Активних пілотів: <strong>${pilotRows.length}</strong></div></section><div id="pilotCardsGrid" class="pilot-cards-grid">${pilotRows.length ? pilotRows.map((pilot,index) => {
+    const rating = pilot.rating ? pilot.rating.toFixed(2) : '—';
+    const hours = Math.round(pilot.minutes / 60);
+    const awards = pilotCardAwardsHtml(pilot, period);
+    const awardsBlock = awards ? `<div class="pilot-card-awards">${awards}</div>` : '';
+    const lifetime = lifetimeRows.get(pilot.id) || pilot;
+    return `<article class="pilot-card" data-pilot-id="${esc(pilot.id)}"><div class="pilot-card-row pilot-card-row-open pilot-card-name">#${index+1} ${esc(pilot.name)}</div><div class="pilot-card-row pilot-card-row-open pilot-card-visual-row"><div class="pilot-card-main"><img class="pilot-card-avatar" src="${esc(pilotAvatarUrl(pilot.avatar))}" alt="${esc(pilot.name)}" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='https://newsky.app/api/pilot/avatar/default'}"></div><div class="pilot-card-stats"><div class="pilot-card-side">${pilot.completedFlights.length}<small>рейсів</small></div><div class="pilot-card-rating"><span class="rating-badge ${pilotCardsRatingClass(pilot.rating)}">${rating}</span></div><div class="pilot-card-side">${hours}<small>годин</small></div></div></div><div class="pilot-card-row pilot-card-row-open pilot-card-money">Прибуток АК: <span class="${pilot.companyProfit>=0?'positive':'negative'}">${money(pilot.companyProfit,true)}</span><br>Зарплата: ${money(pilot.salary)}</div><div class="pilot-card-row pilot-card-awards">${awards}</div><div class="pilot-card-row pilot-card-dates">Перший політ: ${lifetime.first?dateOf(lifetime.first).toLocaleDateString('uk-UA',{timeZone:'UTC'}):'—'}<br>Крайній політ: ${lifetime.last?dateOf(lifetime.last).toLocaleDateString('uk-UA',{timeZone:'UTC'}):'—'}</div></article>`;
+  }).join('') : `<div class="loading">За період «${esc(pilotCardsPeriodLabel(period))}» завершених рейсів немає</div>`}</div>`;
+  $$('#pilotsView [data-pilots-period]').forEach(button => button.onclick = () => {
+    app.pilotsPeriod = button.dataset.pilotsPeriod || 'all';
+    renderPilotsCardsPage();
+  });
+  $$('#pilotsView .pilot-card').forEach(card => {
+    card.removeAttribute('role');
+    card.removeAttribute('tabindex');
+    card.removeAttribute('title');
+  });
+  $$('#pilotsView .pilot-card-row-open').forEach(zone => {
+    const card = zone.closest('.pilot-card');
+    zone.tabIndex = 0;
+    zone.setAttribute('role','button');
+    zone.title ||= 'Відкрити профіль пілота';
+    zone.onclick = () => showPilotProfile(card.dataset.pilotId);
+    zone.onkeydown = event => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        showPilotProfile(card.dataset.pilotId);
+      }
+    };
+  });
+  wirePilotCardsAwardTooltips();
+}
 
 function landingStats(flight) {
   for (const violation of flight.operations?.violations || []) {
@@ -1140,7 +1735,7 @@ function renderDashboardFlightsOld(completed) {
     const rating = flightRatingPresentation(flight);
     return `<tr>
       <td>${date.toLocaleDateString('uk-UA',{timeZone:'UTC'})}<span class="date-flight-meta"><span class="date-flight-time">${date.toLocaleTimeString('uk-UA',{timeZone:'UTC',hour:'2-digit',minute:'2-digit'})}</span><a class="flight-number-link flight-number-${operation.key}" href="https://newsky.app/flight/${encodeURIComponent(flight.id)}" target="_blank" rel="noopener" title="${operation.label}">${esc(flight.flightNumber||'—')}</a></span></td>
-      <td><button class="pilot-link dashboard-pilot-link" data-id="${esc(flight.pilot.id)}">${esc(flight.pilot.name)}</button></td>
+      ${dashboardPilotCellHtml(flight.pilot)}
       <td class="route"><span class="route-airports">${airportWithFlag(flight.departure)} → ${airportWithFlag(flight.arrival)}</span><span class="route-duration">${formatMinutes(flight.times.durationMinutes)}</span></td>
       <td>${esc(flight.aircraft.name)}<span class="flight-note">${esc(flight.aircraft.icao)}</span></td>
       <td><span class="payload-value" title="${payloadKind.label}">${esc(flightLoad(flight))}<span class="load-kind-icon" aria-hidden="true">${payloadKind.icon}</span></span></td>
@@ -1149,7 +1744,7 @@ function renderDashboardFlightsOld(completed) {
       <td class="finance-click-cell pilot-salary-detail ${salaryVisual.className}" data-flight-id="${esc(flight.id)}" role="button" tabindex="0">${money(direct.pilotSalary,true)}${salaryVisual.note?`<span class="profit-incident-note ${salaryVisual.noteClass||''}">${esc(salaryVisual.note)}</span>`:''}</td>
     </tr>`;
   }).join('') : '<tr><td colspan="8" class="loading">За вибраний період завершених рейсів немає</td></tr>';
-  $$('.dashboard-pilot-link').forEach(button=>button.onclick=()=>showPilotProfile(button.dataset.id));
+  bindDashboardPilotCells();
   $$('.rating-detail').forEach(button=>button.onclick=()=>{const flight=app.flights.find(item=>item.id===button.dataset.flightId);if(flight)openFlightInfo(flight,'rating')});
   $$('.rating-detail').forEach(cell=>cell.onkeydown=event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();cell.click()}});
   $$('.company-profit-detail').forEach(button=>button.onclick=()=>{const flight=app.flights.find(item=>item.id===button.dataset.flightId);if(flight)openFlightInfo(flight,'finance')});
@@ -1185,6 +1780,7 @@ function render() {
   $('#pilotPayroll').previousElementSibling.textContent = 'Зарплата пілотам';
   $('#pilotPayroll').textContent = money(sum(periodFlights, pilotPay));
   $('#pilotPayroll').nextElementSibling.textContent = metricPeriod;
+  if ($('#metricHead') && $('#leaderboard')) {
   $('#metricHead').textContent = metric.label;
   $('#leaderboard').innerHTML = rows.length ? rows.map((p, index) => `
     <tr>
@@ -1195,10 +1791,20 @@ function render() {
     </tr>`).join('') : '<tr><td colspan="4" style="text-align:center;padding:18px">За цей період рейсів немає</td></tr>';
 
   $$('.pilot-link').forEach(button => button.onclick = () => showPilotProfile(button.dataset.id));
+  }
+  if (location.hash === '#pilots') renderPilotsCardsPage();
 }
 
 function showPilotProfile(id) {
   window.UCAAPilotProfile.open(id, app.flights);
+  const scrollProfileTop = () => {
+    window.scrollTo({top: 0, left: 0, behavior: 'auto'});
+    if (document.scrollingElement) document.scrollingElement.scrollTop = 0;
+  };
+  requestAnimationFrame(() => {
+    scrollProfileTop();
+    setTimeout(scrollProfileTop, 0);
+  });
 }
 
 function dashboardAircraftKey(flight) {
@@ -1393,7 +1999,7 @@ function renderDashboardFlights(completed) {
       const flight = row.flight;
       return `<tr>
         <td>${row.date.toLocaleDateString('uk-UA',{timeZone:'UTC'})}<span class="date-flight-meta"><span class="date-flight-time">${row.date.toLocaleTimeString('uk-UA',{timeZone:'UTC',hour:'2-digit',minute:'2-digit'})}</span><a class="flight-number-link flight-number-${row.operation.key}" href="https://newsky.app/flight/${encodeURIComponent(flight.id)}" target="_blank" rel="noopener" title="${row.operation.label}">${esc(flight.flightNumber||'—')}</a></span></td>
-        <td><button class="pilot-link dashboard-pilot-link" data-id="${esc(flight.pilot.id)}">${esc(flight.pilot.name)}</button></td>
+        ${dashboardPilotCellHtml(flight.pilot)}
         <td class="route"><span class="route-airports">${airportWithFlag(flight.departure)} → ${airportWithFlag(flight.arrival)}</span><span class="route-duration">${formatMinutes(flight.times.durationMinutes)}</span></td>
         <td>${esc(flight.aircraft.name)}<span class="flight-note">${esc(flight.aircraft.icao)}</span></td>
         <td><span class="payload-value" title="${row.payloadKind.label}">${esc(flightLoad(flight))}<span class="load-kind-icon" aria-hidden="true">${row.payloadKind.icon}</span></span></td>
@@ -1402,7 +2008,7 @@ function renderDashboardFlights(completed) {
         <td class="finance-click-cell pilot-salary-detail ${row.salaryVisual.className}" data-flight-id="${esc(flight.id)}" role="button" tabindex="0">${money(row.direct.pilotSalary,true)}${row.salaryVisual.note?`<span class="profit-incident-note ${row.salaryVisual.noteClass||''}">${esc(row.salaryVisual.note)}</span>`:''}</td>
       </tr>`;
     }).join('') : '<tr><td colspan="8" class="loading">За вибраний період завершених рейсів немає</td></tr>';
-    $$('.dashboard-pilot-link').forEach(button=>button.onclick=()=>showPilotProfile(button.dataset.id));
+    bindDashboardPilotCells();
     $$('.rating-detail').forEach(button=>button.onclick=()=>{const flight=app.flights.find(item=>item.id===button.dataset.flightId);if(flight)openFlightInfo(flight,'rating')});
     $$('.rating-detail').forEach(cell=>cell.onkeydown=event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();cell.click()}});
     $$('.company-profit-detail').forEach(button=>button.onclick=()=>{const flight=app.flights.find(item=>item.id===button.dataset.flightId);if(flight)openFlightInfo(flight,'finance')});
@@ -1428,7 +2034,7 @@ function renderDashboardFlightsLegacy(completed) {
     const rating = flightRatingPresentation(flight);
     return `<tr>
       <td>${date.toLocaleDateString('uk-UA',{timeZone:'UTC'})}<span class="date-flight-meta"><span class="date-flight-time">${date.toLocaleTimeString('uk-UA',{timeZone:'UTC',hour:'2-digit',minute:'2-digit'})}</span><a class="flight-number-link flight-number-${operation.key}" href="https://newsky.app/flight/${encodeURIComponent(flight.id)}" target="_blank" rel="noopener" title="${operation.label}">${esc(flight.flightNumber||'вЂ”')}</a></span></td>
-      <td><button class="pilot-link dashboard-pilot-link" data-id="${esc(flight.pilot.id)}">${esc(flight.pilot.name)}</button></td>
+      ${dashboardPilotCellHtml(flight.pilot)}
       <td class="route"><span class="route-airports">${airportWithFlag(flight.departure)} в†’ ${airportWithFlag(flight.arrival)}</span><span class="route-duration">${formatMinutes(flight.times.durationMinutes)}</span></td>
       <td>${esc(flight.aircraft.name)}<span class="flight-note">${esc(flight.aircraft.icao)}</span></td>
       <td><span class="payload-value" title="${payloadKind.label}">${esc(flightLoad(flight))}<span class="load-kind-icon" aria-hidden="true">${payloadKind.icon}</span></span></td>
@@ -1437,7 +2043,7 @@ function renderDashboardFlightsLegacy(completed) {
       <td class="finance-click-cell pilot-salary-detail ${salaryVisual.className}" data-flight-id="${esc(flight.id)}" role="button" tabindex="0">${money(direct.pilotSalary,true)}${salaryVisual.note?`<span class="profit-incident-note ${salaryVisual.noteClass||''}">${esc(salaryVisual.note)}</span>`:''}</td>
     </tr>`;
   }).join('') : '<tr><td colspan="8" class="loading">Р—Р° РІРёР±СЂР°РЅРёР№ РїРµСЂС–РѕРґ Р·Р°РІРµСЂС€РµРЅРёС… СЂРµР№СЃС–РІ РЅРµРјР°С”</td></tr>';
-  $$('.dashboard-pilot-link').forEach(button=>button.onclick=()=>showPilotProfile(button.dataset.id));
+  bindDashboardPilotCells();
   $$('.rating-detail').forEach(button=>button.onclick=()=>{const flight=app.flights.find(item=>item.id===button.dataset.flightId);if(flight)openFlightInfo(flight,'rating')});
   $$('.rating-detail').forEach(cell=>cell.onkeydown=event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();cell.click()}});
   $$('.company-profit-detail').forEach(button=>button.onclick=()=>{const flight=app.flights.find(item=>item.id===button.dataset.flightId);if(flight)openFlightInfo(flight,'finance')});
@@ -1457,6 +2063,7 @@ async function loadDatabases() {
     app.current = current;
     app.companyData = companyData;
     app.flights = loaded.flights;
+    pilotCardsMonthlyCache = null;
     pilotInsuranceCoverage = window.UCAAInsurance.coverageMap(app.flights);
     const latest = loaded.latest;
     const latestAvailable = latest || [...app.flights].sort((a,b) => dateOf(b)-dateOf(a))[0];
@@ -1556,6 +2163,10 @@ $$('#pilotsView [data-metric]').forEach(button => button.onclick = () => {
   render();
 });
 
+bindVersionModeButton();
+autoMobileCabinetMode();
+addEventListener('resize', autoMobileCabinetMode);
+loadNewskyRankSubtitle();
 loadDatabases();
 
 addEventListener('ucaa-flights-updated', event => {
@@ -1563,10 +2174,15 @@ addEventListener('ucaa-flights-updated', event => {
   app.archive = loaded.archive;
   app.current = loaded.current;
   app.flights = loaded.flights;
+  pilotCardsMonthlyCache = null;
   pilotInsuranceCoverage = window.UCAAInsurance.coverageMap(app.flights);
   const latest = loaded.latest || [...app.flights].sort((a,b) => dateOf(b)-dateOf(a))[0];
   app.referenceNow = referenceDate(latest);
   window.UCAAPilotProfile.setFlights(app.flights);
   $('#dataStatus').innerHTML = formatLiveDataStatus(loaded.current, loaded.archive, latest);
   render();
+});
+
+addEventListener('hashchange', () => {
+  if (location.hash === '#pilots') renderPilotsCardsPage();
 });
