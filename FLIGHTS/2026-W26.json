@@ -3717,6 +3717,154 @@
                         "elev": 436
                     }
                 }
+            },
+            {
+                "_id": "6a3fb8c760cf708e17ebba46",
+                "aircraft": {
+                    "name": "Airbus A380",
+                    "icao": "A388"
+                },
+                "type": "pax",
+                "flightNumber": "24Y",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 279,
+                    "cargo": 149,
+                    "weights": {
+                        "cargo": 11920
+                    }
+                },
+                "depTime": "2026-06-27T12:15:00.000Z",
+                "duration": 265,
+                "arrTime": "2026-06-27T16:40:00.000Z",
+                "depTimeAct": "2026-06-27T12:12:35.294Z",
+                "delay": -31,
+                "takeoffTimeAct": "2026-06-27T12:16:10.298Z",
+                "durationAct": 232,
+                "arrTimeAct": "2026-06-27T16:08:39.241Z",
+                "open": "2026-06-27T12:07:50.296Z",
+                "close": "2026-06-27T16:11:05.339Z",
+                "rating": 9.81,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1839,
+                        "fuel": 44493,
+                        "expenses": 102103,
+                        "penalties": 0,
+                        "revenue": 193455,
+                        "balance": 91352,
+                        "prices": {
+                            "ticketPrice": 252,
+                            "cargoUnitPrice": 243,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 279,
+                            "cargo": 149,
+                            "paxByClass": {
+                                "F": 53,
+                                "C": 186,
+                                "Y": 40
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 51915,
+                        "aircraft": 43400,
+                        "handling": 4688,
+                        "landing": 2100
+                    },
+                    "revenue": {
+                        "tickets": 157248,
+                        "cargo": 36207
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 5.23m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -19,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.14G (215 ft/min, challenging  conditions)<br/>Distance from threshold: 445m (accepted range: 189-758m)<br/>Average centerline deviation: 2.26m<br/>Max centerline deviation: 3.69m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.14,
+                                        "rate": 215
+                                    },
+                                    "weather": {
+                                        "windDir": 27.24,
+                                        "windSpd": 6.56,
+                                        "windX": 0.54
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-06-27T11:49:27.469Z",
+                "updatedAt": "2026-06-27T16:11:05.450Z",
+                "dep": {
+                    "icao": "KIAH",
+                    "name": "George Bush Intercontinental Houston Airport",
+                    "city": "Houston",
+                    "location": {
+                        "lat": 29.984399795532227,
+                        "lon": -95.34140014648438,
+                        "elev": 97
+                    }
+                },
+                "arr": {
+                    "icao": "SVMC",
+                    "name": "La Chinita International Airport",
+                    "city": "Maracaibo",
+                    "location": {
+                        "lat": 10.5582084656,
+                        "lon": -71.7278594971,
+                        "elev": 239
+                    }
+                },
+                "actArr": {
+                    "icao": "SVMC",
+                    "name": "La Chinita International Airport",
+                    "city": "Maracaibo",
+                    "location": {
+                        "lat": 10.5582084656,
+                        "lon": -71.7278594971,
+                        "elev": 239
+                    }
+                }
             }
         ]
     },
