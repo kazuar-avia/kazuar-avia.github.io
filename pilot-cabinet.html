@@ -307,6 +307,10 @@
     body.mobile-cabinet #pilotsView .table-wrap{overflow-x:auto}
     body.mobile-cabinet table{min-width:720px}
     body.mobile-cabinet .dashboard-flight-table{min-width:900px}
+    body.mobile-cabinet .dashboard-flight-table col:nth-child(3){width:15%!important}
+    body.mobile-cabinet .dashboard-flight-table col:nth-child(4){width:19%!important}
+    body.mobile-cabinet .dashboard-flight-table td.route{padding-left:5px!important;padding-right:5px!important}
+    body.mobile-cabinet .dashboard-flight-table .route-airports{font-size:12px;font-weight:700;letter-spacing:-.1px}
     body.mobile-cabinet .pilot-cards-grid{grid-template-columns:1fr!important;justify-items:center}
     body.mobile-cabinet .pilot-card{width:min(260px,100%)}
     body.mobile-cabinet .profile-page .profile{padding:6px 0}
@@ -522,7 +526,7 @@ document.querySelector('.close').onclick=()=>document.querySelector('#pilotDialo
 <script src="aircraft-difficulty-coefficients.js?v=20260626-5"></script>
 <script src="pilot-pay-policy.js?v=20260623-19"></script>
 <script src="incident-compensation-policy.js?v=20260623-5"></script>
-<script src="pilot-profile-v2.js?v=20260627-79"></script>
+<script src="pilot-profile-v2.js?v=20260627-80"></script>
 <script src="app-navigation.js?v=20260627-2"></script>
 <script type="module" src="pilot-cabinet.js?v=20260627-137"></script>
 <script type="module" src="pilots-list.js?v=20260622-9"></script>
