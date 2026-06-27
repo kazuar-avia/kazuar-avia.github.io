@@ -10993,6 +10993,187 @@
                         "elev": 22
                     }
                 }
+            },
+            {
+                "_id": "6a3fdb0e60cf708e17eef674",
+                "aircraft": {
+                    "name": "Airbus A320",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "4848",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 174,
+                    "cargo": 14,
+                    "weights": {
+                        "cargo": 1806
+                    }
+                },
+                "depTime": "2026-06-27T14:50:00.000Z",
+                "duration": 100,
+                "arrTime": "2026-06-27T16:30:00.000Z",
+                "depTimeAct": "2026-06-27T14:52:53.269Z",
+                "delay": 5,
+                "takeoffTimeAct": "2026-06-27T14:56:32.265Z",
+                "durationAct": 98,
+                "arrTimeAct": "2026-06-27T16:35:02.066Z",
+                "open": "2026-06-27T14:41:20.057Z",
+                "close": "2026-06-27T16:51:26.072Z",
+                "rating": 9.76,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 627,
+                        "fuel": 3963,
+                        "expenses": 12141,
+                        "penalties": 29,
+                        "revenue": 24566,
+                        "balance": 12396,
+                        "prices": {
+                            "ticketPrice": 130,
+                            "cargoUnitPrice": 139,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 174,
+                            "cargo": 14,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 174
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4264,
+                        "aircraft": 5950,
+                        "handling": 877,
+                        "landing": 1050
+                    },
+                    "revenue": {
+                        "tickets": 22620,
+                        "cargo": 1946
+                    },
+                    "violations": [
+                        {
+                            "title": "MLW exceeded: 5kg above maximum landing weight of 64500kg",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 29
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.06,
+                                        "rate": 39
+                                    },
+                                    "weather": {
+                                        "windDir": 300,
+                                        "windSpd": 5.69,
+                                        "windX": -3.1
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Short landing (174m from threshold before 207m min accepted)",
+                            "penalty": {
+                                "points": -24,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.06,
+                                        "rate": 39
+                                    },
+                                    "weather": {
+                                        "windDir": 300,
+                                        "windSpd": 5.69,
+                                        "windX": -3.1
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.06G (39 ft/min, normal  conditions)<br/>Distance from threshold: 174m (accepted range: 207-831m)<br/>Average centerline deviation: 2.08m<br/>Max centerline deviation: 3.94m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.06,
+                                        "rate": 39
+                                    },
+                                    "weather": {
+                                        "windDir": 300,
+                                        "windSpd": 5.69,
+                                        "windX": -3.1
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-06-27T14:15:42.645Z",
+                "updatedAt": "2026-06-27T16:51:26.164Z",
+                "dep": {
+                    "icao": "LQTZ",
+                    "name": "Tuzla International Airport",
+                    "city": "Dubrave Gornje",
+                    "location": {
+                        "lat": 44.458698,
+                        "lon": 18.7248,
+                        "elev": 784
+                    }
+                },
+                "arr": {
+                    "icao": "LFSB",
+                    "city": "Bâle / Mulhouse",
+                    "location": {
+                        "lat": 47.60068,
+                        "lon": 7.521117,
+                        "elev": 885
+                    },
+                    "name": "EuroAirport Basel–Mulhouse–Freiburg"
+                },
+                "actArr": {
+                    "icao": "LFSB",
+                    "city": "Bâle / Mulhouse",
+                    "location": {
+                        "lat": 47.60068,
+                        "lon": 7.521117,
+                        "elev": 885
+                    },
+                    "name": "EuroAirport Basel–Mulhouse–Freiburg"
+                }
             }
         ]
     }
