@@ -1088,7 +1088,7 @@
         body.mobile-cabinet .profile-v2 .profile-overall tr{display:contents}
         body.mobile-cabinet .profile-v2 .profile-overall th,body.mobile-cabinet .profile-v2 .profile-overall td{display:block;min-width:0;padding:5px 6px;font-size:11px;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:clip}
         body.mobile-cabinet .profile-v2 .profile-overall th{width:auto;max-width:none;justify-self:stretch;box-sizing:border-box}
-        body.mobile-cabinet .profile-v2 .profile-overall td{text-align:left;font-family:Arial,sans-serif!important;font-size:12px!important;font-weight:600!important;letter-spacing:0!important}
+        body.mobile-cabinet .profile-v2 .profile-overall td{text-align:left;font-family:Arial,sans-serif!important;font-size:10px!important;font-weight:400!important;letter-spacing:0!important}
         body.mobile-cabinet .profile-v2 .profile-overall tbody tr:nth-child(1) th:nth-of-type(1){order:1}
         body.mobile-cabinet .profile-v2 .profile-overall tbody tr:nth-child(1) td:nth-of-type(1){order:2}
         body.mobile-cabinet .profile-v2 .profile-overall tbody tr:nth-child(2) th:nth-of-type(1){order:3}
