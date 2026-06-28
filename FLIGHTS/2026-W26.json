@@ -4179,6 +4179,198 @@
                         "elev": 615
                     }
                 }
+            },
+            {
+                "_id": "6a40c94c5760ec7cdb44689c",
+                "aircraft": {
+                    "name": "Boeing 737-600",
+                    "icao": "B736"
+                },
+                "type": "pax",
+                "flightNumber": "21C",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 90,
+                    "cargo": 16,
+                    "weights": {
+                        "cargo": 1056
+                    }
+                },
+                "depTime": "2026-06-28T07:45:00.000Z",
+                "duration": 100,
+                "arrTime": "2026-06-28T09:25:00.000Z",
+                "depTimeAct": "2026-06-28T07:28:16.723Z",
+                "delay": -30,
+                "takeoffTimeAct": "2026-06-28T07:32:19.728Z",
+                "durationAct": 83,
+                "arrTimeAct": "2026-06-28T08:55:02.707Z",
+                "open": "2026-06-28T07:26:10.729Z",
+                "close": "2026-06-28T08:57:05.735Z",
+                "rating": 6.44,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 594,
+                        "fuel": 3259,
+                        "expenses": 9453,
+                        "penalties": 0,
+                        "revenue": 14423,
+                        "balance": 4970,
+                        "prices": {
+                            "ticketPrice": 131,
+                            "cargoUnitPrice": 140,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 90,
+                            "cargo": 16,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 3,
+                                "Y": 87
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3685,
+                        "aircraft": 4798,
+                        "handling": 412,
+                        "landing": 558
+                    },
+                    "revenue": {
+                        "tickets": 12183,
+                        "cargo": 2240
+                    },
+                    "violations": [
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1013mb instead of 1018.8mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "weather": {
+                                        "windDir": 258.84,
+                                        "windSpd": 17.48,
+                                        "windX": -15.5
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (1107m from threshold beyond 758m max accepted)",
+                            "penalty": {
+                                "points": -122,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.07,
+                                        "rate": 102
+                                    },
+                                    "weather": {
+                                        "windDir": 310,
+                                        "windSpd": 23.78,
+                                        "windX": -1.75
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.07G (102 ft/min, challenging  conditions)<br/>Distance from threshold: 1107m (accepted range: 189-758m)<br/>Average centerline deviation: 3.32m<br/>Max centerline deviation: 4.81m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.07,
+                                        "rate": 102
+                                    },
+                                    "weather": {
+                                        "windDir": 310,
+                                        "windSpd": 23.78,
+                                        "windX": -1.75
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Min G exceeded: -0.92G (min allowed: 0G)",
+                            "penalty": {
+                                "points": -184,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-06-28T07:12:12.935Z",
+                "updatedAt": "2026-06-28T08:57:05.841Z",
+                "dep": {
+                    "icao": "UKFF",
+                    "city": "Simferopol",
+                    "location": {
+                        "lat": 45.0522,
+                        "lon": 33.975101,
+                        "elev": 639
+                    },
+                    "name": "Simferopol International Airport"
+                },
+                "arr": {
+                    "icao": "UGTB",
+                    "name": "Tbilisi International Airport",
+                    "city": "Tbilisi",
+                    "location": {
+                        "lat": 41.669201,
+                        "lon": 44.9547,
+                        "elev": 1624
+                    }
+                },
+                "actArr": {
+                    "icao": "UGTB",
+                    "name": "Tbilisi International Airport",
+                    "city": "Tbilisi",
+                    "location": {
+                        "lat": 41.669201,
+                        "lon": 44.9547,
+                        "elev": 1624
+                    }
+                }
             }
         ]
     },
