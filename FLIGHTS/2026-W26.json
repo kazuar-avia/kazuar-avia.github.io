@@ -13018,6 +13018,154 @@
                         "elev": 587
                     }
                 }
+            },
+            {
+                "_id": "6a4105735760ec7cdb490770",
+                "aircraft": {
+                    "name": "Airbus A350-900",
+                    "icao": "A359"
+                },
+                "type": "pax",
+                "flightNumber": "1204",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 324,
+                    "cargo": 47,
+                    "weights": {
+                        "cargo": 6063
+                    }
+                },
+                "depTime": "2026-06-28T12:00:00.000Z",
+                "duration": 195,
+                "arrTime": "2026-06-28T15:15:00.000Z",
+                "depTimeAct": "2026-06-28T11:48:42.375Z",
+                "delay": 2,
+                "takeoffTimeAct": "2026-06-28T11:56:52.167Z",
+                "durationAct": 200,
+                "arrTimeAct": "2026-06-28T15:16:50.283Z",
+                "open": "2026-06-28T11:32:35.210Z",
+                "close": "2026-06-28T15:21:10.318Z",
+                "rating": 9.64,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1468,
+                        "fuel": 16655,
+                        "expenses": 40165,
+                        "penalties": 0,
+                        "revenue": 101690,
+                        "balance": 61525,
+                        "prices": {
+                            "ticketPrice": 212,
+                            "cargoUnitPrice": 206,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 324,
+                            "cargo": 47,
+                            "paxByClass": {
+                                "F": 22,
+                                "C": 44,
+                                "Y": 258
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 15063,
+                        "aircraft": 21620,
+                        "handling": 1637,
+                        "landing": 1845
+                    },
+                    "revenue": {
+                        "tickets": 92008,
+                        "cargo": 9682
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 5.63m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -26,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 43
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Greased touchdown: 1.03G (24 ft/min, normal  conditions)<br/>Distance from threshold: 335m (accepted range: 209-839m)<br/>Average centerline deviation: 2.97m<br/>Max centerline deviation: 5.63m",
+                            "penalty": {
+                                "points": -10,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 47
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.03,
+                                        "rate": 24
+                                    },
+                                    "weather": {
+                                        "windDir": 30.02,
+                                        "windSpd": 12.34,
+                                        "windX": 7.98
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-06-28T11:28:51.305Z",
+                "updatedAt": "2026-06-28T15:21:10.439Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "HEGN",
+                    "name": "Hurghada International Airport",
+                    "city": "Hurghada",
+                    "location": {
+                        "lat": 27.176776,
+                        "lon": 33.796692,
+                        "elev": 32
+                    }
+                },
+                "actArr": {
+                    "icao": "HEGN",
+                    "name": "Hurghada International Airport",
+                    "city": "Hurghada",
+                    "location": {
+                        "lat": 27.176776,
+                        "lon": 33.796692,
+                        "elev": 32
+                    }
+                }
             }
         ]
     },
