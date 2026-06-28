@@ -404,6 +404,10 @@
     return AIRCRAFT_AWARD_FAMILIES[raw] || raw || '—';
   }
 
+  function aircraftAwardFamilyLabel(family) {
+    return family === 'B738' ? 'B737' : family;
+  }
+
   function aircraftAwardIncident(flight) {
     const direct = directFlightFinance(flight);
     const pay = direct.pilotPay || {};
@@ -987,7 +991,7 @@
     return `<div class="profile-aircraft-awards" aria-label="Нагороди пілота">${awards.map((award,index) => {
       const familyAwards = buildAircraftAwardStatsCache().byFamily.get(award.family) || [];
       const tooltip = aircraftAwardTooltipHtml(award,familyAwards);
-      return `<span class="aircraft-award level-${award.level} manufacturer-${aircraftAwardManufacturer(award.family)} ${award.leader?'aircraft-award-leader':''}" data-award-tooltip="${esc(tooltip)}">${aircraftAwardDecor(award.level,`${summary.id}-${award.family}-${index}`)}<span class="aircraft-award-circle"><span>${esc(award.family)}</span></span></span>`;
+      return `<span class="aircraft-award level-${award.level} manufacturer-${aircraftAwardManufacturer(award.family)} ${award.leader?'aircraft-award-leader':''}" data-award-tooltip="${esc(tooltip)}">${aircraftAwardDecor(award.level,`${summary.id}-${award.family}-${index}`)}<span class="aircraft-award-circle"><span>${esc(aircraftAwardFamilyLabel(award.family))}</span></span></span>`;
     }).join('')}${monthlyAwards}${newskyAwards}</div>`;
   }
 
@@ -1935,7 +1939,7 @@
     return visible.map((award,index) => {
       const familyAwards = buildAircraftAwardStatsCache().byFamily.get(award.family) || [];
       const tooltip = aircraftAwardTooltipHtml(award,familyAwards);
-      return `<span class="pilot-card-aircraft-award level-${award.level} manufacturer-${aircraftAwardManufacturer(award.family)} ${award.leader?'aircraft-award-leader':''}" data-award-tooltip="${esc(tooltip)}" title="${esc(tooltip.replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim())}">${aircraftAwardDecor(award.level,`pilot-card-${pilotId}-${award.family}-${index}`)}<span class="aircraft-award-circle"><span>${esc(award.family)}</span></span></span>`;
+      return `<span class="pilot-card-aircraft-award level-${award.level} manufacturer-${aircraftAwardManufacturer(award.family)} ${award.leader?'aircraft-award-leader':''}" data-award-tooltip="${esc(tooltip)}" title="${esc(tooltip.replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim())}">${aircraftAwardDecor(award.level,`pilot-card-${pilotId}-${award.family}-${index}`)}<span class="aircraft-award-circle"><span>${esc(aircraftAwardFamilyLabel(award.family))}</span></span></span>`;
     }).join('');
   }
 
