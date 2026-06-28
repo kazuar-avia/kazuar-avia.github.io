@@ -107,15 +107,35 @@
   const esc = value => String(value ?? '').replace(/[&<>"]/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[char]));
   const sum = (items, fn) => items.reduce((total, item) => total + (Number(fn(item)) || 0), 0);
   const dateOf = flight => new Date(flight.times?.actualArrival || flight.times?.closed || flight.times?.takeoff || flight.times?.scheduledDeparture);
+  const flightStartDateForDisplay = flight => new Date(flight.times?.actualDeparture || flight.times?.takeoff || flight.times?.scheduledDeparture || flight.times?.open || flight.times?.actualArrival || flight.times?.closed);
+  const flightEndDateForDisplay = flight => new Date(flight.times?.actualArrival || flight.times?.closed || flight.times?.scheduledArrival || flight.times?.takeoff || flight.times?.scheduledDeparture);
+  const utcDateParts = date => ({
+    day: String(date.getUTCDate()).padStart(2, '0'),
+    month: String(date.getUTCMonth() + 1).padStart(2, '0'),
+    year: String(date.getUTCFullYear())
+  });
+  function formatFlightDateLabel(flight) {
+    const start = flightStartDateForDisplay(flight);
+    const end = flightEndDateForDisplay(flight);
+    if (!Number.isFinite(end.getTime())) return dateOf(flight).toLocaleDateString('uk-UA',{timeZone:'UTC'});
+    if (!Number.isFinite(start.getTime())) return end.toLocaleDateString('uk-UA',{timeZone:'UTC'});
+    const s = utcDateParts(start);
+    const e = utcDateParts(end);
+    if (s.day === e.day && s.month === e.month && s.year === e.year) return `${e.day}.${e.month}.${e.year}`;
+    if (s.month === e.month && s.year === e.year) return `${s.day}-${e.day}.${e.month}.${e.year}`;
+    if (s.year === e.year) return `${s.day}.${s.month}-${e.day}.${e.month}.${e.year}`;
+    return `${s.day}.${s.month}.${s.year}-${e.day}.${e.month}.${e.year}`;
+  }
   const utcDayKey = date => Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
   function flightStreakForPilot(pilotId, flights = availableFlights, now = referenceNow || new Date()) {
     if (!pilotId || !Array.isArray(flights) || !flights.length) return 0;
     const pilotDays = new Set();
     flights.forEach(flight => {
       if (flight.status !== 'completed' || flight.pilot?.id !== pilotId) return;
-      const date = dateOf(flight);
-      if (!Number.isFinite(date.getTime())) return;
-      pilotDays.add(utcDayKey(date));
+      [flightStartDateForDisplay(flight), dateOf(flight)].forEach(date => {
+        if (!Number.isFinite(date.getTime())) return;
+        pilotDays.add(utcDayKey(date));
+      });
     });
     const today = utcDayKey(now);
     const dayMs = 86400000;
@@ -131,9 +151,9 @@
   function flightStreakBadge(pilotId, flights = availableFlights, now = referenceNow || new Date()) {
     const streak = flightStreakForPilot(pilotId, flights, now);
     if (!streak) return '';
-    const maxed = streak >= 9;
-    const hot = streak >= 5 && streak < 9;
-    const label = maxed ? 'Літає 9+ днів підряд' : `Літає ${streak} ${streak === 1 ? 'день' : 'дні/днів'} підряд`;
+    const maxed = streak >= 5;
+    const hot = streak >= 3 && streak < 5;
+    const label = maxed ? 'Літає 5+ днів підряд' : `Літає ${streak} ${streak === 1 ? 'день' : 'дні/днів'} підряд`;
     return `<span class="flight-streak-badge ${maxed ? 'flight-streak-max' : hot ? 'flight-streak-hot' : ''}" title="${esc(label)}">🔥${streak > 1 && !maxed ? `<span class="flight-streak-count">${streak}</span>` : ''}</span>`;
   }
   const pilotNameWithStreak = pilot => {
@@ -1392,7 +1412,7 @@
     const profitVisual = ui.companyProfitVisual(flight,row.direct);
     const salaryVisual = ui.pilotSalaryVisual(flight,row.direct);
     return `<tr>
-      <td>${date.toLocaleDateString('uk-UA',{timeZone:'UTC'})}<span class="date-flight-meta"><span class="date-flight-time">${date.toLocaleTimeString('uk-UA',{timeZone:'UTC',hour:'2-digit',minute:'2-digit'})}</span><a class="flight-number-link flight-number-${operation.key}" href="https://newsky.app/flight/${encodeURIComponent(flight.id)}" target="_blank" rel="noopener" title="${esc(operation.label)}">${esc(flight.flightNumber || '—')}</a></span></td>
+      <td>${formatFlightDateLabel(flight)}<span class="date-flight-meta"><span class="date-flight-time">${date.toLocaleTimeString('uk-UA',{timeZone:'UTC',hour:'2-digit',minute:'2-digit'})}</span><a class="flight-number-link flight-number-${operation.key}" href="https://newsky.app/flight/${encodeURIComponent(flight.id)}" target="_blank" rel="noopener" title="${esc(operation.label)}">${esc(flight.flightNumber || '—')}</a></span></td>
       <td class="route"><span class="route-airports">${ui.airportWithFlag(flight.departure)} → ${ui.airportWithFlag(flight.arrival)}</span><span class="route-duration">${formatMinutes(flight.times?.durationMinutes)}</span></td>
       <td>${esc(flight.aircraft?.name || '—')}<span class="flight-note">${esc(flight.aircraft?.icao || '')}</span></td>
       <td><span class="payload-value" title="${esc(payload.label)}">${esc(ui.flightLoad(flight))}<span class="load-kind-icon" aria-hidden="true">${payload.icon}</span></span></td>
@@ -1556,8 +1576,13 @@
     const latestPay = latestFlight ? directFlightFinance(latestFlight).pilotPay : null;
     const loyaltyK = Number(latestPay?.loyaltyK) || 1;
     const regularityK = Number(latestPay?.regularityK) || 1;
+    const baseRegularityK = Number(latestPay?.baseRegularityK || latestPay?.regularityK) || 1;
+    const streakK = Number(latestPay?.streakK || 1);
+    const streakDays = Number(latestPay?.streakDays || 0);
+    const streakText = streakDays >= 5 ? '5+ вогників' : streakDays > 0 ? `${streakDays} вогн${streakDays === 1 ? 'ик' : 'ики/иків'}` : 'без вогників';
+    const regularityDisplay = `×${baseRegularityK.toFixed(2)}${streakK > 1 ? `×${streakK.toFixed(2)}🔥` : ''}`;
     const loyaltyTip = 'Лояльність залежить від часу в авіакомпанії та загальної кількості рейсів.\n\n×1.05 — 1 день і 1 рейс\n×1.10 — 7 днів і 5 рейсів\n×1.15 — 14 днів і 10 рейсів\n×1.20 — 1 місяць і 15 рейсів\n×1.25 — 2 місяці і 20 рейсів\n×1.30 — 3 місяці і 30 рейсів\n×1.35 — 4 місяці і 40 рейсів\n×1.40 — 5 місяців і 50 рейсів\n×1.45 — 6 місяців і 60 рейсів\n×1.50 — понад 6 місяців і понад 60 рейсів';
-    const regularityTip = 'Регулярність залежить від кількості рейсів за останні періоди.\n\n×1.05 — 1 рейс за 30 днів\n×1.10 — 5 рейсів за 10 днів\n×1.20 — 10 рейсів за 20 днів\n×1.30 — 15 рейсів за 30 днів\n×1.40 — 20 рейсів за 30 днів\n×1.50 — 30+ рейсів за 30 днів';
+    const regularityTip = `Регулярність залежить від кількості рейсів за останні періоди.\n\n×1.05 — 1 рейс за 30 днів\n×1.10 — 5 рейсів за 10 днів\n×1.20 — 10 рейсів за 20 днів\n×1.30 — 15 рейсів за 30 днів\n×1.40 — 20 рейсів за 30 днів\n×1.50 — 30+ рейсів за 30 днів\n\nFlight streak на дату крайнього рейсу: ${streakText} → ×${streakK.toFixed(2)}.\n1 вогник — ×1.10; 2 — ×1.20; 3 — ×1.30; 4 — ×1.40; 5+ — ×1.50.`;
     const difficultyVisibleTypes = new Set(companyFleetTypes);
     availableFlights.forEach(flight => {
       const code = String(flight.aircraft?.icao || '').trim().toUpperCase();
@@ -1632,7 +1657,7 @@
         <tr><th>Наліт за весь час</th><td class="profile-tip" data-tooltip="${esc(hoursValueTip)}">${compactTime(lifetime.minutes)}<span class="profile-divider">|</span>${rankHtml(hoursRank,hoursRanking.length)}</td><th>Прибуток для АК</th><td class="profile-tip" data-tooltip="${esc(profitValueTip)}">${money(lifetime.companyProfit,true)}<span class="profile-divider">|</span>${rankHtml(profitRank,profitRanking.length)}</td><th class="profile-tip" data-tooltip="${esc(cleanNameTip)}">Польотів без штрафів</th><td class="profile-tip" data-tooltip="${esc(cleanValueTip)}">${currentQuality.cleanPct.toFixed(0)}%<span class="profile-divider">|</span>${rankHtml(cleanRank,cleanRanking.length)}</td></tr>
         <tr><th>Рейсів за весь час</th><td class="profile-tip" data-tooltip="${esc(flightsValueTip)}">${lifetime.completed.length}<span class="profile-divider">|</span>${rankHtml(flightsRank,flightsRanking.length)}</td><th>Зарплата пілота</th><td class="profile-tip" data-tooltip="${esc(salaryValueTip)}">${money(lifetime.salary)}<span class="profile-divider">|</span>${rankHtml(salaryRank,salaryRanking.length)}</td><th class="profile-tip" data-tooltip="${esc(profitableNameTip)}">Прибуткових польотів</th><td class="profile-tip" data-tooltip="${esc(profitableValueTip)}">${currentQuality.profitablePct.toFixed(0)}%<span class="profile-divider">|</span>${rankHtml(profitableRank,profitableRanking.length)}</td></tr>
         <tr><th>Середній рейтинг</th><td class="profile-tip" data-tooltip="${esc(ratingValueTip)}">${lifetime.rating?lifetime.rating.toFixed(2):'—'}<span class="profile-divider">|</span>${rankHtml(ratingRank,ratingRanking.length)}</td><th class="profile-tip" data-tooltip="${esc(difficultyTip)}">Середня складність літака</th><td class="profile-tip" data-tooltip="${esc(difficultyValueTip)}">${averageDifficulty(lifetime).toFixed(2)}<span class="profile-divider">|</span>${rankHtml(difficultyRank,difficultyRanking.length)}</td><th class="profile-tip" data-tooltip="${esc(loyaltyTip)}">Бонус за лояльність</th><td class="profile-tip" data-tooltip="${esc(loyaltyTip)}">×${loyaltyK.toFixed(2)}</td></tr>
-        <tr><th>Середній FPM</th><td class="profile-tip" data-tooltip="${esc(fpmValueTip)}">${averageFpm?`−${Math.round(averageFpm)} fpm`:'—'}<span class="profile-divider">|</span>${rankHtml(fpmRank,fpmRanking.length)}</td><th>Середній Crosswind</th><td class="profile-tip" data-tooltip="${esc(crosswindValueTip)}">${averageCrosswind(lifetime).toFixed(1)} kt<span class="profile-divider">|</span>${rankHtml(crosswindRank,crosswindRanking.length)}</td><th class="profile-tip" data-tooltip="${esc(regularityTip)}">Бонус за регулярність</th><td class="profile-tip" data-tooltip="${esc(regularityTip)}">×${regularityK.toFixed(2)}</td></tr>
+        <tr><th>Середній FPM</th><td class="profile-tip" data-tooltip="${esc(fpmValueTip)}">${averageFpm?`−${Math.round(averageFpm)} fpm`:'—'}<span class="profile-divider">|</span>${rankHtml(fpmRank,fpmRanking.length)}</td><th>Середній Crosswind</th><td class="profile-tip" data-tooltip="${esc(crosswindValueTip)}">${averageCrosswind(lifetime).toFixed(1)} kt<span class="profile-divider">|</span>${rankHtml(crosswindRank,crosswindRanking.length)}</td><th class="profile-tip" data-tooltip="${esc(regularityTip)}">Бонус за регулярність</th><td class="profile-tip" data-tooltip="${esc(regularityTip)}">${regularityDisplay}</td></tr>
       </tbody></table>
       <div class="profile-period-bar"><strong>ПЕРІОД:</strong><div class="profile-period-buttons">${PERIODS.map(([key,label]) => `<button type="button" data-profile-period="${key}" class="${current.period===key?'active':''}">${label}</button>`).join('')}<span class="profile-calendar"><button type="button" id="profileCalendarButton" class="${current.period==='customDate'?'active':''}" title="Вибрати дату">📅</button><input type="date" id="profileDatePicker" value="${esc(current.customDate || '')}" aria-label="Вибрати дату"></span></div></div>
       <div class="profile-dashboard">
@@ -1640,7 +1665,7 @@
         <div class="profile-cards"><div class="profile-card"><small>Середній рейтинг</small><strong>${selected.rating?selected.rating.toFixed(2):'—'}</strong><span>${esc(periodCaption())}</span></div><div class="profile-card"><small>Рейсів виконано</small><strong>${selected.completed.length}</strong><span>${esc(periodCaption())}</span></div><div class="profile-card"><small>Наліт пілота</small><strong>${formatMinutes(selected.minutes)}</strong><span>${esc(periodCaption())}</span></div><div class="profile-card"><small>Прибуток для АК</small><strong class="${selected.companyProfit<0?'negative':'positive'}">${money(selected.companyProfit,true)}</strong><span>${esc(periodCaption())}</span></div><div class="profile-card"><small>Зарплата пілота</small><strong>${money(selected.salary)}</strong><span>${esc(periodCaption())}</span></div></div>
       </div>
       <section class="profile-flights-panel"><div class="profile-flights-title">ВИКОНАНІ РЕЙСИ ЗА ВИБРАНИЙ ПЕРІОД</div><div class="profile-flight-window"><table class="profile-flight-table dashboard-flight-table"><colgroup><col style="width:13%"><col style="width:17%"><col style="width:22%"><col style="width:9%"><col style="width:14%"><col style="width:14%"><col style="width:11%"></colgroup><thead><tr><th>${sortButton('date','Дата /<br>Рейс')}</th><th>${sortButton('duration','Маршрут /<br>Тривалість')}</th><th class="profile-aircraft-filter-head"><button type="button" id="profileAircraftFilterButton" class="profile-aircraft-filter-button ${current.aircraft?'active':''}"><span>Літак${selectedAircraft?` ${esc(selectedAircraft.icao)}`:''}</span><span class="profile-filter-hint">(фільтр)</span></button><span id="profileAircraftFilterList" class="profile-aircraft-list" hidden></span></th><th>${sortButton('payload','Пейлоад')}</th><th>${sortButton('rating','Рейтинг /<br>посадка')}</th><th>${sortButton('profit','Прибуток<br>авіакомпанії')}</th><th>${sortButton('salary','Зарплата<br>пілота')}</th></tr></thead><tbody>${rows.length?rows.map(flightRow).join(''):'<tr><td colspan="7" style="text-align:center;padding:14px">За вибраний період рейсів немає</td></tr>'}</tbody></table></div></section>
-      <p class="profile-note">* Персональна ставка формується з базових $65 / год, лояльності та регулярності, але не перевищує $130 / год. Детальний розрахунок доступний натисканням на зарплату конкретного рейсу.</p>
+      <p class="profile-note">* Персональна ставка формується з базових $65/год, лояльності, регулярності та flight streak-бонусу. Детальний розрахунок доступний натисканням на зарплату конкретного рейсу.</p>
     </div>`;
 
     wireAircraftAwardTooltips(page.content);

@@ -16,6 +16,12 @@
   const flightDate = flight => new Date(
     flight.times?.closed || flight.times?.actualArrival || flight.times?.takeoff || flight.times?.scheduledDeparture
   );
+  const streakFlightDate = flight => new Date(
+    flight.times?.actualDeparture || flight.times?.takeoff || flight.times?.scheduledDeparture || flight.times?.open || flight.times?.closed || flight.times?.actualArrival
+  );
+  const streakCloseDate = flight => new Date(
+    flight.times?.closed || flight.times?.actualArrival || flight.times?.scheduledArrival
+  );
 
   function addUtcMonths(date, months) {
     return new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth() + months, date.getUTCDate()));
@@ -52,17 +58,33 @@
 
   function streakDaysForFlight(list, currentDate) {
     const currentDay = utcDayKey(currentDate);
-    const flownDays = new Set(
+    const startDays = new Set(
       list
-        .map(flight => flightDate(flight))
+        .map(flight => streakFlightDate(flight))
         .filter(date => Number.isFinite(date.getTime()) && date <= currentDate)
         .map(utcDayKey)
     );
-    if (!flownDays.has(currentDay)) return 0;
-    if (!flownDays.has(currentDay - 86400000)) return 0;
+    const closedDays = new Set(
+      list
+        .map(flight => streakCloseDate(flight))
+        .filter(date => Number.isFinite(date.getTime()) && date <= currentDate)
+        .map(utcDayKey)
+    );
+    const hadActivityOnDay = day => startDays.has(day) || closedDays.has(day);
+    if (!startDays.has(currentDay)) return 0;
+    if (!hadActivityOnDay(currentDay - 86400000)) {
+      const hasEarlierSameDayFlight = list
+        .some(flight => {
+          const start = streakFlightDate(flight);
+          const close = streakCloseDate(flight);
+          return (Number.isFinite(start.getTime()) && start < currentDate && utcDayKey(start) === currentDay)
+            || (Number.isFinite(close.getTime()) && close < currentDate && utcDayKey(close) === currentDay);
+        });
+      return hasEarlierSameDayFlight ? 1 : 0;
+    }
     let streak = 1;
     for (let offset = 1; offset <= 8; offset += 1) {
-      if (!flownDays.has(currentDay - offset * 86400000)) break;
+      if (!hadActivityOnDay(currentDay - offset * 86400000)) break;
       streak += 1;
     }
     return streak;
@@ -70,7 +92,7 @@
 
   function streakCoefficient(streakDays) {
     const days = Math.max(0, Number(streakDays) || 0);
-    if (days >= 9) return 2;
+    if (days >= 5) return 1.5;
     return 1 + days * 0.10;
   }
 
@@ -96,7 +118,8 @@
         const totalFlights = index + 1;
         const loyaltyK = loyaltyCoefficient(firstDate, currentDate, totalFlights);
         const baseRegularityK = regularityCoefficient(last10, last20, last30);
-        const streakDays = streakDaysForFlight(list, currentDate);
+        const streakDate = streakFlightDate(flight);
+        const streakDays = streakDaysForFlight(list, streakDate);
         const streakK = streakCoefficient(streakDays);
         const regularityK = baseRegularityK * streakK;
         result.set(flight, {
@@ -319,7 +342,7 @@
     };
     const fallbackContext = {firstDate:flightDate(flight),currentDate:flightDate(flight),membershipDays:0,totalFlights:1,last10:1,last20:1,last30:1,loyaltyK:1,baseRegularityK:1.05,streakDays:1,streakK:1.10,regularityK:1.155};
     const context = allFlights ? (buildContextMap(allFlights).get(flight) || fallbackContext) : fallbackContext;
-    const rateK = Math.min(2, 1 + (context.loyaltyK - 1) + (context.regularityK - 1));
+    const rateK = 1 + (context.loyaltyK - 1) + (context.regularityK - 1);
     const effectiveHourlyRate = RULE.hourlyRate * rateK;
     const flightHours = Math.max(0, Number(flight.times?.durationMinutes) || 0) / 60;
     const preparationPay = RULE.preparationHours * effectiveHourlyRate;

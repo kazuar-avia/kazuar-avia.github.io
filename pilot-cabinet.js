@@ -167,6 +167,35 @@ function dateOf(flight) {
   return new Date(flight.times.actualArrival || flight.times.closed || flight.times.takeoff || flight.times.scheduledDeparture);
 }
 
+function flightStartDateForDisplay(flight) {
+  return new Date(flight.times?.actualDeparture || flight.times?.takeoff || flight.times?.scheduledDeparture || flight.times?.open || flight.times?.actualArrival || flight.times?.closed);
+}
+
+function flightEndDateForDisplay(flight) {
+  return new Date(flight.times?.actualArrival || flight.times?.closed || flight.times?.scheduledArrival || flight.times?.takeoff || flight.times?.scheduledDeparture);
+}
+
+function utcDateParts(date) {
+  return {
+    day: String(date.getUTCDate()).padStart(2, '0'),
+    month: String(date.getUTCMonth() + 1).padStart(2, '0'),
+    year: String(date.getUTCFullYear())
+  };
+}
+
+function formatFlightDateLabel(flight) {
+  const start = flightStartDateForDisplay(flight);
+  const end = flightEndDateForDisplay(flight);
+  if (!Number.isFinite(end.getTime())) return dateOf(flight).toLocaleDateString('uk-UA',{timeZone:'UTC'});
+  if (!Number.isFinite(start.getTime())) return end.toLocaleDateString('uk-UA',{timeZone:'UTC'});
+  const s = utcDateParts(start);
+  const e = utcDateParts(end);
+  if (s.day === e.day && s.month === e.month && s.year === e.year) return `${e.day}.${e.month}.${e.year}`;
+  if (s.month === e.month && s.year === e.year) return `${s.day}-${e.day}.${e.month}.${e.year}`;
+  if (s.year === e.year) return `${s.day}.${s.month}-${e.day}.${e.month}.${e.year}`;
+  return `${s.day}.${s.month}.${s.year}-${e.day}.${e.month}.${e.year}`;
+}
+
 function utcDayKey(date) {
   return Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
 }
@@ -176,9 +205,10 @@ function flightStreakForPilot(pilotId, flights = app.flights, now = app.referenc
   const pilotDays = new Set();
   flights.forEach(flight => {
     if (flight.status !== 'completed' || flight.pilot?.id !== pilotId) return;
-    const date = dateOf(flight);
-    if (!Number.isFinite(date.getTime())) return;
-    pilotDays.add(utcDayKey(date));
+    [flightStartDateForDisplay(flight), dateOf(flight)].forEach(date => {
+      if (!Number.isFinite(date.getTime())) return;
+      pilotDays.add(utcDayKey(date));
+    });
   });
   const today = utcDayKey(now);
   const dayMs = 86400000;
@@ -195,9 +225,9 @@ function flightStreakForPilot(pilotId, flights = app.flights, now = app.referenc
 function flightStreakBadge(pilotId, flights = app.flights, now = app.referenceNow || new Date()) {
   const streak = flightStreakForPilot(pilotId, flights, now);
   if (!streak) return '';
-  const maxed = streak >= 9;
-  const hot = streak >= 5 && streak < 9;
-  const label = maxed ? 'Літає 9+ днів підряд' : `Літає ${streak} ${streak === 1 ? 'день' : 'дні/днів'} підряд`;
+  const maxed = streak >= 5;
+  const hot = streak >= 3 && streak < 5;
+  const label = maxed ? 'Літає 5+ днів підряд' : `Літає ${streak} ${streak === 1 ? 'день' : 'дні/днів'} підряд`;
   return `<span class="flight-streak-badge ${maxed ? 'flight-streak-max' : hot ? 'flight-streak-hot' : ''}" title="${esc(label)}">🔥${streak > 1 && !maxed ? `<span class="flight-streak-count">${streak}</span>` : ''}</span>`;
 }
 
@@ -1299,11 +1329,11 @@ function pilotSalaryDetails(flight) {
   const baseRegularityK = Number(pay.baseRegularityK || pay.regularityK || 1);
   const streakDays = Number(pay.streakDays || 0);
   const streakK = Number(pay.streakK || 1);
-  const streakText = streakDays >= 9 ? '9+ вогників' : streakDays > 0 ? `${streakDays} вогн${streakDays === 1 ? 'ик' : 'ики/иків'}` : 'без вогників';
+  const streakText = streakDays >= 5 ? '5+ вогників' : streakDays > 0 ? `${streakDays} вогн${streakDays === 1 ? 'ик' : 'ики/иків'}` : 'без вогників';
   const regularityFormulaText = streakK > 1
     ? `× ${baseRegularityK.toFixed(2)} × ${streakK.toFixed(2)}`
     : `× ${baseRegularityK.toFixed(2)}`;
-  const rateCapText = pay.rateK >= 2 ? ' · застосовано ліміт ×2' : '';
+  const rateCapText = '';
   const loyaltyTooltip = [
     'Лояльність: коефіцієнт за стаж у авіакомпанії та загальну кількість завершених рейсів.',
     '×1,05 — від 1 дня в АК і від 1 рейсу.',
@@ -1320,7 +1350,7 @@ function pilotSalaryDetails(flight) {
   const regularityTooltip = [
     'Регулярність: коефіцієнт за активність перед конкретним рейсом.',
     `Додатково множиться на flight streak на дату рейсу: ${streakText} → ×${streakK.toFixed(2)}.`,
-    '1 вогник — ×1,10; 2 — ×1,20; 8 — ×1,80; 9+ — ×2,00.',
+    '1 вогник — ×1,10; 2 — ×1,20; 3 — ×1,30; 4 — ×1,40; 5+ — ×1,50.',
     '×1,05 — від 1 рейсу за останні 30 днів.',
     '×1,10 — від 5 рейсів за останні 10 днів.',
     '×1,20 — від 10 рейсів за останні 20 днів.',
@@ -1434,7 +1464,7 @@ function arrangeSalaryDetails(body, flight) {
   const baseRegularityK = Number(pay.baseRegularityK || pay.regularityK || 1);
   const streakDays = Number(pay.streakDays || 0);
   const streakK = Number(pay.streakK || 1);
-  const streakText = streakDays >= 9 ? '9+ вогників' : streakDays > 0 ? `${streakDays} вогн${streakDays === 1 ? 'ик' : 'ики/иків'}` : 'без вогників';
+  const streakText = streakDays >= 5 ? '5+ вогників' : streakDays > 0 ? `${streakDays} вогн${streakDays === 1 ? 'ик' : 'ики/иків'}` : 'без вогників';
   const regularityFormulaText = streakK > 1
     ? `× ${baseRegularityK.toFixed(2)} × ${streakK.toFixed(2)}`
     : `× ${baseRegularityK.toFixed(2)}`;
@@ -1484,7 +1514,7 @@ function arrangeSalaryDetails(body, flight) {
     const rateTotalTip = tip([
       'Підсумкова персональна ставка рахується як:',
       'базова ставка + бонус за лояльність + бонус за регулярність із множником flight streak.',
-      'Загальний ліміт — не більше подвійної базової ставки.'
+      'Flight streak може підняти персональну ставку вище старого ліміту подвійної базової ставки.'
     ]);
     const rateTable = document.createElement('table');
     rateTable.className = 'pilot-rate-table';
@@ -1795,7 +1825,7 @@ function renderDashboardFlightsOld(completed) {
     const payloadKind = flightPayloadKind(flight);
     const rating = flightRatingPresentation(flight);
     return `<tr>
-      <td>${date.toLocaleDateString('uk-UA',{timeZone:'UTC'})}<span class="date-flight-meta"><span class="date-flight-time">${date.toLocaleTimeString('uk-UA',{timeZone:'UTC',hour:'2-digit',minute:'2-digit'})}</span><a class="flight-number-link flight-number-${operation.key}" href="https://newsky.app/flight/${encodeURIComponent(flight.id)}" target="_blank" rel="noopener" title="${operation.label}">${esc(flight.flightNumber||'—')}</a></span></td>
+      <td>${formatFlightDateLabel(flight)}<span class="date-flight-meta"><span class="date-flight-time">${date.toLocaleTimeString('uk-UA',{timeZone:'UTC',hour:'2-digit',minute:'2-digit'})}</span><a class="flight-number-link flight-number-${operation.key}" href="https://newsky.app/flight/${encodeURIComponent(flight.id)}" target="_blank" rel="noopener" title="${operation.label}">${esc(flight.flightNumber||'—')}</a></span></td>
       ${dashboardPilotCellHtml(flight.pilot)}
       <td class="route"><span class="route-airports">${airportWithFlag(flight.departure)} → ${airportWithFlag(flight.arrival)}</span><span class="route-duration">${formatMinutes(flight.times.durationMinutes)}</span></td>
       <td>${esc(flight.aircraft.name)}<span class="flight-note">${esc(flight.aircraft.icao)}</span></td>
@@ -2059,7 +2089,7 @@ function renderDashboardFlights(completed) {
     $('#dashboardFlights').innerHTML = rows.length ? rows.map(row => {
       const flight = row.flight;
       return `<tr>
-        <td>${row.date.toLocaleDateString('uk-UA',{timeZone:'UTC'})}<span class="date-flight-meta"><span class="date-flight-time">${row.date.toLocaleTimeString('uk-UA',{timeZone:'UTC',hour:'2-digit',minute:'2-digit'})}</span><a class="flight-number-link flight-number-${row.operation.key}" href="https://newsky.app/flight/${encodeURIComponent(flight.id)}" target="_blank" rel="noopener" title="${row.operation.label}">${esc(flight.flightNumber||'—')}</a></span></td>
+        <td>${formatFlightDateLabel(flight)}<span class="date-flight-meta"><span class="date-flight-time">${row.date.toLocaleTimeString('uk-UA',{timeZone:'UTC',hour:'2-digit',minute:'2-digit'})}</span><a class="flight-number-link flight-number-${row.operation.key}" href="https://newsky.app/flight/${encodeURIComponent(flight.id)}" target="_blank" rel="noopener" title="${row.operation.label}">${esc(flight.flightNumber||'—')}</a></span></td>
         ${dashboardPilotCellHtml(flight.pilot)}
         <td class="route"><span class="route-airports">${airportWithFlag(flight.departure)} → ${airportWithFlag(flight.arrival)}</span><span class="route-duration">${formatMinutes(flight.times.durationMinutes)}</span></td>
         <td>${esc(flight.aircraft.name)}<span class="flight-note">${esc(flight.aircraft.icao)}</span></td>
@@ -2094,7 +2124,7 @@ function renderDashboardFlightsLegacy(completed) {
     const payloadKind = flightPayloadKind(flight);
     const rating = flightRatingPresentation(flight);
     return `<tr>
-      <td>${date.toLocaleDateString('uk-UA',{timeZone:'UTC'})}<span class="date-flight-meta"><span class="date-flight-time">${date.toLocaleTimeString('uk-UA',{timeZone:'UTC',hour:'2-digit',minute:'2-digit'})}</span><a class="flight-number-link flight-number-${operation.key}" href="https://newsky.app/flight/${encodeURIComponent(flight.id)}" target="_blank" rel="noopener" title="${operation.label}">${esc(flight.flightNumber||'вЂ”')}</a></span></td>
+      <td>${formatFlightDateLabel(flight)}<span class="date-flight-meta"><span class="date-flight-time">${date.toLocaleTimeString('uk-UA',{timeZone:'UTC',hour:'2-digit',minute:'2-digit'})}</span><a class="flight-number-link flight-number-${operation.key}" href="https://newsky.app/flight/${encodeURIComponent(flight.id)}" target="_blank" rel="noopener" title="${operation.label}">${esc(flight.flightNumber||'вЂ”')}</a></span></td>
       ${dashboardPilotCellHtml(flight.pilot)}
       <td class="route"><span class="route-airports">${airportWithFlag(flight.departure)} в†’ ${airportWithFlag(flight.arrival)}</span><span class="route-duration">${formatMinutes(flight.times.durationMinutes)}</span></td>
       <td>${esc(flight.aircraft.name)}<span class="flight-note">${esc(flight.aircraft.icao)}</span></td>
