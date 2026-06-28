@@ -108,7 +108,7 @@
   const sum = (items, fn) => items.reduce((total, item) => total + (Number(fn(item)) || 0), 0);
   const dateOf = flight => new Date(flight.times?.actualArrival || flight.times?.closed || flight.times?.takeoff || flight.times?.scheduledDeparture);
   const flightStartDateForDisplay = flight => new Date(flight.times?.actualDeparture || flight.times?.takeoff || flight.times?.scheduledDeparture || flight.times?.open || flight.times?.actualArrival || flight.times?.closed);
-  const flightEndDateForDisplay = flight => new Date(flight.times?.actualArrival || flight.times?.closed || flight.times?.scheduledArrival || flight.times?.takeoff || flight.times?.scheduledDeparture);
+  const flightEndDateForDisplay = flight => new Date(flight.times?.closed || flight.times?.actualArrival || flight.times?.scheduledArrival || flight.times?.takeoff || flight.times?.scheduledDeparture);
   const utcDateParts = date => ({
     day: String(date.getUTCDate()).padStart(2, '0'),
     month: String(date.getUTCMonth() + 1).padStart(2, '0'),
@@ -125,6 +125,11 @@
     if (s.month === e.month && s.year === e.year) return `${s.day}-${e.day}.${e.month}.${e.year}`;
     if (s.year === e.year) return `${s.day}.${s.month}-${e.day}.${e.month}.${e.year}`;
     return `${s.day}.${s.month}.${s.year}-${e.day}.${e.month}.${e.year}`;
+  }
+  function formatFlightCloseTime(flight) {
+    const end = flightEndDateForDisplay(flight);
+    const date = Number.isFinite(end.getTime()) ? end : dateOf(flight);
+    return date.toLocaleTimeString('uk-UA',{timeZone:'UTC',hour:'2-digit',minute:'2-digit'});
   }
   const utcDayKey = date => Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
   function flightStreakForPilot(pilotId, flights = availableFlights, now = referenceNow || new Date()) {
@@ -147,6 +152,18 @@
     if (!streak) return 0;
     if (pilotDays.has(today)) streak += 1;
     return Math.min(9, streak);
+  }
+  function liveRegularityStreakForPilot(pilotId, flights = availableFlights, now = referenceNow || new Date()) {
+    const streak = flightStreakForPilot(pilotId, flights, now);
+    if (streak) return streak;
+    if (!pilotId || !Array.isArray(flights) || !flights.length) return 0;
+    const today = utcDayKey(now);
+    const flewToday = flights.some(flight => {
+      if (flight.status !== 'completed' || flight.pilot?.id !== pilotId) return false;
+      return [flightStartDateForDisplay(flight), dateOf(flight)]
+        .some(date => Number.isFinite(date.getTime()) && utcDayKey(date) === today);
+    });
+    return flewToday ? 1 : 0;
   }
   function flightStreakBadge(pilotId, flights = availableFlights, now = referenceNow || new Date()) {
     const streak = flightStreakForPilot(pilotId, flights, now);
@@ -1034,7 +1051,7 @@
         .profile-v2 .profile-avatar-wrap{position:relative;box-sizing:border-box;width:108px;height:108px;margin-top:4px}
         .profile-v2 .profile-avatar{box-sizing:border-box;width:108px;height:108px;border:1px solid #555;background:#eef8fa;object-fit:cover}
         .profile-v2 .profile-sim-badge{position:absolute;left:1px;bottom:21px;box-sizing:border-box;max-width:100px;padding:1px 4px;border:1px solid #333;border-radius:4px;background:rgba(245,245,245,.9);color:#111;font:700 10px/12px Arial,sans-serif;text-align:center;white-space:nowrap;cursor:help}
-        .profile-empty-picker{padding:12px;background:#fafafa}.profile-empty-title{font-weight:bold;margin-bottom:8px;color:#111}.profile-inline-picker{position:static!important;left:auto!important;top:auto!important;transform:none!important;z-index:1!important;width:min(909px,100%)!important;margin:0 auto!important;text-align:left}.profile-inline-picker button{grid-template-columns:24px 18px minmax(0,1fr) auto!important;gap:8px!important;padding-left:5px!important;padding-right:10px!important}.profile-inline-picker button strong{padding-right:10px;overflow:hidden;text-overflow:ellipsis}.profile-inline-picker .picker-hours{padding-left:10px}
+        .profile-empty-picker{padding:12px;background:#fafafa}.profile-empty-title{font-weight:bold;margin-bottom:8px;color:#111}.profile-inline-picker{position:static!important;left:auto!important;top:auto!important;transform:none!important;z-index:1!important;width:min(909px,100%)!important;margin:0 auto!important;text-align:left}.profile-inline-picker button,.profile-inline-picker a{grid-template-columns:24px 18px minmax(0,1fr) auto!important;gap:8px!important;align-items:center!important;min-height:31px!important;padding-top:4px!important;padding-bottom:4px!important;padding-left:5px!important;padding-right:10px!important;overflow:visible!important}.profile-inline-picker button strong,.profile-inline-picker a strong{display:block;min-height:22px;line-height:22px;padding-right:10px;overflow:hidden;text-overflow:ellipsis}.profile-inline-picker .picker-rank,.profile-inline-picker .picker-avatar,.profile-inline-picker .picker-hours{align-self:center}.profile-inline-picker .picker-avatar{display:block}.profile-inline-picker .flight-streak-badge{top:0;transform:translateY(-1px)}.profile-inline-picker .picker-hours{padding-left:10px}
         .profile-v2 .profile-person{min-width:0;padding-top:0}.profile-v2 .profile-identity h3{display:grid;align-items:center;max-width:100%;white-space:normal;min-height:52px;margin:0 0 4px;font-size:24px;line-height:26px}.profile-v2 .profile-title-name{display:block;max-width:100%;white-space:normal}.profile-v2 .profile-title-name .pilot-name-tail{display:inline-flex;align-items:center;white-space:nowrap}.profile-v2 .profile-title-name .flight-streak-badge{font-size:.92em;transform:translateY(-5%)}.profile-v2 .profile-newsky-row{display:flex;align-items:center;gap:2px;margin:0 0 2px;font-size:13px;white-space:nowrap}.profile-v2 .profile-badge{display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;border:1px solid #777;background:#ddd;padding:1px 3px;color:#111;font-size:13px;line-height:17px;text-decoration:none;white-space:nowrap;cursor:pointer}.profile-v2 .profile-badge:hover,.profile-v2 .profile-badge:focus{background:#c8ddeb;color:#111;text-decoration:none}.profile-v2 .profile-badge.profile-tip:hover{background:#c8ddeb}.profile-v2 .profile-person small{font-size:13px;line-height:18px}
         .profile-v2 .profile-aircraft-awards{box-sizing:border-box;min-width:0;width:calc(100% - 5px);height:117px;display:flex;flex-wrap:wrap;align-content:flex-start;gap:0;overflow:hidden;margin:-1px 0 0 5px;padding:0 5px 0 0}
         .profile-v2 .profile-aircraft-awards.scrollable{overflow-x:hidden;overflow-y:auto;scrollbar-width:thin}
@@ -1236,7 +1253,7 @@
       renderEmptyProfilePicker();
       page.pickerList.hidden = true;
       page.pickerButton.setAttribute('aria-expanded', 'false');
-      if (location.hash !== '#profile') location.hash = 'profile';
+      if (!String(location.hash || '').startsWith('#profile')) location.hash = 'profile';
     };
     if (!current) renderEmptyProfilePicker();
   }
@@ -1249,12 +1266,20 @@
 
   function pickerButtonsHtml(pilots) {
     return pilots.map((pilot,index) =>
-      `<button type="button" data-picker-pilot="${esc(pilot.id)}"><span class="picker-rank">#${index+1}</span><img class="picker-avatar" src="${esc(pilotAvatarUrl(pilot.avatar))}" alt="${esc(pilot.name)}" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='https://newsky.app/api/pilot/avatar/default'}"><strong>${pilotNameWithStreak(pilot)}</strong><span class="picker-hours">${compactTime(pilot.minutes)}</span></button>`
+      `<a href="pilot-cabinet.html#profile/${encodeURIComponent(pilot.id)}" data-picker-pilot="${esc(pilot.id)}"><span class="picker-rank">#${index+1}</span><img class="picker-avatar" src="${esc(pilotAvatarUrl(pilot.avatar))}" alt="${esc(pilot.name)}" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='https://newsky.app/api/pilot/avatar/default'}"><strong>${pilotNameWithStreak(pilot)}</strong><span class="picker-hours">${compactTime(pilot.minutes)}</span></a>`
     ).join('');
   }
 
   function bindPickerButtons(root) {
-    root.querySelectorAll('[data-picker-pilot]').forEach(button => button.onclick = () => open(button.dataset.pickerPilot, availableFlights));
+    root.querySelectorAll('[data-picker-pilot]').forEach(link => link.onclick = event => {
+      event.preventDefault();
+      const id = link.dataset.pickerPilot;
+      open(id, availableFlights);
+      const url = new URL(window.location.href);
+      url.searchParams.delete('pilot');
+      url.hash = `profile/${encodeURIComponent(id)}`;
+      history.replaceState(null, '', url);
+    });
   }
 
   function renderEmptyProfilePicker() {
@@ -1412,7 +1437,7 @@
     const profitVisual = ui.companyProfitVisual(flight,row.direct);
     const salaryVisual = ui.pilotSalaryVisual(flight,row.direct);
     return `<tr>
-      <td>${formatFlightDateLabel(flight)}<span class="date-flight-meta"><span class="date-flight-time">${date.toLocaleTimeString('uk-UA',{timeZone:'UTC',hour:'2-digit',minute:'2-digit'})}</span><a class="flight-number-link flight-number-${operation.key}" href="https://newsky.app/flight/${encodeURIComponent(flight.id)}" target="_blank" rel="noopener" title="${esc(operation.label)}">${esc(flight.flightNumber || '—')}</a></span></td>
+      <td>${formatFlightDateLabel(flight)}<span class="date-flight-meta"><span class="date-flight-time">${formatFlightCloseTime(flight)}</span><a class="flight-number-link flight-number-${operation.key}" href="https://newsky.app/flight/${encodeURIComponent(flight.id)}" target="_blank" rel="noopener" title="${esc(operation.label)}">${esc(flight.flightNumber || '—')}</a></span></td>
       <td class="route"><span class="route-airports">${ui.airportWithFlag(flight.departure)} → ${ui.airportWithFlag(flight.arrival)}</span><span class="route-duration">${formatMinutes(flight.times?.durationMinutes)}</span></td>
       <td>${esc(flight.aircraft?.name || '—')}<span class="flight-note">${esc(flight.aircraft?.icao || '')}</span></td>
       <td><span class="payload-value" title="${esc(payload.label)}">${esc(ui.flightLoad(flight))}<span class="load-kind-icon" aria-hidden="true">${payload.icon}</span></span></td>
@@ -1577,12 +1602,12 @@
     const loyaltyK = Number(latestPay?.loyaltyK) || 1;
     const regularityK = Number(latestPay?.regularityK) || 1;
     const baseRegularityK = Number(latestPay?.baseRegularityK || latestPay?.regularityK) || 1;
-    const streakK = Number(latestPay?.streakK || 1);
-    const streakDays = Number(latestPay?.streakDays || 0);
+    const streakDays = liveRegularityStreakForPilot(current.id, availableFlights, referenceNow || new Date());
+    const streakK = window.UCAAPilotPay.streakCoefficient(streakDays);
     const streakText = streakDays >= 5 ? '5+ вогників' : streakDays > 0 ? `${streakDays} вогн${streakDays === 1 ? 'ик' : 'ики/иків'}` : 'без вогників';
     const regularityDisplay = `×${baseRegularityK.toFixed(2)}${streakK > 1 ? `×${streakK.toFixed(2)}🔥` : ''}`;
     const loyaltyTip = 'Лояльність залежить від часу в авіакомпанії та загальної кількості рейсів.\n\n×1.05 — 1 день і 1 рейс\n×1.10 — 7 днів і 5 рейсів\n×1.15 — 14 днів і 10 рейсів\n×1.20 — 1 місяць і 15 рейсів\n×1.25 — 2 місяці і 20 рейсів\n×1.30 — 3 місяці і 30 рейсів\n×1.35 — 4 місяці і 40 рейсів\n×1.40 — 5 місяців і 50 рейсів\n×1.45 — 6 місяців і 60 рейсів\n×1.50 — понад 6 місяців і понад 60 рейсів';
-    const regularityTip = `Регулярність залежить від кількості рейсів за останні періоди.\n\n×1.05 — 1 рейс за 30 днів\n×1.10 — 5 рейсів за 10 днів\n×1.20 — 10 рейсів за 20 днів\n×1.30 — 15 рейсів за 30 днів\n×1.40 — 20 рейсів за 30 днів\n×1.50 — 30+ рейсів за 30 днів\n\nFlight streak на дату крайнього рейсу: ${streakText} → ×${streakK.toFixed(2)}.\n1 вогник — ×1.10; 2 — ×1.20; 3 — ×1.30; 4 — ×1.40; 5+ — ×1.50.`;
+    const regularityTip = `Регулярність залежить від кількості рейсів за останні періоди.\n\n×1.05 — 1 рейс за 30 днів\n×1.10 — 5 рейсів за 10 днів\n×1.20 — 10 рейсів за 20 днів\n×1.30 — 15 рейсів за 30 днів\n×1.40 — 20 рейсів за 30 днів\n×1.50 — 30+ рейсів за 30 днів\n\nLIVE flight streak станом на сьогодні: ${streakText} → ×${streakK.toFixed(2)}.\n1 вогник — ×1.10; 2 — ×1.20; 3 — ×1.30; 4 — ×1.40; 5+ — ×1.50.`;
     const difficultyVisibleTypes = new Set(companyFleetTypes);
     availableFlights.forEach(flight => {
       const code = String(flight.aircraft?.icao || '').trim().toUpperCase();
@@ -1826,17 +1851,12 @@
       sortDirection:'desc'
     };
     render();
-    if (location.hash !== '#profile') location.hash = 'profile';
+    if (!String(location.hash || '').startsWith('#profile')) location.hash = 'profile';
   }
 
   function setFlights(flights) {
     const nextFlights = Array.isArray(flights) ? flights : [];
     const nextSignature = profileCacheSignature(nextFlights);
-    const sameFlights = nextSignature === profileFlightsSignature && nextFlights.length === availableFlights.length;
-    if (sameFlights) {
-      if (current) current.flights = availableFlights;
-      return;
-    }
     availableFlights = nextFlights;
     resetProfileCaches(nextSignature);
     loadNewskyAwardRequirements();
@@ -1853,7 +1873,7 @@
   }
 
   addEventListener('hashchange', () => {
-    if (location.hash === '#profile') {
+    if (String(location.hash || '').startsWith('#profile')) {
       const page = ensureProfilePage();
       if (!current) {
         renderEmptyProfilePicker();
@@ -1871,11 +1891,15 @@
   document.addEventListener('click', event => {
     const page = ensureProfilePage();
     if (event.target.closest('#profileTabLink')) {
+      event.preventDefault();
+      const url = new URL(window.location.href);
+      url.searchParams.delete('pilot');
+      url.hash = 'profile';
+      history.replaceState(null, '', url);
       current = null;
       renderEmptyProfilePicker();
       page.pickerList.hidden = true;
       page.pickerButton.setAttribute('aria-expanded','false');
-      if (location.hash !== '#profile') location.hash = 'profile';
       return;
     }
     if (!event.target.closest('#pilotPickerList')) {

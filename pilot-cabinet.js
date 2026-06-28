@@ -97,6 +97,11 @@ const pilotAvatarUrl = value => {
   const hash = String(value || 'default').trim();
   return `https://newsky.app/api/pilot/avatar/${encodeURIComponent(hash && hash !== 'null' ? hash : 'default')}`;
 };
+const profileHashPilotId = () => {
+  const match = String(location.hash || '').match(/^#profile\/([^/?#]+)/);
+  return match ? decodeURIComponent(match[1]) : null;
+};
+const pilotProfileUrl = id => `pilot-cabinet.html#profile/${encodeURIComponent(id)}`;
 const dashboardPilotCellHtml = pilot => `<td class="dashboard-pilot-cell" data-pilot-id="${esc(pilot.id)}" role="button" tabindex="0"><span class="dashboard-pilot-card"><img class="dashboard-pilot-avatar" src="${esc(pilotAvatarUrl(pilot.avatar))}" alt="${esc(pilot.name)}" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='https://newsky.app/api/pilot/avatar/default'}"><span class="dashboard-pilot-name">${pilotNameWithStreak(pilot)}</span></span></td>`;
 const bindDashboardPilotCells = () => {
   $$('.dashboard-pilot-cell').forEach(cell => {
@@ -186,7 +191,7 @@ function flightStartDateForDisplay(flight) {
 }
 
 function flightEndDateForDisplay(flight) {
-  return new Date(flight.times?.actualArrival || flight.times?.closed || flight.times?.scheduledArrival || flight.times?.takeoff || flight.times?.scheduledDeparture);
+  return new Date(flight.times?.closed || flight.times?.actualArrival || flight.times?.scheduledArrival || flight.times?.takeoff || flight.times?.scheduledDeparture);
 }
 
 function utcDateParts(date) {
@@ -208,6 +213,12 @@ function formatFlightDateLabel(flight) {
   if (s.month === e.month && s.year === e.year) return `${s.day}-${e.day}.${e.month}.${e.year}`;
   if (s.year === e.year) return `${s.day}.${s.month}-${e.day}.${e.month}.${e.year}`;
   return `${s.day}.${s.month}.${s.year}-${e.day}.${e.month}.${e.year}`;
+}
+
+function formatFlightCloseTime(flight) {
+  const end = flightEndDateForDisplay(flight);
+  const date = Number.isFinite(end.getTime()) ? end : dateOf(flight);
+  return date.toLocaleTimeString('uk-UA',{timeZone:'UTC',hour:'2-digit',minute:'2-digit'});
 }
 
 function utcDayKey(date) {
@@ -418,6 +429,12 @@ function aircraftCoefficient(icao = '', flightType = '') {
 
 function pilotPay(flight) {
   return window.UCAAPilotPay.pay(flight, pilotInsuranceCoverage.get(flight) || 0, app.flights);
+}
+
+function currentFlightById(flight) {
+  const id = String(flight?.id || '');
+  if (!id) return flight;
+  return app.flights.find(item => String(item.id) === id) || flight;
 }
 
 function cabinCrewPay(flight) {
@@ -1642,6 +1659,7 @@ function arrangeFinanceDetails(body, flight) {
 }
 
 function openFlightInfo(flight, type) {
+  flight = currentFlightById(flight);
   const dialog = $('#flightInfoDialog');
   const body = $('#flightInfoBody');
   dialog.classList.toggle('finance-mode', type === 'finance');
@@ -1839,7 +1857,7 @@ function renderDashboardFlightsOld(completed) {
     const payloadKind = flightPayloadKind(flight);
     const rating = flightRatingPresentation(flight);
     return `<tr>
-      <td>${formatFlightDateLabel(flight)}<span class="date-flight-meta"><span class="date-flight-time">${date.toLocaleTimeString('uk-UA',{timeZone:'UTC',hour:'2-digit',minute:'2-digit'})}</span><a class="flight-number-link flight-number-${operation.key}" href="https://newsky.app/flight/${encodeURIComponent(flight.id)}" target="_blank" rel="noopener" title="${operation.label}">${esc(flight.flightNumber||'—')}</a></span></td>
+      <td>${formatFlightDateLabel(flight)}<span class="date-flight-meta"><span class="date-flight-time">${formatFlightCloseTime(flight)}</span><a class="flight-number-link flight-number-${operation.key}" href="https://newsky.app/flight/${encodeURIComponent(flight.id)}" target="_blank" rel="noopener" title="${operation.label}">${esc(flight.flightNumber||'—')}</a></span></td>
       ${dashboardPilotCellHtml(flight.pilot)}
       <td class="route"><span class="route-airports">${airportWithFlag(flight.departure)} → ${airportWithFlag(flight.arrival)}</span><span class="route-duration">${formatMinutes(flight.times.durationMinutes)}</span></td>
       <td>${esc(flight.aircraft.name)}<span class="flight-note">${esc(flight.aircraft.icao)}</span></td>
@@ -1901,7 +1919,18 @@ function render() {
 }
 
 function showPilotProfile(id) {
+  if (!id) return;
   window.UCAAPilotProfile.open(id, app.flights);
+  const selected = 'profile';
+  document.querySelectorAll('.app-view').forEach(view => { view.hidden = view.id !== `${selected}View`; });
+  document.querySelectorAll('[data-view-link]').forEach(link => {
+    link.classList.toggle('active', link.dataset.viewLink === selected);
+    link.setAttribute('aria-current', link.dataset.viewLink === selected ? 'page' : 'false');
+  });
+  const url = new URL(window.location.href);
+  url.searchParams.delete('pilot');
+  url.hash = `profile/${encodeURIComponent(id)}`;
+  history.replaceState(null, '', url);
   const scrollProfileTop = () => {
     window.scrollTo({top: 0, left: 0, behavior: 'auto'});
     if (document.scrollingElement) document.scrollingElement.scrollTop = 0;
@@ -2103,7 +2132,7 @@ function renderDashboardFlights(completed) {
     $('#dashboardFlights').innerHTML = rows.length ? rows.map(row => {
       const flight = row.flight;
       return `<tr>
-        <td>${formatFlightDateLabel(flight)}<span class="date-flight-meta"><span class="date-flight-time">${row.date.toLocaleTimeString('uk-UA',{timeZone:'UTC',hour:'2-digit',minute:'2-digit'})}</span><a class="flight-number-link flight-number-${row.operation.key}" href="https://newsky.app/flight/${encodeURIComponent(flight.id)}" target="_blank" rel="noopener" title="${row.operation.label}">${esc(flight.flightNumber||'—')}</a></span></td>
+        <td>${formatFlightDateLabel(flight)}<span class="date-flight-meta"><span class="date-flight-time">${formatFlightCloseTime(flight)}</span><a class="flight-number-link flight-number-${row.operation.key}" href="https://newsky.app/flight/${encodeURIComponent(flight.id)}" target="_blank" rel="noopener" title="${row.operation.label}">${esc(flight.flightNumber||'—')}</a></span></td>
         ${dashboardPilotCellHtml(flight.pilot)}
         <td class="route"><span class="route-airports">${airportWithFlag(flight.departure)} → ${airportWithFlag(flight.arrival)}</span><span class="route-duration">${formatMinutes(flight.times.durationMinutes)}</span></td>
         <td>${esc(flight.aircraft.name)}<span class="flight-note">${esc(flight.aircraft.icao)}</span></td>
@@ -2138,7 +2167,7 @@ function renderDashboardFlightsLegacy(completed) {
     const payloadKind = flightPayloadKind(flight);
     const rating = flightRatingPresentation(flight);
     return `<tr>
-      <td>${formatFlightDateLabel(flight)}<span class="date-flight-meta"><span class="date-flight-time">${date.toLocaleTimeString('uk-UA',{timeZone:'UTC',hour:'2-digit',minute:'2-digit'})}</span><a class="flight-number-link flight-number-${operation.key}" href="https://newsky.app/flight/${encodeURIComponent(flight.id)}" target="_blank" rel="noopener" title="${operation.label}">${esc(flight.flightNumber||'вЂ”')}</a></span></td>
+      <td>${formatFlightDateLabel(flight)}<span class="date-flight-meta"><span class="date-flight-time">${formatFlightCloseTime(flight)}</span><a class="flight-number-link flight-number-${operation.key}" href="https://newsky.app/flight/${encodeURIComponent(flight.id)}" target="_blank" rel="noopener" title="${operation.label}">${esc(flight.flightNumber||'вЂ”')}</a></span></td>
       ${dashboardPilotCellHtml(flight.pilot)}
       <td class="route"><span class="route-airports">${airportWithFlag(flight.departure)} в†’ ${airportWithFlag(flight.arrival)}</span><span class="route-duration">${formatMinutes(flight.times.durationMinutes)}</span></td>
       <td>${esc(flight.aircraft.name)}<span class="flight-note">${esc(flight.aircraft.icao)}</span></td>
@@ -2181,7 +2210,8 @@ async function loadDatabases() {
     status.innerHTML = formatLiveDataStatusClean(current, archive, latest);
     selectInitialDashboardPeriod();
     render();
-    const requestedPilot = new URLSearchParams(location.search).get('pilot');
+    const legacyPilot = new URLSearchParams(location.search).get('pilot');
+    const requestedPilot = profileHashPilotId() || (location.hash === '#profile' ? legacyPilot : null);
     if (requestedPilot) showPilotProfile(requestedPilot);
   } catch (error) {
     console.error(error);
@@ -2354,4 +2384,6 @@ addEventListener('ucaa-flights-updated', event => {
 
 addEventListener('hashchange', () => {
   if (location.hash === '#pilots') renderPilotsCardsPage();
+  const requestedPilot = profileHashPilotId();
+  if (requestedPilot && app.flights.length) showPilotProfile(requestedPilot);
 });

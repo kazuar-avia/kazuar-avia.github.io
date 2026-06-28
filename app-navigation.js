@@ -8,7 +8,7 @@
   };
 
   function showView() {
-    const selected = location.hash === '#pilots' ? 'pilots' : location.hash === '#profile' ? 'profile' : location.hash === '#company' ? 'company' : location.hash === '#faq' ? 'faq' : 'dashboard';
+    const selected = location.hash === '#pilots' ? 'pilots' : location.hash.startsWith('#profile') ? 'profile' : location.hash === '#company' ? 'company' : location.hash === '#faq' ? 'faq' : 'dashboard';
     Object.entries(views).forEach(([name, view]) => { view.hidden = name !== selected; });
     document.querySelectorAll('[data-view-link]').forEach(link => {
       link.classList.toggle('active', link.dataset.viewLink === selected);
