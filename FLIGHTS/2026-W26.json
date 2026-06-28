@@ -5459,6 +5459,243 @@
                         "elev": 240
                     }
                 }
+            },
+            {
+                "_id": "6a4144a35760ec7cdb4fb0d1",
+                "aircraft": {
+                    "name": "Airbus A320",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "507D",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 180,
+                    "cargo": 9,
+                    "weights": {
+                        "cargo": 1251
+                    }
+                },
+                "depTime": "2026-06-28T16:35:00.000Z",
+                "duration": 80,
+                "arrTime": "2026-06-28T17:55:00.000Z",
+                "depTimeAct": "2026-06-28T16:14:11.584Z",
+                "delay": -34,
+                "takeoffTimeAct": "2026-06-28T16:18:24.616Z",
+                "durationAct": 62,
+                "arrTimeAct": "2026-06-28T17:20:42.577Z",
+                "open": "2026-06-28T16:12:59.191Z",
+                "close": "2026-06-28T17:23:29.608Z",
+                "rating": 6.44,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 423,
+                        "fuel": 2966,
+                        "expenses": 11481,
+                        "penalties": 4319,
+                        "revenue": 22977,
+                        "balance": 7177,
+                        "prices": {
+                            "ticketPrice": 121,
+                            "cargoUnitPrice": 133,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 180,
+                            "cargo": 9,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 180
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3354,
+                        "aircraft": 4900,
+                        "handling": 2174,
+                        "landing": 1053
+                    },
+                    "revenue": {
+                        "tickets": 21780,
+                        "cargo": 1197
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight departed 5 minutes too early (max 15 minutes before scheduled is allowed)",
+                            "penalty": {
+                                "points": -25,
+                                "cash": 450
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline takeoff (deviation 7.26m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -51,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    },
+                                    "weather": {
+                                        "windDir": 310.04,
+                                        "windSpd": 9.45,
+                                        "windX": 8.37
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late gear retraction after takeoff more than 90s, actual: 157s",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gear",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "MLW exceeded: 624kg above maximum landing weight of 64500kg",
+                            "penalty": {
+                                "points": -58,
+                                "cash": 3869
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.44,
+                                        "rate": 293
+                                    },
+                                    "weather": {
+                                        "windDir": 359.99,
+                                        "windSpd": 7.59,
+                                        "windX": 6.94
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 4.71m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -12,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.44G (293 ft/min, normal  conditions)<br/>Distance from threshold: 430m (accepted range: 204-817m)<br/>Average centerline deviation: 2.83m<br/>Max centerline deviation: 4.71m",
+                            "penalty": {
+                                "points": -10,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.44,
+                                        "rate": 293
+                                    },
+                                    "weather": {
+                                        "windDir": 359.99,
+                                        "windSpd": 7.59,
+                                        "windX": 6.94
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 797ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-06-28T15:58:27.988Z",
+                "updatedAt": "2026-06-28T17:23:29.687Z",
+                "dep": {
+                    "icao": "EBBR",
+                    "name": "Brussels Airport",
+                    "city": "Zaventem",
+                    "location": {
+                        "lat": 50.901402,
+                        "lon": 4.48444,
+                        "elev": 175
+                    }
+                },
+                "arr": {
+                    "icao": "LKPR",
+                    "name": "Václav Havel Airport Prague",
+                    "city": "Prague",
+                    "location": {
+                        "lat": 50.100874,
+                        "lon": 14.259911,
+                        "elev": 1247
+                    }
+                },
+                "actArr": {
+                    "icao": "LKPR",
+                    "name": "Václav Havel Airport Prague",
+                    "city": "Prague",
+                    "location": {
+                        "lat": 50.100874,
+                        "lon": 14.259911,
+                        "elev": 1247
+                    }
+                }
             }
         ]
     },
