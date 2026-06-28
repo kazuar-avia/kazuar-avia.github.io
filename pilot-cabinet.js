@@ -69,6 +69,20 @@ function bindVersionModeButton() {
   });
 }
 
+function bindManualRefreshButton() {
+  const button = document.querySelector('#manualRefreshButton');
+  if (!button || button.dataset.refreshBound) return;
+  button.dataset.refreshBound = '1';
+  button.addEventListener('click', event => {
+    event.preventDefault();
+    button.disabled = true;
+    button.textContent = '⏳';
+    const url = new URL(window.location.href);
+    url.searchParams.set('ucaaRefresh', String(Date.now()));
+    window.location.href = url.toString();
+  });
+}
+
 function autoMobileCabinetMode() {
   if (mobileModeManualOverride) return;
   const shouldUseMobile = window.matchMedia?.('(max-width: 940px)').matches || window.innerWidth <= 940;
@@ -2164,7 +2178,7 @@ async function loadDatabases() {
     const earliest = [...app.flights].sort((a,b)=>dateOf(a)-dateOf(b))[0];
     if (earliest) picker.min = dateOf(earliest).toISOString().slice(0,10);
     window.UCAAPilotProfile.setFlights(app.flights);
-    status.innerHTML = formatLiveDataStatus(current, archive, latest);
+    status.innerHTML = formatLiveDataStatusClean(current, archive, latest);
     selectInitialDashboardPeriod();
     render();
     const requestedPilot = new URLSearchParams(location.search).get('pilot');
@@ -2174,6 +2188,69 @@ async function loadDatabases() {
     status.textContent = 'Не вдалося завантажити файли з FLIGHTS';
     $('#leaderboard').innerHTML = '<tr><td colspan="4" style="padding:18px;text-align:center" class="negative">Не вдалося прочитати тижневі JSON-файли з папки FLIGHTS.</td></tr>';
   }
+}
+
+function formatLiveDataStatusClean(current, archive, fallbackLatest = null) {
+  const currentFlights = current?.flights || [];
+  const archiveFlights = archive?.flights || [];
+  const latestCompleted = [...currentFlights]
+    .filter(flight => !flight.status || flight.status === 'completed')
+    .sort((a, b) => completedDateOf(b) - completedDateOf(a))[0] || fallbackLatest;
+  const updatedAt = latestCompleted
+    ? `${completedDateOf(latestCompleted).toLocaleString('uk-UA', {timeZone:'UTC', day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit'})} UTC`
+    : '—';
+  return `за цей тиждень: ${currentFlights.length} рейсів · минулі тижні: ${archiveFlights.length}<br>оновлено ${updatedAt}`;
+}
+
+async function refreshDatabasesSoft() {
+  const status = $('#dataStatus');
+  const loader = window.UCAAFlightData?.reloadWeeklyFlights || window.UCAAFlightData?.loadWeeklyFlights;
+  if (!loader) return loadDatabases();
+  const [loaded, companyData] = await Promise.all([
+    loader(message => { if (status) status.textContent = message; }),
+    fetch('COMPANY/company-data.json', {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null)
+  ]);
+  const {archive, current} = loaded;
+  app.archive = archive;
+  app.current = current;
+  app.companyData = companyData;
+  app.flights = loaded.flights;
+  pilotCardsMonthlyCache = null;
+  pilotInsuranceCoverage = window.UCAAInsurance.coverageMap(app.flights);
+  const latest = loaded.latest || [...app.flights].sort((a,b) => dateOf(b)-dateOf(a))[0];
+  app.referenceNow = referenceDate(latest);
+  const picker = $('#dashboardDatePicker');
+  if (picker) {
+    picker.max = app.referenceNow.toISOString().slice(0,10);
+    const earliest = [...app.flights].sort((a,b)=>dateOf(a)-dateOf(b))[0];
+    if (earliest) picker.min = dateOf(earliest).toISOString().slice(0,10);
+  }
+  window.UCAAPilotProfile.setFlights(app.flights);
+  if (status) status.innerHTML = formatLiveDataStatusClean(current, archive, latest);
+  render();
+}
+
+function bindManualRefreshButtonClean() {
+  const button = document.querySelector('#manualRefreshButton');
+  if (!button || button.dataset.refreshBound) return;
+  button.dataset.refreshBound = '1';
+  button.addEventListener('click', async event => {
+    event.preventDefault();
+    if (button.disabled) return;
+    const originalText = button.textContent;
+    button.disabled = true;
+    button.textContent = '⏳';
+    try {
+      await refreshDatabasesSoft();
+    } catch (error) {
+      console.error(error);
+      const status = $('#dataStatus');
+      if (status) status.textContent = 'Не вдалося оновити дані';
+    } finally {
+      button.disabled = false;
+      button.textContent = originalText || '🔄';
+    }
+  });
 }
 
 $$('#dashboardView [data-period]').forEach(button => button.onclick = () => {
@@ -2255,6 +2332,7 @@ $$('#pilotsView [data-metric]').forEach(button => button.onclick = () => {
 });
 
 bindVersionModeButton();
+bindManualRefreshButtonClean();
 autoMobileCabinetMode();
 addEventListener('resize', autoMobileCabinetMode);
 loadNewskyRankSubtitle();
@@ -2270,7 +2348,7 @@ addEventListener('ucaa-flights-updated', event => {
   const latest = loaded.latest || [...app.flights].sort((a,b) => dateOf(b)-dateOf(a))[0];
   app.referenceNow = referenceDate(latest);
   window.UCAAPilotProfile.setFlights(app.flights);
-  $('#dataStatus').innerHTML = formatLiveDataStatus(loaded.current, loaded.archive, latest);
+  $('#dataStatus').innerHTML = formatLiveDataStatusClean(loaded.current, loaded.archive, latest);
   render();
 });
 

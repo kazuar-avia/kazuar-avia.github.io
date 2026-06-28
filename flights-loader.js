@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
   const START_WEEK = 2;
   const MAX_WEEK = 53;
   const YEAR = 2026;
@@ -129,7 +129,6 @@
   }
 
   let loadPromise = null;
-  let refreshTimer = null;
 
   async function fetchJson(url, options) {
     const response = await fetch(url, options);
@@ -226,24 +225,14 @@
   }
 
   function loadWeeklyFlights(onProgress) {
-    if (!loadPromise) {
-      loadPromise = loadBundle(onProgress).then(bundle => {
-        if (!refreshTimer) {
-          refreshTimer = setInterval(async () => {
-            try {
-              const updated = await loadBundle();
-              loadPromise = Promise.resolve(updated);
-              window.dispatchEvent(new CustomEvent('ucaa-flights-updated', {detail: updated}));
-            } catch (error) {
-              console.error('Не вдалося оновити live-файл', error);
-            }
-          }, 180000);
-        }
-        return bundle;
-      });
-    }
+    if (!loadPromise) loadPromise = loadBundle(onProgress);
     return loadPromise;
   }
 
-  window.UCAAFlightData = {loadWeeklyFlights};
+  function reloadWeeklyFlights(onProgress) {
+    loadPromise = loadBundle(onProgress);
+    return loadPromise;
+  }
+
+  window.UCAAFlightData = {loadWeeklyFlights, reloadWeeklyFlights};
 })();
