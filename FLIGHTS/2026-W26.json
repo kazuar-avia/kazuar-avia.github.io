@@ -5732,6 +5732,154 @@
                         "elev": 995
                     }
                 }
+            },
+            {
+                "_id": "6a40df6f5760ec7cdb45e6a6",
+                "aircraft": {
+                    "name": "Airbus A320 neo",
+                    "icao": "A20N"
+                },
+                "type": "pax",
+                "flightNumber": "52I",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 174,
+                    "cargo": 32,
+                    "weights": {
+                        "cargo": 2080
+                    }
+                },
+                "depTime": "2026-06-28T09:00:00.000Z",
+                "duration": 115,
+                "arrTime": "2026-06-28T10:55:00.000Z",
+                "depTimeAct": "2026-06-28T08:58:26.688Z",
+                "delay": -8,
+                "takeoffTimeAct": "2026-06-28T09:06:38.676Z",
+                "durationAct": 100,
+                "arrTimeAct": "2026-06-28T10:46:30.563Z",
+                "open": "2026-06-28T08:56:47.387Z",
+                "close": "2026-06-28T10:52:20.430Z",
+                "rating": 8.91,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 685,
+                        "fuel": 3393,
+                        "expenses": 10490,
+                        "penalties": 0,
+                        "revenue": 28858,
+                        "balance": 18368,
+                        "prices": {
+                            "ticketPrice": 139,
+                            "cargoUnitPrice": 146,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 174,
+                            "cargo": 32,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 174
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3069,
+                        "aircraft": 5400,
+                        "handling": 887,
+                        "landing": 1134
+                    },
+                    "revenue": {
+                        "tickets": 24186,
+                        "cargo": 4672
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 10.72m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -109,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.28G (313 ft/min, normal  conditions)<br/>Distance from threshold: 428m (accepted range: 186-746m)<br/>Average centerline deviation: 4.52m<br/>Max centerline deviation: 10.72m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 39
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.28,
+                                        "rate": 313
+                                    },
+                                    "weather": {
+                                        "windDir": 200.01,
+                                        "windSpd": 5.21,
+                                        "windX": -5.15
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-06-28T08:46:39.818Z",
+                "updatedAt": "2026-06-28T10:52:20.523Z",
+                "dep": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "arr": {
+                    "icao": "LIME",
+                    "name": "Milan Bergamo Airport / Antonio Locatelli Air Base",
+                    "city": "Orio al Serio (BG)",
+                    "location": {
+                        "lat": 45.670725,
+                        "lon": 9.709223,
+                        "elev": 782
+                    }
+                },
+                "actArr": {
+                    "icao": "LIME",
+                    "name": "Milan Bergamo Airport / Antonio Locatelli Air Base",
+                    "city": "Orio al Serio (BG)",
+                    "location": {
+                        "lat": 45.670725,
+                        "lon": 9.709223,
+                        "elev": 782
+                    }
+                }
             }
         ]
     },
