@@ -273,13 +273,15 @@ function completedDateOf(flight) {
 function formatLiveDataStatus(current, archive, fallbackLatest = null) {
   const currentFlights = current?.flights || [];
   const archiveFlights = archive?.flights || [];
-  const latestCompleted = [...currentFlights]
-    .filter(flight => !flight.status || flight.status === 'completed')
-    .sort((a, b) => completedDateOf(b) - completedDateOf(a))[0] || fallbackLatest;
-  const updatedAt = latestCompleted
-    ? `${completedDateOf(latestCompleted).toLocaleString('uk-UA', {timeZone:'UTC', day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit'})} UTC`
-    : '—';
-  return `за цей тиждень: ${currentFlights.length} рейсів · минулі тижні: ${archiveFlights.length}<br>оновлено ${updatedAt}`;
+  const updatedAt = new Date().toLocaleString('uk-UA', {
+    timeZone:'UTC',
+    day:'2-digit',
+    month:'2-digit',
+    year:'numeric',
+    hour:'2-digit',
+    minute:'2-digit'
+  });
+  return `?? ??? ???????: ${currentFlights.length} ?????? ? ?????? ?????: ${archiveFlights.length}<br>???? ???????? ${updatedAt} UTC`;
 }
 
 function formatRankUpdatedAt(value) {
@@ -2223,13 +2225,15 @@ async function loadDatabases() {
 function formatLiveDataStatusClean(current, archive, fallbackLatest = null) {
   const currentFlights = current?.flights || [];
   const archiveFlights = archive?.flights || [];
-  const latestCompleted = [...currentFlights]
-    .filter(flight => !flight.status || flight.status === 'completed')
-    .sort((a, b) => completedDateOf(b) - completedDateOf(a))[0] || fallbackLatest;
-  const updatedAt = latestCompleted
-    ? `${completedDateOf(latestCompleted).toLocaleString('uk-UA', {timeZone:'UTC', day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit'})} UTC`
-    : '—';
-  return `за цей тиждень: ${currentFlights.length} рейсів · минулі тижні: ${archiveFlights.length}<br>оновлено ${updatedAt}`;
+  const updatedAt = new Date().toLocaleString('uk-UA', {
+    timeZone:'UTC',
+    day:'2-digit',
+    month:'2-digit',
+    year:'numeric',
+    hour:'2-digit',
+    minute:'2-digit'
+  });
+  return `З початку тижня виконано: ${currentFlights.length} рейсів<br>Дані оновлено ${updatedAt} UTC`;
 }
 
 async function refreshDatabasesSoft() {
