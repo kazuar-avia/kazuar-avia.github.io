@@ -1736,6 +1736,207 @@
                         "elev": 587
                     }
                 }
+            },
+            {
+                "_id": "6a43a3b45760ec7cdb7b2b75",
+                "aircraft": {
+                    "name": "Boeing 737-800",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "58P",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 166,
+                    "cargo": 26,
+                    "weights": {
+                        "cargo": 3302
+                    }
+                },
+                "depTime": "2026-06-30T11:50:00.000Z",
+                "duration": 95,
+                "arrTime": "2026-06-30T13:25:00.000Z",
+                "depTimeAct": "2026-06-30T12:02:43.949Z",
+                "delay": 6,
+                "takeoffTimeAct": "2026-06-30T12:07:19.955Z",
+                "durationAct": 84,
+                "arrTimeAct": "2026-06-30T13:31:04.045Z",
+                "open": "2026-06-30T11:26:28.778Z",
+                "close": "2026-06-30T13:39:10.086Z",
+                "rating": 7.42,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 549,
+                        "fuel": 4500,
+                        "expenses": 12794,
+                        "penalties": 16873,
+                        "revenue": 24810,
+                        "balance": -4857,
+                        "prices": {
+                            "ticketPrice": 128,
+                            "cargoUnitPrice": 137,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 166,
+                            "cargo": 26,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 166
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 5088,
+                        "aircraft": 5450,
+                        "handling": 1506,
+                        "landing": 750
+                    },
+                    "revenue": {
+                        "tickets": 21248,
+                        "cargo": 3562
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 4.03m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 36
+                                    },
+                                    "weather": {
+                                        "windDir": 0,
+                                        "windSpd": 7.64,
+                                        "windX": 0.15
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "MLW exceeded: 2799kg above maximum landing weight of 66361kg",
+                            "penalty": {
+                                "points": -253,
+                                "cash": 16873
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.19,
+                                        "rate": 224
+                                    },
+                                    "weather": {
+                                        "windDir": 23.97,
+                                        "windSpd": 2.46,
+                                        "windX": -0.04
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (645m from threshold beyond 631m max accepted)",
+                            "penalty": {
+                                "points": -5,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.19,
+                                        "rate": 224
+                                    },
+                                    "weather": {
+                                        "windDir": 23.97,
+                                        "windSpd": 2.46,
+                                        "windX": -0.04
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.19G (224 ft/min, normal  conditions)<br/>Distance from threshold: 645m (accepted range: 157-631m)<br/>Average centerline deviation: 2.27m<br/>Max centerline deviation: 3.66m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.19,
+                                        "rate": 224
+                                    },
+                                    "weather": {
+                                        "windDir": 23.97,
+                                        "windSpd": 2.46,
+                                        "windX": -0.04
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-06-30T11:08:36.395Z",
+                "updatedAt": "2026-06-30T13:39:10.175Z",
+                "dep": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                },
+                "arr": {
+                    "icao": "LOWI",
+                    "name": "Innsbruck Airport",
+                    "city": "Innsbruck",
+                    "location": {
+                        "lat": 47.260201,
+                        "lon": 11.344,
+                        "elev": 1907
+                    }
+                },
+                "actArr": {
+                    "icao": "LOWI",
+                    "name": "Innsbruck Airport",
+                    "city": "Innsbruck",
+                    "location": {
+                        "lat": 47.260201,
+                        "lon": 11.344,
+                        "elev": 1907
+                    }
+                }
             }
         ]
     },
