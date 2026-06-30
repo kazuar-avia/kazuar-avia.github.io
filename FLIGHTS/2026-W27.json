@@ -1134,6 +1134,163 @@
                         "elev": 12
                     }
                 }
+            },
+            {
+                "_id": "6a4372f45760ec7cdb781b98",
+                "aircraft": {
+                    "name": "Boeing 737-800",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "1204",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 165,
+                    "cargo": 22,
+                    "weights": {
+                        "cargo": 2266
+                    }
+                },
+                "depTime": "2026-06-30T08:00:00.000Z",
+                "duration": 132,
+                "arrTime": "2026-06-30T10:12:00.000Z",
+                "depTimeAct": "2026-06-30T08:05:22.948Z",
+                "delay": 8,
+                "takeoffTimeAct": "2026-06-30T08:10:43.959Z",
+                "durationAct": 129,
+                "arrTimeAct": "2026-06-30T10:19:36.428Z",
+                "open": "2026-06-30T08:01:24.638Z",
+                "close": "2026-06-30T10:22:51.638Z",
+                "rating": 9.95,
+                "simulator": "msfs",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 893,
+                        "fuel": 5500,
+                        "expenses": 12742,
+                        "penalties": 0,
+                        "revenue": 29425,
+                        "balance": 16683,
+                        "prices": {
+                            "ticketPrice": 157,
+                            "cargoUnitPrice": 160,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 1,
+                                "fuel": 0.8,
+                                "ground": 0.85
+                            }
+                        },
+                        "payload": {
+                            "pax": 165,
+                            "cargo": 22,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 165
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4975,
+                        "aircraft": 6275,
+                        "handling": 832,
+                        "landing": 660
+                    },
+                    "revenue": {
+                        "tickets": 25905,
+                        "cargo": 3520
+                    },
+                    "violations": [
+                        {
+                            "title": "Long landing (700m from threshold beyond 685m max accepted)",
+                            "penalty": {
+                                "points": -5,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 46
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.07,
+                                        "rate": 109
+                                    },
+                                    "weather": {
+                                        "windDir": 270.01,
+                                        "windSpd": 10.01,
+                                        "windX": -1.15
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.07G (109 ft/min, normal  conditions)<br/>Distance from threshold: 700m (accepted range: 171-685m)<br/>Average centerline deviation: 1.12m<br/>Max centerline deviation: 2.26m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 46
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.07,
+                                        "rate": 109
+                                    },
+                                    "weather": {
+                                        "windDir": 270.01,
+                                        "windSpd": 10.01,
+                                        "windX": -1.15
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-06-30T07:40:36.223Z",
+                "updatedAt": "2026-06-30T10:22:51.729Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "LTFG",
+                    "name": "Gazipaşa-Alanya Airport",
+                    "city": "Gazipaşa",
+                    "location": {
+                        "lat": 36.299217,
+                        "lon": 32.300598,
+                        "elev": 92
+                    }
+                },
+                "actArr": {
+                    "icao": "LTFG",
+                    "name": "Gazipaşa-Alanya Airport",
+                    "city": "Gazipaşa",
+                    "location": {
+                        "lat": 36.299217,
+                        "lon": 32.300598,
+                        "elev": 92
+                    }
+                }
             }
         ]
     },
