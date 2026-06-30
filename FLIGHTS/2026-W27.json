@@ -1424,6 +1424,154 @@
                         "elev": 92
                     }
                 }
+            },
+            {
+                "_id": "6a439b095760ec7cdb7a86ee",
+                "aircraft": {
+                    "name": "Boeing 737-800",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "1204",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 166,
+                    "cargo": 35,
+                    "weights": {
+                        "cargo": 4165
+                    }
+                },
+                "depTime": "2026-06-30T10:45:00.000Z",
+                "duration": 138,
+                "arrTime": "2026-06-30T13:03:00.000Z",
+                "depTimeAct": "2026-06-30T10:48:22.028Z",
+                "delay": 6,
+                "takeoffTimeAct": "2026-06-30T10:51:00.037Z",
+                "durationAct": 138,
+                "arrTimeAct": "2026-06-30T13:08:40.106Z",
+                "open": "2026-06-30T10:31:49.229Z",
+                "close": "2026-06-30T13:13:37.139Z",
+                "rating": 8.9,
+                "simulator": "msfs",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 974,
+                        "fuel": 6413,
+                        "expenses": 15556,
+                        "penalties": 0,
+                        "revenue": 31662,
+                        "balance": 16106,
+                        "prices": {
+                            "ticketPrice": 157,
+                            "cargoUnitPrice": 160,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.85
+                            }
+                        },
+                        "payload": {
+                            "pax": 166,
+                            "cargo": 35,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 166
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 7326,
+                        "aircraft": 6500,
+                        "handling": 848,
+                        "landing": 882
+                    },
+                    "revenue": {
+                        "tickets": 26062,
+                        "cargo": 5600
+                    },
+                    "violations": [
+                        {
+                            "title": "Unstable approach below 300ft: vertical speed below -1500 ft/min (actual -1720 ft/min)",
+                            "penalty": {
+                                "points": -110,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.08G (119 ft/min, challenging  conditions)<br/>Distance from threshold: 368m (accepted range: 209-838m)<br/>Average centerline deviation: 0.32m<br/>Max centerline deviation: 0.78m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 33
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.08,
+                                        "rate": 119
+                                    },
+                                    "weather": {
+                                        "windDir": 2.51,
+                                        "windSpd": 9.57,
+                                        "windX": -0.14
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-06-30T10:31:37.216Z",
+                "updatedAt": "2026-06-30T13:13:37.268Z",
+                "dep": {
+                    "icao": "LTFG",
+                    "name": "Gazipaşa-Alanya Airport",
+                    "city": "Gazipaşa",
+                    "location": {
+                        "lat": 36.299217,
+                        "lon": 32.300598,
+                        "elev": 92
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
             }
         ]
     },
