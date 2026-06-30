@@ -1458,6 +1458,159 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6a43595b5760ec7cdb770a99",
+                "aircraft": {
+                    "name": "McDonnell Douglas MD-82",
+                    "icao": "MD82"
+                },
+                "type": "pax",
+                "flightNumber": "74M",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 133,
+                    "cargo": 19,
+                    "weights": {
+                        "cargo": 1615
+                    }
+                },
+                "depTime": "2026-06-30T06:40:00.000Z",
+                "duration": 55,
+                "arrTime": "2026-06-30T07:35:00.000Z",
+                "depTimeAct": "2026-06-30T06:38:23.102Z",
+                "delay": -4,
+                "takeoffTimeAct": "2026-06-30T06:53:09.076Z",
+                "durationAct": 38,
+                "arrTimeAct": "2026-06-30T07:31:05.023Z",
+                "open": "2026-06-30T06:24:43.861Z",
+                "close": "2026-06-30T07:38:42.050Z",
+                "rating": 9.74,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 224,
+                        "fuel": 2152,
+                        "expenses": 6105,
+                        "penalties": 0,
+                        "revenue": 17157,
+                        "balance": 11052,
+                        "prices": {
+                            "ticketPrice": 111,
+                            "cargoUnitPrice": 126,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.7,
+                                "fuel": 0.8,
+                                "ground": 0.7
+                            }
+                        },
+                        "payload": {
+                            "pax": 133,
+                            "cargo": 19,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 133
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1947,
+                        "aircraft": 3150,
+                        "handling": 672,
+                        "landing": 336
+                    },
+                    "revenue": {
+                        "tickets": 14763,
+                        "cargo": 2394
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 9.90m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -26,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 47
+                                    },
+                                    "weather": {
+                                        "windDir": 19.79,
+                                        "windSpd": 14.29,
+                                        "windX": 3.28
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.24G (190 ft/min, challenging  conditions)<br/>Distance from threshold: 347m (accepted range: 175-704m)<br/>Average centerline deviation: 4.49m<br/>Max centerline deviation: 7.53m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 51
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.24,
+                                        "rate": 190
+                                    },
+                                    "weather": {
+                                        "windDir": 75.26,
+                                        "windSpd": 6.84,
+                                        "windX": -0.7
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-06-30T05:51:23.855Z",
+                "updatedAt": "2026-06-30T07:38:42.551Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "UKHH",
+                    "name": "Kharkiv International Airport",
+                    "city": "Kharkiv",
+                    "location": {
+                        "lat": 49.926943,
+                        "lon": 36.290814,
+                        "elev": 508
+                    }
+                },
+                "actArr": {
+                    "icao": "UKHH",
+                    "name": "Kharkiv International Airport",
+                    "city": "Kharkiv",
+                    "location": {
+                        "lat": 49.926943,
+                        "lon": 36.290814,
+                        "elev": 508
+                    }
+                }
             }
         ]
     }
