@@ -2407,5 +2407,169 @@
                 }
             }
         ]
+    },
+    {
+        "pilot_id": "695807ad3dc76275ba8a6e4b",
+        "fullname": "Alex Zaugarov",
+        "avatar": "695807ad3dc76275ba8a6e4b1767377295052",
+        "flights": [
+            {
+                "_id": "6a43edc15760ec7cdb80deaf",
+                "aircraft": {
+                    "name": "Airbus A320",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "162F",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 176,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-06-30T17:00:00.000Z",
+                "duration": 70,
+                "arrTime": "2026-06-30T18:10:00.000Z",
+                "depTimeAct": "2026-06-30T16:54:21.517Z",
+                "delay": -18,
+                "takeoffTimeAct": "2026-06-30T16:54:21.517Z",
+                "durationAct": 58,
+                "arrTimeAct": "2026-06-30T17:52:04.008Z",
+                "open": "2026-06-30T16:33:24.470Z",
+                "close": "2026-06-30T17:57:11.187Z",
+                "rating": 8.92,
+                "simulator": "xp",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 349,
+                        "fuel": 2227,
+                        "expenses": 9356,
+                        "penalties": 7216,
+                        "revenue": 21528,
+                        "balance": 4956,
+                        "prices": {
+                            "ticketPrice": 117,
+                            "cargoUnitPrice": 130,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 176,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 8,
+                                "Y": 168
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2544,
+                        "aircraft": 4950,
+                        "handling": 1232,
+                        "landing": 630
+                    },
+                    "revenue": {
+                        "tickets": 21528,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "MLW exceeded: 1164kg above maximum landing weight of 64500kg",
+                            "penalty": {
+                                "points": -108,
+                                "cash": 7216
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.13,
+                                        "rate": 215
+                                    },
+                                    "weather": {
+                                        "windDir": 111.82,
+                                        "windSpd": 2.86,
+                                        "windX": -2.02
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.13G (215 ft/min, normal  conditions)<br/>Distance from threshold: 271m (accepted range: 179-717m)<br/>Average centerline deviation: 1.57m<br/>Max centerline deviation: 3.84m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.13,
+                                        "rate": 215
+                                    },
+                                    "weather": {
+                                        "windDir": 111.82,
+                                        "windSpd": 2.86,
+                                        "windX": -2.02
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-06-30T16:24:33.330Z",
+                "updatedAt": "2026-06-30T17:57:11.259Z",
+                "dep": {
+                    "icao": "UACC",
+                    "name": "Nursultan Nazarbayev International Airport",
+                    "city": "Astana",
+                    "location": {
+                        "lat": 51.027035,
+                        "lon": 71.467094,
+                        "elev": 1165
+                    }
+                },
+                "arr": {
+                    "icao": "UAUU",
+                    "name": "Kostanay West Airport",
+                    "city": "Kostanay",
+                    "location": {
+                        "lat": 53.20690155029297,
+                        "lon": 63.55030059814453,
+                        "elev": 595
+                    }
+                },
+                "actArr": {
+                    "icao": "UAUU",
+                    "name": "Kostanay West Airport",
+                    "city": "Kostanay",
+                    "location": {
+                        "lat": 53.20690155029297,
+                        "lon": 63.55030059814453,
+                        "elev": 595
+                    }
+                }
+            }
+        ]
     }
 ]
