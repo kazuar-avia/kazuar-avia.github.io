@@ -1613,5 +1613,160 @@
                 }
             }
         ]
+    },
+    {
+        "pilot_id": "653037e6139a4e9a333116c1",
+        "fullname": "Roman Zavialov",
+        "avatar": "default",
+        "flights": [
+            {
+                "_id": "6a42cbc35760ec7cdb6ee99f",
+                "aircraft": {
+                    "name": "Airbus A350-900",
+                    "icao": "A359"
+                },
+                "type": "pax",
+                "flightNumber": "248V",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 324,
+                    "cargo": 66,
+                    "weights": {
+                        "cargo": 8316
+                    }
+                },
+                "depTime": "2026-06-29T20:00:00.000Z",
+                "duration": 780,
+                "arrTime": "2026-06-30T09:00:00.000Z",
+                "depTimeAct": "2026-06-29T20:22:43.232Z",
+                "delay": 45,
+                "takeoffTimeAct": "2026-06-29T20:36:38.231Z",
+                "durationAct": 788,
+                "arrTimeAct": "2026-06-30T09:44:31.642Z",
+                "open": "2026-06-29T20:22:32.230Z",
+                "close": "2026-06-30T09:48:42.955Z",
+                "rating": 10,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 5918,
+                        "fuel": 86598,
+                        "expenses": 162544,
+                        "penalties": 1296,
+                        "revenue": 341924,
+                        "balance": 178084,
+                        "prices": {
+                            "ticketPrice": 682,
+                            "cargoUnitPrice": 696,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.85
+                            }
+                        },
+                        "payload": {
+                            "pax": 324,
+                            "cargo": 66,
+                            "paxByClass": {
+                                "F": 22,
+                                "C": 44,
+                                "Y": 258
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 101043,
+                        "aircraft": 52090,
+                        "handling": 7941,
+                        "landing": 1470
+                    },
+                    "revenue": {
+                        "tickets": 295988,
+                        "cargo": 45936
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight delayed 8 minutes (max 15 minutes after scheduled is allowed)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 1296
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.06G (31 ft/min, challenging  conditions)<br/>Distance from threshold: 636m (accepted range: 209-838m)<br/>Average centerline deviation: 1.15m<br/>Max centerline deviation: 2.29m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 22
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.06,
+                                        "rate": 31
+                                    },
+                                    "weather": {
+                                        "windDir": 15.09,
+                                        "windSpd": 12.75,
+                                        "windX": 2.65
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-06-29T19:47:15.880Z",
+                "updatedAt": "2026-06-30T09:48:43.109Z",
+                "dep": {
+                    "icao": "KLAX",
+                    "name": "Los Angeles International Airport",
+                    "city": "Los Angeles",
+                    "location": {
+                        "lat": 33.942501,
+                        "lon": -118.407997,
+                        "elev": 125
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
+            }
+        ]
     }
 ]
