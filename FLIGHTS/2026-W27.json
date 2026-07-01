@@ -5150,5 +5150,180 @@
                 }
             }
         ]
+    },
+    {
+        "pilot_id": "69c3ced7c739a30ec89bfda3",
+        "fullname": "Yury Tr",
+        "avatar": "69c3ced7c739a30ec89bfda31774440239240",
+        "flights": [
+            {
+                "_id": "6a45561e6748d36670c57c43",
+                "aircraft": {
+                    "name": "Airbus A380",
+                    "icao": "A388"
+                },
+                "type": "pax",
+                "flightNumber": "388A",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 446,
+                    "cargo": 134,
+                    "weights": {
+                        "cargo": 17956
+                    }
+                },
+                "depTime": "2026-07-01T18:20:00.000Z",
+                "duration": 140,
+                "arrTime": "2026-07-01T20:40:00.000Z",
+                "depTimeAct": "2026-07-01T18:21:47.666Z",
+                "delay": -21,
+                "takeoffTimeAct": "2026-07-01T18:23:57.258Z",
+                "durationAct": 115,
+                "arrTimeAct": "2026-07-01T20:19:13.918Z",
+                "open": "2026-07-01T18:17:56.544Z",
+                "close": "2026-07-01T20:23:11.772Z",
+                "rating": 9.44,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 888,
+                        "fuel": 23909,
+                        "expenses": 64681,
+                        "penalties": 0,
+                        "revenue": 176994,
+                        "balance": 112313,
+                        "prices": {
+                            "ticketPrice": 156,
+                            "cargoUnitPrice": 159,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 446,
+                            "cargo": 134,
+                            "paxByClass": {
+                                "F": 85,
+                                "C": 297,
+                                "Y": 64
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 27312,
+                        "aircraft": 30425,
+                        "handling": 4074,
+                        "landing": 2870
+                    },
+                    "revenue": {
+                        "tickets": 155688,
+                        "cargo": 21306
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 5.94m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -31,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 35
+                                    },
+                                    "weather": {
+                                        "windDir": 90.01,
+                                        "windSpd": 4,
+                                        "windX": -3.99
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Delayed gear retraction after takeoff more than 30s, actual: 33s)",
+                            "penalty": {
+                                "points": -25,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gear",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.28G (340 ft/min, challenging  conditions)<br/>Distance from threshold: 528m (accepted range: 197-790m)<br/>Average centerline deviation: 2.26m<br/>Max centerline deviation: 3.37m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.28,
+                                        "rate": 340
+                                    },
+                                    "weather": {
+                                        "windDir": 116.96,
+                                        "windSpd": 2.04,
+                                        "windX": -0.65
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-01T18:02:06.934Z",
+                "updatedAt": "2026-07-01T20:23:11.871Z",
+                "dep": {
+                    "icao": "LTAI",
+                    "name": "Antalya International Airport",
+                    "city": "Antalya",
+                    "location": {
+                        "lat": 36.898701,
+                        "lon": 30.800501,
+                        "elev": 177
+                    }
+                },
+                "arr": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "actArr": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                }
+            }
+        ]
     }
 ]
