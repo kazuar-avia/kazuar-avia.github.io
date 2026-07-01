@@ -1205,6 +1205,222 @@
                         "elev": 919
                     }
                 }
+            },
+            {
+                "_id": "6a4450075760ec7cdb891488",
+                "aircraft": {
+                    "name": "Cessna 208 Caravan Freighter",
+                    "icao": "C208"
+                },
+                "type": "cargo",
+                "flightNumber": "969K",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 0,
+                    "cargo": 8,
+                    "weights": {
+                        "cargo": 688
+                    }
+                },
+                "depTime": "2026-06-30T23:35:00.000Z",
+                "duration": 45,
+                "arrTime": "2026-07-01T00:20:00.000Z",
+                "depTimeAct": "2026-06-30T23:26:52.152Z",
+                "delay": 8,
+                "takeoffTimeAct": "2026-06-30T23:37:18.999Z",
+                "durationAct": 50,
+                "arrTimeAct": "2026-07-01T00:27:42.999Z",
+                "open": "2026-06-30T23:25:39.213Z",
+                "close": "2026-07-01T00:35:39.006Z",
+                "rating": 8.32,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 98,
+                        "fuel": 150,
+                        "expenses": 397,
+                        "penalties": 0,
+                        "revenue": 440,
+                        "balance": 43,
+                        "prices": {
+                            "ticketPrice": 54,
+                            "cargoUnitPrice": 55,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 0,
+                            "cargo": 8,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 136,
+                        "aircraft": 221,
+                        "handling": 8,
+                        "landing": 32
+                    },
+                    "revenue": {
+                        "tickets": 0,
+                        "cargo": 440
+                    },
+                    "violations": [
+                        {
+                            "title": "Altimeter incorrect on takeoff: 979mb instead of 1016.9mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 19
+                                    },
+                                    "weather": {
+                                        "windDir": 44.98,
+                                        "windSpd": 1.73,
+                                        "windX": 1.73
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.17G (119 ft/min, challenging  conditions)<br/>Distance from threshold: 360m (accepted range: 175-701m)<br/>Average centerline deviation: 2.87m<br/>Max centerline deviation: 7.38m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 20
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.17,
+                                        "rate": 119
+                                    },
+                                    "weather": {
+                                        "windDir": 250.96,
+                                        "windSpd": 3.56,
+                                        "windX": 2.13
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on landing: 979mb instead of 1017.3mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 20
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.17,
+                                        "rate": 119
+                                    },
+                                    "weather": {
+                                        "windDir": 250.96,
+                                        "windSpd": 3.56,
+                                        "windX": 2.13
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Max G exceeded: 2.34G (max allowed: 2G)",
+                            "penalty": {
+                                "points": -68,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 20
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Fuel used 112 kg is lower than estimated minimum 150 kg.",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 20
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.17,
+                                        "rate": 119
+                                    },
+                                    "weather": {
+                                        "windDir": 250.96,
+                                        "windSpd": 3.56,
+                                        "windX": 2.13
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-06-30T23:23:51.838Z",
+                "updatedAt": "2026-07-01T00:35:39.081Z",
+                "dep": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "arr": {
+                    "icao": "UKLI",
+                    "name": "Ivano-Frankivsk International Airport",
+                    "city": "Ivano-Frankivsk",
+                    "location": {
+                        "lat": 48.88420104980469,
+                        "lon": 24.686100006103516,
+                        "elev": 919
+                    }
+                },
+                "actArr": {
+                    "icao": "UKLI",
+                    "name": "Ivano-Frankivsk International Airport",
+                    "city": "Ivano-Frankivsk",
+                    "location": {
+                        "lat": 48.88420104980469,
+                        "lon": 24.686100006103516,
+                        "elev": 919
+                    }
+                }
             }
         ]
     },
