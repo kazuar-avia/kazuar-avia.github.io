@@ -1584,6 +1584,159 @@
                         "elev": 919
                     }
                 }
+            },
+            {
+                "_id": "6a44b78a5760ec7cdb8e2afb",
+                "aircraft": {
+                    "name": "Cessna 208 Caravan Freighter",
+                    "icao": "C208"
+                },
+                "type": "cargo",
+                "flightNumber": "66S",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 0,
+                    "cargo": 7,
+                    "weights": {
+                        "cargo": 595
+                    }
+                },
+                "depTime": "2026-07-01T07:00:00.000Z",
+                "duration": 60,
+                "arrTime": "2026-07-01T08:00:00.000Z",
+                "depTimeAct": "2026-07-01T06:50:43.247Z",
+                "delay": 21,
+                "takeoffTimeAct": "2026-07-01T07:30:13.768Z",
+                "durationAct": 51,
+                "arrTimeAct": "2026-07-01T08:21:25.346Z",
+                "open": "2026-07-01T06:46:48.688Z",
+                "close": "2026-07-01T09:15:38.379Z",
+                "rating": 7.9,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 132,
+                        "fuel": 168,
+                        "expenses": 459,
+                        "penalties": 0,
+                        "revenue": 504,
+                        "balance": 45,
+                        "prices": {
+                            "ticketPrice": 67,
+                            "cargoUnitPrice": 72,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 0,
+                            "cargo": 7,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 190,
+                        "aircraft": 234,
+                        "handling": 3,
+                        "landing": 32
+                    },
+                    "revenue": {
+                        "tickets": 0,
+                        "cargo": 504
+                    },
+                    "violations": [
+                        {
+                            "title": "Incorrect flaps for takeoff",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 20
+                                    },
+                                    "weather": {
+                                        "windDir": 129.24,
+                                        "windSpd": 7.8,
+                                        "windX": 3.08
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.74G (463 ft/min, challenging  conditions)<br/>Distance from threshold: 354m (accepted range: 159-638m)<br/>Average centerline deviation: 2.91m<br/>Max centerline deviation: 3.67m",
+                            "penalty": {
+                                "points": -60,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 20
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.74,
+                                        "rate": 463
+                                    },
+                                    "weather": {
+                                        "windDir": 152.11,
+                                        "windSpd": 4.66,
+                                        "windX": 3.34
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-01T06:45:30.860Z",
+                "updatedAt": "2026-07-01T09:15:41.019Z",
+                "dep": {
+                    "icao": "UKLI",
+                    "name": "Ivano-Frankivsk International Airport",
+                    "city": "Ivano-Frankivsk",
+                    "location": {
+                        "lat": 48.88420104980469,
+                        "lon": 24.686100006103516,
+                        "elev": 919
+                    }
+                },
+                "arr": {
+                    "icao": "UKLU",
+                    "name": "Uzhhorod International Airport",
+                    "city": "Uzhhorod",
+                    "location": {
+                        "lat": 48.6343,
+                        "lon": 22.263399,
+                        "elev": 383
+                    }
+                },
+                "actArr": {
+                    "icao": "UKLU",
+                    "name": "Uzhhorod International Airport",
+                    "city": "Uzhhorod",
+                    "location": {
+                        "lat": 48.6343,
+                        "lon": 22.263399,
+                        "elev": 383
+                    }
+                }
             }
         ]
     },
