@@ -3391,6 +3391,152 @@
                         "elev": 595
                     }
                 }
+            },
+            {
+                "_id": "6a44f1c95760ec7cdb91876d",
+                "aircraft": {
+                    "name": "Saab 340",
+                    "icao": "SF34"
+                },
+                "type": "pax",
+                "flightNumber": "58V",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 34,
+                    "cargo": 4,
+                    "weights": {
+                        "cargo": 344
+                    }
+                },
+                "depTime": "2026-07-01T11:20:00.000Z",
+                "duration": 85,
+                "arrTime": "2026-07-01T12:45:00.000Z",
+                "depTimeAct": "2026-07-01T11:06:52.590Z",
+                "delay": -26,
+                "takeoffTimeAct": "2026-07-01T11:11:27.963Z",
+                "durationAct": 68,
+                "arrTimeAct": "2026-07-01T12:19:18.563Z",
+                "open": "2026-07-01T10:55:07.412Z",
+                "close": "2026-07-01T12:20:09.003Z",
+                "rating": 9,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 272,
+                        "fuel": 530,
+                        "expenses": 1895,
+                        "penalties": 0,
+                        "revenue": 4844,
+                        "balance": 2949,
+                        "prices": {
+                            "ticketPrice": 114,
+                            "cargoUnitPrice": 128,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 34,
+                            "cargo": 4,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 4,
+                                "Y": 30
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 600,
+                        "aircraft": 980,
+                        "handling": 186,
+                        "landing": 129
+                    },
+                    "revenue": {
+                        "tickets": 4332,
+                        "cargo": 512
+                    },
+                    "violations": [
+                        {
+                            "title": "Great touchdown: 1.22G (440 ft/min, challenging  conditions)<br/>Distance from threshold: 457m (accepted range: 195-784m)<br/>Average centerline deviation: 0.69m<br/>Max centerline deviation: 0.98m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 22
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.22,
+                                        "rate": 440
+                                    },
+                                    "weather": {
+                                        "windDir": 139.92,
+                                        "windSpd": 3.11,
+                                        "windX": -0.2
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No BEACON lights for 590s when required",
+                            "penalty": {
+                                "points": -100,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-01T10:54:01.086Z",
+                "updatedAt": "2026-07-01T12:20:09.077Z",
+                "dep": {
+                    "icao": "LUKK",
+                    "name": "Chişinău International Airport",
+                    "city": "Chişinău",
+                    "location": {
+                        "lat": 46.9277,
+                        "lon": 28.931,
+                        "elev": 399
+                    }
+                },
+                "arr": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "actArr": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                }
             }
         ]
     },
