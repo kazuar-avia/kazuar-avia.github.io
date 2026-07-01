@@ -1737,6 +1737,230 @@
                         "elev": 383
                     }
                 }
+            },
+            {
+                "_id": "6a44e0b85760ec7cdb9056a2",
+                "aircraft": {
+                    "name": "Cessna 208 Caravan",
+                    "icao": "C208"
+                },
+                "type": "pax",
+                "flightNumber": "77W",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 12,
+                    "cargo": 1,
+                    "weights": {
+                        "cargo": 85
+                    }
+                },
+                "depTime": "2026-07-01T09:55:00.000Z",
+                "duration": 140,
+                "arrTime": "2026-07-01T12:15:00.000Z",
+                "depTimeAct": "2026-07-01T09:43:00.925Z",
+                "delay": 112,
+                "takeoffTimeAct": "2026-07-01T09:51:48.876Z",
+                "durationAct": 255,
+                "arrTimeAct": "2026-07-01T14:07:04.042Z",
+                "open": "2026-07-01T09:41:26.034Z",
+                "close": "2026-07-01T14:14:01.770Z",
+                "rating": 0,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 434,
+                        "fuel": 520,
+                        "expenses": 1046,
+                        "penalties": 20000,
+                        "revenue": 1546,
+                        "balance": -19500,
+                        "prices": {
+                            "ticketPrice": 118,
+                            "cargoUnitPrice": 130,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 12,
+                            "cargo": 1,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 12
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 588,
+                        "aircraft": 351,
+                        "handling": 54,
+                        "landing": 53
+                    },
+                    "revenue": {
+                        "tickets": 1416,
+                        "cargo": 130
+                    },
+                    "violations": [
+                        {
+                            "title": "MLW exceeded: 327kg above maximum landing weight of 3856kg",
+                            "penalty": {
+                                "points": -300,
+                                "cash": 20000
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 17
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.92,
+                                        "rate": 690
+                                    },
+                                    "weather": {
+                                        "windDir": 10,
+                                        "windSpd": 10.87,
+                                        "windX": -8.41
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Unstable approach below 100ft: vertical speed above 0 ft/min (actual 200 ft/min)",
+                            "penalty": {
+                                "points": -100,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 17
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 22.58m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -300,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "stall_start",
+                                "payload": {
+                                    "system": {
+                                        "fps": 14
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Speeding when vacating runway (going 71KT, accepted max 50KT)",
+                            "penalty": {
+                                "points": -169,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "bounce",
+                                "payload": {
+                                    "system": {
+                                        "fps": 17
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.44,
+                                        "rate": 478
+                                    },
+                                    "weather": {
+                                        "windDir": 10,
+                                        "windSpd": 9.34,
+                                        "windX": -6.81
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Uncomfortable touchdown: 1.92G (690 ft/min, normal  conditions)<br/>Distance from threshold: 1590m (accepted range: 204-817m)<br/>Average centerline deviation: 14.51m<br/>Max centerline deviation: 22.58m",
+                            "penalty": {
+                                "points": -112,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 17
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.92,
+                                        "rate": 690
+                                    },
+                                    "weather": {
+                                        "windDir": 10,
+                                        "windSpd": 10.87,
+                                        "windX": -8.41
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Stall warning for 9 seconds",
+                            "penalty": {
+                                "points": -135,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-01T09:41:12.826Z",
+                "updatedAt": "2026-07-01T14:14:01.897Z",
+                "dep": {
+                    "icao": "UKLU",
+                    "name": "Uzhhorod International Airport",
+                    "city": "Uzhhorod",
+                    "location": {
+                        "lat": 48.6343,
+                        "lon": 22.263399,
+                        "elev": 383
+                    }
+                },
+                "arr": {
+                    "icao": "LKPR",
+                    "name": "Václav Havel Airport Prague",
+                    "city": "Prague",
+                    "location": {
+                        "lat": 50.100874,
+                        "lon": 14.259911,
+                        "elev": 1247
+                    }
+                },
+                "actArr": {
+                    "icao": "LKPR",
+                    "name": "Václav Havel Airport Prague",
+                    "city": "Prague",
+                    "location": {
+                        "lat": 50.100874,
+                        "lon": 14.259911,
+                        "elev": 1247
+                    }
+                }
             }
         ]
     },
