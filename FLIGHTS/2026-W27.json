@@ -4630,5 +4630,252 @@
                 }
             }
         ]
+    },
+    {
+        "pilot_id": "6957b3673dc76275ba7e053e",
+        "fullname": "Kazuar Avia",
+        "avatar": "6957b3673dc76275ba7e053e1777215050804",
+        "flights": [
+            {
+                "_id": "6a453c256748d36670c501d3",
+                "aircraft": {
+                    "name": "Fokker F100",
+                    "icao": "F100"
+                },
+                "type": "pax",
+                "flightNumber": "100F",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 100,
+                    "cargo": 10,
+                    "weights": {
+                        "cargo": 1200
+                    }
+                },
+                "depTime": "2026-07-01T17:00:00.000Z",
+                "duration": 50,
+                "arrTime": "2026-07-01T17:50:00.000Z",
+                "depTimeAct": "2026-07-01T17:27:16.635Z",
+                "delay": 25,
+                "takeoffTimeAct": "2026-07-01T17:33:59.645Z",
+                "durationAct": 41,
+                "arrTimeAct": "2026-07-01T18:14:41.618Z",
+                "open": "2026-07-01T16:41:44.653Z",
+                "close": "2026-07-01T18:24:56.666Z",
+                "rating": 6.56,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 166,
+                        "fuel": 1169,
+                        "expenses": 4007,
+                        "penalties": 650,
+                        "revenue": 10570,
+                        "balance": 5913,
+                        "prices": {
+                            "ticketPrice": 95,
+                            "cargoUnitPrice": 107,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.85
+                            }
+                        },
+                        "payload": {
+                            "pax": 100,
+                            "cargo": 10,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 100
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1322,
+                        "aircraft": 2012,
+                        "handling": 505,
+                        "landing": 168
+                    },
+                    "revenue": {
+                        "tickets": 9500,
+                        "cargo": 1070
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight delayed 13 minutes (max 15 minutes after scheduled is allowed)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 650
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Incorrect flaps for takeoff",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "weather": {
+                                        "windDir": 153.09,
+                                        "windSpd": 3.35,
+                                        "windX": 1.87
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Incorrect flaps for landing",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.03,
+                                        "rate": 54
+                                    },
+                                    "weather": {
+                                        "windDir": 118.38,
+                                        "windSpd": 4.15,
+                                        "windX": 2.25
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (777m from threshold beyond 679m max accepted)",
+                            "penalty": {
+                                "points": -34,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.03,
+                                        "rate": 54
+                                    },
+                                    "weather": {
+                                        "windDir": 118.38,
+                                        "windSpd": 4.15,
+                                        "windX": 2.25
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Greased touchdown: 1.03G (54 ft/min, challenging  conditions)<br/>Distance from threshold: 777m (accepted range: 169-679m)<br/>Average centerline deviation: 4.38m<br/>Max centerline deviation: 6.88m",
+                            "penalty": {
+                                "points": -10,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.03,
+                                        "rate": 54
+                                    },
+                                    "weather": {
+                                        "windDir": 118.38,
+                                        "windSpd": 4.15,
+                                        "windX": 2.25
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Fuel used 0 kg is lower than estimated minimum 1169 kg.",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.03,
+                                        "rate": 54
+                                    },
+                                    "weather": {
+                                        "windDir": 118.38,
+                                        "windSpd": 4.15,
+                                        "windX": 2.25
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-01T16:11:17.557Z",
+                "updatedAt": "2026-07-01T18:24:56.776Z",
+                "dep": {
+                    "icao": "UKLR",
+                    "name": "Rivne International Airport",
+                    "city": "Rivne",
+                    "location": {
+                        "lat": 50.60710144042969,
+                        "lon": 26.141599655151367,
+                        "elev": 755
+                    }
+                },
+                "arr": {
+                    "icao": "UKKK",
+                    "name": "Ihor Sikorsky Kyiv International Airport (Zhuliany)",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.40194,
+                        "lon": 30.45194,
+                        "elev": 587
+                    }
+                },
+                "actArr": {
+                    "icao": "UKKK",
+                    "name": "Ihor Sikorsky Kyiv International Airport (Zhuliany)",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.40194,
+                        "lon": 30.45194,
+                        "elev": 587
+                    }
+                }
+            }
+        ]
     }
 ]
