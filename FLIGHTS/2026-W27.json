@@ -997,6 +997,169 @@
                         "elev": 172
                     }
                 }
+            },
+            {
+                "_id": "6a44b0b95760ec7cdb8ddae6",
+                "aircraft": {
+                    "name": "Boeing 777-300ER",
+                    "icao": "B77W"
+                },
+                "type": "pax",
+                "flightNumber": "2916",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 420,
+                    "cargo": 41,
+                    "weights": {
+                        "cargo": 3485
+                    }
+                },
+                "depTime": "2026-07-01T06:35:00.000Z",
+                "duration": 95,
+                "arrTime": "2026-07-01T08:10:00.000Z",
+                "depTimeAct": "2026-07-01T06:27:53.959Z",
+                "delay": -32,
+                "takeoffTimeAct": "2026-07-01T06:28:30.957Z",
+                "durationAct": 69,
+                "arrTimeAct": "2026-07-01T07:37:32.098Z",
+                "open": "2026-07-01T06:27:45.963Z",
+                "close": "2026-07-01T07:41:20.128Z",
+                "rating": 8.98,
+                "simulator": "msfs",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 407,
+                        "fuel": 7876,
+                        "expenses": 38332,
+                        "penalties": 0,
+                        "revenue": 91676,
+                        "balance": 53344,
+                        "prices": {
+                            "ticketPrice": 148,
+                            "cargoUnitPrice": 164,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 419,
+                            "cargo": 41,
+                            "paxByClass": {
+                                "F": 26,
+                                "C": 77,
+                                "Y": 316
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 8997,
+                        "aircraft": 14768,
+                        "handling": 13217,
+                        "landing": 1350
+                    },
+                    "revenue": {
+                        "tickets": 84952,
+                        "cargo": 6724
+                    },
+                    "violations": [
+                        {
+                            "title": "Delayed gear retraction after takeoff more than 30s, actual: 50s)",
+                            "penalty": {
+                                "points": -25,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gear",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 4.72m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -12,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "spoilers",
+                                "payload": {
+                                    "system": {
+                                        "fps": 38
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.66G (547 ft/min, normal  conditions)<br/>Distance from threshold: 480m (accepted range: 201-806m)<br/>Average centerline deviation: 2.04m<br/>Max centerline deviation: 4.72m",
+                            "penalty": {
+                                "points": -65,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 34
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.66,
+                                        "rate": 547
+                                    },
+                                    "weather": {
+                                        "windDir": 270.1,
+                                        "windSpd": 2.16,
+                                        "windX": 0.05
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-01T06:16:25.184Z",
+                "updatedAt": "2026-07-01T07:41:20.206Z",
+                "dep": {
+                    "icao": "LTFM",
+                    "name": "İstanbul Airport",
+                    "city": "Arnavutköy, Istanbul",
+                    "location": {
+                        "lat": 41.261297,
+                        "lon": 28.741951,
+                        "elev": 325
+                    }
+                },
+                "arr": {
+                    "icao": "LUKK",
+                    "name": "Chişinău International Airport",
+                    "city": "Chişinău",
+                    "location": {
+                        "lat": 46.9277,
+                        "lon": 28.931,
+                        "elev": 399
+                    }
+                },
+                "actArr": {
+                    "icao": "LUKK",
+                    "name": "Chişinău International Airport",
+                    "city": "Chişinău",
+                    "location": {
+                        "lat": 46.9277,
+                        "lon": 28.931,
+                        "elev": 399
+                    }
+                }
             }
         ]
     },
