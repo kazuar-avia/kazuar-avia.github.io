@@ -7152,6 +7152,163 @@
                         "elev": 755
                     }
                 }
+            },
+            {
+                "_id": "6a4677a86748d36670c94583",
+                "aircraft": {
+                    "name": "Airbus A380",
+                    "icao": "A388"
+                },
+                "type": "pax",
+                "flightNumber": "388Y",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 446,
+                    "cargo": 75,
+                    "weights": {
+                        "cargo": 10125
+                    }
+                },
+                "depTime": "2026-07-02T15:00:00.000Z",
+                "duration": 140,
+                "arrTime": "2026-07-02T17:20:00.000Z",
+                "depTimeAct": "2026-07-02T14:54:54.993Z",
+                "delay": -22,
+                "takeoffTimeAct": "2026-07-02T14:58:38.876Z",
+                "durationAct": 119,
+                "arrTimeAct": "2026-07-02T16:57:55.532Z",
+                "open": "2026-07-02T14:51:19.535Z",
+                "close": "2026-07-02T17:01:16.787Z",
+                "rating": 9.66,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 885,
+                        "fuel": 23166,
+                        "expenses": 64106,
+                        "penalties": 0,
+                        "revenue": 167613,
+                        "balance": 103507,
+                        "prices": {
+                            "ticketPrice": 156,
+                            "cargoUnitPrice": 159,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 446,
+                            "cargo": 75,
+                            "paxByClass": {
+                                "F": 85,
+                                "C": 297,
+                                "Y": 64
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 26463,
+                        "aircraft": 30725,
+                        "handling": 4048,
+                        "landing": 2870
+                    },
+                    "revenue": {
+                        "tickets": 155688,
+                        "cargo": 11925
+                    },
+                    "violations": [
+                        {
+                            "title": "Long landing (864m from threshold beyond 790m max accepted)",
+                            "penalty": {
+                                "points": -26,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 8
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.43,
+                                        "rate": 380
+                                    },
+                                    "weather": {
+                                        "windDir": 321.17,
+                                        "windSpd": 7.34,
+                                        "windX": 0.69
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.53G (506 ft/min, challenging  conditions)<br/>Distance from threshold: 864m (accepted range: 197-790m)<br/>Average centerline deviation: 4.12m<br/>Max centerline deviation: 5.16m",
+                            "penalty": {
+                                "points": -8,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "bounce",
+                                "payload": {
+                                    "system": {
+                                        "fps": 7
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.53,
+                                        "rate": 506
+                                    },
+                                    "weather": {
+                                        "windDir": 321.3,
+                                        "windSpd": 10.25,
+                                        "windX": 0.94
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-02T14:37:28.507Z",
+                "updatedAt": "2026-07-02T17:01:16.917Z",
+                "dep": {
+                    "icao": "LTAI",
+                    "name": "Antalya International Airport",
+                    "city": "Antalya",
+                    "location": {
+                        "lat": 36.898701,
+                        "lon": 30.800501,
+                        "elev": 177
+                    }
+                },
+                "arr": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "actArr": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                }
             }
         ]
     }
