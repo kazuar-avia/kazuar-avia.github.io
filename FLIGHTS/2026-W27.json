@@ -5728,6 +5728,159 @@
                         "elev": 495
                     }
                 }
+            },
+            {
+                "_id": "6a4649716748d36670c85f98",
+                "aircraft": {
+                    "name": "Boeing 737-800",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "68E",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 160,
+                    "cargo": 32,
+                    "weights": {
+                        "cargo": 4416
+                    }
+                },
+                "depTime": "2026-07-02T12:00:00.000Z",
+                "duration": 75,
+                "arrTime": "2026-07-02T13:15:00.000Z",
+                "depTimeAct": "2026-07-02T11:58:34.255Z",
+                "delay": -9,
+                "takeoffTimeAct": "2026-07-02T12:02:47.308Z",
+                "durationAct": 63,
+                "arrTimeAct": "2026-07-02T13:06:16.410Z",
+                "open": "2026-07-02T11:20:41.601Z",
+                "close": "2026-07-02T13:13:41.070Z",
+                "rating": 9.5,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 414,
+                        "fuel": 3109,
+                        "expenses": 8309,
+                        "penalties": 0,
+                        "revenue": 23072,
+                        "balance": 14763,
+                        "prices": {
+                            "ticketPrice": 118,
+                            "cargoUnitPrice": 131,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.7,
+                                "fuel": 0.8,
+                                "ground": 0.7
+                            }
+                        },
+                        "payload": {
+                            "pax": 160,
+                            "cargo": 32,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 160
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2812,
+                        "aircraft": 4175,
+                        "handling": 818,
+                        "landing": 504
+                    },
+                    "revenue": {
+                        "tickets": 18880,
+                        "cargo": 4192
+                    },
+                    "violations": [
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1017mb instead of 1014mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "weather": {
+                                        "windDir": 327.72,
+                                        "windSpd": 16.46,
+                                        "windX": 2.82
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.26G (246 ft/min, challenging  conditions)<br/>Distance from threshold: 356m (accepted range: 185-741m)<br/>Average centerline deviation: 1.21m<br/>Max centerline deviation: 5.10m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.26,
+                                        "rate": 246
+                                    },
+                                    "weather": {
+                                        "windDir": 139.09,
+                                        "windSpd": 7.02,
+                                        "windX": 3.04
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-02T11:20:17.359Z",
+                "updatedAt": "2026-07-02T13:13:41.523Z",
+                "dep": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "arr": {
+                    "icao": "UKOO",
+                    "name": "Odessa International Airport",
+                    "city": "Odessa",
+                    "location": {
+                        "lat": 46.4268,
+                        "lon": 30.6765,
+                        "elev": 172
+                    }
+                },
+                "actArr": {
+                    "icao": "UKOO",
+                    "name": "Odessa International Airport",
+                    "city": "Odessa",
+                    "location": {
+                        "lat": 46.4268,
+                        "lon": 30.6765,
+                        "elev": 172
+                    }
+                }
             }
         ]
     },
