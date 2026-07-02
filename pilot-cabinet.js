@@ -1089,7 +1089,7 @@ function renderPilotsCardsPage() {
     .map(pilotCardSummary)
     .sort((a,b) => b.completedFlights.length - a.completedFlights.length || b.minutes - a.minutes || a.name.localeCompare(b.name,'uk'));
   const periodButtons = pilotCardsPeriodOptions();
-  view.innerHTML = `<section class="bar pilots-period-bar"><h2>ПЕРІОД:</h2><div class="periods" aria-label="Період сторінки пілотів">${periodButtons.map(([key,label]) => `<button data-pilots-period="${key}" class="${period===key?'active':''}">${label}</button>`).join('')}</div><div class="pilots-active-count">Активних пілотів: <strong>${pilotRows.length}</strong></div></section><div id="pilotCardsGrid" class="pilot-cards-grid">${pilotRows.length ? pilotRows.map((pilot,index) => {
+  view.innerHTML = `<section class="bar pilots-period-bar"><h2>ПЕРІОД:</h2><div class="periods" aria-label="Період сторінки пілотів">${periodButtons.map(([key,label]) => `<button data-pilots-period="${key}" class="${period===key?'active':''}">${label}</button>`).join('')}</div><div class="pilots-active-count" style="font-size:16px;">Літало: <strong>${pilotRows.length}</strong></div></section><div id="pilotCardsGrid" class="pilot-cards-grid">${pilotRows.length ? pilotRows.map((pilot,index) => {
     const rating = pilot.rating ? pilot.rating.toFixed(2) : '—';
     const hours = Math.round(pilot.minutes / 60);
     const awards = pilotCardAwardsHtml(pilot, period);
