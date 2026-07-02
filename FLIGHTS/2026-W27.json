@@ -6413,6 +6413,154 @@
                         "elev": 1071
                     }
                 }
+            },
+            {
+                "_id": "6a46464f6748d36670c849b4",
+                "aircraft": {
+                    "name": "Airbus A320 neo",
+                    "icao": "A20N"
+                },
+                "type": "pax",
+                "flightNumber": "11R",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 169,
+                    "cargo": 32,
+                    "weights": {
+                        "cargo": 4416
+                    }
+                },
+                "depTime": "2026-07-02T11:20:00.000Z",
+                "duration": 40,
+                "arrTime": "2026-07-02T12:00:00.000Z",
+                "depTimeAct": "2026-07-02T11:25:37.441Z",
+                "delay": -2,
+                "takeoffTimeAct": "2026-07-02T11:31:15.857Z",
+                "durationAct": 27,
+                "arrTimeAct": "2026-07-02T11:58:01.391Z",
+                "open": "2026-07-02T11:19:52.018Z",
+                "close": "2026-07-02T12:02:57.958Z",
+                "rating": 8.92,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 129,
+                        "fuel": 1481,
+                        "expenses": 6647,
+                        "penalties": 0,
+                        "revenue": 13627,
+                        "balance": 6980,
+                        "prices": {
+                            "ticketPrice": 67,
+                            "cargoUnitPrice": 72,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 1,
+                                "fuel": 0.8,
+                                "ground": 0.85
+                            }
+                        },
+                        "payload": {
+                            "pax": 169,
+                            "cargo": 32,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 169
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1340,
+                        "aircraft": 3725,
+                        "handling": 862,
+                        "landing": 720
+                    },
+                    "revenue": {
+                        "tickets": 11323,
+                        "cargo": 2304
+                    },
+                    "violations": [
+                        {
+                            "title": "Unstable approach below 300ft: vertical speed below -1500 ft/min (actual -1717 ft/min)",
+                            "penalty": {
+                                "points": -108,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "stall_start",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.37G (311 ft/min, challenging  conditions)<br/>Distance from threshold: 489m (accepted range: 179-719m)<br/>Average centerline deviation: 0.90m<br/>Max centerline deviation: 4.10m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 39
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.37,
+                                        "rate": 311
+                                    },
+                                    "weather": {
+                                        "windDir": 325.01,
+                                        "windSpd": 13.38,
+                                        "windX": 3.53
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-02T11:06:55.737Z",
+                "updatedAt": "2026-07-02T12:02:58.073Z",
+                "dep": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "arr": {
+                    "icao": "UKLR",
+                    "name": "Rivne International Airport",
+                    "city": "Rivne",
+                    "location": {
+                        "lat": 50.60710144042969,
+                        "lon": 26.141599655151367,
+                        "elev": 755
+                    }
+                },
+                "actArr": {
+                    "icao": "UKLR",
+                    "name": "Rivne International Airport",
+                    "city": "Rivne",
+                    "location": {
+                        "lat": 50.60710144042969,
+                        "lon": 26.141599655151367,
+                        "elev": 755
+                    }
+                }
             }
         ]
     }
