@@ -4323,6 +4323,176 @@
                         "elev": 1071
                     }
                 }
+            },
+            {
+                "_id": "6a461b825760ec7cdba602fb",
+                "aircraft": {
+                    "name": "Boeing 747-400",
+                    "icao": "B744"
+                },
+                "type": "pax",
+                "flightNumber": "414N",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 361,
+                    "cargo": 56,
+                    "weights": {
+                        "cargo": 4592
+                    }
+                },
+                "depTime": "2026-07-02T08:30:00.000Z",
+                "duration": 55,
+                "arrTime": "2026-07-02T09:25:00.000Z",
+                "depTimeAct": "2026-07-02T08:20:17.125Z",
+                "delay": -17,
+                "takeoffTimeAct": "2026-07-02T08:26:14.938Z",
+                "durationAct": 42,
+                "arrTimeAct": "2026-07-02T09:08:00.672Z",
+                "open": "2026-07-02T08:07:00.561Z",
+                "close": "2026-07-02T09:12:05.388Z",
+                "rating": 9.87,
+                "simulator": "xp",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 232,
+                        "fuel": 5952,
+                        "expenses": 27216,
+                        "penalties": 0,
+                        "revenue": 68439,
+                        "balance": 41223,
+                        "prices": {
+                            "ticketPrice": 111,
+                            "cargoUnitPrice": 126,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 361,
+                            "cargo": 56,
+                            "paxByClass": {
+                                "F": 48,
+                                "C": 48,
+                                "Y": 265
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 5383,
+                        "aircraft": 18205,
+                        "handling": 1828,
+                        "landing": 1800
+                    },
+                    "revenue": {
+                        "tickets": 61383,
+                        "cargo": 7056
+                    },
+                    "violations": [
+                        {
+                            "title": "Great touchdown: 1.22G (197 ft/min, normal  conditions)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 23
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.22,
+                                        "rate": 197
+                                    },
+                                    "weather": {
+                                        "windDir": 168.8,
+                                        "windSpd": 6.25,
+                                        "windX": 5.96
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No BEACON lights for 79s when required",
+                            "penalty": {
+                                "points": -13,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        },
+                        {
+                            "title": "Fuel used 4918 kg is lower than estimated minimum 5952 kg.",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 23
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.22,
+                                        "rate": 197
+                                    },
+                                    "weather": {
+                                        "windDir": 168.8,
+                                        "windSpd": 6.25,
+                                        "windX": 5.96
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-02T08:04:18.002Z",
+                "updatedAt": "2026-07-02T09:12:05.499Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "LUKK",
+                    "name": "Chişinău International Airport",
+                    "city": "Chişinău",
+                    "location": {
+                        "lat": 46.9277,
+                        "lon": 28.931,
+                        "elev": 399
+                    }
+                },
+                "actArr": {
+                    "icao": "LUKK",
+                    "name": "Chişinău International Airport",
+                    "city": "Chişinău",
+                    "location": {
+                        "lat": 46.9277,
+                        "lon": 28.931,
+                        "elev": 399
+                    }
+                }
             }
         ]
     },
