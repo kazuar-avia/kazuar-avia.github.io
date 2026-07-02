@@ -3446,6 +3446,272 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6a4650065760ec7cdba93d35",
+                "aircraft": {
+                    "name": "ATR 72-600 Freighter",
+                    "icao": "AT76"
+                },
+                "type": "cargo",
+                "flightNumber": "7069",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 0,
+                    "cargo": 64,
+                    "weights": {
+                        "cargo": 8832
+                    }
+                },
+                "depTime": "2026-07-02T12:10:00.000Z",
+                "duration": 45,
+                "arrTime": "2026-07-02T12:55:00.000Z",
+                "depTimeAct": "2026-07-02T12:15:17.081Z",
+                "delay": -19,
+                "takeoffTimeAct": "2026-07-02T12:17:24.813Z",
+                "durationAct": 18,
+                "arrTimeAct": "2026-07-02T12:35:33.500Z",
+                "open": "2026-07-02T11:59:03.885Z",
+                "close": "2026-07-02T12:37:12.705Z",
+                "rating": -0.2,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": true,
+                "result": {
+                    "totals": {
+                        "distance": 188,
+                        "fuel": 767,
+                        "expenses": 0,
+                        "penalties": 0,
+                        "revenue": 0,
+                        "balance": 0,
+                        "prices": {
+                            "ticketPrice": 111,
+                            "cargoUnitPrice": 124,
+                            "costScalars": {
+                                "timeAcceleration": 0.292,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 0,
+                            "cargo": 64,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 254,
+                        "aircraft": 1146,
+                        "handling": 29,
+                        "landing": 216
+                    },
+                    "revenue": {
+                        "tickets": 0,
+                        "cargo": 2317
+                    },
+                    "violations": [
+                        {
+                            "title": "Takeoff beyond runway end, over by 359m",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 10000
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    },
+                                    "weather": {
+                                        "windDir": 35.8,
+                                        "windSpd": 2.48,
+                                        "windX": -2.27
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Runway excursion on takeoff (17m from runway edge)",
+                            "penalty": {
+                                "points": -300,
+                                "cash": 30000
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    },
+                                    "weather": {
+                                        "windDir": 35.8,
+                                        "windSpd": 2.48,
+                                        "windX": -2.27
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Emergency Declared",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "emergency",
+                                "payload": {
+                                    "system": {
+                                        "fps": 43
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Unstable approach below 200ft: bank angle above 20° (actual 28°)",
+                            "penalty": {
+                                "points": -156,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 16.80m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -220,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.26,
+                                        "rate": 277
+                                    },
+                                    "weather": {
+                                        "windDir": 358.17,
+                                        "windSpd": 23.93,
+                                        "windX": -22.73
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.26G (277 ft/min, challenging  conditions)<br/>Distance from threshold: 459m (accepted range: 159-638m)<br/>Average centerline deviation: 7.54m<br/>Max centerline deviation: 16.80m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.26,
+                                        "rate": 277
+                                    },
+                                    "weather": {
+                                        "windDir": 358.17,
+                                        "windSpd": 23.93,
+                                        "windX": -22.73
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 547ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gear",
+                                "payload": {
+                                    "system": {
+                                        "fps": 34
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Time acceleration used (3.42x) - reduced revenue",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.26,
+                                        "rate": 277
+                                    },
+                                    "weather": {
+                                        "windDir": 358.17,
+                                        "windSpd": 23.93,
+                                        "windX": -22.73
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-02T11:48:22.046Z",
+                "updatedAt": "2026-07-02T12:37:12.792Z",
+                "dep": {
+                    "icao": "UKLN",
+                    "name": "Chernivtsi International Airport",
+                    "city": "Chernivtsi",
+                    "location": {
+                        "lat": 48.259300231933594,
+                        "lon": 25.98080062866211,
+                        "elev": 826
+                    }
+                },
+                "arr": {
+                    "icao": "UKLU",
+                    "name": "Uzhhorod International Airport",
+                    "city": "Uzhhorod",
+                    "location": {
+                        "lat": 48.6343,
+                        "lon": 22.263399,
+                        "elev": 383
+                    }
+                },
+                "actArr": {
+                    "icao": "UKLU",
+                    "name": "Uzhhorod International Airport",
+                    "city": "Uzhhorod",
+                    "location": {
+                        "lat": 48.6343,
+                        "lon": 22.263399,
+                        "elev": 383
+                    }
+                }
             }
         ]
     },
