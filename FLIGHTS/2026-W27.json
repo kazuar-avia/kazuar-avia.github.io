@@ -4515,6 +4515,159 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6a4687dc5760ec7cdbae117a",
+                "aircraft": {
+                    "name": "Boeing 737 MAX 8",
+                    "icao": "B38M"
+                },
+                "type": "pax",
+                "flightNumber": "477V",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 185,
+                    "cargo": 22,
+                    "weights": {
+                        "cargo": 1980
+                    }
+                },
+                "depTime": "2026-07-02T16:30:00.000Z",
+                "duration": 50,
+                "arrTime": "2026-07-02T17:20:00.000Z",
+                "depTimeAct": "2026-07-02T16:33:39.536Z",
+                "delay": 4,
+                "takeoffTimeAct": "2026-07-02T16:36:54.537Z",
+                "durationAct": 47,
+                "arrTimeAct": "2026-07-02T17:23:39.581Z",
+                "open": "2026-07-02T15:58:44.833Z",
+                "close": "2026-07-02T17:27:40.893Z",
+                "rating": 9.74,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 280,
+                        "fuel": 1920,
+                        "expenses": 8757,
+                        "penalties": 0,
+                        "revenue": 22420,
+                        "balance": 13663,
+                        "prices": {
+                            "ticketPrice": 102,
+                            "cargoUnitPrice": 115,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 185,
+                            "cargo": 22,
+                            "paxByClass": {
+                                "F": 2,
+                                "C": 4,
+                                "Y": 179
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2171,
+                        "aircraft": 4050,
+                        "handling": 1675,
+                        "landing": 861
+                    },
+                    "revenue": {
+                        "tickets": 19890,
+                        "cargo": 2530
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 5.84m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -26,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "weather": {
+                                        "windDir": 320,
+                                        "windSpd": 10.31,
+                                        "windX": 3.87
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.22G (212 ft/min, challenging  conditions)<br/>Distance from threshold: 469m (accepted range: 197-790m)<br/>Average centerline deviation: 3.60m<br/>Max centerline deviation: 5.04m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 34
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.22,
+                                        "rate": 212
+                                    },
+                                    "weather": {
+                                        "windDir": 323.98,
+                                        "windSpd": 9.19,
+                                        "windX": 1.26
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-02T15:46:36.588Z",
+                "updatedAt": "2026-07-02T17:27:40.981Z",
+                "dep": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                },
+                "arr": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "actArr": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                }
             }
         ]
     },
