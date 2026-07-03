@@ -9289,6 +9289,227 @@
                         "elev": 508
                     }
                 }
+            },
+            {
+                "_id": "6a4828b16748d36670d06997",
+                "aircraft": {
+                    "name": "Fokker F100",
+                    "icao": "F100"
+                },
+                "type": "pax",
+                "flightNumber": "335",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 100,
+                    "cargo": 20,
+                    "weights": {
+                        "cargo": 2240
+                    }
+                },
+                "depTime": "2026-07-03T22:00:00.000Z",
+                "duration": 45,
+                "arrTime": "2026-07-03T22:45:00.000Z",
+                "depTimeAct": "2026-07-03T22:05:05.337Z",
+                "delay": -9,
+                "takeoffTimeAct": "2026-07-03T22:09:58.338Z",
+                "durationAct": 26,
+                "arrTimeAct": "2026-07-03T22:36:21.326Z",
+                "open": "2026-07-03T21:38:13.671Z",
+                "close": "2026-07-03T22:40:55.353Z",
+                "rating": 6.42,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 129,
+                        "fuel": 1038,
+                        "expenses": 3740,
+                        "penalties": 0,
+                        "revenue": 8680,
+                        "balance": 4940,
+                        "prices": {
+                            "ticketPrice": 70,
+                            "cargoUnitPrice": 84,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 100,
+                            "cargo": 20,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 100
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1174,
+                        "aircraft": 1918,
+                        "handling": 459,
+                        "landing": 189
+                    },
+                    "revenue": {
+                        "tickets": 7000,
+                        "cargo": 1680
+                    },
+                    "violations": [
+                        {
+                            "title": "Incorrect flaps for takeoff",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 34
+                                    },
+                                    "weather": {
+                                        "windDir": 304.22,
+                                        "windSpd": 10.95,
+                                        "windX": -2.55
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1015mb instead of 1012.7mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 34
+                                    },
+                                    "weather": {
+                                        "windDir": 304.22,
+                                        "windSpd": 10.95,
+                                        "windX": -2.55
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Incorrect flaps for landing",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.28,
+                                        "rate": 319
+                                    },
+                                    "weather": {
+                                        "windDir": 303.08,
+                                        "windSpd": 7.8,
+                                        "windX": -3.41
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (688m from threshold beyond 666m max accepted)",
+                            "penalty": {
+                                "points": -8,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.28,
+                                        "rate": 319
+                                    },
+                                    "weather": {
+                                        "windDir": 303.08,
+                                        "windSpd": 7.8,
+                                        "windX": -3.41
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.28G (319 ft/min, challenging  conditions)<br/>Distance from threshold: 688m (accepted range: 166-666m)<br/>Average centerline deviation: 4.07m<br/>Max centerline deviation: 6.04m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.28,
+                                        "rate": 319
+                                    },
+                                    "weather": {
+                                        "windDir": 303.08,
+                                        "windSpd": 7.8,
+                                        "windX": -3.41
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-03T21:25:05.256Z",
+                "updatedAt": "2026-07-03T22:40:55.437Z",
+                "dep": {
+                    "icao": "UKWW",
+                    "name": "Vinnytsia/Gavyryshivka International Airport",
+                    "city": "Vinnitsa",
+                    "location": {
+                        "lat": 49.242531,
+                        "lon": 28.613778,
+                        "elev": 961
+                    }
+                },
+                "arr": {
+                    "icao": "UKLN",
+                    "name": "Chernivtsi International Airport",
+                    "city": "Chernivtsi",
+                    "location": {
+                        "lat": 48.259300231933594,
+                        "lon": 25.98080062866211,
+                        "elev": 826
+                    }
+                },
+                "actArr": {
+                    "icao": "UKLN",
+                    "name": "Chernivtsi International Airport",
+                    "city": "Chernivtsi",
+                    "location": {
+                        "lat": 48.259300231933594,
+                        "lon": 25.98080062866211,
+                        "elev": 826
+                    }
+                }
             }
         ]
     },
