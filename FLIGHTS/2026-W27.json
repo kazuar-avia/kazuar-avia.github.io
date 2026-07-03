@@ -6651,6 +6651,154 @@
                         "elev": 399
                     }
                 }
+            },
+            {
+                "_id": "6a4787595760ec7cdbbf40f9",
+                "aircraft": {
+                    "name": "Airbus A350-900",
+                    "icao": "A359"
+                },
+                "type": "pax",
+                "flightNumber": "772P",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 323,
+                    "cargo": 69,
+                    "weights": {
+                        "cargo": 6555
+                    }
+                },
+                "depTime": "2026-07-03T10:40:00.000Z",
+                "duration": 385,
+                "arrTime": "2026-07-03T17:05:00.000Z",
+                "depTimeAct": "2026-07-03T10:35:57.460Z",
+                "delay": -10,
+                "takeoffTimeAct": "2026-07-03T10:35:57.460Z",
+                "durationAct": 379,
+                "arrTimeAct": "2026-07-03T16:55:21.040Z",
+                "open": "2026-07-03T10:14:50.787Z",
+                "close": "2026-07-03T16:58:18.337Z",
+                "rating": 9.96,
+                "simulator": "xp",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 2662,
+                        "fuel": 36740,
+                        "expenses": 87413,
+                        "penalties": 0,
+                        "revenue": 178750,
+                        "balance": 91337,
+                        "prices": {
+                            "ticketPrice": 358,
+                            "cargoUnitPrice": 344,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 323,
+                            "cargo": 69,
+                            "paxByClass": {
+                                "F": 22,
+                                "C": 44,
+                                "Y": 257
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 42869,
+                        "aircraft": 32780,
+                        "handling": 5264,
+                        "landing": 6500
+                    },
+                    "revenue": {
+                        "tickets": 155014,
+                        "cargo": 23736
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 4.36m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -4,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.30G (301 ft/min, normal  conditions)<br/>Distance from threshold: 258m (accepted range: 205-822m)<br/>Average centerline deviation: 2.84m<br/>Max centerline deviation: 4.36m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 17
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.3,
+                                        "rate": 301
+                                    },
+                                    "weather": {
+                                        "windDir": 277.95,
+                                        "windSpd": 5.08,
+                                        "windX": -0.76
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-03T09:56:41.624Z",
+                "updatedAt": "2026-07-03T16:58:18.468Z",
+                "dep": {
+                    "icao": "CYYZ",
+                    "name": "Toronto Lester B. Pearson International Airport",
+                    "city": "Toronto",
+                    "location": {
+                        "lat": 43.6772,
+                        "lon": -79.6306,
+                        "elev": 569
+                    }
+                },
+                "arr": {
+                    "icao": "PANC",
+                    "name": "Ted Stevens Anchorage International Airport",
+                    "city": "Anchorage",
+                    "location": {
+                        "lat": 61.179004,
+                        "lon": -149.992561,
+                        "elev": 152
+                    }
+                },
+                "actArr": {
+                    "icao": "PANC",
+                    "name": "Ted Stevens Anchorage International Airport",
+                    "city": "Anchorage",
+                    "location": {
+                        "lat": 61.179004,
+                        "lon": -149.992561,
+                        "elev": 152
+                    }
+                }
             }
         ]
     },
