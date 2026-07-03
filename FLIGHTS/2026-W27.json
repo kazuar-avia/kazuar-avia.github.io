@@ -3248,6 +3248,222 @@
                         "elev": 1247
                     }
                 }
+            },
+            {
+                "_id": "6a4820906748d36670d02bc4",
+                "aircraft": {
+                    "name": "Cessna 208 Caravan Freighter",
+                    "icao": "C208"
+                },
+                "type": "cargo",
+                "flightNumber": "07WT",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 0,
+                    "cargo": 9,
+                    "weights": {
+                        "cargo": 828
+                    }
+                },
+                "depTime": "2026-07-03T21:05:00.000Z",
+                "duration": 35,
+                "arrTime": "2026-07-03T21:40:00.000Z",
+                "depTimeAct": "2026-07-03T20:51:07.547Z",
+                "delay": -16,
+                "takeoffTimeAct": "2026-07-03T20:57:06.993Z",
+                "durationAct": 27,
+                "arrTimeAct": "2026-07-03T21:24:12.065Z",
+                "open": "2026-07-03T20:50:32.388Z",
+                "close": "2026-07-03T21:32:26.077Z",
+                "rating": 5.42,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 70,
+                        "fuel": 82,
+                        "expenses": 338,
+                        "penalties": 2500,
+                        "revenue": 360,
+                        "balance": -2478,
+                        "prices": {
+                            "ticketPrice": 39,
+                            "cargoUnitPrice": 40,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 0,
+                            "cargo": 9,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 93,
+                        "aircraft": 210,
+                        "handling": 4,
+                        "landing": 31
+                    },
+                    "revenue": {
+                        "tickets": 0,
+                        "cargo": 360
+                    },
+                    "violations": [
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1013mb instead of 1006.6mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 20
+                                    },
+                                    "weather": {
+                                        "windDir": 315.17,
+                                        "windSpd": 12.32,
+                                        "windX": 12.15
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 17.93m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -221,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 20
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.42,
+                                        "rate": 370
+                                    },
+                                    "weather": {
+                                        "windDir": 311.64,
+                                        "windSpd": 4.79,
+                                        "windX": -4.7
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Speeding when vacating runway (going 51KT, accepted max 50KT)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 19
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Hard touchdown: 2.05G (631 ft/min, challenging  conditions)<br/>Distance from threshold: 1542m (accepted range: 175-704m)<br/>Average centerline deviation: 14.97m<br/>Max centerline deviation: 17.93m",
+                            "penalty": {
+                                "points": -137,
+                                "cash": 2500
+                            },
+                            "entry": {
+                                "type": "bounce",
+                                "payload": {
+                                    "system": {
+                                        "fps": 20
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.05,
+                                        "rate": 631
+                                    },
+                                    "weather": {
+                                        "windDir": 311.64,
+                                        "windSpd": 6.63,
+                                        "windX": -6.39
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on landing: 1013mb instead of 1005.9mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 20
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.42,
+                                        "rate": 370
+                                    },
+                                    "weather": {
+                                        "windDir": 311.64,
+                                        "windSpd": 4.79,
+                                        "windX": -4.7
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-03T20:50:24.767Z",
+                "updatedAt": "2026-07-03T21:32:26.162Z",
+                "dep": {
+                    "icao": "UKON",
+                    "name": "Mykolaiv International Airport",
+                    "city": "Nikolayev",
+                    "location": {
+                        "lat": 47.057899,
+                        "lon": 31.9198,
+                        "elev": 184
+                    }
+                },
+                "arr": {
+                    "icao": "UKOH",
+                    "name": "Kherson International Airport",
+                    "city": "Kherson",
+                    "location": {
+                        "lat": 46.6758,
+                        "lon": 32.506401,
+                        "elev": 148
+                    }
+                },
+                "actArr": {
+                    "icao": "UKOH",
+                    "name": "Kherson International Airport",
+                    "city": "Kherson",
+                    "location": {
+                        "lat": 46.6758,
+                        "lon": 32.506401,
+                        "elev": 148
+                    }
+                }
             }
         ]
     },
