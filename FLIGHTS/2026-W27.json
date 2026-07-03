@@ -1988,6 +1988,184 @@
                         "elev": 508
                     }
                 }
+            },
+            {
+                "_id": "6a475dad5760ec7cdbbd0609",
+                "aircraft": {
+                    "name": "Boeing 737-800",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "299",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 175,
+                    "cargo": 18,
+                    "weights": {
+                        "cargo": 2286
+                    }
+                },
+                "depTime": "2026-07-03T07:10:00.000Z",
+                "duration": 120,
+                "arrTime": "2026-07-03T09:10:00.000Z",
+                "depTimeAct": "2026-07-03T07:12:46.680Z",
+                "delay": -33,
+                "takeoffTimeAct": "2026-07-03T07:12:54.663Z",
+                "durationAct": 84,
+                "arrTimeAct": "2026-07-03T08:37:05.843Z",
+                "open": "2026-07-03T07:09:22.674Z",
+                "close": "2026-07-03T08:42:16.902Z",
+                "rating": 8.34,
+                "simulator": "msfs",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 517,
+                        "fuel": 3640,
+                        "expenses": 10766,
+                        "penalties": 0,
+                        "revenue": 30903,
+                        "balance": 20137,
+                        "prices": {
+                            "ticketPrice": 159,
+                            "cargoUnitPrice": 171,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 175,
+                            "cargo": 18,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 175
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4116,
+                        "aircraft": 4500,
+                        "handling": 1268,
+                        "landing": 882
+                    },
+                    "revenue": {
+                        "tickets": 27825,
+                        "cargo": 3078
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 8.14m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -2,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 34
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.34G (328 ft/min, challenging  conditions)<br/>Distance from threshold: 791m (accepted range: 209-837m)<br/>Average centerline deviation: 2.18m<br/>Max centerline deviation: 8.14m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "bounce",
+                                "payload": {
+                                    "system": {
+                                        "fps": 34
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.34,
+                                        "rate": 328
+                                    },
+                                    "weather": {
+                                        "windDir": 270.02,
+                                        "windSpd": 1.03,
+                                        "windX": 1.03
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 443ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 36
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Max G exceeded: 2.07G (max allowed: 2G)",
+                            "penalty": {
+                                "points": -14,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 41
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-03T06:58:53.028Z",
+                "updatedAt": "2026-07-03T08:42:16.993Z",
+                "dep": {
+                    "icao": "EVRA",
+                    "name": "Riga International Airport",
+                    "city": "Riga",
+                    "location": {
+                        "lat": 56.920752,
+                        "lon": 23.970711,
+                        "elev": 36
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
             }
         ]
     },
