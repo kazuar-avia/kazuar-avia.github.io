@@ -2299,6 +2299,154 @@
                         "elev": 82
                     }
                 }
+            },
+            {
+                "_id": "6a480db25760ec7cdbcb70d3",
+                "aircraft": {
+                    "name": "Boeing 737-800",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "2918",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 94,
+                    "cargo": 32,
+                    "weights": {
+                        "cargo": 3712
+                    }
+                },
+                "depTime": "2026-07-03T19:40:00.000Z",
+                "duration": 70,
+                "arrTime": "2026-07-03T20:50:00.000Z",
+                "depTimeAct": "2026-07-03T19:40:54.613Z",
+                "delay": -8,
+                "takeoffTimeAct": "2026-07-03T19:41:01.599Z",
+                "durationAct": 61,
+                "arrTimeAct": "2026-07-03T20:41:55.733Z",
+                "open": "2026-07-03T19:39:07.850Z",
+                "close": "2026-07-03T20:43:48.773Z",
+                "rating": 9.76,
+                "simulator": "msfs",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 402,
+                        "fuel": 2687,
+                        "expenses": 8460,
+                        "penalties": 0,
+                        "revenue": 17906,
+                        "balance": 9446,
+                        "prices": {
+                            "ticketPrice": 135,
+                            "cargoUnitPrice": 163,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 94,
+                            "cargo": 32,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 94
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3038,
+                        "aircraft": 4225,
+                        "handling": 522,
+                        "landing": 675
+                    },
+                    "revenue": {
+                        "tickets": 12690,
+                        "cargo": 5216
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 8.70m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -14,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.54G (440 ft/min, challenging  conditions)<br/>Distance from threshold: 564m (accepted range: 172-689m)<br/>Average centerline deviation: 7.29m<br/>Max centerline deviation: 8.70m",
+                            "penalty": {
+                                "points": -10,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 38
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.54,
+                                        "rate": 440
+                                    },
+                                    "weather": {
+                                        "windDir": 269.91,
+                                        "windSpd": 1.04,
+                                        "windX": -0.12
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-03T19:29:54.504Z",
+                "updatedAt": "2026-07-03T20:43:48.851Z",
+                "dep": {
+                    "icao": "LRTR",
+                    "name": "Timişoara Traian Vuia Airport",
+                    "city": "Timişoara",
+                    "location": {
+                        "lat": 45.809898,
+                        "lon": 21.3379,
+                        "elev": 348
+                    }
+                },
+                "arr": {
+                    "icao": "LUKK",
+                    "name": "Chişinău International Airport",
+                    "city": "Chişinău",
+                    "location": {
+                        "lat": 46.9277,
+                        "lon": 28.931,
+                        "elev": 399
+                    }
+                },
+                "actArr": {
+                    "icao": "LUKK",
+                    "name": "Chişinău International Airport",
+                    "city": "Chişinău",
+                    "location": {
+                        "lat": 46.9277,
+                        "lon": 28.931,
+                        "elev": 399
+                    }
+                }
             }
         ]
     },
