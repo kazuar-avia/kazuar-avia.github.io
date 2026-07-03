@@ -6014,6 +6014,154 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6a47539d5760ec7cdbbc9aaf",
+                "aircraft": {
+                    "name": "Boeing 737-800",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "6000",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 159,
+                    "cargo": 18,
+                    "weights": {
+                        "cargo": 2286
+                    }
+                },
+                "depTime": "2026-07-03T06:35:00.000Z",
+                "duration": 160,
+                "arrTime": "2026-07-03T09:15:00.000Z",
+                "depTimeAct": "2026-07-03T07:06:36.141Z",
+                "delay": -14,
+                "takeoffTimeAct": "2026-07-03T07:26:43.140Z",
+                "durationAct": 95,
+                "arrTimeAct": "2026-07-03T09:01:27.465Z",
+                "open": "2026-07-03T07:02:28.145Z",
+                "close": "2026-07-03T09:02:49.088Z",
+                "rating": 0,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 712,
+                        "fuel": 5243,
+                        "expenses": 11544,
+                        "penalties": 1001351,
+                        "revenue": 25932,
+                        "balance": -986963,
+                        "prices": {
+                            "ticketPrice": 146,
+                            "cargoUnitPrice": 151,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 159,
+                            "cargo": 18,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 159
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4742,
+                        "aircraft": 5275,
+                        "handling": 798,
+                        "landing": 729
+                    },
+                    "revenue": {
+                        "tickets": 23214,
+                        "cargo": 2718
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight delayed 17 minutes (max 15 minutes after scheduled is allowed)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 1351
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Crashed on landing: Landing not on the runway",
+                            "penalty": {
+                                "points": -1000,
+                                "cash": 1000000
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    },
+                                    "touchDown": {
+                                        "gForce": 0.81,
+                                        "rate": 0
+                                    },
+                                    "weather": {
+                                        "windDir": 265.48,
+                                        "windSpd": 48.03,
+                                        "windX": 38.48
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-03T06:15:57.524Z",
+                "updatedAt": "2026-07-03T09:02:49.189Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "LGIR",
+                    "name": "Heraklion International Nikos Kazantzakis Airport",
+                    "city": "Heraklion",
+                    "location": {
+                        "lat": 35.339699,
+                        "lon": 25.1803,
+                        "elev": 115
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
             }
         ]
     },
