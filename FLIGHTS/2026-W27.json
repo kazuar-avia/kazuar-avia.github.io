@@ -8061,6 +8061,174 @@
                         "elev": 172
                     }
                 }
+            },
+            {
+                "_id": "6a4968db5760ec7cdbea66f1",
+                "aircraft": {
+                    "name": "Boeing 737 MAX 8",
+                    "icao": "B38M"
+                },
+                "type": "pax",
+                "flightNumber": "42H",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 108,
+                    "cargo": 19,
+                    "weights": {
+                        "cargo": 2204
+                    }
+                },
+                "depTime": "2026-07-04T20:45:00.000Z",
+                "duration": 30,
+                "arrTime": "2026-07-04T21:15:00.000Z",
+                "depTimeAct": "2026-07-04T20:48:12.546Z",
+                "delay": 3,
+                "takeoffTimeAct": "2026-07-04T20:53:16.553Z",
+                "durationAct": 25,
+                "arrTimeAct": "2026-07-04T21:18:03.582Z",
+                "open": "2026-07-04T20:21:20.680Z",
+                "close": "2026-07-04T21:27:57.174Z",
+                "rating": 9.05,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 103,
+                        "fuel": 918,
+                        "expenses": 6168,
+                        "penalties": 0,
+                        "revenue": 5518,
+                        "balance": -650,
+                        "prices": {
+                            "ticketPrice": 40,
+                            "cargoUnitPrice": 42,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 108,
+                            "cargo": 19,
+                            "paxByClass": {
+                                "F": 1,
+                                "C": 7,
+                                "Y": 100
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1038,
+                        "aircraft": 3975,
+                        "handling": 495,
+                        "landing": 660
+                    },
+                    "revenue": {
+                        "tickets": 4720,
+                        "cargo": 798
+                    },
+                    "violations": [
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1013mb instead of 1016.4mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 35
+                                    },
+                                    "weather": {
+                                        "windDir": 284.7,
+                                        "windSpd": 4.84,
+                                        "windX": -3.7
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 6.83m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -32,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.45G (356 ft/min, normal  conditions)<br/>Distance from threshold: 635m (accepted range: 175-701m)<br/>Average centerline deviation: 4.25m<br/>Max centerline deviation: 6.83m",
+                            "penalty": {
+                                "points": -13,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.45,
+                                        "rate": 356
+                                    },
+                                    "weather": {
+                                        "windDir": 269.96,
+                                        "windSpd": 4.63,
+                                        "windX": -4.36
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-04T20:11:07.003Z",
+                "updatedAt": "2026-07-04T21:27:57.253Z",
+                "dep": {
+                    "icao": "UKLN",
+                    "name": "Chernivtsi International Airport",
+                    "city": "Chernivtsi",
+                    "location": {
+                        "lat": 48.259300231933594,
+                        "lon": 25.98080062866211,
+                        "elev": 826
+                    }
+                },
+                "arr": {
+                    "icao": "LRSV",
+                    "name": "Suceava Stefan cel Mare Airport",
+                    "city": "Suceava",
+                    "location": {
+                        "lat": 47.6875,
+                        "lon": 26.35409927368164,
+                        "elev": 1375
+                    }
+                },
+                "actArr": {
+                    "icao": "LRSV",
+                    "name": "Suceava Stefan cel Mare Airport",
+                    "city": "Suceava",
+                    "location": {
+                        "lat": 47.6875,
+                        "lon": 26.35409927368164,
+                        "elev": 1375
+                    }
+                }
             }
         ]
     },
