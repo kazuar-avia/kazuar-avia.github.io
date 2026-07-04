@@ -8702,7 +8702,7 @@ function initTrafficToMapFocusBinding() {
   if (window.trafficToMapFocusBindingDone) return;
   window.trafficToMapFocusBindingDone = true;
 
-  document.addEventListener("click", event => {
+  const handleTrafficMapFocusClick = event => {
     const target = event.target.closest(".callsign-big[data-map-callsign]");
     if (!target) return;
 
@@ -8714,7 +8714,14 @@ function initTrafficToMapFocusBinding() {
       event.preventDefault();
       event.stopPropagation();
     }
-  });
+  };
+
+  const trafficBody = document.getElementById("vatsim-traffic");
+  if (trafficBody) {
+    trafficBody.addEventListener("click", handleTrafficMapFocusClick);
+  }
+
+  document.addEventListener("click", handleTrafficMapFocusClick);
 }
 
 
@@ -9957,6 +9964,16 @@ function renderUkraineFlightList() {
   const box = window.ukraineFlightListContainer;
 
   if (!box) return;
+
+  box.onclick = event => {
+    const button = event.target.closest("[data-map-list-callsign]");
+    if (!button || !box.contains(button)) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    focusMapFlightByCallsign(button.dataset.mapListCallsign);
+  };
 
 box.classList.toggle(
   "is-hidden",
