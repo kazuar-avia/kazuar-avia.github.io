@@ -12965,6 +12965,216 @@
                         "elev": 826
                     }
                 }
+            },
+            {
+                "_id": "6a4929b96748d36670d48f17",
+                "aircraft": {
+                    "name": "Piper PA-28",
+                    "icao": "P28A"
+                },
+                "type": "pax",
+                "flightNumber": "338Y",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 3,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-07-04T15:55:00.000Z",
+                "duration": 30,
+                "arrTime": "2026-07-04T16:25:00.000Z",
+                "depTimeAct": "2026-07-04T15:56:34.689Z",
+                "delay": -16,
+                "takeoffTimeAct": "2026-07-04T16:01:24.683Z",
+                "durationAct": 8,
+                "arrTimeAct": "2026-07-04T16:09:24.686Z",
+                "open": "2026-07-04T15:42:45.423Z",
+                "close": "2026-07-04T16:10:21.705Z",
+                "rating": 6.26,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 11,
+                        "fuel": 3,
+                        "expenses": 133,
+                        "penalties": 11609,
+                        "revenue": 93,
+                        "balance": -11649,
+                        "prices": {
+                            "ticketPrice": 31,
+                            "cargoUnitPrice": 29,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 3,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 3
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4,
+                        "aircraft": 81,
+                        "handling": 14,
+                        "landing": 34
+                    },
+                    "revenue": {
+                        "tickets": 93,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "MTOW exceeded: 34kg above maximum takeoff weight of 1157kg",
+                            "penalty": {
+                                "points": -174,
+                                "cash": 11609
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "weather": {
+                                        "windDir": 305.84,
+                                        "windSpd": 12.57,
+                                        "windX": -6.11
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1015mb instead of 1009.3mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "weather": {
+                                        "windDir": 305.84,
+                                        "windSpd": 12.57,
+                                        "windX": -6.11
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.12G (88 ft/min, challenging  conditions)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.12,
+                                        "rate": 88
+                                    },
+                                    "weather": {
+                                        "windDir": 306.42,
+                                        "windSpd": 10.15,
+                                        "windX": 3.29
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on landing: 1015mb instead of 1009.6mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.12,
+                                        "rate": 88
+                                    },
+                                    "weather": {
+                                        "windDir": 306.42,
+                                        "windSpd": 10.15,
+                                        "windX": 3.29
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No NAV lights for 823s when required",
+                            "penalty": {
+                                "points": -100,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-04T15:41:45.920Z",
+                "updatedAt": "2026-07-04T16:10:21.786Z",
+                "dep": {
+                    "icao": "UKKM",
+                    "name": "Hostomel Airport",
+                    "city": "Kiev",
+                    "location": {
+                        "lat": 50.6035,
+                        "lon": 30.1919,
+                        "elev": 517
+                    }
+                },
+                "arr": {
+                    "icao": "UKKB",
+                    "city": "Borodyanka",
+                    "location": {
+                        "lat": 50.6661,
+                        "lon": 29.9329,
+                        "elev": 490
+                    },
+                    "name": "Borodyanka Aerodrome"
+                },
+                "actArr": {
+                    "icao": "UKKB",
+                    "city": "Borodyanka",
+                    "location": {
+                        "lat": 50.6661,
+                        "lon": 29.9329,
+                        "elev": 490
+                    },
+                    "name": "Borodyanka Aerodrome"
+                }
             }
         ]
     },
