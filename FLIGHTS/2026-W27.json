@@ -13785,6 +13785,187 @@
                     },
                     "name": "Borodyanka Aerodrome"
                 }
+            },
+            {
+                "_id": "6a4944b86748d36670d5498d",
+                "aircraft": {
+                    "name": "Piper PA-28",
+                    "icao": "P28A"
+                },
+                "type": "pax",
+                "flightNumber": "335",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 3,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-07-04T18:30:00.000Z",
+                "duration": 40,
+                "arrTime": "2026-07-04T19:10:00.000Z",
+                "depTimeAct": "2026-07-04T18:40:42.592Z",
+                "delay": 24,
+                "takeoffTimeAct": "2026-07-04T18:43:32.595Z",
+                "durationAct": 50,
+                "arrTimeAct": "2026-07-04T19:33:34.597Z",
+                "open": "2026-07-04T18:33:55.045Z",
+                "close": "2026-07-04T19:38:15.761Z",
+                "rating": 6.64,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 89,
+                        "fuel": 16,
+                        "expenses": 149,
+                        "penalties": 0,
+                        "revenue": 114,
+                        "balance": -35,
+                        "prices": {
+                            "ticketPrice": 38,
+                            "cargoUnitPrice": 39,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 3,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 3
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 19,
+                        "aircraft": 87,
+                        "handling": 14,
+                        "landing": 29
+                    },
+                    "revenue": {
+                        "tickets": 114,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Incorrect flaps for takeoff",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "weather": {
+                                        "windDir": 293.2,
+                                        "windSpd": 8.45,
+                                        "windX": -5.67
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 14.74m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -86,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.33G (200 ft/min, challenging  conditions)<br/>Distance from threshold: 882m (accepted range: 199-800m)<br/>Average centerline deviation: 13.31m<br/>Max centerline deviation: 14.74m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.33,
+                                        "rate": 200
+                                    },
+                                    "weather": {
+                                        "windDir": 297.53,
+                                        "windSpd": 5.97,
+                                        "windX": -5.28
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No NAV lights for 3244s when required",
+                            "penalty": {
+                                "points": -100,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-04T17:36:56.750Z",
+                "updatedAt": "2026-07-04T19:38:16.315Z",
+                "dep": {
+                    "icao": "UKKM",
+                    "name": "Hostomel Airport",
+                    "city": "Kiev",
+                    "location": {
+                        "lat": 50.6035,
+                        "lon": 30.1919,
+                        "elev": 517
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
             }
         ]
     },
