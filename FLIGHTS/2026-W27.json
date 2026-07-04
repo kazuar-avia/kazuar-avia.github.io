@@ -7619,6 +7619,178 @@
                         "elev": 489
                     }
                 }
+            },
+            {
+                "_id": "6a48b8bb5760ec7cdbd69469",
+                "aircraft": {
+                    "name": "Cessna 172",
+                    "icao": "C172"
+                },
+                "type": "pax",
+                "flightNumber": "04P",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 3,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-07-04T07:55:00.000Z",
+                "duration": 30,
+                "arrTime": "2026-07-04T08:25:00.000Z",
+                "depTimeAct": "2026-07-04T07:40:17.709Z",
+                "delay": -42,
+                "takeoffTimeAct": "2026-07-04T07:40:47.180Z",
+                "durationAct": 3,
+                "arrTimeAct": "2026-07-04T07:43:22.315Z",
+                "open": "2026-07-04T07:39:54.988Z",
+                "close": "2026-07-04T07:44:04.542Z",
+                "rating": 9.2,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 4,
+                        "fuel": 1,
+                        "expenses": 131,
+                        "penalties": 0,
+                        "revenue": 84,
+                        "balance": -47,
+                        "prices": {
+                            "ticketPrice": 28,
+                            "cargoUnitPrice": 25,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 3,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 3
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2,
+                        "aircraft": 81,
+                        "handling": 27,
+                        "landing": 21
+                    },
+                    "revenue": {
+                        "tickets": 84,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 4.30m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -5,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Uncomfortable touchdown: 1.70G (148 ft/min, normal  conditions)<br/>Distance from threshold: 95m (accepted range: 96-387m)<br/>Average centerline deviation: 1.09m<br/>Max centerline deviation: 1.61m",
+                            "penalty": {
+                                "points": -75,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.7,
+                                        "rate": 148
+                                    },
+                                    "weather": {
+                                        "windDir": 0,
+                                        "windSpd": 0,
+                                        "windX": 0
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Fuel used 1 kg is lower than estimated minimum 1 kg.",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.7,
+                                        "rate": 148
+                                    },
+                                    "weather": {
+                                        "windDir": 0,
+                                        "windSpd": 0,
+                                        "windX": 0
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-04T07:39:39.639Z",
+                "updatedAt": "2026-07-04T07:44:04.602Z",
+                "dep": {
+                    "icao": "MMTJ",
+                    "name": "General Abelardo L. Rodriguez International Airport",
+                    "city": "Tijuana",
+                    "location": {
+                        "lat": 32.541043,
+                        "lon": -116.969976,
+                        "elev": 489
+                    }
+                },
+                "arr": {
+                    "icao": "KSDM",
+                    "name": "Brown Field Municipal Airport",
+                    "city": "San Diego",
+                    "location": {
+                        "lat": 32.572639,
+                        "lon": -116.980019,
+                        "elev": 526
+                    }
+                },
+                "actArr": {
+                    "icao": "KSDM",
+                    "name": "Brown Field Municipal Airport",
+                    "city": "San Diego",
+                    "location": {
+                        "lat": 32.572639,
+                        "lon": -116.980019,
+                        "elev": 526
+                    }
+                }
             }
         ]
     },
