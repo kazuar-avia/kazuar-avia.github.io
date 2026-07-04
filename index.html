@@ -8704,8 +8704,10 @@ function initTrafficToMapFocusBinding() {
   window.trafficToMapFocusBindingDone = true;
 
   const handleTrafficMapFocusClick = event => {
-    const target = event.target.closest("#vatsim-traffic [data-map-callsign]");
+    const trafficBody = document.getElementById("vatsim-traffic");
+    const target = event.target.closest("[data-map-callsign]");
     if (!target) return;
+    if (trafficBody && !trafficBody.contains(target)) return;
 
     const callsign = target.getAttribute("data-map-callsign");
     if (!callsign) return;
