@@ -10631,6 +10631,154 @@
                         "elev": 826
                     }
                 }
+            },
+            {
+                "_id": "6a491c555760ec7cdbe19d42",
+                "aircraft": {
+                    "name": "Boeing 737-900",
+                    "icao": "B739"
+                },
+                "type": "pax",
+                "flightNumber": "24Y",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 105,
+                    "cargo": 25,
+                    "weights": {
+                        "cargo": 1600
+                    }
+                },
+                "depTime": "2026-07-04T15:20:00.000Z",
+                "duration": 85,
+                "arrTime": "2026-07-04T16:45:00.000Z",
+                "depTimeAct": "2026-07-04T15:00:36.613Z",
+                "delay": -35,
+                "takeoffTimeAct": "2026-07-04T15:05:05.158Z",
+                "durationAct": 65,
+                "arrTimeAct": "2026-07-04T16:09:37.763Z",
+                "open": "2026-07-04T14:46:02.556Z",
+                "close": "2026-07-04T16:14:56.575Z",
+                "rating": 9.8,
+                "simulator": "xp",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 424,
+                        "fuel": 2543,
+                        "expenses": 8913,
+                        "penalties": 210,
+                        "revenue": 15320,
+                        "balance": 6197,
+                        "prices": {
+                            "ticketPrice": 114,
+                            "cargoUnitPrice": 134,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 105,
+                            "cargo": 25,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 105
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2875,
+                        "aircraft": 5050,
+                        "handling": 484,
+                        "landing": 504
+                    },
+                    "revenue": {
+                        "tickets": 11970,
+                        "cargo": 3350
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight departed 4 minutes too early (max 15 minutes before scheduled is allowed)",
+                            "penalty": {
+                                "points": -20,
+                                "cash": 210
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 36
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.10G (121 ft/min, challenging  conditions)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 23
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.1,
+                                        "rate": 121
+                                    },
+                                    "weather": {
+                                        "windDir": 330.46,
+                                        "windSpd": 12.05,
+                                        "windX": -11.19
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-04T14:44:37.961Z",
+                "updatedAt": "2026-07-04T16:14:56.652Z",
+                "dep": {
+                    "icao": "UKLN",
+                    "name": "Chernivtsi International Airport",
+                    "city": "Chernivtsi",
+                    "location": {
+                        "lat": 48.259300231933594,
+                        "lon": 25.98080062866211,
+                        "elev": 826
+                    }
+                },
+                "arr": {
+                    "icao": "UKHH",
+                    "name": "Kharkiv International Airport",
+                    "city": "Kharkiv",
+                    "location": {
+                        "lat": 49.926943,
+                        "lon": 36.290814,
+                        "elev": 508
+                    }
+                },
+                "actArr": {
+                    "icao": "UKHH",
+                    "name": "Kharkiv International Airport",
+                    "city": "Kharkiv",
+                    "location": {
+                        "lat": 49.926943,
+                        "lon": 36.290814,
+                        "elev": 508
+                    }
+                }
             }
         ]
     },
