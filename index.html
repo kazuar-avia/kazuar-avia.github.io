@@ -1325,6 +1325,12 @@ min-width: 276px;
 
 }
 
+.callsign-big[data-map-callsign] {
+
+    cursor: pointer;
+
+}
+
 .flight-right-side {
 
     display: flex;
@@ -5436,7 +5442,12 @@ function findMatchedNewSkyFlightForPilot(matchedNewSkyFlights, pilot) {
     return null;
 }
 	
+let vatsimTrafficLoadSeq = 0;
+
 async function loadVatsimTraffic() {
+
+    const loadSeq = ++vatsimTrafficLoadSeq;
+    const isLatestVatsimTrafficLoad = () => loadSeq === vatsimTrafficLoadSeq;
 
     // =========================
     // CONFIG
@@ -5497,6 +5508,8 @@ newSkyFlights = newSkyFlights.filter(flight => {
     console.error("NewSky error:", e);
 
 }
+
+        if (!isLatestVatsimTrafficLoad()) return;
       
         // =========================
         // UPDATE TIME
@@ -6545,10 +6558,14 @@ ${status}
 
         }
 
+        if (!isLatestVatsimTrafficLoad()) return;
+
         document.getElementById('vatsim-traffic').innerHTML = html;
         setUkraineMapFlights(pilots, visibleNewSkyFlights);
 
     } catch (error) {
+
+        if (!isLatestVatsimTrafficLoad()) return;
 
         console.error(error);
         setUkraineMapAtc([]);
@@ -8631,7 +8648,11 @@ function focusMapFlightByCallsign(callsign) {
   const key = normalizeCallsignKey(callsign);
   if (!key || !window.ukraineLiveMap) return false;
 
-  const ref = mapFlightMarkers[key];
+  let ref = mapFlightMarkers[key];
+  if ((!ref || !ref.marker) && typeof renderUkraineFlightLayers === "function") {
+    renderUkraineFlightLayers();
+    ref = mapFlightMarkers[key];
+  }
   if (!ref || !ref.marker) return false;
 
   const map = window.ukraineLiveMap;
