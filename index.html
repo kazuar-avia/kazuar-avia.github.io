@@ -1325,7 +1325,8 @@ min-width: 276px;
 
 }
 
-.callsign-big[data-map-callsign] {
+.callsign-big[data-map-callsign],
+.flight-cell[data-map-callsign] {
 
     cursor: pointer;
 
@@ -6233,7 +6234,7 @@ const matchedNewSkyFlight =
 >
                     </td>
 
-<td class="flight-cell">
+<td class="flight-cell" data-map-callsign="${callsign}">
 
     <div class="flight-row-top">
 
@@ -6494,7 +6495,7 @@ onerror="this.onerror=null; this.src='LOGOS/nologo.png';"
 >
 </td>
 
-<td class="flight-cell">
+<td class="flight-cell" data-map-callsign="${callsign}">
 
 <div class="flight-row-top">
 
@@ -8703,7 +8704,7 @@ function initTrafficToMapFocusBinding() {
   window.trafficToMapFocusBindingDone = true;
 
   const handleTrafficMapFocusClick = event => {
-    const target = event.target.closest(".callsign-big[data-map-callsign]");
+    const target = event.target.closest("#vatsim-traffic [data-map-callsign]");
     if (!target) return;
 
     const callsign = target.getAttribute("data-map-callsign");
