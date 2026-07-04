@@ -4551,6 +4551,222 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6a495de86748d36670d5ef56",
+                "aircraft": {
+                    "name": "Cessna 208 Caravan",
+                    "icao": "C208"
+                },
+                "type": "pax",
+                "flightNumber": "07W",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 12,
+                    "cargo": 1,
+                    "weights": {
+                        "cargo": 88
+                    }
+                },
+                "depTime": "2026-07-04T19:40:00.000Z",
+                "duration": 30,
+                "arrTime": "2026-07-04T20:10:00.000Z",
+                "depTimeAct": "2026-07-04T19:30:48.737Z",
+                "delay": -6,
+                "takeoffTimeAct": "2026-07-04T19:50:23.704Z",
+                "durationAct": 14,
+                "arrTimeAct": "2026-07-04T20:03:57.687Z",
+                "open": "2026-07-04T19:24:44.153Z",
+                "close": "2026-07-04T20:52:28.198Z",
+                "rating": 6.04,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 31,
+                        "fuel": 42,
+                        "expenses": 296,
+                        "penalties": 26101,
+                        "revenue": 428,
+                        "balance": -25969,
+                        "prices": {
+                            "ticketPrice": 33,
+                            "cargoUnitPrice": 32,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.7,
+                                "fuel": 0.8,
+                                "ground": 0.7
+                            }
+                        },
+                        "payload": {
+                            "pax": 12,
+                            "cargo": 1,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 12
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 38,
+                        "aircraft": 173,
+                        "handling": 60,
+                        "landing": 25
+                    },
+                    "revenue": {
+                        "tickets": 396,
+                        "cargo": 32
+                    },
+                    "violations": [
+                        {
+                            "title": "Tail wind value exceeded on takeoff (measured: 11 KT, allowed: 10 KT)",
+                            "penalty": {
+                                "points": -100,
+                                "cash": 5000
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 17
+                                    },
+                                    "weather": {
+                                        "windDir": 318.57,
+                                        "windSpd": 15.92,
+                                        "windX": 11.3
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "MLW exceeded: 59kg above maximum landing weight of 3856kg",
+                            "penalty": {
+                                "points": -92,
+                                "cash": 6101
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 17
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.3,
+                                        "rate": 765
+                                    },
+                                    "weather": {
+                                        "windDir": 311.89,
+                                        "windSpd": 12.81,
+                                        "windX": -9.82
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 8.21m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -4,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 18
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Bad touchdown: 2.30G (765 ft/min, challenging  conditions)<br/>Distance from threshold: 947m (accepted range: 169-679m)<br/>Average centerline deviation: 8.04m<br/>Max centerline deviation: 8.21m",
+                            "penalty": {
+                                "points": -200,
+                                "cash": 15000
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 17
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.3,
+                                        "rate": 765
+                                    },
+                                    "weather": {
+                                        "windDir": 311.89,
+                                        "windSpd": 12.81,
+                                        "windX": -9.82
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Fuel used 41 kg is lower than estimated minimum 42 kg.",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 17
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.3,
+                                        "rate": 765
+                                    },
+                                    "weather": {
+                                        "windDir": 311.89,
+                                        "windSpd": 12.81,
+                                        "windX": -9.82
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-04T19:24:24.360Z",
+                "updatedAt": "2026-07-04T20:52:28.293Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "UKKK",
+                    "name": "Ihor Sikorsky Kyiv International Airport (Zhuliany)",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.40194,
+                        "lon": 30.45194,
+                        "elev": 587
+                    }
+                },
+                "actArr": {
+                    "icao": "UKKK",
+                    "name": "Ihor Sikorsky Kyiv International Airport (Zhuliany)",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.40194,
+                        "lon": 30.45194,
+                        "elev": 587
+                    }
+                }
             }
         ]
     },
