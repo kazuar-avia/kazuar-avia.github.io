@@ -18471,6 +18471,193 @@
                         "elev": 1247
                     }
                 }
+            },
+            {
+                "_id": "6a4a32155760ec7cdbf850bd",
+                "aircraft": {
+                    "name": "Boeing 737-800",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "0210",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 168,
+                    "cargo": 18,
+                    "weights": {
+                        "cargo": 1422
+                    }
+                },
+                "depTime": "2026-07-05T10:45:00.000Z",
+                "duration": 200,
+                "arrTime": "2026-07-05T14:05:00.000Z",
+                "depTimeAct": "2026-07-05T11:01:33.525Z",
+                "delay": 12,
+                "takeoffTimeAct": "2026-07-05T11:11:33.550Z",
+                "durationAct": 185,
+                "arrTimeAct": "2026-07-05T14:16:34.718Z",
+                "open": "2026-07-05T10:37:49.783Z",
+                "close": "2026-07-05T14:23:47.239Z",
+                "rating": 7.25,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1257,
+                        "fuel": 7825,
+                        "expenses": 19091,
+                        "penalties": 168,
+                        "revenue": 32598,
+                        "balance": 13339,
+                        "prices": {
+                            "ticketPrice": 174,
+                            "cargoUnitPrice": 187,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 168,
+                            "cargo": 18,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 168
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 8847,
+                        "aircraft": 7975,
+                        "handling": 1369,
+                        "landing": 900
+                    },
+                    "revenue": {
+                        "tickets": 29232,
+                        "cargo": 3366
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight delayed 2 minutes (max 15 minutes after scheduled is allowed)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 168
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 39
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 6.55m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -41,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 38
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (1273m from threshold beyond 698m max accepted)",
+                            "penalty": {
+                                "points": -201,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 20
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.53,
+                                        "rate": 461
+                                    },
+                                    "weather": {
+                                        "windDir": 39.98,
+                                        "windSpd": 10.38,
+                                        "windX": 0.09
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.53G (461 ft/min, normal  conditions)<br/>Distance from threshold: 1273m (accepted range: 174-698m)<br/>Average centerline deviation: 2.95m<br/>Max centerline deviation: 6.55m",
+                            "penalty": {
+                                "points": -33,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 20
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.53,
+                                        "rate": 461
+                                    },
+                                    "weather": {
+                                        "windDir": 39.98,
+                                        "windSpd": 10.38,
+                                        "windX": 0.09
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-05T10:29:41.987Z",
+                "updatedAt": "2026-07-05T14:23:47.329Z",
+                "dep": {
+                    "icao": "LKPR",
+                    "name": "Václav Havel Airport Prague",
+                    "city": "Prague",
+                    "location": {
+                        "lat": 50.100874,
+                        "lon": 14.259911,
+                        "elev": 1247
+                    }
+                },
+                "arr": {
+                    "icao": "ENTC",
+                    "name": "Tromsø Airport, Langnes",
+                    "city": "Tromsø",
+                    "location": {
+                        "lat": 69.683296,
+                        "lon": 18.9189,
+                        "elev": 31
+                    }
+                },
+                "actArr": {
+                    "icao": "ENTC",
+                    "name": "Tromsø Airport, Langnes",
+                    "city": "Tromsø",
+                    "location": {
+                        "lat": 69.683296,
+                        "lon": 18.9189,
+                        "elev": 31
+                    }
+                }
             }
         ]
     },
