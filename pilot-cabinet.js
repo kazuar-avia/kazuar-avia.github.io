@@ -230,7 +230,7 @@ async function loadDashboardLiveNewSkyFlights(force = false) {
   if (app.liveNewSkyLoaded && !force) return;
   app.liveNewSkyLoading = true;
   app.liveNewSkyError = '';
-  render();
+  if (app.liveDashboardVisible) render();
   try {
     const response = await fetch('https://newsky.app/api/airline-api/flights/ongoing', {
       cache: 'no-store',
@@ -251,6 +251,27 @@ async function loadDashboardLiveNewSkyFlights(force = false) {
     app.liveNewSkyLoading = false;
     render();
   }
+}
+
+function dashboardLiveFlightCount() {
+  return app.liveNewSkyFlights.filter(flight => flight?.depTimeAct).length;
+}
+
+function syncDashboardLiveToggle() {
+  const button = $('#dashboardLiveToggle');
+  if (!button) return;
+  const count = dashboardLiveFlightCount();
+  const shouldShow = app.liveNewSkyLoaded && !app.liveNewSkyError && count > 0;
+  button.hidden = !shouldShow;
+  if (!shouldShow) {
+    app.liveDashboardVisible = false;
+    button.classList.remove('active');
+    button.setAttribute('aria-pressed', 'false');
+    return;
+  }
+  button.textContent = app.liveDashboardVisible ? `Сховати LIVE: ${count}` : `Показати LIVE: ${count}`;
+  button.classList.toggle('active', app.liveDashboardVisible);
+  button.setAttribute('aria-pressed', String(app.liveDashboardVisible));
 }
 
 const ICAO_COUNTRY = {
@@ -703,7 +724,7 @@ function dashboardFinanceData(selected, bounds) {
 function compactMoney(value) {
   const amount = Math.abs(Number(value) || 0);
   if (amount >= 1000000) return `$${(amount/1000000).toFixed(1)}M`;
-  if (amount >= 1000) return `$${(amount/1000).toFixed(1)}K`;
+  if (amount >= 1000) return `$${Math.round(amount/1000)}K`;
   return money(amount);
 }
 
@@ -816,7 +837,7 @@ function renderDashboardFinance(selected) {
     `${segment.label}: ${money(segment.value)} (${share.toFixed(1)}%)`
   );
   const approximateLabels = [];
-  const expenseLabels = new Set(['Маршрути для регулярки','Аеропортові збори','Хендлінг',...approximateLabels,'Пальне','Зарплата пілотам','Зарплата бортпровідникам','Штрафи та інциденти','Моральні компенсації / Пошкоджений вантаж','Страхування']);
+  const expenseLabels = new Set(['Маршрути для регулярки','Аеропортові збори','Хендлінг','Флот (лізинг)',...approximateLabels,'Пальне','Зарплата пілотам','Зарплата бортпровідникам','Штрафи та інциденти','Моральні компенсації / Пошкоджений вантаж','Страхування']);
   $('#dashboardFinanceLegend').innerHTML = result.categories.map(([label,value,color]) => {
     const approximate = approximateLabels.includes(label) ? ' ≈' : '';
     const specialClass = label === 'Штрафи та інциденти' ? ' finance-special-first' : '';
@@ -2254,6 +2275,7 @@ function renderDashboardFlights(completed) {
   try {
     renderDashboardFilters(completed);
     renderDashboardSortButtons();
+    syncDashboardLiveToggle();
     const visible = completed.filter(flight => (!app.dashboardPilotId || flight.pilot.id === app.dashboardPilotId) && (!app.dashboardAircraftId || dashboardAircraftKey(flight) === app.dashboardAircraftId));
     const rows = sortDashboardFlights(visible.map(flight => {
       const date = dateOf(flight);
@@ -2330,16 +2352,11 @@ function bindDashboardLiveToggle() {
   const button = $('#dashboardLiveToggle');
   if (!button || button.dataset.liveBound) return;
   button.dataset.liveBound = '1';
-  const syncText = () => {
-    button.textContent = app.liveDashboardVisible ? '(Сховати LIVE)' : '(Показати LIVE)';
-  };
-  syncText();
+  syncDashboardLiveToggle();
   button.addEventListener('click', async event => {
     event.preventDefault();
     app.liveDashboardVisible = !app.liveDashboardVisible;
-    button.classList.toggle('active', app.liveDashboardVisible);
-    button.setAttribute('aria-pressed', String(app.liveDashboardVisible));
-    syncText();
+    syncDashboardLiveToggle();
     if (app.liveDashboardVisible && !app.liveNewSkyLoaded) {
       await loadDashboardLiveNewSkyFlights();
     } else {
@@ -2376,6 +2393,7 @@ async function loadDatabases() {
     const legacyPilot = new URLSearchParams(location.search).get('pilot');
     const requestedPilot = profileHashPilotId() || (location.hash === '#profile' ? legacyPilot : null);
     if (requestedPilot) showPilotProfile(requestedPilot);
+    loadDashboardLiveNewSkyFlights(true);
   } catch (error) {
     console.error(error);
     status.textContent = 'Не вдалося завантажити файли з FLIGHTS';
@@ -2430,6 +2448,7 @@ async function refreshDatabasesSoft() {
     return;
   }
   render();
+  loadDashboardLiveNewSkyFlights(true);
 }
 
 function bindManualRefreshButtonClean() {
@@ -2546,6 +2565,9 @@ addEventListener('ucaa-flights-updated', event => {
   app.archive = loaded.archive;
   app.current = loaded.current;
   app.flights = loaded.flights;
+  app.liveNewSkyLoaded = false;
+  app.liveNewSkyFlights = [];
+  app.liveNewSkyError = '';
   pilotCardsMonthlyCache = null;
   pilotInsuranceCoverage = window.UCAAInsurance.coverageMap(app.flights);
   const latest = loaded.latest || [...app.flights].sort((a,b) => dateOf(b)-dateOf(a))[0];
@@ -2553,6 +2575,7 @@ addEventListener('ucaa-flights-updated', event => {
   window.UCAAPilotProfile.setFlights(app.flights);
   $('#dataStatus').innerHTML = formatLiveDataStatusClean(loaded.current, loaded.archive, latest);
   render();
+  loadDashboardLiveNewSkyFlights(true);
 });
 
 addEventListener('hashchange', () => {
