@@ -13033,6 +13033,202 @@
                         "elev": 278
                     }
                 }
+            },
+            {
+                "_id": "6a4a7fc65760ec7cdb0141e5",
+                "aircraft": {
+                    "name": "Boeing 737-900",
+                    "icao": "B739"
+                },
+                "type": "pax",
+                "flightNumber": "23Y",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 204,
+                    "cargo": 18,
+                    "weights": {
+                        "cargo": 2160
+                    }
+                },
+                "depTime": "2026-07-05T16:50:00.000Z",
+                "duration": 145,
+                "arrTime": "2026-07-05T19:15:00.000Z",
+                "depTimeAct": "2026-07-05T16:25:09.408Z",
+                "delay": -35,
+                "takeoffTimeAct": "2026-07-05T16:36:25.345Z",
+                "durationAct": 124,
+                "arrTimeAct": "2026-07-05T18:40:20.966Z",
+                "open": "2026-07-05T16:24:40.354Z",
+                "close": "2026-07-05T18:43:46.884Z",
+                "rating": 7.7,
+                "simulator": "xp",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 858,
+                        "fuel": 5732,
+                        "expenses": 14119,
+                        "penalties": 10131,
+                        "revenue": 31590,
+                        "balance": 7340,
+                        "prices": {
+                            "ticketPrice": 141,
+                            "cargoUnitPrice": 157,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 204,
+                            "cargo": 18,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 204
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 5185,
+                        "aircraft": 6700,
+                        "handling": 1019,
+                        "landing": 1215
+                    },
+                    "revenue": {
+                        "tickets": 28764,
+                        "cargo": 2826
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight departed 9 minutes too early (max 15 minutes before scheduled is allowed)",
+                            "penalty": {
+                                "points": -45,
+                                "cash": 918
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 21
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "MLW exceeded: 1643kg above maximum landing weight of 71350kg",
+                            "penalty": {
+                                "points": -138,
+                                "cash": 9213
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 21
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.15,
+                                        "rate": 128
+                                    },
+                                    "weather": {
+                                        "windDir": 287.07,
+                                        "windSpd": 2.44,
+                                        "windX": -2.4
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (928m from threshold beyond 794m max accepted)",
+                            "penalty": {
+                                "points": -47,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 21
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.15,
+                                        "rate": 128
+                                    },
+                                    "weather": {
+                                        "windDir": 287.07,
+                                        "windSpd": 2.44,
+                                        "windX": -2.4
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.15G (128 ft/min, normal  conditions)<br/>Distance from threshold: 928m (accepted range: 198-794m)<br/>Average centerline deviation: 0.73m<br/>Max centerline deviation: 1.11m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 21
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.15,
+                                        "rate": 128
+                                    },
+                                    "weather": {
+                                        "windDir": 287.07,
+                                        "windSpd": 2.44,
+                                        "windX": -2.4
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-05T16:01:10.583Z",
+                "updatedAt": "2026-07-05T18:43:46.971Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "LTAI",
+                    "name": "Antalya International Airport",
+                    "city": "Antalya",
+                    "location": {
+                        "lat": 36.898701,
+                        "lon": 30.800501,
+                        "elev": 177
+                    }
+                },
+                "actArr": {
+                    "icao": "LTAI",
+                    "name": "Antalya International Airport",
+                    "city": "Antalya",
+                    "location": {
+                        "lat": 36.898701,
+                        "lon": 30.800501,
+                        "elev": 177
+                    }
+                }
             }
         ]
     },
