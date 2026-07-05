@@ -17585,6 +17585,193 @@
                         "elev": 177
                     }
                 }
+            },
+            {
+                "_id": "6a4a48e15760ec7cdbfac0fb",
+                "aircraft": {
+                    "name": "Boeing 777-300ER",
+                    "icao": "B77W"
+                },
+                "type": "pax",
+                "flightNumber": "888",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 388,
+                    "cargo": 53,
+                    "weights": {
+                        "cargo": 4982
+                    }
+                },
+                "depTime": "2026-07-05T12:20:00.000Z",
+                "duration": 755,
+                "arrTime": "2026-07-06T00:55:00.000Z",
+                "depTimeAct": "2026-07-05T12:36:24.713Z",
+                "delay": -584,
+                "takeoffTimeAct": "2026-07-05T12:45:41.713Z",
+                "durationAct": 145,
+                "arrTimeAct": "2026-07-05T15:11:01.552Z",
+                "open": "2026-07-05T12:22:20.952Z",
+                "close": "2026-07-05T15:16:07.219Z",
+                "rating": 9.71,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1002,
+                        "fuel": 16554,
+                        "expenses": 43046,
+                        "penalties": 388,
+                        "revenue": 91690,
+                        "balance": 48256,
+                        "prices": {
+                            "ticketPrice": 156,
+                            "cargoUnitPrice": 170,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 387,
+                            "cargo": 53,
+                            "paxByClass": {
+                                "F": 24,
+                                "C": 71,
+                                "Y": 292
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 14972,
+                        "aircraft": 20938,
+                        "handling": 1952,
+                        "landing": 5184
+                    },
+                    "revenue": {
+                        "tickets": 82680,
+                        "cargo": 9010
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight delayed 2 minutes (max 15 minutes after scheduled is allowed)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 388
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 58
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 4.48m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -8,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 16
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (857m from threshold beyond 797m max accepted)",
+                            "penalty": {
+                                "points": -21,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.27,
+                                        "rate": 237
+                                    },
+                                    "weather": {
+                                        "windDir": 300,
+                                        "windSpd": 16.07,
+                                        "windX": 8.03
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.27G (237 ft/min, normal  conditions)<br/>Distance from threshold: 857m (accepted range: 199-797m)<br/>Average centerline deviation: 2.56m<br/>Max centerline deviation: 4.48m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.27,
+                                        "rate": 237
+                                    },
+                                    "weather": {
+                                        "windDir": 300,
+                                        "windSpd": 16.07,
+                                        "windX": 8.03
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-05T12:06:57.897Z",
+                "updatedAt": "2026-07-05T15:16:07.374Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "EHAM",
+                    "name": "Amsterdam Airport Schiphol",
+                    "city": "Amsterdam",
+                    "location": {
+                        "lat": 52.308601,
+                        "lon": 4.76389,
+                        "elev": -11
+                    }
+                },
+                "actArr": {
+                    "icao": "EHAM",
+                    "name": "Amsterdam Airport Schiphol",
+                    "city": "Amsterdam",
+                    "location": {
+                        "lat": 52.308601,
+                        "lon": 4.76389,
+                        "elev": -11
+                    }
+                }
             }
         ]
     },
