@@ -12508,7 +12508,7 @@
                         {
                             "title": "Incorrect flaps for takeoff",
                             "penalty": {
-                                "points": -0,
+                                "points": 0,
                                 "cash": 0
                             },
                             "entry": {
@@ -12528,7 +12528,7 @@
                         {
                             "title": "Incorrect flaps for landing",
                             "penalty": {
-                                "points": -0,
+                                "points": 0,
                                 "cash": 0
                             },
                             "entry": {
@@ -16719,6 +16719,139 @@
                         "lat": 41.666199,
                         "lon": -1.04155,
                         "elev": 863
+                    }
+                }
+            },
+            {
+                "_id": "6a49ee3d5760ec7cdbf33d61",
+                "aircraft": {
+                    "name": "Airbus A320",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "3245",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 93,
+                    "cargo": 28,
+                    "weights": {
+                        "cargo": 3136
+                    }
+                },
+                "depTime": "2026-07-05T06:25:00.000Z",
+                "duration": 95,
+                "arrTime": "2026-07-05T08:00:00.000Z",
+                "depTimeAct": "2026-07-05T06:18:35.496Z",
+                "delay": -18,
+                "takeoffTimeAct": "2026-07-05T06:26:10.485Z",
+                "durationAct": 76,
+                "arrTimeAct": "2026-07-05T07:42:16.350Z",
+                "open": "2026-07-05T06:12:42.517Z",
+                "close": "2026-07-05T07:48:08.363Z",
+                "rating": 10,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 511,
+                        "fuel": 3395,
+                        "expenses": 10318,
+                        "penalties": 0,
+                        "revenue": 14624,
+                        "balance": 4306,
+                        "prices": {
+                            "ticketPrice": 116,
+                            "cargoUnitPrice": 137,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 93,
+                            "cargo": 28,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 93
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3839,
+                        "aircraft": 5100,
+                        "handling": 515,
+                        "landing": 864
+                    },
+                    "revenue": {
+                        "tickets": 10788,
+                        "cargo": 3836
+                    },
+                    "violations": [
+                        {
+                            "title": "Great touchdown: 1.33G (279 ft/min, challenging  conditions)<br/>Distance from threshold: 381m (accepted range: 173-693m)<br/>Average centerline deviation: 2.43m<br/>Max centerline deviation: 5.02m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.33,
+                                        "rate": 279
+                                    },
+                                    "weather": {
+                                        "windDir": 290.04,
+                                        "windSpd": 12.15,
+                                        "windX": -9.54
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-05T05:40:13.595Z",
+                "updatedAt": "2026-07-05T07:48:08.454Z",
+                "dep": {
+                    "icao": "LUKK",
+                    "name": "Chişinău International Airport",
+                    "city": "Chişinău",
+                    "location": {
+                        "lat": 46.9277,
+                        "lon": 28.931,
+                        "elev": 399
+                    }
+                },
+                "arr": {
+                    "icao": "LGTS",
+                    "name": "Thessaloniki Macedonia International Airport",
+                    "city": "Thessaloniki",
+                    "location": {
+                        "lat": 40.51928,
+                        "lon": 22.970009,
+                        "elev": 22
+                    }
+                },
+                "actArr": {
+                    "icao": "LGTS",
+                    "name": "Thessaloniki Macedonia International Airport",
+                    "city": "Thessaloniki",
+                    "location": {
+                        "lat": 40.51928,
+                        "lon": 22.970009,
+                        "elev": 22
                     }
                 }
             }
