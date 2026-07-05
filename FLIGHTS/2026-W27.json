@@ -12477,6 +12477,163 @@
                         "elev": 508
                     }
                 }
+            },
+            {
+                "_id": "6a4a5e125760ec7cdbfd38a4",
+                "aircraft": {
+                    "name": "Boeing 737-900",
+                    "icao": "B739"
+                },
+                "type": "pax",
+                "flightNumber": "72K",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 204,
+                    "cargo": 19,
+                    "weights": {
+                        "cargo": 1330
+                    }
+                },
+                "depTime": "2026-07-05T14:00:00.000Z",
+                "duration": 115,
+                "arrTime": "2026-07-05T15:55:00.000Z",
+                "depTimeAct": "2026-07-05T13:53:07.782Z",
+                "delay": -19,
+                "takeoffTimeAct": "2026-07-05T13:57:22.780Z",
+                "durationAct": 99,
+                "arrTimeAct": "2026-07-05T15:36:28.049Z",
+                "open": "2026-07-05T13:40:09.314Z",
+                "close": "2026-07-05T15:38:55.716Z",
+                "rating": 9.41,
+                "simulator": "xp",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 653,
+                        "fuel": 4441,
+                        "expenses": 13297,
+                        "penalties": 3964,
+                        "revenue": 28459,
+                        "balance": 11198,
+                        "prices": {
+                            "ticketPrice": 126,
+                            "cargoUnitPrice": 145,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 204,
+                            "cargo": 19,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 204
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 5021,
+                        "aircraft": 6535,
+                        "handling": 1111,
+                        "landing": 630
+                    },
+                    "revenue": {
+                        "tickets": 25704,
+                        "cargo": 2755
+                    },
+                    "violations": [
+                        {
+                            "title": "MLW exceeded: 707kg above maximum landing weight of 71350kg",
+                            "penalty": {
+                                "points": -59,
+                                "cash": 3964
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 16
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.17,
+                                        "rate": 129
+                                    },
+                                    "weather": {
+                                        "windDir": 222.23,
+                                        "windSpd": 5.44,
+                                        "windX": -5.33
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.17G (129 ft/min, normal  conditions)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 16
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.17,
+                                        "rate": 129
+                                    },
+                                    "weather": {
+                                        "windDir": 222.23,
+                                        "windSpd": 5.44,
+                                        "windX": -5.33
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-05T13:37:22.514Z",
+                "updatedAt": "2026-07-05T15:38:55.802Z",
+                "dep": {
+                    "icao": "LUKK",
+                    "name": "Chişinău International Airport",
+                    "city": "Chişinău",
+                    "location": {
+                        "lat": 46.9277,
+                        "lon": 28.931,
+                        "elev": 399
+                    }
+                },
+                "arr": {
+                    "icao": "LDRI",
+                    "name": "Rijeka Airport",
+                    "city": "Omišalj",
+                    "location": {
+                        "lat": 45.2169,
+                        "lon": 14.5703,
+                        "elev": 278
+                    }
+                },
+                "actArr": {
+                    "icao": "LDRI",
+                    "name": "Rijeka Airport",
+                    "city": "Omišalj",
+                    "location": {
+                        "lat": 45.2169,
+                        "lon": 14.5703,
+                        "elev": 278
+                    }
+                }
             }
         ]
     },
