@@ -13635,6 +13635,208 @@
                         "elev": 171
                     }
                 }
+            },
+            {
+                "_id": "6a4a18455760ec7cdbf60806",
+                "aircraft": {
+                    "name": "Boeing 777-200ER",
+                    "icao": "B772"
+                },
+                "type": "pax",
+                "flightNumber": "442Q",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 284,
+                    "cargo": 49,
+                    "weights": {
+                        "cargo": 4018
+                    }
+                },
+                "depTime": "2026-07-05T09:00:00.000Z",
+                "duration": 65,
+                "arrTime": "2026-07-05T10:05:00.000Z",
+                "depTimeAct": "2026-07-05T09:18:49.386Z",
+                "delay": 13,
+                "takeoffTimeAct": "2026-07-05T09:24:58.375Z",
+                "durationAct": 53,
+                "arrTimeAct": "2026-07-05T10:18:11.379Z",
+                "open": "2026-07-05T09:06:40.721Z",
+                "close": "2026-07-05T10:21:37.406Z",
+                "rating": 7.33,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 314,
+                        "fuel": 5955,
+                        "expenses": 21029,
+                        "penalties": 568,
+                        "revenue": 45752,
+                        "balance": 24155,
+                        "prices": {
+                            "ticketPrice": 105,
+                            "cargoUnitPrice": 128,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.7,
+                                "fuel": 0.8,
+                                "ground": 0.7
+                            }
+                        },
+                        "payload": {
+                            "pax": 284,
+                            "cargo": 49,
+                            "paxByClass": {
+                                "F": 17,
+                                "C": 41,
+                                "Y": 226
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 5386,
+                        "aircraft": 12765,
+                        "handling": 1443,
+                        "landing": 1435
+                    },
+                    "revenue": {
+                        "tickets": 39480,
+                        "cargo": 6272
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight delayed 4 minutes (max 15 minutes after scheduled is allowed)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 568
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 13.45m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -96,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (850m from threshold beyond 790m max accepted)",
+                            "penalty": {
+                                "points": -21,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.4,
+                                        "rate": 354
+                                    },
+                                    "weather": {
+                                        "windDir": 273.73,
+                                        "windSpd": 16.94,
+                                        "windX": -10.99
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.40G (354 ft/min, challenging  conditions)<br/>Distance from threshold: 850m (accepted range: 197-790m)<br/>Average centerline deviation: 6.91m<br/>Max centerline deviation: 13.45m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.4,
+                                        "rate": 354
+                                    },
+                                    "weather": {
+                                        "windDir": 273.73,
+                                        "windSpd": 16.94,
+                                        "windX": -10.99
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 815ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-05T08:39:33.501Z",
+                "updatedAt": "2026-07-05T10:21:37.496Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "actArr": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                }
             }
         ]
     },
