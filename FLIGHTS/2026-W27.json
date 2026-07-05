@@ -3471,6 +3471,154 @@
                         "elev": 399
                     }
                 }
+            },
+            {
+                "_id": "6a4a24515760ec7cdbf70eab",
+                "aircraft": {
+                    "name": "Boeing 777-300ER",
+                    "icao": "B77W"
+                },
+                "type": "pax",
+                "flightNumber": "2939",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 408,
+                    "cargo": 54,
+                    "weights": {
+                        "cargo": 5562
+                    }
+                },
+                "depTime": "2026-07-05T09:45:00.000Z",
+                "duration": 160,
+                "arrTime": "2026-07-05T12:25:00.000Z",
+                "depTimeAct": "2026-07-05T09:38:07.846Z",
+                "delay": -73,
+                "takeoffTimeAct": "2026-07-05T09:38:19.857Z",
+                "durationAct": 94,
+                "arrTimeAct": "2026-07-05T11:12:13.032Z",
+                "open": "2026-07-05T09:37:42.387Z",
+                "close": "2026-07-05T11:16:39.069Z",
+                "rating": 9.91,
+                "simulator": "msfs",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 659,
+                        "fuel": 11016,
+                        "expenses": 33316,
+                        "penalties": 0,
+                        "revenue": 98412,
+                        "balance": 65096,
+                        "prices": {
+                            "ticketPrice": 158,
+                            "cargoUnitPrice": 181,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 408,
+                            "cargo": 54,
+                            "paxByClass": {
+                                "F": 26,
+                                "C": 75,
+                                "Y": 307
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 12454,
+                        "aircraft": 16205,
+                        "handling": 2227,
+                        "landing": 2430
+                    },
+                    "revenue": {
+                        "tickets": 88638,
+                        "cargo": 9774
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 4.42m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -6,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.41G (285 ft/min, normal  conditions)<br/>Distance from threshold: 479m (accepted range: 198-793m)<br/>Average centerline deviation: 1.24m<br/>Max centerline deviation: 2.01m",
+                            "penalty": {
+                                "points": -3,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 39
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.41,
+                                        "rate": 285
+                                    },
+                                    "weather": {
+                                        "windDir": 269.84,
+                                        "windSpd": 1.09,
+                                        "windX": 1.08
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-05T09:30:57.537Z",
+                "updatedAt": "2026-07-05T11:16:39.145Z",
+                "dep": {
+                    "icao": "LUKK",
+                    "name": "Chişinău International Airport",
+                    "city": "Chişinău",
+                    "location": {
+                        "lat": 46.9277,
+                        "lon": 28.931,
+                        "elev": 399
+                    }
+                },
+                "arr": {
+                    "icao": "LTAI",
+                    "name": "Antalya International Airport",
+                    "city": "Antalya",
+                    "location": {
+                        "lat": 36.898701,
+                        "lon": 30.800501,
+                        "elev": 177
+                    }
+                },
+                "actArr": {
+                    "icao": "LTAI",
+                    "name": "Antalya International Airport",
+                    "city": "Antalya",
+                    "location": {
+                        "lat": 36.898701,
+                        "lon": 30.800501,
+                        "elev": 177
+                    }
+                }
             }
         ]
     },
