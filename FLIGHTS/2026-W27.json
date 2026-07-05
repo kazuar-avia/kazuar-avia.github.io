@@ -8012,6 +8012,178 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6a4ab7bf5760ec7cdb082ee9",
+                "aircraft": {
+                    "name": "Cessna 172",
+                    "icao": "C172"
+                },
+                "type": "pax",
+                "flightNumber": "987G",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 3,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-07-05T20:10:00.000Z",
+                "duration": 15,
+                "arrTime": "2026-07-05T20:25:00.000Z",
+                "depTimeAct": "2026-07-05T20:00:37.550Z",
+                "delay": -22,
+                "takeoffTimeAct": "2026-07-05T20:00:40.653Z",
+                "durationAct": 2,
+                "arrTimeAct": "2026-07-05T20:03:01.990Z",
+                "open": "2026-07-05T20:00:02.471Z",
+                "close": "2026-07-05T20:03:10.884Z",
+                "rating": 9.2,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 3,
+                        "fuel": 1,
+                        "expenses": 135,
+                        "penalties": 0,
+                        "revenue": 84,
+                        "balance": -51,
+                        "prices": {
+                            "ticketPrice": 28,
+                            "cargoUnitPrice": 25,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 3,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 3
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2,
+                        "aircraft": 81,
+                        "handling": 15,
+                        "landing": 37
+                    },
+                    "revenue": {
+                        "tickets": 84,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 4.84m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -13,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 8.03m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -67,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.34,
+                                        "rate": 203
+                                    },
+                                    "weather": {
+                                        "windDir": 260,
+                                        "windSpd": 12.53,
+                                        "windX": 5.29
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.34G (203 ft/min, normal  conditions)<br/>Distance from threshold: 200m (accepted range: 188-754m)<br/>Average centerline deviation: 4.93m<br/>Max centerline deviation: 8.03m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.34,
+                                        "rate": 203
+                                    },
+                                    "weather": {
+                                        "windDir": 260,
+                                        "windSpd": 12.53,
+                                        "windX": 5.29
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-05T19:59:59.474Z",
+                "updatedAt": "2026-07-05T20:03:10.940Z",
+                "dep": {
+                    "icao": "KSDM",
+                    "name": "Brown Field Municipal Airport",
+                    "city": "San Diego",
+                    "location": {
+                        "lat": 32.572639,
+                        "lon": -116.980019,
+                        "elev": 526
+                    }
+                },
+                "arr": {
+                    "icao": "MMTJ",
+                    "name": "General Abelardo L. Rodriguez International Airport",
+                    "city": "Tijuana",
+                    "location": {
+                        "lat": 32.541043,
+                        "lon": -116.969976,
+                        "elev": 489
+                    }
+                },
+                "actArr": {
+                    "icao": "MMTJ",
+                    "name": "General Abelardo L. Rodriguez International Airport",
+                    "city": "Tijuana",
+                    "location": {
+                        "lat": 32.541043,
+                        "lon": -116.969976,
+                        "elev": 489
+                    }
+                }
             }
         ]
     },
