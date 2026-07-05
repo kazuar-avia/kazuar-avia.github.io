@@ -8510,6 +8510,154 @@
                         "elev": 1375
                     }
                 }
+            },
+            {
+                "_id": "6a4a2b895760ec7cdbf7afa7",
+                "aircraft": {
+                    "name": "Boeing 737 MAX 8",
+                    "icao": "B38M"
+                },
+                "type": "pax",
+                "flightNumber": "948Z",
+                "free": false,
+                "schedule": false,
+                "charter": true,
+                "payload": {
+                    "pax": 189,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-07-05T10:40:00.000Z",
+                "duration": 100,
+                "arrTime": "2026-07-05T12:20:00.000Z",
+                "depTimeAct": "2026-07-05T10:31:42.661Z",
+                "delay": -18,
+                "takeoffTimeAct": "2026-07-05T10:36:32.673Z",
+                "durationAct": 85,
+                "arrTimeAct": "2026-07-05T12:01:33.739Z",
+                "open": "2026-07-05T10:02:11.904Z",
+                "close": "2026-07-05T12:08:49.780Z",
+                "rating": 9.55,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 591,
+                        "fuel": 3241,
+                        "expenses": 11314,
+                        "penalties": 0,
+                        "revenue": 37260,
+                        "balance": 25946,
+                        "prices": {
+                            "ticketPrice": 180,
+                            "cargoUnitPrice": 209,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 189,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 2,
+                                "C": 12,
+                                "Y": 175
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3664,
+                        "aircraft": 5625,
+                        "handling": 945,
+                        "landing": 1080
+                    },
+                    "revenue": {
+                        "tickets": 37260,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Delayed gear retraction after takeoff more than 30s, actual: 44s)",
+                            "penalty": {
+                                "points": -25,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gear",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.48G (341 ft/min, normal  conditions)<br/>Distance from threshold: 762m (accepted range: 200-801m)<br/>Average centerline deviation: 1.18m<br/>Max centerline deviation: 1.73m",
+                            "penalty": {
+                                "points": -20,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 35
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.48,
+                                        "rate": 341
+                                    },
+                                    "weather": {
+                                        "windDir": 330.03,
+                                        "windSpd": 7.26,
+                                        "windX": 0.85
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-05T10:01:45.912Z",
+                "updatedAt": "2026-07-05T12:08:49.863Z",
+                "dep": {
+                    "icao": "EDLV",
+                    "name": "Weeze Airport",
+                    "city": "Weeze",
+                    "location": {
+                        "lat": 51.6024017334,
+                        "lon": 6.14216995239,
+                        "elev": 106
+                    }
+                },
+                "arr": {
+                    "icao": "LFBO",
+                    "name": "Toulouse-Blagnac Airport",
+                    "city": "Toulouse/Blagnac",
+                    "location": {
+                        "lat": 43.629101,
+                        "lon": 1.36382,
+                        "elev": 499
+                    }
+                },
+                "actArr": {
+                    "icao": "LFBO",
+                    "name": "Toulouse-Blagnac Airport",
+                    "city": "Toulouse/Blagnac",
+                    "location": {
+                        "lat": 43.629101,
+                        "lon": 1.36382,
+                        "elev": 499
+                    }
+                }
             }
         ]
     },
