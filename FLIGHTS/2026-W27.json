@@ -19735,6 +19735,159 @@
                         "elev": 31
                     }
                 }
+            },
+            {
+                "_id": "6a4a70e75760ec7cdbff6ea5",
+                "aircraft": {
+                    "name": "Boeing 737-800",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "0210",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 177,
+                    "cargo": 25,
+                    "weights": {
+                        "cargo": 1975
+                    }
+                },
+                "depTime": "2026-07-05T15:10:00.000Z",
+                "duration": 110,
+                "arrTime": "2026-07-05T17:00:00.000Z",
+                "depTimeAct": "2026-07-05T15:22:24.769Z",
+                "delay": 39,
+                "takeoffTimeAct": "2026-07-05T15:28:35.784Z",
+                "durationAct": 130,
+                "arrTimeAct": "2026-07-05T17:38:53.914Z",
+                "open": "2026-07-05T15:09:17.465Z",
+                "close": "2026-07-05T17:49:31.073Z",
+                "rating": 9.33,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 822,
+                        "fuel": 5562,
+                        "expenses": 15355,
+                        "penalties": 0,
+                        "revenue": 25523,
+                        "balance": 10168,
+                        "prices": {
+                            "ticketPrice": 124,
+                            "cargoUnitPrice": 143,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 177,
+                            "cargo": 25,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 177
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 6288,
+                        "aircraft": 6600,
+                        "handling": 1252,
+                        "landing": 1215
+                    },
+                    "revenue": {
+                        "tickets": 21948,
+                        "cargo": 3575
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 8.12m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -67,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    },
+                                    "weather": {
+                                        "windDir": 20,
+                                        "windSpd": 9.05,
+                                        "windX": 0.02
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.27G (222 ft/min, normal  conditions)<br/>Distance from threshold: 406m (accepted range: 199-800m)<br/>Average centerline deviation: 1.19m<br/>Max centerline deviation: 2.56m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 17
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.27,
+                                        "rate": 222
+                                    },
+                                    "weather": {
+                                        "windDir": 320.01,
+                                        "windSpd": 6.4,
+                                        "windX": -0.13
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-05T14:57:43.604Z",
+                "updatedAt": "2026-07-05T17:49:31.155Z",
+                "dep": {
+                    "icao": "ENTC",
+                    "name": "Tromsø Airport, Langnes",
+                    "city": "Tromsø",
+                    "location": {
+                        "lat": 69.683296,
+                        "lon": 18.9189,
+                        "elev": 31
+                    }
+                },
+                "arr": {
+                    "icao": "EFHK",
+                    "name": "Helsinki Vantaa Airport",
+                    "city": "Helsinki (Vantaa)",
+                    "location": {
+                        "lat": 60.318363,
+                        "lon": 24.963341,
+                        "elev": 179
+                    }
+                },
+                "actArr": {
+                    "icao": "EFHK",
+                    "name": "Helsinki Vantaa Airport",
+                    "city": "Helsinki (Vantaa)",
+                    "location": {
+                        "lat": 60.318363,
+                        "lon": 24.963341,
+                        "elev": 179
+                    }
+                }
             }
         ]
     },
