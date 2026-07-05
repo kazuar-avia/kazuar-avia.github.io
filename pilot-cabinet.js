@@ -19,6 +19,11 @@ const app = {
   dashboardPilotId: null,
   dashboardAircraftId: null,
   dashboardFlightSort: {field: 'date', direction: 'desc'},
+  liveDashboardVisible: false,
+  liveNewSkyFlights: [],
+  liveNewSkyLoaded: false,
+  liveNewSkyLoading: false,
+  liveNewSkyError: '',
   metric: 'hours'
 };
 let pilotInsuranceCoverage = new Map();
@@ -103,6 +108,7 @@ const profileHashPilotId = () => {
 };
 const pilotProfileUrl = id => `pilot-cabinet.html#profile/${encodeURIComponent(id)}`;
 const dashboardPilotCellHtml = pilot => `<td class="dashboard-pilot-cell" data-pilot-id="${esc(pilot.id)}" role="button" tabindex="0"><span class="dashboard-pilot-card"><img class="dashboard-pilot-avatar" src="${esc(pilotAvatarUrl(pilot.avatar))}" alt="${esc(pilot.name)}" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='https://newsky.app/api/pilot/avatar/default'}"><span class="dashboard-pilot-name">${pilotNameWithStreak(pilot)}</span></span></td>`;
+const liveNewSkyAuthToken = 'UKR_uSTNynarbU8B8A61nvDLqmSl7Ji8xK';
 const bindDashboardPilotCells = () => {
   $$('.dashboard-pilot-cell').forEach(cell => {
     cell.onclick = () => showPilotProfile(cell.dataset.pilotId);
@@ -114,6 +120,138 @@ const bindDashboardPilotCells = () => {
     };
   });
 };
+
+function knownPilotForLiveFlight(flight) {
+  const pilot = flight?.pilot || {};
+  const apiId = String(pilot._id || pilot.id || pilot.pilot_id || '').trim();
+  const name = String(pilot.fullname || pilot.name || 'Unknown Pilot').trim();
+  const known = app.flights.find(item => apiId && item.pilot?.id === apiId)
+    || app.flights.find(item => item.pilot?.name && name && item.pilot.name.toLowerCase() === name.toLowerCase());
+  return known?.pilot || {
+    id: apiId || `live-${name}`,
+    name,
+    avatar: pilot.avatar || null
+  };
+}
+
+function liveAirportObject(value) {
+  return {
+    icao: String(value?.icao || ''),
+    name: String(value?.name || ''),
+    city: String(value?.city || '')
+  };
+}
+
+function liveFlightOperation(flight) {
+  if (flight?.charter) return {key:'charter', label:'Charter'};
+  if (flight?.schedule) return {key:'schedule', label:'Schedule'};
+  return {key:'free', label:'Free'};
+}
+
+function liveFlightPayload(flight) {
+  const type = String(flight?.type || '').toLowerCase();
+  if (type === 'cargo') {
+    const cargo = Number(flight?.cargoWeight || flight?.cargo || flight?.payload?.cargo || flight?.result?.totals?.payload?.cargo || 0);
+    if (cargo > 1000) return `${(cargo / 1000).toLocaleString('uk-UA', {maximumFractionDigits:1})} т`;
+    return cargo ? `${cargo} т` : '—';
+  }
+  const pax = Number(flight?.pax || flight?.passengers || flight?.payload?.pax || flight?.result?.totals?.payload?.pax || 0);
+  return pax ? String(pax) : '—';
+}
+
+function liveFlightPayloadIcon(flight) {
+  return String(flight?.type || '').toLowerCase() === 'cargo'
+    ? {icon:'📦', label:'Cargo'}
+    : {icon:'👨‍💼', label:'Pax'};
+}
+
+function liveAircraftInfo(flight) {
+  const airframe = flight?.aircraft?.airframe || flight?.aircraft || {};
+  return {
+    name: String(airframe.name || flight?.aircraft?.name || airframe.icao || 'Unknown aircraft'),
+    icao: String(airframe.icao || airframe.ident || flight?.aircraft?.icao || '')
+  };
+}
+
+function liveFlightDepartureDate(flight) {
+  return new Date(flight?.depTimeAct || flight?.takeoffTimeAct || flight?.depTime || flight?.open || Date.now());
+}
+
+function liveFlightDateLabel(flight) {
+  const date = liveFlightDepartureDate(flight);
+  return Number.isFinite(date.getTime())
+    ? date.toLocaleDateString('uk-UA', {timeZone:'UTC'})
+    : 'LIVE';
+}
+
+function liveFlightTimeLabel(flight) {
+  const date = liveFlightDepartureDate(flight);
+  return Number.isFinite(date.getTime())
+    ? date.toLocaleTimeString('uk-UA', {timeZone:'UTC', hour:'2-digit', minute:'2-digit'})
+    : '--:--';
+}
+
+function liveFlightDurationLabel(flight) {
+  const minutes = Number(flight?.durationAct || flight?.duration || 0);
+  return minutes > 0 ? formatMinutes(minutes) : 'у повітрі';
+}
+
+function renderLiveDashboardRows() {
+  if (!app.liveDashboardVisible) return '';
+  if (app.liveNewSkyLoading) return '<tr class="dashboard-live-row"><td colspan="8" class="loading">Завантаження LIVE-рейсів NewSky…</td></tr>';
+  if (app.liveNewSkyError) return `<tr class="dashboard-live-row"><td colspan="8" class="loading negative">${esc(app.liveNewSkyError)}</td></tr>`;
+  const flights = app.liveNewSkyFlights.filter(flight => flight?.depTimeAct);
+  if (!flights.length) return '<tr class="dashboard-live-row"><td colspan="8" class="loading">Зараз немає LIVE-рейсів NewSky у повітрі</td></tr>';
+  return flights.map(flight => {
+    const pilot = knownPilotForLiveFlight(flight);
+    const operation = liveFlightOperation(flight);
+    const aircraft = liveAircraftInfo(flight);
+    const dep = liveAirportObject(flight.dep);
+    const arr = liveAirportObject(flight.arr);
+    const payload = liveFlightPayloadIcon(flight);
+    const id = String(flight._id || flight.id || '');
+    const flightNumber = String(flight.flightNumber || '—');
+    const flightLink = id ? `https://newsky.app/flight/${encodeURIComponent(id)}` : 'https://newsky.app/';
+    return `<tr class="dashboard-live-row">
+      <td>${liveFlightDateLabel(flight)}<span class="date-flight-meta"><span class="date-flight-time">${liveFlightTimeLabel(flight)}</span><a class="flight-number-link flight-number-${operation.key}" href="${flightLink}" target="_blank" rel="noopener" title="LIVE ${operation.label}">${esc(flightNumber)}</a></span></td>
+      ${dashboardPilotCellHtml(pilot)}
+      <td class="route"><span class="route-airports">${airportWithFlag(dep)} → ${airportWithFlag(arr)}</span><span class="route-duration">${liveFlightDurationLabel(flight)}</span></td>
+      <td>${esc(aircraft.name)}<span class="flight-note">${esc(aircraft.icao)}</span></td>
+      <td><span class="payload-value" title="${payload.label}">${esc(liveFlightPayload(flight))}<span class="load-kind-icon" aria-hidden="true">${payload.icon}</span></span></td>
+      <td class="num rating-cell"><span class="dashboard-live-badge">LIVE</span><span class="landing-line">ще в польоті</span></td>
+      <td class="finance-click-cell live-finance-dash">—</td>
+      <td class="finance-click-cell live-finance-dash">—</td>
+    </tr>`;
+  }).join('');
+}
+
+async function loadDashboardLiveNewSkyFlights(force = false) {
+  if (app.liveNewSkyLoading) return;
+  if (app.liveNewSkyLoaded && !force) return;
+  app.liveNewSkyLoading = true;
+  app.liveNewSkyError = '';
+  render();
+  try {
+    const response = await fetch('https://newsky.app/api/airline-api/flights/ongoing', {
+      cache: 'no-store',
+      headers: {Authorization: `Bearer ${liveNewSkyAuthToken}`}
+    });
+    if (!response.ok) throw new Error(`NewSky ${response.status}`);
+    const data = await response.json();
+    const results = Array.isArray(data?.results) ? data.results : [];
+    app.liveNewSkyFlights = results
+      .filter(flight => String(flight?.airline?.icao || 'UKL').trim().toUpperCase() === 'UKL')
+      .filter(flight => flight?.depTimeAct)
+      .sort((a,b) => liveFlightDepartureDate(b) - liveFlightDepartureDate(a));
+    app.liveNewSkyLoaded = true;
+  } catch (error) {
+    console.warn('Не вдалося завантажити LIVE NewSky', error);
+    app.liveNewSkyError = 'Не вдалося завантажити LIVE-рейси NewSky';
+  } finally {
+    app.liveNewSkyLoading = false;
+    render();
+  }
+}
 
 const ICAO_COUNTRY = {
   UK:{cc:'ua',name:'Україна'}, UR:{cc:'ua',name:'Україна'},
@@ -2131,7 +2269,7 @@ function renderDashboardFlights(completed) {
         rating: flightRatingPresentation(flight)
       };
     }));
-    $('#dashboardFlights').innerHTML = rows.length ? rows.map(row => {
+    const completedRowsHtml = rows.length ? rows.map(row => {
       const flight = row.flight;
       return `<tr>
         <td>${formatFlightDateLabel(flight)}<span class="date-flight-meta"><span class="date-flight-time">${formatFlightCloseTime(flight)}</span><a class="flight-number-link flight-number-${row.operation.key}" href="https://newsky.app/flight/${encodeURIComponent(flight.id)}" target="_blank" rel="noopener" title="${row.operation.label}">${esc(flight.flightNumber||'—')}</a></span></td>
@@ -2144,6 +2282,7 @@ function renderDashboardFlights(completed) {
         <td class="finance-click-cell pilot-salary-detail ${row.salaryVisual.className}" data-flight-id="${esc(flight.id)}" role="button" tabindex="0">${money(row.direct.pilotSalary,true)}${row.salaryVisual.note?`<span class="profit-incident-note ${row.salaryVisual.noteClass||''}">${esc(row.salaryVisual.note)}</span>`:''}</td>
       </tr>`;
     }).join('') : '<tr><td colspan="8" class="loading">За вибраний період завершених рейсів немає</td></tr>';
+    $('#dashboardFlights').innerHTML = `${renderLiveDashboardRows()}${completedRowsHtml}`;
     bindDashboardPilotCells();
     $$('.rating-detail').forEach(button=>button.onclick=()=>{const flight=app.flights.find(item=>item.id===button.dataset.flightId);if(flight)openFlightInfo(flight,'rating')});
     $$('.rating-detail').forEach(cell=>cell.onkeydown=event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();cell.click()}});
@@ -2185,6 +2324,28 @@ function renderDashboardFlightsLegacy(completed) {
   $$('.company-profit-detail').forEach(button=>button.onclick=()=>{const flight=app.flights.find(item=>item.id===button.dataset.flightId);if(flight)openFlightInfo(flight,'finance')});
   $$('.pilot-salary-detail').forEach(button=>button.onclick=()=>{const flight=app.flights.find(item=>item.id===button.dataset.flightId);if(flight)openFlightInfo(flight,'salary')});
   $$('.finance-click-cell').forEach(cell=>cell.onkeydown=event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();cell.click()}});
+}
+
+function bindDashboardLiveToggle() {
+  const button = $('#dashboardLiveToggle');
+  if (!button || button.dataset.liveBound) return;
+  button.dataset.liveBound = '1';
+  const syncText = () => {
+    button.textContent = app.liveDashboardVisible ? '(Сховати LIVE)' : '(Показати LIVE)';
+  };
+  syncText();
+  button.addEventListener('click', async event => {
+    event.preventDefault();
+    app.liveDashboardVisible = !app.liveDashboardVisible;
+    button.classList.toggle('active', app.liveDashboardVisible);
+    button.setAttribute('aria-pressed', String(app.liveDashboardVisible));
+    syncText();
+    if (app.liveDashboardVisible && !app.liveNewSkyLoaded) {
+      await loadDashboardLiveNewSkyFlights();
+    } else {
+      render();
+    }
+  });
 }
 
 async function loadDatabases() {
@@ -2249,6 +2410,9 @@ async function refreshDatabasesSoft() {
   app.current = current;
   app.companyData = companyData;
   app.flights = loaded.flights;
+  app.liveNewSkyLoaded = false;
+  app.liveNewSkyFlights = [];
+  app.liveNewSkyError = '';
   pilotCardsMonthlyCache = null;
   pilotInsuranceCoverage = window.UCAAInsurance.coverageMap(app.flights);
   const latest = loaded.latest || [...app.flights].sort((a,b) => dateOf(b)-dateOf(a))[0];
@@ -2261,6 +2425,10 @@ async function refreshDatabasesSoft() {
   }
   window.UCAAPilotProfile.setFlights(app.flights);
   if (status) status.innerHTML = formatLiveDataStatusClean(current, archive, latest);
+  if (app.liveDashboardVisible) {
+    await loadDashboardLiveNewSkyFlights(true);
+    return;
+  }
   render();
 }
 
@@ -2348,6 +2516,7 @@ function configureDashboardSortableHeaders() {
 }
 
 configureDashboardSortableHeaders();
+bindDashboardLiveToggle();
 
 $$('[data-dashboard-sort]').forEach(button => button.onclick = () => {
   const field = button.dataset.dashboardSort;
