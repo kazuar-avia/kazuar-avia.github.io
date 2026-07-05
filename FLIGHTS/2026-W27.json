@@ -5314,6 +5314,242 @@
                         "elev": 587
                     }
                 }
+            },
+            {
+                "_id": "6a4aaa6a6748d36670dbfb97",
+                "aircraft": {
+                    "name": "Cessna 408 SkyCourier",
+                    "icao": "C408"
+                },
+                "type": "pax",
+                "flightNumber": "07W",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 18,
+                    "cargo": 2,
+                    "weights": {
+                        "cargo": 200
+                    }
+                },
+                "depTime": "2026-07-05T19:25:00.000Z",
+                "duration": 35,
+                "arrTime": "2026-07-05T20:00:00.000Z",
+                "depTimeAct": "2026-07-05T19:15:19.883Z",
+                "delay": -27,
+                "takeoffTimeAct": "2026-07-05T19:18:23.948Z",
+                "durationAct": 15,
+                "arrTimeAct": "2026-07-05T19:32:54.034Z",
+                "open": "2026-07-05T19:12:23.601Z",
+                "close": "2026-07-05T19:38:34.723Z",
+                "rating": 7.9,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 42,
+                        "fuel": 69,
+                        "expenses": 638,
+                        "penalties": 8408,
+                        "revenue": 762,
+                        "balance": -8284,
+                        "prices": {
+                            "ticketPrice": 38,
+                            "cargoUnitPrice": 39,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 18,
+                            "cargo": 2,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 18
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 79,
+                        "aircraft": 403,
+                        "handling": 82,
+                        "landing": 74
+                    },
+                    "revenue": {
+                        "tickets": 684,
+                        "cargo": 78
+                    },
+                    "violations": [
+                        {
+                            "title": "MTOW exceeded: 29kg above maximum takeoff weight of 8618kg",
+                            "penalty": {
+                                "points": -20,
+                                "cash": 1351
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 21
+                                    },
+                                    "weather": {
+                                        "windDir": 271.84,
+                                        "windSpd": 7.14,
+                                        "windX": -6.34
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1013mb instead of 1010mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 21
+                                    },
+                                    "weather": {
+                                        "windDir": 271.84,
+                                        "windSpd": 7.14,
+                                        "windX": -6.34
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "MLW exceeded: 149kg above maximum landing weight of 8437kg",
+                            "penalty": {
+                                "points": -106,
+                                "cash": 7057
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 21
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.59,
+                                        "rate": 381
+                                    },
+                                    "weather": {
+                                        "windDir": 268.03,
+                                        "windSpd": 9.81,
+                                        "windX": 9.68
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 8.79m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -11,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 21
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.59G (381 ft/min, challenging  conditions)<br/>Distance from threshold: 1969m (accepted range: 209-838m)<br/>Average centerline deviation: 3.33m<br/>Max centerline deviation: 8.79m",
+                            "penalty": {
+                                "points": -23,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 21
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.59,
+                                        "rate": 381
+                                    },
+                                    "weather": {
+                                        "windDir": 268.03,
+                                        "windSpd": 9.81,
+                                        "windX": 9.68
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Fuel used 61 kg is lower than estimated minimum 69 kg.",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 21
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.59,
+                                        "rate": 381
+                                    },
+                                    "weather": {
+                                        "windDir": 268.03,
+                                        "windSpd": 9.81,
+                                        "windX": 9.68
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-05T19:03:06.651Z",
+                "updatedAt": "2026-07-05T19:38:34.801Z",
+                "dep": {
+                    "icao": "UKKM",
+                    "name": "Hostomel Airport",
+                    "city": "Kiev",
+                    "location": {
+                        "lat": 50.6035,
+                        "lon": 30.1919,
+                        "elev": 517
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
             }
         ]
     },
