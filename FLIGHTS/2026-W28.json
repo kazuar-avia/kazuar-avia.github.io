@@ -961,6 +961,154 @@
                         "elev": 65
                     }
                 }
+            },
+            {
+                "_id": "6a4b69075760ec7cdb1305c6",
+                "aircraft": {
+                    "name": "Boeing 737-600",
+                    "icao": "B736"
+                },
+                "type": "pax",
+                "flightNumber": "27H",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 128,
+                    "cargo": 15,
+                    "weights": {
+                        "cargo": 1395
+                    }
+                },
+                "depTime": "2026-07-06T08:50:00.000Z",
+                "duration": 55,
+                "arrTime": "2026-07-06T09:45:00.000Z",
+                "depTimeAct": "2026-07-06T08:44:56.112Z",
+                "delay": -9,
+                "takeoffTimeAct": "2026-07-06T08:47:56.127Z",
+                "durationAct": 49,
+                "arrTimeAct": "2026-07-06T09:36:26.132Z",
+                "open": "2026-07-06T08:43:18.275Z",
+                "close": "2026-07-06T09:41:03.143Z",
+                "rating": 9.25,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 239,
+                        "fuel": 1769,
+                        "expenses": 7568,
+                        "penalties": 0,
+                        "revenue": 15354,
+                        "balance": 7786,
+                        "prices": {
+                            "ticketPrice": 102,
+                            "cargoUnitPrice": 126,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 128,
+                            "cargo": 15,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 4,
+                                "Y": 124
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2000,
+                        "aircraft": 4280,
+                        "handling": 648,
+                        "landing": 640
+                    },
+                    "revenue": {
+                        "tickets": 13464,
+                        "cargo": 1890
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 8.60m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -75,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.20G (217 ft/min, normal  conditions)<br/>Distance from threshold: 228m (accepted range: 191-767m)<br/>Average centerline deviation: 7.64m<br/>Max centerline deviation: 8.60m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.2,
+                                        "rate": 217
+                                    },
+                                    "weather": {
+                                        "windDir": 129.99,
+                                        "windSpd": 5.19,
+                                        "windX": 3.44
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-06T08:36:23.853Z",
+                "updatedAt": "2026-07-06T09:41:03.225Z",
+                "dep": {
+                    "icao": "ESDF",
+                    "name": "Ronneby Airport",
+                    "city": "Ronneby",
+                    "location": {
+                        "lat": 56.266701,
+                        "lon": 15.265,
+                        "elev": 191
+                    }
+                },
+                "arr": {
+                    "icao": "EKBI",
+                    "name": "Billund Airport",
+                    "city": "Billund",
+                    "location": {
+                        "lat": 55.740335,
+                        "lon": 9.157019,
+                        "elev": 247
+                    }
+                },
+                "actArr": {
+                    "icao": "EKBI",
+                    "name": "Billund Airport",
+                    "city": "Billund",
+                    "location": {
+                        "lat": 55.740335,
+                        "lon": 9.157019,
+                        "elev": 247
+                    }
+                }
             }
         ]
     },
