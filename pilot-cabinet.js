@@ -270,6 +270,7 @@ function syncDashboardLiveToggle() {
     return;
   }
   button.textContent = app.liveDashboardVisible ? `Сховати LIVE: ${count}` : `Показати LIVE: ${count}`;
+  if (innerWidth <= 940) button.textContent = `LIVE: ${count}`;
   button.classList.toggle('active', app.liveDashboardVisible);
   button.setAttribute('aria-pressed', String(app.liveDashboardVisible));
 }
@@ -2509,6 +2510,105 @@ $('#flightInfoDialog').onclick = event => {
   if (event.target === event.currentTarget) event.currentTarget.close();
 };
 
+function bindCompanyLiveryDialogs() {
+  const grid = document.querySelector('.company-fleet-liveries');
+  if (!grid && !document.querySelector('.company-livery-card')) return;
+  let wetCards = grid ? [...grid.querySelectorAll(':scope > .company-livery-card')] : [];
+  if (grid && !grid.dataset.liveryOrderReady && wetCards.length >= 9) {
+    const orderedCards = [0, 4, 5, 1, 3, 2, 6, 7, 8].map(index => wetCards[index]).filter(Boolean);
+    orderedCards.forEach(card => grid.appendChild(card));
+    grid.dataset.liveryOrderReady = '1';
+    wetCards = orderedCards;
+  }
+  const displayTitles = [
+    'Boeing 737-800 (pax) | UR-UCA',
+    'Airbus A320 | UR-BUS',
+    'Fokker 100 | UR-FKR',
+    'Boeing 737-800 (cargo) | UR-CAA',
+    'Airbus A300-600 (cargo) | UR-LDC',
+    'Boeing 777F (cargo) | UR-CRG',
+    'Cessna 208 | UR-PAX , UR-VAN',
+    'Embraer 190F (cargo, blue) | UR-ECA',
+    'Boeing 757-200RF (cargo) | UR-SFS'
+  ];
+  const modalTitles = [
+    'PMDG 737-800 UR-UCA (pax)',
+    'Fenix A320 UR-BUS',
+    'Just Flight Fokker 100 UR-FKR',
+    'PMDG 737-800 BCF UR-CAA (cargo)',
+    'iniBuilds A300-600 PW | UR-LDC (cargo)',
+    'PMDG Boeing 777F UR-CRG (cargo)',
+    'Black Square C208 Grand Caravan UR-PAX / UR-VAN',
+    'FSS Embraer 190F red/blue (cargo)',
+    'FF Boeing 757-200RF UR-SFS (cargo)'
+  ];
+  const setupCard = (card, titleText, modalTitle, specialIndex = -1) => {
+    if (card.dataset.liveryReady) return;
+    card.dataset.liveryReady = '1';
+    const title = card.querySelector('.company-livery-title');
+    const links = card.querySelector('.company-livery-links');
+    if (links) links.className = 'company-livery-details';
+    if (title) {
+      title.textContent = '';
+      const name = document.createElement('span');
+      name.className = 'company-livery-name';
+      name.textContent = titleText;
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'company-livery-download';
+      button.textContent = '📥';
+      button.title = 'Скачати ліврею';
+      button.setAttribute('aria-label', `Скачати ліврею: ${modalTitle}`);
+      title.append(name, button);
+      button.addEventListener('click', event => {
+        event.preventDefault();
+        event.stopPropagation();
+        openCompanyLiveryDialog(card, modalTitle, specialIndex);
+      });
+    }
+  };
+  wetCards.forEach((card, index) => {
+    const titleText = displayTitles[index] || card.querySelector('.company-livery-title')?.textContent?.trim() || 'Livery UCAA';
+    const modalTitle = modalTitles[index] || titleText;
+    setupCard(card, titleText, modalTitle, index);
+  });
+  $$('.company-livery-card[data-livery-title]').forEach(card => {
+    setupCard(
+      card,
+      card.dataset.liveryTitle || card.querySelector('.company-livery-title')?.textContent?.trim() || 'Livery UCAA',
+      card.dataset.liveryModalTitle || card.dataset.liveryTitle || 'Livery UCAA',
+      Number(card.dataset.liverySpecialIndex ?? -1)
+    );
+  });
+  const dialog = $('#liveryInfoDialog');
+  const close = $('#liveryInfoClose');
+  if (dialog && close && !dialog.dataset.bound) {
+    dialog.dataset.bound = '1';
+    close.onclick = () => dialog.close();
+    dialog.onclick = event => {
+      if (event.target === event.currentTarget) event.currentTarget.close();
+    };
+  }
+}
+
+function openCompanyLiveryDialog(card, titleText, index = -1) {
+  const dialog = $('#liveryInfoDialog');
+  const title = $('#liveryInfoTitle');
+  const body = $('#liveryInfoBody');
+  if (!dialog || !title || !body) return;
+  const image = card.querySelector('img');
+  const details = card.querySelector('.company-livery-details');
+  title.textContent = titleText || 'Ліврея UCAA';
+  let imageHtml = image ? `<img class="company-livery-modal-image" src="${esc(image.getAttribute('src') || '')}" alt="${esc(image.getAttribute('alt') || title.textContent)}">` : '';
+  if (index === 6) {
+    imageHtml = `<div class="company-livery-modal-images two"><img class="company-livery-modal-image" src="urpax.PNG" alt="Cessna 208 UR-PAX"><img class="company-livery-modal-image" src="urvan.PNG" alt="Cessna 208 UR-VAN"></div>`;
+  } else if (index === 7) {
+    imageHtml = `<img class="company-livery-modal-image" src="E190-UCAA-red-grey.jpg" alt="${esc(title.textContent)}">`;
+  }
+  body.innerHTML = `${imageHtml}<div class="company-livery-downloads">${details ? details.innerHTML : ''}</div>`;
+  if (!dialog.open) dialog.showModal();
+}
+
 document.addEventListener('click', event => {
   if (event.target.closest('.dashboard-filter-head')) return;
   const pilotList = $('#dashboardPilotFilterList');
@@ -2555,8 +2655,10 @@ $$('#pilotsView [data-metric]').forEach(button => button.onclick = () => {
 
 bindVersionModeButton();
 bindManualRefreshButtonClean();
+bindCompanyLiveryDialogs();
 autoMobileCabinetMode();
 addEventListener('resize', autoMobileCabinetMode);
+addEventListener('resize', syncDashboardLiveToggle);
 loadNewskyRankSubtitle();
 loadDatabases();
 
