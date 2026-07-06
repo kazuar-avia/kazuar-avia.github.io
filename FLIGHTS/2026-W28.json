@@ -803,5 +803,165 @@
                 }
             }
         ]
+    },
+    {
+        "pilot_id": "67267eeeeac32c34bb94afed",
+        "fullname": "Jeka Korzun",
+        "avatar": "67267eeeeac32c34bb94afed1730645334705",
+        "flights": [
+            {
+                "_id": "6a4b490d5760ec7cdb112a6f",
+                "aircraft": {
+                    "name": "Airbus A380",
+                    "icao": "A388"
+                },
+                "type": "pax",
+                "flightNumber": "71F",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 446,
+                    "cargo": 165,
+                    "weights": {
+                        "cargo": 13035
+                    }
+                },
+                "depTime": "2026-07-06T06:35:00.000Z",
+                "duration": 125,
+                "arrTime": "2026-07-06T08:40:00.000Z",
+                "depTimeAct": "2026-07-06T06:27:42.209Z",
+                "delay": -15,
+                "takeoffTimeAct": "2026-07-06T06:34:50.169Z",
+                "durationAct": 110,
+                "arrTimeAct": "2026-07-06T08:24:39.145Z",
+                "open": "2026-07-06T06:26:16.176Z",
+                "close": "2026-07-06T08:28:00.926Z",
+                "rating": 9.68,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 819,
+                        "fuel": 20572,
+                        "expenses": 63558,
+                        "penalties": 0,
+                        "revenue": 160973,
+                        "balance": 97415,
+                        "prices": {
+                            "ticketPrice": 136,
+                            "cargoUnitPrice": 153,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 446,
+                            "cargo": 165,
+                            "paxByClass": {
+                                "F": 85,
+                                "C": 297,
+                                "Y": 64
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 23257,
+                        "aircraft": 34250,
+                        "handling": 3651,
+                        "landing": 2400
+                    },
+                    "revenue": {
+                        "tickets": 135728,
+                        "cargo": 25245
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 6.81m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -32,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "weather": {
+                                        "windDir": 90.02,
+                                        "windSpd": 7.26,
+                                        "windX": 0.05
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.23G (259 ft/min, challenging  conditions)<br/>Distance from threshold: 294m (accepted range: 189-757m)<br/>Average centerline deviation: 4.14m<br/>Max centerline deviation: 6.24m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.23,
+                                        "rate": 259
+                                    },
+                                    "weather": {
+                                        "windDir": 230.19,
+                                        "windSpd": 13.29,
+                                        "windX": -12.16
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-06T06:19:57.226Z",
+                "updatedAt": "2026-07-06T08:28:01.005Z",
+                "dep": {
+                    "icao": "BIKF",
+                    "name": "Keflavik International Airport",
+                    "city": "Reykjavík",
+                    "location": {
+                        "lat": 63.985001,
+                        "lon": -22.6056,
+                        "elev": 171
+                    }
+                },
+                "arr": {
+                    "icao": "EGPK",
+                    "name": "Glasgow Prestwick Airport",
+                    "city": "Prestwick, South Ayrshire",
+                    "location": {
+                        "lat": 55.502003,
+                        "lon": -4.587019,
+                        "elev": 65
+                    }
+                },
+                "actArr": {
+                    "icao": "EGPK",
+                    "name": "Glasgow Prestwick Airport",
+                    "city": "Prestwick, South Ayrshire",
+                    "location": {
+                        "lat": 55.502003,
+                        "lon": -4.587019,
+                        "elev": 65
+                    }
+                }
+            }
+        ]
     }
 ]
