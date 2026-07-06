@@ -801,6 +801,183 @@
                     },
                     "name": "Mărculeşti International Airport"
                 }
+            },
+            {
+                "_id": "6a4b7cf85760ec7cdb14967c",
+                "aircraft": {
+                    "name": "Fokker 50",
+                    "icao": "F50"
+                },
+                "type": "pax",
+                "flightNumber": "760N",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 47,
+                    "cargo": 7,
+                    "weights": {
+                        "cargo": 441
+                    }
+                },
+                "depTime": "2026-07-06T10:30:00.000Z",
+                "duration": 120,
+                "arrTime": "2026-07-06T12:30:00.000Z",
+                "depTimeAct": "2026-07-06T10:18:06.292Z",
+                "delay": -32,
+                "takeoffTimeAct": "2026-07-06T10:22:05.789Z",
+                "durationAct": 96,
+                "arrTimeAct": "2026-07-06T11:57:58.632Z",
+                "open": "2026-07-06T10:02:34.749Z",
+                "close": "2026-07-06T12:01:35.893Z",
+                "rating": 9.61,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 384,
+                        "fuel": 1520,
+                        "expenses": 4188,
+                        "penalties": 2596,
+                        "revenue": 6148,
+                        "balance": -636,
+                        "prices": {
+                            "ticketPrice": 111,
+                            "cargoUnitPrice": 133,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 47,
+                            "cargo": 7,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 47
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1719,
+                        "aircraft": 2000,
+                        "handling": 239,
+                        "landing": 230
+                    },
+                    "revenue": {
+                        "tickets": 5217,
+                        "cargo": 931
+                    },
+                    "violations": [
+                        {
+                            "title": "MTOW exceeded: 135kg above maximum takeoff weight of 20820kg",
+                            "penalty": {
+                                "points": -39,
+                                "cash": 2596
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 23
+                                    },
+                                    "weather": {
+                                        "windDir": 250.56,
+                                        "windSpd": 8.49,
+                                        "windX": -7.56
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.33G (181 ft/min, challenging  conditions)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 17
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.33,
+                                        "rate": 181
+                                    },
+                                    "weather": {
+                                        "windDir": 20.29,
+                                        "windSpd": 7.01,
+                                        "windX": -1.98
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Fuel used 959 kg is lower than estimated minimum 1520 kg.",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 17
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.33,
+                                        "rate": 181
+                                    },
+                                    "weather": {
+                                        "windDir": 20.29,
+                                        "windSpd": 7.01,
+                                        "windX": -1.98
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-06T10:01:28.014Z",
+                "updatedAt": "2026-07-06T12:01:35.967Z",
+                "dep": {
+                    "icao": "EFHF",
+                    "city": "Helsinki",
+                    "location": {
+                        "lat": 60.254601,
+                        "lon": 25.042801,
+                        "elev": 57
+                    },
+                    "name": "Helsinki Malmi Airport"
+                },
+                "arr": {
+                    "icao": "EFRO",
+                    "name": "Rovaniemi Airport",
+                    "city": "Rovaniemi",
+                    "location": {
+                        "lat": 66.564796447754,
+                        "lon": 25.830400466919,
+                        "elev": 642
+                    }
+                },
+                "actArr": {
+                    "icao": "EFRO",
+                    "name": "Rovaniemi Airport",
+                    "city": "Rovaniemi",
+                    "location": {
+                        "lat": 66.564796447754,
+                        "lon": 25.830400466919,
+                        "elev": 642
+                    }
+                }
             }
         ]
     },
