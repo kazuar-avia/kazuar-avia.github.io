@@ -3909,5 +3909,165 @@
                 }
             }
         ]
+    },
+    {
+        "pilot_id": "67af93e134cf96eb9a5b249d",
+        "fullname": "Andy Crown",
+        "avatar": "default",
+        "flights": [
+            {
+                "_id": "6a4bd79d5760ec7cdb1da80c",
+                "aircraft": {
+                    "name": "Boeing 737 MAX 8",
+                    "icao": "B38M"
+                },
+                "type": "pax",
+                "flightNumber": "43L",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 160,
+                    "cargo": 38,
+                    "weights": {
+                        "cargo": 5244
+                    }
+                },
+                "depTime": "2026-07-06T16:50:00.000Z",
+                "duration": 120,
+                "arrTime": "2026-07-06T18:50:00.000Z",
+                "depTimeAct": "2026-07-06T16:54:55.646Z",
+                "delay": -3,
+                "takeoffTimeAct": "2026-07-06T16:57:32.593Z",
+                "durationAct": 109,
+                "arrTimeAct": "2026-07-06T18:46:36.756Z",
+                "open": "2026-07-06T16:47:48.796Z",
+                "close": "2026-07-06T18:51:41.624Z",
+                "rating": 8.53,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 732,
+                        "fuel": 4803,
+                        "expenses": 13250,
+                        "penalties": 0,
+                        "revenue": 28076,
+                        "balance": 14826,
+                        "prices": {
+                            "ticketPrice": 128,
+                            "cargoUnitPrice": 146,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 160,
+                            "cargo": 38,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 16,
+                                "Y": 144
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 5430,
+                        "aircraft": 5625,
+                        "handling": 1313,
+                        "landing": 882
+                    },
+                    "revenue": {
+                        "tickets": 22528,
+                        "cargo": 5548
+                    },
+                    "violations": [
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1008mb instead of 1013.21mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "weather": {
+                                        "windDir": 0,
+                                        "windSpd": 0,
+                                        "windX": 0
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Uncomfortable touchdown: 1.89G (694 ft/min, challenging  conditions)",
+                            "penalty": {
+                                "points": -97,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.89,
+                                        "rate": 694
+                                    },
+                                    "weather": {
+                                        "windDir": 271.75,
+                                        "windSpd": 12.22,
+                                        "windX": -12.22
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-06T16:28:13.386Z",
+                "updatedAt": "2026-07-06T18:51:41.700Z",
+                "dep": {
+                    "icao": "LKPR",
+                    "name": "Václav Havel Airport Prague",
+                    "city": "Prague",
+                    "location": {
+                        "lat": 50.100874,
+                        "lon": 14.259911,
+                        "elev": 1247
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
+            }
+        ]
     }
 ]
