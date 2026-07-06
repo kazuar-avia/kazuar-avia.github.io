@@ -1286,6 +1286,154 @@
                         "elev": 247
                     }
                 }
+            },
+            {
+                "_id": "6a4b860d5760ec7cdb154052",
+                "aircraft": {
+                    "name": "Boeing 737-600",
+                    "icao": "B736"
+                },
+                "type": "pax",
+                "flightNumber": "803J",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 97,
+                    "cargo": 20,
+                    "weights": {
+                        "cargo": 1260
+                    }
+                },
+                "depTime": "2026-07-06T11:00:00.000Z",
+                "duration": 85,
+                "arrTime": "2026-07-06T12:25:00.000Z",
+                "depTimeAct": "2026-07-06T10:54:31.069Z",
+                "delay": -13,
+                "takeoffTimeAct": "2026-07-06T10:58:06.078Z",
+                "durationAct": 74,
+                "arrTimeAct": "2026-07-06T12:11:38.058Z",
+                "open": "2026-07-06T10:51:43.050Z",
+                "close": "2026-07-06T12:14:26.100Z",
+                "rating": 9.91,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 431,
+                        "fuel": 2515,
+                        "expenses": 8713,
+                        "penalties": 0,
+                        "revenue": 14100,
+                        "balance": 5387,
+                        "prices": {
+                            "ticketPrice": 114,
+                            "cargoUnitPrice": 135,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 97,
+                            "cargo": 20,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 3,
+                                "Y": 94
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2935,
+                        "aircraft": 4843,
+                        "handling": 495,
+                        "landing": 440
+                    },
+                    "revenue": {
+                        "tickets": 11400,
+                        "cargo": 2700
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 4.59m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -9,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.31G (269 ft/min, normal  conditions)<br/>Distance from threshold: 199m (accepted range: 144-578m)<br/>Average centerline deviation: 1.97m<br/>Max centerline deviation: 4.59m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.31,
+                                        "rate": 269
+                                    },
+                                    "weather": {
+                                        "windDir": 49.97,
+                                        "windSpd": 5.23,
+                                        "windX": -0.12
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-06T10:40:13.526Z",
+                "updatedAt": "2026-07-06T12:14:26.187Z",
+                "dep": {
+                    "icao": "KBMG",
+                    "name": "Monroe County Airport",
+                    "city": "Bloomington",
+                    "location": {
+                        "lat": 39.145999908447266,
+                        "lon": -86.61669921875,
+                        "elev": 846
+                    }
+                },
+                "arr": {
+                    "icao": "KIAG",
+                    "name": "Niagara Falls International Airport",
+                    "city": "Niagara Falls",
+                    "location": {
+                        "lat": 43.1073,
+                        "lon": -78.946198,
+                        "elev": 589
+                    }
+                },
+                "actArr": {
+                    "icao": "KIAG",
+                    "name": "Niagara Falls International Airport",
+                    "city": "Niagara Falls",
+                    "location": {
+                        "lat": 43.1073,
+                        "lon": -78.946198,
+                        "elev": 589
+                    }
+                }
             }
         ]
     },
