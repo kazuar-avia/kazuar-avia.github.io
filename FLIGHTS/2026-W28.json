@@ -6669,6 +6669,191 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6a4d274a5760ec7cdb38210b",
+                "aircraft": {
+                    "name": "Boeing 737 MAX 8",
+                    "icao": "B38M"
+                },
+                "type": "pax",
+                "flightNumber": "609P",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 160,
+                    "cargo": 26,
+                    "weights": {
+                        "cargo": 3432
+                    }
+                },
+                "depTime": "2026-07-07T16:35:00.000Z",
+                "duration": 130,
+                "arrTime": "2026-07-07T18:45:00.000Z",
+                "depTimeAct": "2026-07-07T16:38:25.929Z",
+                "delay": 2,
+                "takeoffTimeAct": "2026-07-07T16:46:30.608Z",
+                "durationAct": 121,
+                "arrTimeAct": "2026-07-07T18:47:27.373Z",
+                "open": "2026-07-07T16:30:55.390Z",
+                "close": "2026-07-07T18:48:09.885Z",
+                "rating": 3.11,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": true,
+                "result": {
+                    "totals": {
+                        "distance": 773,
+                        "fuel": 5228,
+                        "expenses": 12365,
+                        "penalties": 106000,
+                        "revenue": 27334,
+                        "balance": -91031,
+                        "prices": {
+                            "ticketPrice": 133,
+                            "cargoUnitPrice": 151,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 1,
+                                "fuel": 0.8,
+                                "ground": 0.85
+                            }
+                        },
+                        "payload": {
+                            "pax": 160,
+                            "cargo": 26,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 16,
+                                "Y": 144
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4729,
+                        "aircraft": 6075,
+                        "handling": 811,
+                        "landing": 750
+                    },
+                    "revenue": {
+                        "tickets": 23408,
+                        "cargo": 3926
+                    },
+                    "violations": [
+                        {
+                            "title": "Runway excursion on landing (7m from runway edge)",
+                            "penalty": {
+                                "points": -300,
+                                "cash": 30000
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Short landing (134m from threshold before 184m min accepted)",
+                            "penalty": {
+                                "points": -41,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.84,
+                                        "rate": 1143
+                                    },
+                                    "weather": {
+                                        "windDir": 289.49,
+                                        "windSpd": 16.55,
+                                        "windX": -14.76
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Terrible touchdown: 2.84G (1143 ft/min, challenging  conditions)<br/>Distance from threshold: 455m (accepted range: 184-738m)<br/>Average centerline deviation: 12.25m<br/>Max centerline deviation: 29.24m",
+                            "penalty": {
+                                "points": -335,
+                                "cash": 76000
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.84,
+                                        "rate": 1143
+                                    },
+                                    "weather": {
+                                        "windDir": 289.49,
+                                        "windSpd": 16.55,
+                                        "windX": -14.76
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No BEACON lights for 78s when required",
+                            "penalty": {
+                                "points": -13,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-07T16:20:26.392Z",
+                "updatedAt": "2026-07-07T18:48:10.015Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "ESMS",
+                    "name": "Malmö Sturup Airport",
+                    "city": "Malmö",
+                    "location": {
+                        "lat": 55.535564,
+                        "lon": 13.376327,
+                        "elev": 236
+                    }
+                },
+                "actArr": {
+                    "icao": "ESMS",
+                    "name": "Malmö Sturup Airport",
+                    "city": "Malmö",
+                    "location": {
+                        "lat": 55.535564,
+                        "lon": 13.376327,
+                        "elev": 236
+                    }
+                }
             }
         ]
     },
