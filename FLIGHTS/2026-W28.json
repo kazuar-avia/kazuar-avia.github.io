@@ -2719,6 +2719,154 @@
                         "elev": 1417
                     }
                 }
+            },
+            {
+                "_id": "6a4cc4255760ec7cdb2f52a1",
+                "aircraft": {
+                    "name": "Boeing 777-300ER",
+                    "icao": "B77W"
+                },
+                "type": "pax",
+                "flightNumber": "217D",
+                "free": false,
+                "schedule": false,
+                "charter": true,
+                "payload": {
+                    "pax": 429,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-07-07T09:30:00.000Z",
+                "duration": 105,
+                "arrTime": "2026-07-07T11:15:00.000Z",
+                "depTimeAct": "2026-07-07T09:25:24.857Z",
+                "delay": -23,
+                "takeoffTimeAct": "2026-07-07T09:25:41.901Z",
+                "durationAct": 86,
+                "arrTimeAct": "2026-07-07T10:52:11.036Z",
+                "open": "2026-07-07T09:23:45.478Z",
+                "close": "2026-07-07T10:57:37.066Z",
+                "rating": 9.99,
+                "simulator": "msfs",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 602,
+                        "fuel": 10485,
+                        "expenses": 36203,
+                        "penalties": 0,
+                        "revenue": 108376,
+                        "balance": 72173,
+                        "prices": {
+                            "ticketPrice": 184,
+                            "cargoUnitPrice": 212,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 429,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 27,
+                                "C": 79,
+                                "Y": 323
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 11854,
+                        "aircraft": 19345,
+                        "handling": 2574,
+                        "landing": 2430
+                    },
+                    "revenue": {
+                        "tickets": 108376,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 4.06m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -1,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 33
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.39G (357 ft/min, challenging  conditions)<br/>Distance from threshold: 756m (accepted range: 203-815m)<br/>Average centerline deviation: 0.99m<br/>Max centerline deviation: 2.82m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.39,
+                                        "rate": 357
+                                    },
+                                    "weather": {
+                                        "windDir": 270.02,
+                                        "windSpd": 2.13,
+                                        "windX": -1.33
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-07T09:17:25.891Z",
+                "updatedAt": "2026-07-07T10:57:37.148Z",
+                "dep": {
+                    "icao": "ENTO",
+                    "name": "Sandefjord Airport, Torp",
+                    "city": "Torp",
+                    "location": {
+                        "lat": 59.186699,
+                        "lon": 10.2586,
+                        "elev": 286
+                    }
+                },
+                "arr": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                },
+                "actArr": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                }
             }
         ]
     },
