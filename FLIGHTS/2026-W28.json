@@ -6395,6 +6395,154 @@
                         "elev": 353
                     }
                 }
+            },
+            {
+                "_id": "6a4cf4025760ec7cdb331fb1",
+                "aircraft": {
+                    "name": "Airbus A320",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "91CW",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 180,
+                    "cargo": 5,
+                    "weights": {
+                        "cargo": 360
+                    }
+                },
+                "depTime": "2026-07-07T13:01:00.000Z",
+                "duration": 75,
+                "arrTime": "2026-07-07T14:16:00.000Z",
+                "depTimeAct": "2026-07-07T12:59:41.354Z",
+                "delay": -8,
+                "takeoffTimeAct": "2026-07-07T13:05:26.357Z",
+                "durationAct": 62,
+                "arrTimeAct": "2026-07-07T14:07:42.244Z",
+                "open": "2026-07-07T12:44:39.380Z",
+                "close": "2026-07-07T14:11:26.272Z",
+                "rating": 9.78,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 396,
+                        "fuel": 2851,
+                        "expenses": 10386,
+                        "penalties": 0,
+                        "revenue": 20275,
+                        "balance": 9889,
+                        "prices": {
+                            "ticketPrice": 109,
+                            "cargoUnitPrice": 131,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 180,
+                            "cargo": 5,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 180
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3224,
+                        "aircraft": 4900,
+                        "handling": 1263,
+                        "landing": 999
+                    },
+                    "revenue": {
+                        "tickets": 19620,
+                        "cargo": 655
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 5.36m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -22,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.34G (255 ft/min, normal  conditions)<br/>Distance from threshold: 262m (accepted range: 179-720m)<br/>Average centerline deviation: 3.81m<br/>Max centerline deviation: 5.36m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.34,
+                                        "rate": 255
+                                    },
+                                    "weather": {
+                                        "windDir": 179.88,
+                                        "windSpd": 10.98,
+                                        "windX": -7.8
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-07T12:41:38.268Z",
+                "updatedAt": "2026-07-07T14:11:26.363Z",
+                "dep": {
+                    "icao": "LIML",
+                    "name": "Milano Linate Airport",
+                    "city": "Segrate (MI)",
+                    "location": {
+                        "lat": 45.445099,
+                        "lon": 9.27674,
+                        "elev": 353
+                    }
+                },
+                "arr": {
+                    "icao": "LIRN",
+                    "name": "Naples International Airport",
+                    "city": "Napoli",
+                    "location": {
+                        "lat": 40.886002,
+                        "lon": 14.2908,
+                        "elev": 294
+                    }
+                },
+                "actArr": {
+                    "icao": "LIRN",
+                    "name": "Naples International Airport",
+                    "city": "Napoli",
+                    "location": {
+                        "lat": 40.886002,
+                        "lon": 14.2908,
+                        "elev": 294
+                    }
+                }
             }
         ]
     }
