@@ -2399,6 +2399,154 @@
                         "elev": 399
                     }
                 }
+            },
+            {
+                "_id": "6a4c9c325760ec7cdb2d1f20",
+                "aircraft": {
+                    "name": "Boeing 777-300ER",
+                    "icao": "B77W"
+                },
+                "type": "pax",
+                "flightNumber": "217D",
+                "free": false,
+                "schedule": false,
+                "charter": true,
+                "payload": {
+                    "pax": 420,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-07-07T06:40:00.000Z",
+                "duration": 160,
+                "arrTime": "2026-07-07T09:20:00.000Z",
+                "depTimeAct": "2026-07-07T06:36:38.642Z",
+                "delay": -14,
+                "takeoffTimeAct": "2026-07-07T06:36:47.568Z",
+                "durationAct": 149,
+                "arrTimeAct": "2026-07-07T09:05:55.957Z",
+                "open": "2026-07-07T06:33:29.799Z",
+                "close": "2026-07-07T09:15:12.554Z",
+                "rating": 9.76,
+                "simulator": "msfs",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1014,
+                        "fuel": 16506,
+                        "expenses": 46478,
+                        "penalties": 0,
+                        "revenue": 132020,
+                        "balance": 85542,
+                        "prices": {
+                            "ticketPrice": 230,
+                            "cargoUnitPrice": 252,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 419,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 26,
+                                "C": 77,
+                                "Y": 316
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 18661,
+                        "aircraft": 22968,
+                        "handling": 2095,
+                        "landing": 2754
+                    },
+                    "revenue": {
+                        "tickets": 132020,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Great touchdown: 1.25G (229 ft/min, normal  conditions)<br/>Distance from threshold: 505m (accepted range: 204-817m)<br/>Average centerline deviation: 1.46m<br/>Max centerline deviation: 3.92m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.25,
+                                        "rate": 229
+                                    },
+                                    "weather": {
+                                        "windDir": 269.99,
+                                        "windSpd": 1.07,
+                                        "windX": -0.71
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Max G exceeded: 2.12G (max allowed: 2G)",
+                            "penalty": {
+                                "points": -24,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 41
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-07T06:26:58.593Z",
+                "updatedAt": "2026-07-07T09:15:12.655Z",
+                "dep": {
+                    "icao": "LGMK",
+                    "name": "Mykonos Island National Airport",
+                    "city": "Mykonos",
+                    "location": {
+                        "lat": 37.435101,
+                        "lon": 25.348101,
+                        "elev": 405
+                    }
+                },
+                "arr": {
+                    "icao": "LSZH",
+                    "name": "Zürich Airport",
+                    "city": "Zurich",
+                    "location": {
+                        "lat": 47.458056,
+                        "lon": 8.548056,
+                        "elev": 1417
+                    }
+                },
+                "actArr": {
+                    "icao": "LSZH",
+                    "name": "Zürich Airport",
+                    "city": "Zurich",
+                    "location": {
+                        "lat": 47.458056,
+                        "lon": 8.548056,
+                        "elev": 1417
+                    }
+                }
             }
         ]
     },
