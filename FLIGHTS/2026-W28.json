@@ -6263,6 +6263,169 @@
                         "elev": 327
                     }
                 }
+            },
+            {
+                "_id": "6a4d42265760ec7cdb3a9eea",
+                "aircraft": {
+                    "_id": "696285163dc76275ba9ef60c",
+                    "name": "Boeing 737-800",
+                    "customName": "Boeing 737-800 (pax) l UR-UCA",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "245F",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 163,
+                    "cargo": 25,
+                    "weights": {
+                        "cargo": 2075
+                    }
+                },
+                "depTime": "2026-07-07T19:05:00.000Z",
+                "duration": 55,
+                "arrTime": "2026-07-07T20:00:00.000Z",
+                "depTimeAct": "2026-07-07T18:53:45.461Z",
+                "delay": -4,
+                "takeoffTimeAct": "2026-07-07T19:04:00.459Z",
+                "durationAct": 52,
+                "arrTimeAct": "2026-07-07T19:56:28.496Z",
+                "open": "2026-07-07T18:30:14.463Z",
+                "close": "2026-07-07T20:08:52.533Z",
+                "rating": 6.38,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 309,
+                        "fuel": 2844,
+                        "expenses": 9910,
+                        "penalties": 30000,
+                        "revenue": 22441,
+                        "balance": -17469,
+                        "prices": {
+                            "ticketPrice": 101,
+                            "cargoUnitPrice": 126,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 163,
+                            "cargo": 25,
+                            "paxByClass": {
+                                "F": 4,
+                                "C": 16,
+                                "Y": 143
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3216,
+                        "aircraft": 4650,
+                        "handling": 991,
+                        "landing": 1053
+                    },
+                    "revenue": {
+                        "tickets": 19291,
+                        "cargo": 3150
+                    },
+                    "violations": [
+                        {
+                            "title": "Runway excursion on landing (6m from runway edge)",
+                            "penalty": {
+                                "points": -300,
+                                "cash": 30000
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 33
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.72G (534 ft/min, challenging  conditions)<br/>Distance from threshold: 231m (accepted range: 204-817m)<br/>Average centerline deviation: 16.90m<br/>Max centerline deviation: 28.01m",
+                            "penalty": {
+                                "points": -55,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 33
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.72,
+                                        "rate": 534
+                                    },
+                                    "weather": {
+                                        "windDir": 319.4,
+                                        "windSpd": 15.16,
+                                        "windX": 14.06
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No BEACON lights for 56s when required",
+                            "penalty": {
+                                "points": -7,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-07T18:15:02.374Z",
+                "updatedAt": "2026-07-07T20:08:52.634Z",
+                "dep": {
+                    "icao": "LOWI",
+                    "name": "Innsbruck Airport",
+                    "city": "Innsbruck",
+                    "location": {
+                        "lat": 47.260201,
+                        "lon": 11.344,
+                        "elev": 1907
+                    }
+                },
+                "arr": {
+                    "icao": "LKPR",
+                    "name": "Václav Havel Airport Prague",
+                    "city": "Prague",
+                    "location": {
+                        "lat": 50.100874,
+                        "lon": 14.259911,
+                        "elev": 1247
+                    }
+                },
+                "actArr": {
+                    "icao": "LKPR",
+                    "name": "Václav Havel Airport Prague",
+                    "city": "Prague",
+                    "location": {
+                        "lat": 50.100874,
+                        "lon": 14.259911,
+                        "elev": 1247
+                    }
+                }
             }
         ]
     },
