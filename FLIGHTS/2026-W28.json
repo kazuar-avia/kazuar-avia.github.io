@@ -1150,6 +1150,187 @@
                         "elev": 1503
                     }
                 }
+            },
+            {
+                "_id": "6a4ce5095760ec7cdb31f51d",
+                "aircraft": {
+                    "name": "Fokker 50",
+                    "icao": "F50"
+                },
+                "type": "pax",
+                "flightNumber": "99L",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 44,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-07-07T11:55:00.000Z",
+                "duration": 170,
+                "arrTime": "2026-07-07T14:45:00.000Z",
+                "depTimeAct": "2026-07-07T11:50:36.709Z",
+                "delay": -24,
+                "takeoffTimeAct": "2026-07-07T11:53:18.283Z",
+                "durationAct": 148,
+                "arrTimeAct": "2026-07-07T14:20:48.959Z",
+                "open": "2026-07-07T11:40:26.138Z",
+                "close": "2026-07-07T14:25:10.380Z",
+                "rating": 9.32,
+                "simulator": "xp",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 608,
+                        "fuel": 2021,
+                        "expenses": 5061,
+                        "penalties": 0,
+                        "revenue": 5500,
+                        "balance": 439,
+                        "prices": {
+                            "ticketPrice": 125,
+                            "cargoUnitPrice": 144,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 44,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 44
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2285,
+                        "aircraft": 2259,
+                        "handling": 220,
+                        "landing": 297
+                    },
+                    "revenue": {
+                        "tickets": 5500,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 6.65m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -43,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 21
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.5,
+                                        "rate": 269
+                                    },
+                                    "weather": {
+                                        "windDir": 199.96,
+                                        "windSpd": 6.43,
+                                        "windX": 1.66
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.50G (269 ft/min, normal  conditions)<br/>Distance from threshold: 537m (accepted range: 193-776m)<br/>Average centerline deviation: 3.67m<br/>Max centerline deviation: 6.65m",
+                            "penalty": {
+                                "points": -25,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 21
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.5,
+                                        "rate": 269
+                                    },
+                                    "weather": {
+                                        "windDir": 199.96,
+                                        "windSpd": 6.43,
+                                        "windX": 1.66
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Fuel used 1493 kg is lower than estimated minimum 2021 kg.",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 21
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.5,
+                                        "rate": 269
+                                    },
+                                    "weather": {
+                                        "windDir": 199.96,
+                                        "windSpd": 6.43,
+                                        "windX": 1.66
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-07T11:37:45.171Z",
+                "updatedAt": "2026-07-07T14:25:10.457Z",
+                "dep": {
+                    "icao": "ESUT",
+                    "name": "Hemavan Airport",
+                    "city": "Hemavan",
+                    "location": {
+                        "lat": 65.806099,
+                        "lon": 15.0828,
+                        "elev": 1503
+                    }
+                },
+                "arr": {
+                    "icao": "EVRA",
+                    "name": "Riga International Airport",
+                    "city": "Riga",
+                    "location": {
+                        "lat": 56.920752,
+                        "lon": 23.970711,
+                        "elev": 36
+                    }
+                },
+                "actArr": {
+                    "icao": "EVRA",
+                    "name": "Riga International Airport",
+                    "city": "Riga",
+                    "location": {
+                        "lat": 56.920752,
+                        "lon": 23.970711,
+                        "elev": 36
+                    }
+                }
             }
         ]
     },
