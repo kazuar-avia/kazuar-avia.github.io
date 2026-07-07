@@ -4310,6 +4310,178 @@
                         "elev": 412
                     }
                 }
+            },
+            {
+                "_id": "6a4cdfee6748d36670e34e93",
+                "aircraft": {
+                    "name": "Cessna Citation CJ4",
+                    "icao": "C25C"
+                },
+                "type": "pax",
+                "flightNumber": "5132",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 10,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-07-07T11:40:00.000Z",
+                "duration": 70,
+                "arrTime": "2026-07-07T12:50:00.000Z",
+                "depTimeAct": "2026-07-07T11:31:02.932Z",
+                "delay": -30,
+                "takeoffTimeAct": "2026-07-07T11:34:50.911Z",
+                "durationAct": 45,
+                "arrTimeAct": "2026-07-07T12:20:18.000Z",
+                "open": "2026-07-07T11:16:21.202Z",
+                "close": "2026-07-07T12:23:27.986Z",
+                "rating": 8.7,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 205,
+                        "fuel": 358,
+                        "expenses": 1261,
+                        "penalties": 5000,
+                        "revenue": 4280,
+                        "balance": -1981,
+                        "prices": {
+                            "ticketPrice": 107,
+                            "cargoUnitPrice": 131,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 10,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 10,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 324,
+                        "aircraft": 713,
+                        "handling": 35,
+                        "landing": 189
+                    },
+                    "revenue": {
+                        "tickets": 4280,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 8.45m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -10,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.58G (279 ft/min, challenging  conditions)<br/>Distance from threshold: 688m (accepted range: 177-710m)<br/>Average centerline deviation: 3.88m<br/>Max centerline deviation: 8.45m",
+                            "penalty": {
+                                "points": -20,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.58,
+                                        "rate": 279
+                                    },
+                                    "weather": {
+                                        "windDir": 249.91,
+                                        "windSpd": 15.62,
+                                        "windX": 7.32
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Tail wind value exceeded on landing (measured: 14 KT, allowed: 10 KT)",
+                            "penalty": {
+                                "points": -100,
+                                "cash": 5000
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.58,
+                                        "rate": 279
+                                    },
+                                    "weather": {
+                                        "windDir": 249.91,
+                                        "windSpd": 15.62,
+                                        "windX": 7.32
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-07T11:15:58.760Z",
+                "updatedAt": "2026-07-07T12:23:28.088Z",
+                "dep": {
+                    "icao": "UKKK",
+                    "name": "Ihor Sikorsky Kyiv International Airport (Zhuliany)",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.40194,
+                        "lon": 30.45194,
+                        "elev": 587
+                    }
+                },
+                "arr": {
+                    "icao": "UKHP",
+                    "name": "Suprunovka Airport",
+                    "city": "Poltava",
+                    "location": {
+                        "lat": 49.5686,
+                        "lon": 34.397202,
+                        "elev": 505
+                    }
+                },
+                "actArr": {
+                    "icao": "UKHP",
+                    "name": "Suprunovka Airport",
+                    "city": "Poltava",
+                    "location": {
+                        "lat": 49.5686,
+                        "lon": 34.397202,
+                        "elev": 505
+                    }
+                }
             }
         ]
     },
