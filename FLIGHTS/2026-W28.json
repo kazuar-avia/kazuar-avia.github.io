@@ -3338,6 +3338,154 @@
                         "elev": 594
                     }
                 }
+            },
+            {
+                "_id": "6a4d1d595760ec7cdb372b99",
+                "aircraft": {
+                    "name": "Boeing 737-800",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "92T",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 162,
+                    "cargo": 21,
+                    "weights": {
+                        "cargo": 1953
+                    }
+                },
+                "depTime": "2026-07-07T15:50:00.000Z",
+                "duration": 145,
+                "arrTime": "2026-07-07T18:15:00.000Z",
+                "depTimeAct": "2026-07-07T15:50:29.532Z",
+                "delay": 15,
+                "takeoffTimeAct": "2026-07-07T15:50:38.543Z",
+                "durationAct": 159,
+                "arrTimeAct": "2026-07-07T18:29:45.856Z",
+                "open": "2026-07-07T15:45:19.545Z",
+                "close": "2026-07-07T18:31:11.871Z",
+                "rating": 9.56,
+                "simulator": "msfs",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 928,
+                        "fuel": 6256,
+                        "expenses": 13972,
+                        "penalties": 0,
+                        "revenue": 30298,
+                        "balance": 16326,
+                        "prices": {
+                            "ticketPrice": 142,
+                            "cargoUnitPrice": 158,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 162,
+                            "cargo": 21,
+                            "paxByClass": {
+                                "F": 4,
+                                "C": 16,
+                                "Y": 142
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 5658,
+                        "aircraft": 6525,
+                        "handling": 574,
+                        "landing": 1215
+                    },
+                    "revenue": {
+                        "tickets": 26980,
+                        "cargo": 3318
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 6.70m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -44,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 44
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.16G (163 ft/min, normal  conditions)<br/>Distance from threshold: 547m (accepted range: 198-793m)<br/>Average centerline deviation: 2.33m<br/>Max centerline deviation: 6.70m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.16,
+                                        "rate": 163
+                                    },
+                                    "weather": {
+                                        "windDir": 270.03,
+                                        "windSpd": 1.06,
+                                        "windX": 1.06
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-07T15:38:01.639Z",
+                "updatedAt": "2026-07-07T18:31:12.393Z",
+                "dep": {
+                    "icao": "UKHH",
+                    "name": "Kharkiv International Airport",
+                    "city": "Kharkiv",
+                    "location": {
+                        "lat": 49.926943,
+                        "lon": 36.290814,
+                        "elev": 508
+                    }
+                },
+                "arr": {
+                    "icao": "LTAI",
+                    "name": "Antalya International Airport",
+                    "city": "Antalya",
+                    "location": {
+                        "lat": 36.898701,
+                        "lon": 30.800501,
+                        "elev": 177
+                    }
+                },
+                "actArr": {
+                    "icao": "LTAI",
+                    "name": "Antalya International Airport",
+                    "city": "Antalya",
+                    "location": {
+                        "lat": 36.898701,
+                        "lon": 30.800501,
+                        "elev": 177
+                    }
+                }
             }
         ]
     },
