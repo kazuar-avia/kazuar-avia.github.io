@@ -7378,6 +7378,154 @@
                         "elev": 294
                     }
                 }
+            },
+            {
+                "_id": "6a4d190c5760ec7cdb36cb6d",
+                "aircraft": {
+                    "name": "Airbus A320",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "91AA",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 180,
+                    "cargo": 17,
+                    "weights": {
+                        "cargo": 1581
+                    }
+                },
+                "depTime": "2026-07-07T15:40:00.000Z",
+                "duration": 65,
+                "arrTime": "2026-07-07T16:45:00.000Z",
+                "depTimeAct": "2026-07-07T15:36:57.879Z",
+                "delay": -9,
+                "takeoffTimeAct": "2026-07-07T15:46:34.864Z",
+                "durationAct": 50,
+                "arrTimeAct": "2026-07-07T16:36:18.788Z",
+                "open": "2026-07-07T15:21:01.949Z",
+                "close": "2026-07-07T16:39:35.387Z",
+                "rating": 9.07,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 317,
+                        "fuel": 2577,
+                        "expenses": 9397,
+                        "penalties": 0,
+                        "revenue": 21076,
+                        "balance": 11679,
+                        "prices": {
+                            "ticketPrice": 105,
+                            "cargoUnitPrice": 128,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 180,
+                            "cargo": 17,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 180
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2914,
+                        "aircraft": 4450,
+                        "handling": 1466,
+                        "landing": 567
+                    },
+                    "revenue": {
+                        "tickets": 18900,
+                        "cargo": 2176
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 10.10m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -43,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "spoilers",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.70G (543 ft/min, challenging  conditions)<br/>Distance from threshold: 575m (accepted range: 171-688m)<br/>Average centerline deviation: 7.24m<br/>Max centerline deviation: 10.10m",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.7,
+                                        "rate": 543
+                                    },
+                                    "weather": {
+                                        "windDir": 290,
+                                        "windSpd": 8.68,
+                                        "windX": -7.22
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-07T15:19:40.445Z",
+                "updatedAt": "2026-07-07T16:39:35.474Z",
+                "dep": {
+                    "icao": "LIRN",
+                    "name": "Naples International Airport",
+                    "city": "Napoli",
+                    "location": {
+                        "lat": 40.886002,
+                        "lon": 14.2908,
+                        "elev": 294
+                    }
+                },
+                "arr": {
+                    "icao": "LGKR",
+                    "name": "Corfu Ioannis Kapodistrias International Airport",
+                    "city": "Kerkyra (Corfu)",
+                    "location": {
+                        "lat": 39.602024,
+                        "lon": 19.912038,
+                        "elev": 6
+                    }
+                },
+                "actArr": {
+                    "icao": "LGKR",
+                    "name": "Corfu Ioannis Kapodistrias International Airport",
+                    "city": "Kerkyra (Corfu)",
+                    "location": {
+                        "lat": 39.602024,
+                        "lon": 19.912038,
+                        "elev": 6
+                    }
+                }
             }
         ]
     }
