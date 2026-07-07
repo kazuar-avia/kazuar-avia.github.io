@@ -4988,6 +4988,154 @@
                         "elev": 135
                     }
                 }
+            },
+            {
+                "_id": "6a4ca32c5760ec7cdb2d6595",
+                "aircraft": {
+                    "name": "Boeing 777-300ER",
+                    "icao": "B77W"
+                },
+                "type": "pax",
+                "flightNumber": "549I",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 429,
+                    "cargo": 83,
+                    "weights": {
+                        "cargo": 5727
+                    }
+                },
+                "depTime": "2026-07-07T07:17:00.000Z",
+                "duration": 150,
+                "arrTime": "2026-07-07T09:47:00.000Z",
+                "depTimeAct": "2026-07-07T07:18:18.922Z",
+                "delay": -12,
+                "takeoffTimeAct": "2026-07-07T07:26:28.920Z",
+                "durationAct": 128,
+                "arrTimeAct": "2026-07-07T09:34:34.716Z",
+                "open": "2026-07-07T07:01:59.049Z",
+                "close": "2026-07-07T09:38:17.729Z",
+                "rating": 8.51,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 974,
+                        "fuel": 15290,
+                        "expenses": 45379,
+                        "penalties": 0,
+                        "revenue": 100112,
+                        "balance": 54733,
+                        "prices": {
+                            "ticketPrice": 147,
+                            "cargoUnitPrice": 163,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 429,
+                            "cargo": 83,
+                            "paxByClass": {
+                                "F": 27,
+                                "C": 79,
+                                "Y": 323
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 17286,
+                        "aircraft": 21760,
+                        "handling": 3903,
+                        "landing": 2430
+                    },
+                    "revenue": {
+                        "tickets": 86583,
+                        "cargo": 13529
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 18.92m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -149,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "spoilers",
+                                "payload": {
+                                    "system": {
+                                        "fps": 46
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.46G (365 ft/min, challenging  conditions)<br/>Distance from threshold: 476m (accepted range: 203-815m)<br/>Average centerline deviation: 12.33m<br/>Max centerline deviation: 18.92m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 52
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.46,
+                                        "rate": 365
+                                    },
+                                    "weather": {
+                                        "windDir": 260,
+                                        "windSpd": 16.69,
+                                        "windX": -15.16
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-07T06:56:44.581Z",
+                "updatedAt": "2026-07-07T09:38:17.866Z",
+                "dep": {
+                    "icao": "EGPH",
+                    "name": "Edinburgh Airport",
+                    "city": "Edinburgh",
+                    "location": {
+                        "lat": 55.950145,
+                        "lon": -3.372288,
+                        "elev": 135
+                    }
+                },
+                "arr": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                },
+                "actArr": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                }
             }
         ]
     }
