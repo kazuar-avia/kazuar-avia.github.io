@@ -7447,6 +7447,156 @@
                         "elev": 59
                     }
                 }
+            },
+            {
+                "_id": "6a4d4f395760ec7cdb3bf385",
+                "aircraft": {
+                    "_id": "695a3c883dc76275baca9e49",
+                    "name": "Airbus A320",
+                    "customName": "A320 WizzAir Ukraine",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "2368",
+                "free": false,
+                "schedule": false,
+                "charter": true,
+                "payload": {
+                    "pax": 180,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-07-07T19:30:00.000Z",
+                "duration": 50,
+                "arrTime": "2026-07-07T20:20:00.000Z",
+                "depTimeAct": "2026-07-07T19:31:06.811Z",
+                "delay": -1,
+                "takeoffTimeAct": "2026-07-07T19:38:02.831Z",
+                "durationAct": 41,
+                "arrTimeAct": "2026-07-07T20:19:24.886Z",
+                "open": "2026-07-07T19:29:51.664Z",
+                "close": "2026-07-07T20:23:40.917Z",
+                "rating": 9.64,
+                "simulator": "msfs",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 243,
+                        "fuel": 2224,
+                        "expenses": 8935,
+                        "penalties": 0,
+                        "revenue": 25020,
+                        "balance": 16085,
+                        "prices": {
+                            "ticketPrice": 139,
+                            "cargoUnitPrice": 172,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 180,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 180
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2610,
+                        "aircraft": 4525,
+                        "handling": 900,
+                        "landing": 900
+                    },
+                    "revenue": {
+                        "tickets": 25020,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 4.96m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -16,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "spoilers",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.48G (405 ft/min, normal  conditions)<br/>Distance from threshold: 574m (accepted range: 199-800m)<br/>Average centerline deviation: 3.55m<br/>Max centerline deviation: 4.96m",
+                            "penalty": {
+                                "points": -20,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 34
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.48,
+                                        "rate": 405
+                                    },
+                                    "weather": {
+                                        "windDir": 85.12,
+                                        "windSpd": 9.73,
+                                        "windX": -0.46
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-07T19:10:49.477Z",
+                "updatedAt": "2026-07-07T20:23:40.995Z",
+                "dep": {
+                    "icao": "SVMG",
+                    "name": "Del Caribe Santiago Mariño International Airport",
+                    "city": "Isla Margarita",
+                    "location": {
+                        "lat": 10.912603378295898,
+                        "lon": -63.96659851074219,
+                        "elev": 74
+                    }
+                },
+                "arr": {
+                    "icao": "SVMI",
+                    "name": "Maiquetía Simón Bolívar International Airport",
+                    "city": "Maiquetía",
+                    "location": {
+                        "lat": 10.601194,
+                        "lon": -66.991222,
+                        "elev": 234
+                    }
+                },
+                "actArr": {
+                    "icao": "SVMI",
+                    "name": "Maiquetía Simón Bolívar International Airport",
+                    "city": "Maiquetía",
+                    "location": {
+                        "lat": 10.601194,
+                        "lon": -66.991222,
+                        "elev": 234
+                    }
+                }
             }
         ]
     },
