@@ -4796,6 +4796,174 @@
                         "elev": 505
                     }
                 }
+            },
+            {
+                "_id": "6a4d073e6748d36670e41ce4",
+                "aircraft": {
+                    "name": "Cessna Citation CJ4",
+                    "icao": "C25C"
+                },
+                "type": "pax",
+                "flightNumber": "95P",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 10,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-07-07T14:30:00.000Z",
+                "duration": 55,
+                "arrTime": "2026-07-07T15:25:00.000Z",
+                "depTimeAct": "2026-07-07T14:27:29.144Z",
+                "delay": -2,
+                "takeoffTimeAct": "2026-07-07T14:31:12.152Z",
+                "durationAct": 52,
+                "arrTimeAct": "2026-07-07T15:22:47.235Z",
+                "open": "2026-07-07T14:04:43.876Z",
+                "close": "2026-07-07T15:27:36.233Z",
+                "rating": 9.1,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 240,
+                        "fuel": 388,
+                        "expenses": 1844,
+                        "penalties": 0,
+                        "revenue": 4040,
+                        "balance": 2196,
+                        "prices": {
+                            "ticketPrice": 101,
+                            "cargoUnitPrice": 126,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 10,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 10,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 351,
+                        "aircraft": 1228,
+                        "handling": 49,
+                        "landing": 216
+                    },
+                    "revenue": {
+                        "tickets": 4040,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1006mb instead of 1008.9mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "weather": {
+                                        "windDir": 257.73,
+                                        "windSpd": 12.96,
+                                        "windX": 11.87
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 9.85m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -40,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.14G (95 ft/min, challenging  conditions)<br/>Distance from threshold: 355m (accepted range: 185-744m)<br/>Average centerline deviation: 5.49m<br/>Max centerline deviation: 9.85m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 10
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.14,
+                                        "rate": 95
+                                    },
+                                    "weather": {
+                                        "windDir": 258.69,
+                                        "windSpd": 4.07,
+                                        "windX": -0.73
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-07T14:03:42.963Z",
+                "updatedAt": "2026-07-07T15:27:36.323Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "UKDD",
+                    "name": "Dnipro International Airport",
+                    "city": "Dnipro",
+                    "location": {
+                        "lat": 48.357201,
+                        "lon": 35.100601,
+                        "elev": 481
+                    }
+                },
+                "actArr": {
+                    "icao": "UKDD",
+                    "name": "Dnipro International Airport",
+                    "city": "Dnipro",
+                    "location": {
+                        "lat": 48.357201,
+                        "lon": 35.100601,
+                        "elev": 481
+                    }
+                }
             }
         ]
     },
