@@ -5488,6 +5488,180 @@
                         "elev": 508
                     }
                 }
+            },
+            {
+                "_id": "6a4ddff05760ec7cdb447fa3",
+                "aircraft": {
+                    "_id": "695ebf3c3dc76275ba3e31f1",
+                    "name": "Boeing 777-300ER",
+                    "customName": "777-300ER SkyLine",
+                    "icao": "B77W"
+                },
+                "type": "pax",
+                "flightNumber": "0777",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 409,
+                    "cargo": 109,
+                    "weights": {
+                        "cargo": 11990
+                    }
+                },
+                "depTime": "2026-07-08T05:40:00.000Z",
+                "duration": 670,
+                "arrTime": "2026-07-08T16:50:00.000Z",
+                "depTimeAct": "2026-07-08T05:59:46.768Z",
+                "delay": -47,
+                "takeoffTimeAct": "2026-07-08T06:14:38.796Z",
+                "durationAct": 588,
+                "arrTimeAct": "2026-07-08T16:03:07.472Z",
+                "open": "2026-07-08T05:51:11.813Z",
+                "close": "2026-07-08T16:09:47.820Z",
+                "rating": 6.84,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 4705,
+                        "fuel": 85540,
+                        "expenses": 129431,
+                        "penalties": 17360,
+                        "revenue": 371598,
+                        "balance": 224807,
+                        "prices": {
+                            "ticketPrice": 546,
+                            "cargoUnitPrice": 594,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 1,
+                                "fuel": 0.8,
+                                "ground": 0.85
+                            }
+                        },
+                        "payload": {
+                            "pax": 409,
+                            "cargo": 109,
+                            "paxByClass": {
+                                "F": 26,
+                                "C": 75,
+                                "Y": 308
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 77363,
+                        "aircraft": 47010,
+                        "handling": 2118,
+                        "landing": 2940
+                    },
+                    "revenue": {
+                        "tickets": 306852,
+                        "cargo": 64746
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight delayed 5 minutes (max 15 minutes after scheduled is allowed)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 1022
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 47
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Landing before runway threshold, short by 169m",
+                            "penalty": {
+                                "points": -298,
+                                "cash": 16338
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 41
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.47,
+                                        "rate": 342
+                                    },
+                                    "weather": {
+                                        "windDir": 189.94,
+                                        "windSpd": 7.36,
+                                        "windX": -0.02
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.47G (342 ft/min, normal  conditions)<br/>Distance from threshold: 169m (accepted range: 217-872m)<br/>Average centerline deviation: 0.75m<br/>Max centerline deviation: 1.57m",
+                            "penalty": {
+                                "points": -18,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 41
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.47,
+                                        "rate": 342
+                                    },
+                                    "weather": {
+                                        "windDir": 189.94,
+                                        "windSpd": 7.36,
+                                        "windX": -0.02
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-08T05:28:16.037Z",
+                "updatedAt": "2026-07-08T16:09:47.929Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "FAOR",
+                    "name": "O.R. Tambo International Airport",
+                    "city": "Johannesburg",
+                    "location": {
+                        "lat": -26.1392,
+                        "lon": 28.246,
+                        "elev": 5558
+                    }
+                },
+                "actArr": {
+                    "icao": "FAOR",
+                    "name": "O.R. Tambo International Airport",
+                    "city": "Johannesburg",
+                    "location": {
+                        "lat": -26.1392,
+                        "lon": 28.246,
+                        "elev": 5558
+                    }
+                }
             }
         ]
     },
