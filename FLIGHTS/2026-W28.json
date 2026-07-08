@@ -10060,6 +10060,209 @@
                         "elev": 327
                     }
                 }
+            },
+            {
+                "_id": "6a4e29185760ec7cdb482988",
+                "aircraft": {
+                    "_id": "695a3c883dc76275baca9e49",
+                    "name": "Airbus A320",
+                    "customName": "A320 WizzAir Ukraine",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "87P",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 176,
+                    "cargo": 1,
+                    "weights": {
+                        "cargo": 119
+                    }
+                },
+                "depTime": "2026-07-08T10:58:00.000Z",
+                "duration": 115,
+                "arrTime": "2026-07-08T12:53:00.000Z",
+                "depTimeAct": "2026-07-08T10:54:48.864Z",
+                "delay": -14,
+                "takeoffTimeAct": "2026-07-08T11:01:03.861Z",
+                "durationAct": 98,
+                "arrTimeAct": "2026-07-08T12:38:47.712Z",
+                "open": "2026-07-08T10:53:35.468Z",
+                "close": "2026-07-08T12:41:25.727Z",
+                "rating": 9.65,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 695,
+                        "fuel": 4254,
+                        "expenses": 13248,
+                        "penalties": 1627,
+                        "revenue": 22497,
+                        "balance": 7622,
+                        "prices": {
+                            "ticketPrice": 127,
+                            "cargoUnitPrice": 145,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 176,
+                            "cargo": 1,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 176
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4810,
+                        "aircraft": 5800,
+                        "handling": 1585,
+                        "landing": 1053
+                    },
+                    "revenue": {
+                        "tickets": 22352,
+                        "cargo": 145
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 4.01m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "weather": {
+                                        "windDir": 350,
+                                        "windSpd": 5.17,
+                                        "windX": 2.16
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "MLW exceeded: 262kg above maximum landing weight of 64500kg",
+                            "penalty": {
+                                "points": -24,
+                                "cash": 1627
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.25,
+                                        "rate": 149
+                                    },
+                                    "weather": {
+                                        "windDir": 309.99,
+                                        "windSpd": 23.04,
+                                        "windX": 1.1
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (812m from threshold beyond 780m max accepted)",
+                            "penalty": {
+                                "points": -11,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.25,
+                                        "rate": 149
+                                    },
+                                    "weather": {
+                                        "windDir": 309.99,
+                                        "windSpd": 23.04,
+                                        "windX": 1.1
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.25G (149 ft/min, challenging  conditions)<br/>Distance from threshold: 812m (accepted range: 194-780m)<br/>Average centerline deviation: 3.31m<br/>Max centerline deviation: 6.09m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.25,
+                                        "rate": 149
+                                    },
+                                    "weather": {
+                                        "windDir": 309.99,
+                                        "windSpd": 23.04,
+                                        "windX": 1.1
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-08T10:40:24.304Z",
+                "updatedAt": "2026-07-08T12:41:25.810Z",
+                "dep": {
+                    "icao": "EGBB",
+                    "name": "Birmingham Airport",
+                    "city": "Birmingham, West Midlands",
+                    "location": {
+                        "lat": 52.453899,
+                        "lon": -1.74803,
+                        "elev": 327
+                    }
+                },
+                "arr": {
+                    "icao": "LKPR",
+                    "name": "Václav Havel Airport Prague",
+                    "city": "Prague",
+                    "location": {
+                        "lat": 50.100874,
+                        "lon": 14.259911,
+                        "elev": 1247
+                    }
+                },
+                "actArr": {
+                    "icao": "LKPR",
+                    "name": "Václav Havel Airport Prague",
+                    "city": "Prague",
+                    "location": {
+                        "lat": 50.100874,
+                        "lon": 14.259911,
+                        "elev": 1247
+                    }
+                }
             }
         ]
     }
