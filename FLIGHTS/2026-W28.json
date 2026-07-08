@@ -4538,6 +4538,180 @@
                         "elev": 105
                     }
                 }
+            },
+            {
+                "_id": "6a4e77165760ec7cdb4ed1c6",
+                "aircraft": {
+                    "_id": "695a2a573dc76275bac8ccc8",
+                    "name": "Boeing 737-800 Freighter",
+                    "customName": "Supernova l 737-800F based in LKMT l UR-NPA",
+                    "icao": "B738"
+                },
+                "type": "cargo",
+                "flightNumber": "839B",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 0,
+                    "cargo": 145,
+                    "weights": {
+                        "cargo": 19865
+                    }
+                },
+                "depTime": "2026-07-08T16:25:00.000Z",
+                "duration": 80,
+                "arrTime": "2026-07-08T17:45:00.000Z",
+                "depTimeAct": "2026-07-08T16:18:21.439Z",
+                "delay": -19,
+                "takeoffTimeAct": "2026-07-08T16:18:32.441Z",
+                "durationAct": 68,
+                "arrTimeAct": "2026-07-08T17:26:09.569Z",
+                "open": "2026-07-08T16:17:51.458Z",
+                "close": "2026-07-08T18:03:54.611Z",
+                "rating": 8.59,
+                "simulator": "msfs",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 371,
+                        "fuel": 3039,
+                        "expenses": 8408,
+                        "penalties": 0,
+                        "revenue": 19140,
+                        "balance": 10732,
+                        "prices": {
+                            "ticketPrice": 111,
+                            "cargoUnitPrice": 132,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.85
+                            }
+                        },
+                        "payload": {
+                            "pax": 0,
+                            "cargo": 145,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3436,
+                        "aircraft": 4395,
+                        "handling": 73,
+                        "landing": 504
+                    },
+                    "revenue": {
+                        "tickets": 0,
+                        "cargo": 19140
+                    },
+                    "violations": [
+                        {
+                            "title": "Unstable approach below 300ft: vertical speed below -1500 ft/min (actual -1731 ft/min)",
+                            "penalty": {
+                                "points": -115,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 45
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (754m from threshold beyond 679m max accepted)",
+                            "penalty": {
+                                "points": -26,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 44
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.34,
+                                        "rate": 308
+                                    },
+                                    "weather": {
+                                        "windDir": 269.98,
+                                        "windSpd": 1.01,
+                                        "windX": 0.09
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.34G (308 ft/min, challenging  conditions)<br/>Distance from threshold: 754m (accepted range: 169-679m)<br/>Average centerline deviation: 0.67m<br/>Max centerline deviation: 1.45m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 44
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.34,
+                                        "rate": 308
+                                    },
+                                    "weather": {
+                                        "windDir": 269.98,
+                                        "windSpd": 1.01,
+                                        "windX": 0.09
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-08T16:13:10.058Z",
+                "updatedAt": "2026-07-08T18:03:54.698Z",
+                "dep": {
+                    "icao": "UKCW",
+                    "city": "Luhansk",
+                    "location": {
+                        "lat": 48.4174,
+                        "lon": 39.3741,
+                        "elev": 636
+                    },
+                    "name": "Luhansk International Airport"
+                },
+                "arr": {
+                    "icao": "UKKK",
+                    "name": "Ihor Sikorsky Kyiv International Airport (Zhuliany)",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.40194,
+                        "lon": 30.45194,
+                        "elev": 587
+                    }
+                },
+                "actArr": {
+                    "icao": "UKKK",
+                    "name": "Ihor Sikorsky Kyiv International Airport (Zhuliany)",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.40194,
+                        "lon": 30.45194,
+                        "elev": 587
+                    }
+                }
             }
         ]
     },
