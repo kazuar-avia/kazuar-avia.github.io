@@ -9041,6 +9041,156 @@
                         "elev": 6
                     }
                 }
+            },
+            {
+                "_id": "6a4dd1785760ec7cdb43f9f8",
+                "aircraft": {
+                    "_id": "695ebf3c3dc76275ba3e31f1",
+                    "name": "Boeing 777-300ER",
+                    "customName": "777-300ER SkyLine",
+                    "icao": "B77W"
+                },
+                "type": "pax",
+                "flightNumber": "91ZA",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 429,
+                    "cargo": 48,
+                    "weights": {
+                        "cargo": 3744
+                    }
+                },
+                "depTime": "2026-07-08T04:47:00.000Z",
+                "duration": 140,
+                "arrTime": "2026-07-08T07:07:00.000Z",
+                "depTimeAct": "2026-07-08T04:45:31.814Z",
+                "delay": 6,
+                "takeoffTimeAct": "2026-07-08T04:57:34.797Z",
+                "durationAct": 135,
+                "arrTimeAct": "2026-07-08T07:12:30.593Z",
+                "open": "2026-07-08T04:38:39.191Z",
+                "close": "2026-07-08T07:19:50.644Z",
+                "rating": 9.86,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 910,
+                        "fuel": 17117,
+                        "expenses": 47737,
+                        "penalties": 0,
+                        "revenue": 91859,
+                        "balance": 44122,
+                        "prices": {
+                            "ticketPrice": 143,
+                            "cargoUnitPrice": 159,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 429,
+                            "cargo": 48,
+                            "paxByClass": {
+                                "F": 27,
+                                "C": 79,
+                                "Y": 323
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 19351,
+                        "aircraft": 22163,
+                        "handling": 3883,
+                        "landing": 2340
+                    },
+                    "revenue": {
+                        "tickets": 84227,
+                        "cargo": 7632
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 8.80m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -14,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 57
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.21G (182 ft/min, normal  conditions)<br/>Distance from threshold: 390m (accepted range: 190-763m)<br/>Average centerline deviation: 2.24m<br/>Max centerline deviation: 3.41m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 59
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.21,
+                                        "rate": 182
+                                    },
+                                    "weather": {
+                                        "windDir": 329.99,
+                                        "windSpd": 7,
+                                        "windX": 0.45
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-08T04:26:32.356Z",
+                "updatedAt": "2026-07-08T07:19:50.739Z",
+                "dep": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                },
+                "arr": {
+                    "icao": "EGBB",
+                    "name": "Birmingham Airport",
+                    "city": "Birmingham, West Midlands",
+                    "location": {
+                        "lat": 52.453899,
+                        "lon": -1.74803,
+                        "elev": 327
+                    }
+                },
+                "actArr": {
+                    "icao": "EGBB",
+                    "name": "Birmingham Airport",
+                    "city": "Birmingham, West Midlands",
+                    "location": {
+                        "lat": 52.453899,
+                        "lon": -1.74803,
+                        "elev": 327
+                    }
+                }
             }
         ]
     }
