@@ -10437,6 +10437,180 @@
                         "elev": 1247
                     }
                 }
+            },
+            {
+                "_id": "6a4e61875760ec7cdb4cab5b",
+                "aircraft": {
+                    "_id": "6988b97c9da57b990ad5c8f7",
+                    "name": "Airbus A321 neo",
+                    "customName": "A321LR (neo)",
+                    "icao": "A21N"
+                },
+                "type": "pax",
+                "flightNumber": "21G",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 230,
+                    "cargo": 24,
+                    "weights": {
+                        "cargo": 3096
+                    }
+                },
+                "depTime": "2026-07-08T15:05:00.000Z",
+                "duration": 100,
+                "arrTime": "2026-07-08T16:45:00.000Z",
+                "depTimeAct": "2026-07-08T15:05:31.431Z",
+                "delay": -14,
+                "takeoffTimeAct": "2026-07-08T15:12:57.435Z",
+                "durationAct": 78,
+                "arrTimeAct": "2026-07-08T16:30:56.304Z",
+                "open": "2026-07-08T14:59:15.301Z",
+                "close": "2026-07-08T16:35:12.328Z",
+                "rating": 9.14,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 554,
+                        "fuel": 3661,
+                        "expenses": 12345,
+                        "penalties": 3396,
+                        "revenue": 30706,
+                        "balance": 14965,
+                        "prices": {
+                            "ticketPrice": 119,
+                            "cargoUnitPrice": 139,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 230,
+                            "cargo": 24,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 230
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4139,
+                        "aircraft": 5765,
+                        "handling": 1874,
+                        "landing": 567
+                    },
+                    "revenue": {
+                        "tickets": 27370,
+                        "cargo": 3336
+                    },
+                    "violations": [
+                        {
+                            "title": "MLW exceeded: 672kg above maximum landing weight of 79200kg",
+                            "penalty": {
+                                "points": -51,
+                                "cash": 3396
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.44,
+                                        "rate": 331
+                                    },
+                                    "weather": {
+                                        "windDir": 262.22,
+                                        "windSpd": 2.81,
+                                        "windX": -2.34
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 5.53m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -25,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.44G (331 ft/min, normal  conditions)<br/>Distance from threshold: 622m (accepted range: 175-704m)<br/>Average centerline deviation: 2.29m<br/>Max centerline deviation: 5.53m",
+                            "penalty": {
+                                "points": -10,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.44,
+                                        "rate": 331
+                                    },
+                                    "weather": {
+                                        "windDir": 262.22,
+                                        "windSpd": 2.81,
+                                        "windX": -2.34
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-08T14:41:11.438Z",
+                "updatedAt": "2026-07-08T16:35:12.407Z",
+                "dep": {
+                    "icao": "LKPR",
+                    "name": "Václav Havel Airport Prague",
+                    "city": "Prague",
+                    "location": {
+                        "lat": 50.100874,
+                        "lon": 14.259911,
+                        "elev": 1247
+                    }
+                },
+                "arr": {
+                    "icao": "LYTV",
+                    "name": "Tivat Airport",
+                    "city": "Tivat",
+                    "location": {
+                        "lat": 42.404701232910156,
+                        "lon": 18.72330093383789,
+                        "elev": 20
+                    }
+                },
+                "actArr": {
+                    "icao": "LYTV",
+                    "name": "Tivat Airport",
+                    "city": "Tivat",
+                    "location": {
+                        "lat": 42.404701232910156,
+                        "lon": 18.72330093383789,
+                        "elev": 20
+                    }
+                }
             }
         ]
     }
