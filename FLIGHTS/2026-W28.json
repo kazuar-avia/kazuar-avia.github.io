@@ -1349,6 +1349,185 @@
                         "elev": 36
                     }
                 }
+            },
+            {
+                "_id": "6a4e18975760ec7cdb470a6f",
+                "aircraft": {
+                    "_id": "6a48a7935760ec7cdbd54058",
+                    "name": "Cessna 172",
+                    "customName": "C172",
+                    "icao": "C172"
+                },
+                "type": "pax",
+                "flightNumber": "474K",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 3,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-07-08T09:45:00.000Z",
+                "duration": 55,
+                "arrTime": "2026-07-08T10:40:00.000Z",
+                "depTimeAct": "2026-07-08T09:36:57.961Z",
+                "delay": -24,
+                "takeoffTimeAct": "2026-07-08T09:39:10.914Z",
+                "durationAct": 37,
+                "arrTimeAct": "2026-07-08T10:16:23.505Z",
+                "open": "2026-07-08T09:30:48.680Z",
+                "close": "2026-07-08T10:17:47.912Z",
+                "rating": 9,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 61,
+                        "fuel": 18,
+                        "expenses": 147,
+                        "penalties": 0,
+                        "revenue": 144,
+                        "balance": -3,
+                        "prices": {
+                            "ticketPrice": 48,
+                            "cargoUnitPrice": 53,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 3,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 3
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 21,
+                        "aircraft": 90,
+                        "handling": 15,
+                        "landing": 21
+                    },
+                    "revenue": {
+                        "tickets": 144,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1013mb instead of 1009.96mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 58
+                                    },
+                                    "weather": {
+                                        "windDir": 120,
+                                        "windSpd": 6.78,
+                                        "windX": 0.17
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.12G (53 ft/min, challenging  conditions)<br/>Distance from threshold: 877m (accepted range: 174-700m)<br/>Average centerline deviation: 2.50m<br/>Max centerline deviation: 2.50m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.12,
+                                        "rate": 53
+                                    },
+                                    "weather": {
+                                        "windDir": 121.05,
+                                        "windSpd": 8.71,
+                                        "windX": 2.26
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on landing: 1013mb instead of 1009.96mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.12,
+                                        "rate": 53
+                                    },
+                                    "weather": {
+                                        "windDir": 121.05,
+                                        "windSpd": 8.71,
+                                        "windX": 2.26
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-08T09:29:59.267Z",
+                "updatedAt": "2026-07-08T10:17:48.410Z",
+                "dep": {
+                    "icao": "ENAS",
+                    "city": "Ny-Ålesund",
+                    "location": {
+                        "lat": 78.927498,
+                        "lon": 11.8743,
+                        "elev": 50
+                    },
+                    "name": "Ny-Ålesund Airport, Hamnerabben"
+                },
+                "arr": {
+                    "icao": "ENSB",
+                    "name": "Svalbard Airport, Longyear",
+                    "city": "Longyearbyen",
+                    "location": {
+                        "lat": 78.246101379395,
+                        "lon": 15.465600013733,
+                        "elev": 88
+                    }
+                },
+                "actArr": {
+                    "icao": "ENSB",
+                    "name": "Svalbard Airport, Longyear",
+                    "city": "Longyearbyen",
+                    "location": {
+                        "lat": 78.246101379395,
+                        "lon": 15.465600013733,
+                        "elev": 88
+                    }
+                }
             }
         ]
     },
