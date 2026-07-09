@@ -7145,6 +7145,193 @@
                         "elev": 1417
                     }
                 }
+            },
+            {
+                "_id": "6a4f7af65760ec7cdb5fa855",
+                "aircraft": {
+                    "_id": "6980e9459da57b990a02e1bd",
+                    "name": "Boeing 737 MAX 8",
+                    "customName": "Dry Lease l 737-MAX8 189 pax l MSFS",
+                    "icao": "B38M"
+                },
+                "type": "pax",
+                "flightNumber": "888",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 189,
+                    "cargo": 22,
+                    "weights": {
+                        "cargo": 1628
+                    }
+                },
+                "depTime": "2026-07-09T11:00:00.000Z",
+                "duration": 330,
+                "arrTime": "2026-07-09T16:30:00.000Z",
+                "depTimeAct": "2026-07-09T10:54:41.325Z",
+                "delay": -27,
+                "takeoffTimeAct": "2026-07-09T11:06:44.517Z",
+                "durationAct": 296,
+                "arrTimeAct": "2026-07-09T16:02:37.049Z",
+                "open": "2026-07-09T10:42:01.699Z",
+                "close": "2026-07-09T16:06:49.090Z",
+                "rating": 9.74,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 2144,
+                        "fuel": 11248,
+                        "expenses": 27952,
+                        "penalties": 0,
+                        "revenue": 56179,
+                        "balance": 28227,
+                        "prices": {
+                            "ticketPrice": 265,
+                            "cargoUnitPrice": 277,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 189,
+                            "cargo": 22,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 189
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 12849,
+                        "aircraft": 10300,
+                        "handling": 3942,
+                        "landing": 861
+                    },
+                    "revenue": {
+                        "tickets": 50085,
+                        "cargo": 6094
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 4.08m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -1,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 18
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.21G (161 ft/min, challenging  conditions)<br/>Distance from threshold: 444m (accepted range: 197-790m)<br/>Average centerline deviation: 2.25m<br/>Max centerline deviation: 3.13m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.21,
+                                        "rate": 161
+                                    },
+                                    "weather": {
+                                        "windDir": 304.12,
+                                        "windSpd": 7.8,
+                                        "windX": -1.5
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No NAV lights for 126s when required",
+                            "penalty": {
+                                "points": -25,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        },
+                        {
+                            "title": "Fuel used 9802 kg is lower than estimated minimum 11248 kg.",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.21,
+                                        "rate": 161
+                                    },
+                                    "weather": {
+                                        "windDir": 304.12,
+                                        "windSpd": 7.8,
+                                        "windX": -1.5
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-09T10:41:58.015Z",
+                "updatedAt": "2026-07-09T16:06:49.177Z",
+                "dep": {
+                    "icao": "OMDB",
+                    "name": "Dubai International Airport",
+                    "city": "Dubai",
+                    "location": {
+                        "lat": 25.2527999878,
+                        "lon": 55.3643989563,
+                        "elev": 62
+                    }
+                },
+                "arr": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "actArr": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                }
             }
         ]
     },
