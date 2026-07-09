@@ -2530,6 +2530,195 @@
                         "elev": 465
                     }
                 }
+            },
+            {
+                "_id": "6a4fbefc5760ec7cdb650fa2",
+                "aircraft": {
+                    "_id": "6988b9149da57b990ad5b53e",
+                    "name": "Airbus A320 neo",
+                    "customName": "DRY LEASE l free A320neo v2 msfs2024",
+                    "icao": "A20N"
+                },
+                "type": "pax",
+                "flightNumber": "093M",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 180,
+                    "cargo": 19,
+                    "weights": {
+                        "cargo": 2470
+                    }
+                },
+                "depTime": "2026-07-09T15:45:00.000Z",
+                "duration": 70,
+                "arrTime": "2026-07-09T16:55:00.000Z",
+                "depTimeAct": "2026-07-09T15:33:06.042Z",
+                "delay": -17,
+                "takeoffTimeAct": "2026-07-09T15:33:38.052Z",
+                "durationAct": 64,
+                "arrTimeAct": "2026-07-09T16:38:08.030Z",
+                "open": "2026-07-09T15:32:18.905Z",
+                "close": "2026-07-09T16:41:23.928Z",
+                "rating": 5.01,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 387,
+                        "fuel": 2147,
+                        "expenses": 10359,
+                        "penalties": 17350,
+                        "revenue": 22372,
+                        "balance": -5337,
+                        "prices": {
+                            "ticketPrice": 107,
+                            "cargoUnitPrice": 130,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 180,
+                            "cargo": 19,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 6,
+                                "Y": 174
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2519,
+                        "aircraft": 5100,
+                        "handling": 1270,
+                        "landing": 1470
+                    },
+                    "revenue": {
+                        "tickets": 19902,
+                        "cargo": 2470
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 4.01m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Landing before runway threshold, short by 196m",
+                            "penalty": {
+                                "points": -321,
+                                "cash": 17350
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.51,
+                                        "rate": 444
+                                    },
+                                    "weather": {
+                                        "windDir": 169.94,
+                                        "windSpd": 9.99,
+                                        "windX": 1.54
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.51G (444 ft/min, normal  conditions)<br/>Distance from threshold: 196m (accepted range: 199-799m)<br/>Average centerline deviation: 1.21m<br/>Max centerline deviation: 1.89m",
+                            "penalty": {
+                                "points": -28,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.51,
+                                        "rate": 444
+                                    },
+                                    "weather": {
+                                        "windDir": 169.94,
+                                        "windSpd": 9.99,
+                                        "windX": 1.54
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 846ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-09T15:32:12.550Z",
+                "updatedAt": "2026-07-09T16:41:23.994Z",
+                "dep": {
+                    "icao": "SPZO",
+                    "name": "Alejandro Velasco Astete International Airport",
+                    "city": "Cusco",
+                    "location": {
+                        "lat": -13.535699844400002,
+                        "lon": -71.9387969971,
+                        "elev": 10860
+                    }
+                },
+                "arr": {
+                    "icao": "SPJC",
+                    "name": "Jorge Chávez International Airport",
+                    "city": "Lima",
+                    "location": {
+                        "lat": -12.0219,
+                        "lon": -77.114305,
+                        "elev": 113
+                    }
+                },
+                "actArr": {
+                    "icao": "SPJC",
+                    "name": "Jorge Chávez International Airport",
+                    "city": "Lima",
+                    "location": {
+                        "lat": -12.0219,
+                        "lon": -77.114305,
+                        "elev": 113
+                    }
+                }
             }
         ]
     },
