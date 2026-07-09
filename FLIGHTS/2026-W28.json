@@ -13030,6 +13030,180 @@
                         "elev": 7
                     }
                 }
+            },
+            {
+                "_id": "6a4f9ba65760ec7cdb61ff62",
+                "aircraft": {
+                    "_id": "69ef2347a5e61d69a7a9a2b0",
+                    "name": "Airbus A320",
+                    "customName": "WizzAir Ukraine l A320 IAE SL based in UKBB l UR-WUB",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "18P",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 176,
+                    "cargo": 17,
+                    "weights": {
+                        "cargo": 1292
+                    }
+                },
+                "depTime": "2026-07-09T13:20:00.000Z",
+                "duration": 100,
+                "arrTime": "2026-07-09T15:00:00.000Z",
+                "depTimeAct": "2026-07-09T13:19:00.084Z",
+                "delay": -17,
+                "takeoffTimeAct": "2026-07-09T13:26:25.077Z",
+                "durationAct": 76,
+                "arrTimeAct": "2026-07-09T14:42:49.972Z",
+                "open": "2026-07-09T13:03:54.588Z",
+                "close": "2026-07-09T14:46:58.994Z",
+                "rating": 9.58,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 534,
+                        "fuel": 3374,
+                        "expenses": 11888,
+                        "penalties": 1164,
+                        "revenue": 23307,
+                        "balance": 10255,
+                        "prices": {
+                            "ticketPrice": 119,
+                            "cargoUnitPrice": 139,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 176,
+                            "cargo": 17,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 176
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3815,
+                        "aircraft": 5400,
+                        "handling": 1593,
+                        "landing": 1080
+                    },
+                    "revenue": {
+                        "tickets": 20944,
+                        "cargo": 2363
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 6.32m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -25,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "MLW exceeded: 188kg above maximum landing weight of 64500kg",
+                            "penalty": {
+                                "points": -17,
+                                "cash": 1164
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 59
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.34,
+                                        "rate": 269
+                                    },
+                                    "weather": {
+                                        "windDir": 60.03,
+                                        "windSpd": 16.43,
+                                        "windX": -4.89
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.34G (269 ft/min, challenging  conditions)<br/>Distance from threshold: 592m (accepted range: 173-696m)<br/>Average centerline deviation: 4.44m<br/>Max centerline deviation: 7.27m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 59
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.34,
+                                        "rate": 269
+                                    },
+                                    "weather": {
+                                        "windDir": 60.03,
+                                        "windSpd": 16.43,
+                                        "windX": -4.89
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-09T13:01:26.929Z",
+                "updatedAt": "2026-07-09T14:46:59.087Z",
+                "dep": {
+                    "icao": "LIPZ",
+                    "name": "Venice Marco Polo Airport",
+                    "city": "Venezia (VE)",
+                    "location": {
+                        "lat": 45.505299,
+                        "lon": 12.3519,
+                        "elev": 7
+                    }
+                },
+                "arr": {
+                    "icao": "LICC",
+                    "name": "Catania-Fontanarossa Airport",
+                    "city": "Catania",
+                    "location": {
+                        "lat": 37.466801,
+                        "lon": 15.0664,
+                        "elev": 39
+                    }
+                },
+                "actArr": {
+                    "icao": "LICC",
+                    "name": "Catania-Fontanarossa Airport",
+                    "city": "Catania",
+                    "location": {
+                        "lat": 37.466801,
+                        "lon": 15.0664,
+                        "elev": 39
+                    }
+                }
             }
         ]
     },
