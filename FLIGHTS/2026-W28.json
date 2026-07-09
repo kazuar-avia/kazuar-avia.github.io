@@ -6796,6 +6796,200 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6a4f21da5760ec7cdb5b4beb",
+                "aircraft": {
+                    "_id": "695ebf3c3dc76275ba3e31f1",
+                    "name": "Boeing 777-300ER",
+                    "customName": "SkyLine Express l 777-300ER based in UKBB l UR-AZR",
+                    "icao": "B77W"
+                },
+                "type": "pax",
+                "flightNumber": "0777",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 429,
+                    "cargo": 59,
+                    "weights": {
+                        "cargo": 5133
+                    }
+                },
+                "depTime": "2026-07-09T04:35:00.000Z",
+                "duration": 600,
+                "arrTime": "2026-07-09T14:35:00.000Z",
+                "depTimeAct": "2026-07-09T05:04:29.023Z",
+                "delay": 37,
+                "takeoffTimeAct": "2026-07-09T05:17:16.046Z",
+                "durationAct": 595,
+                "arrTimeAct": "2026-07-09T15:11:54.693Z",
+                "open": "2026-07-09T05:00:14.902Z",
+                "close": "2026-07-09T15:19:16.297Z",
+                "rating": 8.82,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 4389,
+                        "fuel": 83856,
+                        "expenses": 149827,
+                        "penalties": 3217,
+                        "revenue": 244231,
+                        "balance": 91187,
+                        "prices": {
+                            "ticketPrice": 496,
+                            "cargoUnitPrice": 533,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 429,
+                            "cargo": 59,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 429
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 92745,
+                        "aircraft": 49213,
+                        "handling": 4749,
+                        "landing": 3120
+                    },
+                    "revenue": {
+                        "tickets": 212784,
+                        "cargo": 31447
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight delayed 15 minutes (max 15 minutes after scheduled is allowed)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 3217
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 44
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline takeoff (deviation 7.39m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -38,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 44
+                                    },
+                                    "weather": {
+                                        "windDir": 220.01,
+                                        "windSpd": 5.42,
+                                        "windX": 0.08
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (996m from threshold beyond 767m max accepted)",
+                            "penalty": {
+                                "points": -80,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 53
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.17,
+                                        "rate": 152
+                                    },
+                                    "weather": {
+                                        "windDir": 29.96,
+                                        "windSpd": 28.01,
+                                        "windX": 0.13
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.17G (152 ft/min, challenging  conditions)<br/>Distance from threshold: 996m (accepted range: 191-767m)<br/>Average centerline deviation: 2.31m<br/>Max centerline deviation: 2.61m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 53
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.17,
+                                        "rate": 152
+                                    },
+                                    "weather": {
+                                        "windDir": 29.96,
+                                        "windSpd": 28.01,
+                                        "windX": 0.13
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-09T04:21:46.172Z",
+                "updatedAt": "2026-07-09T15:19:16.430Z",
+                "dep": {
+                    "icao": "FAOR",
+                    "name": "O.R. Tambo International Airport",
+                    "city": "Johannesburg",
+                    "location": {
+                        "lat": -26.1392,
+                        "lon": 28.246,
+                        "elev": 5558
+                    }
+                },
+                "arr": {
+                    "icao": "GCLP",
+                    "name": "Gran Canaria Airport",
+                    "city": "Gran Canaria Island",
+                    "location": {
+                        "lat": 27.9319,
+                        "lon": -15.3866,
+                        "elev": 78
+                    }
+                },
+                "actArr": {
+                    "icao": "GCLP",
+                    "name": "Gran Canaria Airport",
+                    "city": "Gran Canaria Island",
+                    "location": {
+                        "lat": 27.9319,
+                        "lon": -15.3866,
+                        "elev": 78
+                    }
+                }
             }
         ]
     },
