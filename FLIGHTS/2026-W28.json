@@ -11529,6 +11529,161 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6a4fcb8e5760ec7cdb664771",
+                "aircraft": {
+                    "_id": "6a4687cc5760ec7cdbae102b",
+                    "name": "Boeing 737 MAX 8",
+                    "customName": "Dry Lease l 737-MAX8 160 pax 3 classes l XP11 ",
+                    "icao": "B38M"
+                },
+                "type": "pax",
+                "flightNumber": "141Y",
+                "free": false,
+                "schedule": false,
+                "charter": true,
+                "payload": {
+                    "pax": 99,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-07-09T16:50:00.000Z",
+                "duration": 130,
+                "arrTime": "2026-07-09T19:00:00.000Z",
+                "depTimeAct": "2026-07-09T16:53:09.847Z",
+                "delay": -15,
+                "takeoffTimeAct": "2026-07-09T16:56:52.756Z",
+                "durationAct": 108,
+                "arrTimeAct": "2026-07-09T18:44:47.925Z",
+                "open": "2026-07-09T16:27:19.759Z",
+                "close": "2026-07-09T18:50:01.762Z",
+                "rating": 9.5,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 780,
+                        "fuel": 4830,
+                        "expenses": 13221,
+                        "penalties": 0,
+                        "revenue": 22127,
+                        "balance": 8906,
+                        "prices": {
+                            "ticketPrice": 203,
+                            "cargoUnitPrice": 229,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 99,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 10,
+                                "Y": 89
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 5461,
+                        "aircraft": 6050,
+                        "handling": 495,
+                        "landing": 1215
+                    },
+                    "revenue": {
+                        "tickets": 22127,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1013mb instead of 1017.96mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    },
+                                    "weather": {
+                                        "windDir": 286.47,
+                                        "windSpd": 4.52,
+                                        "windX": 0.75
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.25G (198 ft/min, normal  conditions)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.25,
+                                        "rate": 198
+                                    },
+                                    "weather": {
+                                        "windDir": 223.11,
+                                        "windSpd": 6.89,
+                                        "windX": -0.68
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-09T16:25:50.589Z",
+                "updatedAt": "2026-07-09T18:50:01.845Z",
+                "dep": {
+                    "icao": "EDDE",
+                    "name": "Erfurt-Weimar Airport",
+                    "city": "Erfurt",
+                    "location": {
+                        "lat": 50.979801,
+                        "lon": 10.9581,
+                        "elev": 1036
+                    }
+                },
+                "arr": {
+                    "icao": "EFHK",
+                    "name": "Helsinki Vantaa Airport",
+                    "city": "Helsinki (Vantaa)",
+                    "location": {
+                        "lat": 60.318363,
+                        "lon": 24.963341,
+                        "elev": 179
+                    }
+                },
+                "actArr": {
+                    "icao": "EFHK",
+                    "name": "Helsinki Vantaa Airport",
+                    "city": "Helsinki (Vantaa)",
+                    "location": {
+                        "lat": 60.318363,
+                        "lon": 24.963341,
+                        "elev": 179
+                    }
+                }
             }
         ]
     },
