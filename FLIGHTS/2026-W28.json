@@ -14552,6 +14552,171 @@
                         "elev": 39
                     }
                 }
+            },
+            {
+                "_id": "6a4fe73f5760ec7cdb694310",
+                "aircraft": {
+                    "_id": "695a66383dc76275bad0826f",
+                    "name": "Airbus A320",
+                    "customName": "Dry Lease l A320 CFM FENIX msfs2024",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "47M",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 169,
+                    "cargo": 18,
+                    "weights": {
+                        "cargo": 2466
+                    }
+                },
+                "depTime": "2026-07-09T18:45:00.000Z",
+                "duration": 100,
+                "arrTime": "2026-07-09T20:25:00.000Z",
+                "depTimeAct": "2026-07-09T18:38:44.501Z",
+                "delay": -14,
+                "takeoffTimeAct": "2026-07-09T18:45:15.507Z",
+                "durationAct": 86,
+                "arrTimeAct": "2026-07-09T20:11:03.381Z",
+                "open": "2026-07-09T18:31:51.227Z",
+                "close": "2026-07-09T20:13:18.405Z",
+                "rating": 8.56,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 564,
+                        "fuel": 4452,
+                        "expenses": 12812,
+                        "penalties": 2000,
+                        "revenue": 23565,
+                        "balance": 8753,
+                        "prices": {
+                            "ticketPrice": 119,
+                            "cargoUnitPrice": 139,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 169,
+                            "cargo": 18,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 8,
+                                "Y": 161
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 5033,
+                        "aircraft": 5500,
+                        "handling": 1361,
+                        "landing": 918
+                    },
+                    "revenue": {
+                        "tickets": 21063,
+                        "cargo": 2502
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 4.12m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -1,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 2
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 4.65m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -8,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Hard touchdown: 2.04G (669 ft/min, normal  conditions)<br/>Distance from threshold: 578m (accepted range: 198-793m)<br/>Average centerline deviation: 1.69m<br/>Max centerline deviation: 4.65m",
+                            "penalty": {
+                                "points": -135,
+                                "cash": 2000
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.04,
+                                        "rate": 669
+                                    },
+                                    "weather": {
+                                        "windDir": 297.47,
+                                        "windSpd": 6.49,
+                                        "windX": -0.24
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-09T18:23:59.607Z",
+                "updatedAt": "2026-07-09T20:13:18.491Z",
+                "dep": {
+                    "icao": "LICC",
+                    "name": "Catania-Fontanarossa Airport",
+                    "city": "Catania",
+                    "location": {
+                        "lat": 37.466801,
+                        "lon": 15.0664,
+                        "elev": 39
+                    }
+                },
+                "arr": {
+                    "icao": "LYBE",
+                    "name": "Belgrade Nikola Tesla Airport",
+                    "city": "Belgrade",
+                    "location": {
+                        "lat": 44.818401,
+                        "lon": 20.309099,
+                        "elev": 335
+                    }
+                },
+                "actArr": {
+                    "icao": "LYBE",
+                    "name": "Belgrade Nikola Tesla Airport",
+                    "city": "Belgrade",
+                    "location": {
+                        "lat": 44.818401,
+                        "lon": 20.309099,
+                        "elev": 335
+                    }
+                }
             }
         ]
     },
