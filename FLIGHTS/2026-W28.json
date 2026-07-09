@@ -12031,6 +12031,156 @@
                         "elev": 20
                     }
                 }
+            },
+            {
+                "_id": "6a4f191b5760ec7cdb5b02e7",
+                "aircraft": {
+                    "_id": "695a3c883dc76275baca9e49",
+                    "name": "Airbus A320",
+                    "customName": "A320 WizzAir Ukraine",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "19K",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 174,
+                    "cargo": 12,
+                    "weights": {
+                        "cargo": 1212
+                    }
+                },
+                "depTime": "2026-07-09T04:04:00.000Z",
+                "duration": 105,
+                "arrTime": "2026-07-09T05:49:00.000Z",
+                "depTimeAct": "2026-07-09T04:03:36.506Z",
+                "delay": 6,
+                "takeoffTimeAct": "2026-07-09T04:12:46.494Z",
+                "durationAct": 102,
+                "arrTimeAct": "2026-07-09T05:54:41.336Z",
+                "open": "2026-07-09T03:47:50.153Z",
+                "close": "2026-07-09T05:59:01.365Z",
+                "rating": 9.92,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 703,
+                        "fuel": 4750,
+                        "expenses": 13344,
+                        "penalties": 0,
+                        "revenue": 22920,
+                        "balance": 9576,
+                        "prices": {
+                            "ticketPrice": 122,
+                            "cargoUnitPrice": 141,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 174,
+                            "cargo": 12,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 174
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 5370,
+                        "aircraft": 5900,
+                        "handling": 1414,
+                        "landing": 660
+                    },
+                    "revenue": {
+                        "tickets": 21228,
+                        "cargo": 1692
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 4.52m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -8,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.36G (289 ft/min, normal  conditions)<br/>Distance from threshold: 594m (accepted range: 172-692m)<br/>Average centerline deviation: 3.31m<br/>Max centerline deviation: 4.52m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.36,
+                                        "rate": 289
+                                    },
+                                    "weather": {
+                                        "windDir": 49.99,
+                                        "windSpd": 5.51,
+                                        "windX": 1.85
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-09T03:44:27.869Z",
+                "updatedAt": "2026-07-09T05:59:01.461Z",
+                "dep": {
+                    "icao": "LKPR",
+                    "name": "Václav Havel Airport Prague",
+                    "city": "Prague",
+                    "location": {
+                        "lat": 50.100874,
+                        "lon": 14.259911,
+                        "elev": 1247
+                    }
+                },
+                "arr": {
+                    "icao": "LFKJ",
+                    "name": "Ajaccio Napoléon Bonaparte airport",
+                    "city": "Ajaccio",
+                    "location": {
+                        "lat": 41.923599,
+                        "lon": 8.80292,
+                        "elev": 18
+                    }
+                },
+                "actArr": {
+                    "icao": "LFKJ",
+                    "name": "Ajaccio Napoléon Bonaparte airport",
+                    "city": "Ajaccio",
+                    "location": {
+                        "lat": 41.923599,
+                        "lon": 8.80292,
+                        "elev": 18
+                    }
+                }
             }
         ]
     }
