@@ -12892,6 +12892,174 @@
                         "elev": 1071
                     }
                 }
+            },
+            {
+                "_id": "6a5031af6748d36670f04a00",
+                "aircraft": {
+                    "_id": "6a48a7935760ec7cdbd54058",
+                    "name": "Cessna 172",
+                    "customName": "Cessna C172",
+                    "icao": "C172"
+                },
+                "type": "pax",
+                "flightNumber": "336",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 3,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-07-09T23:55:00.000Z",
+                "duration": 15,
+                "arrTime": "2026-07-10T00:10:00.000Z",
+                "depTimeAct": "2026-07-09T23:53:36.932Z",
+                "delay": -1,
+                "takeoffTimeAct": "2026-07-09T23:57:07.635Z",
+                "durationAct": 12,
+                "arrTimeAct": "2026-07-10T00:09:05.002Z",
+                "open": "2026-07-09T23:47:46.838Z",
+                "close": "2026-07-10T00:10:56.043Z",
+                "rating": 9.15,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 21,
+                        "fuel": 7,
+                        "expenses": 117,
+                        "penalties": 0,
+                        "revenue": 99,
+                        "balance": -18,
+                        "prices": {
+                            "ticketPrice": 33,
+                            "cargoUnitPrice": 32,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 3,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 3
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 7,
+                        "aircraft": 77,
+                        "handling": 11,
+                        "landing": 22
+                    },
+                    "revenue": {
+                        "tickets": 99,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1013mb instead of 1010.6mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "weather": {
+                                        "windDir": 236.32,
+                                        "windSpd": 1.28,
+                                        "windX": -0.64
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.63G (406 ft/min, challenging  conditions)",
+                            "penalty": {
+                                "points": -32,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.63,
+                                        "rate": 406
+                                    },
+                                    "weather": {
+                                        "windDir": 216.88,
+                                        "windSpd": 1.09,
+                                        "windX": -0.98
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No BEACON lights for 40s when required",
+                            "penalty": {
+                                "points": -3,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-09T23:41:35.328Z",
+                "updatedAt": "2026-07-10T00:10:56.135Z",
+                "dep": {
+                    "icao": "UKKK",
+                    "name": "Ihor Sikorsky Kyiv International Airport (Zhuliany)",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.40194,
+                        "lon": 30.45194,
+                        "elev": 587
+                    }
+                },
+                "arr": {
+                    "icao": "UKKM",
+                    "name": "Hostomel Airport",
+                    "city": "Kiev",
+                    "location": {
+                        "lat": 50.6035,
+                        "lon": 30.1919,
+                        "elev": 517
+                    }
+                },
+                "actArr": {
+                    "icao": "UKKM",
+                    "name": "Hostomel Airport",
+                    "city": "Kiev",
+                    "location": {
+                        "lat": 50.6035,
+                        "lon": 30.1919,
+                        "elev": 517
+                    }
+                }
             }
         ]
     },
