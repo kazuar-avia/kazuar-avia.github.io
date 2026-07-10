@@ -1663,6 +1663,217 @@
                         "elev": 826
                     }
                 }
+            },
+            {
+                "_id": "6a50d2745760ec7cdb79b899",
+                "aircraft": {
+                    "_id": "695ebf3c3dc76275ba3e31f1",
+                    "name": "Boeing 777-300ER",
+                    "customName": "SkyLine Express l 777-300ER based in UKBB l UR-AZR",
+                    "icao": "B77W"
+                },
+                "type": "pax",
+                "flightNumber": "27C",
+                "free": false,
+                "schedule": false,
+                "charter": true,
+                "payload": {
+                    "pax": 531,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-07-10T11:35:00.000Z",
+                "duration": 30,
+                "arrTime": "2026-07-10T12:05:00.000Z",
+                "depTimeAct": "2026-07-10T11:21:49.746Z",
+                "delay": -31,
+                "takeoffTimeAct": "2026-07-10T11:26:06.762Z",
+                "durationAct": 8,
+                "arrTimeAct": "2026-07-10T11:34:11.762Z",
+                "open": "2026-07-10T11:19:11.578Z",
+                "close": "2026-07-10T11:36:11.288Z",
+                "rating": 9.5,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 25,
+                        "fuel": 861,
+                        "expenses": 26535,
+                        "penalties": 0,
+                        "revenue": 26550,
+                        "balance": 15,
+                        "prices": {
+                            "ticketPrice": 50,
+                            "cargoUnitPrice": 49,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 531,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 531
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 984,
+                        "aircraft": 14260,
+                        "handling": 2867,
+                        "landing": 8424
+                    },
+                    "revenue": {
+                        "tickets": 26550,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 6.81m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -31,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 15
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (839m from threshold beyond 820m max accepted)",
+                            "penalty": {
+                                "points": -7,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 19
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.09,
+                                        "rate": 145
+                                    },
+                                    "weather": {
+                                        "windDir": 11.21,
+                                        "windSpd": 8.02,
+                                        "windX": 1.76
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.09G (145 ft/min, normal  conditions)<br/>Distance from threshold: 839m (accepted range: 204-820m)<br/>Average centerline deviation: 5.54m<br/>Max centerline deviation: 6.81m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 19
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.09,
+                                        "rate": 145
+                                    },
+                                    "weather": {
+                                        "windDir": 11.21,
+                                        "windSpd": 8.02,
+                                        "windX": 1.76
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No BEACON lights for 77s when required",
+                            "penalty": {
+                                "points": -12,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        },
+                        {
+                            "title": "Fuel used 834 kg is lower than estimated minimum 861 kg.",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 19
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.09,
+                                        "rate": 145
+                                    },
+                                    "weather": {
+                                        "windDir": 11.21,
+                                        "windSpd": 8.02,
+                                        "windX": 1.76
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-10T11:07:32.059Z",
+                "updatedAt": "2026-07-10T11:36:11.382Z",
+                "dep": {
+                    "icao": "LTBA",
+                    "name": "İstanbul Atatürk Airport",
+                    "city": "Bakırköy, Istanbul",
+                    "location": {
+                        "lat": 40.971913,
+                        "lon": 28.823714,
+                        "elev": 163
+                    }
+                },
+                "arr": {
+                    "icao": "LTFM",
+                    "name": "İstanbul Airport",
+                    "city": "Arnavutköy, Istanbul",
+                    "location": {
+                        "lat": 41.261297,
+                        "lon": 28.741951,
+                        "elev": 325
+                    }
+                },
+                "actArr": {
+                    "icao": "LTFM",
+                    "name": "İstanbul Airport",
+                    "city": "Arnavutköy, Istanbul",
+                    "location": {
+                        "lat": 41.261297,
+                        "lon": 28.741951,
+                        "elev": 325
+                    }
+                }
             }
         ]
     },
