@@ -15537,6 +15537,161 @@
                         "elev": 234
                     }
                 }
+            },
+            {
+                "_id": "6a512a815760ec7cdb819d84",
+                "aircraft": {
+                    "_id": "695a66383dc76275bad0826f",
+                    "name": "Airbus A320",
+                    "customName": "Dry Lease l A320 CFM FENIX msfs2024",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "2947",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 170,
+                    "cargo": 18,
+                    "weights": {
+                        "cargo": 1908
+                    }
+                },
+                "depTime": "2026-07-10T17:50:00.000Z",
+                "duration": 90,
+                "arrTime": "2026-07-10T19:20:00.000Z",
+                "depTimeAct": "2026-07-10T17:49:30.463Z",
+                "delay": 6,
+                "takeoffTimeAct": "2026-07-10T17:58:05.472Z",
+                "durationAct": 88,
+                "arrTimeAct": "2026-07-10T19:25:35.597Z",
+                "open": "2026-07-10T17:48:36.618Z",
+                "close": "2026-07-10T19:31:42.645Z",
+                "rating": 9.66,
+                "simulator": "msfs",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 524,
+                        "fuel": 3789,
+                        "expenses": 11516,
+                        "penalties": 0,
+                        "revenue": 29654,
+                        "balance": 18138,
+                        "prices": {
+                            "ticketPrice": 149,
+                            "cargoUnitPrice": 174,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 170,
+                            "cargo": 18,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 8,
+                                "Y": 162
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4284,
+                        "aircraft": 4875,
+                        "handling": 926,
+                        "landing": 1431
+                    },
+                    "revenue": {
+                        "tickets": 26522,
+                        "cargo": 3132
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 4.42m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -6,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 34
+                                    },
+                                    "weather": {
+                                        "windDir": 212.22,
+                                        "windSpd": 5.49,
+                                        "windX": -4.45
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.51G (401 ft/min, normal  conditions)<br/>Distance from threshold: 464m (accepted range: 201-808m)<br/>Average centerline deviation: 1.70m<br/>Max centerline deviation: 3.39m",
+                            "penalty": {
+                                "points": -28,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 34
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.51,
+                                        "rate": 401
+                                    },
+                                    "weather": {
+                                        "windDir": 19.98,
+                                        "windSpd": 5,
+                                        "windX": 2.86
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-10T17:23:13.895Z",
+                "updatedAt": "2026-07-10T19:31:42.763Z",
+                "dep": {
+                    "icao": "LUKK",
+                    "name": "Chişinău International Airport",
+                    "city": "Chişinău",
+                    "location": {
+                        "lat": 46.9277,
+                        "lon": 28.931,
+                        "elev": 399
+                    }
+                },
+                "arr": {
+                    "icao": "LOWW",
+                    "name": "Vienna International Airport",
+                    "city": "Vienna",
+                    "location": {
+                        "lat": 48.110298,
+                        "lon": 16.5697,
+                        "elev": 600
+                    }
+                },
+                "actArr": {
+                    "icao": "LOWW",
+                    "name": "Vienna International Airport",
+                    "city": "Vienna",
+                    "location": {
+                        "lat": 48.110298,
+                        "lon": 16.5697,
+                        "elev": 600
+                    }
+                }
             }
         ]
     },
