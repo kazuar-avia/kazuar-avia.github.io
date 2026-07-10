@@ -17030,6 +17030,181 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6a50b4885760ec7cdb771ce1",
+                "aircraft": {
+                    "_id": "695a3c883dc76275baca9e49",
+                    "name": "Airbus A320",
+                    "customName": "WizzAir Ukraine l A320 IAE WL based in UKKK l UR-WUC",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "1981",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 180,
+                    "cargo": 14,
+                    "weights": {
+                        "cargo": 1918
+                    }
+                },
+                "depTime": "2026-07-10T10:30:00.000Z",
+                "duration": 85,
+                "arrTime": "2026-07-10T11:55:00.000Z",
+                "depTimeAct": "2026-07-10T10:33:09.870Z",
+                "delay": -16,
+                "takeoffTimeAct": "2026-07-10T10:37:55.882Z",
+                "durationAct": 62,
+                "arrTimeAct": "2026-07-10T11:39:28.927Z",
+                "open": "2026-07-10T09:38:01.658Z",
+                "close": "2026-07-10T11:48:19.213Z",
+                "rating": 9.3,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 337,
+                        "fuel": 2677,
+                        "expenses": 8305,
+                        "penalties": 0,
+                        "revenue": 20692,
+                        "balance": 12387,
+                        "prices": {
+                            "ticketPrice": 105,
+                            "cargoUnitPrice": 128,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.7,
+                                "fuel": 0.8,
+                                "ground": 0.7
+                            }
+                        },
+                        "payload": {
+                            "pax": 180,
+                            "cargo": 14,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 180
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2422,
+                        "aircraft": 4125,
+                        "handling": 897,
+                        "landing": 861
+                    },
+                    "revenue": {
+                        "tickets": 18900,
+                        "cargo": 1792
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 9.48m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -20,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 41
+                                    },
+                                    "weather": {
+                                        "windDir": 85.43,
+                                        "windSpd": 2.03,
+                                        "windX": -2.13
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1013mb instead of 1017.26mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 41
+                                    },
+                                    "weather": {
+                                        "windDir": 85.43,
+                                        "windSpd": 2.03,
+                                        "windX": -2.13
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.32G (310 ft/min, challenging  conditions)<br/>Distance from threshold: 684m (accepted range: 197-790m)<br/>Average centerline deviation: 1.52m<br/>Max centerline deviation: 1.66m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 45
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.32,
+                                        "rate": 310
+                                    },
+                                    "weather": {
+                                        "windDir": 358.35,
+                                        "windSpd": 2,
+                                        "windX": 1.24
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-10T08:59:52.396Z",
+                "updatedAt": "2026-07-10T11:48:19.285Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "actArr": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                }
             }
         ]
     },
