@@ -14738,6 +14738,180 @@
                         "elev": 179
                     }
                 }
+            },
+            {
+                "_id": "6a510d435760ec7cdb7eca74",
+                "aircraft": {
+                    "_id": "6a4687cc5760ec7cdbae102b",
+                    "name": "Boeing 737 MAX 8",
+                    "customName": "Dry Lease l 737-MAX8 160 pax 3 classes l XP11 ",
+                    "icao": "B38M"
+                },
+                "type": "pax",
+                "flightNumber": "57I",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 160,
+                    "cargo": 20,
+                    "weights": {
+                        "cargo": 1800
+                    }
+                },
+                "depTime": "2026-07-10T15:40:00.000Z",
+                "duration": 120,
+                "arrTime": "2026-07-10T17:40:00.000Z",
+                "depTimeAct": "2026-07-10T15:56:05.618Z",
+                "delay": 41,
+                "takeoffTimeAct": "2026-07-10T16:01:11.487Z",
+                "durationAct": 139,
+                "arrTimeAct": "2026-07-10T18:20:40.848Z",
+                "open": "2026-07-10T15:55:55.415Z",
+                "close": "2026-07-10T18:24:43.074Z",
+                "rating": 9.5,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 948,
+                        "fuel": 5882,
+                        "expenses": 15356,
+                        "penalties": 160,
+                        "revenue": 25448,
+                        "balance": 9932,
+                        "prices": {
+                            "ticketPrice": 128,
+                            "cargoUnitPrice": 146,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 160,
+                            "cargo": 20,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 16,
+                                "Y": 144
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 6650,
+                        "aircraft": 6375,
+                        "handling": 1449,
+                        "landing": 882
+                    },
+                    "revenue": {
+                        "tickets": 22528,
+                        "cargo": 2920
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight delayed 2 minutes (max 15 minutes after scheduled is allowed)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 160
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.26G (229 ft/min, challenging  conditions)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.26,
+                                        "rate": 229
+                                    },
+                                    "weather": {
+                                        "windDir": 356.87,
+                                        "windSpd": 4.86,
+                                        "windX": -0.49
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on landing: 1012mb instead of 1018.96mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.26,
+                                        "rate": 229
+                                    },
+                                    "weather": {
+                                        "windDir": 356.87,
+                                        "windSpd": 4.86,
+                                        "windX": -0.49
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-10T15:18:27.254Z",
+                "updatedAt": "2026-07-10T18:24:43.150Z",
+                "dep": {
+                    "icao": "EFHK",
+                    "name": "Helsinki Vantaa Airport",
+                    "city": "Helsinki (Vantaa)",
+                    "location": {
+                        "lat": 60.318363,
+                        "lon": 24.963341,
+                        "elev": 179
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
             }
         ]
     },
