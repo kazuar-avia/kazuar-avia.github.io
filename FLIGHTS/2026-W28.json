@@ -22869,5 +22869,182 @@
                 }
             }
         ]
+    },
+    {
+        "pilot_id": "69c3ced7c739a30ec89bfda3",
+        "fullname": "Yury Tr",
+        "avatar": "69c3ced7c739a30ec89bfda31774440239240",
+        "flights": [
+            {
+                "_id": "6a5220566748d36670f6bb37",
+                "aircraft": {
+                    "_id": "695a82b73dc76275bad4f381",
+                    "name": "ATR 72-600",
+                    "customName": "Windrose l ATR-72 based in UKBB l UR-RWC",
+                    "icao": "AT76"
+                },
+                "type": "pax",
+                "flightNumber": "272Q",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 69,
+                    "cargo": 9,
+                    "weights": {
+                        "cargo": 765
+                    }
+                },
+                "depTime": "2026-07-11T11:10:00.000Z",
+                "duration": 110,
+                "arrTime": "2026-07-11T13:00:00.000Z",
+                "depTimeAct": "2026-07-11T11:14:45.558Z",
+                "delay": 6,
+                "takeoffTimeAct": "2026-07-11T11:17:56.572Z",
+                "durationAct": 108,
+                "arrTimeAct": "2026-07-11T13:05:35.358Z",
+                "open": "2026-07-11T11:06:06.110Z",
+                "close": "2026-07-11T13:08:20.697Z",
+                "rating": 8.9,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 380,
+                        "fuel": 1304,
+                        "expenses": 4484,
+                        "penalties": 741,
+                        "revenue": 8778,
+                        "balance": 3553,
+                        "prices": {
+                            "ticketPrice": 110,
+                            "cargoUnitPrice": 132,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 1,
+                                "fuel": 0.8,
+                                "ground": 0.85
+                            }
+                        },
+                        "payload": {
+                            "pax": 69,
+                            "cargo": 9,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 69
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1180,
+                        "aircraft": 2520,
+                        "handling": 244,
+                        "landing": 540
+                    },
+                    "revenue": {
+                        "tickets": 7590,
+                        "cargo": 1188
+                    },
+                    "violations": [
+                        {
+                            "title": "MTOW exceeded: 43kg above maximum takeoff weight of 22999kg",
+                            "penalty": {
+                                "points": -11,
+                                "cash": 741
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "weather": {
+                                        "windDir": 232.13,
+                                        "windSpd": 4.5,
+                                        "windX": -2.48
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.35G (301 ft/min, challenging  conditions)<br/>Distance from threshold: 263m (accepted range: 189-759m)<br/>Average centerline deviation: 2.38m<br/>Max centerline deviation: 3.22m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 34
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.35,
+                                        "rate": 301
+                                    },
+                                    "weather": {
+                                        "windDir": 251.37,
+                                        "windSpd": 7.66,
+                                        "windX": 0.01
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 934ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -99,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 35
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-11T10:52:06.369Z",
+                "updatedAt": "2026-07-11T13:08:20.813Z",
+                "dep": {
+                    "icao": "UKKK",
+                    "name": "Ihor Sikorsky Kyiv International Airport (Zhuliany)",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.40194,
+                        "lon": 30.45194,
+                        "elev": 587
+                    }
+                },
+                "arr": {
+                    "icao": "UKFB",
+                    "city": "Sevastopol",
+                    "location": {
+                        "lat": 44.691822,
+                        "lon": 33.57462,
+                        "elev": 344
+                    },
+                    "name": "Sevastopol International Airport / Belbek Air Base"
+                },
+                "actArr": {
+                    "icao": "UKFB",
+                    "city": "Sevastopol",
+                    "location": {
+                        "lat": 44.691822,
+                        "lon": 33.57462,
+                        "elev": 344
+                    },
+                    "name": "Sevastopol International Airport / Belbek Air Base"
+                }
+            }
+        ]
     }
 ]
