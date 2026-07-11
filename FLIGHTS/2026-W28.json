@@ -8321,6 +8321,196 @@
                         "elev": 495
                     }
                 }
+            },
+            {
+                "_id": "6a5202f85760ec7cdb901868",
+                "aircraft": {
+                    "_id": "695ebf3c3dc76275ba3e31f1",
+                    "name": "Boeing 777-300ER",
+                    "customName": "SkyLine Express l 777-300ER based in UKBB l UR-AZR",
+                    "icao": "B77W"
+                },
+                "type": "pax",
+                "flightNumber": "217D",
+                "free": false,
+                "schedule": false,
+                "charter": true,
+                "payload": {
+                    "pax": 531,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-07-11T09:00:00.000Z",
+                "duration": 50,
+                "arrTime": "2026-07-11T09:50:00.000Z",
+                "depTimeAct": "2026-07-11T08:53:24.085Z",
+                "delay": -7,
+                "takeoffTimeAct": "2026-07-11T08:53:44.094Z",
+                "durationAct": 50,
+                "arrTimeAct": "2026-07-11T09:43:18.179Z",
+                "open": "2026-07-11T08:51:57.757Z",
+                "close": "2026-07-11T09:45:14.214Z",
+                "rating": 5.46,
+                "simulator": "msfs",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 213,
+                        "fuel": 6652,
+                        "expenses": 30839,
+                        "penalties": 150000,
+                        "revenue": 70092,
+                        "balance": -110747,
+                        "prices": {
+                            "ticketPrice": 132,
+                            "cargoUnitPrice": 162,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 531,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 531
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 7177,
+                        "aircraft": 17185,
+                        "handling": 3717,
+                        "landing": 2760
+                    },
+                    "revenue": {
+                        "tickets": 70092,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Tail strike on takeoff (pitch: 9.7, allowed: 9.5)",
+                            "penalty": {
+                                "points": -400,
+                                "cash": 150000
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 33
+                                    },
+                                    "weather": {
+                                        "windDir": 270,
+                                        "windSpd": 1,
+                                        "windX": -0.18
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline takeoff (deviation 4.57m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -9,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 33
+                                    },
+                                    "weather": {
+                                        "windDir": 270,
+                                        "windSpd": 1,
+                                        "windX": -0.18
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Delayed gear retraction after takeoff more than 30s, actual: 40s)",
+                            "penalty": {
+                                "points": -25,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gear",
+                                "payload": {
+                                    "system": {
+                                        "fps": 35
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.48G (390 ft/min, normal  conditions)<br/>Distance from threshold: 401m (accepted range: 193-774m)<br/>Average centerline deviation: 0.81m<br/>Max centerline deviation: 1.45m",
+                            "penalty": {
+                                "points": -20,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 35
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.48,
+                                        "rate": 390
+                                    },
+                                    "weather": {
+                                        "windDir": 270.13,
+                                        "windSpd": 1.11,
+                                        "windX": -0.47
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-11T08:46:48.383Z",
+                "updatedAt": "2026-07-11T09:45:14.288Z",
+                "dep": {
+                    "icao": "TNCM",
+                    "name": "Princess Juliana International Airport",
+                    "city": "Sint Maarten",
+                    "location": {
+                        "lat": 18.041,
+                        "lon": -63.108898,
+                        "elev": 13
+                    }
+                },
+                "arr": {
+                    "icao": "TJSJ",
+                    "name": "Luis Munoz Marin International Airport",
+                    "city": "San Juan",
+                    "location": {
+                        "lat": 18.4394,
+                        "lon": -66.001801,
+                        "elev": 9
+                    }
+                },
+                "actArr": {
+                    "icao": "TJSJ",
+                    "name": "Luis Munoz Marin International Airport",
+                    "city": "San Juan",
+                    "location": {
+                        "lat": 18.4394,
+                        "lon": -66.001801,
+                        "elev": 9
+                    }
+                }
             }
         ]
     },
