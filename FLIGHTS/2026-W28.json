@@ -2366,6 +2366,185 @@
                         "elev": 1165
                     }
                 }
+            },
+            {
+                "_id": "6a52626f5760ec7cdb985bd3",
+                "aircraft": {
+                    "_id": "695a3c883dc76275baca9e49",
+                    "name": "Airbus A320",
+                    "customName": "WizzAir Ukraine l A320 IAE WL based in UKKK l UR-WUC",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "678G",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 180,
+                    "cargo": 26,
+                    "weights": {
+                        "cargo": 2132
+                    }
+                },
+                "depTime": "2026-07-11T16:00:00.000Z",
+                "duration": 85,
+                "arrTime": "2026-07-11T17:25:00.000Z",
+                "depTimeAct": "2026-07-11T15:56:44.591Z",
+                "delay": -20,
+                "takeoffTimeAct": "2026-07-11T15:56:44.591Z",
+                "durationAct": 68,
+                "arrTimeAct": "2026-07-11T17:04:45.978Z",
+                "open": "2026-07-11T15:41:56.245Z",
+                "close": "2026-07-11T17:08:30.446Z",
+                "rating": 8.99,
+                "simulator": "xp",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 454,
+                        "fuel": 2401,
+                        "expenses": 10258,
+                        "penalties": 5573,
+                        "revenue": 23824,
+                        "balance": 7993,
+                        "prices": {
+                            "ticketPrice": 113,
+                            "cargoUnitPrice": 134,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 180,
+                            "cargo": 26,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 180
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2743,
+                        "aircraft": 5050,
+                        "handling": 1655,
+                        "landing": 810
+                    },
+                    "revenue": {
+                        "tickets": 20340,
+                        "cargo": 3484
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 5.82m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -17,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    },
+                                    "weather": {
+                                        "windDir": 329.92,
+                                        "windSpd": 10.14,
+                                        "windX": -3.31
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "MLW exceeded: 899kg above maximum landing weight of 64500kg",
+                            "penalty": {
+                                "points": -84,
+                                "cash": 5573
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.24,
+                                        "rate": 197
+                                    },
+                                    "weather": {
+                                        "windDir": 269.5,
+                                        "windSpd": 11.11,
+                                        "windX": -5.52
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.24G (197 ft/min, normal  conditions)<br/>Distance from threshold: 480m (accepted range: 205-823m)<br/>Average centerline deviation: 1.11m<br/>Max centerline deviation: 2.33m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.24,
+                                        "rate": 197
+                                    },
+                                    "weather": {
+                                        "windDir": 269.5,
+                                        "windSpd": 11.11,
+                                        "windX": -5.52
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-11T15:34:07.538Z",
+                "updatedAt": "2026-07-11T17:08:30.519Z",
+                "dep": {
+                    "icao": "UBBB",
+                    "name": "Heydar Aliyev International Airport",
+                    "city": "Baku",
+                    "location": {
+                        "lat": 40.467498779296875,
+                        "lon": 50.04669952392578,
+                        "elev": 10
+                    }
+                },
+                "arr": {
+                    "icao": "UTAA",
+                    "name": "Ashgabat International Airport",
+                    "city": "Ashgabat",
+                    "location": {
+                        "lat": 37.986801,
+                        "lon": 58.361,
+                        "elev": 692
+                    }
+                },
+                "actArr": {
+                    "icao": "UTAA",
+                    "name": "Ashgabat International Airport",
+                    "city": "Ashgabat",
+                    "location": {
+                        "lat": 37.986801,
+                        "lon": 58.361,
+                        "elev": 692
+                    }
+                }
             }
         ]
     },
