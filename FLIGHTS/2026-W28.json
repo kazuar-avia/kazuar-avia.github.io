@@ -2033,6 +2033,180 @@
                         "elev": 2356
                     }
                 }
+            },
+            {
+                "_id": "6a520d685760ec7cdb90dc2c",
+                "aircraft": {
+                    "_id": "6988b9149da57b990ad5b53e",
+                    "name": "Airbus A320 neo",
+                    "customName": "DRY LEASE l free A320neo v2 msfs2024",
+                    "icao": "A20N"
+                },
+                "type": "pax",
+                "flightNumber": "43K",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 180,
+                    "cargo": 18,
+                    "weights": {
+                        "cargo": 1674
+                    }
+                },
+                "depTime": "2026-07-11T09:55:00.000Z",
+                "duration": 70,
+                "arrTime": "2026-07-11T11:05:00.000Z",
+                "depTimeAct": "2026-07-11T09:51:24.972Z",
+                "delay": -15,
+                "takeoffTimeAct": "2026-07-11T09:51:24.972Z",
+                "durationAct": 59,
+                "arrTimeAct": "2026-07-11T10:50:16.240Z",
+                "open": "2026-07-11T09:32:09.980Z",
+                "close": "2026-07-11T10:54:39.828Z",
+                "rating": 9.84,
+                "simulator": "xp",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 352,
+                        "fuel": 2181,
+                        "expenses": 9366,
+                        "penalties": 0,
+                        "revenue": 22428,
+                        "balance": 13062,
+                        "prices": {
+                            "ticketPrice": 108,
+                            "cargoUnitPrice": 130,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 180,
+                            "cargo": 18,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 6,
+                                "Y": 174
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2492,
+                        "aircraft": 4975,
+                        "handling": 1269,
+                        "landing": 630
+                    },
+                    "revenue": {
+                        "tickets": 20088,
+                        "cargo": 2340
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 4.22m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -3,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 21
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (753m from threshold beyond 717m max accepted)",
+                            "penalty": {
+                                "points": -13,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.16,
+                                        "rate": 25
+                                    },
+                                    "weather": {
+                                        "windDir": 288.37,
+                                        "windSpd": 2.99,
+                                        "windX": 2.24
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.16G (25 ft/min, normal  conditions)<br/>Distance from threshold: 753m (accepted range: 179-717m)<br/>Average centerline deviation: 1.22m<br/>Max centerline deviation: 2.48m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.16,
+                                        "rate": 25
+                                    },
+                                    "weather": {
+                                        "windDir": 288.37,
+                                        "windSpd": 2.99,
+                                        "windX": 2.24
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-11T09:31:20.935Z",
+                "updatedAt": "2026-07-11T10:54:39.906Z",
+                "dep": {
+                    "icao": "UACC",
+                    "name": "Nursultan Nazarbayev International Airport",
+                    "city": "Astana",
+                    "location": {
+                        "lat": 51.027035,
+                        "lon": 71.467094,
+                        "elev": 1165
+                    }
+                },
+                "arr": {
+                    "icao": "UAUU",
+                    "name": "Kostanay West Airport",
+                    "city": "Kostanay",
+                    "location": {
+                        "lat": 53.20690155029297,
+                        "lon": 63.55030059814453,
+                        "elev": 595
+                    }
+                },
+                "actArr": {
+                    "icao": "UAUU",
+                    "name": "Kostanay West Airport",
+                    "city": "Kostanay",
+                    "location": {
+                        "lat": 53.20690155029297,
+                        "lon": 63.55030059814453,
+                        "elev": 595
+                    }
+                }
             }
         ]
     },
