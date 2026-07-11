@@ -24653,5 +24653,243 @@
                 }
             }
         ]
+    },
+    {
+        "pilot_id": "6a4d3b715760ec7cdb39ff17",
+        "fullname": "Ruslan Cherniavskyi",
+        "avatar": "default",
+        "flights": [
+            {
+                "_id": "6a525f725760ec7cdb980f07",
+                "aircraft": {
+                    "_id": "6a4f69f85760ec7cdb5e7cef",
+                    "name": "Boeing 737-800",
+                    "customName": "SkyUp l 737-800 based in UKOO UKBB l UR-SQC",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "185",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 180,
+                    "cargo": 25,
+                    "weights": {
+                        "cargo": 2050
+                    }
+                },
+                "depTime": "2026-07-11T16:20:00.000Z",
+                "duration": 150,
+                "arrTime": "2026-07-11T18:50:00.000Z",
+                "depTimeAct": "2026-07-11T16:39:15.388Z",
+                "delay": 9,
+                "takeoffTimeAct": "2026-07-11T16:48:56.384Z",
+                "durationAct": 130,
+                "arrTimeAct": "2026-07-11T18:59:24.063Z",
+                "open": "2026-07-11T16:29:06.840Z",
+                "close": "2026-07-11T19:14:46.600Z",
+                "rating": 4.67,
+                "simulator": "msfs",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 875,
+                        "fuel": 6310,
+                        "expenses": 12994,
+                        "penalties": 10037,
+                        "revenue": 36990,
+                        "balance": 13959,
+                        "prices": {
+                            "ticketPrice": 178,
+                            "cargoUnitPrice": 198,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 180,
+                            "cargo": 25,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 180
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 5707,
+                        "aircraft": 5650,
+                        "handling": 908,
+                        "landing": 729
+                    },
+                    "revenue": {
+                        "tickets": 32040,
+                        "cargo": 4950
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight delayed 5 minutes (max 15 minutes after scheduled is allowed)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 450
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 49
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline takeoff (deviation 16.26m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -113,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "weather": {
+                                        "windDir": 229.39,
+                                        "windSpd": 4.35,
+                                        "windX": 3.04
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "MLW exceeded: 1590kg above maximum landing weight of 66361kg",
+                            "penalty": {
+                                "points": -144,
+                                "cash": 9587
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 34
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.2,
+                                        "rate": 144
+                                    },
+                                    "weather": {
+                                        "windDir": 180,
+                                        "windSpd": 4,
+                                        "windX": -1.09
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 7.12m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -51,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 34
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.2,
+                                        "rate": 144
+                                    },
+                                    "weather": {
+                                        "windDir": 180,
+                                        "windSpd": 4,
+                                        "windX": -1.09
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.20G (144 ft/min, normal  conditions)<br/>Distance from threshold: 352m (accepted range: 189-758m)<br/>Average centerline deviation: 1.80m<br/>Max centerline deviation: 7.12m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 34
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.2,
+                                        "rate": 144
+                                    },
+                                    "weather": {
+                                        "windDir": 180,
+                                        "windSpd": 4,
+                                        "windX": -1.09
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Overspeed for 45 seconds",
+                            "penalty": {
+                                "points": -225,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-11T15:21:22.257Z",
+                "updatedAt": "2026-07-11T19:14:46.702Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "LTBS",
+                    "name": "Dalaman International Airport",
+                    "city": "Dalaman",
+                    "location": {
+                        "lat": 36.7131004333,
+                        "lon": 28.7924995422,
+                        "elev": 20
+                    }
+                },
+                "actArr": {
+                    "icao": "LTBS",
+                    "name": "Dalaman International Airport",
+                    "city": "Dalaman",
+                    "location": {
+                        "lat": 36.7131004333,
+                        "lon": 28.7924995422,
+                        "elev": 20
+                    }
+                }
+            }
+        ]
     }
 ]
