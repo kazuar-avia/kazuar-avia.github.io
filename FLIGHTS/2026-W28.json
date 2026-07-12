@@ -12799,6 +12799,161 @@
                     },
                     "name": "Simferopol International Airport"
                 }
+            },
+            {
+                "_id": "6a535e5b5760ec7cdbab5621",
+                "aircraft": {
+                    "_id": "695a82b73dc76275bad4f381",
+                    "name": "ATR 72-600",
+                    "customName": "Windrose l ATR-72 based in UKBB l UR-RWC",
+                    "icao": "AT76"
+                },
+                "type": "pax",
+                "flightNumber": "888",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 57,
+                    "cargo": 8,
+                    "weights": {
+                        "cargo": 744
+                    }
+                },
+                "depTime": "2026-07-12T09:45:00.000Z",
+                "duration": 80,
+                "arrTime": "2026-07-12T11:05:00.000Z",
+                "depTimeAct": "2026-07-12T09:34:25.065Z",
+                "delay": -25,
+                "takeoffTimeAct": "2026-07-12T09:37:49.412Z",
+                "durationAct": 63,
+                "arrTimeAct": "2026-07-12T10:40:26.822Z",
+                "open": "2026-07-12T09:29:03.930Z",
+                "close": "2026-07-12T10:41:44.984Z",
+                "rating": 7.9,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 256,
+                        "fuel": 805,
+                        "expenses": 3037,
+                        "penalties": 5000,
+                        "revenue": 6887,
+                        "balance": -1150,
+                        "prices": {
+                            "ticketPrice": 103,
+                            "cargoUnitPrice": 127,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 57,
+                            "cargo": 8,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 57
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 729,
+                        "aircraft": 1898,
+                        "handling": 203,
+                        "landing": 207
+                    },
+                    "revenue": {
+                        "tickets": 5871,
+                        "cargo": 1016
+                    },
+                    "violations": [
+                        {
+                            "title": "Tail wind value exceeded on takeoff (measured: 11 KT, allowed: 10 KT)",
+                            "penalty": {
+                                "points": -100,
+                                "cash": 5000
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 49
+                                    },
+                                    "weather": {
+                                        "windDir": 288.44,
+                                        "windSpd": 12.03,
+                                        "windX": -4.58
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Uncomfortable touchdown: 1.94G (702 ft/min, challenging  conditions)<br/>Distance from threshold: 304m (accepted range: 175-704m)<br/>Average centerline deviation: 0.97m<br/>Max centerline deviation: 1.83m",
+                            "penalty": {
+                                "points": -110,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 46
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.94,
+                                        "rate": 702
+                                    },
+                                    "weather": {
+                                        "windDir": 273.18,
+                                        "windSpd": 11.41,
+                                        "windX": -10.24
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-12T09:28:59.587Z",
+                "updatedAt": "2026-07-12T10:41:45.051Z",
+                "dep": {
+                    "icao": "UKKK",
+                    "name": "Ihor Sikorsky Kyiv International Airport (Zhuliany)",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.40194,
+                        "lon": 30.45194,
+                        "elev": 587
+                    }
+                },
+                "arr": {
+                    "icao": "UKOH",
+                    "name": "Kherson International Airport",
+                    "city": "Kherson",
+                    "location": {
+                        "lat": 46.6758,
+                        "lon": 32.506401,
+                        "elev": 148
+                    }
+                },
+                "actArr": {
+                    "icao": "UKOH",
+                    "name": "Kherson International Airport",
+                    "city": "Kherson",
+                    "location": {
+                        "lat": 46.6758,
+                        "lon": 32.506401,
+                        "elev": 148
+                    }
+                }
             }
         ]
     },
