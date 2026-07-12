@@ -4293,6 +4293,161 @@
                         "elev": 1302
                     }
                 }
+            },
+            {
+                "_id": "6a5381805760ec7cdbae980d",
+                "aircraft": {
+                    "_id": "695a82f03dc76275bad4fcbd",
+                    "name": "Airbus A320",
+                    "customName": "DonbassAero l A320 IAE based in UKCC UKOO l UR-DAB",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "06W",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 163,
+                    "cargo": 6,
+                    "weights": {
+                        "cargo": 636
+                    }
+                },
+                "depTime": "2026-07-12T12:15:00.000Z",
+                "duration": 55,
+                "arrTime": "2026-07-12T13:10:00.000Z",
+                "depTimeAct": "2026-07-12T12:04:22.817Z",
+                "delay": -16,
+                "takeoffTimeAct": "2026-07-12T12:14:20.826Z",
+                "durationAct": 40,
+                "arrTimeAct": "2026-07-12T12:54:22.813Z",
+                "open": "2026-07-12T12:03:39.044Z",
+                "close": "2026-07-12T12:57:40.842Z",
+                "rating": 9.49,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 234,
+                        "fuel": 1736,
+                        "expenses": 7941,
+                        "penalties": 0,
+                        "revenue": 17382,
+                        "balance": 9441,
+                        "prices": {
+                            "ticketPrice": 102,
+                            "cargoUnitPrice": 126,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 163,
+                            "cargo": 6,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 163
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1963,
+                        "aircraft": 4500,
+                        "handling": 818,
+                        "landing": 660
+                    },
+                    "revenue": {
+                        "tickets": 16626,
+                        "cargo": 756
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 7.15m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -51,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "weather": {
+                                        "windDir": 19.99,
+                                        "windSpd": 12.24,
+                                        "windX": -1.04
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.34G (306 ft/min, normal  conditions)<br/>Distance from threshold: 459m (accepted range: 193-776m)<br/>Average centerline deviation: 2.42m<br/>Max centerline deviation: 3.66m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.34,
+                                        "rate": 306
+                                    },
+                                    "weather": {
+                                        "windDir": 40,
+                                        "windSpd": 5,
+                                        "windX": 3.89
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-12T11:58:56.402Z",
+                "updatedAt": "2026-07-12T12:57:40.910Z",
+                "dep": {
+                    "icao": "ESOK",
+                    "name": "Karlstad Airport",
+                    "city": "Karlstad",
+                    "location": {
+                        "lat": 59.444698,
+                        "lon": 13.3374,
+                        "elev": 352
+                    }
+                },
+                "arr": {
+                    "icao": "EKAH",
+                    "name": "Aarhus Airport",
+                    "city": "Aarhus",
+                    "location": {
+                        "lat": 56.303331,
+                        "lon": 10.618286,
+                        "elev": 82
+                    }
+                },
+                "actArr": {
+                    "icao": "EKAH",
+                    "name": "Aarhus Airport",
+                    "city": "Aarhus",
+                    "location": {
+                        "lat": 56.303331,
+                        "lon": 10.618286,
+                        "elev": 82
+                    }
+                }
             }
         ]
     },
