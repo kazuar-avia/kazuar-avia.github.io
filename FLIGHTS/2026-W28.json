@@ -9911,6 +9911,176 @@
                         "elev": 2020
                     }
                 }
+            },
+            {
+                "_id": "6a5337065760ec7cdba87388",
+                "aircraft": {
+                    "_id": "699ae4f09da57b990ac12987",
+                    "name": "Boeing 777 Freighter",
+                    "customName": "UCAA l 777F (cargo) based in UKBB l UR-CRG",
+                    "icao": "B77L"
+                },
+                "type": "cargo",
+                "flightNumber": "84U",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 0,
+                    "cargo": 758,
+                    "weights": {
+                        "cargo": 86412
+                    }
+                },
+                "depTime": "2026-07-12T06:55:00.000Z",
+                "duration": 260,
+                "arrTime": "2026-07-12T11:15:00.000Z",
+                "depTimeAct": "2026-07-12T06:50:28.840Z",
+                "delay": -50,
+                "takeoffTimeAct": "2026-07-12T06:50:32.852Z",
+                "durationAct": 215,
+                "arrTimeAct": "2026-07-12T10:25:11.233Z",
+                "open": "2026-07-12T06:49:39.435Z",
+                "close": "2026-07-12T10:28:50.282Z",
+                "rating": 9.3,
+                "simulator": "msfs",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1636,
+                        "fuel": 31235,
+                        "expenses": 61955,
+                        "penalties": 0,
+                        "revenue": 171308,
+                        "balance": 109353,
+                        "prices": {
+                            "ticketPrice": 215,
+                            "cargoUnitPrice": 226,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 0,
+                            "cargo": 758,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 35312,
+                        "aircraft": 23775,
+                        "handling": 1023,
+                        "landing": 1845
+                    },
+                    "revenue": {
+                        "tickets": 0,
+                        "cargo": 171308
+                    },
+                    "violations": [
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1013mb instead of 1007mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 38
+                                    },
+                                    "weather": {
+                                        "windDir": 251.43,
+                                        "windSpd": 3.02,
+                                        "windX": -0.92
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.36G (435 ft/min, normal  conditions)<br/>Distance from threshold: 628m (accepted range: 210-843m)<br/>Average centerline deviation: 1.33m<br/>Max centerline deviation: 2.86m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.36,
+                                        "rate": 435
+                                    },
+                                    "weather": {
+                                        "windDir": 327.05,
+                                        "windSpd": 0.88,
+                                        "windX": 0.26
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Max G exceeded: 2.1G (max allowed: 2G)",
+                            "penalty": {
+                                "points": -20,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 48
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-12T06:41:10.787Z",
+                "updatedAt": "2026-07-12T10:28:50.360Z",
+                "dep": {
+                    "icao": "UKCC",
+                    "city": "Donetsk",
+                    "location": {
+                        "lat": 48.075072,
+                        "lon": 37.72527,
+                        "elev": 791
+                    },
+                    "name": "Donetsk Sergei Prokofiev International Airport"
+                },
+                "arr": {
+                    "icao": "OMSJ",
+                    "name": "Sharjah International Airport",
+                    "city": "Sharjah",
+                    "location": {
+                        "lat": 25.3286,
+                        "lon": 55.5172,
+                        "elev": 111
+                    }
+                },
+                "actArr": {
+                    "icao": "OMSJ",
+                    "name": "Sharjah International Airport",
+                    "city": "Sharjah",
+                    "location": {
+                        "lat": 25.3286,
+                        "lon": 55.5172,
+                        "elev": 111
+                    }
+                }
             }
         ]
     },
