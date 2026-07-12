@@ -26804,6 +26804,178 @@
                         "elev": 1071
                     }
                 }
+            },
+            {
+                "_id": "6a5391815760ec7cdbb0291e",
+                "aircraft": {
+                    "_id": "69ef2326a5e61d69a7a9a128",
+                    "name": "Airbus A320",
+                    "customName": "Windrose l A320 based in UKDD UKBB l UR-WRW",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "56J",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 117,
+                    "cargo": 11,
+                    "weights": {
+                        "cargo": 1452
+                    }
+                },
+                "depTime": "2026-07-12T13:20:00.000Z",
+                "duration": 65,
+                "arrTime": "2026-07-12T14:25:00.000Z",
+                "depTimeAct": "2026-07-12T13:27:30.304Z",
+                "delay": 1,
+                "takeoffTimeAct": "2026-07-12T13:27:30.304Z",
+                "durationAct": 59,
+                "arrTimeAct": "2026-07-12T14:26:21.353Z",
+                "open": "2026-07-12T13:17:15.263Z",
+                "close": "2026-07-12T14:32:16.340Z",
+                "rating": 9,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 343,
+                        "fuel": 1962,
+                        "expenses": 7317,
+                        "penalties": 0,
+                        "revenue": 13693,
+                        "balance": 6376,
+                        "prices": {
+                            "ticketPrice": 105,
+                            "cargoUnitPrice": 128,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.7,
+                                "fuel": 0.8,
+                                "ground": 0.7
+                            }
+                        },
+                        "payload": {
+                            "pax": 117,
+                            "cargo": 11,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 117
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1775,
+                        "aircraft": 4075,
+                        "handling": 585,
+                        "landing": 882
+                    },
+                    "revenue": {
+                        "tickets": 12285,
+                        "cargo": 1408
+                    },
+                    "violations": [
+                        {
+                            "title": "Great touchdown: 1.33G (309 ft/min, challenging  conditions)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 19
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.33,
+                                        "rate": 309
+                                    },
+                                    "weather": {
+                                        "windDir": 307.91,
+                                        "windSpd": 7.39,
+                                        "windX": -6.05
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No STROBE lights for 2910s when required",
+                            "penalty": {
+                                "points": -100,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        },
+                        {
+                            "title": "Fuel used 1913 kg is lower than estimated minimum 1962 kg.",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 19
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.33,
+                                        "rate": 309
+                                    },
+                                    "weather": {
+                                        "windDir": 307.91,
+                                        "windSpd": 7.39,
+                                        "windX": -6.05
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-12T13:07:13.828Z",
+                "updatedAt": "2026-07-12T14:32:16.408Z",
+                "dep": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
             }
         ]
     },
