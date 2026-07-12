@@ -21812,6 +21812,185 @@
                         "elev": 489
                     }
                 }
+            },
+            {
+                "_id": "6a53bc055760ec7cdbb4d038",
+                "aircraft": {
+                    "_id": "6a4687cc5760ec7cdbae102b",
+                    "name": "Boeing 737 MAX 8",
+                    "customName": "Dry Lease l 737-MAX8 160 pax 3 classes l XP11 ",
+                    "icao": "B38M"
+                },
+                "type": "pax",
+                "flightNumber": "04K",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 138,
+                    "cargo": 41,
+                    "weights": {
+                        "cargo": 5658
+                    }
+                },
+                "depTime": "2026-07-12T16:30:00.000Z",
+                "duration": 100,
+                "arrTime": "2026-07-12T18:10:00.000Z",
+                "depTimeAct": "2026-07-12T16:31:15.651Z",
+                "delay": 7,
+                "takeoffTimeAct": "2026-07-12T16:38:58.966Z",
+                "durationAct": 98,
+                "arrTimeAct": "2026-07-12T18:16:37.114Z",
+                "open": "2026-07-12T16:23:16.667Z",
+                "close": "2026-07-12T18:21:08.494Z",
+                "rating": 9.18,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 652,
+                        "fuel": 4319,
+                        "expenses": 12252,
+                        "penalties": 0,
+                        "revenue": 23939,
+                        "balance": 11687,
+                        "prices": {
+                            "ticketPrice": 120,
+                            "cargoUnitPrice": 139,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.85
+                            }
+                        },
+                        "payload": {
+                            "pax": 138,
+                            "cargo": 41,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 14,
+                                "Y": 124
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4883,
+                        "aircraft": 5500,
+                        "handling": 987,
+                        "landing": 882
+                    },
+                    "revenue": {
+                        "tickets": 18240,
+                        "cargo": 5699
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 5.96m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -32,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 23
+                                    },
+                                    "weather": {
+                                        "windDir": 60,
+                                        "windSpd": 5.12,
+                                        "windX": -4.17
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.15G (238 ft/min, challenging  conditions)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.15,
+                                        "rate": 238
+                                    },
+                                    "weather": {
+                                        "windDir": 265.12,
+                                        "windSpd": 11.65,
+                                        "windX": -11.6
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on landing: 1012mb instead of 1009.96mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.15,
+                                        "rate": 238
+                                    },
+                                    "weather": {
+                                        "windDir": 265.12,
+                                        "windSpd": 11.65,
+                                        "windX": -11.6
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-12T16:08:37.749Z",
+                "updatedAt": "2026-07-12T18:21:08.574Z",
+                "dep": {
+                    "icao": "EPGD",
+                    "name": "Gdańsk Lech Wałęsa Airport",
+                    "city": "Gdańsk",
+                    "location": {
+                        "lat": 54.377602,
+                        "lon": 18.4662,
+                        "elev": 489
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
             }
         ]
     },
