@@ -15905,6 +15905,180 @@
                         "elev": 13
                     }
                 }
+            },
+            {
+                "_id": "6a535da15760ec7cdbab4390",
+                "aircraft": {
+                    "_id": "696285163dc76275ba9ef60c",
+                    "name": "Boeing 737-800",
+                    "customName": "UCAA l 737-800 (pax) based in UKKK l UR-UCA",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "323G",
+                "free": false,
+                "schedule": false,
+                "charter": true,
+                "payload": {
+                    "pax": 163,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-07-12T10:00:00.000Z",
+                "duration": 50,
+                "arrTime": "2026-07-12T10:50:00.000Z",
+                "depTimeAct": "2026-07-12T09:56:09.518Z",
+                "delay": -12,
+                "takeoffTimeAct": "2026-07-12T10:00:23.530Z",
+                "durationAct": 38,
+                "arrTimeAct": "2026-07-12T10:38:16.562Z",
+                "open": "2026-07-12T09:37:45.399Z",
+                "close": "2026-07-12T10:43:55.589Z",
+                "rating": 8.9,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 208,
+                        "fuel": 2094,
+                        "expenses": 9231,
+                        "penalties": 0,
+                        "revenue": 25212,
+                        "balance": 15981,
+                        "prices": {
+                            "ticketPrice": 132,
+                            "cargoUnitPrice": 162,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 163,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 4,
+                                "C": 16,
+                                "Y": 143
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2260,
+                        "aircraft": 4450,
+                        "handling": 1141,
+                        "landing": 1380
+                    },
+                    "revenue": {
+                        "tickets": 25212,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 9.17m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -87,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (762m from threshold beyond 697m max accepted)",
+                            "penalty": {
+                                "points": -23,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.37,
+                                        "rate": 341
+                                    },
+                                    "weather": {
+                                        "windDir": 59.89,
+                                        "windSpd": 9.99,
+                                        "windX": -4.81
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.37G (341 ft/min, normal  conditions)<br/>Distance from threshold: 762m (accepted range: 174-697m)<br/>Average centerline deviation: 5.56m<br/>Max centerline deviation: 9.17m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.37,
+                                        "rate": 341
+                                    },
+                                    "weather": {
+                                        "windDir": 59.89,
+                                        "windSpd": 9.99,
+                                        "windX": -4.81
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-12T09:25:53.067Z",
+                "updatedAt": "2026-07-12T10:43:55.665Z",
+                "dep": {
+                    "icao": "TNCM",
+                    "name": "Princess Juliana International Airport",
+                    "city": "Sint Maarten",
+                    "location": {
+                        "lat": 18.041,
+                        "lon": -63.108898,
+                        "elev": 13
+                    }
+                },
+                "arr": {
+                    "icao": "TJSJ",
+                    "name": "Luis Munoz Marin International Airport",
+                    "city": "San Juan",
+                    "location": {
+                        "lat": 18.4394,
+                        "lon": -66.001801,
+                        "elev": 9
+                    }
+                },
+                "actArr": {
+                    "icao": "TJSJ",
+                    "name": "Luis Munoz Marin International Airport",
+                    "city": "San Juan",
+                    "location": {
+                        "lat": 18.4394,
+                        "lon": -66.001801,
+                        "elev": 9
+                    }
+                }
             }
         ]
     },
