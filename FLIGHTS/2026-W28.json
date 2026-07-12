@@ -13477,6 +13477,174 @@
                         "elev": 148
                     }
                 }
+            },
+            {
+                "_id": "6a5386405760ec7cdbaf117f",
+                "aircraft": {
+                    "_id": "695a82b73dc76275bad4f381",
+                    "name": "ATR 72-600",
+                    "customName": "Windrose l ATR-72 based in UKBB l UR-RWC",
+                    "icao": "AT76"
+                },
+                "type": "pax",
+                "flightNumber": "32H",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 69,
+                    "cargo": 7,
+                    "weights": {
+                        "cargo": 805
+                    }
+                },
+                "depTime": "2026-07-12T13:00:00.000Z",
+                "duration": 65,
+                "arrTime": "2026-07-12T14:05:00.000Z",
+                "depTimeAct": "2026-07-12T12:51:32.461Z",
+                "delay": -12,
+                "takeoffTimeAct": "2026-07-12T12:55:16.327Z",
+                "durationAct": 57,
+                "arrTimeAct": "2026-07-12T13:52:33.814Z",
+                "open": "2026-07-12T12:23:02.898Z",
+                "close": "2026-07-12T14:01:02.263Z",
+                "rating": 8.99,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 199,
+                        "fuel": 778,
+                        "expenses": 3185,
+                        "penalties": 5000,
+                        "revenue": 6593,
+                        "balance": -1592,
+                        "prices": {
+                            "ticketPrice": 85,
+                            "cargoUnitPrice": 104,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 69,
+                            "cargo": 7,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 69
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 880,
+                        "aircraft": 1823,
+                        "handling": 314,
+                        "landing": 168
+                    },
+                    "revenue": {
+                        "tickets": 5865,
+                        "cargo": 728
+                    },
+                    "violations": [
+                        {
+                            "title": "Tail wind value exceeded on takeoff (measured: 13 KT, allowed: 10 KT)",
+                            "penalty": {
+                                "points": -100,
+                                "cash": 5000
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 50
+                                    },
+                                    "weather": {
+                                        "windDir": 294.69,
+                                        "windSpd": 14.7,
+                                        "windX": -4.82
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.10G (103 ft/min, challenging  conditions)<br/>Distance from threshold: 476m (accepted range: 169-679m)<br/>Average centerline deviation: 1.99m<br/>Max centerline deviation: 4.55m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 44
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.1,
+                                        "rate": 103
+                                    },
+                                    "weather": {
+                                        "windDir": 303.69,
+                                        "windSpd": 6.99,
+                                        "windX": -4.63
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No BEACON lights for 31s when required",
+                            "penalty": {
+                                "points": -1,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-12T12:19:12.812Z",
+                "updatedAt": "2026-07-12T14:01:02.343Z",
+                "dep": {
+                    "icao": "UKHP",
+                    "name": "Suprunovka Airport",
+                    "city": "Poltava",
+                    "location": {
+                        "lat": 49.5686,
+                        "lon": 34.397202,
+                        "elev": 505
+                    }
+                },
+                "arr": {
+                    "icao": "UKKK",
+                    "name": "Ihor Sikorsky Kyiv International Airport (Zhuliany)",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.40194,
+                        "lon": 30.45194,
+                        "elev": 587
+                    }
+                },
+                "actArr": {
+                    "icao": "UKKK",
+                    "name": "Ihor Sikorsky Kyiv International Airport (Zhuliany)",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.40194,
+                        "lon": 30.45194,
+                        "elev": 587
+                    }
+                }
             }
         ]
     },
