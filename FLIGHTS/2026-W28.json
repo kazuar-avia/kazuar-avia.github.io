@@ -23086,6 +23086,204 @@
                     },
                     "name": "Svyatoshyn Airport"
                 }
+            },
+            {
+                "_id": "6a53c7ee6748d36670fe9ced",
+                "aircraft": {
+                    "_id": "6a48a7935760ec7cdbd54058",
+                    "name": "Cessna 172",
+                    "customName": "Cessna C172",
+                    "icao": "C172"
+                },
+                "type": "pax",
+                "flightNumber": "335",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 3,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-07-12T17:15:00.000Z",
+                "duration": 30,
+                "arrTime": "2026-07-12T17:45:00.000Z",
+                "depTimeAct": "2026-07-12T17:01:06.387Z",
+                "delay": -25,
+                "takeoffTimeAct": "2026-07-12T17:01:57.378Z",
+                "durationAct": 18,
+                "arrTimeAct": "2026-07-12T17:19:32.391Z",
+                "open": "2026-07-12T17:00:03.145Z",
+                "close": "2026-07-12T17:21:31.409Z",
+                "rating": 0.98,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 29,
+                        "fuel": 10,
+                        "expenses": 132,
+                        "penalties": 300000,
+                        "revenue": 93,
+                        "balance": -300039,
+                        "prices": {
+                            "ticketPrice": 31,
+                            "cargoUnitPrice": 29,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 3,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 3
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 12,
+                        "aircraft": 83,
+                        "handling": 15,
+                        "landing": 22
+                    },
+                    "revenue": {
+                        "tickets": 93,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Tail strike on takeoff (pitch: 9.5, allowed: 8.0)",
+                            "penalty": {
+                                "points": -400,
+                                "cash": 150000
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 38
+                                    },
+                                    "weather": {
+                                        "windDir": 325.61,
+                                        "windSpd": 4.7,
+                                        "windX": -0.03
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline takeoff (deviation 11.16m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -100,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Tail strike on landing (pitch: 10.2, max: 8.0)",
+                            "penalty": {
+                                "points": -400,
+                                "cash": 150000
+                            },
+                            "entry": {
+                                "type": "stall_start",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.50G (261 ft/min, challenging  conditions)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.5,
+                                        "rate": 261
+                                    },
+                                    "weather": {
+                                        "windDir": 325.52,
+                                        "windSpd": 6.99,
+                                        "windX": -0.53
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No BEACON lights for 37s when required",
+                            "penalty": {
+                                "points": -2,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-12T16:59:26.351Z",
+                "updatedAt": "2026-07-12T17:21:31.492Z",
+                "dep": {
+                    "icao": "UKKT",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.478224,
+                        "lon": 30.384631,
+                        "elev": 582
+                    },
+                    "name": "Svyatoshyn Airport"
+                },
+                "arr": {
+                    "icao": "UKKM",
+                    "name": "Hostomel Airport",
+                    "city": "Kiev",
+                    "location": {
+                        "lat": 50.6035,
+                        "lon": 30.1919,
+                        "elev": 517
+                    }
+                },
+                "actArr": {
+                    "icao": "UKKM",
+                    "name": "Hostomel Airport",
+                    "city": "Kiev",
+                    "location": {
+                        "lat": 50.6035,
+                        "lon": 30.1919,
+                        "elev": 517
+                    }
+                }
             }
         ]
     },
