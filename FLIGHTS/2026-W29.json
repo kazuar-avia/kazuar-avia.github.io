@@ -4452,5 +4452,207 @@
                 }
             }
         ]
+    },
+    {
+        "pilot_id": "6a4d3b715760ec7cdb39ff17",
+        "fullname": "Ruslan Cherniavskyi",
+        "avatar": "default",
+        "flights": [
+            {
+                "_id": "6a5538b55760ec7cdbd12a60",
+                "aircraft": {
+                    "_id": "6a4f68e35760ec7cdb5e6c2d",
+                    "name": "Boeing 737-800",
+                    "customName": "SkyUp l 737-800 based in UKLL UKHH UKDE l UR-SQB",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "1001",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 189,
+                    "cargo": 19,
+                    "weights": {
+                        "cargo": 1976
+                    }
+                },
+                "depTime": "2026-07-13T20:00:00.000Z",
+                "duration": 70,
+                "arrTime": "2026-07-13T21:10:00.000Z",
+                "depTimeAct": "2026-07-13T20:16:51.662Z",
+                "delay": 11,
+                "takeoffTimeAct": "2026-07-13T20:24:25.654Z",
+                "durationAct": 56,
+                "arrTimeAct": "2026-07-13T21:20:44.508Z",
+                "open": "2026-07-13T19:59:31.277Z",
+                "close": "2026-07-13T21:29:35.703Z",
+                "rating": 7.87,
+                "simulator": "msfs",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 335,
+                        "fuel": 2465,
+                        "expenses": 7558,
+                        "penalties": 189,
+                        "revenue": 27799,
+                        "balance": 20052,
+                        "prices": {
+                            "ticketPrice": 131,
+                            "cargoUnitPrice": 160,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.7,
+                                "fuel": 0.8,
+                                "ground": 0.7
+                            }
+                        },
+                        "payload": {
+                            "pax": 189,
+                            "cargo": 19,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 189
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2230,
+                        "aircraft": 3500,
+                        "handling": 946,
+                        "landing": 882
+                    },
+                    "revenue": {
+                        "tickets": 24759,
+                        "cargo": 3040
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight delayed 2 minutes (max 15 minutes after scheduled is allowed)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 189
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline takeoff (deviation 10.01m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -35,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Delayed gear retraction after takeoff more than 30s, actual: 31s)",
+                            "penalty": {
+                                "points": -25,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gear",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.51G (419 ft/min, challenging  conditions)<br/>Distance from threshold: 302m (accepted range: 209-838m)<br/>Average centerline deviation: 0.97m<br/>Max centerline deviation: 3.18m",
+                            "penalty": {
+                                "points": -3,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.51,
+                                        "rate": 419
+                                    },
+                                    "weather": {
+                                        "windDir": 270,
+                                        "windSpd": 5.17,
+                                        "windX": 4.27
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 531ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-13T19:12:53.978Z",
+                "updatedAt": "2026-07-13T21:29:35.789Z",
+                "dep": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
+            }
+        ]
     }
 ]
