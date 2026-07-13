@@ -1554,6 +1554,180 @@
                         "elev": 300
                     }
                 }
+            },
+            {
+                "_id": "6a54ddab5760ec7cdbc89d2b",
+                "aircraft": {
+                    "_id": "6a4671586748d36670c9277b",
+                    "name": "Boeing 737 MAX 8",
+                    "customName": "Dry Lease l 737-MAX8 197 pax l msfs 2024",
+                    "icao": "B38M"
+                },
+                "type": "pax",
+                "flightNumber": "17E",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 197,
+                    "cargo": 22,
+                    "weights": {
+                        "cargo": 1716
+                    }
+                },
+                "depTime": "2026-07-13T13:00:00.000Z",
+                "duration": 95,
+                "arrTime": "2026-07-13T14:35:00.000Z",
+                "depTimeAct": "2026-07-13T13:16:11.693Z",
+                "delay": 11,
+                "takeoffTimeAct": "2026-07-13T13:24:51.688Z",
+                "durationAct": 81,
+                "arrTimeAct": "2026-07-13T14:45:37.766Z",
+                "open": "2026-07-13T12:50:04.650Z",
+                "close": "2026-07-13T14:50:39.312Z",
+                "rating": 8.63,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 538,
+                        "fuel": 3075,
+                        "expenses": 8899,
+                        "penalties": 197,
+                        "revenue": 28403,
+                        "balance": 19307,
+                        "prices": {
+                            "ticketPrice": 117,
+                            "cargoUnitPrice": 137,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.7,
+                                "fuel": 0.8,
+                                "ground": 0.7
+                            }
+                        },
+                        "payload": {
+                            "pax": 197,
+                            "cargo": 22,
+                            "paxByClass": {
+                                "F": 2,
+                                "C": 14,
+                                "Y": 181
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2782,
+                        "aircraft": 4625,
+                        "handling": 988,
+                        "landing": 504
+                    },
+                    "revenue": {
+                        "tickets": 25389,
+                        "cargo": 3014
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight delayed 2 minutes (max 15 minutes after scheduled is allowed)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 197
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 41
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Short landing (68m from threshold before 175m min accepted)",
+                            "penalty": {
+                                "points": -92,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 36
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.68,
+                                        "rate": 430
+                                    },
+                                    "weather": {
+                                        "windDir": 270.72,
+                                        "windSpd": 8.61,
+                                        "windX": 1.08
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.68G (430 ft/min, challenging  conditions)<br/>Distance from threshold: 68m (accepted range: 175-704m)<br/>Average centerline deviation: 1.55m<br/>Max centerline deviation: 3.32m",
+                            "penalty": {
+                                "points": -45,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 36
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.68,
+                                        "rate": 430
+                                    },
+                                    "weather": {
+                                        "windDir": 270.72,
+                                        "windSpd": 8.61,
+                                        "windX": 1.08
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-13T12:44:27.862Z",
+                "updatedAt": "2026-07-13T14:50:39.420Z",
+                "dep": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "arr": {
+                    "icao": "UKHH",
+                    "name": "Kharkiv International Airport",
+                    "city": "Kharkiv",
+                    "location": {
+                        "lat": 49.926943,
+                        "lon": 36.290814,
+                        "elev": 508
+                    }
+                },
+                "actArr": {
+                    "icao": "UKHH",
+                    "name": "Kharkiv International Airport",
+                    "city": "Kharkiv",
+                    "location": {
+                        "lat": 49.926943,
+                        "lon": 36.290814,
+                        "elev": 508
+                    }
+                }
             }
         ]
     },
