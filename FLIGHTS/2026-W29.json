@@ -1255,6 +1255,156 @@
                         "elev": 1046
                     }
                 }
+            },
+            {
+                "_id": "6a5521135760ec7cdbcebc66",
+                "aircraft": {
+                    "_id": "699ae4f09da57b990ac12987",
+                    "name": "Boeing 777 Freighter",
+                    "customName": "UCAA l 777F (cargo) based in UKBB l UR-CRG",
+                    "icao": "B77L"
+                },
+                "type": "cargo",
+                "flightNumber": "470G",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 0,
+                    "cargo": 1100,
+                    "weights": {
+                        "cargo": 80300
+                    }
+                },
+                "depTime": "2026-07-13T17:45:00.000Z",
+                "duration": 145,
+                "arrTime": "2026-07-13T20:10:00.000Z",
+                "depTimeAct": "2026-07-13T17:39:34.693Z",
+                "delay": -17,
+                "takeoffTimeAct": "2026-07-13T17:43:08.718Z",
+                "durationAct": 130,
+                "arrTimeAct": "2026-07-13T19:52:42.948Z",
+                "open": "2026-07-13T17:38:48.957Z",
+                "close": "2026-07-13T19:53:44.988Z",
+                "rating": 8.5,
+                "simulator": "msfs",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 910,
+                        "fuel": 16244,
+                        "expenses": 35247,
+                        "penalties": 0,
+                        "revenue": 172700,
+                        "balance": 137453,
+                        "prices": {
+                            "ticketPrice": 141,
+                            "cargoUnitPrice": 157,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 0,
+                            "cargo": 1100,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 14692,
+                        "aircraft": 18050,
+                        "handling": 1155,
+                        "landing": 1350
+                    },
+                    "revenue": {
+                        "tickets": 0,
+                        "cargo": 172700
+                    },
+                    "violations": [
+                        {
+                            "title": "Uncomfortable touchdown: 1.98G (862 ft/min, normal  conditions)<br/>Distance from threshold: 652m (accepted range: 170-684m)<br/>Average centerline deviation: 0.93m<br/>Max centerline deviation: 1.79m",
+                            "penalty": {
+                                "points": -122,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 35
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.98,
+                                        "rate": 862
+                                    },
+                                    "weather": {
+                                        "windDir": 269.73,
+                                        "windSpd": 1.14,
+                                        "windX": -0.03
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Max G exceeded: 2.14G (max allowed: 2G)",
+                            "penalty": {
+                                "points": -28,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-13T17:32:03.336Z",
+                "updatedAt": "2026-07-13T19:53:45.079Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "EDDV",
+                    "name": "Hannover Airport",
+                    "city": "Hannover",
+                    "location": {
+                        "lat": 52.461102,
+                        "lon": 9.68508,
+                        "elev": 183
+                    }
+                },
+                "actArr": {
+                    "icao": "EDDV",
+                    "name": "Hannover Airport",
+                    "city": "Hannover",
+                    "location": {
+                        "lat": 52.461102,
+                        "lon": 9.68508,
+                        "elev": 183
+                    }
+                }
             }
         ]
     },
