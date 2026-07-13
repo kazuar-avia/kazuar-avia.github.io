@@ -1,0 +1,38 @@
+name: Update guaranteed bonuses
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/15 * * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-guaranteed-bonuses
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout site
+        uses: actions/checkout@v4
+
+      - name: Run guaranteed bonuses updater
+        run: node scripts/update-guaranteed-bonuses.js
+
+      - name: Commit updated bonus file
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          if git diff --quiet -- COMPANY/guaranteed-bonuses.json; then
+            echo "No guaranteed bonus changes."
+            exit 0
+          fi
+
+          git add COMPANY/guaranteed-bonuses.json
+          git commit -m "Update guaranteed bonuses"
+          git push
