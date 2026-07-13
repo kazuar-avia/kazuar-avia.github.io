@@ -32,6 +32,18 @@ function writeJson(file, data) {
   fs.writeFileSync(file, `${JSON.stringify(data, null, 2)}\n`, 'utf8');
 }
 
+function stableJson(value) {
+  if (Array.isArray(value)) return `[${value.map(stableJson).join(',')}]`;
+  if (value && typeof value === 'object') {
+    return `{${Object.keys(value).sort().map(key => `${JSON.stringify(key)}:${stableJson(value[key])}`).join(',')}}`;
+  }
+  return JSON.stringify(value);
+}
+
+function sameFlights(a, b) {
+  return stableJson(a || {}) === stableJson(b || {});
+}
+
 function upper(value) {
   return String(value || '').trim().toUpperCase();
 }
@@ -440,7 +452,7 @@ async function main() {
     console.error(JSON.stringify({liveFlights}, null, 2));
   }
 
-  const next = {version: Number(bonuses.version) || 1, updatedAt: now.toISOString(), flights: {}};
+  const next = {version: Number(bonuses.version) || 1, updatedAt: bonuses.updatedAt || '', flights: {}};
 
   Object.entries(bonuses.flights || {}).forEach(([id, record]) => {
     const state = String(record?.state || '').toUpperCase();
@@ -478,6 +490,11 @@ async function main() {
     console.log(JSON.stringify(next, null, 2));
     return;
   }
+  if (sameFlights(bonuses.flights || {}, next.flights)) {
+    console.log(`no changes for ${path.relative(process.cwd(), BONUS_FILE)}: ${Object.keys(next.flights).length} records`);
+    return;
+  }
+  next.updatedAt = now.toISOString();
   writeJson(BONUS_FILE, next);
   console.log(`updated ${path.relative(process.cwd(), BONUS_FILE)}: ${Object.keys(next.flights).length} records`);
 }
