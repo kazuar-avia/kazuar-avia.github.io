@@ -2598,6 +2598,180 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6a54debd5760ec7cdbc8ae53",
+                "aircraft": {
+                    "_id": "6980e9459da57b990a02e1bd",
+                    "name": "Boeing 737 MAX 8",
+                    "customName": "Ukraine Int l 737-MAX8 178 pax iFly l UR-MXA",
+                    "icao": "B38M"
+                },
+                "type": "pax",
+                "flightNumber": "1204",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 178,
+                    "cargo": 22,
+                    "weights": {
+                        "cargo": 1716
+                    }
+                },
+                "depTime": "2026-07-13T13:10:00.000Z",
+                "duration": 131,
+                "arrTime": "2026-07-13T15:21:00.000Z",
+                "depTimeAct": "2026-07-13T13:12:51.628Z",
+                "delay": 2,
+                "takeoffTimeAct": "2026-07-13T13:15:25.632Z",
+                "durationAct": 128,
+                "arrTimeAct": "2026-07-13T15:23:17.713Z",
+                "open": "2026-07-13T12:49:36.859Z",
+                "close": "2026-07-13T15:26:35.730Z",
+                "rating": 9.41,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 874,
+                        "fuel": 4864,
+                        "expenses": 11962,
+                        "penalties": 0,
+                        "revenue": 30668,
+                        "balance": 18706,
+                        "prices": {
+                            "ticketPrice": 143,
+                            "cargoUnitPrice": 159,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 178,
+                            "cargo": 22,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 12,
+                                "Y": 166
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4400,
+                        "aircraft": 6100,
+                        "handling": 895,
+                        "landing": 567
+                    },
+                    "revenue": {
+                        "tickets": 27170,
+                        "cargo": 3498
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 7.63m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -59,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.38G (268 ft/min, normal  conditions)<br/>Distance from threshold: 376m (accepted range: 189-758m)<br/>Average centerline deviation: 4.69m<br/>Max centerline deviation: 7.63m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.38,
+                                        "rate": 268
+                                    },
+                                    "weather": {
+                                        "windDir": 110.01,
+                                        "windSpd": 14.1,
+                                        "windX": -3.53
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Fuel used 4423 kg is lower than estimated minimum 4864 kg.",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.38,
+                                        "rate": 268
+                                    },
+                                    "weather": {
+                                        "windDir": 110.01,
+                                        "windSpd": 14.1,
+                                        "windX": -3.53
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-13T12:49:01.072Z",
+                "updatedAt": "2026-07-13T15:26:36.312Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "LIPR",
+                    "name": "Federico Fellini International Airport",
+                    "city": "Rimini (RN)",
+                    "location": {
+                        "lat": 44.020302,
+                        "lon": 12.6117,
+                        "elev": 40
+                    }
+                },
+                "actArr": {
+                    "icao": "LIPR",
+                    "name": "Federico Fellini International Airport",
+                    "city": "Rimini (RN)",
+                    "location": {
+                        "lat": 44.020302,
+                        "lon": 12.6117,
+                        "elev": 40
+                    }
+                }
             }
         ]
     },
