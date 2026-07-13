@@ -10,6 +10,7 @@ const COMPANY_DIR = path.join(OUTPUT_ROOT, 'COMPANY');
 const FLIGHTS_DIR = path.join(OUTPUT_ROOT, 'FLIGHTS');
 const BONUS_FILE = path.join(COMPANY_DIR, 'guaranteed-bonuses.json');
 const LIVE_URL = 'https://newsky.app/api/airline-api/flights/ongoing';
+const LIVE_DETAIL_URL = 'https://newsky.app/api/airline-api/flight/';
 const DEFAULT_TOKEN = 'UKR_uSTNynarbU8B8A61nvDLqmSl7Ji8xK';
 
 const args = new Set(process.argv.slice(2));
@@ -54,6 +55,10 @@ function cleanId(value) {
 
 function array(value) {
   return Array.isArray(value) ? value : [];
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 function parseDate(value) {
@@ -367,6 +372,47 @@ function normalizeLiveFlight(raw) {
   };
 }
 
+function mergeLiveFlightDetail(raw, detail) {
+  const source = detail?.flight || detail || {};
+  if (!source || typeof source !== 'object') return raw;
+  const sourceAircraft = source.aircraft;
+  if (!sourceAircraft || typeof sourceAircraft !== 'object') return raw;
+  return {
+    ...raw,
+    aircraft: {
+      ...(raw?.aircraft && typeof raw.aircraft === 'object' ? raw.aircraft : {}),
+      ...sourceAircraft,
+      airframe: {
+        ...(raw?.aircraft?.airframe || {}),
+        ...(sourceAircraft.airframe || {})
+      }
+    },
+    aircraftId: sourceAircraft._id || sourceAircraft.id || source.aircraftId || raw?.aircraftId || ''
+  };
+}
+
+async function loadLiveFlightDetail(raw, token) {
+  const id = cleanId(raw?._id || raw?.id);
+  if (!id) return raw;
+  const response = await fetch(`${LIVE_DETAIL_URL}${encodeURIComponent(id)}`, {headers: {Authorization: `Bearer ${token}`}});
+  if (!response.ok) {
+    console.warn(`Live flight detail skipped ${id}: ${response.status} ${response.statusText}`);
+    return raw;
+  }
+  return mergeLiveFlightDetail(raw, await response.json());
+}
+
+async function loadLiveFlightDetailsLimited(list, token) {
+  const result = [];
+  const batchSize = 5;
+  for (let index = 0; index < list.length; index += batchSize) {
+    const batch = list.slice(index, index + batchSize);
+    result.push(...await Promise.all(batch.map(item => loadLiveFlightDetail(item, token))));
+    if (index + batchSize < list.length) await sleep(10500);
+  }
+  return result;
+}
+
 async function loadLiveFlights() {
   const liveFile = argValue('--live-json');
   if (liveFile) {
@@ -380,7 +426,12 @@ async function loadLiveFlights() {
   if (!response.ok) throw new Error(`Live API failed: ${response.status} ${response.statusText}`);
   const raw = await response.json();
   const list = Array.isArray(raw) ? raw : array(raw.results || raw.flights);
-  return list.map(normalizeLiveFlight)
+  const filtered = list.filter(item => {
+    const live = normalizeLiveFlight(item);
+    return live.id && live.airborne && live.airlineIcao === 'UKL';
+  });
+  const detailed = await loadLiveFlightDetailsLimited(filtered, token);
+  return detailed.map(normalizeLiveFlight)
     .filter(item => item.id && item.airborne && item.airlineIcao === 'UKL');
 }
 
