@@ -2337,6 +2337,156 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6a554be35760ec7cdbd30ee2",
+                "aircraft": {
+                    "_id": "6980e9459da57b990a02e1bd",
+                    "name": "Boeing 737 MAX 8",
+                    "customName": "Ukraine Int l 737-MAX8 178 pax iFly l UR-MXA",
+                    "icao": "B38M"
+                },
+                "type": "pax",
+                "flightNumber": "30G",
+                "free": false,
+                "schedule": false,
+                "charter": true,
+                "payload": {
+                    "pax": 178,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-07-13T21:15:00.000Z",
+                "duration": 70,
+                "arrTime": "2026-07-13T22:25:00.000Z",
+                "depTimeAct": "2026-07-13T21:10:59.961Z",
+                "delay": 3,
+                "takeoffTimeAct": "2026-07-13T21:20:52.973Z",
+                "durationAct": 68,
+                "arrTimeAct": "2026-07-13T22:28:28.027Z",
+                "open": "2026-07-13T20:37:22.881Z",
+                "close": "2026-07-13T22:35:16.062Z",
+                "rating": 9.36,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 424,
+                        "fuel": 2757,
+                        "expenses": 10675,
+                        "penalties": 0,
+                        "revenue": 30210,
+                        "balance": 19535,
+                        "prices": {
+                            "ticketPrice": 159,
+                            "cargoUnitPrice": 193,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 178,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 12,
+                                "Y": 166
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3235,
+                        "aircraft": 5200,
+                        "handling": 890,
+                        "landing": 1350
+                    },
+                    "revenue": {
+                        "tickets": 30210,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 9.55m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -64,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.36G (293 ft/min, normal  conditions)<br/>Distance from threshold: 419m (accepted range: 195-784m)<br/>Average centerline deviation: 5.90m<br/>Max centerline deviation: 9.55m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.36,
+                                        "rate": 293
+                                    },
+                                    "weather": {
+                                        "windDir": 30.01,
+                                        "windSpd": 8.9,
+                                        "windX": -8.29
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-13T20:34:43.524Z",
+                "updatedAt": "2026-07-13T22:35:16.143Z",
+                "dep": {
+                    "icao": "SAZB",
+                    "name": "Comandante Espora Airport",
+                    "city": "Bahía Blanca",
+                    "location": {
+                        "lat": -38.725,
+                        "lon": -62.1693,
+                        "elev": 246
+                    }
+                },
+                "arr": {
+                    "icao": "SAEZ",
+                    "name": "Minister Pistarini International Airport",
+                    "city": "Buenos Aires (Ezeiza)",
+                    "location": {
+                        "lat": -34.8222,
+                        "lon": -58.5358,
+                        "elev": 67
+                    }
+                },
+                "actArr": {
+                    "icao": "SAEZ",
+                    "name": "Minister Pistarini International Airport",
+                    "city": "Buenos Aires (Ezeiza)",
+                    "location": {
+                        "lat": -34.8222,
+                        "lon": -58.5358,
+                        "elev": 67
+                    }
+                }
             }
         ]
     },
