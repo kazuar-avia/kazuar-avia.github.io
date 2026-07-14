@@ -19,6 +19,11 @@ jobs:
     steps:
       - name: Checkout site
         uses: actions/checkout@v4
+        
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24        
 
       - name: Run guaranteed bonuses updater
         run: node scripts/update-guaranteed-bonuses.js
