@@ -6176,6 +6176,221 @@
                         "elev": 587
                     }
                 }
+            },
+            {
+                "_id": "6a55dc605760ec7cdbda977b",
+                "aircraft": {
+                    "_id": "6980e9459da57b990a02e1bd",
+                    "name": "Boeing 737 MAX 8",
+                    "customName": "Ukraine Int l 737-MAX8 178 pax iFly l UR-MXA",
+                    "icao": "B38M"
+                },
+                "type": "pax",
+                "flightNumber": "888",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 178,
+                    "cargo": 16,
+                    "weights": {
+                        "cargo": 1920
+                    }
+                },
+                "depTime": "2026-07-14T07:45:00.000Z",
+                "duration": 305,
+                "arrTime": "2026-07-14T12:50:00.000Z",
+                "depTimeAct": "2026-07-14T07:31:22.789Z",
+                "delay": 5,
+                "takeoffTimeAct": "2026-07-14T07:36:41.786Z",
+                "durationAct": 318,
+                "arrTimeAct": "2026-07-14T12:55:10.385Z",
+                "open": "2026-07-14T07:05:11.544Z",
+                "close": "2026-07-14T13:00:30.603Z",
+                "rating": 5.66,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 2595,
+                        "fuel": 12084,
+                        "expenses": 23802,
+                        "penalties": 0,
+                        "revenue": 51074,
+                        "balance": 27272,
+                        "prices": {
+                            "ticketPrice": 247,
+                            "cargoUnitPrice": 259,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 178,
+                            "cargo": 16,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 12,
+                                "Y": 166
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 10929,
+                        "aircraft": 10850,
+                        "handling": 889,
+                        "landing": 1134
+                    },
+                    "revenue": {
+                        "tickets": 46930,
+                        "cargo": 4144
+                    },
+                    "violations": [
+                        {
+                            "title": "Average touchdown: 1.43G (347 ft/min, normal  conditions)<br/>Distance from threshold: 277m (accepted range: 217-870m)<br/>Average centerline deviation: 0.81m<br/>Max centerline deviation: 2.55m",
+                            "penalty": {
+                                "points": -8,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.43,
+                                        "rate": 347
+                                    },
+                                    "weather": {
+                                        "windDir": 100,
+                                        "windSpd": 5.52,
+                                        "windX": -3.98
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No NAV lights for 19658s when required",
+                            "penalty": {
+                                "points": -100,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        },
+                        {
+                            "title": "No STROBE lights for 19107s when required",
+                            "penalty": {
+                                "points": -100,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        },
+                        {
+                            "title": "Max G exceeded: 3.46G (max allowed: 2G)",
+                            "penalty": {
+                                "points": -200,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Min G exceeded: -0.13G (min allowed: 0G)",
+                            "penalty": {
+                                "points": -26,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 23
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Fuel used 11852 kg is lower than estimated minimum 12084 kg.",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.43,
+                                        "rate": 347
+                                    },
+                                    "weather": {
+                                        "windDir": 100,
+                                        "windSpd": 5.52,
+                                        "windX": -3.98
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-14T06:51:12.864Z",
+                "updatedAt": "2026-07-14T13:00:30.692Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "UAAA",
+                    "name": "Almaty International Airport",
+                    "city": "Almaty",
+                    "location": {
+                        "lat": 43.354267,
+                        "lon": 77.042828,
+                        "elev": 2234
+                    }
+                },
+                "actArr": {
+                    "icao": "UAAA",
+                    "name": "Almaty International Airport",
+                    "city": "Almaty",
+                    "location": {
+                        "lat": 43.354267,
+                        "lon": 77.042828,
+                        "elev": 2234
+                    }
+                }
             }
         ]
     },
