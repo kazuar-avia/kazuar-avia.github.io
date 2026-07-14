@@ -4228,6 +4228,171 @@
                         "elev": 399
                     }
                 }
+            },
+            {
+                "_id": "6a55c24d5760ec7cdbd96be9",
+                "aircraft": {
+                    "_id": "6a54fd225760ec7cdbcb064a",
+                    "name": "Airbus A300-600 ST Beluga",
+                    "customName": "A300 Beluga ST",
+                    "icao": "A3ST"
+                },
+                "type": "cargo",
+                "flightNumber": "219T",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 0,
+                    "cargo": 294,
+                    "weights": {
+                        "cargo": 39984
+                    }
+                },
+                "depTime": "2026-07-14T05:55:00.000Z",
+                "duration": 80,
+                "arrTime": "2026-07-14T07:15:00.000Z",
+                "depTimeAct": "2026-07-14T05:36:43.444Z",
+                "delay": -43,
+                "takeoffTimeAct": "2026-07-14T05:41:52.449Z",
+                "durationAct": 50,
+                "arrTimeAct": "2026-07-14T06:32:03.825Z",
+                "open": "2026-07-14T05:33:01.408Z",
+                "close": "2026-07-14T06:35:04.443Z",
+                "rating": -0.2,
+                "simulator": "xp",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": true,
+                "result": {
+                    "totals": {
+                        "distance": 178,
+                        "fuel": 9957,
+                        "expenses": 0,
+                        "penalties": 0,
+                        "revenue": 0,
+                        "balance": 0,
+                        "prices": {
+                            "ticketPrice": 92,
+                            "cargoUnitPrice": 114,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 0,
+                            "cargo": 294,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 9006,
+                        "aircraft": 6465,
+                        "handling": 103,
+                        "landing": 675
+                    },
+                    "revenue": {
+                        "tickets": 0,
+                        "cargo": 33516
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight departed 3 minutes too early (max 15 minutes before scheduled is allowed)",
+                            "penalty": {
+                                "points": -15,
+                                "cash": 441
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 34
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Emergency Declared",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "emergency",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.41G (247 ft/min, challenging  conditions)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.41,
+                                        "rate": 247
+                                    },
+                                    "weather": {
+                                        "windDir": 10.05,
+                                        "windSpd": 3.89,
+                                        "windX": 3.72
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-14T04:59:57.110Z",
+                "updatedAt": "2026-07-14T06:35:04.547Z",
+                "dep": {
+                    "icao": "UKHH",
+                    "name": "Kharkiv International Airport",
+                    "city": "Kharkiv",
+                    "location": {
+                        "lat": 49.926943,
+                        "lon": 36.290814,
+                        "elev": 508
+                    }
+                },
+                "arr": {
+                    "icao": "LUKK",
+                    "name": "Chişinău International Airport",
+                    "city": "Chişinău",
+                    "location": {
+                        "lat": 46.9277,
+                        "lon": 28.931,
+                        "elev": 399
+                    }
+                },
+                "actArr": {
+                    "icao": "UKHH",
+                    "name": "Kharkiv International Airport",
+                    "city": "Kharkiv",
+                    "location": {
+                        "lat": 49.926943,
+                        "lon": 36.290814,
+                        "elev": 508
+                    }
+                }
             }
         ]
     },
