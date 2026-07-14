@@ -7840,6 +7840,180 @@
                         "elev": 481
                     }
                 }
+            },
+            {
+                "_id": "6a564c105760ec7cdbe308f4",
+                "aircraft": {
+                    "_id": "6988b9149da57b990ad5b53e",
+                    "name": "Airbus A320 neo",
+                    "customName": "DRY LEASE l free A320neo v2 msfs2024",
+                    "icao": "A20N"
+                },
+                "type": "pax",
+                "flightNumber": "51Y",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 180,
+                    "cargo": 27,
+                    "weights": {
+                        "cargo": 2916
+                    }
+                },
+                "depTime": "2026-07-14T15:00:00.000Z",
+                "duration": 160,
+                "arrTime": "2026-07-14T17:40:00.000Z",
+                "depTimeAct": "2026-07-14T15:05:45.152Z",
+                "delay": 6,
+                "takeoffTimeAct": "2026-07-14T15:11:12.154Z",
+                "durationAct": 155,
+                "arrTimeAct": "2026-07-14T17:45:52.041Z",
+                "open": "2026-07-14T14:58:58.644Z",
+                "close": "2026-07-14T17:49:44.062Z",
+                "rating": 9.66,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 989,
+                        "fuel": 5166,
+                        "expenses": 13383,
+                        "penalties": 0,
+                        "revenue": 32355,
+                        "balance": 18972,
+                        "prices": {
+                            "ticketPrice": 150,
+                            "cargoUnitPrice": 165,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 1,
+                                "fuel": 0.8,
+                                "ground": 0.85
+                            }
+                        },
+                        "payload": {
+                            "pax": 180,
+                            "cargo": 27,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 6,
+                                "Y": 174
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4673,
+                        "aircraft": 6900,
+                        "handling": 910,
+                        "landing": 900
+                    },
+                    "revenue": {
+                        "tickets": 27900,
+                        "cargo": 4455
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 4.62m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -7,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 38
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (775m from threshold beyond 697m max accepted)",
+                            "penalty": {
+                                "points": -27,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 35
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.1,
+                                        "rate": 139
+                                    },
+                                    "weather": {
+                                        "windDir": 260,
+                                        "windSpd": 3.88,
+                                        "windX": -3.86
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.10G (139 ft/min, normal  conditions)<br/>Distance from threshold: 775m (accepted range: 174-697m)<br/>Average centerline deviation: 2.73m<br/>Max centerline deviation: 4.62m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 35
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.1,
+                                        "rate": 139
+                                    },
+                                    "weather": {
+                                        "windDir": 260,
+                                        "windSpd": 3.88,
+                                        "windX": -3.86
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-14T14:47:44.081Z",
+                "updatedAt": "2026-07-14T17:49:44.147Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "LIML",
+                    "name": "Milano Linate Airport",
+                    "city": "Segrate (MI)",
+                    "location": {
+                        "lat": 45.445099,
+                        "lon": 9.27674,
+                        "elev": 353
+                    }
+                },
+                "actArr": {
+                    "icao": "LIML",
+                    "name": "Milano Linate Airport",
+                    "city": "Segrate (MI)",
+                    "location": {
+                        "lat": 45.445099,
+                        "lon": 9.27674,
+                        "elev": 353
+                    }
+                }
             }
         ]
     },
