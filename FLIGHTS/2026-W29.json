@@ -1540,6 +1540,156 @@
                         "elev": 183
                     }
                 }
+            },
+            {
+                "_id": "6a55d1ae5760ec7cdbda16c1",
+                "aircraft": {
+                    "_id": "699ae4f09da57b990ac12987",
+                    "name": "Boeing 777 Freighter",
+                    "customName": "UCAA l 777F (cargo) based in UKBB l UR-CRG",
+                    "icao": "B77L"
+                },
+                "type": "cargo",
+                "flightNumber": "73Y",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 0,
+                    "cargo": 741,
+                    "weights": {
+                        "cargo": 88920
+                    }
+                },
+                "depTime": "2026-07-14T06:22:00.000Z",
+                "duration": 165,
+                "arrTime": "2026-07-14T09:07:00.000Z",
+                "depTimeAct": "2026-07-14T06:14:19.629Z",
+                "delay": -27,
+                "takeoffTimeAct": "2026-07-14T06:14:37.647Z",
+                "durationAct": 145,
+                "arrTimeAct": "2026-07-14T08:39:56.920Z",
+                "open": "2026-07-14T06:13:53.828Z",
+                "close": "2026-07-14T08:43:16.952Z",
+                "rating": 8.8,
+                "simulator": "msfs",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 986,
+                        "fuel": 20016,
+                        "expenses": 38826,
+                        "penalties": 0,
+                        "revenue": 125229,
+                        "balance": 86403,
+                        "prices": {
+                            "ticketPrice": 154,
+                            "cargoUnitPrice": 169,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 1,
+                                "fuel": 0.8,
+                                "ground": 0.85
+                            }
+                        },
+                        "payload": {
+                            "pax": 0,
+                            "cargo": 741,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 18103,
+                        "aircraft": 18795,
+                        "handling": 778,
+                        "landing": 1150
+                    },
+                    "revenue": {
+                        "tickets": 0,
+                        "cargo": 125229
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 5.08m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -18,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Uncomfortable touchdown: 1.86G (781 ft/min, normal  conditions)<br/>Distance from threshold: 637m (accepted range: 187-751m)<br/>Average centerline deviation: 2.46m<br/>Max centerline deviation: 5.08m",
+                            "penalty": {
+                                "points": -102,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 39
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.86,
+                                        "rate": 781
+                                    },
+                                    "weather": {
+                                        "windDir": 218.37,
+                                        "windSpd": 0,
+                                        "windX": 0
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-14T06:05:34.188Z",
+                "updatedAt": "2026-07-14T08:43:17.054Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "LIMJ",
+                    "name": "Genoa Cristoforo Colombo Airport",
+                    "city": "Genova (GE)",
+                    "location": {
+                        "lat": 44.412039,
+                        "lon": 8.840732,
+                        "elev": 13
+                    }
+                },
+                "actArr": {
+                    "icao": "LIMJ",
+                    "name": "Genoa Cristoforo Colombo Airport",
+                    "city": "Genova (GE)",
+                    "location": {
+                        "lat": 44.412039,
+                        "lon": 8.840732,
+                        "elev": 13
+                    }
+                }
             }
         ]
     },
