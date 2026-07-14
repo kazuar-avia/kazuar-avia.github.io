@@ -19,6 +19,8 @@
     '#f2b778','#eda36f','#e2c06f','#d8a862','#ccd9ea','#bfd8ee'
   ];
   const MONTH_AWARD_MONTHS = ['СІЧ','ЛЮТ','БЕР','КВІ','ТРА','ЧЕР','ЛИП','СЕР','ВЕР','ЖОВ','ЛИС','ГРУ'];
+  let specialProfileAwards = [];
+  let specialProfileAwardsPromise = null;
   function monthlyAwardPeriods() {
     const dates = availableFlights.map(dateOf).filter(date => date instanceof Date && !Number.isNaN(date.getTime()));
     if (!dates.length) return [];
@@ -102,6 +104,10 @@
   let monthlyAwardsCache = null;
   let referenceNow = new Date();
   let current = null;
+  let profileCalendarOpen = false;
+  let profileCalendarMode = 'date';
+  let profileCalendarRangePickingEnd = false;
+  let profileCalendarPickerValue = '';
   const isMobileProfileView = () => document.body.classList.contains('mobile-cabinet') || Boolean(window.matchMedia?.('(max-width: 940px)').matches || window.innerWidth <= 940);
 
   const esc = value => String(value ?? '').replace(/[&<>"]/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[char]));
@@ -205,18 +211,133 @@
     const minutes = Math.max(0, Math.round(Number(value) || 0));
     return `${Math.floor(minutes / 60)}:${String(minutes % 60).padStart(2, '0')}`;
   };
+  const formatDateShort = isoDate => {
+    if (!isoDate) return '';
+    const date = new Date(`${isoDate}T00:00:00Z`);
+    if (Number.isNaN(date.getTime())) return '';
+    return date.toLocaleDateString('uk-UA',{timeZone:'UTC',day:'2-digit',month:'2-digit',year:'2-digit'});
+  };
   const flightWord = count => {
     const n = Math.abs(count) % 100;
     const last = n % 10;
     return n > 10 && n < 20 ? 'рейсів' : last === 1 ? 'рейс' : last >= 2 && last <= 4 ? 'рейси' : 'рейсів';
   };
+  const dayWord = count => {
+    const n = Math.abs(count) % 100;
+    const last = n % 10;
+    return n > 10 && n < 20 ? 'днів' : last === 1 ? 'день' : last >= 2 && last <= 4 ? 'дні' : 'днів';
+  };
+  const profileMembershipDays = firstFlight => {
+    if (!firstFlight) return null;
+    const start = dateOf(firstFlight);
+    if (!Number.isFinite(start.getTime())) return null;
+    const today = new Date();
+    const startDay = Date.UTC(start.getUTCFullYear(),start.getUTCMonth(),start.getUTCDate());
+    const todayDay = Date.UTC(today.getUTCFullYear(),today.getUTCMonth(),today.getUTCDate());
+    return Math.max(1,Math.floor((todayDay - startDay) / 86400000) + 1);
+  };
+  const aircraftRegistrationFromName = value => String(value || '').match(/\bUR-[A-Z0-9]+\b/i)?.[0]?.toUpperCase() || '';
+  const profileLiveryMatchingRecordByAircraftId = aircraftId => {
+    const key = String(aircraftId || '').trim();
+    if (!key) return null;
+    const records = Array.isArray(window.UCAACompanyLiveryMatching?.liveries) ? window.UCAACompanyLiveryMatching.liveries : [];
+    return records.find(item => String(item?._id || item?.aircraftId || '').trim() === key) || null;
+  };
+  const profileAircraftLiveryName = flight => {
+    const matching = profileLiveryMatchingRecordByAircraftId(flight?.aircraft?.id);
+    return String(matching?.name || matching?.newskyName || flight?.aircraft?.fleetName || flight?.aircraft?.name || 'Літак').trim();
+  };
+  const profileAircraftRegistration = flight => aircraftRegistrationFromName(profileAircraftLiveryName(flight)) || aircraftRegistrationFromName(flight?.aircraft?.name);
+  const profileEpaulet = stripes => `<span class="profile-epaulet profile-epaulet-${stripes}" aria-hidden="true">${Array.from({length:stripes},() => '<i></i>').join('')}</span>`;
+  function profileFleetRole(currentPilotId) {
+    const aircraftMap = new Map();
+    availableFlights
+      .filter(flight => flight.status === 'completed' && flight.aircraft?.id && flight.pilot?.id)
+      .forEach(flight => {
+        const aircraftId = String(flight.aircraft.id);
+        let item = aircraftMap.get(aircraftId);
+        if (!item) {
+          item = {
+            aircraftId,
+            icao:String(flight.aircraft?.icao || '').trim().toUpperCase(),
+            livery:profileAircraftLiveryName(flight),
+            registration:profileAircraftRegistration(flight),
+            pilots:new Map()
+          };
+          aircraftMap.set(aircraftId,item);
+        }
+        const pilotId = String(flight.pilot.id);
+        const pilot = item.pilots.get(pilotId) || {id:pilotId,name:flight.pilot.name || 'Пілот',flights:0,minutes:0};
+        pilot.flights += 1;
+        pilot.minutes += Number(flight.times?.durationMinutes) || 0;
+        item.pilots.set(pilotId,pilot);
+      });
+    const rows = [...aircraftMap.values()]
+      .map(item => {
+        const pilots = [...item.pilots.values()].sort((a,b) => b.minutes - a.minutes || b.flights - a.flights || a.name.localeCompare(b.name));
+        const own = item.pilots.get(String(currentPilotId));
+        if (!own) return null;
+        return {...item,own,leader:pilots[0],cruiseTarget:pilots[1] || pilots[0],rank:pilots.findIndex(pilot => pilot.id === String(currentPilotId)) + 1};
+      })
+      .filter(Boolean);
+    const CAPTAIN_MINUTES = 40 * 60;
+    const FIRST_OFFICER_MINUTES = 10 * 60;
+    const topRows = rows.filter(row => row.rank > 0 && row.rank <= 2);
+    const captains = topRows.filter(row => row.rank === 1 && row.own.minutes >= CAPTAIN_MINUTES).sort((a,b) => b.own.minutes - a.own.minutes || b.own.flights - a.own.flights);
+    const officers = topRows.filter(row => row.own.minutes >= FIRST_OFFICER_MINUTES && !(row.rank === 1 && row.own.minutes >= CAPTAIN_MINUTES)).sort((a,b) => b.own.minutes - a.own.minutes || b.own.flights - a.own.flights);
+    const cruise = topRows.filter(row => row.own.minutes < FIRST_OFFICER_MINUTES).sort((a,b) => b.own.minutes - a.own.minutes || b.own.flights - a.own.flights);
+    const cadets = rows.filter(row => row.rank > 2).sort((a,b) => {
+      const aNeed = Math.max(0,(a.cruiseTarget?.minutes || 0) - a.own.minutes + 1);
+      const bNeed = Math.max(0,(b.cruiseTarget?.minutes || 0) - b.own.minutes + 1);
+      return aNeed - bNeed || b.own.minutes - a.own.minutes || b.own.flights - a.own.flights;
+    });
+    const mode = captains.length ? 'captain' : officers.length ? 'fo' : cruise.length ? 'cruise' : cadets.length ? 'cadet' : '';
+    const selected = mode === 'captain' ? captains[0] : mode === 'fo' ? officers[0] : mode === 'cruise' ? cruise[0] : mode === 'cadet' ? cadets[0] : null;
+    const source = mode === 'captain' ? [...captains, ...officers] : mode === 'fo' ? officers : mode === 'cruise' ? cruise : cadets.slice(0,5);
+    const tooltip = source.map(row => {
+      const rowMode = row.rank === 1 && row.own.minutes >= CAPTAIN_MINUTES ? 'captain'
+        : row.own.minutes >= FIRST_OFFICER_MINUTES && row.rank <= 2 ? 'fo'
+        : row.rank <= 2 ? 'cruise'
+        : 'cadet';
+      const role = rowMode === 'captain' ? 'CAPTAIN' : rowMode === 'fo' ? 'First Officer' : rowMode === 'cruise' ? 'Cruise Pilot' : 'CADET';
+      const captainNeed = Math.max(0,CAPTAIN_MINUTES - row.own.minutes,row.rank === 1 ? 0 : (row.leader?.minutes || 0) - row.own.minutes);
+      const firstOfficerNeed = Math.max(0,FIRST_OFFICER_MINUTES - row.own.minutes);
+      const cruiseNeed = Math.max(0,(row.cruiseTarget?.minutes || 0) - row.own.minutes + 1);
+      const need = rowMode === 'fo' ? ` · до CAPTAIN ${compactTime(captainNeed)}` : rowMode === 'cruise' ? ` · до First Officer ${compactTime(firstOfficerNeed)}` : rowMode === 'cadet' ? ` · до Cruise Pilot ${compactTime(cruiseNeed)}` : '';
+      return `${role} ${row.livery}\n${row.own.flights} ${flightWord(row.own.flights)} · ${compactTime(row.own.minutes)}${need}`;
+    }).join('\n@@LINE@@\n');
+    return {mode,selected,tooltip,counts:{captains:captains.length,officers:officers.length,cruise:cruise.length}};
+  }
+  function profileFleetRoleHtml(pilotId) {
+    const role = profileFleetRole(pilotId);
+    if (!role.selected) return '<small class="profile-career-line">CADET</small>';
+    const captain = role.mode === 'captain';
+    const firstOfficer = role.mode === 'fo';
+    const stripes = captain ? 4 : firstOfficer ? 3 : 1;
+    const row = role.selected;
+    if (role.mode === 'cruise') {
+      return `<small class="profile-career-line profile-tip" data-tooltip="${esc(role.tooltip)}">${profileEpaulet(stripes)} <span class="profile-fleet-role-label">Cruise Pilot на ${esc(role.counts.cruise)} ПС</span></small>`;
+    }
+    if (role.mode === 'cadet') {
+      return `<small class="profile-career-line profile-tip" data-tooltip="${esc(role.tooltip)}"><span class="profile-fleet-role-label">CADET</span></small>`;
+    }
+    const captainExtra = role.mode === 'captain' && role.counts.captains > 1 ? ` <span>(+${role.counts.captains - 1})</span>` : '';
+    const aircraft = [row.icao ? `<span class="profile-fleet-role-label">${esc(row.icao)}</span>` : '', row.registration ? `<span>${esc(row.registration)}</span>${captainExtra}` : captainExtra.trim()].filter(Boolean).join(' ');
+    return `<small class="profile-career-line profile-tip" data-tooltip="${esc(role.tooltip)}">${profileEpaulet(stripes)} ${aircraft || esc(row.livery)}</small>`;
+  }
   const periodName = period => {
+    if (period === 'customRange' && current?.customDate && current?.customEndDate) {
+      return `${formatDateShort(current.customDate)}-${formatDateShort(current.customEndDate)}`;
+    }
     if (period === 'customDate' && current?.customDate) {
       return new Date(`${current.customDate}T00:00:00Z`).toLocaleDateString('uk-UA',{timeZone:'UTC'});
     }
     return PERIODS.find(([key]) => key === period)?.[1] || 'Весь період';
   };
   const periodCaption = () => {
+    if (current?.period === 'customRange' && current.customDate && current.customEndDate) {
+      return `за ${formatDateShort(current.customDate)}-${formatDateShort(current.customEndDate)}`;
+    }
     if (current?.period === 'customDate' && current.customDate) {
       return `за ${new Date(`${current.customDate}T00:00:00Z`).toLocaleDateString('uk-UA',{timeZone:'UTC'})}`;
     }
@@ -239,6 +360,13 @@
   function periodBounds(period) {
     const now = referenceNow;
     if (period === 'all') return null;
+    if (period === 'customRange' && current?.customDate && current?.customEndDate) {
+      const first = new Date(`${current.customDate}T00:00:00Z`);
+      const second = new Date(`${current.customEndDate}T00:00:00Z`);
+      const start = first <= second ? first : second;
+      const endBase = first <= second ? second : first;
+      return {start, end:new Date(endBase.getTime() + 86400000)};
+    }
     if (period === 'customDate' && current?.customDate) {
       const start = new Date(`${current.customDate}T00:00:00Z`);
       return {start, end:new Date(start.getTime() + 86400000)};
@@ -520,6 +648,28 @@
         return null;
       });
     return newskyAwardRequirementsPromise;
+  }
+
+  function loadSpecialProfileAwards() {
+    if (specialProfileAwardsPromise) return specialProfileAwardsPromise;
+    specialProfileAwardsPromise = fetch('COMPANY/special-profile-awards.json', {cache:'default'})
+      .then(response => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.json();
+      })
+      .then(data => {
+        const awards = Array.isArray(data) ? data : (Array.isArray(data?.awards) ? data.awards : []);
+        specialProfileAwards = awards.filter(award => award && award.pilotId);
+        if (current) render();
+        dispatchEvent(new CustomEvent('ucaa-profile-awards-updated'));
+        return specialProfileAwards;
+      })
+      .catch(error => {
+        console.warn('Special profile awards load failed:', error);
+        specialProfileAwards = [];
+        return specialProfileAwards;
+      });
+    return specialProfileAwardsPromise;
   }
 
   function loadCompanyFleetTypes() {
@@ -983,16 +1133,36 @@
     }).join('');
   }
 
+  function specialProfileAwardsHtml(pilotId) {
+    return specialProfileAwards
+      .filter(award => String(award.pilotId) === String(pilotId))
+      .map(award => {
+        const colors = Array.isArray(award.stripeColors) ? award.stripeColors : [];
+        const colorA = colors[0] || award.stripeColorA || '#f2a51f';
+        const colorB = colors[1] || award.stripeColorB || '#111';
+        const label = award.label || 'SPECIAL';
+        const tooltipTitle = award.tooltipTitle || label;
+        const tooltipText = award.tooltipText || award.tooltip || award.text || '';
+        const tooltip = `<div><strong>${esc(tooltipTitle)}</strong><br>${esc(tooltipText)}</div>`;
+        const style = `--special-stripe-a:${esc(colorA)};--special-stripe-b:${esc(colorB)};--special-text-box-width:${esc(award.textBoxWidth || '37px')};--special-text-box-color:${esc(award.textBoxColor || '#111')};--special-text-color:${esc(award.textColor || '#fff')}`;
+        const topIcon = award.topIcon || award.emoji || '';
+        const bottomIcon = award.bottomIcon || award.medal || '';
+        const text = award.text || 'SPECIAL';
+        return `<span class="monthly-achievement-award monthly-award-special" style="${style}" data-award-tooltip="${esc(tooltip)}" aria-label="${esc(label)}"><span class="monthly-award-diamond"><span class="monthly-award-emoji">${topIcon}</span><span class="monthly-award-date">${esc(text)}</span><span class="monthly-award-medal">${bottomIcon}</span></span></span>`;
+      }).join('');
+  }
+
   function aircraftAwardsHtml(summary) {
     const awards = aircraftAwardStats(summary.id);
+    const specialAwards = specialProfileAwardsHtml(summary.id);
     const monthlyAwards = monthlyAwardsHtml(summary.id);
     const newskyAwards = newskyAwardsHtml(summary.id);
-    if (!awards.length && !monthlyAwards && !newskyAwards) return '<div class="profile-aircraft-awards empty">Нагороди ще не отримані</div>';
+    if (!awards.length && !specialAwards && !monthlyAwards && !newskyAwards) return '<div class="profile-aircraft-awards empty">Нагороди ще не отримані</div>';
     return `<div class="profile-aircraft-awards" aria-label="Нагороди пілота">${awards.map((award,index) => {
       const familyAwards = buildAircraftAwardStatsCache().byFamily.get(award.family) || [];
       const tooltip = aircraftAwardTooltipHtml(award,familyAwards);
       return `<span class="aircraft-award level-${award.level} manufacturer-${aircraftAwardManufacturer(award.family)} ${award.leader?'aircraft-award-leader':''}" data-award-tooltip="${esc(tooltip)}">${aircraftAwardDecor(award.level,`${summary.id}-${award.family}-${index}`)}<span class="aircraft-award-circle"><span>${esc(aircraftAwardFamilyLabel(award.family))}</span></span></span>`;
-    }).join('')}${monthlyAwards}${newskyAwards}</div>`;
+    }).join('')}${specialAwards}${monthlyAwards}${newskyAwards}</div>`;
   }
 
   function wireAircraftAwardTooltips(root) {
@@ -1056,7 +1226,7 @@
         .profile-v2 .profile-avatar{box-sizing:border-box;width:108px;height:108px;border:1px solid #555;background:#eef8fa;object-fit:cover}
         .profile-v2 .profile-sim-badge{position:absolute;left:1px;bottom:21px;box-sizing:border-box;max-width:100px;padding:1px 4px;border:1px solid #333;border-radius:4px;background:rgba(245,245,245,.9);color:#111;font:700 10px/12px Arial,sans-serif;text-align:center;white-space:nowrap;cursor:help}
         .profile-empty-picker{padding:12px;background:#fafafa}.profile-empty-title{font-weight:bold;margin-bottom:8px;color:#111}.profile-inline-picker{position:static!important;left:auto!important;top:auto!important;transform:none!important;z-index:1!important;width:min(909px,100%)!important;margin:0 auto!important;text-align:left}.profile-inline-picker button,.profile-inline-picker a{grid-template-columns:24px 18px minmax(0,1fr) auto!important;gap:8px!important;align-items:center!important;min-height:31px!important;padding-top:4px!important;padding-bottom:4px!important;padding-left:5px!important;padding-right:10px!important;overflow:visible!important}.profile-inline-picker button strong,.profile-inline-picker a strong{display:block;min-height:22px;line-height:22px;padding-right:10px;overflow:hidden;text-overflow:ellipsis}.profile-inline-picker .picker-rank,.profile-inline-picker .picker-avatar,.profile-inline-picker .picker-hours{align-self:center}.profile-inline-picker .picker-avatar{display:block}.profile-inline-picker .flight-streak-badge{top:0;transform:translateY(-1px)}.profile-inline-picker .picker-hours{padding-left:10px}
-        .profile-v2 .profile-person{min-width:0;padding-top:0}.profile-v2 .profile-identity h3{display:grid;align-items:center;max-width:100%;white-space:normal;min-height:52px;margin:0 0 4px;font-size:24px;line-height:26px}.profile-v2 .profile-title-name{display:block;max-width:100%;white-space:normal}.profile-v2 .profile-title-name .pilot-name-tail{display:inline-flex;align-items:center;white-space:nowrap}.profile-v2 .profile-title-name .flight-streak-badge{font-size:.92em;transform:translateY(-5%)}.profile-v2 .profile-newsky-row{display:flex;align-items:center;gap:2px;margin:0 0 2px;font-size:13px;white-space:nowrap}.profile-v2 .profile-badge{display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;border:1px solid #777;background:#ddd;padding:1px 3px;color:#111;font-size:13px;line-height:17px;text-decoration:none;white-space:nowrap;cursor:pointer}.profile-v2 .profile-badge:hover,.profile-v2 .profile-badge:focus{background:#c8ddeb;color:#111;text-decoration:none}.profile-v2 .profile-badge.profile-tip:hover{background:#c8ddeb}.profile-v2 .profile-person small{font-size:13px;line-height:18px}
+        .profile-v2 .profile-person{min-width:0;padding-top:0}.profile-v2 .profile-identity h3{display:grid;align-items:center;max-width:100%;white-space:normal;min-height:52px;margin:0 0 4px;font-size:24px;line-height:26px}.profile-v2 .profile-title-name{display:block;max-width:100%;white-space:normal}.profile-v2 .profile-title-name .pilot-name-tail{display:inline-flex;align-items:center;white-space:nowrap}.profile-v2 .profile-title-name .flight-streak-badge{font-size:.92em;transform:translateY(-5%)}.profile-v2 .profile-newsky-row{display:flex;align-items:center;gap:2px;margin:0 0 2px;font-size:13px;white-space:nowrap}.profile-v2 .profile-badge{display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;border:1px solid #777;background:#ddd;padding:1px 3px;color:#111;font-size:13px;line-height:17px;text-decoration:none;white-space:nowrap;cursor:pointer}.profile-v2 .profile-badge:hover,.profile-v2 .profile-badge:focus{background:#c8ddeb;color:#111;text-decoration:none}.profile-v2 .profile-badge.profile-tip:hover{background:#c8ddeb}.profile-v2 .profile-person small{font-size:13px;line-height:18px}.profile-v2 .profile-career-line{display:block;white-space:nowrap}.profile-v2 .profile-epaulet{display:inline-flex;box-sizing:border-box;width:28px;height:13px;align-items:stretch;justify-content:center;gap:2px;margin-right:3px;padding:1px 4px;border:1px solid #000;background:#111;vertical-align:-2px}.profile-v2 .profile-epaulet i{display:block;width:3px;background:#f0c22f;box-shadow:inset 0 0 0 1px #d69f15}.profile-v2 .profile-fleet-role-label{font-weight:bold}
         .profile-v2 .profile-aircraft-awards{box-sizing:border-box;min-width:0;width:calc(100% - 5px);height:117px;display:flex;flex-wrap:wrap;align-content:flex-start;gap:0;overflow:hidden;margin:-1px 0 0 5px;padding:0 5px 0 0}
         .profile-v2 .profile-aircraft-awards.scrollable{overflow-x:hidden;overflow-y:auto;scrollbar-width:thin}
         .profile-v2 .profile-aircraft-awards.scrollable::-webkit-scrollbar-track{margin-top:10px}
@@ -1094,9 +1264,13 @@
         .profile-v2 .monthly-award-diamond{position:relative;display:block;width:30px;height:30px;transform:rotate(45deg);border:1px solid #9a7b18;border-radius:4px;background:var(--month-award-color);box-shadow:0 0 0 1px rgba(230,188,58,.75),0 2px 5px #0004,inset 0 0 0 1px rgba(255,255,255,.55),inset 0 0 8px rgba(255,255,255,.28)}
         .profile-v2 .monthly-award-schedule .monthly-award-diamond{border-color:#2f8d3e;box-shadow:0 0 0 1px rgba(65,166,78,.85),0 2px 5px #0004,inset 0 0 0 1px rgba(255,255,255,.55),inset 0 0 8px rgba(255,255,255,.25)}
         .profile-v2 .monthly-award-charter .monthly-award-diamond{border-color:#d17909;box-shadow:0 0 0 1px rgba(243,154,10,.9),0 2px 5px #0004,inset 0 0 0 1px rgba(255,255,255,.55),inset 0 0 8px rgba(255,255,255,.25)}
+        .profile-v2 .monthly-award-special .monthly-award-diamond{border-color:#171717;background:repeating-linear-gradient(135deg,var(--special-stripe-a,#f2a51f) 0 8px,var(--special-stripe-b,#111) 8px 11px);box-shadow:0 0 0 1px rgba(255,176,35,.85),0 2px 5px #0005,inset 0 0 0 1px rgba(255,255,255,.42),inset 0 0 8px rgba(255,255,255,.18)}
+        .profile-v2 .monthly-award-special .monthly-award-emoji,.profile-v2 .monthly-award-special .monthly-award-medal{filter:drop-shadow(0 1px 1px #fff) drop-shadow(0 1px 1px #0008)}
         .profile-v2 .monthly-award-date{position:absolute;left:50%;top:50%;width:38px;transform:translate(-50%,-50%) rotate(-45deg);color:#3b3216;font:700 8px/1 Arial,sans-serif;text-align:center;white-space:nowrap;text-shadow:0 1px #fff}
         .profile-v2 .monthly-award-emoji{position:absolute;left:-5px;top:-4px;z-index:2;width:18px;transform:rotate(-45deg);font:15px/18px Arial,sans-serif;text-align:center;filter:drop-shadow(0 1px 1px #fff)}
         .profile-v2 .monthly-award-medal{position:absolute;right:-3px;bottom:-5px;z-index:2;width:18px;transform:rotate(-45deg);font:15px/18px Arial,sans-serif;text-align:center;filter:drop-shadow(0 1px 1px #fff)}
+        .profile-v2 .monthly-award-special .monthly-award-date{box-sizing:border-box;width:auto;min-width:var(--special-text-box-width,37px);padding:1px 3px;border-radius:2px;background:var(--special-text-box-color,#111);color:var(--special-text-color,#fff);font-size:7.5px;text-shadow:0 1px 1px #000,0 0 3px #000}
+        .profile-v2 .monthly-award-special .monthly-award-emoji,.profile-v2 .monthly-award-special .monthly-award-medal{filter:drop-shadow(0 1px 1px #fff) drop-shadow(0 1px 1px #0008)}
         .profile-v2 .monthly-achievement-award + .newsky-achievement-award{margin-left:9px}
         .profile-v2 .newsky-achievement-award{box-sizing:border-box;display:inline-flex;flex:0 0 auto;width:auto;height:35px;margin:17px 6px 0 1px;align-items:center;justify-content:center;padding:0;background:transparent;cursor:pointer;text-decoration:none}
         .profile-v2 .aircraft-award + .newsky-achievement-award{margin-left:16px}
@@ -1113,17 +1287,22 @@
         .profile-v2 .profile-tooltip-box{position:absolute;left:50%;top:calc(100% + 5px);transform:translateX(-50%);z-index:100;width:max-content;max-width:350px;padding:7px 9px;border:1px solid #666;background:#fff;color:#222;font-family:Arial,sans-serif;font-size:11px;font-weight:normal;line-height:1.35;text-align:left;white-space:pre-line;box-shadow:0 4px 12px #0003;opacity:0;visibility:hidden;pointer-events:none}
         .profile-v2 .profile-tip:hover .profile-tooltip-box{opacity:1;visibility:visible}
         .profile-v2 .profile-tooltip-section{display:block;white-space:pre-line}.profile-v2 .profile-tooltip-rule{height:0;margin:5px 0;border:0;border-top:1px solid #ccc}
+        .profile-v2 .profile-career-line{line-height:16px}.profile-v2 .profile-career-line .profile-epaulet{width:27px;height:12px;vertical-align:1px}.profile-v2 .profile-career-line .profile-tooltip-box{min-width:360px;max-width:460px}
         .profile-v2 .profile-tooltip-excluded{display:block;margin-top:6px;color:#888;font-style:italic;white-space:pre-line}
         .profile-v2 .profile-rank-medal{display:inline-block;font-size:18px;line-height:1;vertical-align:-2px;margin-left:3px;transform:translateY(-2px)}
         .profile-v2 .profile-rank-medal.anti{display:inline-block}
         .profile-v2 .profile-divider{color:#888;padding:0 5px}
         .profile-v2 .profile-rank-place{color:#777;font-weight:normal}
         .profile-v2 .profile-period-bar{display:flex;align-items:center;gap:6px;border:1px solid #555;background:#f7e7f8;padding:5px 5px 5px 6px;margin-top:7px}
-        .profile-v2 .profile-period-bar strong{white-space:nowrap;font-size:15px}.profile-v2 .profile-period-buttons{display:flex;gap:3px;align-items:center;flex-wrap:nowrap;min-width:0;flex:1}
+        .profile-v2 .profile-period-icon{white-space:nowrap;font-size:16px;line-height:1}.profile-v2 .profile-period-buttons{display:flex;gap:3px;align-items:center;flex-wrap:nowrap;min-width:0;flex:1}
         .profile-v2 .profile-period-buttons button{border:1px solid #777;background:#fff;padding:4px 6px;cursor:pointer;white-space:nowrap;font-size:13px;font-weight:normal}
         .profile-v2 .profile-period-buttons button.active{background:#d8f5e6;border-color:#17804c;box-shadow:inset 0 0 0 1px #17804c}.profile-v2 .profile-period-buttons button:hover{background:#fff7c7}
-        .profile-v2 .profile-calendar{position:relative;display:inline-flex;width:42px;flex:0 0 42px;align-self:stretch}.profile-v2 .profile-calendar button{box-sizing:border-box;width:42px;height:100%;padding:4px 6px;border:1px solid #777;background:#fff;cursor:pointer}
-        .profile-v2 .profile-calendar input{position:absolute;left:0;top:100%;width:1px;height:1px;opacity:0;pointer-events:none;margin:0;padding:0}
+        .profile-v2 .profile-calendar{position:relative;display:inline-flex;flex:0 0 auto;align-self:stretch;overflow:visible}.profile-v2 .profile-calendar>button{box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;gap:5px;min-width:48px;width:auto;height:28px;padding:3px 8px;border:1px solid #777;background:#fff;cursor:pointer}
+        .profile-v2 .profile-calendar>button.active{background:#d8f5e6;border-color:#17804c}.profile-v2 .profile-calendar-label{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.05;gap:0;font-size:12px;font-weight:normal;white-space:nowrap}.profile-v2 .profile-calendar-label span{font-size:10px;line-height:1}
+        .profile-v2 .profile-calendar-panel{position:absolute;right:0;top:calc(100% + 4px);z-index:35;width:245px;border:1px solid #777;background:#fff;box-shadow:0 3px 10px #0003;padding:6px}.profile-v2 .profile-calendar-panel[hidden]{display:none}
+        .profile-v2 .profile-calendar-modes{display:flex;gap:5px;margin-bottom:6px}.profile-v2 .profile-calendar-modes button{flex:1;padding:4px 6px!important}.profile-v2 .profile-calendar-modes button.active{background:#d8f5e6;border-color:#17804c;font-weight:bold}
+        .profile-v2 .profile-calendar-fields{display:grid;grid-template-columns:1fr;gap:5px}.profile-v2 .profile-calendar-fields.range{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+        .profile-v2 .profile-calendar-fields input{box-sizing:border-box;width:100%;border:1px solid #888;padding:4px;font:12px Arial,sans-serif;cursor:pointer}.profile-v2 .profile-calendar-fields.range input{font-size:11px;padding:3px 2px}.profile-v2 .profile-calendar-fields input[readonly]{background:#fff}.profile-v2 .profile-calendar-fields input[type="date"]::-webkit-calendar-picker-indicator{opacity:0}
         .profile-v2 .profile-dashboard{display:block;margin:7px 0}
         .profile-v2 .profile-finance-grid{display:grid;grid-template-columns:minmax(0,1fr) 370px;gap:7px;min-width:0}
         .profile-v2 .profile-finance-stack{display:grid;grid-template-rows:190px 114px;gap:6px;min-width:0}.profile-v2 .profile-finance{border:1px solid #555;min-width:0;overflow:hidden}.profile-v2 .profile-finance-title{font-weight:bold;text-align:center;background:#c7eef2;border-bottom:1px solid #777;padding:4px}
@@ -1443,12 +1622,20 @@
     return `<tr>
       <td>${formatFlightDateLabel(flight)}<span class="date-flight-meta"><span class="date-flight-time">${formatFlightCloseTime(flight)}</span><a class="flight-number-link flight-number-${operation.key}" href="https://newsky.app/flight/${encodeURIComponent(flight.id)}" target="_blank" rel="noopener" title="${esc(operation.label)}">${esc(flight.flightNumber || '—')}</a></span></td>
       <td class="route"><span class="route-airports">${ui.airportWithFlag(flight.departure)} → ${ui.airportWithFlag(flight.arrival)}</span><span class="route-duration">${formatMinutes(flight.times?.durationMinutes)}</span></td>
-      <td>${esc(flight.aircraft?.name || '—')}<span class="flight-note">${esc(flight.aircraft?.icao || '')}</span></td>
+      <td>${esc(flight.aircraft?.name || '—')}<span class="flight-note">${esc(ui.aircraftTableNote ? ui.aircraftTableNote(flight) : (flight.aircraft?.icao || ''))}</span></td>
       <td><span class="payload-value" title="${esc(payload.label)}">${esc(ui.flightLoad(flight))}<span class="load-kind-icon" aria-hidden="true">${payload.icon}</span></span></td>
       <td class="rating-cell profile-rating-detail" data-flight-id="${esc(flight.id)}" role="button" tabindex="0"><span class="rating-badge ${rating.className}">${rating.label}</span><span class="landing-line">${ui.landingStats(flight)}</span></td>
       <td class="finance-click-cell profile-company-profit-detail ${profitVisual.className}" data-flight-id="${esc(flight.id)}" role="button" tabindex="0">${money(row.direct.companyProfit,true)}${profitVisual.notes.map(note => `<span class="profit-incident-note ${note.className}">${esc(note.text)}</span>`).join('')}</td>
-      <td class="finance-click-cell profile-pilot-salary-detail ${salaryVisual.className}" data-flight-id="${esc(flight.id)}" role="button" tabindex="0">${money(row.direct.pilotSalary,true)}${salaryVisual.note?`<span class="profit-incident-note ${salaryVisual.noteClass || ''}">${esc(salaryVisual.note)}</span>`:''}</td>
+      <td class="finance-click-cell profile-pilot-salary-detail ${salaryVisual.className}" data-flight-id="${esc(flight.id)}" role="button" tabindex="0"><span class="salary-amount-inline">${money(row.direct.pilotSalary,true)}${ui.guaranteedBonusIconHtmlForRow ? ui.guaranteedBonusIconHtmlForRow(flight,row.direct.guaranteedBonus) : ''}</span>${salaryVisual.note?`<span class="profit-incident-note ${salaryVisual.noteClass || ''}">${esc(salaryVisual.note)}</span>`:''}</td>
     </tr>`;
+  }
+
+  function profileCalendarLabelHtml() {
+    if (current?.period === 'customRange' && current.customDate && current.customEndDate) {
+      return `<span>${esc(formatDateShort(current.customDate))}</span><span>${esc(formatDateShort(current.customEndDate))}</span>`;
+    }
+    if (current?.period === 'customDate' && current.customDate) return esc(formatDateShort(current.customDate));
+    return '';
   }
 
   function render() {
@@ -1456,7 +1643,7 @@
     const page = ensureProfilePage();
     const lifetime = summarize(current.id,availableFlights,'all');
     const selectedFlights = filterPeriod(lifetime.list,current.period);
-    const selected = summarize(current.id,selectedFlights,`selected:${current.period}:${current.customDate || ''}`);
+    const selected = summarize(current.id,selectedFlights,`selected:${current.period}:${current.customDate || ''}:${current.customEndDate || ''}`);
     const monthSummary = summarize(current.id,filterPeriod(lifetime.list,'monthToDate'),'monthToDate');
     const weekSummary = summarize(current.id,filterPeriod(lifetime.list,'weekToDate'),'weekToDate');
     const completed = selected.completed;
@@ -1679,8 +1866,10 @@
     }])).values()].sort((a,b) => a.icao.localeCompare(b.icao));
     const selectedAircraft = aircraftOptions.find(item => item.key === current.aircraft);
 
+    const membershipDays = profileMembershipDays(firstCompleted);
+    const membershipText = membershipDays ? `${membershipDays} ${dayWord(membershipDays)}` : '—';
     page.content.innerHTML = `<div class="profile-v2">
-      <div class="profile-identity"><div class="profile-avatar-wrap"><img class="profile-avatar" src="${esc(avatar)}" alt="${esc(lifetime.name)}" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='https://newsky.app/api/pilot/avatar/default'}">${simBadge}</div><div class="profile-person"><h3><span class="profile-title-name">${pilotNameWithStreak(lifetime)}</span></h3><div class="profile-newsky-row"><a class="profile-badge profile-tip" data-tooltip="Відкрити профіль пілота у NewSky" href="https://newsky.app/pilot/${encodeURIComponent(lifetime.id)}" target="_blank" rel="noopener noreferrer">NewSky</a><a class="profile-badge profile-tip" data-tooltip="Відкрити список всіх нагород у NewSky" href="https://newsky.app/airline/ukl/awards" target="_blank" rel="noopener noreferrer">Список Awards</a></div><small>Перший політ: ${firstCompleted?dateOf(firstCompleted).toLocaleDateString('uk-UA',{timeZone:'UTC'}):'—'}</small><br><small>Крайній політ: ${lastCompleted?dateOf(lastCompleted).toLocaleDateString('uk-UA',{timeZone:'UTC'}):'—'}</small></div>${aircraftAwardsHtml(lifetime)}</div>
+      <div class="profile-identity"><div class="profile-avatar-wrap"><img class="profile-avatar" src="${esc(avatar)}" alt="${esc(lifetime.name)}" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='https://newsky.app/api/pilot/avatar/default'}">${simBadge}</div><div class="profile-person"><h3><span class="profile-title-name">${pilotNameWithStreak(lifetime)}</span></h3><div class="profile-newsky-row"><a class="profile-badge profile-tip" data-tooltip="Відкрити профіль пілота у NewSky" href="https://newsky.app/pilot/${encodeURIComponent(lifetime.id)}" target="_blank" rel="noopener noreferrer">NewSky</a><a class="profile-badge profile-tip" data-tooltip="Відкрити список всіх нагород у NewSky" href="https://newsky.app/airline/ukl/awards" target="_blank" rel="noopener noreferrer">Список Awards</a></div><small>В авіакомпанії: ${esc(membershipText)}</small>${profileFleetRoleHtml(lifetime.id)}</div>${aircraftAwardsHtml(lifetime)}</div>
       <div class="profile-section-title">ЗАГАЛЬНА ІНФОРМАЦІЯ ПРО ПІЛОТА</div>
       <table class="profile-overall"><colgroup><col style="width:14%"><col style="width:19%"><col style="width:16.7%"><col style="width:20%"><col style="width:calc(13.3% + 8px)"><col style="width:calc(17% - 8px)"></colgroup><tbody>
         <tr><th>Наліт за весь час</th><td class="profile-tip" data-tooltip="${esc(hoursValueTip)}">${compactTime(lifetime.minutes)}<span class="profile-divider">|</span>${rankHtml(hoursRank,hoursRanking.length)}</td><th>Прибуток для АК</th><td class="profile-tip" data-tooltip="${esc(profitValueTip)}">${money(lifetime.companyProfit,true)}<span class="profile-divider">|</span>${rankHtml(profitRank,profitRanking.length)}</td><th class="profile-tip" data-tooltip="${esc(cleanNameTip)}">Польотів без штрафів</th><td class="profile-tip" data-tooltip="${esc(cleanValueTip)}">${currentQuality.cleanPct.toFixed(0)}%<span class="profile-divider">|</span>${rankHtml(cleanRank,cleanRanking.length)}</td></tr>
@@ -1688,7 +1877,7 @@
         <tr><th>Середній рейтинг</th><td class="profile-tip" data-tooltip="${esc(ratingValueTip)}">${lifetime.rating?lifetime.rating.toFixed(2):'—'}<span class="profile-divider">|</span>${rankHtml(ratingRank,ratingRanking.length)}</td><th class="profile-tip" data-tooltip="${esc(difficultyTip)}">Середня складність літака</th><td class="profile-tip" data-tooltip="${esc(difficultyValueTip)}">${averageDifficulty(lifetime).toFixed(2)}<span class="profile-divider">|</span>${rankHtml(difficultyRank,difficultyRanking.length)}</td><th class="profile-tip" data-tooltip="${esc(loyaltyTip)}">Бонус за лояльність</th><td class="profile-tip" data-tooltip="${esc(loyaltyTip)}">×${loyaltyK.toFixed(2)}</td></tr>
         <tr><th>Середній FPM</th><td class="profile-tip" data-tooltip="${esc(fpmValueTip)}">${averageFpm?`−${Math.round(averageFpm)} fpm`:'—'}<span class="profile-divider">|</span>${rankHtml(fpmRank,fpmRanking.length)}</td><th>Середній Crosswind</th><td class="profile-tip" data-tooltip="${esc(crosswindValueTip)}">${averageCrosswind(lifetime).toFixed(1)} kt<span class="profile-divider">|</span>${rankHtml(crosswindRank,crosswindRanking.length)}</td><th class="profile-tip" data-tooltip="${esc(regularityTip)}">Бонус за регулярність</th><td class="profile-tip" data-tooltip="${esc(regularityTip)}">${regularityDisplay}</td></tr>
       </tbody></table>
-      <div class="profile-period-bar"><strong>ПЕРІОД:</strong><div class="profile-period-buttons">${PERIODS.map(([key,label]) => `<button type="button" data-profile-period="${key}" class="${current.period===key?'active':''}">${label}</button>`).join('')}<span class="profile-calendar"><button type="button" id="profileCalendarButton" class="${current.period==='customDate'?'active':''}" title="Вибрати дату">📅</button><input type="date" id="profileDatePicker" value="${esc(current.customDate || '')}" aria-label="Вибрати дату"></span></div></div>
+      <div class="profile-period-bar"><span class="profile-period-icon" title="Період">⏱️</span><div class="profile-period-buttons">${PERIODS.map(([key,label]) => `<button type="button" data-profile-period="${key}" class="${current.period===key?'active':''}">${label}</button>`).join('')}<span class="profile-calendar"><button type="button" id="profileCalendarButton" class="${current.period==='customDate'||current.period==='customRange'||profileCalendarOpen?'active':''}" title="Вибрати дату або період" aria-label="Вибрати дату або період">📅<span id="profileCalendarLabel" class="profile-calendar-label">${profileCalendarOpen?'':profileCalendarLabelHtml()}</span></button><div id="profileCalendarPanel" class="profile-calendar-panel" ${profileCalendarOpen?'':'hidden'}><div class="profile-calendar-modes"><button type="button" data-profile-calendar-mode="date" class="${profileCalendarMode==='date'?'active':''}">За дату</button><button type="button" data-profile-calendar-mode="range" class="${profileCalendarMode==='range'?'active':''}">За період</button></div><div id="profileCalendarFields" class="profile-calendar-fields ${profileCalendarMode==='range'?'range':''}"><input type="date" id="profileDatePicker" value="${esc(profileCalendarPickerValue || current.customDate || '')}" aria-label="Вибрати дату"><input type="text" id="profileDateEndDisplay" value="${esc(formatDateShort(current.customEndDate))}" readonly title="Вибрати кінцеву дату" ${profileCalendarMode==='range'?'':'hidden'}></div></div></span></div></div>
       <div class="profile-dashboard">
         <div class="profile-finance-grid"><div class="profile-finance-stack"><section class="profile-finance"><div class="profile-finance-title">ФІНАНСОВЕ КОЛО ПІЛОТА · ${esc(periodName(current.period))}</div><div class="profile-finance-body"><div class="profile-finance-pie" id="profileFinancePie"></div><div class="profile-finance-legend" id="profileFinanceLegend"></div></div></section><section class="profile-finance profile-airline-benefit"><div class="profile-finance-title">ПРИБУТОК ДЛЯ АВІАКОМПАНІЇ · ${esc(periodName(current.period))}</div><div class="profile-finance-body"><div class="profile-finance-pie" id="profileAirlineBenefitPie"></div><div class="profile-finance-legend" id="profileAirlineBenefitLegend"></div></div></section></div><div class="profile-mini-pies"><div class="profile-mini-pie-block"><div class="profile-mini-title">УЛЮБЛЕНИЙ АЕРОПОРТ</div><div class="profile-mini-pie" id="profileAirportPie"></div><div class="profile-mini-labels aircraft" id="profileAirportLegend"></div></div><div class="profile-mini-pie-block"><div class="profile-mini-title">ТИП ЛІТАКА</div><div class="profile-mini-pie" id="profileAircraftTypePie"></div><div class="profile-mini-labels aircraft" id="profileAircraftTypeLegend"></div></div><div class="profile-mini-pie-block"><div class="profile-mini-title">УЛЮБЛЕНА КРАЇНА</div><div class="profile-mini-pie" id="profileCountryPie"></div><div class="profile-mini-labels countries" id="profileCountryLegend"></div></div><div class="profile-mini-pie-block"><div class="profile-mini-title">ТИП РЕЙСУ</div><div class="profile-mini-pie" id="profileFlightTypePie"></div><div class="profile-mini-labels" id="profileFlightTypeLegend"></div></div></div></div>
         <div class="profile-cards"><div class="profile-card"><small>Середній рейтинг</small><strong>${selected.rating?selected.rating.toFixed(2):'—'}</strong><span>${esc(periodCaption())}</span></div><div class="profile-card"><small>Рейсів виконано</small><strong>${selected.completed.length}</strong><span>${esc(periodCaption())}</span></div><div class="profile-card"><small>Наліт пілота</small><strong>${formatMinutes(selected.minutes)}</strong><span>${esc(periodCaption())}</span></div><div class="profile-card"><small>Прибуток для АК</small><strong class="${selected.companyProfit<0?'negative':'positive'}">${money(selected.companyProfit,true)}</strong><span>${esc(periodCaption())}</span></div><div class="profile-card"><small>Зарплата пілота</small><strong>${money(selected.salary)}</strong><span>${esc(periodCaption())}</span></div></div>
@@ -1768,22 +1957,112 @@
     renderFinanceAndPies(selected);
     page.content.querySelectorAll('[data-profile-period]').forEach(button => button.onclick = () => {
       current.period = button.dataset.profilePeriod;
+      current.customDate = '';
+      current.customEndDate = '';
       current.aircraft = null;
+      profileCalendarOpen = false;
+      profileCalendarRangePickingEnd = false;
+      profileCalendarPickerValue = '';
       render();
     });
     const datePicker = page.content.querySelector('#profileDatePicker');
     const calendarButton = page.content.querySelector('#profileCalendarButton');
     if (calendarButton && datePicker) calendarButton.onclick = event => {
       event.preventDefault();
-      if (typeof datePicker.showPicker === 'function') datePicker.showPicker();
-      else datePicker.click();
+      profileCalendarOpen = !profileCalendarOpen;
+      if (profileCalendarOpen) {
+        profileCalendarRangePickingEnd = false;
+        profileCalendarPickerValue = '';
+        render();
+        setTimeout(() => {
+          const nextPicker = ensureProfilePage().content.querySelector('#profileDatePicker');
+          try {
+            if (typeof nextPicker?.showPicker === 'function') nextPicker.showPicker();
+            else nextPicker?.click();
+          } catch {
+            nextPicker?.focus();
+            nextPicker?.click();
+          }
+        }, 0);
+      } else render();
     };
-    if (datePicker) datePicker.onchange = () => {
-      if (!datePicker.value) return;
-      current.customDate = datePicker.value;
-      current.period = 'customDate';
-      current.aircraft = null;
+    page.content.querySelectorAll('[data-profile-calendar-mode]').forEach(button => button.onclick = event => {
+      event.preventDefault();
+      profileCalendarMode = button.dataset.profileCalendarMode || 'date';
+      profileCalendarOpen = true;
+      profileCalendarRangePickingEnd = false;
+      profileCalendarPickerValue = '';
       render();
+      setTimeout(() => {
+        const nextPicker = ensureProfilePage().content.querySelector('#profileDatePicker');
+        try {
+          if (typeof nextPicker?.showPicker === 'function') nextPicker.showPicker();
+          else nextPicker?.click();
+        } catch {
+          nextPicker?.focus();
+          nextPicker?.click();
+        }
+      }, 0);
+    });
+    if (datePicker) {
+      datePicker.onclick = () => {
+        if (profileCalendarMode === 'range') profileCalendarRangePickingEnd = false;
+      };
+      datePicker.onchange = () => {
+        if (!datePicker.value) return;
+        if (profileCalendarMode === 'range' && profileCalendarRangePickingEnd) {
+          current.customEndDate = datePicker.value;
+          current.period = current.customDate === current.customEndDate ? 'customDate' : 'customRange';
+          current.aircraft = null;
+          profileCalendarOpen = false;
+          profileCalendarRangePickingEnd = false;
+          profileCalendarPickerValue = '';
+          render();
+          return;
+        }
+        current.customDate = datePicker.value;
+        if (profileCalendarMode === 'date') {
+          current.period = 'customDate';
+          current.customEndDate = '';
+          current.aircraft = null;
+          profileCalendarOpen = false;
+          render();
+        } else {
+          profileCalendarOpen = true;
+          profileCalendarRangePickingEnd = true;
+          profileCalendarPickerValue = '';
+          render();
+          setTimeout(() => {
+            const nextPicker = ensureProfilePage().content.querySelector('#profileDatePicker');
+            try {
+              if (typeof nextPicker?.showPicker === 'function') nextPicker.showPicker();
+              else nextPicker?.click();
+            } catch {
+              nextPicker?.focus();
+              nextPicker?.click();
+            }
+          }, 0);
+        }
+      };
+    }
+    const dateEndDisplay = page.content.querySelector('#profileDateEndDisplay');
+    if (dateEndDisplay) dateEndDisplay.onclick = event => {
+      event.preventDefault();
+      profileCalendarMode = 'range';
+      profileCalendarOpen = true;
+      profileCalendarRangePickingEnd = true;
+      profileCalendarPickerValue = current.customEndDate || current.customDate || '';
+      render();
+      setTimeout(() => {
+        const nextPicker = ensureProfilePage().content.querySelector('#profileDatePicker');
+        try {
+          if (typeof nextPicker?.showPicker === 'function') nextPicker.showPicker();
+          else nextPicker?.click();
+        } catch {
+          nextPicker?.focus();
+          nextPicker?.click();
+        }
+      }, 0);
     };
     page.content.querySelectorAll('[data-profile-sort]').forEach(button => button.onclick = () => {
       const field = button.dataset.profileSort;
@@ -1850,10 +2129,15 @@
       flights:availableFlights,
       period:'monthToDate',
       customDate:'',
+      customEndDate:'',
       aircraft:null,
       sortField:'date',
       sortDirection:'desc'
     };
+    profileCalendarOpen = false;
+    profileCalendarMode = 'date';
+    profileCalendarRangePickingEnd = false;
+    profileCalendarPickerValue = '';
     render();
     if (!String(location.hash || '').startsWith('#profile')) location.hash = 'profile';
   }
@@ -1864,6 +2148,7 @@
     availableFlights = nextFlights;
     resetProfileCaches(nextSignature);
     loadNewskyAwardRequirements();
+    loadSpecialProfileAwards();
     loadCompanyFleetTypes();
     insuranceCoverage = window.UCAAInsurance?.coverageMap(availableFlights) || new Map();
     warmProfileCaches();
@@ -1943,5 +2228,24 @@
     }).join('');
   }
 
-  window.UCAAPilotProfile = {open,setFlights,cardAwards,cardAircraftAwardsHtml,warmProfileCaches};
+  function cardSpecialAwardsHtml(pilotId) {
+    return specialProfileAwards
+      .filter(award => String(award.pilotId) === String(pilotId) && award.showLive === true)
+      .map(award => {
+        const colors = Array.isArray(award.cardStripeColors) ? award.cardStripeColors : (Array.isArray(award.stripeColors) ? award.stripeColors : []);
+        const colorA = colors[0] || award.cardStripeColorA || award.stripeColorA || '#f2a51f';
+        const colorB = colors[1] || award.cardStripeColorB || award.stripeColorB || '#111';
+        const label = award.label || 'SPECIAL';
+        const tooltipTitle = award.tooltipTitle || label;
+        const tooltipText = award.tooltipText || award.tooltip || award.text || '';
+        const tooltip = `<div><strong>${esc(tooltipTitle)}</strong><br>${esc(tooltipText)}</div>`;
+        const style = `--special-stripe-a:${esc(colorA)};--special-stripe-b:${esc(colorB)};--special-text-box-width:${esc(award.cardTextBoxWidth || award.textBoxWidth || '34px')};--special-text-box-color:${esc(award.cardTextBoxColor || award.textBoxColor || '#111')};--special-text-color:${esc(award.cardTextColor || award.textColor || '#fff')}`;
+        const topIcon = award.topIcon || award.emoji || '';
+        const bottomIcon = award.bottomIcon || award.medal || '';
+        const text = award.cardText || award.text || 'SPECIAL';
+        return `<span class="pilot-card-diamond special" style="${style}" data-award-tooltip="${esc(tooltip)}"><i></i><b>${topIcon}</b><span>${esc(text)}</span><em>${bottomIcon}</em></span>`;
+      }).join('');
+  }
+
+  window.UCAAPilotProfile = {open,setFlights,cardAwards,cardAircraftAwardsHtml,cardSpecialAwardsHtml,warmProfileCaches};
 })();

@@ -189,7 +189,7 @@
     return `<tr>
       <td>${date.toLocaleDateString('uk-UA',{timeZone:'UTC'})}<span class="date-flight-meta"><span class="date-flight-time">${date.toLocaleTimeString('uk-UA',{timeZone:'UTC',hour:'2-digit',minute:'2-digit'})}</span><a class="flight-number-link flight-number-${operation.key}" href="https://newsky.app/flight/${encodeURIComponent(flight.id)}" target="_blank" rel="noopener" title="${operation.label}">${esc(flight.flightNumber||'—')}</a></span></td>
       <td class="route"><span class="route-airports">${ui.airportWithFlag(flight.departure)} → ${ui.airportWithFlag(flight.arrival)}</span><span class="route-duration">${formatMinutes(flight.times.durationMinutes)}</span></td>
-      <td>${esc(flight.aircraft.name)}<span class="flight-note">${esc(flight.aircraft.icao)}</span></td>
+      <td>${esc(flight.aircraft.name)}<span class="flight-note">${esc(ui.aircraftTableNote ? ui.aircraftTableNote(flight) : flight.aircraft.icao)}</span></td>
       <td><span class="payload-value" title="${payloadKind.label}">${esc(ui.flightLoad(flight))}<span class="load-kind-icon" aria-hidden="true">${payloadKind.icon}</span></span></td>
       <td class="rating-cell profile-rating-detail" data-flight-id="${esc(flight.id)}" role="button" tabindex="0"><span class="rating-badge ${rating.className}">${rating.label}</span><span class="landing-line">${ui.landingStats(flight)}</span></td>
       <td class="finance-click-cell profile-company-profit-detail ${profitVisual.className}" data-flight-id="${esc(flight.id)}" role="button" tabindex="0">${money(direct.companyProfit,true)}${profitVisual.notes.map(note=>`<span class="profit-incident-note ${note.className}">${esc(note.text)}</span>`).join('')}</td>

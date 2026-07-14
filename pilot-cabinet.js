@@ -11,16 +11,22 @@ const app = {
   archive: null,
   current: null,
   companyData: null,
+  companyLiveryData: null,
+  companyLiveryMatching: null,
+  companyCharterDemand: {},
+  guaranteedBonuses: {},
   flights: [],
   referenceNow: null,
   period: 'today',
   pilotsPeriod: 'monthToDate',
   customDate: null,
+  customEndDate: null,
   dashboardPilotId: null,
   dashboardAircraftId: null,
   dashboardFlightSort: {field: 'date', direction: 'desc'},
   liveDashboardVisible: false,
   liveNewSkyFlights: [],
+  liveNewSkyFlightDetails: {},
   liveNewSkyLoaded: false,
   liveNewSkyLoading: false,
   liveNewSkyError: '',
@@ -81,7 +87,7 @@ function bindManualRefreshButton() {
   button.addEventListener('click', event => {
     event.preventDefault();
     button.disabled = true;
-    button.textContent = '⏳';
+    button.textContent = '\u23f3';
     const url = new URL(window.location.href);
     url.searchParams.set('ucaaRefresh', String(Date.now()));
     window.location.href = url.toString();
@@ -165,11 +171,88 @@ function liveFlightPayloadIcon(flight) {
     : {icon:'👨‍💼', label:'Pax'};
 }
 
+function liveAircraftIdCandidates(flight) {
+  const candidates = [];
+  const add = value => {
+    const text = String(value || '').trim();
+    if (text && !candidates.includes(text)) candidates.push(text);
+  };
+  const scan = (value, depth = 0) => {
+    if (!value || typeof value !== 'object' || depth > 4) return;
+    ['id', '_id', 'aircraftId', 'aircraftID'].forEach(key => add(value[key]));
+    Object.entries(value).forEach(([key, child]) => {
+      if (!child || typeof child !== 'object') return;
+      if (/aircraft|livery|fleet/i.test(key)) scan(child, depth + 1);
+    });
+  };
+  add(flight?.aircraftId);
+  add(flight?.aircraftID);
+  scan(flight?.aircraft);
+  return candidates;
+}
+
+function mergeLiveFlightDetail(flight, detail) {
+  const source = detail?.flight || detail || {};
+  if (!source || typeof source !== 'object') return flight;
+  const merged = {...flight};
+  const sourceAircraft = source.aircraft;
+  if (sourceAircraft && typeof sourceAircraft === 'object') {
+    merged.aircraft = {
+      ...(flight?.aircraft && typeof flight.aircraft === 'object' ? flight.aircraft : {}),
+      ...sourceAircraft,
+      airframe: {
+        ...(flight?.aircraft?.airframe || {}),
+        ...(sourceAircraft.airframe || {})
+      }
+    };
+    merged.aircraftId = sourceAircraft._id || sourceAircraft.id || source.aircraftId || flight?.aircraftId || '';
+  }
+  return merged;
+}
+
+async function loadLiveFlightDetail(flight) {
+  const id = String(flight?._id || flight?.id || '').trim();
+  if (!id) return flight;
+  if (app.liveNewSkyFlightDetails[id]) return mergeLiveFlightDetail(flight, app.liveNewSkyFlightDetails[id]);
+  try {
+    const response = await fetch(`https://newsky.app/api/airline-api/flight/${encodeURIComponent(id)}`, {
+      cache: 'no-store',
+      headers: {Authorization: `Bearer ${liveNewSkyAuthToken}`}
+    });
+    if (!response.ok) return flight;
+    const detail = await response.json();
+    app.liveNewSkyFlightDetails[id] = detail;
+    return mergeLiveFlightDetail(flight, detail);
+  } catch (error) {
+    console.warn('LIVE flight detail fetch failed', id, error);
+    return flight;
+  }
+}
+
+function liveDetailSleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function loadLiveFlightDetailsLimited(flights) {
+  const result = [];
+  const batchSize = 5;
+  for (let index = 0; index < flights.length; index += batchSize) {
+    const batch = flights.slice(index, index + batchSize);
+    result.push(...await Promise.all(batch.map(loadLiveFlightDetail)));
+    if (index + batchSize < flights.length) await liveDetailSleep(10500);
+  }
+  return result;
+}
+
 function liveAircraftInfo(flight) {
   const airframe = flight?.aircraft?.airframe || flight?.aircraft || {};
+  const id = companyLiveryLiveFlightAircraftId(flight);
+  const icao = String(airframe.icao || airframe.ident || flight?.aircraft?.icao || '');
   return {
+    id,
     name: String(airframe.name || flight?.aircraft?.name || airframe.icao || 'Unknown aircraft'),
-    icao: String(airframe.icao || airframe.ident || flight?.aircraft?.icao || '')
+    icao,
+    note: aircraftTableNote({aircraft: {id, icao}})
   };
 }
 
@@ -216,11 +299,11 @@ function renderLiveDashboardRows() {
       <td>${liveFlightDateLabel(flight)}<span class="date-flight-meta"><span class="date-flight-time">${liveFlightTimeLabel(flight)}</span><a class="flight-number-link flight-number-${operation.key}" href="${flightLink}" target="_blank" rel="noopener" title="LIVE ${operation.label}">${esc(flightNumber)}</a></span></td>
       ${dashboardPilotCellHtml(pilot)}
       <td class="route"><span class="route-airports">${airportWithFlag(dep)} → ${airportWithFlag(arr)}</span><span class="route-duration">${liveFlightDurationLabel(flight)}</span></td>
-      <td>${esc(aircraft.name)}<span class="flight-note">${esc(aircraft.icao)}</span></td>
+      <td>${esc(aircraft.name)}<span class="flight-note" title="${esc(aircraft.icao || aircraft.note)}">${esc(aircraft.note || aircraft.icao)}</span></td>
       <td><span class="payload-value" title="${payload.label}">${esc(liveFlightPayload(flight))}<span class="load-kind-icon" aria-hidden="true">${payload.icon}</span></span></td>
       <td class="num rating-cell"><span class="dashboard-live-badge">LIVE</span><span class="landing-line">ще в польоті</span></td>
       <td class="finance-click-cell live-finance-dash">—</td>
-      <td class="finance-click-cell live-finance-dash">—</td>
+      <td class="finance-click-cell live-finance-dash">${guaranteedBonusAmountForFlight(flight) ? '\u{1F4B0}' : '—'}</td>
     </tr>`;
   }).join('');
 }
@@ -239,10 +322,11 @@ async function loadDashboardLiveNewSkyFlights(force = false) {
     if (!response.ok) throw new Error(`NewSky ${response.status}`);
     const data = await response.json();
     const results = Array.isArray(data?.results) ? data.results : [];
-    app.liveNewSkyFlights = results
+    const filtered = results
       .filter(flight => String(flight?.airline?.icao || 'UKL').trim().toUpperCase() === 'UKL')
       .filter(flight => flight?.depTimeAct)
       .sort((a,b) => liveFlightDepartureDate(b) - liveFlightDepartureDate(a));
+    app.liveNewSkyFlights = await loadLiveFlightDetailsLimited(filtered);
     app.liveNewSkyLoaded = true;
   } catch (error) {
     console.warn('Не вдалося завантажити LIVE NewSky', error);
@@ -250,6 +334,7 @@ async function loadDashboardLiveNewSkyFlights(force = false) {
   } finally {
     app.liveNewSkyLoading = false;
     render();
+    updateCompanyLiveryStatus();
   }
 }
 
@@ -327,6 +412,60 @@ function airportWithFlag(airport) {
     ? `<img src="https://flagcdn.com/w20/${country.cc}.png" class="airport-flag" title="${esc(country.name)}" alt="${esc(country.name)}">`
     : '<span class="airport-flag airport-flag-missing" title="Країну не визначено" aria-label="Прапор не знайдено"></span>';
   return `<span title="${esc(airportTitle)}">${esc(code)}</span>${flag}`;
+}
+
+function flagEmojiFromCountryCode(code) {
+  const value = String(code || '').toUpperCase();
+  if (!/^[A-Z]{2}$/.test(value)) return '';
+  return [...value].map(char => String.fromCodePoint(0x1F1E6 + char.charCodeAt(0) - 65)).join('');
+}
+
+function airportWithEmojiFlag(airport) {
+  const code = String(airport?.icao || '—').toUpperCase();
+  const country = countryForAirport(code);
+  const airportTitle = airport?.name || airport?.city || code;
+  const flag = country ? ` ${flagEmojiFromCountryCode(country.cc)}` : '';
+  return `<span title="${esc(airportTitle)}">${esc(code)}${flag}</span>`;
+}
+
+function liveryAirportShortName(airport) {
+  const code = String(airport?.icao || '').trim().toUpperCase();
+  if (code === 'UKKK') return 'Kyiv (Zhuliany)';
+  const city = String(airport?.city || '').trim();
+  const name = String(airport?.name || '').trim();
+  if (/Ihor Sikorsky Kyiv International Airport \(Zhuliany\)/i.test(name)) return 'Kyiv (Zhuliany)';
+  const shortName = city && /international/i.test(name)
+    ? `${city} International`
+    : (name || city || '').replace(/\s+Airport$/i, '').trim();
+  return shortenAirportName(shortName);
+}
+
+function shortenAirportName(name, limit = 18) {
+  const value = String(name || '').trim();
+  if (value.length <= limit) return value;
+  return `${value.slice(0, Math.max(0, limit - 1)).trimEnd()}.`;
+}
+
+function liveryAirportStatusText(airport) {
+  const code = String(airport?.icao || '—').toUpperCase();
+  const title = airport?.name || airport?.city || code;
+  return `<span title="${esc(title)}">${esc(liveryAirportShortName(airport))} ${esc(code)}</span>`;
+}
+
+function liveryRegistrationFromTitle(title) {
+  const match = String(title || '').match(/\bUR-[A-Z0-9]+\b/i);
+  return match ? match[0].toUpperCase() : '';
+}
+
+function liveryAirportWithFlag(airport, includeName = false) {
+  const code = String(airport?.icao || '—').toUpperCase();
+  const country = countryForAirport(code);
+  const title = airport?.name || airport?.city || code;
+  const flag = country
+    ? `<img src="https://flagcdn.com/w20/${country.cc}.png" class="airport-flag" title="${esc(country.name)}" alt="${esc(country.name)}">`
+    : '';
+  const name = includeName ? `${esc(liveryAirportShortName(airport))} ` : '';
+  return `<span title="${esc(title)}"><span class="company-livery-airport-name">${name}</span><strong>${esc(code)}</strong>${flag}</span>`;
 }
 
 function money(value, signed = false) {
@@ -441,7 +580,7 @@ function formatLiveDataStatus(current, archive, fallbackLatest = null) {
     hour:'2-digit',
     minute:'2-digit'
   });
-  return `?? ??? ???????: ${currentFlights.length} ?????? ? ?????? ?????: ${archiveFlights.length}<br>???? ???????? ${updatedAt} UTC`;
+  return `\u0437\u0430 \u0446\u0435\u0439 \u0442\u0438\u0436\u0434\u0435\u043d\u044c: ${currentFlights.length} \u0440\u0435\u0439\u0441\u0456\u0432 \u00b7 \u043c\u0438\u043d\u0443\u043b\u0456 \u0442\u0438\u0436\u043d\u0456: ${archiveFlights.length}<br>\u0434\u0430\u043d\u0456 \u043e\u043d\u043e\u0432\u043b\u0435\u043d\u043e ${updatedAt} UTC`;
 }
 
 function formatRankUpdatedAt(value) {
@@ -492,7 +631,7 @@ async function loadNewskyRankSubtitleLegacy() {
     };
     const toTopText = Number.isFinite(toTop) ? `${toTop.toLocaleString('uk-UA')} ${flightWord(toTop)}` : '—';
     subtitle.innerHTML = `<span class="rank-subtitle-main">📊 Ми #${rank} у <a href="https://newsky.app/airlines" target="_blank" rel="noopener">рейтингу NewSky</a>!</span> Виконано ${flights.toLocaleString('uk-UA')} ${flightWord(flights)} за крайні 30 днів! 🔥<br><span class="rank-subtitle-extra">До наступного місця: ${toNext.toLocaleString('uk-UA')} ${flightWord(toNext)}, до ТОП-10: ${toTopText}. <a class="rank-join-link" href="https://newsky.app/airline/ukl/join" target="_blank" rel="noopener">Долучайся!</a>${updated ? ` (оновлено ${updated})` : ''}</span>`;
-    subtitle.innerHTML = `<span class="rank-subtitle-main"><span id="mobileModeTrigger" class="mobile-mode-trigger" role="button" tabindex="0" aria-label="РњРѕР±С–Р»СЊРЅР° РІРµСЂСЃС–СЏ">рџ”Ґ</span> рџ“Љ РњРё #${rank} Сѓ <a href="https://newsky.app/airlines" target="_blank" rel="noopener">СЂРµР№С‚РёРЅРіСѓ NewSky</a>!</span> Р’РёРєРѕРЅР°РЅРѕ ${flights.toLocaleString('uk-UA')} ${flightWord(flights)} Р·Р° РєСЂР°Р№РЅС– 30 РґРЅС–РІ!<br><span class="rank-subtitle-extra">Р”Рѕ РЅР°СЃС‚СѓРїРЅРѕРіРѕ РјС–СЃС†СЏ: ${toNext.toLocaleString('uk-UA')} ${flightWord(toNext)}, РґРѕ РўРћРџ-10: ${toTopText}. <a class="rank-join-link" href="https://newsky.app/airline/ukl/join" target="_blank" rel="noopener">Р”РѕР»СѓС‡Р°Р№СЃСЏ!</a>${updated ? ` (РѕРЅРѕРІР»РµРЅРѕ ${updated})` : ''}</span>`;
+    subtitle.innerHTML = `<span class="rank-subtitle-main"><span id="mobileModeTrigger" class="mobile-mode-trigger" role="button" tabindex="0" aria-label="Мобільна версія">🔥</span> 📊 Ми #${rank} у <a href="https://newsky.app/airlines" target="_blank" rel="noopener">рейтингу NewSky</a>!</span> Виконано ${flights.toLocaleString('uk-UA')} ${flightWord(flights)} за крайні 30 днів!<br><span class="rank-subtitle-extra">До наступного місця: ${toNext.toLocaleString('uk-UA')} ${flightWord(toNext)}, до ТОП-10: ${toTopText}. <a class="rank-join-link" href="https://newsky.app/airline/ukl/join" target="_blank" rel="noopener">Долучайся!</a>${updated ? ` (оновлено ${updated})` : ''}</span>`;
     bindMobileModeTrigger(subtitle);
     subtitle.innerHTML = `<span class="rank-desktop-line"><span class="rank-subtitle-main"><span id="mobileModeTrigger" class="mobile-mode-trigger" role="button" tabindex="0" aria-label="\u041C\u043E\u0431\u0456\u043B\u044C\u043D\u0430 \u0432\u0435\u0440\u0441\u0456\u044F">\u{1F4CA}</span> \u041C\u0438 #${rank} \u0443 <a href="https://newsky.app/airlines" target="_blank" rel="noopener">\u0440\u0435\u0439\u0442\u0438\u043D\u0433\u0443 NewSky</a>!</span> \u0412\u0438\u043A\u043E\u043D\u0430\u043D\u043E ${flights.toLocaleString('uk-UA')} ${cleanFlightWord(flights)} \u0437\u0430 \u043A\u0440\u0430\u0439\u043D\u0456 30 \u0434\u043D\u0456\u0432! <span id="desktopModeTrigger" class="mobile-mode-trigger" role="button" tabindex="0" aria-label="\u0417\u0432\u0438\u0447\u0430\u0439\u043D\u0430 \u0432\u0435\u0440\u0441\u0456\u044F">\u{1F525}</span></span><span class="rank-mobile-line">\u0412\u0438\u043A\u043E\u043D\u0430\u043D\u043E ${flights.toLocaleString('uk-UA')} ${cleanFlightWord(flights)} / 30 \u0434\u043D\u0456\u0432 \u{1F525} #${rank} \u043C\u0456\u0441\u0446\u0435 NewSky!</span><br><span class="rank-subtitle-extra">\u0414\u043E \u043D\u0430\u0441\u0442\u0443\u043F\u043D\u043E\u0433\u043E \u043C\u0456\u0441\u0446\u044F: ${toNext.toLocaleString('uk-UA')} ${cleanFlightWord(toNext)}, \u0434\u043E \u0422\u041E\u041F-10: ${Number.isFinite(toTop) ? `${toTop.toLocaleString('uk-UA')} ${cleanFlightWord(toTop)}` : '\u2014'}. <a class="rank-join-link" href="https://newsky.app/airline/ukl/join" target="_blank" rel="noopener">\u0414\u043E\u043B\u0443\u0447\u0430\u0439\u0441\u044F!</a>${updated ? ` (\u043E\u043D\u043E\u0432\u043B\u0435\u043D\u043E ${updated})` : ''}</span>`;
     bindMobileModeTrigger(subtitle);
@@ -589,8 +728,122 @@ function aircraftCoefficient(icao = '', flightType = '') {
   return window.UCAAPilotPay.aircraftCoefficient(icao, flightType);
 }
 
+function guaranteedBonusFlightKeys(flight) {
+  const depIcao = String(flight?.departure?.icao || flight?.dep?.icao || flight?.dep || flight?.departure || '').trim();
+  const arrIcao = String((flight?.actualArrival || flight?.arrival)?.icao || flight?.arr?.icao || flight?.arr || flight?.arrival || '').trim();
+  return [
+    flight?.id,
+    flight?._id,
+    flight?.flightId,
+    flight?.newskyId,
+    flight?.flightNumber ? `${flight.flightNumber}|${depIcao}|${arrIcao}` : '',
+    flight?.number ? `${flight.number}|${depIcao}|${arrIcao}` : ''
+  ].map(value => String(value || '').trim()).filter(Boolean);
+}
+
+function guaranteedBonusIcao(value) {
+  return String(value || '').trim().toUpperCase();
+}
+
+function guaranteedBonusFlightMeta(flight) {
+  return {
+    pilotId: String(flight?.pilot?.id || flight?.pilotId || '').trim(),
+    aircraftId: String(flight?.aircraft?.id || flight?.aircraftId || '').trim(),
+    depIcao: guaranteedBonusIcao(flight?.departure?.icao || flight?.dep?.icao || flight?.dep || flight?.departure),
+    arrIcao: guaranteedBonusIcao((flight?.actualArrival || flight?.arrival)?.icao || flight?.arr?.icao || flight?.arr || flight?.arrival),
+    flightNumber: String(flight?.flightNumber || flight?.number || '').trim()
+  };
+}
+
+function guaranteedBonusRecordMatchesFlight(record, flight) {
+  if (!record || typeof record !== 'object') return false;
+  const meta = guaranteedBonusFlightMeta(flight);
+  const recordMeta = {
+    pilotId: String(record.pilotId || record.pilot || '').trim(),
+    aircraftId: String(record.aircraftId || record.aircraft || '').trim(),
+    depIcao: guaranteedBonusIcao(record.depIcao || record.departureIcao || record.departure || record.dep),
+    arrIcao: guaranteedBonusIcao(record.arrIcao || record.arrivalIcao || record.arrival || record.arr),
+    flightNumber: String(record.flightNumber || record.number || '').trim()
+  };
+  const hasRoute = Boolean(recordMeta.depIcao && recordMeta.arrIcao);
+  const hasIdentity = Boolean(recordMeta.pilotId || recordMeta.aircraftId || recordMeta.flightNumber);
+  if (!hasRoute || !hasIdentity) return false;
+  if (recordMeta.pilotId && (!meta.pilotId || recordMeta.pilotId !== meta.pilotId)) return false;
+  if (recordMeta.aircraftId && (!meta.aircraftId || recordMeta.aircraftId !== meta.aircraftId)) return false;
+  if (recordMeta.depIcao && (!meta.depIcao || recordMeta.depIcao !== meta.depIcao)) return false;
+  if (recordMeta.arrIcao && (!meta.arrIcao || recordMeta.arrIcao !== meta.arrIcao)) return false;
+  if (recordMeta.flightNumber && (!meta.flightNumber || recordMeta.flightNumber !== meta.flightNumber)) return false;
+  return true;
+}
+
+function guaranteedBonusRecordForFlight(flight) {
+  const source = app.guaranteedBonuses || {};
+  const flights = source.flights && typeof source.flights === 'object' ? source.flights : source;
+  const keys = guaranteedBonusFlightKeys(flight);
+  for (const key of keys) {
+    if (flights && Object.prototype.hasOwnProperty.call(flights, key)) return flights[key];
+  }
+  for (const record of Object.values(flights || {})) {
+    if (guaranteedBonusRecordMatchesFlight(record, flight)) return record;
+  }
+  return null;
+}
+
+function reconcileGuaranteedBonusStatesWithCompletedFlights() {
+  const source = app.guaranteedBonuses || {};
+  const records = source.flights && typeof source.flights === 'object' ? source.flights : source;
+  const completed = (app.flights || []).filter(flight => flight.status === 'completed');
+  Object.entries(records || {}).forEach(([key, record]) => {
+    if (!record || typeof record !== 'object') return;
+    if (guaranteedBonusRecordState(record) !== 'LIVE') return;
+    const matched = completed.find(flight => guaranteedBonusFlightKeys(flight).includes(String(key || '').trim()))
+      || completed.find(flight => guaranteedBonusRecordMatchesFlight(record, flight));
+    if (!matched) return;
+    record.state = 'DONE';
+    if (!record.status || String(record.status).toLowerCase().includes('live')) record.status = 'earned';
+    record.completedFlightId = String(matched.id || matched._id || key || '').trim();
+  });
+}
+
+function guaranteedBonusAmountForFlight(flight) {
+  const record = guaranteedBonusRecordForFlight(flight);
+  if (!record) return 0;
+  if (record === true) return 0;
+  const amount = Number(record.amount ?? record.sum ?? record.bonus ?? 0);
+  return Number.isFinite(amount) ? Math.max(0, Math.round(amount)) : 0;
+}
+
+function guaranteedBonusRecordState(record) {
+  return String(record?.state || record?.status || '').trim().toUpperCase();
+}
+
+function guaranteedBonusLiveRecords() {
+  const source = app.guaranteedBonuses || {};
+  const flights = source.flights && typeof source.flights === 'object' ? source.flights : source;
+  return Object.entries(flights || {})
+    .map(([key, record]) => ({key, record}))
+    .filter(item => item.record && typeof item.record === 'object')
+    .filter(item => guaranteedBonusRecordState(item.record) === 'LIVE');
+}
+
+function guaranteedBonusIconHtmlByAmount(amount) {
+  return Number(amount || 0) > 0
+    ? '<span class="guaranteed-bonus-icon" title="Guaranteed route bonus">\u{1F4B0}</span>'
+    : '';
+}
+function guaranteedBonusIconHtml(flight) {
+  return guaranteedBonusIconHtmlByAmount(guaranteedBonusAmountForFlight(flight));
+}
+function guaranteedBonusIconHtmlForRow(flight, amount) {
+  return guaranteedBonusIconHtmlByAmount(Math.max(
+    Number(amount || 0),
+    guaranteedBonusAmountForFlight(flight)
+  ));
+}
+
 function pilotPay(flight) {
-  return window.UCAAPilotPay.pay(flight, pilotInsuranceCoverage.get(flight) || 0, app.flights);
+  return window.UCAAPilotPay.pay(flight, pilotInsuranceCoverage.get(flight) || 0, app.flights)
+    + guaranteedBonusAmountForFlight(flight);
 }
 
 function currentFlightById(flight) {
@@ -617,7 +870,13 @@ function periodBounds(period) {
   }
   let start;
   let end = now;
-  if (period === 'custom' && app.customDate) {
+  if (period === 'customRange' && app.customDate && app.customEndDate) {
+    const first = new Date(`${app.customDate}T00:00:00Z`);
+    const second = new Date(`${app.customEndDate}T00:00:00Z`);
+    start = first <= second ? first : second;
+    const endBase = first <= second ? second : first;
+    end = new Date(endBase.getTime() + 86400000);
+  } else if (period === 'custom' && app.customDate) {
     start = new Date(`${app.customDate}T00:00:00Z`);
     end = new Date(start.getTime() + 86400000);
   } else if (period === 'sinceRestructure') {
@@ -661,6 +920,8 @@ function selectInitialDashboardPeriod() {
     : hasCompletedFlights('weekToDate')
       ? 'weekToDate'
       : 'previousWeek';
+  app.customDate = null;
+  app.customEndDate = null;
   $$('#dashboardView [data-period]').forEach(button => {
     button.classList.toggle('active', button.dataset.period === app.period);
   });
@@ -731,10 +992,14 @@ function compactMoney(value) {
 
 function periodLabel() {
   const labels = {today:'За сьогодні',weekToDate:'З початку тижня',previousWeek:'Минулий тиждень',monthToDate:'З початку місяця',previousMonth:'Минулий місяць',sinceRestructure:'З 01.05.2026',all:'Весь період'};
+  if (app.period === 'customRange' && app.customDate && app.customEndDate) return `${liveryFlightLogFormatDateShort(app.customDate)}-${liveryFlightLogFormatDateShort(app.customEndDate)}`;
   return app.period === 'custom' && app.customDate ? new Date(`${app.customDate}T00:00:00Z`).toLocaleDateString('uk-UA',{timeZone:'UTC'}) : labels[app.period];
 }
 
 function dashboardMetricPeriodLabel() {
+  if (app.period === 'customRange' && app.customDate && app.customEndDate) {
+    return `за ${liveryFlightLogFormatDateShort(app.customDate)}-${liveryFlightLogFormatDateShort(app.customEndDate)}`;
+  }
   if (app.period === 'custom' && app.customDate) {
     return `за ${new Date(`${app.customDate}T00:00:00Z`).toLocaleDateString('uk-UA',{timeZone:'UTC'})}`;
   }
@@ -1200,6 +1465,8 @@ function pilotCardAwardsHtml(pilot, period = app.pilotsPeriod) {
   const pieces = [];
   const aircraftAwards = window.UCAAPilotProfile?.cardAircraftAwardsHtml?.(pilot.id) || '';
   if (aircraftAwards) pieces.push(aircraftAwards);
+  const specialAwards = showLive ? (window.UCAAPilotProfile?.cardSpecialAwardsHtml?.(pilot.id) || '') : '';
+  if (specialAwards) pieces.push(specialAwards);
   if (selectedMonthAwards.length > 0) {
     pieces.push(pilotCardDiamondHtml('earned', selectedMonthAwards, pilotCardPastAwardsTooltip(selectedMonthAwards, true), selectedMonthAwards[0].monthShort, 'month-specific'));
   } else if (!selectedMonth && earned.length > 0) {
@@ -1370,13 +1637,24 @@ function touchdownWindLabel(weather) {
   const direction = String(Math.round(Number(weather.windDir)) % 360).padStart(3, '0');
   const speed = Math.round(Number(weather.windSpd));
   const crosswind = Number.isFinite(Number(weather.crosswind)) ? Math.round(Math.abs(Number(weather.crosswind))) : null;
-  return `Wind on touchdown: ${direction}° / ${speed} kt${crosswind===null?'':` (crosswind ${crosswind} kt)`}`;
+  return `Wind on touchdown: ${direction}В° / ${speed} kt${crosswind===null?'':` (crosswind ${crosswind} kt)`}`;
 }
 
 function directFlightFinance(flight) {
   const insurancePayout = pilotInsuranceCoverage.get(flight) || 0;
   const pilotPay = window.UCAAPilotPay.breakdown(flight, insurancePayout, app.flights);
-  return {insurancePayout, pilotPay, ...window.UCAAIncidentCompensation.breakdown(flight, insurancePayout, app.flights)};
+  const guaranteedBonus = guaranteedBonusAmountForFlight(flight);
+  if (guaranteedBonus) {
+    pilotPay.guaranteedBonus = guaranteedBonus;
+    pilotPay.total = (Number(pilotPay.total) || 0) + guaranteedBonus;
+  }
+  const direct = {insurancePayout, pilotPay, ...window.UCAAIncidentCompensation.breakdown(flight, insurancePayout, app.flights)};
+  if (guaranteedBonus) {
+    direct.guaranteedBonus = guaranteedBonus;
+    direct.pilotSalary = (Number(direct.pilotSalary) || 0) + guaranteedBonus;
+    direct.companyProfit = (Number(direct.companyProfit) || 0) - guaranteedBonus;
+  }
+  return direct;
 }
 
 function financeDetailRow(label, value, color, expense = false, note = '', noteOnNewLine = false, title = '') {
@@ -1390,7 +1668,8 @@ function financeDetailRow(label, value, color, expense = false, note = '', noteO
 function pilotFinanceDetailRows(flight, direct) {
   const pay = direct.pilotPay;
   const grossSalary = Math.max(0, Number(pay?.salaryBeforeDeductions) || 0)
-    + Math.max(0, Number(pay?.managementBonus) || 0);
+    + Math.max(0, Number(pay?.managementBonus) || 0)
+    + Math.max(0, Number(pay?.guaranteedBonus) || 0);
   const deductions = Math.max(0, Number(pay?.totalDeductions) || 0);
   const salaryRow = `<div class="flight-finance-row"><i class="finance-dot" style="background:#e89ac7"></i><span>Зарплата пілота<button type="button" class="finance-pilot-profile-link" data-pilot-id="${esc(flight.pilot.id)}">${pilotNameWithStreak(flight.pilot)}</button></span><strong class="negative">${grossSalary?'−':''}${money(grossSalary)}</strong></div>`;
   const penaltyRow = deductions
@@ -1504,6 +1783,8 @@ function flightFinanceDetails(flight) {
 function pilotSalaryDetails(flight) {
   const payout = pilotInsuranceCoverage.get(flight) || 0;
   const pay = window.UCAAPilotPay.breakdown(flight, payout, app.flights);
+  const guaranteedBonus = guaranteedBonusAmountForFlight(flight);
+  const displayedTotal = (Number(pay.total) || 0) + guaranteedBonus;
   const routeText = flight.routeType === 'UA-UA'
     ? `× ${pay.routeK.toFixed(2)} (+25%, рейс у межах України)`
     : flight.routeType === 'UA-INT'
@@ -1624,7 +1905,7 @@ function pilotSalaryDetails(flight) {
   const fdrRows = pay.fdrPenalty
     ? `<tr class="salary-deduction-row" title="${tip(fdrTooltip)}"><th>Інцидент / Штраф</th><td><strong>Аналіз FDR</strong>${pay.fdrItems.map(item => `<div class="salary-incident-item"><strong class="negative">−${money(item.amount)}</strong><br><span>${esc(item.label)}</span></div>`).join('')}${pay.fdrCapped?`<div class="finance-status">Застосовано загальний ліміт FDR: ${money(pay.fdrCap)}</div>`:''}</td><td class="num negative">−${money(pay.fdrPenalty)}</td></tr>`
     : '';
-  const formula = `(${money(pay.preparationPay)} + ${money(pay.flightBasePay)} × ${pay.routeK.toFixed(2)} × ${pay.aircraftK.toFixed(2)} × ${pay.onlineK.toFixed(2)}) ${masteryDelta>=0?'+':'−'} ${money(Math.abs(masteryDelta))} + ${money(crosswindDelta)} + ${money(pay.managementBonus)} − ${money(pay.delayDeduction)} − ${money(pay.insuranceLiability)} − ${money(pay.incidentLiability)} − ${money(pay.fdrPenalty)} = ${money(pay.total,true)}`;
+  const formula = `(${money(pay.preparationPay)} + ${money(pay.flightBasePay)} × ${pay.routeK.toFixed(2)} × ${pay.aircraftK.toFixed(2)} × ${pay.onlineK.toFixed(2)}) ${masteryDelta>=0?'+':'−'} ${money(Math.abs(masteryDelta))} + ${money(crosswindDelta)} + ${money(pay.managementBonus)}${guaranteedBonus?` + ${money(guaranteedBonus)}`:''} − ${money(pay.delayDeduction)} − ${money(pay.insuranceLiability)} − ${money(pay.incidentLiability)} − ${money(pay.fdrPenalty)} = ${money(displayedTotal,true)}`;
   const managementMessage = pay.insuranceCase
     ? 'Пише пояснювальні і тоне у паперовій роботі'
     : pay.seriousIncident
@@ -1647,8 +1928,11 @@ function pilotSalaryDetails(flight) {
     'При страховому випадку, серйозному інциденті або серйозному FDR-інциденті премія не нараховується.'
   ].join('\n');
   const managementBonusRow = `<tr class="management-bonus-row" title="${tip(managementBonusTooltip)}"><th>Премія від керівництва</th><td>${managementMessage}</td><td class="num ${pay.managementBonus?'positive':''}">${pay.managementBonus?`+${money(pay.managementBonus)}`:'$0'}</td></tr>`;
+  const guaranteedBonusRow = guaranteedBonus
+    ? `<tr class="guaranteed-bonus-row" title="${tip('\u0413\u0430\u0440\u0430\u043d\u0442\u043e\u0432\u0430\u043d\u0430 \u043f\u0440\u0435\u043c\u0456\u044f \u0437\u0430 \u0440\u0435\u0439\u0441, \u044f\u043a\u0438\u0439 \u0431\u0443\u0432 \u0443 \u0441\u043f\u0438\u0441\u043a\u0443 \u0437\u0430\u043f\u0440\u043e\u043f\u043e\u043d\u043e\u0432\u0430\u043d\u0438\u0445 \u043c\u0430\u0440\u0448\u0440\u0443\u0442\u0456\u0432.')}" ><th>\u0413\u0430\u0440\u0430\u043d\u0442\u043e\u0432\u0430\u043d\u0430 \u043f\u0440\u0435\u043c\u0456\u044f</th><td>\u0417\u0430 \u0437\u0430\u043f\u0440\u043e\u043f\u043e\u043d\u043e\u0432\u0430\u043d\u0438\u0439 \u0440\u0435\u0439\u0441 \u{1F4B0}</td><td class="num positive">+${money(guaranteedBonus)}</td></tr>`
+    : '';
   const salarySubtotal = `<tr class="salary-subtotal-row" title="Зароблена зарплата після оплати підготовки, польоту, льотних коефіцієнтів та бонусів за посадку і crosswind, але до премії керівництва й штрафів."><th>Зарплата пілота</th><td>до Премії і Штрафів</td><td class="num ${pay.salaryBeforeDeductions>=0?'positive':'negative'}">${money(pay.salaryBeforeDeductions,true)}</td></tr>`;
-  return `<div class="flight-info-section" style="margin-top:0">ФОРМУЛА ЗАРПЛАТИ ЗА РЕЙС</div><table class="salary-formula-table"><tr title="Базова погодинна ставка однакова для всіх пілотів до врахування лояльності та регулярності."><th>Ставка</th><td>Базова ставка</td><td class="num">$${PAY_RULE.hourlyRate}/год</td></tr><tr title="${tip(loyaltyTooltip)}"><th>Лояльність</th><td>× ${pay.loyaltyK.toFixed(2)} · ${pay.context.membershipDays} дн. в АК · ${pay.context.totalFlights} рейсів</td><td class="num positive">${money(loyaltyBonus,true)}/год</td></tr><tr title="${tip(regularityTooltip)}"><th>Регулярність</th><td>${regularityFormulaText} · ${pay.context.last10}/10 дн. · ${pay.context.last20}/20 дн. · ${pay.context.last30}/30 дн. · ${streakText}</td><td class="num positive">${money(regularityBonus,true)}/год</td></tr><tr title="Лояльність і регулярність формують персональну ставку, але разом не можуть підняти її вище подвійної базової ставки."><th>Ставка пілота</th><td>$${PAY_RULE.hourlyRate} × ${pay.loyaltyK.toFixed(2)} × ${baseRegularityK.toFixed(2)}${streakK>1?` × ${streakK.toFixed(2)}`:''}${rateCapText}</td><td class="num positive">${money(pay.effectiveHourlyRate)}/год</td></tr><tr title="За кожен завершений рейс оплачується одна додаткова година на передпольотну підготовку."><th>Підготовка до польоту</th><td>1 год × ${money(pay.effectiveHourlyRate)}</td><td class="num">${money(pay.preparationPay)}</td></tr><tr title="Фактичний льотний час оплачується за персональною ставкою до застосування льотних коефіцієнтів."><th>Політ</th><td>${pay.flightHours.toLocaleString('uk-UA',{minimumFractionDigits:2,maximumFractionDigits:2})} год × ${money(pay.effectiveHourlyRate)}</td><td class="num">${money(pay.flightBasePay)}</td></tr><tr title="${tip(routeTooltip)}"><th>Коефіцієнт за маршрут</th><td>${routeText}</td><td class="num ${routeBonus>=0?'positive':'negative'}">${money(routeBonus,true)}</td></tr><tr title="${tip(['Коефіцієнт береться з редагованого довідника ICAO.', 'Для cargo може використовуватися окремий запис із F.', 'Невідомий тип тимчасово отримує ×1,25.'])}"><th>Коефіцієнт за складність літака</th><td>× ${pay.aircraftK.toFixed(2)} (${aircraftPercent?`+${aircraftPercent}%`:'без доплати'}, ${esc(flight.aircraft.icao)})</td><td class="num ${aircraftBonus>=0?'positive':'negative'}">${money(aircraftBonus,true)}</td></tr><tr title="${tip(onlineTooltip)}"><th>Online (VATSIM)</th><td>× ${pay.onlineK.toFixed(2)} (${onlinePercent?`+${onlinePercent}%`:'OFFLINE'})</td><td class="num ${onlineBonus>=0?'positive':''}">${money(onlineBonus,true)}</td></tr><tr title="${tip(masteryTooltip)}"><th>Майстерність</th><td>${pay.fpm?`${Math.round(pay.fpm)} fpm × ${pay.masteryK.toFixed(2)}`:'FPM не визначено · × 1.00'}</td><td class="num ${masteryDelta>0?'positive':masteryDelta<0?'negative':''}">${money(masteryDelta,true)}</td></tr><tr title="${tip(['Кожен вузол бокового вітру додає 2% до нарахувань перед утриманнями.', '1 kt — +2%.', '5 kt — +10%.', '10 kt — +20%.'])}"><th>Доплата за crosswind</th><td>${pay.crosswindKt?`${pay.crosswindKt.toFixed(0)} kt · +${Math.round((pay.crosswindK-1)*100)}%`:'Дані відсутні · +0%'}</td><td class="num positive">${money(crosswindDelta,true)}</td></tr>${salarySubtotal}${managementBonusRow}<tr title="Пілот компенсує 10% грошового штрафу NewSky саме за затримку рейсу."><th>Затримка рейсу</th><td>${pay.delayCash?`10% від ${money(pay.delayCash)}`:'Відсутня'}</td><td class="num ${pay.delayDeduction?'negative':''}">${pay.delayDeduction?`−${money(pay.delayDeduction)}`:''}</td></tr>${insuranceRows}${fdrRows}</table><div class="salary-numeric-formula" title="${tip(['Підсумкова формула:', 'персональна ставка використовується для підготовки та польоту;', 'льотні коефіцієнти діють лише на політ;', 'майстерність і crosswind формують зарплату до премії та утримань;', 'після премії окремо віднімаються штрафи й особиста відповідальність.'])}">${formula}</div><div class="flight-finance-row flight-finance-result" title="Фінальна виплата або заборгованість пілота за цей завершений рейс."><span></span><span>${pay.total>=0?'Зарплата пілота':'Штраф пілота'}</span><strong class="${pay.total>=0?'positive':'negative'}">${money(pay.total,true)}</strong></div>`;
+  return `<div class="flight-info-section" style="margin-top:0">ФОРМУЛА ЗАРПЛАТИ ЗА РЕЙС</div><table class="salary-formula-table"><tr title="Базова погодинна ставка однакова для всіх пілотів до врахування лояльності та регулярності."><th>Ставка</th><td>Базова ставка</td><td class="num">$${PAY_RULE.hourlyRate}/год</td></tr><tr title="${tip(loyaltyTooltip)}"><th>Лояльність</th><td>× ${pay.loyaltyK.toFixed(2)} · ${pay.context.membershipDays} дн. в АК · ${pay.context.totalFlights} рейсів</td><td class="num positive">${money(loyaltyBonus,true)}/год</td></tr><tr title="${tip(regularityTooltip)}"><th>Регулярність</th><td>${regularityFormulaText} · ${pay.context.last10}/10 дн. · ${pay.context.last20}/20 дн. · ${pay.context.last30}/30 дн. · ${streakText}</td><td class="num positive">${money(regularityBonus,true)}/год</td></tr><tr title="Лояльність і регулярність формують персональну ставку, але разом не можуть підняти її вище подвійної базової ставки."><th>Ставка пілота</th><td>$${PAY_RULE.hourlyRate} × ${pay.loyaltyK.toFixed(2)} × ${baseRegularityK.toFixed(2)}${streakK>1?` × ${streakK.toFixed(2)}`:''}${rateCapText}</td><td class="num positive">${money(pay.effectiveHourlyRate)}/год</td></tr><tr title="За кожен завершений рейс оплачується одна додаткова година на передпольотну підготовку."><th>Підготовка до польоту</th><td>1 год × ${money(pay.effectiveHourlyRate)}</td><td class="num">${money(pay.preparationPay)}</td></tr><tr title="Фактичний льотний час оплачується за персональною ставкою до застосування льотних коефіцієнтів."><th>Політ</th><td>${pay.flightHours.toLocaleString('uk-UA',{minimumFractionDigits:2,maximumFractionDigits:2})} год × ${money(pay.effectiveHourlyRate)}</td><td class="num">${money(pay.flightBasePay)}</td></tr><tr title="${tip(routeTooltip)}"><th>Коефіцієнт за маршрут</th><td>${routeText}</td><td class="num ${routeBonus>=0?'positive':'negative'}">${money(routeBonus,true)}</td></tr><tr title="${tip(['Коефіцієнт береться з редагованого довідника ICAO.', 'Для cargo може використовуватися окремий запис із F.', 'Невідомий тип тимчасово отримує ×1,25.'])}"><th>Коефіцієнт за складність літака</th><td>× ${pay.aircraftK.toFixed(2)} (${aircraftPercent?`+${aircraftPercent}%`:'без доплати'}, ${esc(flight.aircraft.icao)})</td><td class="num ${aircraftBonus>=0?'positive':'negative'}">${money(aircraftBonus,true)}</td></tr><tr title="${tip(onlineTooltip)}"><th>Online (VATSIM)</th><td>× ${pay.onlineK.toFixed(2)} (${onlinePercent?`+${onlinePercent}%`:'OFFLINE'})</td><td class="num ${onlineBonus>=0?'positive':''}">${money(onlineBonus,true)}</td></tr><tr title="${tip(masteryTooltip)}"><th>Майстерність</th><td>${pay.fpm?`${Math.round(pay.fpm)} fpm × ${pay.masteryK.toFixed(2)}`:'FPM не визначено · × 1.00'}</td><td class="num ${masteryDelta>0?'positive':masteryDelta<0?'negative':''}">${money(masteryDelta,true)}</td></tr><tr title="${tip(['Кожен вузол бокового вітру додає 2% до нарахувань перед утриманнями.', '1 kt — +2%.', '5 kt — +10%.', '10 kt — +20%.'])}"><th>Доплата за crosswind</th><td>${pay.crosswindKt?`${pay.crosswindKt.toFixed(0)} kt · +${Math.round((pay.crosswindK-1)*100)}%`:'Дані відсутні · +0%'}</td><td class="num positive">${money(crosswindDelta,true)}</td></tr>${salarySubtotal}${managementBonusRow}${guaranteedBonusRow}<tr title="Пілот компенсує 10% грошового штрафу NewSky саме за затримку рейсу."><th>Затримка рейсу</th><td>${pay.delayCash?`10% від ${money(pay.delayCash)}`:'Відсутня'}</td><td class="num ${pay.delayDeduction?'negative':''}">${pay.delayDeduction?`−${money(pay.delayDeduction)}`:''}</td></tr>${insuranceRows}${fdrRows}</table><div class="salary-numeric-formula" title="${tip(['Підсумкова формула:', 'персональна ставка використовується для підготовки та польоту;', 'льотні коефіцієнти діють лише на політ;', 'майстерність і crosswind формують зарплату до премії та утримань;', 'після премії окремо віднімаються штрафи й особиста відповідальність.'])}">${formula}</div><div class="flight-finance-row flight-finance-result" title="Фінальна виплата або заборгованість пілота за цей завершений рейс."><span></span><span>${displayedTotal>=0?'Зарплата пілота':'Штраф пілота'}</span><strong class="${displayedTotal>=0?'positive':'negative'}">${money(displayedTotal,true)}</strong></div>`;
 }
 
 function arrangeSalaryDetails(body, flight) {
@@ -1761,6 +2045,7 @@ function arrangeSalaryDetails(body, flight) {
   }
   if (subtotal && mastery && crosswind) subtotal.before(mastery, crosswind);
   const managementRow = rows.find(row => row.classList.contains('management-bonus-row'));
+  const guaranteedRow = rows.find(row => row.classList.contains('guaranteed-bonus-row'));
   const salaryTable = body.querySelector('.salary-formula-table');
   if (salaryTable) {
     const deductionRows = [...salaryTable.querySelectorAll('.salary-deduction-row')];
@@ -1773,11 +2058,13 @@ function arrangeSalaryDetails(body, flight) {
       deductionRows.forEach(row => deductionBody.append(row));
       salaryTable.after(deductionBlock);
     }
-    if (managementRow) {
+    if (managementRow || guaranteedRow) {
       const premiumBlock = document.createElement('div');
       premiumBlock.className = 'salary-section salary-premium-section';
       premiumBlock.innerHTML = '<table class="salary-formula-table salary-premium-table"><tbody></tbody></table>';
-      premiumBlock.querySelector('tbody').append(managementRow);
+      const premiumBody = premiumBlock.querySelector('tbody');
+      if (managementRow) premiumBody.append(managementRow);
+      if (guaranteedRow) premiumBody.append(guaranteedRow);
       (body.querySelector('.salary-deductions-section') || salaryTable).after(premiumBlock);
     }
   }
@@ -1858,7 +2145,7 @@ function openFlightInfo(flight, type) {
     body.innerHTML = pilotSalaryDetails(flight);
     arrangeSalaryDetails(body, flight);
   }
-  if (!dialog.open) dialog.showModal();
+  showCompanyLiveryDialog(dialog);
 }
 
 function flightOperation(flight) {
@@ -1969,7 +2256,9 @@ window.UCAADashboardFlightUI = {
   flightLoad,
   flightRatingPresentation,
   landingStats,
+  aircraftTableNote,
   pilotSalaryVisual,
+  guaranteedBonusIconHtmlForRow,
   companyProfitVisual
 };
 
@@ -2022,11 +2311,11 @@ function renderDashboardFlightsOld(completed) {
       <td>${formatFlightDateLabel(flight)}<span class="date-flight-meta"><span class="date-flight-time">${formatFlightCloseTime(flight)}</span><a class="flight-number-link flight-number-${operation.key}" href="https://newsky.app/flight/${encodeURIComponent(flight.id)}" target="_blank" rel="noopener" title="${operation.label}">${esc(flight.flightNumber||'—')}</a></span></td>
       ${dashboardPilotCellHtml(flight.pilot)}
       <td class="route"><span class="route-airports">${airportWithFlag(flight.departure)} → ${airportWithFlag(flight.arrival)}</span><span class="route-duration">${formatMinutes(flight.times.durationMinutes)}</span></td>
-      <td>${esc(flight.aircraft.name)}<span class="flight-note">${esc(flight.aircraft.icao)}</span></td>
+      <td>${esc(flight.aircraft.name)}<span class="flight-note">${esc(aircraftTableNote(flight))}</span></td>
       <td><span class="payload-value" title="${payloadKind.label}">${esc(flightLoad(flight))}<span class="load-kind-icon" aria-hidden="true">${payloadKind.icon}</span></span></td>
       <td class="num rating-cell rating-detail" data-flight-id="${esc(flight.id)}" role="button" tabindex="0"><span class="rating-badge ${rating.className}">${rating.label}</span><span class="landing-line">${landingStats(flight)}</span></td>
       <td class="finance-click-cell company-profit-detail ${profitVisual.className}" data-flight-id="${esc(flight.id)}" role="button" tabindex="0">${money(direct.companyProfit,true)}${profitVisual.notes.map(note=>`<span class="profit-incident-note ${note.className}">${esc(note.text)}</span>`).join('')}</td>
-      <td class="finance-click-cell pilot-salary-detail ${salaryVisual.className}" data-flight-id="${esc(flight.id)}" role="button" tabindex="0">${money(direct.pilotSalary,true)}${salaryVisual.note?`<span class="profit-incident-note ${salaryVisual.noteClass||''}">${esc(salaryVisual.note)}</span>`:''}</td>
+      <td class="finance-click-cell pilot-salary-detail ${salaryVisual.className}" data-flight-id="${esc(flight.id)}" role="button" tabindex="0"><span class="salary-amount-inline">${money(direct.pilotSalary,true)}${guaranteedBonusIconHtmlForRow(flight, direct.guaranteedBonus)}</span>${salaryVisual.note?`<span class="profit-incident-note ${salaryVisual.noteClass||''}">${esc(salaryVisual.note)}</span>`:''}</td>
     </tr>`;
   }).join('') : '<tr><td colspan="8" class="loading">За вибраний період завершених рейсів немає</td></tr>';
   bindDashboardPilotCells();
@@ -2046,6 +2335,7 @@ function render() {
 
   renderDashboardFinance(periodFlights);
   renderDashboardFlights(completed);
+  syncDashboardCalendarUi();
 
   const metricPeriod = dashboardMetricPeriodLabel();
   $('#pilotCount').previousElementSibling.textContent = 'Пілотів літало';
@@ -2298,11 +2588,11 @@ function renderDashboardFlights(completed) {
         <td>${formatFlightDateLabel(flight)}<span class="date-flight-meta"><span class="date-flight-time">${formatFlightCloseTime(flight)}</span><a class="flight-number-link flight-number-${row.operation.key}" href="https://newsky.app/flight/${encodeURIComponent(flight.id)}" target="_blank" rel="noopener" title="${row.operation.label}">${esc(flight.flightNumber||'—')}</a></span></td>
         ${dashboardPilotCellHtml(flight.pilot)}
         <td class="route"><span class="route-airports">${airportWithFlag(flight.departure)} → ${airportWithFlag(flight.arrival)}</span><span class="route-duration">${formatMinutes(flight.times.durationMinutes)}</span></td>
-        <td>${esc(flight.aircraft.name)}<span class="flight-note">${esc(flight.aircraft.icao)}</span></td>
+        <td>${esc(flight.aircraft.name)}<span class="flight-note">${esc(aircraftTableNote(flight))}</span></td>
         <td><span class="payload-value" title="${row.payloadKind.label}">${esc(flightLoad(flight))}<span class="load-kind-icon" aria-hidden="true">${row.payloadKind.icon}</span></span></td>
         <td class="num rating-cell rating-detail" data-flight-id="${esc(flight.id)}" role="button" tabindex="0"><span class="rating-badge ${row.rating.className}">${row.rating.label}</span><span class="landing-line">${landingStats(flight)}</span></td>
         <td class="finance-click-cell company-profit-detail ${row.profitVisual.className}" data-flight-id="${esc(flight.id)}" role="button" tabindex="0">${money(row.direct.companyProfit,true)}${row.profitVisual.notes.map(note=>`<span class="profit-incident-note ${note.className}">${esc(note.text)}</span>`).join('')}</td>
-        <td class="finance-click-cell pilot-salary-detail ${row.salaryVisual.className}" data-flight-id="${esc(flight.id)}" role="button" tabindex="0">${money(row.direct.pilotSalary,true)}${row.salaryVisual.note?`<span class="profit-incident-note ${row.salaryVisual.noteClass||''}">${esc(row.salaryVisual.note)}</span>`:''}</td>
+        <td class="finance-click-cell pilot-salary-detail ${row.salaryVisual.className}" data-flight-id="${esc(flight.id)}" role="button" tabindex="0"><span class="salary-amount-inline">${money(row.direct.pilotSalary,true)}${guaranteedBonusIconHtmlForRow(flight, row.direct.guaranteedBonus)}</span>${row.salaryVisual.note?`<span class="profit-incident-note ${row.salaryVisual.noteClass||''}">${esc(row.salaryVisual.note)}</span>`:''}</td>
       </tr>`;
     }).join('') : '<tr><td colspan="8" class="loading">За вибраний період завершених рейсів немає</td></tr>';
     $('#dashboardFlights').innerHTML = `${renderLiveDashboardRows()}${completedRowsHtml}`;
@@ -2331,16 +2621,16 @@ function renderDashboardFlightsLegacy(completed) {
     const payloadKind = flightPayloadKind(flight);
     const rating = flightRatingPresentation(flight);
     return `<tr>
-      <td>${formatFlightDateLabel(flight)}<span class="date-flight-meta"><span class="date-flight-time">${formatFlightCloseTime(flight)}</span><a class="flight-number-link flight-number-${operation.key}" href="https://newsky.app/flight/${encodeURIComponent(flight.id)}" target="_blank" rel="noopener" title="${operation.label}">${esc(flight.flightNumber||'вЂ”')}</a></span></td>
+      <td>${formatFlightDateLabel(flight)}<span class="date-flight-meta"><span class="date-flight-time">${formatFlightCloseTime(flight)}</span><a class="flight-number-link flight-number-${operation.key}" href="https://newsky.app/flight/${encodeURIComponent(flight.id)}" target="_blank" rel="noopener" title="${operation.label}">${esc(flight.flightNumber||'—')}</a></span></td>
       ${dashboardPilotCellHtml(flight.pilot)}
-      <td class="route"><span class="route-airports">${airportWithFlag(flight.departure)} в†’ ${airportWithFlag(flight.arrival)}</span><span class="route-duration">${formatMinutes(flight.times.durationMinutes)}</span></td>
-      <td>${esc(flight.aircraft.name)}<span class="flight-note">${esc(flight.aircraft.icao)}</span></td>
+      <td class="route"><span class="route-airports">${airportWithFlag(flight.departure)} → ${airportWithFlag(flight.arrival)}</span><span class="route-duration">${formatMinutes(flight.times.durationMinutes)}</span></td>
+      <td>${esc(flight.aircraft.name)}<span class="flight-note">${esc(aircraftTableNote(flight))}</span></td>
       <td><span class="payload-value" title="${payloadKind.label}">${esc(flightLoad(flight))}<span class="load-kind-icon" aria-hidden="true">${payloadKind.icon}</span></span></td>
       <td class="num rating-cell rating-detail" data-flight-id="${esc(flight.id)}" role="button" tabindex="0"><span class="rating-badge ${rating.className}">${rating.label}</span><span class="landing-line">${landingStats(flight)}</span></td>
       <td class="finance-click-cell company-profit-detail ${profitVisual.className}" data-flight-id="${esc(flight.id)}" role="button" tabindex="0">${money(direct.companyProfit,true)}${profitVisual.notes.map(note=>`<span class="profit-incident-note ${note.className}">${esc(note.text)}</span>`).join('')}</td>
-      <td class="finance-click-cell pilot-salary-detail ${salaryVisual.className}" data-flight-id="${esc(flight.id)}" role="button" tabindex="0">${money(direct.pilotSalary,true)}${salaryVisual.note?`<span class="profit-incident-note ${salaryVisual.noteClass||''}">${esc(salaryVisual.note)}</span>`:''}</td>
+      <td class="finance-click-cell pilot-salary-detail ${salaryVisual.className}" data-flight-id="${esc(flight.id)}" role="button" tabindex="0"><span class="salary-amount-inline">${money(direct.pilotSalary,true)}${guaranteedBonusIconHtmlForRow(flight, direct.guaranteedBonus)}</span>${salaryVisual.note?`<span class="profit-incident-note ${salaryVisual.noteClass||''}">${esc(salaryVisual.note)}</span>`:''}</td>
     </tr>`;
-  }).join('') : '<tr><td colspan="8" class="loading">Р—Р° РІРёР±СЂР°РЅРёР№ РїРµСЂС–РѕРґ Р·Р°РІРµСЂС€РµРЅРёС… СЂРµР№СЃС–РІ РЅРµРјР°С”</td></tr>';
+  }).join('') : '<tr><td colspan="8" class="loading">За вибраний період завершених рейсів немає</td></tr>';
   bindDashboardPilotCells();
   $$('.rating-detail').forEach(button=>button.onclick=()=>{const flight=app.flights.find(item=>item.id===button.dataset.flightId);if(flight)openFlightInfo(flight,'rating')});
   $$('.rating-detail').forEach(cell=>cell.onkeydown=event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();cell.click()}});
@@ -2366,18 +2656,76 @@ function bindDashboardLiveToggle() {
   });
 }
 
+function parseCompanyCharterDemand(text) {
+  const airports = {};
+  let section = 'header';
+  let currentAirport = '';
+  for (const raw of String(text || '').split(/\r?\n/)) {
+    const line = raw.trim();
+    if (!line) continue;
+    if (line === 'ТОП-5 міжнародних на виліт') { section = 'topInternationalOut'; continue; }
+    if (line === 'ТОП-5 міжнародних на приліт') { section = 'topInternationalIn'; continue; }
+    if (line === 'ТОП-5 місцевих пасажирських') { section = 'topDomesticPax'; continue; }
+    if (line === 'ТОП-5 місцевих карго') { section = 'topDomesticCargo'; continue; }
+    if (line.startsWith('----')) { section = 'details'; currentAirport = ''; continue; }
+    if (section !== 'details') continue;
+    const header = line.match(/^([A-Z0-9]{4})\s+\((.*?)\)$/);
+    if (header) {
+      currentAirport = header[1].toUpperCase();
+      airports[currentAirport] = {
+        name: header[2],
+        out: {pax: null, cargo: null},
+        in: {pax: null, cargo: null}
+      };
+      continue;
+    }
+    const match = line.match(/^(out|in)\s+(pax|cargo)\s+([A-Z0-9]{4}|NONE)-([A-Z0-9]{4}|NONE)(?:\s+\((\d+)nm\)\s+([^|]+)\|.*)?$/);
+    if (!match || !currentAirport) continue;
+    const from = match[3].toUpperCase();
+    const to = match[4].toUpperCase();
+    if (from === 'NONE' || to === 'NONE') continue;
+    airports[currentAirport][match[1]][match[2]] = {
+      from,
+      to,
+      distNm: match[5] ? Number(match[5]) : null,
+      amount: String(match[6] || '').trim()
+    };
+  }
+  return airports;
+}
+
+async function loadCompanyCharterDemand(cacheMode = 'default') {
+  try {
+    const response = await fetch(`newsky-charter-results.txt${cacheMode === 'no-store' ? `?v=${Date.now()}` : ''}`, {cache: cacheMode});
+    if (!response.ok) return {};
+    return parseCompanyCharterDemand(await response.text());
+  } catch (error) {
+    return {};
+  }
+}
+
 async function loadDatabases() {
   const status = $('#dataStatus');
   try {
-    const [loaded, companyData] = await Promise.all([
+    const [loaded, companyData, companyLiveryData, companyLiveryMatching, companyCharterDemand, guaranteedBonuses] = await Promise.all([
       window.UCAAFlightData.loadWeeklyFlights(message => { status.textContent = message; }),
-      fetch('COMPANY/company-data.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null)
+      fetch('COMPANY/company-data.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
+      fetch('COMPANY/ucaa-livery-database.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
+      fetch('COMPANY/livery-matching.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
+      loadCompanyCharterDemand('default'),
+      fetch('COMPANY/guaranteed-bonuses.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null)
     ]);
     const {archive, current} = loaded;
     app.archive = archive;
     app.current = current;
     app.companyData = companyData;
+    app.companyLiveryData = companyLiveryData;
+    app.companyLiveryMatching = companyLiveryMatching;
+    window.UCAACompanyLiveryMatching = companyLiveryMatching || null;
+    app.companyCharterDemand = companyCharterDemand || {};
+    app.guaranteedBonuses = guaranteedBonuses || {};
     app.flights = loaded.flights;
+    reconcileGuaranteedBonusStatesWithCompletedFlights();
     pilotCardsMonthlyCache = null;
     pilotInsuranceCoverage = window.UCAAInsurance.coverageMap(app.flights);
     const latest = loaded.latest;
@@ -2391,6 +2739,7 @@ async function loadDatabases() {
     status.innerHTML = formatLiveDataStatusClean(current, archive, latest);
     selectInitialDashboardPeriod();
     render();
+    updateCompanyLiveryStatus();
     const legacyPilot = new URLSearchParams(location.search).get('pilot');
     const requestedPilot = profileHashPilotId() || (location.hash === '#profile' ? legacyPilot : null);
     if (requestedPilot) showPilotProfile(requestedPilot);
@@ -2420,15 +2769,25 @@ async function refreshDatabasesSoft() {
   const status = $('#dataStatus');
   const loader = window.UCAAFlightData?.reloadWeeklyFlights || window.UCAAFlightData?.loadWeeklyFlights;
   if (!loader) return loadDatabases();
-  const [loaded, companyData] = await Promise.all([
+  const [loaded, companyData, companyLiveryData, companyLiveryMatching, companyCharterDemand, guaranteedBonuses] = await Promise.all([
     loader(message => { if (status) status.textContent = message; }),
-    fetch('COMPANY/company-data.json', {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null)
+    fetch('COMPANY/company-data.json', {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
+    fetch('COMPANY/ucaa-livery-database.json', {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
+    fetch('COMPANY/livery-matching.json', {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
+    loadCompanyCharterDemand('no-store'),
+    fetch(`COMPANY/guaranteed-bonuses.json?v=${Date.now()}`, {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null)
   ]);
   const {archive, current} = loaded;
   app.archive = archive;
   app.current = current;
   app.companyData = companyData;
+  app.companyLiveryData = companyLiveryData;
+  app.companyLiveryMatching = companyLiveryMatching;
+  window.UCAACompanyLiveryMatching = companyLiveryMatching || null;
+  app.companyCharterDemand = companyCharterDemand || {};
+  app.guaranteedBonuses = guaranteedBonuses || {};
   app.flights = loaded.flights;
+  reconcileGuaranteedBonusStatesWithCompletedFlights();
   app.liveNewSkyLoaded = false;
   app.liveNewSkyFlights = [];
   app.liveNewSkyError = '';
@@ -2446,9 +2805,11 @@ async function refreshDatabasesSoft() {
   if (status) status.innerHTML = formatLiveDataStatusClean(current, archive, latest);
   if (app.liveDashboardVisible) {
     await loadDashboardLiveNewSkyFlights(true);
+    updateCompanyLiveryStatus();
     return;
   }
   render();
+  updateCompanyLiveryStatus();
   loadDashboardLiveNewSkyFlights(true);
 }
 
@@ -2461,7 +2822,7 @@ function bindManualRefreshButtonClean() {
     if (button.disabled) return;
     const originalText = button.textContent;
     button.disabled = true;
-    button.textContent = '⏳';
+    button.textContent = '\u23f3';
     try {
       await refreshDatabasesSoft();
     } catch (error) {
@@ -2475,16 +2836,58 @@ function bindManualRefreshButtonClean() {
   });
 }
 
+
+let dashboardCalendarOpen = false;
+let dashboardCalendarMode = 'date';
+let dashboardCalendarRangePickingEnd = false;
+let dashboardCalendarPickerValue = '';
+
+function dashboardCalendarDateLabelHtml() {
+  if (app.period === 'customRange' && app.customDate && app.customEndDate) {
+    return `<span>${esc(liveryFlightLogFormatDateShort(app.customDate))}</span><span>${esc(liveryFlightLogFormatDateShort(app.customEndDate))}</span>`;
+  }
+  if (app.period === 'custom' && app.customDate) return esc(liveryFlightLogFormatDateShort(app.customDate));
+  return '';
+}
+
+function syncDashboardCalendarUi() {
+  const button = $('#dashboardCalendarButton');
+  const label = $('#dashboardDateLabel');
+  const panel = $('#dashboardCalendarPanel');
+  const fields = $('#dashboardCalendarFields');
+  const startInput = $('#dashboardDatePicker');
+  const endDisplay = $('#dashboardDateEndDisplay');
+  if (!button || !label || !panel || !fields || !startInput || !endDisplay) return;
+  const isCustom = app.period === 'custom' || app.period === 'customRange';
+  const pickerValue = dashboardCalendarMode === 'range' && dashboardCalendarRangePickingEnd
+    ? (dashboardCalendarPickerValue || app.customDate || '')
+    : (app.customDate || '');
+  button.classList.toggle('active', isCustom || dashboardCalendarOpen);
+  label.innerHTML = !dashboardCalendarOpen ? dashboardCalendarDateLabelHtml() : '';
+  panel.hidden = !dashboardCalendarOpen;
+  fields.classList.toggle('range', dashboardCalendarMode === 'range');
+  startInput.value = pickerValue;
+  endDisplay.hidden = dashboardCalendarMode !== 'range';
+  endDisplay.value = liveryFlightLogFormatDateShort(app.customEndDate);
+  panel.querySelectorAll('[data-dashboard-calendar-mode]').forEach(modeButton => {
+    modeButton.classList.toggle('active', modeButton.dataset.dashboardCalendarMode === dashboardCalendarMode);
+  });
+}
+
 $$('#dashboardView [data-period]').forEach(button => button.onclick = () => {
   app.period = button.dataset.period;
   app.customDate = null;
+  app.customEndDate = null;
+  dashboardCalendarOpen = false;
+  dashboardCalendarRangePickingEnd = false;
+  dashboardCalendarPickerValue = '';
   $$('#dashboardView [data-period]').forEach(x => x.classList.toggle('active', x === button));
-  $('#dashboardCalendarButton').classList.remove('active');
   render();
 });
 
-$('#dashboardCalendarButton').onclick = () => {
+function openDashboardDatePicker() {
   const picker = $('#dashboardDatePicker');
+  if (!picker) return;
   try {
     if (typeof picker.showPicker === 'function') picker.showPicker();
     else picker.click();
@@ -2492,23 +2895,203 @@ $('#dashboardCalendarButton').onclick = () => {
     picker.focus();
     picker.click();
   }
+}
+
+$('#dashboardCalendarButton').onclick = event => {
+  event.preventDefault();
+  dashboardCalendarOpen = !dashboardCalendarOpen;
+  if (dashboardCalendarOpen) {
+    dashboardCalendarRangePickingEnd = false;
+    dashboardCalendarPickerValue = '';
+    syncDashboardCalendarUi();
+    setTimeout(openDashboardDatePicker, 0);
+  } else {
+    syncDashboardCalendarUi();
+  }
+};
+
+$$('[data-dashboard-calendar-mode]').forEach(button => button.onclick = event => {
+  event.preventDefault();
+  dashboardCalendarMode = button.dataset.dashboardCalendarMode || 'date';
+  dashboardCalendarRangePickingEnd = false;
+  dashboardCalendarPickerValue = '';
+  dashboardCalendarOpen = true;
+  syncDashboardCalendarUi();
+  setTimeout(openDashboardDatePicker, 0);
+});
+
+$('#dashboardDatePicker').onclick = () => {
+  if (dashboardCalendarMode === 'range') dashboardCalendarRangePickingEnd = false;
 };
 
 $('#dashboardDatePicker').onchange = event => {
   if (!event.target.value) return;
-  app.period = 'custom';
+  if (dashboardCalendarMode === 'range' && dashboardCalendarRangePickingEnd) {
+    app.customEndDate = event.target.value;
+    app.period = app.customDate === app.customEndDate ? 'custom' : 'customRange';
+    dashboardCalendarOpen = false;
+    dashboardCalendarRangePickingEnd = false;
+    dashboardCalendarPickerValue = '';
+    $$('#dashboardView [data-period]').forEach(button=>button.classList.remove('active'));
+    render();
+    return;
+  }
   app.customDate = event.target.value;
+  if (dashboardCalendarMode === 'date') {
+    app.period = 'custom';
+    app.customEndDate = null;
+    dashboardCalendarOpen = false;
+  } else {
+    dashboardCalendarOpen = true;
+    dashboardCalendarRangePickingEnd = true;
+    dashboardCalendarPickerValue = '';
+    syncDashboardCalendarUi();
+    setTimeout(openDashboardDatePicker, 0);
+    return;
+  }
   $$('#dashboardView [data-period]').forEach(button=>button.classList.remove('active'));
-  const calendar = $('#dashboardCalendarButton');
-  calendar.classList.add('active');
-  calendar.title = `Вибрана дата: ${periodLabel()}`;
   render();
 };
+
+const dashboardDateEndDisplay = $('#dashboardDateEndDisplay');
+if (dashboardDateEndDisplay) {
+  dashboardDateEndDisplay.onclick = event => {
+    event.preventDefault();
+    dashboardCalendarMode = 'range';
+    dashboardCalendarOpen = true;
+    dashboardCalendarRangePickingEnd = true;
+    dashboardCalendarPickerValue = app.customEndDate || app.customDate || '';
+    syncDashboardCalendarUi();
+    openDashboardDatePicker();
+  };
+}
 
 $('#flightInfoClose').onclick = () => $('#flightInfoDialog').close();
 $('#flightInfoDialog').onclick = event => {
   if (event.target === event.currentTarget) event.currentTarget.close();
 };
+
+let companyLiveryDialogReturn = null;
+
+function closeCompanyLiveryDialog(dialog) {
+  if (companyLiveryDialogReturn) {
+    const restore = companyLiveryDialogReturn;
+    companyLiveryDialogReturn = null;
+    restore();
+    return;
+  }
+  dialog.classList.remove('company-route-map-dialog');
+  dialog.close();
+}
+
+function newskyAircraftUrl(id) {
+  return `https://newsky.app/airline/ukl/manage/aircraft/${encodeURIComponent(id)}`;
+}
+
+const NEWSKY_AIRCRAFT_NAMES = {
+  '695a69723dc76275bad0fd2c': 'UCAA l 737-800 (cargo) based in UKLR UKDE l UR-CAA',
+  '696285163dc76275ba9ef60c': 'UCAA l 737-800 (pax) based in UKKK l UR-UCA',
+  '699ae4f09da57b990ac12987': 'UCAA l 777F (cargo) based in UKBB l UR-CRG',
+  '69ac6222c739a30ec84c1abb': 'UCAA l A300-600 (cargo) based in UKKM l UR-LDC',
+  '69ef3747a5e61d69a7aad0da': 'UCAA l A320 based in UKLL l UR-BUS',
+  '69ff1763a5e61d69a71adbb5': 'UCAA l Cessna 208 (pax) based in UKCM l UR-PAX',
+  '69ff17f1a5e61d69a71af116': 'UCAA l Cessna 208 (cargo) based in UKCW l UR-VAN',
+  '695a3f3a3dc76275bacaf6a7': 'E190 - UCAA l Embraer 190F (cargo) based in UKOO l UR-ECA',
+  '6a44988d5760ec7cdb8cca2a': 'UCAA l Fokker 100 based in UKKK UKKV l UR-FKR',
+  '695a67f93dc76275bad0c740': 'Bravo Anda Khors l MD-82 based in UKKK UKBB UKLL l UR-CRX',
+  '696bb9e13dc76275ba8ddf8f': 'Windrose vs AUI l A330-200 based in UKBB l UR-WRQ',
+  '695ebf3c3dc76275ba3e31f1': 'SkyLine Express l 777-300ER based in UKBB l UR-AZR',
+  '695a82b73dc76275bad4f381': 'Windrose l ATR-72 based in UKBB l UR-RWC',
+  '695a63363dc76275bacff63f': 'Ukraine Int l 777-200 based in UKBB l UR-GOA',
+  '695a2a573dc76275bac8ccc8': 'Supernova l 737-800F based in LKMT l UR-NPA',
+  '695a3cec3dc76275bacaaa27': 'Air Onix l 737-600 based in UKFF l UR-KRD',
+  '695a3bf33dc76275baca8db5': 'Ukraine Int l 737-800 based in UKBB UKDE l UR-UIA',
+  '6a4e7b3c5760ec7cdb4f39a3': 'Ukraine Int l 737-800 based in UKLL UKHH l UR-PSE',
+  '695a7b183dc76275bad3a123': 'Ukraine Int l 737-800 based in UKOO UKDE UKOH l UR-PSO',
+  '6a4f68e35760ec7cdb5e6c2d': 'SkyUp l 737-800 based in UKLL UKHH UKDE l UR-SQB',
+  '6a4f69f85760ec7cdb5e7cef': 'SkyUp l 737-800 based in UKOO l UR-SQC',
+  '6a4f8c7c5760ec7cdb60d2ea': 'Aerosvit l 737-800 based in UKBB l UR-AAN',
+  '6a4f95025760ec7cdb6176e7': 'DART l A320 CFM based in UKKK l UR-CII',
+  '695a7f7e3dc76275bad45051': 'Bukovyna Airlines l RJ100 based in UKLN l UR-CJM',
+  '695a7b833dc76275bad3af85': 'Kharkiv Airlines l 737-800 based in UKHH UKBB UKCC l UR-CLR',
+  '695a82f03dc76275bad4fcbd': 'DonbassAero l A320 IAE based in UKCC UKOO l UR-DAB',
+  '6a4f90ec5760ec7cdb612ec3': 'Aerosvit vs DonbassAero l A320 CFM based in UKBB l UR-DAH',
+  '6a4f7c085760ec7cdb5fbade': 'Dniproavia l 737-600 based in UKDD l UR-DNC',
+  '695a86b43dc76275bad5a644': 'Ukraine Int l E190 based in UKBB UKHH UKOO UKDD l UR-EMA',
+  '695a67383dc76275bad0a952': 'Ukraine Int l 737-800F based in UKBB l UR-FAA',
+  '69f0eb2ca5e61d69a7cfbe9e': 'Ukraine Int l 737-900 Dual Class based in UKBB l UR-PSI',
+  '695a7ab13dc76275bad3933a': 'SkyLine Express l 737-800 based in UKDE UKLL l UR-SLG',
+  '69e3df6ea5e61d69a7a56c57': 'SkyUp l 737-700 based in UKBB UKON l UR-SQE',
+  '695a7a463dc76275bad385fd': 'Bees l 737-800 based in UKKK UKLL UKOH l UR-UBA',
+  '6a4fd8a95760ec7cdb679905': 'UTair Ukraine l 737-800 based in UKBB l UR-UTQ',
+  '69ef2326a5e61d69a7a9a128': 'Windrose l A320 based in UKDD UKBB l UR-WRW',
+  '6963db883dc76275baca3967': 'Windrose l A321 based in UKBB UKLL l UR-WRX',
+  '69ef2347a5e61d69a7a9a2b0': 'WizzAir Ukraine l A320 IAE SL based in UKBB l UR-WUB',
+  '695a3c883dc76275baca9e49': 'WizzAir Ukraine l A320 IAE WL based in UKKK l UR-WUC',
+  '6980e9459da57b990a02e1bd': 'Dry Lease l 737-MAX8 189 pax l MSFS',
+  '695a7f1f3dc76275bad440eb': 'Air Ukraine l 727-200 super based in UKBB l UR-85499',
+  '6a4fd7e55760ec7cdb6783b0': 'Air Ukraine l Fokker 28 (Yak-40) based in UKKK l UR-40393',
+  '6999ffea9da57b990aa9d81b': 'UTair Ukraine l Aerosoft CRJ-550 l UR-UTZ',
+  '6a1c2fb3a5e61d69a78961aa': 'Antonov AN-2 l UR-40308',
+  '6a325d16840ade899ebbaa5b': 'Motor-Sich l Fokker 27 (An24) based in UKDE l UR-KZR',
+  '6a4fd97e5760ec7cdb67b063': 'Supernova l 727-200F (cargo) based in UKHH l UR-NPB',
+  '69a3f2119da57b990aaa1899': 'UkrPost l BAe 146-300 QT (cargo) based in UKLN l UR-UPS',
+  '696d16883dc76275bababd67': 'UkrPost l ATR 42-600 (pseudo cargo) l UR-ATR',
+  '6988b9149da57b990ad5b53e': 'DRY LEASE l free A320neo v2 msfs2024',
+  '6a4687cc5760ec7cdbae102b': 'Dry Lease l 737-MAX8 160 pax 3 classes l XP11',
+  '6a4671586748d36670c9277b': 'Dry Lease l 737-MAX8 197 pax l msfs 2024',
+  '6a017caea5e61d69a759b0a8': 'Dry Lease l 747-400 l 375 pax elite',
+  '6a4fa2fb5760ec7cdb629836': 'Dry Lease l 777-200ER PW 294 pax',
+  '6a4fa1d65760ec7cdb62803f': 'Dry Lease l 777-300ER GE 370 pax',
+  '6a27e52ea5e61d69a774349a': 'Dry Lease l 787-8 GEnx by Bravo l 227 pax',
+  '695a66383dc76275bad0826f': 'Dry Lease l A320 CFM FENIX msfs2024',
+  '6a4fa6895760ec7cdb62e44d': 'Dry Lease l A330-200 RR iniBuilds l 257 pax elite',
+  '69847d4e9da57b990a58cf4f': 'Dry Lease l A350-900 by iniBuilds l 324 pax elite',
+  '6a4fa15e5760ec7cdb627803': 'Dry Lease l BOEING 737-800',
+  '6a18241ea5e61d69a736205d': 'Dry Lease l E195',
+  '6a4498cb5760ec7cdb8ccbed': 'Dry Lease l Fokker 70 l msfs',
+  '6a4b7caa5760ec7cdb148f25': 'Dry Lease l Fokker F50 l XP11',
+  '6a44e1d65760ec7cdb906917': 'Dry Lease l Saab 340 based in UKDR',
+  '69ff231aa5e61d69a71c50f5': 'Dry Lease l Toliss A340-600 msfs l 372 pax in 3 class',
+  '6988b97c9da57b990ad5c8f7': 'Dry Lease l iniBuilds A321LR (neo) l 220 pax',
+  '6a0b23a267cd7e249842bd81': 'Dry lease l FBW A380-800 l 446 pax elite'
+};
+
+function newskyAircraftName(id) {
+  const key = String(id || '').trim();
+  const records = Array.isArray(app.companyLiveryMatching?.liveries) ? app.companyLiveryMatching.liveries : [];
+  const liveRecord = records.find(item => key && String(item?._id || item?.aircraftId || '').trim() === key);
+  const liveName = String(liveRecord?.name || liveRecord?.newskyName || '').trim();
+  return liveName || NEWSKY_AIRCRAFT_NAMES[key] || '';
+}
+
+function showCompanyLiveryDialog(dialog) {
+  if (!dialog || dialog.open) return;
+  try {
+    dialog.showModal();
+  } catch (error) {
+    console.error('Livery dialog open failed', error);
+    dialog.setAttribute('open', '');
+  }
+}
+
+function openCompanyLiveryGroupDialogSafe(card) {
+  const dialog = $('#liveryInfoDialog');
+  const title = $('#liveryInfoTitle');
+  const body = $('#liveryInfoBody');
+  try {
+    openCompanyLiveryGroupDialog(card);
+  } catch (error) {
+    console.error('Group livery dialog failed', error);
+    if (dialog && title && body) {
+      companyLiveryDialogReturn = null;
+      dialog.style.width = 'min(96vw,660px)';
+      title.textContent = 'Група бортів';
+      body.innerHTML = `<div class="company-note">Не вдалося відкрити групу бортів: ${esc(error?.message || error)}</div>`;
+      showCompanyLiveryDialog(dialog);
+    }
+  }
+}
 
 function bindCompanyLiveryDialogs() {
   const grid = document.querySelector('.company-fleet-liveries');
@@ -2527,9 +3110,9 @@ function bindCompanyLiveryDialogs() {
     'Boeing 737-800 (cargo) | UR-CAA',
     'Airbus A300-600 (cargo) | UR-LDC',
     'Boeing 777F (cargo) | UR-CRG',
-    'Cessna 208 | UR-PAX , UR-VAN',
-    'Embraer 190F (cargo, blue) | UR-ECA',
-    'Boeing 757-200RF (cargo) | UR-SFS'
+    'Cessna 208 (pax) | UR-PAX',
+    'Cessna 208 (cargo) | UR-VAN',
+    'Embraer 190F (cargo) | UR-ECA'
   ];
   const modalTitles = [
     'PMDG 737-800 UR-UCA (pax)',
@@ -2538,13 +3121,52 @@ function bindCompanyLiveryDialogs() {
     'PMDG 737-800 BCF UR-CAA (cargo)',
     'iniBuilds A300-600 PW | UR-LDC (cargo)',
     'PMDG Boeing 777F UR-CRG (cargo)',
-    'Black Square C208 Grand Caravan UR-PAX / UR-VAN',
-    'FSS Embraer 190F red/blue (cargo)',
-    'FF Boeing 757-200RF UR-SFS (cargo)'
+    'Black Square C208 Grand Caravan (pax) UR-PAX',
+    'Black Square C208 Grand Caravan (cargo) UR-VAN',
+    'FSS Embraer 190F red/blue (cargo)'
   ];
+  const liveryAircraftIds = [
+    ['UR-UCA','696285163dc76275ba9ef60c'],
+    ['UR-BUS','69ef3747a5e61d69a7aad0da'],
+    ['UR-FKR','6a44988d5760ec7cdb8cca2a'],
+    ['UR-CAA','695a69723dc76275bad0fd2c'],
+    ['UR-LDC','69ac6222c739a30ec84c1abb'],
+    ['UR-CRG','699ae4f09da57b990ac12987'],
+    ['UR-PAX','69ff1763a5e61d69a71adbb5'],
+    ['UR-VAN','69ff17f1a5e61d69a71af116'],
+    ['UR-ECA','695a3f3a3dc76275bacaf6a7'],
+    ['UR-CRX','695a67f93dc76275bad0c740'],
+    ['UR-WRQ','696bb9e13dc76275ba8ddf8f'],
+    ['UR-AZR','695ebf3c3dc76275ba3e31f1'],
+    ['UR-RWC','695a82b73dc76275bad4f381'],
+    ['UR-GOA','695a63363dc76275bacff63f'],
+    ['UR-NPA','695a2a573dc76275bac8ccc8'],
+    ['UR-MXA','6980e9459da57b990a02e1bd'],
+    ['UR-85499','695a7f1f3dc76275bad440eb'],
+    ['UR-40393','6a4fd7e55760ec7cdb6783b0'],
+    ['UR-UTZ','6999ffea9da57b990aa9d81b'],
+    ['UR-UTQ','6a4fd8a95760ec7cdb679905'],
+    ['UR-40308','6a1c2fb3a5e61d69a78961aa'],
+    ['UR-KZR','6a325d16840ade899ebbaa5b'],
+    ['UR-NPB','6a4fd97e5760ec7cdb67b063'],
+    ['UR-ATR','696d16883dc76275bababd67']
+  ];
+  const aircraftIdForTitle = title => {
+    const text = String(title || '').toUpperCase();
+    const match = liveryAircraftIds.find(([reg]) => text.includes(reg));
+    return match ? match[1] : '';
+  };
+  const newskyAircraftUrl = id => `https://newsky.app/airline/ukl/manage/aircraft/${encodeURIComponent(id)}`;
+  const openAircraftPage = (event, id) => {
+    event.preventDefault();
+    event.stopPropagation();
+    window.open(newskyAircraftUrl(id), '_blank', 'noopener');
+  };
   const setupCard = (card, titleText, modalTitle, specialIndex = -1) => {
+    ensureCompanyLiveryImageWrap(card);
     if (card.dataset.liveryReady) return;
     card.dataset.liveryReady = '1';
+    card.dataset.liveryDisplayTitle = titleText;
     const title = card.querySelector('.company-livery-title');
     const links = card.querySelector('.company-livery-links');
     if (links) links.className = 'company-livery-details';
@@ -2553,18 +3175,71 @@ function bindCompanyLiveryDialogs() {
       const name = document.createElement('span');
       name.className = 'company-livery-name';
       name.textContent = titleText;
-      const button = document.createElement('button');
-      button.type = 'button';
-      button.className = 'company-livery-download';
-      button.textContent = '📥';
-      button.title = 'Скачати ліврею';
-      button.setAttribute('aria-label', `Скачати ліврею: ${modalTitle}`);
-      title.append(name, button);
-      button.addEventListener('click', event => {
-        event.preventDefault();
-        event.stopPropagation();
-        openCompanyLiveryDialog(card, modalTitle, specialIndex);
-      });
+      const aircraftId = String(card.dataset.aircraftId || aircraftIdForTitle(titleText) || aircraftIdForTitle(modalTitle)).trim();
+      if (aircraftId) {
+        card.dataset.aircraftId = aircraftId;
+        name.classList.add('company-aircraft-link');
+        name.title = 'NewSky aircraft';
+        name.tabIndex = 0;
+        name.addEventListener('click', event => openAircraftPage(event, aircraftId));
+        name.addEventListener('keydown', event => {
+          if (event.key === 'Enter' || event.key === ' ') openAircraftPage(event, aircraftId);
+        });
+      }
+      title.append(name);
+      const group = liveryGroupAircraft(card);
+      if (group.length) {
+        const groupButton = document.createElement('button');
+        groupButton.type = 'button';
+        groupButton.className = 'company-livery-group-button';
+        groupButton.textContent = `${group.length} ${group.length === 1 ? 'борт' : 'борта'}`;
+        groupButton.title = 'Показати борти цієї лівреї';
+        title.append(groupButton);
+        groupButton.onclick = event => {
+          event.preventDefault();
+          event.stopPropagation();
+          openCompanyLiveryGroupDialogSafe(card);
+        };
+      }
+      if (card.dataset.noDownload !== '1') {
+        const wrap = card.querySelector(':scope > .company-livery-image-wrap');
+        if (wrap && !wrap.querySelector('.company-livery-download-overlay')) {
+          wrap.classList.add('company-livery-image-downloadable');
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'company-livery-download-overlay';
+          button.textContent = '📥';
+          button.title = 'Скачати ліврею';
+          button.tabIndex = -1;
+          button.setAttribute('aria-hidden', 'true');
+          button.setAttribute('aria-label', `Скачати ліврею: ${modalTitle}`);
+          wrap.append(button);
+          const openDownload = event => {
+            event.preventDefault();
+            event.stopPropagation();
+            openCompanyLiveryDialog(card, modalTitle, specialIndex);
+          };
+          wrap.addEventListener('click', event => {
+            if (event.target.closest('button:not(.company-livery-download-overlay),a')) return;
+            openDownload(event);
+          });
+        }
+      }
+      if (!card.closest('.drylease-section') && !card.closest('.waiting-section')) {
+        const mapButton = document.createElement('button');
+        mapButton.type = 'button';
+        mapButton.className = 'company-livery-map-button';
+        mapButton.textContent = '📅';
+        mapButton.title = 'Маршрутна сітка борта';
+        mapButton.setAttribute('aria-label', `Маршрутна сітка: ${titleText}`);
+        mapButton.dataset.liveryMap = '1';
+        title.append(mapButton);
+        mapButton.addEventListener('click', event => {
+          event.preventDefault();
+          event.stopPropagation();
+          openCompanyLiveryRouteMap(card);
+        });
+      }
     }
   };
   wetCards.forEach((card, index) => {
@@ -2580,15 +3255,125 @@ function bindCompanyLiveryDialogs() {
       Number(card.dataset.liverySpecialIndex ?? -1)
     );
   });
+  ensureCompanyLiveryLoadingStatus();
+  setupCompanyLiverySortControls();
   const dialog = $('#liveryInfoDialog');
   const close = $('#liveryInfoClose');
   if (dialog && close && !dialog.dataset.bound) {
     dialog.dataset.bound = '1';
-    close.onclick = () => dialog.close();
+    close.onclick = () => closeCompanyLiveryDialog(dialog);
     dialog.onclick = event => {
-      if (event.target === event.currentTarget) event.currentTarget.close();
+      if (event.target === event.currentTarget) closeCompanyLiveryDialog(event.currentTarget);
     };
   }
+}
+
+function companyLiverySortTitle(card) {
+  return String(
+    card.dataset.liveryDisplayTitle
+    || card.dataset.liveryTitle
+    || card.querySelector('.company-livery-name')?.textContent
+    || card.querySelector('.company-livery-title')?.textContent
+    || ''
+  ).trim().toLocaleLowerCase('uk-UA');
+}
+
+function sortCompanyLiveryGrid(grid, mode, direction = 'asc') {
+  if (!grid) return;
+  const cards = [...grid.querySelectorAll(':scope > .company-livery-card')];
+  cards.sort((a, b) => {
+    let result = 0;
+    if (mode === 'hours') {
+      result = (Number(b.dataset.liveryHours) || 0) - (Number(a.dataset.liveryHours) || 0);
+      if (!result) result = companyLiverySortTitle(a).localeCompare(companyLiverySortTitle(b), 'uk');
+    } else {
+      result = companyLiverySortTitle(a).localeCompare(companyLiverySortTitle(b), 'uk');
+    }
+    return direction === 'desc' ? -result : result;
+  });
+  grid.dataset.sortMode = mode;
+  grid.dataset.sortDirection = direction;
+  cards.forEach(card => grid.appendChild(card));
+}
+
+function applyCompanyLiverySortModes() {
+  $$('#companyView .company-fleet-liveries[data-sort-mode]').forEach(grid => {
+    sortCompanyLiveryGrid(grid, grid.dataset.sortMode || 'alpha', grid.dataset.sortDirection || 'asc');
+  });
+}
+
+function companyLiveryHeadingParts(text) {
+  const value = String(text || '').trim();
+  const match = value.match(/^(.*?)\s*(\(.+\))$/);
+  return match
+    ? { title: match[1].trim(), note: ` ${match[2]}` }
+    : { title: value, note: '' };
+}
+
+function setupCompanyLiverySortControls() {
+  $$('#companyView .company-section').forEach(section => {
+    const grid = section.querySelector(':scope > .company-fleet-liveries');
+    const heading = section.querySelector(':scope > .company-heading');
+    if (!grid || !heading || heading.dataset.sortReady) return;
+    heading.dataset.sortReady = '1';
+    const headingParts = companyLiveryHeadingParts(heading.textContent);
+    heading.classList.add('company-livery-heading-row');
+    heading.textContent = '';
+    [...grid.querySelectorAll(':scope > .company-livery-card')].forEach((card, index) => {
+      if (!card.dataset.liveryDefaultOrder) card.dataset.liveryDefaultOrder = String(index);
+    });
+    const collapse = document.createElement('button');
+    collapse.type = 'button';
+    collapse.className = 'company-livery-collapse';
+    collapse.textContent = '−';
+    collapse.title = 'Згорнути список';
+    collapse.addEventListener('click', event => {
+      event.preventDefault();
+      event.stopPropagation();
+      const collapsed = !grid.hidden;
+      grid.hidden = collapsed;
+      collapse.textContent = collapsed ? '+' : '−';
+      collapse.title = collapsed ? 'Розгорнути список' : 'Згорнути список';
+    });
+    heading.appendChild(collapse);
+    const title = document.createElement('span');
+    title.className = 'company-livery-heading-title';
+    title.textContent = headingParts.title;
+    heading.appendChild(title);
+    if (headingParts.note) {
+      const note = document.createElement('span');
+      note.className = 'company-livery-heading-note';
+      note.textContent = headingParts.note;
+      heading.appendChild(note);
+    }
+    const controls = document.createElement('span');
+    controls.className = 'company-livery-sort-controls';
+    controls.innerHTML = '<button type="button" class="company-livery-sort-button" data-livery-sort="alpha" title="Сортувати по алфавіту">AB</button><button type="button" class="company-livery-sort-button" data-livery-sort="hours" title="Сортувати по нальоту">🛫</button>';
+    if (!grid.dataset.sortMode && (
+      section.classList.contains('fictional-section') ||
+      section.classList.contains('drylease-section')
+    )) {
+      grid.dataset.sortMode = 'hours';
+      grid.dataset.sortDirection = 'asc';
+    }
+    controls.querySelectorAll('.company-livery-sort-button').forEach(button => {
+      button.classList.toggle('active', button.dataset.liverySort === grid.dataset.sortMode);
+    });
+    controls.addEventListener('click', event => {
+      const button = event.target.closest('[data-livery-sort]');
+      if (!button) return;
+      event.preventDefault();
+      event.stopPropagation();
+      const mode = button.dataset.liverySort;
+      const direction = grid.dataset.sortMode === mode && grid.dataset.sortDirection !== 'desc' ? 'desc' : 'asc';
+      sortCompanyLiveryGrid(grid, mode, direction);
+      controls.querySelectorAll('.company-livery-sort-button').forEach(item => {
+        item.classList.toggle('active', item === button);
+        if (item === button) item.title = `${item.title.replace(/ ↑| ↓/g, '')} ${direction === 'desc' ? '↓' : '↑'}`;
+      });
+    });
+    heading.appendChild(controls);
+  });
 }
 
 function openCompanyLiveryDialog(card, titleText, index = -1) {
@@ -2596,18 +3381,2041 @@ function openCompanyLiveryDialog(card, titleText, index = -1) {
   const title = $('#liveryInfoTitle');
   const body = $('#liveryInfoBody');
   if (!dialog || !title || !body) return;
+  companyLiveryDialogReturn = null;
+  dialog.classList.remove('company-route-map-dialog');
+  dialog.style.width = '';
   const image = card.querySelector('img');
   const details = card.querySelector('.company-livery-details');
   title.textContent = titleText || 'Ліврея UCAA';
   let imageHtml = image ? `<img class="company-livery-modal-image" src="${esc(image.getAttribute('src') || '')}" alt="${esc(image.getAttribute('alt') || title.textContent)}">` : '';
-  if (index === 6) {
-    imageHtml = `<div class="company-livery-modal-images two"><img class="company-livery-modal-image" src="urpax.PNG" alt="Cessna 208 UR-PAX"><img class="company-livery-modal-image" src="urvan.PNG" alt="Cessna 208 UR-VAN"></div>`;
-  } else if (index === 7) {
+  if (index === 8) {
     imageHtml = `<img class="company-livery-modal-image" src="E190-UCAA-red-grey.jpg" alt="${esc(title.textContent)}">`;
   }
-  body.innerHTML = `${imageHtml}<div class="company-livery-downloads">${details ? details.innerHTML : ''}</div>`;
-  if (!dialog.open) dialog.showModal();
+  body.innerHTML = `${imageHtml}<div class="company-livery-downloads">${normalizeLiveryDownloadDetails(details ? details.innerHTML : '')}</div>`;
+  showCompanyLiveryDialog(dialog);
 }
+
+function normalizeLiveryDownloadDetails(html) {
+  const label = '\u0421\u043a\u0430\u0447\u0430\u0442\u0438 \u043b\u0456\u0432\u0440\u0435\u044e';
+  return String(html || '').replace(/(^|>|\s)\u0441\u043a\u0430\u0447\u0430\u0442\u0438(\s+[^:<]+)?\s*:/giu, (match, prefix, suffix = '') => `${prefix}${label}${suffix}:`);
+}
+
+function liveryPassengerClasses(flight) {
+  return flight?.operations?.passengersByClass || flight?.payload?.paxByClass || null;
+}
+
+function liveryHasPremiumCabin(flight) {
+  const classes = liveryPassengerClasses(flight);
+  if (!classes) return false;
+  return (Number(classes.F) || 0) > 0 || (Number(classes.C) || 0) > 0;
+}
+
+function liveryAircraftCode(flight) {
+  return String(flight?.aircraft?.icao || '').toUpperCase();
+}
+
+function liveryIsCargo(flight) {
+  return String(flight?.flightType || '').toLowerCase() === 'cargo'
+    || (Number(flight?.operations?.passengers) || 0) === 0 && (Number(flight?.operations?.cargoWeightKg) || Number(flight?.operations?.cargo) || 0) > 0;
+}
+
+function liveryTrackerForTitle(title) {
+  const value = String(title || '').toLowerCase();
+  const includes = text => value.includes(text.toLowerCase());
+  if (includes('UR-UCA') || includes('737-800 (pax)')) return flight => liveryAircraftCode(flight) === 'B738' && !liveryIsCargo(flight) && liveryHasPremiumCabin(flight);
+  if (includes('UR-CAA') || includes('737-800 (cargo)')) return flight => liveryAircraftCode(flight) === 'B738' && liveryIsCargo(flight);
+  if (includes('UR-CRG') || includes('777F')) return flight => ['B77L','B77F'].includes(liveryAircraftCode(flight)) && liveryIsCargo(flight);
+  if (includes('UR-LDC') || includes('A300-600')) return flight => ['A306','A300'].includes(liveryAircraftCode(flight));
+  if (includes('UR-BUS') || includes('Airbus A320')) return flight => liveryAircraftCode(flight) === 'A320' && liveryHasPremiumCabin(flight);
+  if (includes('UR-SFS') || includes('757')) return flight => ['B752','B757'].includes(liveryAircraftCode(flight));
+  if (includes('UR-PAX') || includes('UR-VAN') || includes('Cessna 208')) return flight => ['C208','C208B'].includes(liveryAircraftCode(flight));
+  if (includes('UR-ECA') || includes('E190')) return flight => ['E190','E195'].includes(liveryAircraftCode(flight));
+  if (includes('UR-FKR') || includes('Fokker 100')) return flight => ['F100'].includes(liveryAircraftCode(flight));
+  if (includes('UR-CRX') || includes('MD-82')) return flight => ['MD82','MD83','MD88','MD80'].includes(liveryAircraftCode(flight));
+  if (includes('UR-WRQ') || includes('A330-200')) return flight => ['A332','A330'].includes(liveryAircraftCode(flight));
+  if (includes('UR-AZR') || includes('777-300')) return flight => ['B77W','B773'].includes(liveryAircraftCode(flight));
+  if (includes('UR-RWC') || includes('ATR 72')) return flight => ['AT76','AT72','ATR'].includes(liveryAircraftCode(flight));
+  if (includes('UR-GOA') || includes('777-200')) return flight => ['B772','B77L'].includes(liveryAircraftCode(flight)) && !liveryIsCargo(flight);
+  if (includes('UR-NPA') || includes('737-800F')) return flight => liveryAircraftCode(flight) === 'B738' && liveryIsCargo(flight);
+  if (includes('UR-DSA')) return flight => ['E190','E195'].includes(liveryAircraftCode(flight)) && !liveryIsCargo(flight);
+  if (includes('UR-MXA') || includes('737-MAX8')) return flight => ['B38M','B738'].includes(liveryAircraftCode(flight));
+  if (includes('UR-85499') || includes('727-200')) return flight => ['B722','B721','B727'].includes(liveryAircraftCode(flight));
+  if (includes('UR-40393') || includes('Fokker F28')) return flight => ['F28','F27'].includes(liveryAircraftCode(flight));
+  if (includes('UR-UTZ') || includes('CRJ-550')) return flight => ['CRJ5','CRJ7','CRJ9','CRJ'].includes(liveryAircraftCode(flight));
+  if (includes('UR-40308') || includes('Ан-2')) return flight => ['AN2','AN-2'].includes(liveryAircraftCode(flight));
+  if (includes('UR-KZR') || includes('Fokker F27')) return flight => ['F27'].includes(liveryAircraftCode(flight));
+  if (includes('UR-NPB') || includes('Supernova')) return flight => ['B722','B721','B727'].includes(liveryAircraftCode(flight)) && liveryIsCargo(flight);
+  if (includes('BAe146') || includes('Avro RJ')) return flight => ['B461','B462','B463','B464','RJ70','RJ85','RJ1H'].includes(liveryAircraftCode(flight));
+  if (includes('UR-ATR') || includes('ATR 42')) return flight => ['AT42','AT45'].includes(liveryAircraftCode(flight));
+  return null;
+}
+
+function liveryCardTitle(card) {
+  return card?.dataset?.liveryDisplayTitle
+    || card?.dataset?.liveryTitle
+    || card?.querySelector('.company-livery-name')?.textContent
+    || card?.querySelector('.company-livery-title')?.textContent
+    || '';
+}
+
+function liveryAircraftFullNameFromFlights(flights) {
+  const names = (flights || [])
+    .map(flight => newskyAircraftName(flight?.aircraft?.id)
+      || String(flight?.aircraft?.title || flight?.aircraft?.fullName || flight?.aircraft?.fullname || '').trim())
+    .filter(Boolean);
+  return names[0] || '';
+}
+
+function liveryFlightLogTitle(card, titleText, flights) {
+  const cardAircraftId = String(card?.dataset?.aircraftId || '').trim();
+  return companyLiveryMatchingNameByAircraftId(cardAircraftId)
+    || newskyAircraftName(cardAircraftId)
+    || liveryAircraftFullNameFromFlights(flights)
+    || String(card?.dataset?.liveryModalTitle || card?.dataset?.liveryTitle || titleText || '').trim()
+    || titleText
+    || 'літак UCAA';
+}
+
+function liveryFlightLogAircraftCode(flights) {
+  const code = (flights || []).map(flight => liveryAircraftCode(flight)).find(Boolean);
+  return code || '';
+}
+
+function liveryFlightLogHeading(card, titleText, flights) {
+  const code = liveryFlightLogAircraftCode(flights);
+  return `Logbook ${code ? `${code} - ` : ''}${liveryFlightLogTitle(card, titleText, flights)}`;
+}
+
+function liveryMatcherForCard(card, title = liveryCardTitle(card)) {
+  const aircraftIds = String(card?.dataset?.aircraftIds || '')
+    .split(',')
+    .map(item => item.trim())
+    .filter(Boolean);
+  if (aircraftIds.length) {
+    const idSet = new Set(aircraftIds);
+    return flight => idSet.has(String(flight?.aircraft?.id || '').trim());
+  }
+  const aircraftId = String(card?.dataset?.aircraftId || '').trim();
+  if (aircraftId) return flight => String(flight?.aircraft?.id || '').trim() === aircraftId;
+  return liveryTrackerForTitle(title);
+}
+
+function liveryGroupAircraft(card) {
+  const ids = String(card?.dataset?.aircraftIds || '').split(',').map(item => item.trim()).filter(Boolean);
+  const regs = String(card?.dataset?.liveryGroupRegistrations || '').split(',').map(item => item.trim()).filter(Boolean);
+  const titles = String(card?.dataset?.liveryGroupTitles || '').split(',').map(item => item.trim()).filter(Boolean);
+  const images = String(card?.dataset?.liveryGroupImages || '').split(',').map(item => item.trim()).filter(Boolean);
+  const fixedIds = new Map([
+    ['UR-UIA', '695a3bf33dc76275baca8db5'],
+    ['UR-PSE', '6a4e7b3c5760ec7cdb4f39a3'],
+    ['UR-PSO', '695a7b183dc76275bad3a123'],
+    ['UR-SQB', '6a4f68e35760ec7cdb5e6c2d'],
+    ['UR-SQC', '6a4f69f85760ec7cdb5e7cef']
+  ]);
+  return ids.map((id, index) => ({
+    id: fixedIds.get(regs[index]) || id,
+    reg: regs[index] || titles[index] || `Борт ${index + 1}`,
+    title: titles[index] || regs[index] || `Борт ${index + 1}`,
+    image: images[index] || `${(regs[index] || '').replace('-', '')}.png`
+  }));
+}
+
+function liveryHeadlineForCard(card, completedFlights, groupedFlights) {
+  const group = liveryGroupAircraft(card);
+  if (!group.length) {
+    return {
+      registration: '',
+      flights: groupedFlights,
+      totalMinutes: groupedFlights.reduce((sum, flight) => sum + (Number(flight.times?.durationMinutes) || 0), 0)
+    };
+  }
+  const ranked = group.map(item => {
+    const flights = completedFlights
+      .filter(flight => String(flight?.aircraft?.id || '').trim() === item.id)
+      .sort((a,b) => flightEndDateForDisplay(b) - flightEndDateForDisplay(a));
+    return {
+      ...item,
+      flights,
+      totalMinutes: flights.reduce((sum, flight) => sum + (Number(flight.times?.durationMinutes) || 0), 0)
+    };
+  }).sort((a,b) => b.totalMinutes - a.totalMinutes);
+  const top = ranked[0];
+  return top ? {...top, registration: top.reg || ''} : {registration:'', flights:groupedFlights, totalMinutes:0};
+}
+
+function liveryCardFallbackAirport(card) {
+  const icao = String(card?.dataset?.currentIcao || '').trim().toUpperCase();
+  if (!icao) return null;
+  return {
+    icao,
+    name: String(card?.dataset?.currentName || icao),
+    city: ''
+  };
+}
+
+function liveryFlightLogLink(flight) {
+  const id = String(flight?.id || '').trim();
+  return id ? `<a href="https://newsky.app/flight/${encodeURIComponent(id)}" target="_blank" rel="noopener">Flight Log</a>` : '<span class="muted">Flight Log</span>';
+}
+
+function liveryFlightLogButton(cardIndex, aircraftId = '') {
+  const idAttr = aircraftId ? ` data-livery-log-aircraft-id="${esc(aircraftId)}"` : '';
+  return `<button type="button" class="company-livery-log-button" data-livery-log-index="${cardIndex}"${idAttr}>Журнал</button>`;
+}
+
+function formatLiveryMinutesCompact(minutes) {
+  const value = Math.max(0, Math.round(Number(minutes) || 0));
+  return `${Math.floor(value / 60)}:${String(value % 60).padStart(2, '0')}`;
+}
+
+function liveryFlightsWord(count) {
+  const value = Math.abs(Number(count) || 0);
+  const lastTwo = value % 100;
+  const last = value % 10;
+  if (lastTwo >= 11 && lastTwo <= 14) return 'рейсів';
+  if (last === 1) return 'рейс';
+  if (last >= 2 && last <= 4) return 'рейси';
+  return 'рейсів';
+}
+
+function companyLiveryAircraftById(id) {
+  const needle = String(id || '').trim();
+  if (!needle) return null;
+  return (app.companyLiveryData?.aircraft || []).find(item => String(item?.id || '').trim() === needle) || null;
+}
+
+function companyLiveryMatchingRecord(aircraft) {
+  const id = String(aircraft?.id || aircraft?.aircraftId || '').trim();
+  const reg = String(aircraft?.registration || '').trim().toUpperCase();
+  const records = Array.isArray(app.companyLiveryMatching?.liveries) ? app.companyLiveryMatching.liveries : [];
+  return records.find(item => id && String(item?._id || item?.aircraftId || '').trim() === id)
+    || records.find(item => reg && String(item?.registration || '').trim().toUpperCase() === reg)
+    || null;
+}
+
+function companyLiveryMatchingRecordByKey(id = '', registration = '') {
+  const key = String(id || '').trim();
+  const reg = String(registration || '').trim().toUpperCase();
+  const records = Array.isArray(app.companyLiveryMatching?.liveries) ? app.companyLiveryMatching.liveries : [];
+  return records.find(item => key && String(item?._id || item?.aircraftId || '').trim() === key)
+    || records.find(item => reg && String(item?.registration || '').trim().toUpperCase() === reg)
+    || null;
+}
+
+function companyLiveryMatchingNameByAircraftId(id) {
+  const key = String(id || '').trim();
+  if (!key) return '';
+  const records = Array.isArray(app.companyLiveryMatching?.liveries) ? app.companyLiveryMatching.liveries : [];
+  const record = records.find(item => String(item?._id || item?.aircraftId || '').trim() === key);
+  return String(record?.name || record?.newskyName || '').trim();
+}
+
+function liveryShortOperatorFromName(name) {
+  const text = String(name || '').trim();
+  const parts = text.split(/\s+l\s+/i).map(item => item.trim()).filter(Boolean);
+  return parts[0] || '';
+}
+
+function liveryRegistrationFromRecord(record) {
+  const direct = String(record?.registration || record?.reg || '').trim().toUpperCase();
+  if (direct) return direct;
+  const name = String(record?.name || record?.newskyName || '').toUpperCase();
+  const match = name.match(/\bUR-[A-Z0-9]+\b/);
+  return match ? match[0] : '';
+}
+
+function companyLiveryShortNoteByAircraftId(id, fallbackIcao = '') {
+  const record = companyLiveryMatchingRecordByKey(id);
+  if (record) {
+    const operator = liveryShortOperatorFromName(record.name || record.newskyName);
+    const registration = liveryRegistrationFromRecord(record);
+    const note = [operator, registration].filter(Boolean).join(' | ');
+    if (note) return note;
+  }
+  const icao = String(fallbackIcao || '').trim().toUpperCase();
+  return icao ? `${icao} · Dry Leasing` : 'Dry Leasing';
+}
+
+function aircraftTableNote(flight) {
+  const id = String(flight?.aircraft?.id || flight?.aircraftId || '').trim();
+  const icao = String(flight?.aircraft?.icao || flight?.aircraft?.airframe?.icao || flight?.aircraft?.airframe?.ident || '').trim().toUpperCase();
+  return companyLiveryShortNoteByAircraftId(id, icao);
+}
+
+function companyLiveryMatchingIcao(aircraft, fieldNames = ['lastflightlocationICAO', 'lastFlightLocationIcao', 'locationIcao']) {
+  const record = companyLiveryMatchingRecord(aircraft);
+  for (const field of fieldNames) {
+    const icao = String(record?.[field] || '').trim().toUpperCase();
+    if (/^[A-Z0-9]{4}$/.test(icao)) return icao;
+  }
+  return '';
+}
+
+function companyLiveryAircraftForCard(card, flights = [], latest = null, headline = null) {
+  const titleRegistration = liveryRegistrationFromTitle(card?.dataset?.liveryTitle || card?.querySelector?.('.company-livery-title')?.textContent || '');
+  const ids = [
+    headline?.id,
+    latest?.aircraft?.id,
+    card?.dataset?.aircraftId,
+    ...String(card?.dataset?.aircraftIds || '').split(',')
+  ].map(item => String(item || '').trim()).filter(Boolean);
+  for (const id of ids) {
+    const aircraft = companyLiveryAircraftById(id);
+    if (aircraft) return aircraft;
+  }
+  const matching = companyLiveryMatchingRecordByKey(ids[0] || '', headline?.registration || headline?.reg || titleRegistration);
+  if (matching) {
+    return {
+      id: String(matching._id || matching.aircraftId || ids[0] || '').trim(),
+      registration: String(matching.registration || headline?.registration || headline?.reg || titleRegistration || '').trim().toUpperCase(),
+      name: String(matching.name || matching.newskyName || '').trim(),
+      airframeIdent: String(matching.airframeIdent || '').trim(),
+      airframeType: String(matching.airframeIdent || '').trim(),
+      locationIcao: String(matching.locationIcao || '').trim().toUpperCase(),
+      basesFromName: []
+    };
+  }
+  const firstFlight = latest || flights.find(flight => flight?.aircraft?.id);
+  const fallbackId = String(firstFlight?.aircraft?.id || '').trim();
+  return fallbackId ? {
+    id: fallbackId,
+    registration: '',
+    airframeIdent: liveryAircraftCode(firstFlight),
+    airframeType: liveryAircraftCode(firstFlight),
+    locationIcao: '',
+    basesFromName: []
+  } : null;
+}
+
+function liveryTodayKey() {
+  const date = app.referenceNow instanceof Date && Number.isFinite(app.referenceNow.getTime())
+    ? app.referenceNow
+    : new Date();
+  return ['sun','mon','tue','wed','thu','fri','sat'][date.getUTCDay()];
+}
+
+function liveryTomorrowKey() {
+  const date = app.referenceNow instanceof Date && Number.isFinite(app.referenceNow.getTime())
+    ? new Date(app.referenceNow.getTime())
+    : new Date();
+  date.setUTCDate(date.getUTCDate() + 1);
+  return ['sun','mon','tue','wed','thu','fri','sat'][date.getUTCDay()];
+}
+
+function liveryRouteRunsToday(route) {
+  const key = liveryTodayKey();
+  return route?.[key] === true || (Array.isArray(route?.days) && route.days.includes(key));
+}
+
+function liveryRouteRunsTomorrow(route) {
+  const key = liveryTomorrowKey();
+  return route?.[key] === true || (Array.isArray(route?.days) && route.days.includes(key));
+}
+
+function liveryRouteRunsTodayOrTomorrow(route) {
+  const today = liveryTodayKey();
+  const tomorrow = liveryTomorrowKey();
+  const days = Array.isArray(route?.days) ? route.days : [];
+  return route?.[today] === true || route?.[tomorrow] === true || days.includes(today) || days.includes(tomorrow);
+}
+
+function normalizeLiveryScheduleRoute(route) {
+  if (!route) return null;
+  return {
+    number: String(route.number || '').trim(),
+    dep: String(route.dep || '').trim().toUpperCase(),
+    arr: String(route.arr || '').trim().toUpperCase(),
+    type: String(route.type || '').trim().toLowerCase(),
+    durationMin: Number(route.durationMin ?? route.duration) || 0,
+    airframes: Array.isArray(route.airframes)
+      ? route.airframes.map(item => String(item || '').trim().toUpperCase()).filter(Boolean)
+      : String(route.airframes || route.airframesRaw || '').split(',').map(item => item.trim().toUpperCase()).filter(Boolean),
+    days: Array.isArray(route.days) ? route.days : [],
+    active: route.active !== false,
+    mon: route.mon, tue: route.tue, wed: route.wed, thu: route.thu, fri: route.fri, sat: route.sat, sun: route.sun
+  };
+}
+
+function liveryRouteMatchesAircraft(route, aircraft) {
+  const airframes = normalizeLiveryScheduleRoute(route)?.airframes || [];
+  if (!airframes.length) return false;
+  const codes = [
+    aircraft?.airframeIdent,
+    aircraft?.airframeType,
+    aircraft?.airframeName,
+    aircraft?.icao,
+    aircraft?.variant
+  ].map(item => String(item || '').trim().toUpperCase()).filter(Boolean);
+  return airframes.some(code => codes.includes(code));
+}
+
+function liveryScheduleRoutesForAircraft(aircraft) {
+  if (!aircraft) return [];
+  const id = String(aircraft.id || '').trim();
+  const reg = String(aircraft.registration || '').trim().toUpperCase();
+  const assignments = Object.values(app.companyLiveryData?.scheduleAssignments || {});
+  const assigned = assignments
+    .map(normalizeLiveryScheduleRoute)
+    .filter(route => route && route.active)
+    .filter(route => {
+      const raw = assignments.find(item => String(item?.number || '') === route.number && String(item?.dep || '').toUpperCase() === route.dep && String(item?.arr || '').toUpperCase() === route.arr);
+      const ids = (raw?.assignedAircraftIds || []).map(item => String(item || '').trim());
+      const regs = (raw?.assignedRegistrations || []).map(item => String(item || '').trim().toUpperCase());
+      return (id && ids.includes(id)) || (reg && regs.includes(reg));
+    });
+  return assigned;
+}
+
+function liveryScheduleRoutesConnectedToIcao(routes, startIcao) {
+  const starts = (Array.isArray(startIcao) ? startIcao : [startIcao])
+    .map(item => String(item || '').trim().toUpperCase())
+    .filter(item => /^[A-Z0-9]{4}$/.test(item));
+  const list = (routes || []).filter(route => route && route.active !== false);
+  if (!starts.length) return list;
+  const adjacency = new Map();
+  list.forEach(route => {
+    const dep = String(route.dep || '').trim().toUpperCase();
+    const arr = String(route.arr || '').trim().toUpperCase();
+    if (!dep || !arr) return;
+    if (!adjacency.has(dep)) adjacency.set(dep, new Set());
+    if (!adjacency.has(arr)) adjacency.set(arr, new Set());
+    adjacency.get(dep).add(arr);
+    adjacency.get(arr).add(dep);
+  });
+  const seeds = starts.filter(start => adjacency.has(start));
+  if (!seeds.length) return [];
+  const reachable = new Set(seeds);
+  const queue = seeds.slice();
+  while (queue.length) {
+    const icao = queue.shift();
+    (adjacency.get(icao) || []).forEach(next => {
+      if (!reachable.has(next)) {
+        reachable.add(next);
+        queue.push(next);
+      }
+    });
+  }
+  return list.filter(route => reachable.has(String(route.dep || '').trim().toUpperCase()) || reachable.has(String(route.arr || '').trim().toUpperCase()));
+}
+
+function liveryScheduleRoutesIncludeIcao(routes, icao) {
+  const code = String(icao || '').trim().toUpperCase();
+  if (!/^[A-Z0-9]{4}$/.test(code)) return true;
+  const list = (routes || []).filter(route => route && route.active !== false);
+  if (!list.length) return true;
+  return list.some(route => {
+    const dep = String(route.dep || '').trim().toUpperCase();
+    const arr = String(route.arr || '').trim().toUpperCase();
+    return dep === code || arr === code;
+  });
+}
+
+function liveryAirportObjectByIcao(icao, fallbackName = '') {
+  const code = String(icao || '').trim().toUpperCase();
+  if (!code) return null;
+  for (const flight of app.flights || []) {
+    for (const candidate of [flight.departure, flight.arrival, flight.actualArrival, flight.dep, flight.arr]) {
+      if (String(candidate?.icao || '').trim().toUpperCase() === code) return candidate;
+    }
+  }
+  const aircraft = (app.companyLiveryData?.aircraft || []).find(item => String(item?.locationIcao || '').trim().toUpperCase() === code && (item.locationName || item.locationCity));
+  return {icao: code, name: fallbackName || aircraft?.locationName || code, city: aircraft?.locationCity || ''};
+}
+
+function liveryBlockSpeedNmPerHour(aircraft, title = '') {
+  const text = `${aircraft?.registration || ''} ${aircraft?.airframeIdent || ''} ${aircraft?.airframeType || ''} ${aircraft?.name || ''} ${newskyAircraftName(aircraft?.id) || ''} ${title}`.toUpperCase();
+  if (text.includes('AN2') || text.includes('AN-2') || text.includes('UR-40308')) return 60;
+  if (text.includes('C208') || text.includes('UR-PAX') || text.includes('UR-VAN')) return 150;
+  if (text.includes('AT42') || text.includes('AT72') || text.includes('AT75') || text.includes('AT76') || text.includes('ATR') || text.includes('UR-RWC') || text.includes('UR-ATR')) return 200;
+  return 300;
+}
+
+function liveryRouteDistanceNmText(from, to, aircraft = null, title = '') {
+  const km = liveryAirportDistanceKm(from, to);
+  if (!km) return '';
+  const nm = Math.max(1, Math.round(km / 1.852));
+  const speed = liveryBlockSpeedNmPerHour(aircraft, title);
+  const blockMinutes = Math.max(10, Math.round((40 + nm / speed * 60) / 10) * 10);
+  const timeText = `${String(Math.floor(blockMinutes / 60)).padStart(2, '0')}:${String(blockMinutes % 60).padStart(2, '0')}`;
+  return ` <span class="company-route-block-time" title="BLOCK TIME, ~${nm.toLocaleString('uk-UA')} nm">(~${timeText})</span>`;
+}
+
+function liveryRouteDistanceNm(fromIcao, toIcao) {
+  const from = liveryAirportObjectByIcao(fromIcao);
+  const to = liveryAirportObjectByIcao(toIcao);
+  const km = from && to ? liveryAirportDistanceKm(from, to) : 0;
+  return km ? Math.max(1, Math.round(km / 1.852)) : 0;
+}
+
+function liveryAircraftMaxRangeNm(aircraft) {
+  const matching = companyLiveryMatchingRecord(aircraft);
+  const raw = matching?.maxRange ?? aircraft?.maxRange;
+  const value = Number(String(raw ?? '').replace(/[^\d.]/g, ''));
+  return Number.isFinite(value) && value > 0 ? value : 0;
+}
+
+function liveryRouteFitsAircraftRange(aircraft, fromIcao, toIcao) {
+  const maxRange = liveryAircraftMaxRangeNm(aircraft);
+  if (!maxRange) return true;
+  const distance = liveryRouteDistanceNm(fromIcao, toIcao);
+  return !distance || distance <= maxRange;
+}
+
+function liveryAircraftDifficultyForBonus(aircraft, title = '') {
+  const code = String(aircraft?.airframeIdent || aircraft?.airframeType || '').trim().toUpperCase();
+  const text = `${aircraft?.name || ''} ${newskyAircraftName(aircraft?.id) || ''} ${code} ${title}`.toLowerCase();
+  const flightType = /(cargo|freighter|737-800f|737f|777f|\bf\b|bcf|qt)/i.test(text) ? 'cargo' : '';
+  const value = aircraftCoefficient(code, flightType);
+  return Number.isFinite(value) && value > 0 ? value : 1;
+}
+
+function liveryGuaranteedPremiumAmount(originIcao, destinationIcao, aircraft, title = '') {
+  const distance = liveryRouteDistanceNm(originIcao, destinationIcao);
+  if (!distance) return 0;
+  return Math.round((100 + distance) * liveryAircraftDifficultyForBonus(aircraft, title));
+}
+
+function liveryProposalPremiumHtml(proposal, disabled = false) {
+  if (disabled || typeof proposal === 'string') return '&mdash;';
+  const amount = Number(proposal?.guaranteedPremium) || 0;
+  return amount > 0 ? `<span class="positive">${money(amount)}</span>` : '&mdash;';
+}
+
+function liveryLatestScheduleAirportIcao(flights, aircraft) {
+  const matching = companyLiveryMatchingRecord(aircraft);
+  const manualScheduleIcao = String(matching?.locationIcao || matching?.scheduleLocationIcao || '').trim().toUpperCase();
+  if (manualScheduleIcao) return manualScheduleIcao;
+  const latestSchedule = (flights || [])
+    .filter(flight => flightOperation(flight).key === 'schedule')
+    .sort((a,b) => flightEndDateForDisplay(b) - flightEndDateForDisplay(a))[0];
+  const scheduleArrival = String((latestSchedule?.actualArrival || latestSchedule?.arrival || {})?.icao || '').trim().toUpperCase();
+  return scheduleArrival || String(aircraft?.locationIcao || '').trim().toUpperCase();
+}
+
+function liveryProposalBadge(kind, label, meta = {}) {
+  const key = kind === 'schedule' ? 'schedule' : 'free';
+  const extraClass = meta.badgeClass ? ` ${esc(meta.badgeClass)}` : '';
+  const title = meta.title ? ` title="${esc(meta.title)}"` : '';
+  return `<span class="flight-number-link flight-number-${key} company-livery-proposal-badge${extraClass}"${title}>${esc(label)}</span>`;
+}
+
+function liveryRouteProposalText(kind, label, originIcao, destinationIcao, meta = {}) {
+  const origin = String(originIcao || '').trim().toUpperCase();
+  const destination = String(destinationIcao || '').trim().toUpperCase();
+  if (origin && destination && origin === destination) return '&mdash;';
+  const from = liveryAirportObjectByIcao(originIcao);
+  const to = liveryAirportObjectByIcao(destinationIcao);
+  if (!to) return '&mdash;';
+  const route = from
+    ? `${liveryAirportWithFlag(from, false)} - ${liveryAirportWithFlag(to, false)}`
+    : liveryAirportWithFlag(to, false);
+  const distanceText = from ? liveryRouteDistanceNmText(from, to, meta.aircraft, meta.aircraftTitle || '') : '';
+  return `${liveryProposalBadge(kind, label, meta)} ${route}${distanceText}`;
+}
+
+function liveryRouteProposalData(kind, label, originIcao, destinationIcao, meta = {}) {
+  const origin = String(originIcao || '').trim().toUpperCase();
+  const destination = String(destinationIcao || '').trim().toUpperCase();
+  const html = liveryRouteProposalText(kind, label, origin, destination, meta);
+  const guaranteedPremium = liveryGuaranteedPremiumAmount(origin, destination, meta.aircraft, meta.aircraftTitle || '');
+  return html === '&mdash;' ? null : {kind, label, origin, destination, html, ...meta, guaranteedPremium};
+}
+
+function liveryScheduleCandidateRoutes(routes) {
+  return (routes || [])
+    .filter(route => route?.active !== false)
+    .filter(liveryRouteRunsToday);
+}
+
+function liveryChooseScheduleRoute(routes, depIcao) {
+  const dep = String(depIcao || '').trim().toUpperCase();
+  const pool = liveryScheduleCandidateRoutes(routes);
+  if (dep) {
+    const fromDep = pool.find(route => route.dep === dep);
+    if (fromDep) return fromDep;
+    return null;
+  }
+  return pool[0] || null;
+}
+
+function liveryScheduleRouteFrom(routes, depIcao) {
+  const dep = String(depIcao || '').trim().toUpperCase();
+  if (!dep) return null;
+  const pool = liveryScheduleCandidateRoutes(routes);
+  return pool.find(route => route.dep === dep) || null;
+}
+
+function liveryBaseIcaosForAircraft(aircraft) {
+  const bases = Array.isArray(aircraft?.basesFromName) ? aircraft.basesFromName : [];
+  const matching = companyLiveryMatchingRecord(aircraft);
+  const liveName = String(matching?.name || matching?.newskyName || '').trim();
+  const fromName = String(liveName || aircraft?.name || newskyAircraftName(aircraft?.id) || '').match(/based in\s+([A-Z0-9 ]+)/i);
+  const parsed = fromName ? fromName[1].split(/\s+/) : [];
+  return [...bases, ...parsed].map(item => String(item || '').trim().toUpperCase()).filter(item => /^[A-Z0-9]{4}$/.test(item));
+}
+
+function liveryMatchingBaseIcaosForAircraft(aircraft) {
+  const matching = companyLiveryMatchingRecord(aircraft);
+  const liveName = String(matching?.name || matching?.newskyName || '').trim();
+  const fromName = liveName.match(/based in\s+([A-Z0-9 ]+)/i);
+  const parsed = fromName ? fromName[1].split(/\s+/) : [];
+  return parsed.map(item => String(item || '').trim().toUpperCase()).filter(item => /^[A-Z0-9]{4}$/.test(item));
+}
+
+function liveryAircraftCurrentIcao(aircraft) {
+  const id = String(aircraft?.id || '').trim();
+  const latest = (app.flights || [])
+    .filter(flight => flight.status === 'completed' && String(flight?.aircraft?.id || '').trim() === id)
+    .sort((a,b) => flightEndDateForDisplay(b) - flightEndDateForDisplay(a))[0];
+  return String((latest?.actualArrival || latest?.arrival || {})?.icao || companyLiveryMatchingIcao(aircraft) || aircraft?.locationIcao || '').trim().toUpperCase();
+}
+
+function liveryFreeUcaaBaseIcao(currentIcao) {
+  const current = String(currentIcao || '').trim().toUpperCase();
+  const ucaaAircraft = (app.companyLiveryData?.aircraft || [])
+    .filter(aircraft => String(aircraft?.name || '').toUpperCase().includes('UCAA'))
+    .filter(aircraft => liveryBaseIcaosForAircraft(aircraft).length);
+  const occupied = new Set(ucaaAircraft.map(liveryAircraftCurrentIcao).filter(Boolean));
+  const bases = [];
+  ucaaAircraft.forEach(aircraft => {
+    liveryBaseIcaosForAircraft(aircraft).forEach(icao => {
+      if (!bases.includes(icao)) bases.push(icao);
+    });
+  });
+  return bases.find(icao => icao !== current && !occupied.has(icao)) || '';
+}
+
+function liveryScheduleTimingLabel(route) {
+  if (!route) return 'сьогодні';
+  if (liveryRouteRunsToday(route)) return 'сьогодні';
+  const tomorrow = liveryTomorrowKey();
+  const days = Array.isArray(route?.days) ? route.days : [];
+  if (route?.[tomorrow] === true || days.includes(tomorrow)) return 'завтра';
+  return 'сьогодні/завтра';
+}
+
+function liveryAircraftDemandMode(aircraft, title = '') {
+  const text = `${aircraft?.name || ''} ${newskyAircraftName(aircraft?.id) || ''} ${aircraft?.airframeIdent || ''} ${aircraft?.airframeType || ''} ${title}`.toLowerCase();
+  return /(cargo|freighter|737-800f|737f|777f|\bf\b|bcf|qt)/i.test(text) ? 'cargo' : 'pax';
+}
+
+function liveryCharterDemandProposal(currentIcao, aircraft, title = '') {
+  const current = String(currentIcao || '').trim().toUpperCase();
+  if (!current) return null;
+  const info = app.companyCharterDemand?.[current];
+  if (!info?.out) return null;
+  const mode = liveryAircraftDemandMode(aircraft, title);
+  const record = info.out[mode] || null;
+  const destination = String(record?.to || '').trim().toUpperCase();
+  if (!destination || destination === current) return null;
+  const modeText = mode === 'cargo' ? 'вантаж' : 'пасажири';
+  const amount = String(record.amount || '').trim();
+  return liveryRouteProposalData('free', 'FREE', current, destination, {
+    aircraft,
+    aircraftTitle: title,
+    reason: 'demand',
+    badgeClass: 'company-livery-free-demand',
+    title: `FREE flight за попитом NewSky: ${modeText}${amount ? ` ${amount}` : ''} з ${current} до ${destination}`
+  });
+}
+
+function liveryInboundDemandProposal(targetIcao, aircraft, title = '') {
+  const target = String(targetIcao || '').trim().toUpperCase();
+  if (!target) return null;
+  const info = app.companyCharterDemand?.[target];
+  if (!info?.in) return null;
+  const mode = liveryAircraftDemandMode(aircraft, title);
+  const record = info.in[mode] || null;
+  const origin = String(record?.from || '').trim().toUpperCase();
+  const destination = String(record?.to || '').trim().toUpperCase();
+  if (!origin || !destination || destination !== target || origin === destination) return null;
+  const maxRange = liveryAircraftMaxRangeNm(aircraft);
+  const distance = Number(record?.distNm) || liveryRouteDistanceNm(origin, destination);
+  if (maxRange && distance && distance > maxRange) return null;
+  const modeText = mode === 'cargo' ? 'cargo' : 'pax';
+  const amount = String(record.amount || '').trim();
+  return liveryRouteProposalData('free', 'FREE', origin, destination, {
+    aircraft,
+    aircraftTitle: title,
+    reason: 'range-inbound-demand',
+    badgeClass: 'company-livery-free-demand',
+    title: `FREE flight by NewSky inbound demand: ${modeText}${amount ? ` ${amount}` : ''} from ${origin} to ${destination}`
+  });
+}
+
+function liveryRangeSafeFreeProposal(currentIcao, targetIcao, aircraft, title, meta = {}) {
+  const current = String(currentIcao || '').trim().toUpperCase();
+  const target = String(targetIcao || '').trim().toUpperCase();
+  if (!current || !target || current === target) return null;
+  if (liveryRouteFitsAircraftRange(aircraft, current, target)) {
+    return liveryRouteProposalData('free', 'FREE', current, target, {...meta, aircraft, aircraftTitle: title});
+  }
+  const inboundProposal = liveryInboundDemandProposal(target, aircraft, title);
+  if (inboundProposal) return inboundProposal;
+  if (meta.allowDirectWhenNoInbound) {
+    return liveryRouteProposalData('free', 'FREE', current, target, {...meta, aircraft, aircraftTitle: title, rangeExceeded: true});
+  }
+  return null;
+}
+
+function liveryIsScheduleStuck(aircraft, routes, currentIcao) {
+  const current = String(currentIcao || '').trim().toUpperCase();
+  const scheduleLocation = String(companyLiveryMatchingIcao(aircraft, ['locationIcao']) || '').trim().toUpperCase();
+  if (!current || !scheduleLocation || current !== scheduleLocation) return false;
+  const list = (routes || []).filter(route => route?.active !== false);
+  if (!list.length) return false;
+  if (liveryScheduleRoutesIncludeIcao(list, current)) return false;
+  const matchingBases = liveryMatchingBaseIcaosForAircraft(aircraft);
+  if (matchingBases.includes(current)) return false;
+  return true;
+}
+
+function liveryScheduleStuckMessage(icao) {
+  return `Літак застряг на тех.обслуговуванні в ${esc(icao || 'XXXX')}. SCHEDULE недоступні. Зверніться до СЕО`;
+}
+
+function liveryScheduleStuckCardMessage() {
+  return 'Літак застряг на ТО. Зверніться до СЕО';
+}
+
+function liverySuggestedRouteText(card, title, flights, latest, headline) {
+  const proposal = liverySuggestedRouteData(card, title, flights, latest, headline);
+  return typeof proposal === 'string' ? proposal : proposal?.html || '&mdash;';
+}
+
+function liverySuggestedRouteData(card, title, flights, latest, headline) {
+  if (String(title || '').includes('UR-SFS')) return 'борт віддано в SUB-LEASE';
+  const aircraft = companyLiveryAircraftForCard(card, flights, latest, headline);
+  const currentIcao = String((latest?.actualArrival || latest?.arrival || liveryCardFallbackAirport(card) || {})?.icao || companyLiveryMatchingIcao(aircraft) || '').trim().toUpperCase();
+  const routes = liveryScheduleRoutesForAircraft(aircraft);
+  const scheduleIcao = liveryLatestScheduleAirportIcao(flights, aircraft);
+  const scheduleCandidates = liveryScheduleCandidateRoutes(routes);
+  const activeScheduleRoutes = (routes || []).filter(route => route?.active !== false);
+  const hasScheduleRoutes = activeScheduleRoutes.length > 0;
+  const routeFromCurrent = liveryChooseScheduleRoute(routes, currentIcao);
+  if (scheduleCandidates.length && routeFromCurrent && currentIcao && scheduleIcao && currentIcao === scheduleIcao && routeFromCurrent.dep === currentIcao) {
+    return liveryRouteProposalData('schedule', routeFromCurrent.number, currentIcao || routeFromCurrent.dep, routeFromCurrent.arr, {aircraft, aircraftTitle: title});
+  }
+  if (hasScheduleRoutes) {
+    const routeFromSchedule = liveryScheduleRouteFrom(routes, scheduleIcao) || activeScheduleRoutes.find(route => route.dep === scheduleIcao) || null;
+    if (scheduleIcao && currentIcao && currentIcao !== scheduleIcao) {
+      const hasNearScheduleFromTarget = scheduleCandidates.includes(routeFromSchedule);
+      const timing = hasNearScheduleFromTarget ? liveryScheduleTimingLabel(routeFromSchedule) : 'політ на тех.обслуговування / зміна екіпажа';
+      const proposal = liveryRangeSafeFreeProposal(currentIcao, scheduleIcao, aircraft, title, {
+        reason: hasNearScheduleFromTarget ? 'schedule-positioning' : 'maintenance-positioning',
+        badgeClass: hasNearScheduleFromTarget ? 'company-livery-free-schedule' : 'company-livery-free-maintenance',
+        title: hasNearScheduleFromTarget ? `FREE flight для подальшого SCHEDULE ${timing}` : timing,
+        allowDirectWhenNoInbound: true
+      });
+      if (proposal) return proposal;
+    }
+    if (scheduleIcao && currentIcao && currentIcao === scheduleIcao) {
+      const tomorrowFromSchedule = activeScheduleRoutes.find(route => route.dep === scheduleIcao && liveryRouteRunsTomorrow(route));
+      if (tomorrowFromSchedule) return 'Очікує на SCHEDULE завтра';
+      const demandProposal = liveryCharterDemandProposal(currentIcao, aircraft, title);
+      if (demandProposal) return demandProposal;
+      if (liveryIsScheduleStuck(aircraft, routes, currentIcao)) {
+        return `<span class="company-livery-stuck-text">${liveryScheduleStuckCardMessage()}</span>`;
+      }
+    }
+    return null;
+  }
+  const bases = liveryBaseIcaosForAircraft(aircraft);
+  if (bases.includes(currentIcao)) {
+    const demandProposal = liveryCharterDemandProposal(currentIcao, aircraft, title);
+    if (demandProposal) return demandProposal;
+  }
+  const targetBase = bases.find(icao => icao !== currentIcao) || bases[0];
+  if (targetBase) {
+    const proposal = liveryRangeSafeFreeProposal(currentIcao, targetBase, aircraft, title, {
+      reason: 'base',
+      badgeClass: 'company-livery-free-base',
+      title: 'FREE flight на базу'
+    });
+    if (proposal) return proposal;
+  }
+  return null;
+}
+
+function ensureCompanyLiveryImageWrap(card) {
+  if (!card) return null;
+  const existing = card.querySelector(':scope > .company-livery-image-wrap');
+  if (existing) return existing;
+  const image = [...card.children].find(child => child.tagName === 'IMG');
+  if (!image) return null;
+  const wrap = document.createElement('div');
+  wrap.className = 'company-livery-image-wrap';
+  image.parentNode.insertBefore(wrap, image);
+  wrap.appendChild(image);
+  return wrap;
+}
+
+function updateCompanyLiveryAircraftStatsBadge(card, flights, cardIndex, aircraftId = '') {
+  const wrap = ensureCompanyLiveryImageWrap(card);
+  if (!wrap) return;
+  let badge = wrap.querySelector('.company-livery-aircraft-stats');
+  if (!badge) {
+    badge = document.createElement('div');
+    badge.className = 'company-livery-aircraft-stats';
+    wrap.appendChild(badge);
+  }
+  const list = Array.isArray(flights) ? flights : [];
+  const minutes = list.reduce((sum, flight) => sum + (Number(flight.times?.durationMinutes) || 0), 0);
+  const logAircraftId = aircraftId || String(list[0]?.aircraft?.id || '').trim();
+  badge.innerHTML = `<span class="company-livery-stat-flights">${list.length} ${liveryFlightsWord(list.length)}</span><span class="company-livery-stat-time">${formatMinutes(minutes)}</span><span class="company-livery-stat-log">${liveryFlightLogButton(cardIndex, logAircraftId)}</span>`;
+}
+
+function companyLiveryCardAircraftIds(card, headline = null) {
+  return [
+    headline?.id,
+    card?.dataset?.aircraftId,
+    ...String(card?.dataset?.aircraftIds || '').split(',')
+  ].map(item => String(item || '').trim()).filter(Boolean);
+}
+
+function companyLiveryCardAircraftIcaos(card, headline = null) {
+  const values = [];
+  companyLiveryCardAircraftIds(card, headline).forEach(id => {
+    const aircraft = companyLiveryAircraftById(id);
+    values.push(
+      aircraft?.airframeIdent,
+      aircraft?.aircraftIdent,
+      aircraft?.airframeType,
+      aircraft?.icao
+    );
+  });
+  values.push(headline?.airframeIdent, headline?.aircraftIdent, headline?.airframeType, headline?.icao);
+  return [...new Set(values.map(item => String(item || '').trim().toUpperCase()).filter(Boolean))];
+}
+
+function companyLiveryLiveRecordForCard(card, headline = null) {
+  const ids = new Set(companyLiveryCardAircraftIds(card, headline));
+  if (!ids.size) return null;
+  return guaranteedBonusLiveRecords()
+    .map(item => item.record)
+    .find(record => ids.has(String(record.aircraftId || record.aircraft || '').trim())) || null;
+}
+
+function companyLiveryLiveFlightAircraftId(flight) {
+  const candidates = liveAircraftIdCandidates(flight);
+  const records = Array.isArray(app.companyLiveryMatching?.liveries) ? app.companyLiveryMatching.liveries : [];
+  const matched = candidates.find(id => records.some(item => String(item?._id || item?.aircraftId || '').trim() === id));
+  if (matched) return matched;
+  const texts = [];
+  const collectText = (value, depth = 0) => {
+    if (depth > 4 || value == null) return;
+    if (typeof value === 'string' || typeof value === 'number') {
+      const text = String(value).trim();
+      if (text) texts.push(text.toLowerCase());
+      return;
+    }
+    if (typeof value !== 'object') return;
+    Object.entries(value).forEach(([key, child]) => {
+      if (depth === 0 || /aircraft|livery|fleet|airframe|registration|name|ident/i.test(key)) {
+        collectText(child, depth + 1);
+      }
+    });
+  };
+  collectText(flight?.aircraft);
+  const textMatched = records.find(item => {
+    const id = String(item?._id || item?.aircraftId || '').trim();
+    if (!id) return false;
+    const reg = String(item?.registration || '').trim().toLowerCase();
+    const name = String(item?.name || item?.newskyName || '').trim().toLowerCase();
+    return texts.some(text => (reg && text.includes(reg)) || (name && text.includes(name)));
+  });
+  return String(textMatched?._id || textMatched?.aircraftId || '').trim() || candidates[0] || '';
+}
+
+function companyLiveryLiveFlightAircraftIcao(flight) {
+  return String(liveAircraftInfo(flight).icao || flight?.aircraft?.airframe?.icao || flight?.aircraft?.airframe?.ident || '').trim().toUpperCase();
+}
+
+function companyLiveryLiveRecordFromFlight(flight) {
+  if (!flight) return null;
+  const dep = liveAirportObject(flight.dep);
+  const arr = liveAirportObject(flight.arr);
+  const operation = liveFlightOperation(flight);
+  return {
+    aircraftId: companyLiveryLiveFlightAircraftId(flight),
+    depIcao: dep.icao,
+    arrIcao: arr.icao,
+    flightNumber: String(flight.flightNumber || flight.number || '').trim(),
+    operationKey: operation.key,
+    operationLabel: operation.label,
+    state: 'LIVE',
+    source: 'newsky-live'
+  };
+}
+
+function companyLiveryAnyLiveRecordForCard(card, headline = null) {
+  const premiumRecord = companyLiveryLiveRecordForCard(card, headline);
+  if (premiumRecord) return premiumRecord;
+  const ids = new Set(companyLiveryCardAircraftIds(card, headline));
+  const liveFlights = (app.liveNewSkyFlights || [])
+    .filter(flight => flight?.depTimeAct);
+  let liveFlight = ids.size
+    ? liveFlights.find(flight => ids.has(companyLiveryLiveFlightAircraftId(flight)))
+    : null;
+  if (!liveFlight) {
+    const cardIcaos = companyLiveryCardAircraftIcaos(card, headline);
+    const allCards = [...document.querySelectorAll('#companyView .company-livery-card')];
+    liveFlight = liveFlights.find(flight => {
+      const icao = companyLiveryLiveFlightAircraftIcao(flight);
+      if (!icao || !cardIcaos.includes(icao)) return false;
+      const sameIcaoCards = allCards.filter(item => companyLiveryCardAircraftIcaos(item).includes(icao));
+      return sameIcaoCards.length === 1;
+    });
+  }
+  return companyLiveryLiveRecordFromFlight(liveFlight);
+}
+
+function companyLiveryLiveRouteText(record) {
+  const number = String(record?.flightNumber || record?.number || '').trim();
+  const dep = String(record?.depIcao || record?.departureIcao || record?.departure || record?.dep || '').trim().toUpperCase();
+  const arr = String(record?.arrIcao || record?.arrivalIcao || record?.arrival || record?.arr || '').trim().toUpperCase();
+  const route = dep && arr ? `${esc(dep)} \u2192 ${esc(arr)}` : esc(String(record?.route || '').trim() || 'LIVE');
+  return `${companyLiveryLiveNumberBadge(record, number)}${route}`;
+}
+
+function companyLiveryLiveNumberBadge(record, number) {
+  const label = String(number || '').trim();
+  if (!label) return '';
+  const isPremium = String(record?.status || '').toLowerCase() === 'matched' || Number(record?.amount) > 0;
+  if (!isPremium) {
+    const operationKey = String(record?.operationKey || record?.operation || 'free').trim().toLowerCase();
+    const key = ['schedule', 'charter', 'free'].includes(operationKey) ? operationKey : 'free';
+    const title = esc(String(record?.operationLabel || key).trim());
+    return `<span class="flight-number-link flight-number-${key}" title="${title}">${esc(label)}</span> `;
+  }
+  const kind = String(record?.proposalType || record?.kind || '').toLowerCase() === 'schedule' ? 'schedule' : 'free';
+  const reason = String(record?.proposalReason || record?.reason || '').toLowerCase();
+  let badgeClass = '';
+  let title = '';
+  if (kind === 'schedule' || reason === 'schedule') {
+    return `${liveryProposalBadge('schedule', label)} `;
+  }
+  if (reason === 'schedule-positioning') {
+    badgeClass = 'company-livery-free-schedule';
+    title = 'FREE flight for later SCHEDULE';
+  } else if (reason === 'maintenance-positioning') {
+    badgeClass = 'company-livery-free-maintenance';
+    title = 'FREE flight to maintenance / crew change';
+  } else if (reason === 'demand' || reason === 'charter-demand' || reason === 'inbound-demand' || reason === 'range-inbound-demand') {
+    badgeClass = 'company-livery-free-demand';
+    title = 'FREE flight by NewSky demand';
+  } else {
+    badgeClass = 'company-livery-free-base';
+    title = 'FREE flight to base';
+  }
+  return `${liveryProposalBadge('free', label, {badgeClass, title})} `;
+}
+
+function companyLiveryLiveStatusHtml(record) {
+  return `<span class="company-livery-live-dot" aria-hidden="true"></span><span class="company-livery-live-word">LIVE</span> ${companyLiveryLiveRouteText(record)}`;
+}
+
+function companyLiveryLivePilotName(record) {
+  const id = String(record?.pilotId || record?.pilot || '').trim();
+  if (!id) return '';
+  const direct = (app.flights || [])
+    .map(flight => flight?.pilot)
+    .find(pilot => String(pilot?.id || '').trim() === id);
+  if (direct?.name) return String(direct.name).trim();
+  const aggregated = aggregatePilotFlights(app.flights || [])
+    .find(pilot => String(pilot?.id || '').trim() === id);
+  return String(aggregated?.name || '').trim();
+}
+
+function companyLiveryLivePayoutText(record) {
+  const id = String(record?.pilotId || record?.pilot || '').trim();
+  const name = companyLiveryLivePilotName(record);
+  if (id && name) {
+    return `<strong>\u0431\u0443\u0434\u0435 \u0432\u0438\u043F\u043B\u0430\u0447\u0435\u043D\u0430 <a href="${esc(pilotProfileUrl(id))}">${esc(name)}</a></strong>`;
+  }
+  return `<strong>\u0431\u0443\u0434\u0435 \u0432\u0438\u043F\u043B\u0430\u0447\u0435\u043D\u0430 \u043F\u0456\u043B\u043E\u0442\u0443</strong>`;
+}
+
+function updateCompanyLiveryLiveBadge(card, record) {
+  const wrap = ensureCompanyLiveryImageWrap(card);
+  if (!wrap) return;
+  wrap.querySelector('.company-livery-live-badge')?.remove();
+  card.classList.toggle('company-livery-live', Boolean(record));
+  if (!record) return;
+  const badge = document.createElement('div');
+  badge.className = 'company-livery-live-badge';
+  badge.textContent = 'LIVE';
+  wrap.appendChild(badge);
+}
+
+function ensureCompanyLiveryLoadingStatus() {
+  $$('#companyView .company-livery-card').forEach((card, cardIndex) => {
+    if (card.closest('.drylease-section') || card.closest('.waiting-section')) return;
+    if (card.querySelector('.company-livery-status')) return;
+    const fallbackAirport = liveryCardFallbackAirport(card);
+    const currentLine = fallbackAirport
+      ? `в ${liveryAirportStatusText(fallbackAirport)} з 08.07`
+      : 'локація уточнюється';
+    updateCompanyLiveryAircraftStatsBadge(card, [], cardIndex);
+    const status = document.createElement('div');
+    status.className = 'company-livery-status company-livery-status-loading';
+    status.innerHTML = `<div class="company-livery-status-line company-livery-status-location">📌 ${currentLine}</div><div class="company-livery-status-rule"></div><div class="company-livery-status-line company-livery-status-offer">💰 Гарантована премія <span class="positive">$100</span> за рейс:<div class="company-livery-offer-route"><span class="flight-number-link flight-number-free company-livery-proposal-badge">FREE</span> <span class="company-livery-loading-text">----</span> - <span class="company-livery-loading-text">----</span></div></div><div class="company-livery-status-top">ТОП наліт: &mdash;</div>`;
+    card.appendChild(status);
+  });
+}
+
+function ensureDryLeaseTitleLogbook(card, cardIndex) {
+  const title = card.querySelector('.company-livery-title');
+  if (!title) return;
+  title.querySelector('.company-livery-title-logbook')?.remove();
+}
+
+function liveryFlightDateShort(flight) {
+  return formatFlightDateLabel(flight).replace(/\.(20)?(\d{2})$/, '.$2');
+}
+
+function liveryEndDateShort(flight) {
+  const end = flightEndDateForDisplay(flight);
+  if (!Number.isFinite(end.getTime())) return liveryFlightDateShort(flight);
+  return end.toLocaleDateString('uk-UA', {timeZone:'UTC', day:'2-digit', month:'2-digit', year:'2-digit'});
+}
+
+function liveryGapDateLabel(newerFlight, olderFlight) {
+  const start = flightEndDateForDisplay(olderFlight);
+  const end = flightStartDateForDisplay(newerFlight);
+  if (!Number.isFinite(start.getTime()) || !Number.isFinite(end.getTime())) return '—';
+  const startDay = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate()));
+  const endDay = new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), end.getUTCDate()));
+  if (startDay.getTime() === endDay.getTime()) return startDay.toLocaleDateString('uk-UA', {timeZone:'UTC', day:'2-digit', month:'2-digit', year:'2-digit'});
+  return `${startDay.toLocaleDateString('uk-UA', {timeZone:'UTC', day:'2-digit', month:'2-digit', year:'2-digit'})} - ${endDay.toLocaleDateString('uk-UA', {timeZone:'UTC', day:'2-digit', month:'2-digit', year:'2-digit'})}`;
+}
+
+function liveryOperationIcon(flight) {
+  const operation = flightOperation(flight);
+  if (operation.key === 'schedule') return '<span title="Schedule">📅</span>';
+  if (operation.key === 'charter') return '<span title="Charter">🧳</span>';
+  return '<span title="Free">🛫</span>';
+}
+
+function liveryFlightNumberBadge(flight) {
+  const operation = flightOperation(flight);
+  return `<a class="flight-number-link flight-number-${operation.key}" href="https://newsky.app/flight/${encodeURIComponent(flight.id)}" target="_blank" rel="noopener" title="${operation.label}">${esc(flight.flightNumber || '—')}</a>`;
+}
+
+function liveryTeleportBadge() {
+  return `<span class="flight-number-link flight-number-free" title="Ferry Flight">↔</span>`;
+}
+
+function liveryAirportLatLon(airport) {
+  const location = airport?.location || airport?.loc || {};
+  const lat = Number(location.lat ?? airport?.lat);
+  const lon = Number(location.lon ?? location.lng ?? airport?.lon ?? airport?.lng);
+  return Number.isFinite(lat) && Number.isFinite(lon) ? {lat, lon} : null;
+}
+
+function liveryAirportWithKnownLocation(airport) {
+  if (liveryAirportLatLon(airport)) return airport;
+  const code = String(airport?.icao || '').toUpperCase();
+  if (!code) return airport;
+  for (const flight of app.flights || []) {
+    for (const candidate of [flight.departure, flight.arrival, flight.actualArrival, flight.dep, flight.arr]) {
+      if (String(candidate?.icao || '').toUpperCase() === code && liveryAirportLatLon(candidate)) return candidate;
+    }
+  }
+  return airport;
+}
+
+function liveryAirportDistanceKm(from, to) {
+  const a = liveryAirportLatLon(liveryAirportWithKnownLocation(from));
+  const b = liveryAirportLatLon(liveryAirportWithKnownLocation(to));
+  if (!a || !b) return 0;
+  const rad = Math.PI / 180;
+  const dLat = (b.lat - a.lat) * rad;
+  const dLon = (b.lon - a.lon) * rad;
+  const lat1 = a.lat * rad;
+  const lat2 = b.lat * rad;
+  const h = Math.sin(dLat / 2) ** 2 + Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon / 2) ** 2;
+  return 6371 * 2 * Math.atan2(Math.sqrt(h), Math.sqrt(Math.max(0, 1 - h)));
+}
+
+function liveryTeleportCost(from, to) {
+  const distanceKm = Math.round(liveryAirportDistanceKm(from, to));
+  return distanceKm > 0 ? {distanceKm, cost: distanceKm} : {distanceKm:0, cost:0};
+}
+
+function liveryWetLeaseTransferCost(from, to, baseFlight) {
+  const distanceKm = Math.round(liveryAirportDistanceKm(from, to));
+  const baseFuelKg = Math.max(0, Number(baseFlight?.operations?.fuel) || 0);
+  const baseDistanceKm = Math.max(0, Number(baseFlight?.operations?.distance) || 0) * 1.852;
+  if (!distanceKm || !baseFuelKg || !baseDistanceKm) {
+    return {distanceKm, fuelCost:0, crewCost:0, total:0};
+  }
+  const fuelPerKm = baseFuelKg / baseDistanceKm;
+  const fuelCost = Math.round(distanceKm * fuelPerKm);
+  const crewBaseCost = Math.round((distanceKm / 700) * 2 * 65);
+  const crewCost = crewBaseCost + Math.round(fuelCost * 0.01);
+  return {distanceKm, fuelCost, crewCost, total:fuelCost + crewCost};
+}
+
+function liveryTeleportRow(newerFlight, olderFlight) {
+  const from = olderFlight.actualArrival || olderFlight.arrival || {};
+  const to = newerFlight.departure || {};
+  const fromCode = String(from.icao || '').toUpperCase();
+  const toCode = String(to.icao || '').toUpperCase();
+  const sameAirport = fromCode && toCode && fromCode === toCode;
+  const gapDate = liveryEndDateShort(olderFlight);
+  const start = flightEndDateForDisplay(olderFlight);
+  const end = flightStartDateForDisplay(newerFlight);
+  const sameDay = Number.isFinite(start.getTime()) && Number.isFinite(end.getTime())
+    && start.getUTCFullYear() === end.getUTCFullYear()
+    && start.getUTCMonth() === end.getUTCMonth()
+    && start.getUTCDate() === end.getUTCDate();
+  if (sameAirport) {
+    return `<tr class="company-livery-log-row company-livery-log-teleport"><td>${esc(gapDate)}<span class="date-flight-meta">${liveryTeleportBadge()}</span></td><td class="route"><span class="route-airports">${liveryAirportWithFlag(to)} → ${liveryAirportWithFlag(to)}</span><span class="route-duration">стоянка</span></td><td colspan="2">Відпочинок екіпажу</td></tr>`;
+  }
+  const reason = sameDay ? 'Надано у SUB-LEASE для чартерного рейсу' : 'Повернуто лізингодавцю для тех. інспекції';
+  return `<tr class="company-livery-log-row company-livery-log-teleport"><td>${esc(gapDate)}<span class="date-flight-meta">${liveryTeleportBadge()}</span></td><td class="route"><span class="route-airports">${liveryAirportWithFlag(from)} → ${liveryAirportWithFlag(to)}</span><span class="route-duration">Ferry Flight</span></td><td colspan="2">${reason}</td></tr>`;
+}
+
+function liveryFlightLogRows(flights) {
+  const rows = [];
+  const selected = flights.slice(0, 6);
+  selected.forEach((flight, index) => {
+    const rating = flightRatingPresentation(flight);
+    rows.push(`<tr class="company-livery-log-row"><td>${liveryFlightDateShort(flight)}<span class="date-flight-meta">${liveryFlightNumberBadge(flight)}</span></td><td class="route"><span class="route-airports">${liveryAirportWithFlag(flight.departure)} → ${liveryAirportWithFlag(flight.actualArrival || flight.arrival)}</span><span class="route-duration">${formatMinutes(flight.times?.durationMinutes)}</span></td><td><a href="${esc(pilotProfileUrl(flight.pilot?.id || ''))}">${esc(flight.pilot?.name || 'Pilot')}</a></td><td class="company-livery-log-rating"><span class="rating-badge ${rating.className}">${rating.label}</span></td></tr>`);
+    const nextOlder = selected[index + 1];
+    if (nextOlder) rows.push(liveryTeleportRow(flight, nextOlder));
+  });
+  return rows.join('');
+}
+
+function openCompanyLiveryFlightLogLegacy(card, titleText, flights) {
+  const dialog = $('#liveryInfoDialog');
+  const title = $('#liveryInfoTitle');
+  const body = $('#liveryInfoBody');
+  if (!dialog || !title || !body) return;
+  dialog.style.width = '';
+  title.textContent = liveryFlightLogHeading(card, titleText, flights);
+  if (!flights.length) {
+    body.innerHTML = '<div class="company-note">Рейсів цим бортом ще не знайдено.</div>';
+  } else {
+    body.innerHTML = `<table class="company-livery-log-table"><colgroup><col class="company-livery-log-date"><col class="company-livery-log-route-col"><col class="company-livery-log-pilot"><col class="company-livery-log-rating-col"></colgroup><thead><tr><th>Дата / Рейс</th><th>Маршрут / Тривалість</th><th>Пілот</th><th>Рейтинг</th></tr></thead><tbody>${liveryFlightLogRows(flights)}</tbody></table>`;
+  }
+  showCompanyLiveryDialog(dialog);
+}
+
+function openCompanyLiveryGroupDialog(card) {
+  const dialog = $('#liveryInfoDialog');
+  const title = $('#liveryInfoTitle');
+  const body = $('#liveryInfoBody');
+  if (!dialog || !title || !body) return;
+  companyLiveryDialogReturn = null;
+  const group = liveryGroupAircraft(card);
+  dialog.style.width = group.length >= 3 ? 'min(96vw,880px)' : 'min(96vw,660px)';
+  const completedFlights = app.flights.filter(flight => flight.status === 'completed');
+  title.textContent = liveryCardTitle(card).replace(/\s*\|?\s*$/, '') || 'Група бортів';
+  body.innerHTML = `<div class="company-livery-group-grid">${group.map(item => {
+    const flights = completedFlights
+      .filter(flight => String(flight?.aircraft?.id || '').trim() === item.id)
+      .sort((a,b) => flightEndDateForDisplay(b) - flightEndDateForDisplay(a));
+    const latest = flights[0];
+    const airport = latest ? (latest.actualArrival || latest.arrival || liveryCardFallbackAirport(card)) : liveryCardFallbackAirport(card);
+    const latestDate = latest ? flightEndDateForDisplay(latest) : null;
+    const latestDateText = latestDate && Number.isFinite(latestDate.getTime())
+      ? latestDate.toLocaleDateString('uk-UA', {timeZone:'UTC', day:'2-digit', month:'2-digit'})
+      : '—';
+    const pilotMinutes = new Map();
+    const pilotNames = new Map();
+    flights.forEach(flight => {
+      const id = String(flight.pilot?.id || flight.pilot?.name || '');
+      if (!id) return;
+      pilotNames.set(id, flight.pilot?.name || 'Pilot');
+      pilotMinutes.set(id, (pilotMinutes.get(id) || 0) + (Number(flight.times?.durationMinutes) || 0));
+    });
+    const topPilot = [...pilotMinutes.entries()].sort((a,b) => b[1] - a[1])[0];
+    const topPilotText = topPilot ? `<a href="${esc(pilotProfileUrl(topPilot[0]))}">${esc(pilotNames.get(topPilot[0]) || 'Pilot')}</a> | ${formatLiveryMinutesCompact(topPilot[1])}` : '—';
+    const aircraftLink = `<a class="company-livery-group-reg" href="${esc(newskyAircraftUrl(item.id))}" target="_blank" rel="noopener" title="Відкрити борт у NewSky">${esc(item.title)}</a>`;
+    const locationLine = airport ? `в ${liveryAirportStatusText(airport)} з ${esc(latestDateText)}` : 'локація невідома';
+    const suggestedProposal = liverySuggestedRouteData(card, item.title, flights, latest, {id:item.id, registration:item.reg});
+    const suggestedText = typeof suggestedProposal === 'string' ? suggestedProposal : suggestedProposal?.html || '&mdash;';
+    const premiumText = liveryProposalPremiumHtml(suggestedProposal);
+    return `<div class="company-livery-group-item"><div class="company-livery-group-title">${aircraftLink}</div><img class="company-livery-group-image" src="${esc(item.image)}" alt="${esc(item.title)}"><div class="company-livery-status"><div class="company-livery-status-line company-livery-status-location">📌 ${locationLine}</div><div class="company-livery-status-rule"></div><div class="company-livery-status-line company-livery-status-offer">💰 Гарантована премія ${premiumText} за рейс:<div class="company-livery-offer-route">${suggestedText}</div></div><div class="company-livery-status-top">ТОП наліт: ${topPilotText}</div></div></div>`;
+  }).join('')}</div>`;
+  body.querySelectorAll('.company-livery-group-item').forEach((itemElement, index) => {
+    const item = group[index];
+    if (!item) return;
+    const flights = completedFlights
+      .filter(flight => String(flight?.aircraft?.id || '').trim() === item.id)
+      .sort((a,b) => flightEndDateForDisplay(b) - flightEndDateForDisplay(a));
+    const img = itemElement.querySelector('.company-livery-group-image');
+    if (!img || img.closest('.company-livery-image-wrap')) return;
+    const wrap = document.createElement('div');
+    wrap.className = 'company-livery-image-wrap company-livery-group-image-wrap';
+    img.parentNode.insertBefore(wrap, img);
+    wrap.appendChild(img);
+    const minutes = flights.reduce((sum, flight) => sum + (Number(flight.times?.durationMinutes) || 0), 0);
+    const badge = document.createElement('div');
+    badge.className = 'company-livery-aircraft-stats';
+    badge.innerHTML = `<span class="company-livery-stat-flights">${flights.length} ${liveryFlightsWord(flights.length)}</span><span class="company-livery-stat-time">${formatMinutes(minutes)}</span><span class="company-livery-stat-log"><button type="button" class="company-livery-log-button" data-group-log-aircraft-id="${esc(item.id)}" data-group-log-title="${esc(item.reg)}">Журнал</button></span>`;
+    wrap.appendChild(badge);
+  });
+  body.querySelectorAll('[data-group-log-aircraft-id]').forEach(button => {
+    button.addEventListener('click', event => {
+      event.preventDefault();
+      event.stopPropagation();
+      const aircraftId = button.dataset.groupLogAircraftId;
+      const flights = completedFlights
+        .filter(flight => String(flight?.aircraft?.id || '').trim() === aircraftId)
+        .sort((a,b) => flightEndDateForDisplay(b) - flightEndDateForDisplay(a));
+      openCompanyLiveryFlightLog(card, button.dataset.groupLogTitle || liveryCardTitle(card), flights);
+      companyLiveryDialogReturn = () => openCompanyLiveryGroupDialog(card);
+    });
+  });
+  showCompanyLiveryDialog(dialog);
+}
+
+function liveryTeleportRowCompact(newerFlight, olderFlight) {
+  const from = olderFlight.actualArrival || olderFlight.arrival || {};
+  const to = newerFlight.departure || {};
+  const fromCode = String(from.icao || '').toUpperCase();
+  const toCode = String(to.icao || '').toUpperCase();
+  const sameAirport = fromCode && toCode && fromCode === toCode;
+  const start = flightEndDateForDisplay(olderFlight);
+  const end = flightStartDateForDisplay(newerFlight);
+  const startDay = Number.isFinite(start.getTime()) ? Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate()) : NaN;
+  const endDay = Number.isFinite(end.getTime()) ? Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), end.getUTCDate()) : NaN;
+  const gapDays = Number.isFinite(startDay) && Number.isFinite(endDay) ? Math.round((endDay - startDay) / 86400000) : 0;
+  if (sameAirport) return '';
+  if (!options.wetLease && gapDays <= 1) return '';
+  const gapDate = liveryEndDateShort(olderFlight);
+  const sameDay = Number.isFinite(start.getTime()) && Number.isFinite(end.getTime())
+    && start.getUTCFullYear() === end.getUTCFullYear()
+    && start.getUTCMonth() === end.getUTCMonth()
+    && start.getUTCDate() === end.getUTCDate();
+  const reason = sameDay ? 'Надано у SUB-LEASE для чартерного рейсу' : 'Повернуто лізингодавцю для тех. інспекції';
+  return `<tr class="company-livery-log-row company-livery-log-teleport"><td>${esc(gapDate)}<span class="date-flight-meta">${liveryTeleportBadge()}</span></td><td>${reason}</td><td class="route"><span class="route-airports">${liveryAirportWithFlag(from)} → ${liveryAirportWithFlag(to)}</span><span class="route-duration">Ferry Flight</span></td><td class="company-livery-log-rating"></td></tr>`;
+}
+
+function liveryFlightLogRowsCompact(flights) {
+  const rows = [];
+  const selected = flights.slice(0, 6);
+  selected.forEach((flight, index) => {
+    const rating = flightRatingPresentation(flight);
+    rows.push(`<tr class="company-livery-log-row"><td>${liveryFlightDateShort(flight)}<span class="date-flight-meta">${liveryFlightNumberBadge(flight)}</span></td><td><a href="${esc(pilotProfileUrl(flight.pilot?.id || ''))}">${esc(flight.pilot?.name || 'Pilot')}</a></td><td class="route"><span class="route-airports">${liveryAirportWithFlag(flight.departure)} → ${liveryAirportWithFlag(flight.actualArrival || flight.arrival)}</span><span class="route-duration">${formatMinutes(flight.times?.durationMinutes)}</span></td><td class="company-livery-log-rating"><span class="rating-badge ${rating.className}">${rating.label}</span></td></tr>`);
+    const nextOlder = selected[index + 1];
+    if (nextOlder) {
+      const teleportRow = liveryTeleportRowCompact(flight, nextOlder);
+      if (teleportRow) rows.push(teleportRow);
+    }
+  });
+  return rows.join('');
+}
+
+function liveryTeleportRowCompactV2(newerFlight, olderFlight, options = {}) {
+  if (!options.wetLease) return '';
+  const from = olderFlight.actualArrival || olderFlight.arrival || {};
+  const to = newerFlight.departure || {};
+  const fromCode = String(from.icao || '').toUpperCase();
+  const toCode = String(to.icao || '').toUpperCase();
+  const sameAirport = fromCode && toCode && fromCode === toCode;
+  const start = flightEndDateForDisplay(olderFlight);
+  const end = flightStartDateForDisplay(newerFlight);
+  const startDay = Number.isFinite(start.getTime()) ? Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate()) : NaN;
+  const endDay = Number.isFinite(end.getTime()) ? Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), end.getUTCDate()) : NaN;
+  const gapDays = Number.isFinite(startDay) && Number.isFinite(endDay) ? Math.round((endDay - startDay) / 86400000) : 0;
+  if (sameAirport) return '';
+  const gapDate = liveryEndDateShort(olderFlight);
+  const idleDays = Math.max(0, gapDays - 1);
+  const sameDay = Number.isFinite(start.getTime()) && Number.isFinite(end.getTime())
+    && start.getUTCFullYear() === end.getUTCFullYear()
+    && start.getUTCMonth() === end.getUTCMonth()
+    && start.getUTCDate() === end.getUTCDate();
+  const isLongWetLeaseGap = options.wetLease && idleDays >= 6;
+  const serviceLabel = options.wetLease
+    ? (isLongWetLeaseGap ? 'MAINTENANCE' : (idleDays >= 3 ? 'Technical Flight' : 'Ferry Flight'))
+    : 'Політ іншим суб-орендатором';
+  let transferCost = '';
+  if (options.wetLease && !isLongWetLeaseGap) {
+    const transfer = liveryWetLeaseTransferCost(from, to, olderFlight);
+    if (transfer.total) {
+      const title = `Придбано палива: ${money(transfer.fuelCost)} (дистанція ${transfer.distanceKm.toLocaleString('uk-UA')} км)\nЗалучення стороннього екіпажу: ${money(transfer.crewCost)}`;
+      transferCost = `<span title="${esc(title)}">${money(-transfer.total,true)}</span>`;
+    }
+  }
+  const routeText = isLongWetLeaseGap ? '<span class="company-livery-owner-note">Передано власнику</span>' : `<span class="route-airports">${liveryAirportWithFlag(from)} → ${liveryAirportWithFlag(to)}</span>`;
+  return `<tr class="company-livery-log-row company-livery-log-teleport"><td>${esc(gapDate)}<span class="date-flight-meta">${liveryTeleportBadge()}</span></td><td class="company-livery-log-service">${serviceLabel}</td><td class="route company-livery-log-service">${routeText}</td><td class="company-livery-log-duration"></td><td class="company-livery-log-rating"></td><td class="company-livery-log-money company-livery-log-ferry-cost">${transferCost}</td><td class="company-livery-log-money"></td></tr>`;
+}
+
+function liveryFlightLogRowsCompactV2(flights, options = {}) {
+  const rows = [];
+  const selected = flights.slice(0, 6);
+  selected.forEach((flight, index) => {
+    const rating = flightRatingPresentation(flight);
+    const direct = directFlightFinance(flight);
+    const profitClass = direct.companyProfit > 0 ? 'positive' : direct.companyProfit < 0 ? 'negative' : '';
+    const salaryClass = direct.pilotSalary > 0 ? 'positive' : direct.pilotSalary < 0 ? 'negative' : '';
+    rows.push(`<tr class="company-livery-log-row"><td>${liveryFlightDateShort(flight)}<span class="date-flight-meta">${liveryFlightNumberBadge(flight)}</span></td><td><a href="${esc(pilotProfileUrl(flight.pilot?.id || ''))}">${esc(flight.pilot?.name || 'Pilot')}</a></td><td class="route"><span class="route-airports">${liveryAirportWithFlag(flight.departure)} → ${liveryAirportWithFlag(flight.actualArrival || flight.arrival)}</span></td><td class="company-livery-log-duration">${formatMinutes(flight.times?.durationMinutes)}</td><td class="company-livery-log-rating"><span class="rating-badge ${rating.className}">${rating.label}</span></td><td class="company-livery-log-money ${profitClass}">${money(direct.companyProfit,true)}</td><td class="company-livery-log-money ${salaryClass}">${money(direct.pilotSalary,true)}</td></tr>`);
+    const nextOlder = selected[index + 1];
+    if (nextOlder) {
+      const teleportRow = liveryTeleportRowCompactV2(flight, nextOlder, options);
+      if (teleportRow) rows.push(teleportRow);
+    }
+  });
+  return rows.join('');
+}
+
+function liveryFlightLogPeriodBounds(period, customDate = '', customEndDate = '') {
+  const now = app.referenceNow || new Date();
+  if (period === 'all') return {start:null, end:null};
+  let start;
+  let end = now;
+  if (period === 'customRange' && customDate && customEndDate) {
+    const first = new Date(`${customDate}T00:00:00Z`);
+    const second = new Date(`${customEndDate}T00:00:00Z`);
+    start = first <= second ? first : second;
+    const last = first <= second ? second : first;
+    end = new Date(last.getTime() + 86400000);
+  } else if (period === 'custom' && customDate) {
+    start = new Date(`${customDate}T00:00:00Z`);
+    end = new Date(start.getTime() + 86400000);
+  } else if (period === 'sinceRestructure') {
+    start = new Date('2026-05-01T00:00:00Z');
+  } else if (period === 'today') {
+    start = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+  } else if (period === 'weekToDate' || period === 'previousWeek') {
+    const weekday = (now.getUTCDay() + 6) % 7;
+    const thisMonday = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() - weekday));
+    if (period === 'weekToDate') start = thisMonday;
+    else {
+      start = new Date(thisMonday.getTime() - 7 * 86400000);
+      end = thisMonday;
+    }
+  } else if (period === 'monthToDate') {
+    start = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1));
+  } else if (period === 'previousMonth') {
+    start = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - 1, 1));
+    end = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1));
+  } else {
+    start = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+  }
+  return {start, end};
+}
+
+function liveryFlightLogFilterPeriod(flights, period, customDate = '', customEndDate = '') {
+  const {start, end} = liveryFlightLogPeriodBounds(period, customDate, customEndDate);
+  return flights
+    .filter(flight => flight.status === 'completed')
+    .filter(flight => {
+      if (!start || !end) return true;
+      const date = dateOf(flight);
+      return date >= start && date < end;
+    })
+    .slice()
+    .sort((a, b) => dateOf(b) - dateOf(a));
+}
+
+function liveryFlightLogRowsSimple(flights) {
+  return flights.map(flight => {
+    const rating = flightRatingPresentation(flight);
+    const direct = directFlightFinance(flight);
+    const profitClass = direct.companyProfit > 0 ? 'positive' : direct.companyProfit < 0 ? 'negative' : '';
+    const salaryClass = direct.pilotSalary > 0 ? 'positive' : direct.pilotSalary < 0 ? 'negative' : '';
+    return `<tr class="company-livery-log-row"><td>${liveryFlightDateShort(flight)}<span class="date-flight-meta">${liveryFlightNumberBadge(flight)}</span></td><td><a href="${esc(pilotProfileUrl(flight.pilot?.id || ''))}">${esc(flight.pilot?.name || 'Pilot')}</a></td><td class="route"><span class="route-airports">${liveryAirportWithFlag(flight.departure)} → ${liveryAirportWithFlag(flight.actualArrival || flight.arrival)}</span></td><td class="company-livery-log-duration">${formatMinutes(flight.times?.durationMinutes)}</td><td class="company-livery-log-rating"><span class="rating-badge ${rating.className}">${rating.label}</span></td><td class="company-livery-log-money ${profitClass}">${money(direct.companyProfit,true)}</td><td class="company-livery-log-money ${salaryClass}">${money(direct.pilotSalary,true)}</td></tr>`;
+  }).join('');
+}
+
+function liveryFlightLogDefaultPeriod(flights) {
+  const order = ['weekToDate','previousWeek','monthToDate','previousMonth','today','all'];
+  return order.find(period => liveryFlightLogFilterPeriod(flights, period).length) || 'weekToDate';
+}
+
+function liveryFlightLogPilotOptions(flights, selectedPilotId = '') {
+  const pilots = new Map();
+  flights.forEach(flight => {
+    const id = flight.pilot?.id || '';
+    if (!id) return;
+    const entry = pilots.get(id) || {id, name:flight.pilot?.name || 'Pilot', minutes:0};
+    entry.minutes += Number(flight.times?.durationMinutes) || 0;
+    pilots.set(id, entry);
+  });
+  const options = [...pilots.values()].sort((a, b) => b.minutes - a.minutes || a.name.localeCompare(b.name, 'uk'));
+  return `<select class="company-livery-log-pilot-filter" data-livery-log-pilot><option value="">Усі пілоти</option>${options.map(pilot => `<option value="${esc(pilot.id)}" ${pilot.id===selectedPilotId?'selected':''}>${esc(pilot.name)} · ${esc(formatLiveryMinutesCompact(pilot.minutes))}</option>`).join('')}</select>`;
+}
+
+function liveryFlightLogFormatDateShort(value) {
+  if (!value) return '';
+  const [year, month, day] = String(value).split('-');
+  return year && month && day ? `${day}.${month}.${String(year).slice(2)}` : '';
+}
+
+function liveryFlightLogDateLabel(customDate = '', customEndDate = '') {
+  if (customDate && customEndDate && customDate !== customEndDate) return `${liveryFlightLogFormatDateShort(customDate)}-${liveryFlightLogFormatDateShort(customEndDate)}`;
+  return liveryFlightLogFormatDateShort(customDate);
+}
+
+function liveryFlightLogDateLabelHtml(customDate = '', customEndDate = '') {
+  if (customDate && customEndDate && customDate !== customEndDate) {
+    return `<span>${esc(liveryFlightLogFormatDateShort(customDate))}</span><span>${esc(liveryFlightLogFormatDateShort(customEndDate))}</span>`;
+  }
+  return esc(liveryFlightLogFormatDateShort(customDate));
+}
+
+function liveryFlightLogPeriodControls(activePeriod, customDate = '', customEndDate = '', calendarOpen = false, calendarMode = 'date') {
+  const buttons = [
+    ['today','За сьогодні (з 00:00 UTC)'],
+    ['weekToDate','З початку тижня'],
+    ['previousWeek','Минулий тиждень'],
+    ['monthToDate','З початку місяця'],
+    ['previousMonth','Минулий місяць'],
+    ['all','Весь період']
+  ];
+  const dateLabel = liveryFlightLogDateLabel(customDate, customEndDate);
+  const panel = calendarOpen ? `<div class="company-livery-log-calendar-panel">
+    <div class="company-livery-log-calendar-modes"><button type="button" data-livery-log-calendar-mode="date" class="${calendarMode==='date'?'active':''}">За дату</button><button type="button" data-livery-log-calendar-mode="range" class="${calendarMode==='range'?'active':''}">За період</button></div>
+    <div class="company-livery-log-calendar-fields ${calendarMode === 'range' ? 'range' : ''}">
+      ${calendarMode === 'range'
+        ? `<input type="date" data-livery-log-date value="${esc(customDate || '')}" title="Вибрати початкову дату"><input type="text" data-livery-log-date-end-display value="${esc(liveryFlightLogFormatDateShort(customEndDate))}" readonly title="Вибрати кінцеву дату">`
+        : `<input type="date" data-livery-log-date value="${esc(customDate || '')}">`}
+    </div>
+  </div>` : '';
+  return `<section class="bar company-livery-log-period-bar"><div class="periods">${buttons.map(([key,label]) => `<button type="button" data-livery-log-period="${key}" class="${activePeriod===key?'active':''}">${label}</button>`).join('')}<span class="company-livery-log-calendar-wrap"><button type="button" class="company-livery-log-date-pick ${calendarOpen?'active':''}" data-livery-log-calendar title="Вибрати дату або період">📅${dateLabel && !calendarOpen ? `<span class="company-livery-log-date-label">${liveryFlightLogDateLabelHtml(customDate, customEndDate)}</span>` : ''}</button>${panel}</span></div></section>`;
+}
+
+function liveryFlightLogTableHtml(periodFlights, selectedPilotId = '') {
+  const visibleFlights = selectedPilotId ? periodFlights.filter(flight => flight.pilot?.id === selectedPilotId) : periodFlights;
+  const rows = visibleFlights.length
+    ? liveryFlightLogRowsSimple(visibleFlights)
+    : '<tr><td colspan="7" class="loading">За вибраний період завершених рейсів немає</td></tr>';
+  return `<div class="company-livery-log-scroll"><table class="company-livery-log-table"><colgroup><col class="company-livery-log-date"><col class="company-livery-log-pilot"><col class="company-livery-log-route-col"><col class="company-livery-log-duration-col"><col class="company-livery-log-rating-col"><col class="company-livery-log-profit-col"><col class="company-livery-log-salary-col"></colgroup><thead><tr><th>Дата / Рейс</th><th>${liveryFlightLogPilotOptions(periodFlights, selectedPilotId)}</th><th>Маршрут</th><th>Тривалість</th><th>Рейтинг</th><th>Прибуток Авіакомпанії</th><th>Зарплата пілота</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+
+function openCompanyLiveryFlightLog(card, titleText, flights) {
+  const dialog = $('#liveryInfoDialog');
+  const title = $('#liveryInfoTitle');
+  const body = $('#liveryInfoBody');
+  if (!dialog || !title || !body) return;
+  dialog.classList.remove('company-route-map-dialog');
+  dialog.style.width = 'min(96vw,900px)';
+  title.textContent = liveryFlightLogHeading(card, titleText, flights);
+  let logPeriod = liveryFlightLogDefaultPeriod(flights);
+  let logCustomDate = '';
+  let logCustomEndDate = '';
+  let logCalendarOpen = false;
+  let logCalendarMode = 'date';
+  let logCalendarAutoPick = '';
+  let logCalendarRangePickingEnd = false;
+  let logCalendarPickerValue = '';
+  let logPilotId = '';
+  const renderLog = () => {
+    try {
+      const selected = liveryFlightLogFilterPeriod(flights, logPeriod, logCustomDate, logCustomEndDate);
+      if (logPilotId && !selected.some(flight => flight.pilot?.id === logPilotId)) logPilotId = '';
+      const pickerStartValue = logCalendarMode === 'range' && logCalendarRangePickingEnd ? (logCalendarPickerValue || logCustomDate) : logCustomDate;
+      body.innerHTML = `${liveryFlightLogPeriodControls(logPeriod, pickerStartValue, logCustomEndDate, logCalendarOpen, logCalendarMode)}${liveryFlightLogTableHtml(selected, logPilotId)}`;
+      if (logCalendarAutoPick) {
+        const target = logCalendarAutoPick;
+        logCalendarAutoPick = '';
+        setTimeout(() => {
+          const input = body.querySelector(target === 'end' ? '[data-livery-log-date-end]' : '[data-livery-log-date]');
+          if (!input) return;
+          input.focus({preventScroll:true});
+          if (typeof input.showPicker === 'function') input.showPicker();
+        }, 0);
+      }
+      body.querySelectorAll('a[href^="pilot-cabinet.html#profile/"]').forEach(link => {
+        link.addEventListener('click', () => {
+          if (dialog.open) dialog.close();
+        });
+      });
+      body.querySelectorAll('[data-livery-log-period]').forEach(button => {
+        button.addEventListener('click', () => {
+          logPeriod = button.dataset.liveryLogPeriod || 'weekToDate';
+          logCalendarRangePickingEnd = false;
+          logCalendarPickerValue = '';
+          if (logPeriod !== 'custom' && logPeriod !== 'customRange') {
+            logCustomDate = '';
+            logCustomEndDate = '';
+            logCalendarOpen = false;
+          }
+          renderLog();
+        });
+      });
+      const calendarButton = body.querySelector('[data-livery-log-calendar]');
+      if (calendarButton) {
+        calendarButton.addEventListener('click', event => {
+          event.preventDefault();
+          logCalendarOpen = !logCalendarOpen;
+          if (logCalendarOpen) {
+            logCalendarRangePickingEnd = false;
+            logCalendarPickerValue = '';
+            logCalendarAutoPick = 'start';
+          }
+          renderLog();
+        });
+      }
+      body.querySelectorAll('[data-livery-log-calendar-mode]').forEach(button => {
+        button.addEventListener('click', event => {
+          event.preventDefault();
+          logCalendarMode = button.dataset.liveryLogCalendarMode || 'date';
+          logCalendarRangePickingEnd = false;
+          logCalendarPickerValue = '';
+          logCalendarAutoPick = 'start';
+          renderLog();
+        });
+      });
+      const dateInput = body.querySelector('[data-livery-log-date]');
+      if (dateInput) {
+        dateInput.addEventListener('click', () => {
+          if (logCalendarMode === 'range') logCalendarRangePickingEnd = false;
+        });
+        dateInput.addEventListener('change', event => {
+          if (!event.target.value) return;
+          if (logCalendarMode === 'range' && logCalendarRangePickingEnd) {
+            logCustomEndDate = event.target.value;
+            logPeriod = logCustomDate === logCustomEndDate ? 'custom' : 'customRange';
+            logCalendarOpen = false;
+            logCalendarRangePickingEnd = false;
+            logCalendarPickerValue = '';
+            renderLog();
+            return;
+          }
+          logCustomDate = event.target.value;
+          if (logCalendarMode === 'date') {
+            logPeriod = 'custom';
+            logCustomEndDate = '';
+            logCalendarOpen = false;
+          } else if (logCustomEndDate) {
+            logPeriod = logCustomDate === logCustomEndDate ? 'custom' : 'customRange';
+          } else {
+            logCalendarOpen = true;
+            logCalendarRangePickingEnd = true;
+            logCalendarPickerValue = '';
+            logCalendarAutoPick = 'start';
+          }
+          renderLog();
+        });
+      }
+      const dateEndDisplay = body.querySelector('[data-livery-log-date-end-display]');
+      if (dateEndDisplay && dateInput) {
+        dateEndDisplay.addEventListener('click', event => {
+          event.preventDefault();
+          logCalendarRangePickingEnd = true;
+          logCalendarPickerValue = logCustomEndDate || logCustomDate || '';
+          dateInput.focus({preventScroll:true});
+          if (typeof dateInput.showPicker === 'function') dateInput.showPicker();
+        });
+      }
+      const dateEndInput = body.querySelector('[data-livery-log-date-end]');
+      if (dateEndInput) {
+        dateEndInput.addEventListener('change', event => {
+          if (!event.target.value) return;
+          if (!logCustomDate) logCustomDate = event.target.value;
+          logCustomEndDate = event.target.value;
+          logPeriod = logCustomDate === logCustomEndDate ? 'custom' : 'customRange';
+          logCalendarOpen = false;
+          renderLog();
+        });
+      }
+      const pilotSelect = body.querySelector('[data-livery-log-pilot]');
+      if (pilotSelect) {
+        pilotSelect.addEventListener('change', event => {
+          logPilotId = event.target.value || '';
+          renderLog();
+        });
+      }
+    } catch (error) {
+      console.error('Logbook render failed', error);
+      body.innerHTML = `<div class="company-note">Не вдалося відкрити Logbook: ${esc(error?.message || error)}</div>`;
+    }
+  };
+  renderLog();
+  showCompanyLiveryDialog(dialog);
+}
+
+function updateCompanyLiveryStatus() {
+  const completedFlights = app.flights.filter(flight => flight.status === 'completed');
+  $$('.company-livery-card').forEach((card, cardIndex) => {
+    const title = liveryCardTitle(card);
+    const matcher = liveryMatcherForCard(card, title);
+    const old = card.querySelector('.company-livery-status');
+    if (old) old.remove();
+    const status = document.createElement('div');
+    status.className = 'company-livery-status';
+    updateCompanyLiveryLiveBadge(card, null);
+    const isDryLeaseCard = Boolean(card.closest('.drylease-section'));
+    const isWaitingCard = Boolean(card.closest('.waiting-section'));
+    if (isDryLeaseCard || isWaitingCard) {
+      if (isDryLeaseCard || card.dataset.waitingLogbook === '1') ensureDryLeaseTitleLogbook(card, cardIndex);
+      card.dataset.liveryHours = '0';
+      let dryFlights = [];
+      if (matcher) {
+        dryFlights = completedFlights.filter(matcher);
+        card.dataset.liveryHours = String(dryFlights.reduce((sum, flight) => sum + (Number(flight.times?.durationMinutes) || 0), 0));
+      }
+      updateCompanyLiveryAircraftStatsBadge(card, dryFlights, cardIndex);
+      if (isDryLeaseCard) updateCompanyLiveryLiveBadge(card, companyLiveryAnyLiveRecordForCard(card));
+      return;
+    }
+    if (!matcher) {
+      card.dataset.liveryHours = '0';
+      updateCompanyLiveryAircraftStatsBadge(card, [], cardIndex);
+      status.innerHTML = '<div class="muted">Дані по борту ще не привʼязані</div>';
+      card.appendChild(status);
+      return;
+    }
+    const groupedFlights = completedFlights.filter(matcher).sort((a,b) => flightEndDateForDisplay(b) - flightEndDateForDisplay(a));
+    const headline = liveryHeadlineForCard(card, completedFlights, groupedFlights);
+    const displayRegistration = headline.registration || liveryRegistrationFromTitle(title);
+    const flights = headline.flights || groupedFlights;
+    const premiumLiveRecord = companyLiveryLiveRecordForCard(card, headline);
+    const anyLiveRecord = companyLiveryAnyLiveRecordForCard(card, headline);
+    updateCompanyLiveryLiveBadge(card, anyLiveRecord);
+    card.dataset.liveryHours = String(groupedFlights.reduce((sum, flight) => sum + (Number(flight.times?.durationMinutes) || 0), 0));
+    updateCompanyLiveryAircraftStatsBadge(card, flights, cardIndex, headline.id || '');
+    const latest = flights[0];
+    const fallbackAirport = liveryCardFallbackAirport(card);
+    if (!latest) {
+      card.dataset.liveryHours = '0';
+      const headlinePrefix = displayRegistration ? `${esc(displayRegistration)} ` : '';
+      const fallbackAircraft = companyLiveryAircraftForCard(card, flights, null, headline);
+      const matchingCurrentIcao = companyLiveryMatchingIcao(fallbackAircraft);
+      const matchingAirport = matchingCurrentIcao ? liveryAirportObjectByIcao(matchingCurrentIcao) : null;
+      const currentLine = (fallbackAirport || matchingAirport)
+        ? `${headlinePrefix}в ${liveryAirportStatusText(fallbackAirport || matchingAirport)}`
+        : 'локація уточнюється';
+      const suggestedProposal = liverySuggestedRouteData(card, title, flights, null, headline);
+      const suggestedText = typeof suggestedProposal === 'string' ? suggestedProposal : suggestedProposal?.html || '&mdash;';
+      const offerText = premiumLiveRecord ? companyLiveryLivePayoutText(premiumLiveRecord) : suggestedText;
+      const premiumText = isDryLeaseCard ? '&mdash;' : liveryProposalPremiumHtml(suggestedProposal);
+      const offerMutedClass = anyLiveRecord && !premiumLiveRecord ? ' company-livery-status-offer-muted' : '';
+      const locationLine = anyLiveRecord
+        ? `<div class="company-livery-status-line company-livery-status-location company-livery-status-live">${companyLiveryLiveStatusHtml(anyLiveRecord)}</div>`
+        : `<div class="company-livery-status-line company-livery-status-location">\u{1F4CC} ${currentLine}</div>`;
+      status.innerHTML = `${locationLine}<div class="company-livery-status-rule"></div><div class="company-livery-status-line company-livery-status-offer${offerMutedClass}">\u{1F4B0} \u0413\u0430\u0440\u0430\u043D\u0442\u043E\u0432\u0430\u043D\u0430 \u043F\u0440\u0435\u043C\u0456\u044F ${premiumText} \u0437\u0430 \u0440\u0435\u0439\u0441:<div class="company-livery-offer-route">${offerText}</div></div><div class="company-livery-status-top">\u0422\u041E\u041F \u043D\u0430\u043B\u0456\u0442: &mdash;</div>`;
+      const logButton = status.querySelector('[data-livery-log-index]');
+      if (logButton) {
+        logButton.addEventListener('click', event => {
+          event.preventDefault();
+          event.stopPropagation();
+          openCompanyLiveryFlightLog(card, title, flights);
+        });
+      }
+      card.appendChild(status);
+      return;
+    }
+    const airport = latest.actualArrival || latest.arrival || {};
+    const latestDate = flightEndDateForDisplay(latest);
+    const latestDateText = Number.isFinite(latestDate.getTime())
+      ? latestDate.toLocaleDateString('uk-UA', {timeZone:'UTC', day:'2-digit', month:'2-digit'})
+      : '—';
+    const pilotMinutes = new Map();
+    const pilotNames = new Map();
+    flights.forEach(flight => {
+      const id = String(flight.pilot?.id || flight.pilot?.name || '');
+      if (!id) return;
+      pilotNames.set(id, flight.pilot?.name || 'Pilot');
+      pilotMinutes.set(id, (pilotMinutes.get(id) || 0) + (Number(flight.times?.durationMinutes) || 0));
+    });
+    const topPilot = [...pilotMinutes.entries()].sort((a,b) => b[1] - a[1])[0];
+    const topPilotText = topPilot ? `<a href="${esc(pilotProfileUrl(topPilot[0]))}">${esc(pilotNames.get(topPilot[0]) || 'Pilot')}</a> | ${formatLiveryMinutesCompact(topPilot[1])}` : '—';
+    const isInactiveSubleaseOnly = String(title || '').includes('UR-SFS');
+    const suggestedProposal = liverySuggestedRouteData(card, title, flights, latest, headline);
+    const suggestedText = typeof suggestedProposal === 'string' ? suggestedProposal : suggestedProposal?.html || '&mdash;';
+    const offerText = premiumLiveRecord ? companyLiveryLivePayoutText(premiumLiveRecord) : suggestedText;
+    const premiumText = (isInactiveSubleaseOnly || isDryLeaseCard) ? '&mdash;' : liveryProposalPremiumHtml(suggestedProposal);
+    const offerMutedClass = anyLiveRecord && !premiumLiveRecord ? ' company-livery-status-offer-muted' : '';
+    const headlinePrefix = displayRegistration ? `${esc(displayRegistration)} ` : '';
+    const locationLine = anyLiveRecord
+      ? `<div class="company-livery-status-line company-livery-status-location company-livery-status-live">${companyLiveryLiveStatusHtml(anyLiveRecord)}</div>`
+      : `<div class="company-livery-status-line company-livery-status-location">\u{1F4CC} ${headlinePrefix}\u0432 ${liveryAirportStatusText(airport)} \u0437 ${latestDateText}</div>`;
+    status.innerHTML = `${locationLine}<div class="company-livery-status-rule"></div><div class="company-livery-status-line company-livery-status-offer${offerMutedClass}">\u{1F4B0} \u0413\u0430\u0440\u0430\u043D\u0442\u043E\u0432\u0430\u043D\u0430 \u043F\u0440\u0435\u043C\u0456\u044F ${premiumText} \u0437\u0430 \u0440\u0435\u0439\u0441:<div class="company-livery-offer-route">${offerText}</div></div><div class="company-livery-status-top">\u0422\u041E\u041F \u043D\u0430\u043B\u0456\u0442: ${topPilotText}</div>`;
+    const logButton = status.querySelector('[data-livery-log-index]');
+    if (logButton) {
+      logButton.addEventListener('click', event => {
+        event.preventDefault();
+        event.stopPropagation();
+        openCompanyLiveryFlightLog(card, title, flights);
+      });
+    }
+    card.appendChild(status);
+  });
+  applyCompanyLiverySortModes();
+}
+
+const COMPANY_ROUTE_MAP_DAYS = [
+  ['mon', 'Пн'], ['tue', 'Вт'], ['wed', 'Ср'], ['thu', 'Чт'], ['fri', 'Пт'], ['sat', 'Сб'], ['sun', 'Нд']
+];
+
+function liveryRouteMapRouteRuns(route, mode) {
+  if (!route) return false;
+  if (mode === 'all') return true;
+  if (mode === 'today') return liveryRouteRunsToday(route);
+  return route?.[mode] === true || (Array.isArray(route?.days) && route.days.includes(mode));
+}
+
+function liveryRouteMapAirport(icao) {
+  const code = String(icao || '').trim().toUpperCase();
+  if (!code) return null;
+  return liveryAirportWithKnownLocation(liveryAirportObjectByIcao(code) || {icao: code, name: code});
+}
+
+function liveryRouteMapAirportPoint(icao) {
+  const airport = liveryRouteMapAirport(icao);
+  const point = liveryAirportLatLon(airport);
+  return point ? {...point, airport, icao: String(airport?.icao || icao || '').trim().toUpperCase()} : null;
+}
+
+function liveryRouteMapAirportTitle(airport) {
+  const code = String(airport?.icao || '').trim().toUpperCase();
+  return String(airport?.name || airport?.city || code || 'Аеропорт');
+}
+
+function liveryRouteMapContext(card) {
+  const title = liveryCardTitle(card);
+  const matcher = liveryMatcherForCard(card, title);
+  const completedFlights = (app.flights || []).filter(flight => flight.status === 'completed');
+  const groupedFlights = matcher
+    ? completedFlights.filter(matcher).sort((a,b) => flightEndDateForDisplay(b) - flightEndDateForDisplay(a))
+    : [];
+  const headline = liveryHeadlineForCard(card, completedFlights, groupedFlights);
+  const flights = headline.flights || groupedFlights;
+  const latest = flights[0] || null;
+  const aircraft = companyLiveryAircraftForCard(card, flights, latest, headline);
+  const fullTitle = newskyAircraftName(aircraft?.id) || companyLiveryMatchingNameByAircraftId(aircraft?.id) || title;
+  const matchingCurrentIcao = companyLiveryMatchingIcao(aircraft);
+  const currentAirport = latest
+    ? (latest.actualArrival || latest.arrival || liveryCardFallbackAirport(card) || liveryAirportObjectByIcao(matchingCurrentIcao))
+    : liveryCardFallbackAirport(card) || liveryAirportObjectByIcao(matchingCurrentIcao || aircraft?.locationIcao);
+  const proposal = liverySuggestedRouteData(card, title, flights, latest, headline);
+  const proposalHtml = typeof proposal === 'string'
+    ? proposal
+    : card.querySelector('.company-livery-status-offer')?.innerHTML || proposal?.html || '&mdash;';
+  const scheduleRoutes = liveryScheduleRoutesForAircraft(aircraft);
+  const scheduleBaseIcao = companyLiveryMatchingIcao(aircraft, ['locationIcao']);
+  const proposalTargetIcao = typeof proposal === 'object' ? String(proposal?.destination || '').trim().toUpperCase() : '';
+  const currentIcao = String(currentAirport?.icao || matchingCurrentIcao || '').trim().toUpperCase();
+  const isScheduleStuck = liveryIsScheduleStuck(aircraft, scheduleRoutes, currentIcao);
+  return {
+    title,
+    fullTitle,
+    aircraft,
+    currentAirport: liveryAirportWithKnownLocation(currentAirport),
+    scheduleBaseIcao,
+    routes: scheduleRoutes,
+    isScheduleStuck,
+    stuckIcao: currentIcao,
+    proposal: typeof proposal === 'object' ? proposal : null,
+    proposalHtml
+  };
+}
+
+function openCompanyLiveryRouteMap(card) {
+  const dialog = $('#liveryInfoDialog');
+  const titleNode = $('#liveryInfoTitle');
+  const body = $('#liveryInfoBody');
+  if (!dialog || !titleNode || !body) return;
+  const context = liveryRouteMapContext(card);
+  dialog.classList.add('company-route-map-dialog');
+  dialog.style.width = 'min(96vw,980px)';
+  titleNode.textContent = `\u041a\u0430\u0440\u0442\u0430 \u043c\u0430\u0440\u0448\u0440\u0443\u0442\u0456\u0432 - ${context.fullTitle || context.title || '\u043b\u0456\u0442\u0430\u043a'}`;
+  const proposalButtonHtml = context.proposalHtml || '&mdash;';
+  const hasScheduleRoutes = (context.routes || []).some(route => route?.active !== false);
+  const routeFilterState = mode => {
+    const count = (context.routes || []).filter(route => liveryRouteMapRouteRuns(route, mode)).length;
+    return {count, disabled: count ? '' : ' disabled title="\u0440\u0435\u0439\u0441\u0438 \u0432\u0456\u0434\u0441\u0443\u0442\u043d\u0456"'};
+  };
+  const todayFilter = routeFilterState('today');
+  const allFilter = routeFilterState('all');
+  const dayButtonsHtml = COMPANY_ROUTE_MAP_DAYS.map(([key, label]) => {
+    const state = routeFilterState(key);
+    return `<button type="button" data-route-filter="${key}"${state.disabled}>${label}</button>`;
+  }).join('');
+  body.innerHTML = `
+    <div class="company-route-map-shell">
+      <div id="companyRouteMap" class="company-route-map"></div>
+      ${context.isScheduleStuck ? `<div class="company-route-map-warning">${liveryScheduleStuckMessage(context.stuckIcao)}</div>` : ''}
+      <div class="company-route-map-filter">
+        <button type="button" class="company-route-proposal-button active" data-route-filter="proposal"><span class="company-route-proposal-button-inner">${proposalButtonHtml}</span></button>
+        <div class="company-route-schedule-box">
+          ${hasScheduleRoutes ? `<div class="company-route-map-filter-main">
+            <span class="flight-number-link flight-number-schedule company-route-schedule-badge">SCHEDULE</span>
+            <button type="button" data-route-filter="today"${todayFilter.disabled}>\u0441\u044c\u043e\u0433\u043e\u0434\u043d\u0456</button>
+            <button type="button" data-route-filter="all"${allFilter.disabled}>\u0432\u0441\u0456 \u0440\u0435\u0439\u0441\u0438</button>
+          </div>
+          <div class="company-route-map-filter-days">${dayButtonsHtml}</div>` : `<div class="company-route-map-filter-main company-route-no-schedule"><span class="flight-number-link flight-number-schedule company-route-schedule-badge">SCHEDULE</span><span>\u0412\u0406\u0414\u0421\u0423\u0422\u041d\u0406. \u0412\u0438\u043a\u043e\u043d\u0443\u0454 \u0447\u0430\u0440\u0442\u0435\u0440\u0438</span></div>`}
+        </div>
+      </div>
+      <div class="company-route-map-panel company-route-map-list">
+        <div class="company-route-map-list-title">SCHEDULE рейси:</div>
+        <div class="company-route-flight-list" data-route-list></div>
+      </div>
+    </div>`;
+  showCompanyLiveryDialog(dialog);
+  setTimeout(() => initCompanyLiveryRouteMap(body, context), 0);
+}
+
+function initCompanyLiveryRouteMap(container, context) {
+  const mapEl = container.querySelector('#companyRouteMap');
+  const listEl = container.querySelector('[data-route-list]');
+  const listTitleEl = container.querySelector('.company-route-map-list-title');
+  const filterButtons = [...container.querySelectorAll('[data-route-filter]')];
+  if (!mapEl || !listEl) return;
+  if (typeof L === 'undefined') {
+    mapEl.innerHTML = '<div class="company-route-empty">Карта не завантажилась: Leaflet недоступний.</div>';
+    return;
+  }
+  const map = L.map(mapEl, {scrollWheelZoom: true});
+  map.on('movestart zoomstart', () => {
+    if (!map._companyRouteFitting) map._companyRouteAtHome = false;
+  });
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
+  }).addTo(map);
+  let visibleBounds = [];
+  const currentPoint = liveryRouteMapAirportPoint(context.currentAirport?.icao);
+  const fitRouteMapHome = () => {
+    const bounds = visibleBounds || [];
+    const scheduleOffset = currentMode !== 'proposal';
+    map._companyRouteFitting = true;
+    if (!bounds.length) {
+      map.setView([49, 31], 5);
+    } else if (bounds.length === 1) {
+      map.setView(bounds[0], 6);
+      if (scheduleOffset) map.panBy([115, 0], {animate: false});
+    } else {
+      map.fitBounds(bounds, {
+        paddingTopLeft: [36, 36],
+        paddingBottomRight: scheduleOffset ? [266, 36] : [36, 36],
+        maxZoom: 6
+      });
+      if (scheduleOffset) map.panBy([115, 0], {animate: false});
+    }
+    setTimeout(() => {
+      map._companyRouteFitting = false;
+      map._companyRouteAtHome = true;
+    }, 80);
+  };
+  const fitRouteMapAircraft = () => {
+    if (!currentPoint) return;
+    map._companyRouteFitting = true;
+    map.setView([currentPoint.lat, currentPoint.lon], 7);
+    map.panBy([115, 0], {animate: false});
+    setTimeout(() => {
+      map._companyRouteFitting = false;
+      map._companyRouteAtHome = false;
+    }, 80);
+  };
+  const homeControl = L.Control.extend({
+    options: {position: 'topleft'},
+    onAdd() {
+      const link = L.DomUtil.create('a', 'company-route-home-control');
+      link.href = '#';
+      link.title = 'Показати всі маршрути';
+      link.setAttribute('aria-label', 'Показати всі маршрути');
+      link.innerHTML = '<span aria-hidden="true">⌂</span>';
+      L.DomEvent.disableClickPropagation(link);
+      L.DomEvent.on(link, 'click', event => {
+        L.DomEvent.preventDefault(event);
+        if (map._companyRouteHomeLocked || map._companyRouteAtHome) return;
+        map._companyRouteHomeLocked = true;
+        fitRouteMapHome();
+        setTimeout(() => { map._companyRouteHomeLocked = false; }, 120);
+      });
+      return link;
+    }
+  });
+  map.addControl(new homeControl());
+  const planeControl = L.Control.extend({
+    options: {position: 'topleft'},
+    onAdd() {
+      const link = L.DomUtil.create('a', 'company-route-home-control company-route-plane-control');
+      link.href = '#';
+      link.title = 'Центрувати на літаку';
+      link.setAttribute('aria-label', 'Центрувати на літаку');
+      link.innerHTML = '<span aria-hidden="true">✈</span>';
+      L.DomEvent.disableClickPropagation(link);
+      L.DomEvent.on(link, 'click', event => {
+        L.DomEvent.preventDefault(event);
+        fitRouteMapAircraft();
+      });
+      return link;
+    }
+  });
+  map.addControl(new planeControl());
+  const layers = [];
+  const clear = () => {
+    while (layers.length) map.removeLayer(layers.pop());
+  };
+  const addLayer = layer => {
+    layer.addTo(map);
+    layers.push(layer);
+    return layer;
+  };
+  const scheduleBaseIcao = String(context.scheduleBaseIcao || '').trim().toUpperCase();
+  const airportIcon = airport => {
+    const icao = String(airport?.icao || '').trim().toUpperCase();
+    const country = countryForAirport(icao);
+    const airportTitle = liveryRouteMapAirportTitle(airport || {icao});
+    const flag = country
+      ? `<img src="https://flagcdn.com/w20/${esc(country.cc)}.png" class="airport-flag" title="${esc(country.name)}" alt="${esc(country.name)}">`
+      : '';
+    const baseClass = icao && icao === scheduleBaseIcao ? ' company-route-airport-base' : '';
+    return L.divIcon({
+    className: `company-route-airport-label${baseClass}`,
+    html: `<span title="${esc(airportTitle)}">${esc(icao)}</span>${flag}`,
+    title: airportTitle,
+    iconSize: null,
+    iconAnchor: [18, 0]
+    });
+  };
+  const currentIcon = L.divIcon({
+    className: 'company-route-current-marker',
+    html: '<span class="ukraine-flight-marker newsky company-route-aircraft-marker"><span class="ukraine-flight-icon-wrap"><span class="ukraine-flight-icon">🛪</span></span></span>',
+    iconSize: [52, 28],
+    iconAnchor: [54, 3]
+  });
+  const badgeClass = () => 'flight-number-schedule';
+  let currentMode = 'proposal';
+  let selectedNumber = '';
+  const draw = (shouldFit = true) => {
+    clear();
+    const bounds = [];
+    const airportSeen = new Set();
+    const addAirport = (icao, current = false, includeInBounds = true) => {
+      const point = liveryRouteMapAirportPoint(icao);
+      if (!point) return null;
+      if (includeInBounds) bounds.push([point.lat, point.lon]);
+      if (current) {
+        addLayer(L.marker([point.lat, point.lon], {icon: currentIcon, zIndexOffset: 800}));
+      }
+      if (!airportSeen.has(point.icao)) {
+        airportSeen.add(point.icao);
+        const airport = point.airport || {icao: point.icao};
+        const marker = L.marker([point.lat, point.lon], {icon: airportIcon(airport), zIndexOffset: 600});
+        marker.bindTooltip(liveryRouteMapAirportTitle(airport), {direction: 'top', offset: [0, -8], opacity: 0.95});
+        addLayer(marker);
+      }
+      return point;
+    };
+    const currentIcao = String(context.currentAirport?.icao || '').trim().toUpperCase();
+    if (scheduleBaseIcao) addAirport(scheduleBaseIcao, false, false);
+    if (currentIcao) addAirport(currentIcao, true, false);
+    listEl.closest('.company-route-map-list')?.classList.toggle('company-route-proposal-panel', currentMode === 'proposal');
+    if (currentMode === 'proposal') {
+      if (listTitleEl) listTitleEl.textContent = '';
+      listEl.innerHTML = '';
+      const proposal = context.proposal;
+      if (proposal?.origin && proposal?.destination) {
+        const dep = addAirport(proposal.origin);
+        const arr = addAirport(proposal.destination);
+        if (dep && arr) {
+          addLayer(L.polyline([[dep.lat, dep.lon], [arr.lat, arr.lon]], {
+            color: '#ff4fa3',
+            weight: 5,
+            opacity: 0.9
+          }));
+        }
+      }
+      visibleBounds = bounds.slice();
+      if (!bounds.length) {
+        if (shouldFit) fitRouteMapHome();
+        addLayer(L.marker([49, 31], {icon: L.divIcon({className:'company-route-empty', html:'Немає координат для карти', iconSize:null})}));
+      } else if (shouldFit) {
+        fitRouteMapHome();
+      }
+      setTimeout(() => map.invalidateSize(), 50);
+      return;
+    }
+    const listRoutes = (context.routes || []).filter(route => liveryRouteMapRouteRuns(route, currentMode));
+    if (listTitleEl) listTitleEl.textContent = `${listRoutes.length} SCHEDULE ${liveryFlightsWord(listRoutes.length)}:`;
+    const mapRoutes = selectedNumber
+      ? listRoutes.filter(route => String(route.number) === selectedNumber)
+      : listRoutes;
+    listEl.innerHTML = listRoutes.length
+      ? listRoutes.map(route => `<button type="button" data-route-number="${esc(route.number)}" class="${String(route.number) === selectedNumber ? 'active' : ''}"><span class="flight-number-link ${badgeClass(route)}">${esc(route.number || '—')}</span> ${esc(route.dep)}→${esc(route.arr)}</button>`).join('')
+      : '<span class="muted">Немає рейсів для цього фільтра</span>';
+    mapRoutes.forEach(route => {
+      const dep = addAirport(route.dep);
+      const arr = addAirport(route.arr);
+      if (!dep || !arr) return;
+      const line = addLayer(L.polyline([[dep.lat, dep.lon], [arr.lat, arr.lon]], {
+        color: selectedNumber ? '#f29f05' : '#2468b2',
+        weight: selectedNumber ? 5 : 2,
+        opacity: selectedNumber ? 0.95 : 0.55
+      }));
+    });
+    visibleBounds = bounds.slice();
+    if (!bounds.length) {
+      if (shouldFit) fitRouteMapHome();
+      addLayer(L.marker([49, 31], {icon: L.divIcon({className:'company-route-empty', html:'Немає координат для карти', iconSize:null})}));
+    } else if (shouldFit) {
+      fitRouteMapHome();
+    }
+    setTimeout(() => map.invalidateSize(), 50);
+  };
+  listEl.addEventListener('click', event => {
+    const button = event.target.closest('[data-route-number]');
+    if (!button) return;
+    const nextNumber = button.dataset.routeNumber || '';
+    if (nextNumber === selectedNumber) return;
+    selectedNumber = nextNumber;
+    draw(false);
+  });
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      if (button.disabled) return;
+      if ((button.dataset.routeFilter || 'all') === currentMode) return;
+      currentMode = button.dataset.routeFilter || 'all';
+      selectedNumber = '';
+      filterButtons.forEach(item => item.classList.toggle('active', item === button));
+      draw();
+    });
+  });
+  draw();
+}
+
+document.addEventListener('click', event => {
+  const mapButton = event.target.closest('[data-livery-map]');
+  if (mapButton) {
+    const card = mapButton.closest('.company-livery-card');
+    if (card) {
+      event.preventDefault();
+      event.stopPropagation();
+      openCompanyLiveryRouteMap(card);
+      return;
+    }
+  }
+  const groupButton = event.target.closest('.company-livery-group-button');
+  if (groupButton) {
+    const card = groupButton.closest('.company-livery-card');
+    if (card) {
+      event.preventDefault();
+      event.stopPropagation();
+      openCompanyLiveryGroupDialogSafe(card);
+      return;
+    }
+  }
+  const logButton = event.target.closest('[data-livery-log-index]');
+  if (!logButton) return;
+  const card = logButton.closest('.company-livery-card');
+  if (!card) return;
+  event.preventDefault();
+  event.stopPropagation();
+  const title = liveryCardTitle(card);
+  const matcher = liveryMatcherForCard(card, title);
+  const aircraftId = String(logButton.dataset.liveryLogAircraftId || '').trim();
+  const completedFlights = app.flights.filter(flight => flight.status === 'completed');
+  const flights = aircraftId
+    ? completedFlights
+      .filter(flight => String(flight?.aircraft?.id || '').trim() === aircraftId)
+      .sort((a,b) => flightEndDateForDisplay(b) - flightEndDateForDisplay(a))
+    : matcher
+      ? completedFlights
+        .filter(matcher)
+        .sort((a,b) => flightEndDateForDisplay(b) - flightEndDateForDisplay(a))
+      : [];
+  openCompanyLiveryFlightLog(card, title, flights);
+});
 
 document.addEventListener('click', event => {
   if (event.target.closest('.dashboard-filter-head')) return;
@@ -2677,7 +5485,12 @@ addEventListener('ucaa-flights-updated', event => {
   window.UCAAPilotProfile.setFlights(app.flights);
   $('#dataStatus').innerHTML = formatLiveDataStatusClean(loaded.current, loaded.archive, latest);
   render();
+  updateCompanyLiveryStatus();
   loadDashboardLiveNewSkyFlights(true);
+});
+
+addEventListener('ucaa-profile-awards-updated', () => {
+  if (location.hash === '#pilots') renderPilotsCardsPage();
 });
 
 addEventListener('hashchange', () => {
