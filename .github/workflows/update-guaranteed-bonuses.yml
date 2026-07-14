@@ -3,7 +3,12 @@ name: Update guaranteed bonuses
 on:
   workflow_dispatch:
   schedule:
-    - cron: "*/15 * * * *"
+    - cron: "*/10 * * * *"
+  push:
+    branches:
+      - main
+    paths:
+      - "COMPANY/livery-matching.json"
 
 permissions:
   contents: write
