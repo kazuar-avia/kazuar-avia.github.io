@@ -406,7 +406,7 @@ LYBR: {cc:"me", name:"Чорногорія"}, // Berane
 VC: {cc:"lk", name:"Шрі-Ланка"},
 SU: {cc:"uy", name:"Уругвай"},
 WN00: {cc:"us", name:"США"},
-  
+  SP: {cc:"pe", name:"Перу"}
 
   
 };
