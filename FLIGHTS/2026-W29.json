@@ -10491,6 +10491,185 @@
                         "elev": 375
                     }
                 }
+            },
+            {
+                "_id": "6a57242b6748d3667009a6f7",
+                "aircraft": {
+                    "_id": "6a44df9f5760ec7cdb904230",
+                    "name": "Cessna 408 SkyCourier",
+                    "customName": "Cessna C408",
+                    "icao": "C408"
+                },
+                "type": "pax",
+                "flightNumber": "05W",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 19,
+                    "cargo": 1,
+                    "weights": {
+                        "cargo": 112
+                    }
+                },
+                "depTime": "2026-07-15T06:30:00.000Z",
+                "duration": 135,
+                "arrTime": "2026-07-15T08:45:00.000Z",
+                "depTimeAct": "2026-07-15T06:21:51.119Z",
+                "delay": -12,
+                "takeoffTimeAct": "2026-07-15T06:25:10.845Z",
+                "durationAct": 128,
+                "arrTimeAct": "2026-07-15T08:32:42.650Z",
+                "open": "2026-07-15T06:21:42.792Z",
+                "close": "2026-07-15T09:19:31.657Z",
+                "rating": 4,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 415,
+                        "fuel": 612,
+                        "expenses": 1525,
+                        "penalties": 40000,
+                        "revenue": 2163,
+                        "balance": -39362,
+                        "prices": {
+                            "ticketPrice": 107,
+                            "cargoUnitPrice": 130,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 19,
+                            "cargo": 1,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 19
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 692,
+                        "aircraft": 675,
+                        "handling": 86,
+                        "landing": 72
+                    },
+                    "revenue": {
+                        "tickets": 2033,
+                        "cargo": 130
+                    },
+                    "violations": [
+                        {
+                            "title": "MTOW exceeded: 890kg above maximum takeoff weight of 8618kg",
+                            "penalty": {
+                                "points": -300,
+                                "cash": 20000
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 20
+                                    },
+                                    "weather": {
+                                        "windDir": 340.21,
+                                        "windSpd": 6.83,
+                                        "windX": -1.29
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "MLW exceeded: 459kg above maximum landing weight of 8437kg",
+                            "penalty": {
+                                "points": -300,
+                                "cash": 20000
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 20
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.16,
+                                        "rate": 152
+                                    },
+                                    "weather": {
+                                        "windDir": 60.95,
+                                        "windSpd": 3.83,
+                                        "windX": 3.74
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.16G (152 ft/min, challenging  conditions)<br/>Distance from threshold: 382m (accepted range: 196-785m)<br/>Average centerline deviation: 5.26m<br/>Max centerline deviation: 6.58m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 20
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.16,
+                                        "rate": 152
+                                    },
+                                    "weather": {
+                                        "windDir": 60.95,
+                                        "windSpd": 3.83,
+                                        "windX": 3.74
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-15T06:09:47.109Z",
+                "updatedAt": "2026-07-15T09:19:32.217Z",
+                "dep": {
+                    "icao": "UKKE",
+                    "name": "Cherkasy International Airport",
+                    "city": "Cherkasy",
+                    "location": {
+                        "lat": 49.4156,
+                        "lon": 31.9953,
+                        "elev": 375
+                    }
+                },
+                "arr": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "actArr": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                }
             }
         ]
     }
