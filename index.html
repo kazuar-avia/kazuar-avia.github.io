@@ -7226,8 +7226,20 @@ const ICAO_COUNTRY = {
   LH: {cc:"hu", name:"Угорщина"}, LOW: {cc:"at", name:"Австрія"}, LO: {cc:"at", name:"Австрія"},
   LK: {cc:"cz", name:"Чехія"}, LZ: {cc:"sk", name:"Словаччина"}, LR: {cc:"ro", name:"Румунія"},
   LB: {cc:"bg", name:"Болгарія"}, LG: {cc:"gr", name:"Греція"}, LQ: {cc:"ba", name:"Боснія і Герцеговина"},
-  LD: {cc:"hr", name:"Хорватія"}, LY: {cc:"rs", name:"Сербія"}, LW: {cc:"mk", name:"Північна Македонія"},
-  LI: {cc:"it", name:"Італія"}, LF: {cc:"fr", name:"Франція"}, LS: {cc:"ch", name:"Швейцарія"},
+	
+  LD: {cc:"hr", name:"Хорватія"},
+
+// Montenegro — має спільний префікс LY із Сербією
+LYPG: {cc:"me", name:"Чорногорія"}, // Podgorica
+LYTV: {cc:"me", name:"Чорногорія"}, // Tivat
+LYBR: {cc:"me", name:"Чорногорія"}, // Berane
+
+// Решта LY-аеропортів за замовчуванням — Сербія
+LY: {cc:"rs", name:"Сербія"},
+
+LW: {cc:"mk", name:"Північна Македонія"},
+	
+  LI: {cc:"it", name:"Італія"}, LF: {cc:"fr", name:"Франція"}, LS: {cc:"ch", name:"Швейцарія"}, 
   LE: {cc:"es", name:"Іспанія"}, LP: {cc:"pt", name:"Португалія"},
   LA: {cc:"al", name:"Албанія"},
   LU: {cc:"md", name:"Молдова"},
@@ -7243,13 +7255,35 @@ const ICAO_COUNTRY = {
   UT: {cc:"uz", name:"Узбекистан"}, UA: {cc:"kz", name:"Казахстан"}, VI: {cc:"in", name:"Індія"},
   VT: {cc:"th", name:"Таїланд"}, VH: {cc:"hk", name:"Гонконг"}, ZB: {cc:"cn", name:"Китай"},
   KJ: {cc:"us", name:"США"}, CY: {cc:"ca", name:"Канада"}, MD: {cc:"do", name:"Домініканська Республіка"},
-  MM: {cc:"mx", name:"Мексика"}
+  MM: {cc:"mx", name:"Мексика"}, SP: {cc:"pe", name:"Перу"},
+SE: {cc:"ec", name:"Еквадор"}, 
+	NZ: {cc:"nz", name:"Нова Зеландія"},
+VC: {cc:"lk", name:"Шрі-Ланка"},
+SU: {cc:"uy", name:"Уругвай"},
+
+WN00: {cc:"us", name:"США"}
 };
 
 function countryForAirport(icao) {
-  if (!icao || icao === "NONE") return null;
-  if (ICAO_COUNTRY[icao.slice(0, 3)]) return ICAO_COUNTRY[icao.slice(0, 3)];
-  if (ICAO_COUNTRY[icao.slice(0, 2)]) return ICAO_COUNTRY[icao.slice(0, 2)];
+  const code = String(icao || "").trim().toUpperCase();
+
+  if (!code || code === "NONE") return null;
+
+  // Спочатку перевіряємо точний 4-літерний ICAO-код
+  if (ICAO_COUNTRY[code]) {
+    return ICAO_COUNTRY[code];
+  }
+
+  // Потім 3-літерний префікс
+  if (ICAO_COUNTRY[code.slice(0, 3)]) {
+    return ICAO_COUNTRY[code.slice(0, 3)];
+  }
+
+  // І лише потім загальний 2-літерний префікс
+  if (ICAO_COUNTRY[code.slice(0, 2)]) {
+    return ICAO_COUNTRY[code.slice(0, 2)];
+  }
+
   return null;
 }
 
