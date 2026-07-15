@@ -3336,6 +3336,18 @@ function setupCompanyLiverySortControls() {
       collapse.title = collapsed ? 'Розгорнути список' : 'Згорнути список';
     });
     heading.appendChild(collapse);
+    const mobileTitle = document.createElement('span');
+    mobileTitle.className = 'company-livery-heading-mobile-title';
+    mobileTitle.textContent = section.classList.contains('wetlease-section')
+      ? 'WET LEASE'
+      : section.classList.contains('sublease-section')
+        ? 'SUB-LEASE'
+        : section.classList.contains('drylease-section')
+          ? 'DRY LEASE'
+          : section.classList.contains('fictional-section')
+            ? 'FUN LEASE'
+            : headingParts.title;
+    heading.appendChild(mobileTitle);
     const title = document.createElement('span');
     title.className = 'company-livery-heading-title';
     title.textContent = headingParts.title;
@@ -5146,7 +5158,7 @@ function openCompanyLiveryRouteMap(card) {
         </div>
       </div>
       <div class="company-route-map-panel company-route-map-list">
-        <div class="company-route-map-list-title">SCHEDULE рейси:</div>
+        <div class="company-route-map-list-head"><button type="button" class="company-route-list-toggle" data-route-list-toggle title="Згорнути список">−</button><span class="company-route-map-list-title">SCHEDULE рейси:</span></div>
         <div class="company-route-flight-list" data-route-list></div>
       </div>
     </div>`;
@@ -5158,6 +5170,8 @@ function initCompanyLiveryRouteMap(container, context) {
   const mapEl = container.querySelector('#companyRouteMap');
   const listEl = container.querySelector('[data-route-list]');
   const listTitleEl = container.querySelector('.company-route-map-list-title');
+  const listPanelEl = container.querySelector('.company-route-map-list');
+  const listToggleEl = container.querySelector('[data-route-list-toggle]');
   const filterButtons = [...container.querySelectorAll('[data-route-filter]')];
   if (!mapEl || !listEl) return;
   if (typeof L === 'undefined') {
@@ -5360,6 +5374,14 @@ function initCompanyLiveryRouteMap(container, context) {
     if (nextNumber === selectedNumber) return;
     selectedNumber = nextNumber;
     draw(false);
+  });
+  listToggleEl?.addEventListener('click', event => {
+    event.preventDefault();
+    event.stopPropagation();
+    const collapsed = !listPanelEl?.classList.contains('company-route-map-list-collapsed');
+    listPanelEl?.classList.toggle('company-route-map-list-collapsed', collapsed);
+    listToggleEl.textContent = collapsed ? '+' : '−';
+    listToggleEl.title = collapsed ? 'Розгорнути список' : 'Згорнути список';
   });
   filterButtons.forEach(button => {
     button.addEventListener('click', () => {
