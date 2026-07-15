@@ -6704,6 +6704,169 @@
                         "elev": 508
                     }
                 }
+            },
+            {
+                "_id": "6a57f9585760ec7cdb028177",
+                "aircraft": {
+                    "_id": "696285163dc76275ba9ef60c",
+                    "name": "Boeing 737-800",
+                    "customName": "UCAA l 737-800 (pax) based in UKKK l UR-UCA",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "731E",
+                "free": false,
+                "schedule": false,
+                "charter": true,
+                "payload": {
+                    "pax": 163,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-07-15T22:00:00.000Z",
+                "duration": 70,
+                "arrTime": "2026-07-15T23:10:00.000Z",
+                "depTimeAct": "2026-07-15T21:49:19.445Z",
+                "delay": -17,
+                "takeoffTimeAct": "2026-07-15T21:56:29.460Z",
+                "durationAct": 57,
+                "arrTimeAct": "2026-07-15T22:53:22.507Z",
+                "open": "2026-07-15T21:26:18.136Z",
+                "close": "2026-07-15T22:59:46.545Z",
+                "rating": 8.99,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 367,
+                        "fuel": 2844,
+                        "expenses": 9967,
+                        "penalties": 0,
+                        "revenue": 30751,
+                        "balance": 20784,
+                        "prices": {
+                            "ticketPrice": 161,
+                            "cargoUnitPrice": 195,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 163,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 4,
+                                "C": 16,
+                                "Y": 143
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3216,
+                        "aircraft": 4775,
+                        "handling": 815,
+                        "landing": 1161
+                    },
+                    "revenue": {
+                        "tickets": 30751,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 4.08m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -1,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "spoilers",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.32G (262 ft/min, normal  conditions)<br/>Distance from threshold: 440m (accepted range: 189-759m)<br/>Average centerline deviation: 2.81m<br/>Max centerline deviation: 4.08m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.32,
+                                        "rate": 262
+                                    },
+                                    "weather": {
+                                        "windDir": 340.01,
+                                        "windSpd": 4.25,
+                                        "windX": -0.04
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No STROBE lights for 624s when required",
+                            "penalty": {
+                                "points": -100,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-15T21:19:20.388Z",
+                "updatedAt": "2026-07-15T22:59:46.618Z",
+                "dep": {
+                    "icao": "EPZG",
+                    "name": "Zielona Góra-Babimost Airport",
+                    "city": "Nowe Kramsko",
+                    "location": {
+                        "lat": 52.1385,
+                        "lon": 15.7986,
+                        "elev": 194
+                    }
+                },
+                "arr": {
+                    "icao": "LHBP",
+                    "name": "Budapest Liszt Ferenc International Airport",
+                    "city": "Budapest",
+                    "location": {
+                        "lat": 47.43018,
+                        "lon": 19.262393,
+                        "elev": 495
+                    }
+                },
+                "actArr": {
+                    "icao": "LHBP",
+                    "name": "Budapest Liszt Ferenc International Airport",
+                    "city": "Budapest",
+                    "location": {
+                        "lat": 47.43018,
+                        "lon": 19.262393,
+                        "elev": 495
+                    }
+                }
             }
         ]
     },
