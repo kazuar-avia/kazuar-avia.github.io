@@ -8599,16 +8599,11 @@ function getCharterCellHtml(icao) {
     `;
   }
   
-    if (icao === "UKKV") {
-    return `
-        <span style="font-size:13px; color:#333;">
-        Сценарій в розробці MrMiran18
-      </span>
-	    ${renderAirportPopupButtons(icao)}
-    `;
-  }
   
   const sceneryLinks = {
+	UKKV: [
+      { text: "Скачати сценарій UKKV", url: "https://flightsim.to/addon/69716/ukkv-international-zhytomyr-airport-ukkv-zhytomyr" }
+    ],  
     UKLL: [
       { text: "Придбати сценарій UKLL", url: "https://contrail.shop/products/l-lviv-airport-msfs" }
     ],
