@@ -32,6 +32,23 @@
     };
   }
 
+  function airportLocation(airport) {
+    const location = airport?.location || {};
+    const lat = Number(location.lat);
+    const lon = Number(location.lon);
+    return Number.isFinite(lat) && Number.isFinite(lon) ? {lat, lon, elev:Number(location.elev)||0} : null;
+  }
+
+  function normalizeAirport(airport) {
+    const location = airportLocation(airport);
+    return {
+      icao: String(airport?.icao || ''),
+      name: String(airport?.name || ''),
+      city: String(airport?.city || ''),
+      ...(location ? {location} : {})
+    };
+  }
+
   function normalizeFlight(flight, pilot, week) {
     const totals = flight.result?.totals || {};
     const durationMinutes = Number(flight.durationAct) || 0;
@@ -55,21 +72,9 @@
         name: String(flight.aircraft?.name || flight.aircraft?.icao || 'Unknown aircraft'),
         fleetName: String(flight.aircraft?.name || '')
       },
-      departure: {
-        icao: String(dep.icao || ''),
-        name: String(dep.name || ''),
-        city: String(dep.city || '')
-      },
-      arrival: {
-        icao: String(arr.icao || ''),
-        name: String(arr.name || ''),
-        city: String(arr.city || '')
-      },
-      actualArrival: flight.actArr ? {
-        icao: String(flight.actArr.icao || ''),
-        name: String(flight.actArr.name || ''),
-        city: String(flight.actArr.city || '')
-      } : null,
+      departure: normalizeAirport(dep),
+      arrival: normalizeAirport(arr),
+      actualArrival: flight.actArr ? normalizeAirport(flight.actArr) : null,
       routeType: routeType(dep.icao, arr.icao),
       times: {
         scheduledDeparture: flight.depTime || null,
@@ -143,6 +148,42 @@
     return response.json();
   }
 
+  function collectAirportLocations(data, target) {
+    (Array.isArray(data) ? data : []).forEach(pilot => {
+      (Array.isArray(pilot.flights) ? pilot.flights : []).forEach(flight => {
+        [flight.dep, flight.arr, flight.actArr].forEach(airport => {
+          const code = String(airport?.icao || '').toUpperCase();
+          const location = airportLocation(airport);
+          if (code && location && !target.has(code)) target.set(code, location);
+        });
+      });
+    });
+  }
+
+  function enrichAirportLocation(airport, lookup) {
+    const code = String(airport?.icao || '').toUpperCase();
+    if (!code || airport?.location || !lookup.has(code)) return;
+    airport.location = lookup.get(code);
+  }
+
+  function enrichFlightAirportLocations(flights, lookup) {
+    flights.forEach(flight => {
+      enrichAirportLocation(flight.departure, lookup);
+      enrichAirportLocation(flight.arrival, lookup);
+      enrichAirportLocation(flight.actualArrival, lookup);
+    });
+  }
+
+  async function collectAirportLocationsFromPostArchiveWeeks(year, airportLocations, onProgress, startWeek, skipWeeks = new Set()) {
+    for (let week = Math.max(START_WEEK, Number(startWeek) || START_WEEK); week <= MAX_WEEK; week += 1) {
+      if (skipWeeks.has(week)) continue;
+      onProgress?.(`Перевірка координат W${padWeek(week)}…`);
+      const weekData = await fetchOptionalJson(`FLIGHTS/${year}-W${padWeek(week)}.json?v=${Date.now()}`, {cache:'no-store'});
+      if (!weekData) continue;
+      collectAirportLocations(weekData, airportLocations);
+    }
+  }
+
   function currentIsoWeek(date = new Date()) {
     const value = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));
     const day = value.getUTCDay() || 7;
@@ -164,18 +205,26 @@
     const baseArchiveFlights = Array.isArray(archiveData.flights) ? archiveData.flights : [];
     const knownArchiveWeeks = new Set(baseArchiveFlights.map(flight => Number(flight.sourceWeek)).filter(Number.isFinite));
     const supplementalArchiveFlights = [];
+    const airportLocations = new Map();
+    const checkedCoordinateWeeks = new Set();
 
     for (let week = START_WEEK; week < liveWeek; week += 1) {
-      if (knownArchiveWeeks.has(week)) continue;
+      checkedCoordinateWeeks.add(week);
       onProgress?.(`Перевірка відсутнього архівного W${padWeek(week)}…`);
-      const weekData = await fetchOptionalJson(`FLIGHTS/${year}-W${padWeek(week)}.json?v=${Date.now()}`, {cache:'no-store'});
+      const weekData = await fetchOptionalJson(`FLIGHTS/${year}-W${padWeek(week)}.json?v=${encodeURIComponent(manifest.generatedAt || '')}`, {cache:'default'});
       if (!weekData) continue;
-      supplementalArchiveFlights.push(...normalizeWeek(weekData, week));
-      knownArchiveWeeks.add(week);
+      collectAirportLocations(weekData, airportLocations);
+      if (!knownArchiveWeeks.has(week)) {
+        supplementalArchiveFlights.push(...normalizeWeek(weekData, week));
+        knownArchiveWeeks.add(week);
+      }
     }
 
     onProgress?.(`Перевірка live W${padWeek(liveWeek)}…`);
     const liveData = await fetchOptionalJson(`FLIGHTS/${year}-W${padWeek(liveWeek)}.json?v=${Date.now()}`, {cache:'no-store'});
+    checkedCoordinateWeeks.add(liveWeek);
+    collectAirportLocations(liveData || [], airportLocations);
+    await collectAirportLocationsFromPostArchiveWeeks(year, airportLocations, onProgress, Number(manifest.archiveThroughWeek) + 1, checkedCoordinateWeeks);
     const archiveUnique = new Map();
     baseArchiveFlights.forEach(flight => archiveUnique.set(flight.id, flight));
     supplementalArchiveFlights.forEach(flight => archiveUnique.set(flight.id, flight));
@@ -185,6 +234,7 @@
     archiveFlights.forEach(flight => unique.set(flight.id, flight));
     currentFlights.forEach(flight => unique.set(flight.id, flight));
     const flights = [...unique.values()];
+    enrichFlightAirportLocations(flights, airportLocations);
     const latestPilotIdentity = new Map();
     flights.forEach(flight => {
       const pilotId = String(flight.pilot?.id || '');
@@ -218,6 +268,7 @@
       archive: {flights: archiveFlights},
       current: {flights: currentFlights},
       flights,
+      airportLocations: Object.fromEntries([...airportLocations.entries()]),
       weeks: [...new Set([...archiveFlights.map(flight => Number(flight.sourceWeek)), liveWeek])].filter(Number.isFinite).sort((a,b) => a-b),
       currentWeek: liveWeek,
       latest

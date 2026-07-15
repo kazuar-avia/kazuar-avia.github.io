@@ -15,6 +15,8 @@ const app = {
   companyLiveryMatching: null,
   companyCharterDemand: {},
   guaranteedBonuses: {},
+  airportCoordinates: {},
+  adCoordinates: {},
   flights: [],
   referenceNow: null,
   period: 'today',
@@ -2726,13 +2728,14 @@ async function loadCompanyCharterDemand(cacheMode = 'default') {
 async function loadDatabases() {
   const status = $('#dataStatus');
   try {
-    const [loaded, companyData, companyLiveryData, companyLiveryMatching, companyCharterDemand, guaranteedBonuses] = await Promise.all([
+    const [loaded, companyData, companyLiveryData, companyLiveryMatching, companyCharterDemand, guaranteedBonuses, adCoordinates] = await Promise.all([
       window.UCAAFlightData.loadWeeklyFlights(message => { status.textContent = message; }),
       fetch('COMPANY/company-data.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
       fetch('COMPANY/ucaa-livery-database.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
       fetch('COMPANY/livery-matching.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
       loadCompanyCharterDemand('default'),
-      fetch('COMPANY/guaranteed-bonuses.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null)
+      fetch('COMPANY/guaranteed-bonuses.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
+      fetch('ADcoordinates.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null)
     ]);
     const {archive, current} = loaded;
     app.archive = archive;
@@ -2743,6 +2746,8 @@ async function loadDatabases() {
     window.UCAACompanyLiveryMatching = companyLiveryMatching || null;
     app.companyCharterDemand = companyCharterDemand || {};
     app.guaranteedBonuses = guaranteedBonuses || {};
+    app.airportCoordinates = loaded.airportLocations || {};
+    app.adCoordinates = adCoordinates || {};
     app.flights = loaded.flights;
     reconcileGuaranteedBonusStatesWithCompletedFlights();
     pilotCardsMonthlyCache = null;
@@ -2788,13 +2793,14 @@ async function refreshDatabasesSoft() {
   const status = $('#dataStatus');
   const loader = window.UCAAFlightData?.reloadWeeklyFlights || window.UCAAFlightData?.loadWeeklyFlights;
   if (!loader) return loadDatabases();
-  const [loaded, companyData, companyLiveryData, companyLiveryMatching, companyCharterDemand, guaranteedBonuses] = await Promise.all([
+  const [loaded, companyData, companyLiveryData, companyLiveryMatching, companyCharterDemand, guaranteedBonuses, adCoordinates] = await Promise.all([
     loader(message => { if (status) status.textContent = message; }),
     fetch('COMPANY/company-data.json', {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
     fetch('COMPANY/ucaa-livery-database.json', {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
     fetch('COMPANY/livery-matching.json', {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
     loadCompanyCharterDemand('no-store'),
-    fetch(`COMPANY/guaranteed-bonuses.json?v=${Date.now()}`, {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null)
+    fetch(`COMPANY/guaranteed-bonuses.json?v=${Date.now()}`, {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
+    fetch(`ADcoordinates.json?v=${Date.now()}`, {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null)
   ]);
   const {archive, current} = loaded;
   app.archive = archive;
@@ -2805,6 +2811,8 @@ async function refreshDatabasesSoft() {
   window.UCAACompanyLiveryMatching = companyLiveryMatching || null;
   app.companyCharterDemand = companyCharterDemand || {};
   app.guaranteedBonuses = guaranteedBonuses || {};
+  app.airportCoordinates = loaded.airportLocations || {};
+  app.adCoordinates = adCoordinates || {};
   app.flights = loaded.flights;
   reconcileGuaranteedBonusStatesWithCompletedFlights();
   app.liveNewSkyLoaded = false;
@@ -3841,6 +3849,34 @@ function liveryScheduleRoutesIncludeIcao(routes, icao) {
   });
 }
 
+function liveryCoordinateAirportFromSource(source, icao, fallbackName = '', fallbackCity = '') {
+  const code = String(icao || '').trim().toUpperCase();
+  if (!code || !source) return null;
+  let record = null;
+  if (Array.isArray(source)) {
+    record = source.find(item => String(item?.icao || item?.ICAO || item?.code || '').trim().toUpperCase() === code);
+  } else if (typeof source === 'object') {
+    record = source[code] || source[code.toLowerCase()] || source[code.toUpperCase()] || null;
+  }
+  if (!record) return null;
+  if (Array.isArray(record)) record = {lat: record[0], lon: record[1]};
+  const location = record.location || record.loc || {};
+  const lat = Number(record.lat ?? record.latitude ?? location.lat);
+  const lon = Number(record.lon ?? record.lng ?? record.longitude ?? location.lon ?? location.lng);
+  if (!Number.isFinite(lat) || !Number.isFinite(lon)) return null;
+  return {
+    icao: code,
+    name: String(record.name || fallbackName || code),
+    city: String(record.city || fallbackCity || ''),
+    location: {lat, lon}
+  };
+}
+
+function liveryCoordinateFallbackAirportByIcao(icao, fallbackName = '', fallbackCity = '') {
+  return liveryCoordinateAirportFromSource(app.airportCoordinates, icao, fallbackName, fallbackCity)
+    || liveryCoordinateAirportFromSource(app.adCoordinates, icao, fallbackName, fallbackCity);
+}
+
 function liveryAirportObjectByIcao(icao, fallbackName = '') {
   const code = String(icao || '').trim().toUpperCase();
   if (!code) return null;
@@ -3850,6 +3886,8 @@ function liveryAirportObjectByIcao(icao, fallbackName = '') {
     }
   }
   const aircraft = (app.companyLiveryData?.aircraft || []).find(item => String(item?.locationIcao || '').trim().toUpperCase() === code && (item.locationName || item.locationCity));
+  const fallbackAirport = liveryCoordinateFallbackAirportByIcao(code, fallbackName || aircraft?.locationName || code, aircraft?.locationCity || '');
+  if (fallbackAirport) return fallbackAirport;
   return {icao: code, name: fallbackName || aircraft?.locationName || code, city: aircraft?.locationCity || ''};
 }
 
@@ -4084,7 +4122,9 @@ function liveryRangeSafeFreeProposal(currentIcao, targetIcao, aircraft, title, m
   const inboundProposal = liveryInboundDemandProposal(target, aircraft, title);
   if (inboundProposal) return inboundProposal;
   if (meta.allowDirectWhenNoInbound) {
-    return liveryRouteProposalData('free', 'FREE', current, target, {...meta, aircraft, aircraftTitle: title, rangeExceeded: true});
+    const country = countryForAirport(current);
+    const countryText = country?.name || current;
+    return `<span class="company-livery-stuck-text">Літак у SUB-LEASE в ${esc(countryText)}</span>`;
   }
   return null;
 }
@@ -4453,6 +4493,8 @@ function liveryAirportWithKnownLocation(airport) {
       if (String(candidate?.icao || '').toUpperCase() === code && liveryAirportLatLon(candidate)) return candidate;
     }
   }
+  const fallbackAirport = liveryCoordinateFallbackAirportByIcao(code, airport?.name || code, airport?.city || '');
+  if (fallbackAirport) return fallbackAirport;
   return airport;
 }
 
