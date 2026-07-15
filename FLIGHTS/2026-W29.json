@@ -13037,6 +13037,195 @@
                         "elev": 7841
                     }
                 }
+            },
+            {
+                "_id": "6a579d1f5760ec7cdbfa3179",
+                "aircraft": {
+                    "_id": "6963db883dc76275baca3967",
+                    "name": "Airbus A321",
+                    "customName": "Windrose l A321 based in UKBB UKLL l UR-WRX",
+                    "icao": "A321"
+                },
+                "type": "pax",
+                "flightNumber": "630V",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 230,
+                    "cargo": 28,
+                    "weights": {
+                        "cargo": 2492
+                    }
+                },
+                "depTime": "2026-07-15T15:05:00.000Z",
+                "duration": 175,
+                "arrTime": "2026-07-15T18:00:00.000Z",
+                "depTimeAct": "2026-07-15T14:59:22.698Z",
+                "delay": -19,
+                "takeoffTimeAct": "2026-07-15T15:03:37.723Z",
+                "durationAct": 158,
+                "arrTimeAct": "2026-07-15T17:41:21.675Z",
+                "open": "2026-07-15T14:55:51.726Z",
+                "close": "2026-07-15T17:46:54.704Z",
+                "rating": 3.55,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1122,
+                        "fuel": 8120,
+                        "expenses": 21784,
+                        "penalties": 98500,
+                        "revenue": 41672,
+                        "balance": -78612,
+                        "prices": {
+                            "ticketPrice": 160,
+                            "cargoUnitPrice": 174,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 230,
+                            "cargo": 28,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 230
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 9527,
+                        "aircraft": 8295,
+                        "handling": 3032,
+                        "landing": 930
+                    },
+                    "revenue": {
+                        "tickets": 36800,
+                        "cargo": 4872
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 9.44m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -30,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (1263m from threshold beyond 800m max accepted)",
+                            "penalty": {
+                                "points": -162,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.99,
+                                        "rate": 1046
+                                    },
+                                    "weather": {
+                                        "windDir": 350.01,
+                                        "windSpd": 25.07,
+                                        "windX": 6.28
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Terrible touchdown: 2.99G (1046 ft/min, challenging  conditions)<br/>Distance from threshold: 1263m (accepted range: 199-800m)<br/>Average centerline deviation: 4.62m<br/>Max centerline deviation: 9.44m",
+                            "penalty": {
+                                "points": -373,
+                                "cash": 98500
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.99,
+                                        "rate": 1046
+                                    },
+                                    "weather": {
+                                        "windDir": 350.01,
+                                        "windSpd": 25.07,
+                                        "windX": 6.28
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Max G exceeded: 2.4G (max allowed: 2G)",
+                            "penalty": {
+                                "points": -80,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-15T14:45:51.608Z",
+                "updatedAt": "2026-07-15T17:46:54.797Z",
+                "dep": {
+                    "icao": "SCEL",
+                    "name": "Comodoro Arturo Merino Benítez International Airport",
+                    "city": "Santiago",
+                    "location": {
+                        "lat": -33.393001556396484,
+                        "lon": -70.78579711914062,
+                        "elev": 1555
+                    }
+                },
+                "arr": {
+                    "icao": "SLVR",
+                    "name": "Viru Viru International Airport",
+                    "city": "Santa Cruz",
+                    "location": {
+                        "lat": -17.6448,
+                        "lon": -63.135399,
+                        "elev": 1224
+                    }
+                },
+                "actArr": {
+                    "icao": "SLVR",
+                    "name": "Viru Viru International Airport",
+                    "city": "Santa Cruz",
+                    "location": {
+                        "lat": -17.6448,
+                        "lon": -63.135399,
+                        "elev": 1224
+                    }
+                }
             }
         ]
     },
