@@ -368,6 +368,10 @@ const ICAO_COUNTRY = {
   LOW:{cc:'at',name:'Австрія'}, LO:{cc:'at',name:'Австрія'}, LK:{cc:'cz',name:'Чехія'},
   LZ:{cc:'sk',name:'Словаччина'}, LR:{cc:'ro',name:'Румунія'}, LB:{cc:'bg',name:'Болгарія'},
   LG:{cc:'gr',name:'Греція'}, LQ:{cc:'ba',name:'Боснія і Герцеговина'}, LD:{cc:'hr',name:'Хорватія'},
+  // Montenegro — має спільний префікс LY із Сербією
+LYPG: {cc:"me", name:"Чорногорія"}, // Podgorica
+LYTV: {cc:"me", name:"Чорногорія"}, // Tivat
+LYBR: {cc:"me", name:"Чорногорія"}, // Berane
   LY:{cc:'rs',name:'Сербія'}, LW:{cc:'mk',name:'Північна Македонія'}, LI:{cc:'it',name:'Італія'},
   LF:{cc:'fr',name:'Франція'}, LS:{cc:'ch',name:'Швейцарія'}, LE:{cc:'es',name:'Іспанія'},
   LP:{cc:'pt',name:'Португалія'}, LA:{cc:'al',name:'Албанія'}, LU:{cc:'md',name:'Молдова'},
@@ -393,10 +397,18 @@ const ICAO_COUNTRY = {
   SK:{cc:'co',name:'Колумбія'}, SL:{cc:'bo',name:'Болівія'}, SO:{cc:'gf',name:'Французька Гвіана'},
   SV:{cc:'ve',name:'Венесуела'}, SY:{cc:'gy',name:'Гаяна'}, TJ:{cc:'pr',name:'Пуерто-Рико'},
   TN:{cc:'sx',name:'Сінт-Мартен'}, UC:{cc:'kg',name:'Киргизстан'}, UM:{cc:'by',name:'Білорусь'},
-  UU:{cc:'ru',name:'Росія'}, VA:{cc:'in',name:'Індія'}, VE:{cc:'in',name:'Індія'},
+  UU:{cc:'ru',name:'Підари'}, VA:{cc:'in',name:'Індія'}, VE:{cc:'in',name:'Індія'},
   VN:{cc:'np',name:'Непал'}, VO:{cc:'in',name:'Індія'}, VQ:{cc:'bt',name:'Бутан'},
   VR:{cc:'mv',name:'Мальдіви'}, WS:{cc:'sg',name:'Сінгапур'}, Y:{cc:'au',name:'Австралія'},
-  ZG:{cc:'cn',name:'Китай'}, ZM:{cc:'mn',name:'Монголія'}, ZS:{cc:'cn',name:'Китай'}
+  ZG:{cc:'cn',name:'Китай'}, ZM:{cc:'mn',name:'Монголія'}, ZS:{cc:'cn',name:'Китай'},
+  SE: {cc:"ec", name:"Еквадор"}, 
+	NZ: {cc:"nz", name:"Нова Зеландія"},
+VC: {cc:"lk", name:"Шрі-Ланка"},
+SU: {cc:"uy", name:"Уругвай"},
+WN00: {cc:"us", name:"США"},
+  
+
+  
 };
 
 function countryForAirport(icao) {
