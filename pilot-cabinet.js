@@ -412,8 +412,15 @@ WN00: {cc:"us", name:"США"},
 };
 
 function countryForAirport(icao) {
-  const code = String(icao || '').toUpperCase();
-  return ICAO_COUNTRY[code.slice(0,3)] || ICAO_COUNTRY[code.slice(0,2)] || ICAO_COUNTRY[code.slice(0,1)] || null;
+  const code = String(icao || '').trim().toUpperCase();
+
+  if (!code || code === 'NONE') return null;
+
+  return ICAO_COUNTRY[code] ||
+         ICAO_COUNTRY[code.slice(0, 3)] ||
+         ICAO_COUNTRY[code.slice(0, 2)] ||
+         ICAO_COUNTRY[code.slice(0, 1)] ||
+         null;
 }
 
 function airportWithFlag(airport) {
