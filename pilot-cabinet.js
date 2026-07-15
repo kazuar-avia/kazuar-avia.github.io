@@ -3893,8 +3893,9 @@ function liveryAirportObjectByIcao(icao, fallbackName = '') {
 
 function liveryBlockSpeedNmPerHour(aircraft, title = '') {
   const text = `${aircraft?.registration || ''} ${aircraft?.airframeIdent || ''} ${aircraft?.airframeType || ''} ${aircraft?.name || ''} ${newskyAircraftName(aircraft?.id) || ''} ${title}`.toUpperCase();
-  if (text.includes('AN2') || text.includes('AN-2') || text.includes('UR-40308')) return 60;
+  if (/\bAN-?2\b/.test(text) || text.includes('UR-40308')) return 60;
   if (text.includes('C208') || text.includes('UR-PAX') || text.includes('UR-VAN')) return 150;
+  if (text.includes('F27') || text.includes('F271') || text.includes('UR-KZR')) return 180;
   if (text.includes('AT42') || text.includes('AT72') || text.includes('AT75') || text.includes('AT76') || text.includes('ATR') || text.includes('UR-RWC') || text.includes('UR-ATR')) return 200;
   return 300;
 }

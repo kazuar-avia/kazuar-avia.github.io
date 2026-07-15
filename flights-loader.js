@@ -174,6 +174,24 @@
     });
   }
 
+  function collectAirportLocationsFromFlights(flights, target) {
+    (Array.isArray(flights) ? flights : []).forEach(flight => {
+      [flight.departure, flight.arrival, flight.actualArrival].forEach(airport => {
+        const code = String(airport?.icao || '').toUpperCase();
+        const location = airportLocation(airport);
+        if (!code || !location) return;
+        if (!target.has(code)) {
+          target.set(code, {
+            lat: location.lat,
+            lon: location.lon,
+            name: airport.name || code,
+            city: airport.city || ''
+          });
+        }
+      });
+    });
+  }
+
   async function collectAirportLocationsFromPostArchiveWeeks(year, airportLocations, onProgress, startWeek, skipWeeks = new Set()) {
     for (let week = Math.max(START_WEEK, Number(startWeek) || START_WEEK); week <= MAX_WEEK; week += 1) {
       if (skipWeeks.has(week)) continue;
@@ -206,25 +224,21 @@
     const knownArchiveWeeks = new Set(baseArchiveFlights.map(flight => Number(flight.sourceWeek)).filter(Number.isFinite));
     const supplementalArchiveFlights = [];
     const airportLocations = new Map();
-    const checkedCoordinateWeeks = new Set();
+    collectAirportLocationsFromFlights(baseArchiveFlights, airportLocations);
 
-    for (let week = START_WEEK; week < liveWeek; week += 1) {
-      checkedCoordinateWeeks.add(week);
-      onProgress?.(`Перевірка відсутнього архівного W${padWeek(week)}…`);
+    const firstPostArchiveWeek = Number(manifest.archiveThroughWeek) + 1;
+    for (let week = firstPostArchiveWeek; week < liveWeek; week += 1) {
+      onProgress?.(`Завантаження W${padWeek(week)} після архіву…`);
       const weekData = await fetchOptionalJson(`FLIGHTS/${year}-W${padWeek(week)}.json?v=${encodeURIComponent(manifest.generatedAt || '')}`, {cache:'default'});
       if (!weekData) continue;
       collectAirportLocations(weekData, airportLocations);
-      if (!knownArchiveWeeks.has(week)) {
-        supplementalArchiveFlights.push(...normalizeWeek(weekData, week));
-        knownArchiveWeeks.add(week);
-      }
+      supplementalArchiveFlights.push(...normalizeWeek(weekData, week));
+      knownArchiveWeeks.add(week);
     }
 
     onProgress?.(`Перевірка live W${padWeek(liveWeek)}…`);
     const liveData = await fetchOptionalJson(`FLIGHTS/${year}-W${padWeek(liveWeek)}.json?v=${Date.now()}`, {cache:'no-store'});
-    checkedCoordinateWeeks.add(liveWeek);
     collectAirportLocations(liveData || [], airportLocations);
-    await collectAirportLocationsFromPostArchiveWeeks(year, airportLocations, onProgress, Number(manifest.archiveThroughWeek) + 1, checkedCoordinateWeeks);
     const archiveUnique = new Map();
     baseArchiveFlights.forEach(flight => archiveUnique.set(flight.id, flight));
     supplementalArchiveFlights.forEach(flight => archiveUnique.set(flight.id, flight));
