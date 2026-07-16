@@ -246,6 +246,23 @@ async function loadLiveFlightDetailsLimited(flights) {
   return result;
 }
 
+function isLocalDevHost() {
+  return ['127.0.0.1', 'localhost'].includes(location.hostname);
+}
+
+async function loadDevLiveFlights() {
+  if (!isLocalDevHost()) return [];
+  try {
+    const response = await fetch(`COMPANY/dev-live-flights.json?v=${Date.now()}`, {cache:'no-store'});
+    if (!response.ok) return [];
+    const data = await response.json();
+    return (Array.isArray(data) ? data : (data.results || data.flights || []))
+      .filter(flight => flight?.depTimeAct);
+  } catch (error) {
+    return [];
+  }
+}
+
 function liveAircraftInfo(flight) {
   const airframe = flight?.aircraft?.airframe || flight?.aircraft || {};
   const id = companyLiveryLiveFlightAircraftId(flight);
@@ -317,18 +334,32 @@ async function loadDashboardLiveNewSkyFlights(force = false) {
   app.liveNewSkyError = '';
   if (app.liveDashboardVisible) render();
   try {
-    const response = await fetch('https://newsky.app/api/airline-api/flights/ongoing', {
-      cache: 'no-store',
-      headers: {Authorization: `Bearer ${liveNewSkyAuthToken}`}
-    });
-    if (!response.ok) throw new Error(`NewSky ${response.status}`);
-    const data = await response.json();
-    const results = Array.isArray(data?.results) ? data.results : [];
+    let results = [];
+    let realLiveError = null;
+    try {
+      const response = await fetch('https://newsky.app/api/airline-api/flights/ongoing', {
+        cache: 'no-store',
+        headers: {Authorization: `Bearer ${liveNewSkyAuthToken}`}
+      });
+      if (!response.ok) throw new Error(`NewSky ${response.status}`);
+      const data = await response.json();
+      results = Array.isArray(data?.results) ? data.results : [];
+    } catch (error) {
+      realLiveError = error;
+    }
+    const devResults = await loadDevLiveFlights();
+    if (realLiveError && !devResults.length) throw realLiveError;
     const filtered = results
       .filter(flight => String(flight?.airline?.icao || 'UKL').trim().toUpperCase() === 'UKL')
       .filter(flight => flight?.depTimeAct)
       .sort((a,b) => liveFlightDepartureDate(b) - liveFlightDepartureDate(a));
-    app.liveNewSkyFlights = await loadLiveFlightDetailsLimited(filtered);
+    const detailed = await loadLiveFlightDetailsLimited(filtered);
+    const byId = new Map();
+    [...detailed, ...devResults].forEach(flight => {
+      const id = String(flight?._id || flight?.id || '').trim();
+      if (id) byId.set(id, flight);
+    });
+    app.liveNewSkyFlights = [...byId.values()].sort((a,b) => liveFlightDepartureDate(b) - liveFlightDepartureDate(a));
     app.liveNewSkyLoaded = true;
   } catch (error) {
     console.warn('Не вдалося завантажити LIVE NewSky', error);
@@ -4172,7 +4203,7 @@ function liverySuggestedRouteData(card, title, flights, latest, headline) {
     const routeFromSchedule = liveryScheduleRouteFrom(routes, scheduleIcao) || activeScheduleRoutes.find(route => route.dep === scheduleIcao) || null;
     if (scheduleIcao && currentIcao && currentIcao !== scheduleIcao) {
       const hasNearScheduleFromTarget = scheduleCandidates.includes(routeFromSchedule);
-      const timing = hasNearScheduleFromTarget ? liveryScheduleTimingLabel(routeFromSchedule) : 'політ на тех.обслуговування / зміна екіпажа';
+      const timing = hasNearScheduleFromTarget ? liveryScheduleTimingLabel(routeFromSchedule) : 'політ на тех.обслуговування / на базу';
       const proposal = liveryRangeSafeFreeProposal(currentIcao, scheduleIcao, aircraft, title, {
         reason: hasNearScheduleFromTarget ? 'schedule-positioning' : 'maintenance-positioning',
         badgeClass: hasNearScheduleFromTarget ? 'company-livery-free-schedule' : 'company-livery-free-maintenance',
@@ -4372,7 +4403,7 @@ function companyLiveryLiveNumberBadge(record, number) {
     title = 'FREE flight for later SCHEDULE';
   } else if (reason === 'maintenance-positioning') {
     badgeClass = 'company-livery-free-maintenance';
-    title = 'FREE flight to maintenance / crew change';
+    title = 'FREE flight to maintenance / base';
   } else if (reason === 'demand' || reason === 'charter-demand' || reason === 'inbound-demand' || reason === 'range-inbound-demand') {
     badgeClass = 'company-livery-free-demand';
     title = 'FREE flight by NewSky demand';
