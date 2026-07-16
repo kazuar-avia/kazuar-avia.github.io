@@ -11552,6 +11552,169 @@
                         "elev": 648
                     }
                 }
+            },
+            {
+                "_id": "6a58eb5e5760ec7cdb10d804",
+                "aircraft": {
+                    "_id": "6a4fa1d65760ec7cdb62803f",
+                    "name": "Boeing 777-300ER",
+                    "customName": "Dry Lease l 777-300ER GE 370 pax",
+                    "icao": "B77W"
+                },
+                "type": "pax",
+                "flightNumber": "88K",
+                "free": false,
+                "schedule": false,
+                "charter": true,
+                "payload": {
+                    "pax": 370,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-07-16T14:45:00.000Z",
+                "duration": 135,
+                "arrTime": "2026-07-16T17:00:00.000Z",
+                "depTimeAct": "2026-07-16T14:46:31.747Z",
+                "delay": -16,
+                "takeoffTimeAct": "2026-07-16T14:48:43.745Z",
+                "durationAct": 115,
+                "arrTimeAct": "2026-07-16T16:43:50.612Z",
+                "open": "2026-07-16T14:42:04.027Z",
+                "close": "2026-07-16T16:46:09.836Z",
+                "rating": 8.39,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 844,
+                        "fuel": 14485,
+                        "expenses": 39335,
+                        "penalties": 0,
+                        "revenue": 107635,
+                        "balance": 68300,
+                        "prices": {
+                            "ticketPrice": 209,
+                            "cargoUnitPrice": 233,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 370,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 25,
+                                "C": 70,
+                                "Y": 275
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 15583,
+                        "aircraft": 20413,
+                        "handling": 1665,
+                        "landing": 1674
+                    },
+                    "revenue": {
+                        "tickets": 107635,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 8.29m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -61,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.23G (225 ft/min, normal  conditions)<br/>Distance from threshold: 496m (accepted range: 176-706m)<br/>Average centerline deviation: 4.42m<br/>Max centerline deviation: 8.29m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.23,
+                                        "rate": 225
+                                    },
+                                    "weather": {
+                                        "windDir": 340,
+                                        "windSpd": 7.14,
+                                        "windX": -4.58
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No STROBE lights for 4484s when required",
+                            "penalty": {
+                                "points": -100,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-16T14:31:58.358Z",
+                "updatedAt": "2026-07-16T16:46:09.950Z",
+                "dep": {
+                    "icao": "LYTV",
+                    "name": "Tivat Airport",
+                    "city": "Tivat",
+                    "location": {
+                        "lat": 42.404701232910156,
+                        "lon": 18.72330093383789,
+                        "elev": 20
+                    }
+                },
+                "arr": {
+                    "icao": "EYVI",
+                    "name": "Vilnius International Airport",
+                    "city": "Vilnius",
+                    "location": {
+                        "lat": 54.634102,
+                        "lon": 25.285801,
+                        "elev": 648
+                    }
+                },
+                "actArr": {
+                    "icao": "EYVI",
+                    "name": "Vilnius International Airport",
+                    "city": "Vilnius",
+                    "location": {
+                        "lat": 54.634102,
+                        "lon": 25.285801,
+                        "elev": 648
+                    }
+                }
             }
         ]
     },
