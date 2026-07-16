@@ -1048,6 +1048,7 @@ function dashboardFinanceData(selected, bounds) {
   const revenue = sum(selected, f=>f.finance.revenue);
   const penalties = sum(selected, f=>f.finance.penalties);
   const payroll = sum(selected, pilotPay);
+  const guaranteedBudget = sum(selected, guaranteedBonusAmountForFlight);
   const cabinCrewPayroll = sum(selected, cabinCrewPay);
   const incidentCompensation = sum(selected, flight => window.UCAAIncidentCompensation.breakdown(
     flight, insurance.coverageByFlight.get(flight) || 0, app.flights
@@ -1066,7 +1067,8 @@ function dashboardFinanceData(selected, bounds) {
     ['Страхування', insurance.premium, '#7c5cc4'],
     ['Страхове відшкодування', insurance.payout, '#4b9f68']
   ];
-  const income = revenue + insurance.payout;
+  if (guaranteedBudget) categories.push(['Бюджет гарантованих премій', guaranteedBudget, '#b9b9b9']);
+  const income = revenue + insurance.payout + guaranteedBudget;
   const expenses = penalties + incidentCompensation + insurance.premium + payroll + cabinCrewPayroll + fixedTotals.schedulers
     + categories[2][1] + categories[3][1] + categories[4][1] + categories[5][1];
   return {categories, balance:income-expenses};
@@ -1741,7 +1743,7 @@ function directFlightFinance(flight) {
   if (guaranteedBonus) {
     direct.guaranteedBonus = guaranteedBonus;
     direct.pilotSalary = (Number(direct.pilotSalary) || 0) + guaranteedBonus;
-    direct.companyProfit = (Number(direct.companyProfit) || 0) - guaranteedBonus;
+    direct.companyProfit = Number(direct.companyProfit) || 0;
   }
   return direct;
 }
@@ -1752,6 +1754,11 @@ function financeDetailRow(label, value, color, expense = false, note = '', noteO
   ).join('') : '';
   const titleAttr = title ? ` title="${tip(title)}"` : '';
   return `<div class="flight-finance-row"${titleAttr}><i class="finance-dot" style="background:${color}"></i><span>${esc(label)}${noteHtml}</span><strong class="${expense?'negative':'positive'}">${expense&&value?'−':''}${money(value)}</strong></div>`;
+}
+
+function guaranteedBudgetFinanceRow(value) {
+  if (!value) return '';
+  return `<div class="flight-finance-row" title="Ця сума покриває гарантовану премію з окремого бюджету, щоб вона не псувала прибуток конкретного рейсу."><i class="finance-dot" style="background:#b9b9b9"></i><span>Виділено з бюджету гарантованих премій</span><strong style="color:#666">${money(value)}</strong></div>`;
 }
 
 function pilotFinanceDetailRows(flight, direct) {
@@ -1774,6 +1781,7 @@ function penaltyDetailRow(flight, value) {
 
 function flightFinanceDetails(flight) {
   const direct = directFlightFinance(flight);
+  const guaranteedBonusBudget = Math.max(0, Number(direct.guaranteedBonus) || 0);
   const details = flight.finance.details || {};
   const tickets = Number(details.tickets) || 0;
   const cargo = Number(details.cargo) || 0;
@@ -1850,9 +1858,10 @@ function flightFinanceDetails(flight) {
     otherRevenue ? financeDetailRow('Інший дохід NewSky', otherRevenue, '#9bd29e') : '',
     direct.insurancePayout ? financeDetailRow('Страхове відшкодування', direct.insurancePayout, '#4b9f68', false, '', false, insurancePayoutTooltip) : ''
   ].filter(Boolean);
+  if (guaranteedBonusBudget) incomeRowItems.push(guaranteedBudgetFinanceRow(guaranteedBonusBudget));
   const incomeRows = incomeRowItems.join('');
   const incomeSubtotal = incomeRowItems.length > 1
-    ? `<div class="flight-finance-row flight-finance-subtotal"><span></span><span>Усього доходів</span><strong class="positive">${money(revenue + direct.insurancePayout)}</strong></div>`
+    ? `<div class="flight-finance-row flight-finance-subtotal"><span></span><span>Усього доходів</span><strong class="positive">${money(revenue + direct.insurancePayout + guaranteedBonusBudget)}</strong></div>`
     : '';
   const expenseRows = [
     aircraft ? financeDetailRow('Флот (лізинг)', aircraft, '#949dd1', true, flight.aircraft.icao) : '',
