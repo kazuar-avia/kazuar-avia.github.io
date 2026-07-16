@@ -13386,6 +13386,180 @@
                         "elev": 2234
                     }
                 }
+            },
+            {
+                "_id": "6a58a8345760ec7cdb0b4f52",
+                "aircraft": {
+                    "_id": "6a4671586748d36670c9277b",
+                    "name": "Boeing 737 MAX 8",
+                    "customName": "Dry Lease l 737-MAX8 189 pax l msfs 2024",
+                    "icao": "B38M"
+                },
+                "type": "pax",
+                "flightNumber": "888",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 64,
+                    "cargo": 30,
+                    "weights": {
+                        "cargo": 3150
+                    }
+                },
+                "depTime": "2026-07-16T10:15:00.000Z",
+                "duration": 105,
+                "arrTime": "2026-07-16T12:00:00.000Z",
+                "depTimeAct": "2026-07-16T09:57:59.955Z",
+                "delay": -23,
+                "takeoffTimeAct": "2026-07-16T10:06:01.956Z",
+                "durationAct": 91,
+                "arrTimeAct": "2026-07-16T11:37:07.843Z",
+                "open": "2026-07-16T09:45:27.621Z",
+                "close": "2026-07-16T11:43:46.112Z",
+                "rating": 9.9,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 610,
+                        "fuel": 3458,
+                        "expenses": 13899,
+                        "penalties": 64,
+                        "revenue": 13014,
+                        "balance": -949,
+                        "prices": {
+                            "ticketPrice": 122,
+                            "cargoUnitPrice": 141,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 64,
+                            "cargo": 30,
+                            "paxByClass": {
+                                "F": 1,
+                                "C": 5,
+                                "Y": 58
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3910,
+                        "aircraft": 5475,
+                        "handling": 302,
+                        "landing": 4212
+                    },
+                    "revenue": {
+                        "tickets": 8784,
+                        "cargo": 4230
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight departed 2 minutes too early (max 15 minutes before scheduled is allowed)",
+                            "penalty": {
+                                "points": -10,
+                                "cash": 64
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.42G (324 ft/min, challenging  conditions)<br/>Distance from threshold: 357m (accepted range: 211-846m)<br/>Average centerline deviation: 3.72m<br/>Max centerline deviation: 7.43m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.42,
+                                        "rate": 324
+                                    },
+                                    "weather": {
+                                        "windDir": 39.98,
+                                        "windSpd": 14.8,
+                                        "windX": 9.08
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Fuel used 3326 kg is lower than estimated minimum 3458 kg.",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.42,
+                                        "rate": 324
+                                    },
+                                    "weather": {
+                                        "windDir": 39.98,
+                                        "windSpd": 14.8,
+                                        "windX": 9.08
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-16T09:45:24.394Z",
+                "updatedAt": "2026-07-16T11:43:46.199Z",
+                "dep": {
+                    "icao": "UKKV",
+                    "city": "Zhytomyr",
+                    "location": {
+                        "lat": 50.270556,
+                        "lon": 28.738611,
+                        "elev": 722.5
+                    },
+                    "name": "Zhytomyr Airport"
+                },
+                "arr": {
+                    "icao": "LTFM",
+                    "name": "İstanbul Airport",
+                    "city": "Arnavutköy, Istanbul",
+                    "location": {
+                        "lat": 41.261297,
+                        "lon": 28.741951,
+                        "elev": 325
+                    }
+                },
+                "actArr": {
+                    "icao": "LTFM",
+                    "name": "İstanbul Airport",
+                    "city": "Arnavutköy, Istanbul",
+                    "location": {
+                        "lat": 41.261297,
+                        "lon": 28.741951,
+                        "elev": 325
+                    }
+                }
             }
         ]
     },
