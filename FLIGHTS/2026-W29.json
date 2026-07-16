@@ -11387,6 +11387,171 @@
                         "elev": 294
                     }
                 }
+            },
+            {
+                "_id": "6a58be665760ec7cdb0d164a",
+                "aircraft": {
+                    "_id": "695a66383dc76275bad0826f",
+                    "name": "Airbus A320",
+                    "customName": "Dry Lease l A320 CFM FENIX msfs2024",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "49S",
+                "free": false,
+                "schedule": false,
+                "charter": true,
+                "payload": {
+                    "pax": 176,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-07-16T11:42:00.000Z",
+                "duration": 140,
+                "arrTime": "2026-07-16T14:02:00.000Z",
+                "depTimeAct": "2026-07-16T11:41:33.989Z",
+                "delay": -12,
+                "takeoffTimeAct": "2026-07-16T11:45:43.980Z",
+                "durationAct": 124,
+                "arrTimeAct": "2026-07-16T13:49:56.432Z",
+                "open": "2026-07-16T11:26:10.548Z",
+                "close": "2026-07-16T13:54:14.568Z",
+                "rating": 2.92,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 856,
+                        "fuel": 6148,
+                        "expenses": 14543,
+                        "penalties": 164500,
+                        "revenue": 38456,
+                        "balance": -140587,
+                        "prices": {
+                            "ticketPrice": 209,
+                            "cargoUnitPrice": 233,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 176,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 8,
+                                "Y": 168
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 6614,
+                        "aircraft": 6300,
+                        "handling": 792,
+                        "landing": 837
+                    },
+                    "revenue": {
+                        "tickets": 38456,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Tail strike on landing (pitch: 14.3, max: 13.0)",
+                            "penalty": {
+                                "points": -400,
+                                "cash": 150000
+                            },
+                            "entry": {
+                                "type": "spoilers",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 11.75m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -111,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "stall_end",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Bad touchdown: 2.29G (921 ft/min, normal  conditions)<br/>Distance from threshold: 562m (accepted range: 176-706m)<br/>Average centerline deviation: 9.64m<br/>Max centerline deviation: 11.75m",
+                            "penalty": {
+                                "points": -197,
+                                "cash": 14500
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.29,
+                                        "rate": 921
+                                    },
+                                    "weather": {
+                                        "windDir": 9.99,
+                                        "windSpd": 6.86,
+                                        "windX": -1.14
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-16T11:20:06.740Z",
+                "updatedAt": "2026-07-16T13:54:14.659Z",
+                "dep": {
+                    "icao": "LYTV",
+                    "name": "Tivat Airport",
+                    "city": "Tivat",
+                    "location": {
+                        "lat": 42.404701232910156,
+                        "lon": 18.72330093383789,
+                        "elev": 20
+                    }
+                },
+                "arr": {
+                    "icao": "EYVI",
+                    "name": "Vilnius International Airport",
+                    "city": "Vilnius",
+                    "location": {
+                        "lat": 54.634102,
+                        "lon": 25.285801,
+                        "elev": 648
+                    }
+                },
+                "actArr": {
+                    "icao": "EYVI",
+                    "name": "Vilnius International Airport",
+                    "city": "Vilnius",
+                    "location": {
+                        "lat": 54.634102,
+                        "lon": 25.285801,
+                        "elev": 648
+                    }
+                }
             }
         ]
     },
