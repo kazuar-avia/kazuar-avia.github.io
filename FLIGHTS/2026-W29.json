@@ -17897,6 +17897,189 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6a590e775760ec7cdb13fcef",
+                "aircraft": {
+                    "_id": "69ef2347a5e61d69a7a9a2b0",
+                    "name": "Airbus A320",
+                    "customName": "WizzAir Ukraine l A320 IAE SL based in UKBB l UR-WUB",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "74A",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 149,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-07-16T17:15:00.000Z",
+                "duration": 195,
+                "arrTime": "2026-07-16T20:30:00.000Z",
+                "depTimeAct": "2026-07-16T17:34:04.676Z",
+                "delay": 16,
+                "takeoffTimeAct": "2026-07-16T17:34:04.676Z",
+                "durationAct": 192,
+                "arrTimeAct": "2026-07-16T20:46:28.462Z",
+                "open": "2026-07-16T17:21:09.685Z",
+                "close": "2026-07-16T20:53:54.840Z",
+                "rating": 9.84,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1252,
+                        "fuel": 6351,
+                        "expenses": 15310,
+                        "penalties": 0,
+                        "revenue": 25777,
+                        "balance": 10467,
+                        "prices": {
+                            "ticketPrice": 173,
+                            "cargoUnitPrice": 186,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 149,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 149
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 5744,
+                        "aircraft": 7675,
+                        "handling": 730,
+                        "landing": 1161
+                    },
+                    "revenue": {
+                        "tickets": 25777,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Long landing (702m from threshold beyond 656m max accepted)",
+                            "penalty": {
+                                "points": -16,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 18
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.32,
+                                        "rate": 138
+                                    },
+                                    "weather": {
+                                        "windDir": 49.27,
+                                        "windSpd": 5.1,
+                                        "windX": -2.09
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.32G (138 ft/min, normal  conditions)<br/>Distance from threshold: 702m (accepted range: 163-656m)<br/>Average centerline deviation: 1.39m<br/>Max centerline deviation: 3.06m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 18
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.32,
+                                        "rate": 138
+                                    },
+                                    "weather": {
+                                        "windDir": 49.27,
+                                        "windSpd": 5.1,
+                                        "windX": -2.09
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Fuel used 6278 kg is lower than estimated minimum 6351 kg.",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 18
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.32,
+                                        "rate": 138
+                                    },
+                                    "weather": {
+                                        "windDir": 49.27,
+                                        "windSpd": 5.1,
+                                        "windX": -2.09
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-16T17:01:43.200Z",
+                "updatedAt": "2026-07-16T20:53:54.941Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "EGGW",
+                    "name": "London Luton Airport",
+                    "city": "Luton, Bedfordshire",
+                    "location": {
+                        "lat": 51.874699,
+                        "lon": -0.368333,
+                        "elev": 526
+                    }
+                },
+                "actArr": {
+                    "icao": "EGGW",
+                    "name": "London Luton Airport",
+                    "city": "Luton, Bedfordshire",
+                    "location": {
+                        "lat": 51.874699,
+                        "lon": -0.368333,
+                        "elev": 526
+                    }
+                }
             }
         ]
     },
