@@ -78,6 +78,12 @@ function routeRunsTodayOrTomorrow(route, now = new Date()) {
   return days.has(dayKey(now)) || days.has(dayKey(tomorrow));
 }
 
+function routeRunsToday(route, now = new Date()) {
+  const days = new Set(array(route?.days).map(day => String(day).trim().toLowerCase()));
+  if (!days.size) return true;
+  return days.has(dayKey(now));
+}
+
 function pick(obj, paths) {
   for (const pathText of paths) {
     const parts = pathText.split('.');
@@ -144,23 +150,32 @@ function normalizeCompletedRawFlight(raw, pilot = {}, week = null) {
 
 function loadCompletedFlights() {
   const flights = [];
+  const byId = new Map();
+  const addFlight = flight => {
+    if (!flight?.id) return;
+    byId.set(String(flight.id), flight);
+  };
   const archive = readJson(path.join(FLIGHTS_DIR, 'archive.json'), {flights: []});
-  array(archive.flights).forEach(flight => flights.push(flight));
+  array(archive.flights).forEach(addFlight);
 
   const manifest = readJson(path.join(FLIGHTS_DIR, 'manifest.json'), {});
-  const liveFile = manifest.liveFile ? path.join(FLIGHTS_DIR, manifest.liveFile) : '';
-  if (liveFile && fs.existsSync(liveFile)) {
-    const week = Number(manifest.liveWeek) || null;
-    const raw = readJson(liveFile, []);
+  const year = Number(manifest.year) || new Date().getUTCFullYear();
+  const nowWeek = currentIsoWeek();
+  const liveWeek = nowWeek.year === year ? nowWeek.week : Number(manifest.liveWeek || manifest.archiveThroughWeek + 1);
+  const firstWeek = Number(manifest.archiveThroughWeek || archive.throughWeek || 0) + 1;
+  for (let week = firstWeek; week <= liveWeek; week += 1) {
+    const weekFile = path.join(FLIGHTS_DIR, `${year}-W${String(week).padStart(2, '0')}.json`);
+    if (!fs.existsSync(weekFile)) continue;
+    const raw = readJson(weekFile, []);
     const pilots = Array.isArray(raw) ? raw : array(raw.results || raw.pilots);
     pilots.forEach(pilot => {
       array(pilot.flights || pilot.reports).forEach(item => {
         const normalized = normalizeCompletedRawFlight(item, pilot, week);
-        if (normalized?.id) flights.push(normalized);
+        addFlight(normalized);
       });
     });
   }
-  return flights;
+  return [...byId.values()];
 }
 
 function loadAirportLocations(flights) {
@@ -177,7 +192,56 @@ function loadAirportLocations(flights) {
     add(flight.arrival);
     add(flight.actualArrival);
   });
+  const ad = readJson(path.join(OUTPUT_ROOT, 'ADcoordinates.json'), {});
+  Object.entries(ad || {}).forEach(([icao, item]) => {
+    const code = upper(icao);
+    const lat = Number(item?.lat);
+    const lon = Number(item?.lon);
+    if (code && Number.isFinite(lat) && Number.isFinite(lon) && !map.has(code)) {
+      map.set(code, {icao: code, lat, lon, name: item.name || code, city: item.city || ''});
+    }
+  });
   return map;
+}
+
+function currentIsoWeek(date = new Date()) {
+  const value = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));
+  const day = value.getUTCDay() || 7;
+  value.setUTCDate(value.getUTCDate() + 4 - day);
+  const year = value.getUTCFullYear();
+  const yearStart = new Date(Date.UTC(year, 0, 1));
+  const week = Math.ceil((((value - yearStart) / 86400000) + 1) / 7);
+  return {year, week};
+}
+
+function completedFlightTimestamp(flight) {
+  return new Date(
+    flight?.times?.closed
+    || flight?.times?.actualArrival
+    || flight?.times?.takeoff
+    || flight?.times?.actualDeparture
+    || flight?.times?.scheduledDeparture
+    || 0
+  ).getTime() || 0;
+}
+
+function applyLatestCompletedLocations(flights, aircraftMaps) {
+  const latest = new Map();
+  flights.forEach(flight => {
+    if (flight?.status && flight.status !== 'completed') return;
+    const aircraftId = cleanId(flight?.aircraft?.id || flight?.aircraft?._id || flight?.aircraftId);
+    const arrival = upper(flight?.actualArrival?.icao || flight?.arrival?.icao);
+    if (!aircraftId || !arrival) return;
+    const timestamp = completedFlightTimestamp(flight);
+    const previous = latest.get(aircraftId);
+    if (!previous || timestamp >= previous.timestamp) latest.set(aircraftId, {arrival, timestamp});
+  });
+  latest.forEach((item, aircraftId) => {
+    const aircraft = aircraftMaps.byId.get(aircraftId);
+    if (!aircraft) return;
+    aircraft.lastflightlocationICAO = item.arrival;
+    aircraft.lastFlightLocationIcao = item.arrival;
+  });
 }
 
 function distanceNm(airports, from, to) {
@@ -309,14 +373,28 @@ function proposedRouteForAircraft({db, aircraft, airports, demand, now}) {
   const current = upper(aircraft.lastflightlocationICAO || aircraft.lastFlightLocationIcao || aircraft.locationIcao);
   const scheduleIcao = upper(aircraft.locationIcao);
   const mode = isCargoAircraft(aircraft, aircraft) ? 'cargo' : 'pax';
-  const routes = scheduleRoutesForAircraft(db, aircraft).filter(route => routeRunsTodayOrTomorrow(route, now));
-  const routeFromCurrent = routes.find(route => route.dep === current);
-  if (routes.length && current === scheduleIcao && routeFromCurrent) {
+  const activeRoutes = scheduleRoutesForAircraft(db, aircraft).filter(route => route?.active !== false);
+  const todayRoutes = activeRoutes.filter(route => routeRunsToday(route, now));
+  const routeFromCurrent = todayRoutes.find(route => route.dep === current);
+  if (todayRoutes.length && current === scheduleIcao && routeFromCurrent) {
     return {kind: 'schedule', reason: 'schedule', number: routeFromCurrent.number, dep: routeFromCurrent.dep, arr: routeFromCurrent.arr};
   }
-  const routeFromSchedule = routes.find(route => route.dep === scheduleIcao);
-  if (routes.length && routeFromSchedule && current !== scheduleIcao) {
-    return freeProposalWithRange(demand, airports, current, scheduleIcao, aircraft, mode, 'schedule-positioning');
+  const routeFromScheduleToday = todayRoutes.find(route => route.dep === scheduleIcao);
+  if (activeRoutes.length && scheduleIcao && current !== scheduleIcao) {
+    return freeProposalWithRange(
+      demand,
+      airports,
+      current,
+      scheduleIcao,
+      aircraft,
+      mode,
+      routeFromScheduleToday ? 'schedule-positioning' : 'maintenance-positioning'
+    );
+  }
+  if (activeRoutes.length && current === scheduleIcao) {
+    const demandRoute = demandProposalFromOrigin(demand, current, aircraft, mode, airports);
+    if (demandRoute) return demandRoute;
+    return null;
   }
   const bases = baseIcaosForAircraft(aircraft);
   if (bases.includes(current)) {
@@ -360,6 +438,13 @@ function liveAircraftIds(flight) {
 function normalizeLiveFlight(raw) {
   const dep = upper(pick(raw, ['dep.icao', 'departure.icao', 'dep', 'departure']));
   const arr = upper(pick(raw, ['arr.icao', 'arrival.icao', 'arr', 'arrival']));
+  const scheduleRaw = raw.schedule ?? raw.isSchedule ?? raw.operation?.schedule ?? raw.operations?.scheduled;
+  const freeRaw = raw.free ?? raw.isFree ?? raw.operation?.free;
+  const charterRaw = raw.charter ?? raw.isCharter ?? raw.operation?.charter ?? raw.operations?.charter;
+  const typeText = String(raw.type || raw.flightType || raw.operation?.type || raw.category || '').trim().toLowerCase();
+  const isSchedule = scheduleRaw === true || typeText === 'schedule' || typeText === 'scheduled';
+  const isCharter = charterRaw === true || typeText === 'charter';
+  const isFree = freeRaw === true || typeText === 'free' || (!isSchedule && !isCharter);
   return {
     id: cleanId(raw._id || raw.id),
     pilotId: cleanId(pick(raw, ['pilot.id', 'pilot._id', 'pilotId', 'pilotID'])),
@@ -368,8 +453,22 @@ function normalizeLiveFlight(raw) {
     arrIcao: arr,
     aircraftIds: liveAircraftIds(raw),
     airlineIcao: upper(pick(raw, ['airline.icao', 'airlineIcao'])) || 'UKL',
+    schedule: isSchedule,
+    free: isFree,
+    charter: isCharter,
     airborne: Boolean(raw.depTimeAct || raw.takeoffTimeAct || raw.takeoff || raw.status === 'enroute' || raw.status === 'ENROUTE')
   };
+}
+
+function liveMatchesProposalOperation(live, proposal) {
+  const kind = String(proposal?.kind || '').toLowerCase();
+  if (kind === 'schedule') {
+    const proposalNumber = String(proposal?.number || proposal?.label || '').trim();
+    const liveNumber = String(live.flightNumber || '').trim();
+    return live.schedule === true && (!proposalNumber || proposalNumber === liveNumber);
+  }
+  if (kind === 'free') return live.free === true;
+  return true;
 }
 
 function mergeLiveFlightDetail(raw, detail) {
@@ -477,6 +576,7 @@ async function main() {
   }
   const airports = loadAirportLocations(completedFlights);
   const aircraftMaps = aircraftKeyData(db, matching);
+  applyLatestCompletedLocations(completedFlights, aircraftMaps);
   const coefficient = loadAircraftCoefficient();
   const demand = parseDemandFile(path.join(OUTPUT_ROOT, 'newsky-charter-results.txt'));
 
@@ -530,6 +630,7 @@ async function main() {
       }
       if (!proposal) continue;
       if (proposal.dep !== live.depIcao || proposal.arr !== live.arrIcao) continue;
+      if (!liveMatchesProposalOperation(live, proposal)) continue;
       const amount = premiumAmount(airports, coefficient, aircraft, proposal.dep, proposal.arr);
       if (amount <= 0) continue;
       next.flights[live.id] = recordFromLive(live, aircraft, proposal, amount);
