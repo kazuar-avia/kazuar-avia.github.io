@@ -16911,6 +16911,195 @@
                         "elev": 1224
                     }
                 }
+            },
+            {
+                "_id": "6a58f5d95760ec7cdb11c046",
+                "aircraft": {
+                    "_id": "695a2a573dc76275bac8ccc8",
+                    "name": "Boeing 737-800 Freighter",
+                    "customName": "Supernova l 737-800F based in LKMT l UR-NPA",
+                    "icao": "B738"
+                },
+                "type": "cargo",
+                "flightNumber": "967U",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 0,
+                    "cargo": 145,
+                    "weights": {
+                        "cargo": 19430
+                    }
+                },
+                "depTime": "2026-07-16T15:30:00.000Z",
+                "duration": 130,
+                "arrTime": "2026-07-16T17:40:00.000Z",
+                "depTimeAct": "2026-07-16T15:31:57.586Z",
+                "delay": -20,
+                "takeoffTimeAct": "2026-07-16T15:36:12.593Z",
+                "durationAct": 104,
+                "arrTimeAct": "2026-07-16T17:19:50.569Z",
+                "open": "2026-07-16T15:29:02.599Z",
+                "close": "2026-07-16T17:22:46.604Z",
+                "rating": 7.54,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 709,
+                        "fuel": 4202,
+                        "expenses": 10945,
+                        "penalties": 0,
+                        "revenue": 21750,
+                        "balance": 10805,
+                        "prices": {
+                            "ticketPrice": 133,
+                            "cargoUnitPrice": 150,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 0,
+                            "cargo": 145,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4751,
+                        "aircraft": 5535,
+                        "handling": 65,
+                        "landing": 594
+                    },
+                    "revenue": {
+                        "tickets": 0,
+                        "cargo": 21750
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 4.60m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -7,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (1054m from threshold beyond 801m max accepted)",
+                            "penalty": {
+                                "points": -89,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.21,
+                                        "rate": 259
+                                    },
+                                    "weather": {
+                                        "windDir": 70,
+                                        "windSpd": 10.66,
+                                        "windX": -4.64
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.21G (259 ft/min, normal  conditions)<br/>Distance from threshold: 1054m (accepted range: 200-801m)<br/>Average centerline deviation: 1.96m<br/>Max centerline deviation: 4.60m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.21,
+                                        "rate": 259
+                                    },
+                                    "weather": {
+                                        "windDir": 70,
+                                        "windSpd": 10.66,
+                                        "windX": -4.64
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 899ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-16T15:16:41.736Z",
+                "updatedAt": "2026-07-16T17:22:46.680Z",
+                "dep": {
+                    "icao": "UKFF",
+                    "city": "Simferopol",
+                    "location": {
+                        "lat": 45.0522,
+                        "lon": 33.975101,
+                        "elev": 639
+                    },
+                    "name": "Simferopol International Airport"
+                },
+                "arr": {
+                    "icao": "LKMT",
+                    "name": "Ostrava Leos Janáček Airport",
+                    "city": "Mošnov",
+                    "location": {
+                        "lat": 49.696301,
+                        "lon": 18.111099,
+                        "elev": 844
+                    }
+                },
+                "actArr": {
+                    "icao": "LKMT",
+                    "name": "Ostrava Leos Janáček Airport",
+                    "city": "Mošnov",
+                    "location": {
+                        "lat": 49.696301,
+                        "lon": 18.111099,
+                        "elev": 844
+                    }
+                }
             }
         ]
     },
