@@ -14251,6 +14251,176 @@
                         "elev": 96
                     }
                 }
+            },
+            {
+                "_id": "6a5872605760ec7cdb0856ce",
+                "aircraft": {
+                    "_id": "695a67f93dc76275bad0c740",
+                    "name": "McDonnell Douglas MD-82",
+                    "customName": "Bravo Anda Khors l MD-82 based in UKKK l UR-CRX",
+                    "icao": "MD82"
+                },
+                "type": "pax",
+                "flightNumber": "993",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 84,
+                    "cargo": 23,
+                    "weights": {
+                        "cargo": 1518
+                    }
+                },
+                "depTime": "2026-07-16T06:40:00.000Z",
+                "duration": 170,
+                "arrTime": "2026-07-16T09:30:00.000Z",
+                "depTimeAct": "2026-07-16T06:39:42.547Z",
+                "delay": -8,
+                "takeoffTimeAct": "2026-07-16T06:50:13.528Z",
+                "durationAct": 152,
+                "arrTimeAct": "2026-07-16T09:22:13.320Z",
+                "open": "2026-07-16T06:25:05.134Z",
+                "close": "2026-07-16T09:28:00.083Z",
+                "rating": 8.64,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1050,
+                        "fuel": 7040,
+                        "expenses": 14562,
+                        "penalties": 0,
+                        "revenue": 16930,
+                        "balance": 2368,
+                        "prices": {
+                            "ticketPrice": 155,
+                            "cargoUnitPrice": 170,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.85
+                            }
+                        },
+                        "payload": {
+                            "pax": 84,
+                            "cargo": 23,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 84
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 7959,
+                        "aircraft": 5835,
+                        "handling": 432,
+                        "landing": 336
+                    },
+                    "revenue": {
+                        "tickets": 13020,
+                        "cargo": 3910
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 5.20m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -20,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "weather": {
+                                        "windDir": 0.14,
+                                        "windSpd": 10.38,
+                                        "windX": 4.4
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 14.55m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -116,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 44
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.42G (276 ft/min, challenging  conditions)<br/>Distance from threshold: 318m (accepted range: 169-679m)<br/>Average centerline deviation: 7.32m<br/>Max centerline deviation: 14.55m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 56
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.42,
+                                        "rate": 276
+                                    },
+                                    "weather": {
+                                        "windDir": 353.45,
+                                        "windSpd": 12.12,
+                                        "windX": -12.09
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-16T05:55:44.189Z",
+                "updatedAt": "2026-07-16T09:28:00.184Z",
+                "dep": {
+                    "icao": "LICR",
+                    "name": "Reggio Calabria Airport",
+                    "city": "Reggio Calabria",
+                    "location": {
+                        "lat": 38.071201,
+                        "lon": 15.6516,
+                        "elev": 96
+                    }
+                },
+                "arr": {
+                    "icao": "UKKK",
+                    "name": "Ihor Sikorsky Kyiv International Airport (Zhuliany)",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.40194,
+                        "lon": 30.45194,
+                        "elev": 587
+                    }
+                },
+                "actArr": {
+                    "icao": "UKKK",
+                    "name": "Ihor Sikorsky Kyiv International Airport (Zhuliany)",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.40194,
+                        "lon": 30.45194,
+                        "elev": 587
+                    }
+                }
             }
         ]
     },
