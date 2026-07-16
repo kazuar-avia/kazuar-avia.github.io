@@ -841,6 +841,43 @@ function guaranteedBonusRecordForFlight(flight) {
   return null;
 }
 
+function normalizeManualGuaranteedBonusRecord(key, value) {
+  const amount = typeof value === 'object' && value !== null
+    ? Number(value.amount ?? value.sum ?? value.bonus ?? 0)
+    : Number(value || 0);
+  if (!Number.isFinite(amount) || amount <= 0) return null;
+  return {
+    amount: Math.round(amount),
+    state: 'DONE',
+    status: 'manual',
+    manual: true,
+    flightId: String(key || '').trim()
+  };
+}
+
+function mergeGuaranteedBonuses(autoBonuses, manualBonuses) {
+  const merged = {
+    ...(autoBonuses && typeof autoBonuses === 'object' ? autoBonuses : {}),
+    flights: {
+      ...((autoBonuses && typeof autoBonuses === 'object' && autoBonuses.flights && typeof autoBonuses.flights === 'object') ? autoBonuses.flights : {})
+    }
+  };
+  const manualSource = manualBonuses && typeof manualBonuses === 'object'
+    ? (manualBonuses.flights && typeof manualBonuses.flights === 'object' ? manualBonuses.flights : manualBonuses)
+    : {};
+  Object.entries(manualSource || {}).forEach(([key, value]) => {
+    const id = String(key || '').trim();
+    if (!id || id === 'version' || id === 'updatedAt') return;
+    const record = normalizeManualGuaranteedBonusRecord(id, value);
+    if (!record) return;
+    merged.flights[id] = {
+      ...(merged.flights[id] && typeof merged.flights[id] === 'object' ? merged.flights[id] : {}),
+      ...record
+    };
+  });
+  return merged;
+}
+
 function reconcileGuaranteedBonusStatesWithCompletedFlights() {
   const source = app.guaranteedBonuses || {};
   const records = source.flights && typeof source.flights === 'object' ? source.flights : source;
@@ -2759,13 +2796,14 @@ async function loadCompanyCharterDemand(cacheMode = 'default') {
 async function loadDatabases() {
   const status = $('#dataStatus');
   try {
-    const [loaded, companyData, companyLiveryData, companyLiveryMatching, companyCharterDemand, guaranteedBonuses, adCoordinates] = await Promise.all([
+    const [loaded, companyData, companyLiveryData, companyLiveryMatching, companyCharterDemand, guaranteedBonuses, manualGuaranteedBonuses, adCoordinates] = await Promise.all([
       window.UCAAFlightData.loadWeeklyFlights(message => { status.textContent = message; }),
       fetch('COMPANY/company-data.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
       fetch('COMPANY/ucaa-livery-database.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
       fetch('COMPANY/livery-matching.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
       loadCompanyCharterDemand('default'),
       fetch('COMPANY/guaranteed-bonuses.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
+      fetch('COMPANY/guaranteed-bonuses-manual.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
       fetch('ADcoordinates.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null)
     ]);
     const {archive, current} = loaded;
@@ -2776,7 +2814,7 @@ async function loadDatabases() {
     app.companyLiveryMatching = companyLiveryMatching;
     window.UCAACompanyLiveryMatching = companyLiveryMatching || null;
     app.companyCharterDemand = companyCharterDemand || {};
-    app.guaranteedBonuses = guaranteedBonuses || {};
+    app.guaranteedBonuses = mergeGuaranteedBonuses(guaranteedBonuses || {}, manualGuaranteedBonuses || {});
     app.airportCoordinates = loaded.airportLocations || {};
     app.adCoordinates = adCoordinates || {};
     app.flights = loaded.flights;
@@ -2824,13 +2862,14 @@ async function refreshDatabasesSoft() {
   const status = $('#dataStatus');
   const loader = window.UCAAFlightData?.reloadWeeklyFlights || window.UCAAFlightData?.loadWeeklyFlights;
   if (!loader) return loadDatabases();
-  const [loaded, companyData, companyLiveryData, companyLiveryMatching, companyCharterDemand, guaranteedBonuses, adCoordinates] = await Promise.all([
+  const [loaded, companyData, companyLiveryData, companyLiveryMatching, companyCharterDemand, guaranteedBonuses, manualGuaranteedBonuses, adCoordinates] = await Promise.all([
     loader(message => { if (status) status.textContent = message; }),
     fetch('COMPANY/company-data.json', {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
     fetch('COMPANY/ucaa-livery-database.json', {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
     fetch('COMPANY/livery-matching.json', {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
     loadCompanyCharterDemand('no-store'),
     fetch(`COMPANY/guaranteed-bonuses.json?v=${Date.now()}`, {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
+    fetch(`COMPANY/guaranteed-bonuses-manual.json?v=${Date.now()}`, {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
     fetch(`ADcoordinates.json?v=${Date.now()}`, {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null)
   ]);
   const {archive, current} = loaded;
@@ -2841,7 +2880,7 @@ async function refreshDatabasesSoft() {
   app.companyLiveryMatching = companyLiveryMatching;
   window.UCAACompanyLiveryMatching = companyLiveryMatching || null;
   app.companyCharterDemand = companyCharterDemand || {};
-  app.guaranteedBonuses = guaranteedBonuses || {};
+  app.guaranteedBonuses = mergeGuaranteedBonuses(guaranteedBonuses || {}, manualGuaranteedBonuses || {});
   app.airportCoordinates = loaded.airportLocations || {};
   app.adCoordinates = adCoordinates || {};
   app.flights = loaded.flights;
