@@ -21415,6 +21415,300 @@
                         "elev": 1071
                     }
                 }
+            },
+            {
+                "_id": "6a5a62a96748d36670137717",
+                "aircraft": {
+                    "_id": "6a44df9f5760ec7cdb904230",
+                    "name": "Cessna 408 SkyCourier",
+                    "customName": "Cessna C408",
+                    "icao": "C408"
+                },
+                "type": "pax",
+                "flightNumber": "13AB",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 18,
+                    "cargo": 1,
+                    "weights": {
+                        "cargo": 116
+                    }
+                },
+                "depTime": "2026-07-17T17:45:00.000Z",
+                "duration": 75,
+                "arrTime": "2026-07-17T19:00:00.000Z",
+                "depTimeAct": "2026-07-17T17:26:23.889Z",
+                "delay": -12,
+                "takeoffTimeAct": "2026-07-17T17:47:19.881Z",
+                "durationAct": 61,
+                "arrTimeAct": "2026-07-17T18:47:50.885Z",
+                "open": "2026-07-17T17:17:48.551Z",
+                "close": "2026-07-17T18:55:03.475Z",
+                "rating": 0.01,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 185,
+                        "fuel": 307,
+                        "expenses": 1028,
+                        "penalties": 40027,
+                        "revenue": 1460,
+                        "balance": -39595,
+                        "prices": {
+                            "ticketPrice": 76,
+                            "cargoUnitPrice": 92,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 18,
+                            "cargo": 1,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 18
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 348,
+                        "aircraft": 545,
+                        "handling": 81,
+                        "landing": 54
+                    },
+                    "revenue": {
+                        "tickets": 1368,
+                        "cargo": 92
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight departed 3 minutes too early (max 15 minutes before scheduled is allowed)",
+                            "penalty": {
+                                "points": -15,
+                                "cash": 27
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 20
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "MTOW exceeded: 1329kg above maximum takeoff weight of 8618kg",
+                            "penalty": {
+                                "points": -300,
+                                "cash": 20000
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 20
+                                    },
+                                    "weather": {
+                                        "windDir": 33.07,
+                                        "windSpd": 8.5,
+                                        "windX": -8.39
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1013mb instead of 1016.6mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 20
+                                    },
+                                    "weather": {
+                                        "windDir": 33.07,
+                                        "windSpd": 8.5,
+                                        "windX": -8.39
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "MLW exceeded: 1204kg above maximum landing weight of 8437kg",
+                            "penalty": {
+                                "points": -300,
+                                "cash": 20000
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 19
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.15,
+                                        "rate": 143
+                                    },
+                                    "weather": {
+                                        "windDir": 52.4,
+                                        "windSpd": 3.81,
+                                        "windX": -3.81
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 9.91m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -44,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 20
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.15G (143 ft/min, challenging  conditions)<br/>Distance from threshold: 635m (accepted range: 175-703m)<br/>Average centerline deviation: 5.32m<br/>Max centerline deviation: 9.91m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 19
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.15,
+                                        "rate": 143
+                                    },
+                                    "weather": {
+                                        "windDir": 52.4,
+                                        "windSpd": 3.81,
+                                        "windX": -3.81
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on landing: 1013mb instead of 1015.4mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 19
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.15,
+                                        "rate": 143
+                                    },
+                                    "weather": {
+                                        "windDir": 52.4,
+                                        "windSpd": 3.81,
+                                        "windX": -3.81
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No BEACON lights for 5733s when required",
+                            "penalty": {
+                                "points": -100,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        },
+                        {
+                            "title": "No STROBE lights for 1201s when required",
+                            "penalty": {
+                                "points": -100,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        },
+                        {
+                            "title": "Max G exceeded: 2.2G (max allowed: 2G)",
+                            "penalty": {
+                                "points": -40,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 18
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-17T17:13:13.312Z",
+                "updatedAt": "2026-07-17T18:55:03.576Z",
+                "dep": {
+                    "icao": "UKKV",
+                    "city": "Zhytomyr",
+                    "location": {
+                        "lat": 50.270556,
+                        "lon": 28.738611,
+                        "elev": 722.5
+                    },
+                    "name": "Zhytomyr Airport"
+                },
+                "arr": {
+                    "icao": "UKKE",
+                    "name": "Cherkasy International Airport",
+                    "city": "Cherkasy",
+                    "location": {
+                        "lat": 49.4156,
+                        "lon": 31.9953,
+                        "elev": 375
+                    }
+                },
+                "actArr": {
+                    "icao": "UKKE",
+                    "name": "Cherkasy International Airport",
+                    "city": "Cherkasy",
+                    "location": {
+                        "lat": 49.4156,
+                        "lon": 31.9953,
+                        "elev": 375
+                    }
+                }
             }
         ]
     },
