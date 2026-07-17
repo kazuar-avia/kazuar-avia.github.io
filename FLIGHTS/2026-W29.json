@@ -21215,5 +21215,180 @@
                 }
             }
         ]
+    },
+    {
+        "pilot_id": "6957b3673dc76275ba7e053e",
+        "fullname": "Kazuar Avia",
+        "avatar": "6957b3673dc76275ba7e053e1777215050804",
+        "flights": [
+            {
+                "_id": "6a5a43f75760ec7cdb277b29",
+                "aircraft": {
+                    "_id": "69ff1763a5e61d69a71adbb5",
+                    "name": "Cessna 208 Caravan",
+                    "customName": "UCAA l Cessna 208 (pax) based in UKLR l UR-PAX",
+                    "icao": "C208"
+                },
+                "type": "pax",
+                "flightNumber": "56B",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 11,
+                    "cargo": 1,
+                    "weights": {
+                        "cargo": 80
+                    }
+                },
+                "depTime": "2026-07-17T15:15:00.000Z",
+                "duration": 50,
+                "arrTime": "2026-07-17T16:05:00.000Z",
+                "depTimeAct": "2026-07-17T15:15:33.204Z",
+                "delay": -15,
+                "takeoffTimeAct": "2026-07-17T15:16:50.213Z",
+                "durationAct": 33,
+                "arrTimeAct": "2026-07-17T15:49:51.214Z",
+                "open": "2026-07-17T15:11:00.231Z",
+                "close": "2026-07-17T15:52:26.245Z",
+                "rating": 6.5,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 82,
+                        "fuel": 92,
+                        "expenses": 355,
+                        "penalties": 0,
+                        "revenue": 606,
+                        "balance": 251,
+                        "prices": {
+                            "ticketPrice": 50,
+                            "cargoUnitPrice": 56,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 11,
+                            "cargo": 1,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 11
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 84,
+                        "aircraft": 204,
+                        "handling": 39,
+                        "landing": 28
+                    },
+                    "revenue": {
+                        "tickets": 550,
+                        "cargo": 56
+                    },
+                    "violations": [
+                        {
+                            "title": "Altimeter incorrect on takeoff: 948mb instead of 1015.4mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "weather": {
+                                        "windDir": 46.54,
+                                        "windSpd": 8.92,
+                                        "windX": -5.48
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.46G (219 ft/min, challenging  conditions)<br/>Distance from threshold: 310m (accepted range: 140-564m)<br/>Average centerline deviation: 1.50m<br/>Max centerline deviation: 2.29m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.46,
+                                        "rate": 219
+                                    },
+                                    "weather": {
+                                        "windDir": 48.92,
+                                        "windSpd": 6.54,
+                                        "windX": 6.53
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Stall warning for 20 seconds",
+                            "penalty": {
+                                "points": -300,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-17T15:02:15.111Z",
+                "updatedAt": "2026-07-17T15:52:26.354Z",
+                "dep": {
+                    "icao": "UKKK",
+                    "name": "Ihor Sikorsky Kyiv International Airport (Zhuliany)",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.40194,
+                        "lon": 30.45194,
+                        "elev": 587
+                    }
+                },
+                "arr": {
+                    "icao": "UKKV",
+                    "city": "Zhytomyr",
+                    "location": {
+                        "lat": 50.270556,
+                        "lon": 28.738611,
+                        "elev": 722.5
+                    },
+                    "name": "Zhytomyr Airport"
+                },
+                "actArr": {
+                    "icao": "UKKV",
+                    "city": "Zhytomyr",
+                    "location": {
+                        "lat": 50.270556,
+                        "lon": 28.738611,
+                        "elev": 722.5
+                    },
+                    "name": "Zhytomyr Airport"
+                }
+            }
+        ]
     }
 ]
