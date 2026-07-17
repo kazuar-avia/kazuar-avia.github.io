@@ -14,6 +14,7 @@ const app = {
   companyLiveryData: null,
   companyLiveryMatching: null,
   companyCharterDemand: {},
+  routeMissions: {},
   guaranteedBonuses: {},
   airportCoordinates: {},
   adCoordinates: {},
@@ -2805,12 +2806,13 @@ async function loadCompanyCharterDemand(cacheMode = 'default') {
 async function loadDatabases() {
   const status = $('#dataStatus');
   try {
-    const [loaded, companyData, companyLiveryData, companyLiveryMatching, companyCharterDemand, guaranteedBonuses, manualGuaranteedBonuses, adCoordinates] = await Promise.all([
+    const [loaded, companyData, companyLiveryData, companyLiveryMatching, companyCharterDemand, routeMissions, guaranteedBonuses, manualGuaranteedBonuses, adCoordinates] = await Promise.all([
       window.UCAAFlightData.loadWeeklyFlights(message => { status.textContent = message; }),
       fetch('COMPANY/company-data.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
       fetch('COMPANY/ucaa-livery-database.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
       fetch('COMPANY/livery-matching.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
       loadCompanyCharterDemand('default'),
+      fetch('COMPANY/route-missions.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
       fetch('COMPANY/guaranteed-bonuses.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
       fetch('COMPANY/guaranteed-bonuses-manual.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
       fetch('ADcoordinates.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null)
@@ -2823,6 +2825,7 @@ async function loadDatabases() {
     app.companyLiveryMatching = companyLiveryMatching;
     window.UCAACompanyLiveryMatching = companyLiveryMatching || null;
     app.companyCharterDemand = companyCharterDemand || {};
+    app.routeMissions = routeMissions || {};
     app.guaranteedBonuses = mergeGuaranteedBonuses(guaranteedBonuses || {}, manualGuaranteedBonuses || {});
     app.airportCoordinates = loaded.airportLocations || {};
     app.adCoordinates = adCoordinates || {};
@@ -2871,12 +2874,13 @@ async function refreshDatabasesSoft() {
   const status = $('#dataStatus');
   const loader = window.UCAAFlightData?.reloadWeeklyFlights || window.UCAAFlightData?.loadWeeklyFlights;
   if (!loader) return loadDatabases();
-  const [loaded, companyData, companyLiveryData, companyLiveryMatching, companyCharterDemand, guaranteedBonuses, manualGuaranteedBonuses, adCoordinates] = await Promise.all([
+  const [loaded, companyData, companyLiveryData, companyLiveryMatching, companyCharterDemand, routeMissions, guaranteedBonuses, manualGuaranteedBonuses, adCoordinates] = await Promise.all([
     loader(message => { if (status) status.textContent = message; }),
     fetch('COMPANY/company-data.json', {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
     fetch('COMPANY/ucaa-livery-database.json', {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
     fetch('COMPANY/livery-matching.json', {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
     loadCompanyCharterDemand('no-store'),
+    fetch(`COMPANY/route-missions.json?v=${Date.now()}`, {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
     fetch(`COMPANY/guaranteed-bonuses.json?v=${Date.now()}`, {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
     fetch(`COMPANY/guaranteed-bonuses-manual.json?v=${Date.now()}`, {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
     fetch(`ADcoordinates.json?v=${Date.now()}`, {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null)
@@ -2889,6 +2893,7 @@ async function refreshDatabasesSoft() {
   app.companyLiveryMatching = companyLiveryMatching;
   window.UCAACompanyLiveryMatching = companyLiveryMatching || null;
   app.companyCharterDemand = companyCharterDemand || {};
+  app.routeMissions = routeMissions || {};
   app.guaranteedBonuses = mergeGuaranteedBonuses(guaranteedBonuses || {}, manualGuaranteedBonuses || {});
   app.airportCoordinates = loaded.airportLocations || {};
   app.adCoordinates = adCoordinates || {};
@@ -3509,8 +3514,145 @@ function openCompanyLiveryDialog(card, titleText, index = -1) {
   if (index === 8) {
     imageHtml = `<img class="company-livery-modal-image" src="E190-UCAA-red-grey.jpg" alt="${esc(title.textContent)}">`;
   }
-  body.innerHTML = `${imageHtml}<div class="company-livery-downloads">${normalizeLiveryDownloadDetails(details ? details.innerHTML : '')}</div>`;
+  body.innerHTML = `${companyWetLeaseMissionHtml(card, index)}${imageHtml}<div class="company-livery-downloads">${normalizeLiveryDownloadDetails(details ? details.innerHTML : '')}</div>`;
   showCompanyLiveryDialog(dialog);
+}
+
+const COMPANY_WET_LEASE_MISSIONS = [
+  {
+    title: 'UR-UCA — Boeing 737-800',
+    subtitle: 'Хребет України',
+    image: 'UCA-mission.jpg',
+    text: 'Основний пасажирський літак внутрішньої мережі UCAA. Він з’єднує великі міста України прямими рейсами.',
+    bullets: [
+      'Пряме сполучення між великими регіональними центрами.',
+      'Регулярні, ділові, спортивні та спеціальні пасажирські рейси.',
+      'Мінімум банальних маршрутів через Бориспіль і Львів.',
+      'Основна база — UKKK Жуляни.',
+      'Головна місія — зробити Україну зв’язаною між собою.'
+    ]
+  },
+  {
+    title: 'UR-BUS — Airbus A320',
+    subtitle: 'Східні ворота до Європи',
+    image: 'BUS-mission.jpg',
+    text: 'Міжнародний пасажирський борт із базою в Запоріжжі. Він відкриває європейські напрямки для промислових і регіональних центрів України.',
+    bullets: [
+      'Основна база — UKDE Запоріжжя.',
+      'Перевезення інженерів, бізнес-делегацій, студентів і технічних фахівців.',
+      'Міжнародні рейси з Харкова, Дніпра, Одеси та Івано-Франківська.',
+      'Акцент на небанальні європейські напрямки замість масових курортів.',
+      'Підтримка міжнародних зв’язків українських регіонів.'
+    ]
+  },
+  {
+    title: 'UR-FKR — Fokker 100',
+    subtitle: 'Авіація повертається в регіони',
+    image: 'FKR-mission.jpg',
+    text: 'Літак для аеропортів, де регулярні реактивні рейси стали рідкістю. Він виконує чартери, спеціальні перевезення та регіональні місії.',
+    bullets: [
+      'Основна база — UKHH Харків.',
+      'Рідкісні туристичні чартери з невеликих міст.',
+      'Перевезення студентів, науковців, інженерів і спортивних команд.',
+      'Робота в аеропортах, для яких B737 або A320 надмірні.',
+      'Символ повернення великої авіації до українських регіонів.'
+    ]
+  },
+  {
+    title: 'UR-CAA — Boeing 737-800BCF',
+    subtitle: 'Регіональний Cargo Express',
+    image: 'CAA-mission.jpg',
+    text: 'Середньомагістральний вантажний літак для маршрутів, де Cessna вже замала, а A300 — надто великий.',
+    bullets: [
+      'Основна база — UKKM Гостомель.',
+      'Регіональні карго-вильоти через UKLR, UKLN, UKDE та UKDR.',
+      'Перевезення меблів, текстилю, автокомпонентів і промислового обладнання.',
+      'Робота з другорядними європейськими вантажними аеропортами.',
+      'Не дублює магістральні маршрути A300F і 777F.'
+    ]
+  },
+  {
+    title: 'UR-LDC — Airbus A300-600F',
+    subtitle: 'Європейський карго-хаб',
+    image: 'LDC-mission.jpg',
+    text: 'Класичний магістральний вантажний літак UCAA. Він перевозить великі консолідовані партії між Гостомелем і головними європейськими карго-вузлами.',
+    bullets: [
+      'Основна база — UKKM Гостомель.',
+      'Регулярні рейси до Кельна, Лейпцига, Льєжа, Бергамо та інших хабів.',
+      'Привозить вантаж для подальшого розподілу по Україні.',
+      'Працює з e-commerce, поштою, фармацевтикою та промисловими партіями.',
+      'Є основою європейської магістральної логістики UCAA.'
+    ]
+  },
+  {
+    title: 'UR-CRG — Boeing 777F',
+    subtitle: 'Heavy Cargo',
+    image: 'CRG-mission.jpg',
+    text: 'Найпотужніший вантажний літак компанії для важких, термінових і великогабаритних контрактів.',
+    bullets: [
+      'Основна база — UKBB Бориспіль.',
+      'Перевезення важких і негабаритних вантажів.',
+      'Європейські контракти до Люксембурга, Станстеда, Франкфурта та Сарагоси.',
+      'Один далекомагістральний рейс до Гонконгу на тиждень.',
+      'Виконує місії, для яких місткості A300F вже недостатньо.'
+    ]
+  },
+  {
+    title: 'UR-PAX — Cessna 208 Caravan',
+    subtitle: 'Карпатський експрес',
+    image: 'PAX-mission.jpg',
+    text: 'Малий пасажирський літак із базою в Рівному, створений для сполучення західних областей без пересадки в Києві.',
+    bullets: [
+      'Основна база — UKLR Рівне.',
+      'Рейси до Луцька, Тернополя, Ужгорода, Житомира та Хмельницького.',
+      'Перевезення місцевих пасажирів, підприємців, студентів і медиків.',
+      'Короткі регіональні маршрути між сусідніми областями.',
+      'Забезпечує постійну доступність малих аеропортів заходу України.'
+    ]
+  },
+  {
+    title: 'UR-VAN — Cessna 208 Caravan Cargo',
+    subtitle: 'Гуманітарні крила',
+    image: 'VAN-mission.jpg',
+    text: 'Невеликий вантажний літак для маршрутів, де швидкість і доступність важливіші за прибуток.',
+    bullets: [
+      'Основна база — UKDE Запоріжжя.',
+      'Рейси до Донецька, Луганська, Маріуполя та Харкова.',
+      'Перевезення гуманітарних і медичних вантажів.',
+      'Може працювати з коротких і слабше обладнаних аеродромів.',
+      'Його головний принцип: найцінніший вантаж — той, на який чекають.'
+    ]
+  },
+  {
+    title: 'UR-ECA — Embraer 190F',
+    subtitle: 'Одеський Market Express',
+    image: 'ECA-mission.jpg',
+    text: 'Регіональний вантажний літак, який забирає консолідовані партії в Одесі та Гостомелі й розвозить їх до обласних центрів.',
+    bullets: [
+      'Основна база — UKOO Одеса, карго-вузол — UKKM Гостомель.',
+      'Забирає вантаж, доставлений важкими карго-бортами.',
+      'Обслуговує торговельні мережі та регіональний бізнес.',
+      'Доставляє промислову автоматику, медичні товари й комплектуючі.',
+      'Виконує роль швидкої «останньої милі» між карго-хабом і регіонами.'
+    ]
+  }
+];
+
+function companyWetLeaseMissionHtml(card, index = -1) {
+  if (!card?.closest?.('.wetlease-section')) return '';
+  const mission = COMPANY_WET_LEASE_MISSIONS[index];
+  if (!mission) return '';
+  const bullets = (mission.bullets || []).map(item => `<li>${esc(item)}</li>`).join('');
+  const imageHtml = mission.image ? `<img class="company-livery-mission-image" src="${esc(mission.image)}" alt="${esc(mission.title)}" loading="lazy" onerror="this.remove()">` : '';
+  return `<section class="company-livery-mission">
+    <div class="company-livery-mission-copy">
+      <div class="company-livery-mission-title">${esc(mission.title)}</div>
+      <div class="company-livery-mission-subtitle">${esc(mission.subtitle)}</div>
+      <p>${esc(mission.text)}</p>
+      <ul>${bullets}</ul>
+    </div>
+    ${imageHtml}
+  </section>`;
 }
 
 function normalizeLiveryDownloadDetails(html) {
@@ -4044,8 +4186,11 @@ function liveryLatestScheduleAirportIcao(flights, aircraft) {
 function liveryProposalBadge(kind, label, meta = {}) {
   const key = kind === 'schedule' ? 'schedule' : 'free';
   const extraClass = meta.badgeClass ? ` ${esc(meta.badgeClass)}` : '';
-  const title = meta.title ? ` title="${esc(meta.title)}"` : '';
-  return `<span class="flight-number-link flight-number-${key} company-livery-proposal-badge${extraClass}"${title}>${esc(label)}</span>`;
+  const titleParts = String(meta.title || '').split('\n').map(item => item.trim()).filter(Boolean);
+  const tooltip = titleParts.length
+    ? `<span class="company-livery-proposal-tooltip"><strong>${esc(titleParts[0])}</strong>${titleParts.slice(1).map(item => `<span>${esc(item)}</span>`).join('')}</span>`
+    : '';
+  return `<span class="flight-number-link flight-number-${key} company-livery-proposal-badge${extraClass}">${esc(label)}${tooltip}</span>`;
 }
 
 function liveryRouteProposalText(kind, label, originIcao, destinationIcao, meta = {}) {
@@ -4076,22 +4221,73 @@ function liveryScheduleCandidateRoutes(routes) {
     .filter(liveryRouteRunsToday);
 }
 
-function liveryChooseScheduleRoute(routes, depIcao) {
+function liveryScheduleRotationDate() {
+  const date = app.referenceNow instanceof Date && Number.isFinite(app.referenceNow.getTime())
+    ? app.referenceNow
+    : new Date();
+  return new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), 1));
+}
+
+function liveryScheduleRotationHash(value) {
+  let hash = 0;
+  String(value || '').split('').forEach(char => {
+    hash = ((hash * 31) + char.charCodeAt(0)) >>> 0;
+  });
+  return hash;
+}
+
+function liveryAircraftFlightMatches(flight, aircraft) {
+  const id = String(aircraft?.id || aircraft?._id || '').trim();
+  const reg = String(aircraft?.registration || '').trim().toUpperCase();
+  const flightId = String(flight?.aircraft?.id || flight?.aircraft?._id || flight?.aircraftId || '').trim();
+  if (id && flightId === id) return true;
+  if (!reg) return false;
+  const matching = companyLiveryMatchingRecordByKey(flightId);
+  if (matching && String(matching.registration || '').trim().toUpperCase() === reg) return true;
+  const text = `${flight?.aircraft?.name || ''} ${flight?.aircraft?.customName || ''} ${newskyAircraftName(flightId) || ''}`.toUpperCase();
+  return text.includes(reg);
+}
+
+function liveryScheduleRouteUsage(route, aircraft, since) {
+  const number = String(route?.number || '').trim();
+  if (!number || !aircraft) return 0;
+  return (app.flights || []).filter(flight => {
+    if (flight.status !== 'completed') return false;
+    if (String(flight.flightNumber || '').trim() !== number) return false;
+    if (since && flightEndDateForDisplay(flight) < since) return false;
+    return liveryAircraftFlightMatches(flight, aircraft);
+  }).length;
+}
+
+function liveryPickScheduleRoute(routes, aircraft = null) {
+  const pool = (routes || [])
+    .filter(Boolean)
+    .sort((a, b) => (Number(a.number) || 0) - (Number(b.number) || 0) || String(a.number || '').localeCompare(String(b.number || '')));
+  if (pool.length <= 1) return pool[0] || null;
+  const since = liveryScheduleRotationDate();
+  const scored = pool.map(route => ({route, usage: liveryScheduleRouteUsage(route, aircraft, since)}));
+  const minUsage = Math.min(...scored.map(item => item.usage));
+  const tied = scored.filter(item => item.usage === minUsage).map(item => item.route);
+  if (tied.length <= 1) return tied[0] || null;
+  const date = app.referenceNow instanceof Date && Number.isFinite(app.referenceNow.getTime()) ? app.referenceNow : new Date();
+  const seed = date.getUTCDate() + liveryScheduleRotationHash(aircraft?.registration || aircraft?.id || '');
+  return tied[seed % tied.length] || tied[0] || null;
+}
+
+function liveryChooseScheduleRoute(routes, depIcao, aircraft = null) {
   const dep = String(depIcao || '').trim().toUpperCase();
   const pool = liveryScheduleCandidateRoutes(routes);
   if (dep) {
-    const fromDep = pool.find(route => route.dep === dep);
-    if (fromDep) return fromDep;
-    return null;
+    return liveryPickScheduleRoute(pool.filter(route => route.dep === dep), aircraft);
   }
-  return pool[0] || null;
+  return liveryPickScheduleRoute(pool, aircraft);
 }
 
-function liveryScheduleRouteFrom(routes, depIcao) {
+function liveryScheduleRouteFrom(routes, depIcao, aircraft = null) {
   const dep = String(depIcao || '').trim().toUpperCase();
   if (!dep) return null;
   const pool = liveryScheduleCandidateRoutes(routes);
-  return pool.find(route => route.dep === dep) || null;
+  return liveryPickScheduleRoute(pool.filter(route => route.dep === dep), aircraft);
 }
 
 function liveryBaseIcaosForAircraft(aircraft) {
@@ -4143,12 +4339,77 @@ function liveryScheduleTimingLabel(route) {
   return 'сьогодні/завтра';
 }
 
+function liveryDayWord(value) {
+  const n = Math.abs(Number(value) || 0);
+  const mod10 = n % 10;
+  const mod100 = n % 100;
+  if (mod10 === 1 && mod100 !== 11) return 'день';
+  if (mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14)) return 'дні';
+  return 'днів';
+}
+
+function liveryRouteNextRunOffset(route) {
+  if (!route) return null;
+  const keys = ['sun','mon','tue','wed','thu','fri','sat'];
+  const date = app.referenceNow instanceof Date && Number.isFinite(app.referenceNow.getTime())
+    ? app.referenceNow
+    : new Date();
+  const todayIndex = date.getUTCDay();
+  const days = Array.isArray(route?.days) ? route.days : [];
+  for (let offset = 0; offset < 7; offset += 1) {
+    const key = keys[(todayIndex + offset) % 7];
+    if (route?.[key] === true || days.includes(key)) return offset;
+  }
+  return null;
+}
+
+function liveryScheduleTimingLabelFromOffset(offset) {
+  const value = Number(offset);
+  if (!Number.isFinite(value)) return '';
+  if (value <= 0) return 'сьогодні';
+  if (value === 1) return 'завтра';
+  return `через ${value} ${liveryDayWord(value)}`;
+}
+
+function liveryNearestScheduleFromIcao(routes, depIcao, aircraft = null) {
+  const dep = String(depIcao || '').trim().toUpperCase();
+  if (!dep) return null;
+  const candidates = (routes || [])
+    .filter(route => route?.active !== false)
+    .filter(route => String(route?.dep || '').trim().toUpperCase() === dep)
+    .map(route => ({route, offset: liveryRouteNextRunOffset(route)}))
+    .filter(item => item.offset !== null);
+  if (!candidates.length) return null;
+  const minOffset = Math.min(...candidates.map(item => item.offset));
+  const selected = liveryPickScheduleRoute(candidates.filter(item => item.offset === minOffset).map(item => item.route), aircraft);
+  const match = candidates.find(item => item.route === selected) || candidates.find(item => item.offset === minOffset);
+  return match || null;
+}
+
+function liveryNearestScheduleTooltip(routes, depIcao, aircraft = null) {
+  const nearest = liveryNearestScheduleFromIcao(routes, depIcao, aircraft);
+  if (!nearest?.route) return '';
+  const route = nearest.route;
+  const dep = String(route.dep || depIcao || '').trim().toUpperCase();
+  const arr = String(route.arr || '').trim().toUpperCase();
+  const number = String(route.number || '').trim();
+  const timing = liveryScheduleTimingLabelFromOffset(nearest.offset);
+  const routeText = `${number ? `${number} ` : ''}${dep}${arr ? ` → ${arr}` : ''}`.trim();
+  return `Найближчий SCHEDULE з ${dep}${timing ? ` ${timing}` : ''}: ${routeText}`;
+}
+
+function liveryAppendNearestScheduleTooltip(title, routes, depIcao, aircraft = null) {
+  const nearest = liveryNearestScheduleTooltip(routes, depIcao, aircraft);
+  if (!nearest) return title || '';
+  return [title, nearest].filter(Boolean).join('\n');
+}
+
 function liveryAircraftDemandMode(aircraft, title = '') {
   const text = `${aircraft?.name || ''} ${newskyAircraftName(aircraft?.id) || ''} ${aircraft?.airframeIdent || ''} ${aircraft?.airframeType || ''} ${title}`.toLowerCase();
   return /(cargo|freighter|737-800f|737f|777f|\bf\b|bcf|qt)/i.test(text) ? 'cargo' : 'pax';
 }
 
-function liveryCharterDemandProposal(currentIcao, aircraft, title = '') {
+function liveryCharterDemandProposal(currentIcao, aircraft, title = '', routes = []) {
   const current = String(currentIcao || '').trim().toUpperCase();
   if (!current) return null;
   const info = app.companyCharterDemand?.[current];
@@ -4159,16 +4420,17 @@ function liveryCharterDemandProposal(currentIcao, aircraft, title = '') {
   if (!destination || destination === current) return null;
   const modeText = mode === 'cargo' ? 'вантаж' : 'пасажири';
   const amount = String(record.amount || '').trim();
+  const baseTitle = `FREE flight за попитом NewSky: ${modeText}${amount ? ` ${amount}` : ''} з ${current} до ${destination}`;
   return liveryRouteProposalData('free', 'FREE', current, destination, {
     aircraft,
     aircraftTitle: title,
     reason: 'demand',
     badgeClass: 'company-livery-free-demand',
-    title: `FREE flight за попитом NewSky: ${modeText}${amount ? ` ${amount}` : ''} з ${current} до ${destination}`
+    title: liveryAppendNearestScheduleTooltip(baseTitle, routes, destination, aircraft)
   });
 }
 
-function liveryInboundDemandProposal(targetIcao, aircraft, title = '') {
+function liveryInboundDemandProposal(targetIcao, aircraft, title = '', routes = []) {
   const target = String(targetIcao || '').trim().toUpperCase();
   if (!target) return null;
   const info = app.companyCharterDemand?.[target];
@@ -4183,12 +4445,13 @@ function liveryInboundDemandProposal(targetIcao, aircraft, title = '') {
   if (maxRange && distance && distance > maxRange) return null;
   const modeText = mode === 'cargo' ? 'cargo' : 'pax';
   const amount = String(record.amount || '').trim();
+  const baseTitle = `FREE flight by NewSky inbound demand: ${modeText}${amount ? ` ${amount}` : ''} from ${origin} to ${destination}`;
   return liveryRouteProposalData('free', 'FREE', origin, destination, {
     aircraft,
     aircraftTitle: title,
     reason: 'range-inbound-demand',
     badgeClass: 'company-livery-free-demand',
-    title: `FREE flight by NewSky inbound demand: ${modeText}${amount ? ` ${amount}` : ''} from ${origin} to ${destination}`
+    title: liveryAppendNearestScheduleTooltip(baseTitle, routes, destination, aircraft)
   });
 }
 
@@ -4199,7 +4462,7 @@ function liveryRangeSafeFreeProposal(currentIcao, targetIcao, aircraft, title, m
   if (liveryRouteFitsAircraftRange(aircraft, current, target)) {
     return liveryRouteProposalData('free', 'FREE', current, target, {...meta, aircraft, aircraftTitle: title});
   }
-  const inboundProposal = liveryInboundDemandProposal(target, aircraft, title);
+  const inboundProposal = liveryInboundDemandProposal(target, aircraft, title, meta.scheduleRoutes || []);
   if (inboundProposal) return inboundProposal;
   if (meta.allowDirectWhenNoInbound) {
     const country = countryForAirport(current);
@@ -4243,19 +4506,23 @@ function liverySuggestedRouteData(card, title, flights, latest, headline) {
   const scheduleCandidates = liveryScheduleCandidateRoutes(routes);
   const activeScheduleRoutes = (routes || []).filter(route => route?.active !== false);
   const hasScheduleRoutes = activeScheduleRoutes.length > 0;
-  const routeFromCurrent = liveryChooseScheduleRoute(routes, currentIcao);
+  const routeFromCurrent = liveryChooseScheduleRoute(routes, currentIcao, aircraft);
   if (scheduleCandidates.length && routeFromCurrent && currentIcao && scheduleIcao && currentIcao === scheduleIcao && routeFromCurrent.dep === currentIcao) {
     return liveryRouteProposalData('schedule', routeFromCurrent.number, currentIcao || routeFromCurrent.dep, routeFromCurrent.arr, {aircraft, aircraftTitle: title});
   }
   if (hasScheduleRoutes) {
-    const routeFromSchedule = liveryScheduleRouteFrom(routes, scheduleIcao) || activeScheduleRoutes.find(route => route.dep === scheduleIcao) || null;
+    const routeFromSchedule = liveryScheduleRouteFrom(routes, scheduleIcao, aircraft) || activeScheduleRoutes.find(route => route.dep === scheduleIcao) || null;
     if (scheduleIcao && currentIcao && currentIcao !== scheduleIcao) {
       const hasNearScheduleFromTarget = scheduleCandidates.includes(routeFromSchedule);
       const timing = hasNearScheduleFromTarget ? liveryScheduleTimingLabel(routeFromSchedule) : 'політ на тех.обслуговування / на базу';
+      const freeTitle = hasNearScheduleFromTarget
+        ? liveryAppendNearestScheduleTooltip('FREE flight для подальшого SCHEDULE.', routes, scheduleIcao, aircraft)
+        : timing;
       const proposal = liveryRangeSafeFreeProposal(currentIcao, scheduleIcao, aircraft, title, {
         reason: hasNearScheduleFromTarget ? 'schedule-positioning' : 'maintenance-positioning',
         badgeClass: hasNearScheduleFromTarget ? 'company-livery-free-schedule' : 'company-livery-free-maintenance',
-        title: hasNearScheduleFromTarget ? `FREE flight для подальшого SCHEDULE ${timing}` : timing,
+        title: freeTitle,
+        scheduleRoutes: routes,
         allowDirectWhenNoInbound: true
       });
       if (proposal) return proposal;
@@ -4263,7 +4530,7 @@ function liverySuggestedRouteData(card, title, flights, latest, headline) {
     if (scheduleIcao && currentIcao && currentIcao === scheduleIcao) {
       const tomorrowFromSchedule = activeScheduleRoutes.find(route => route.dep === scheduleIcao && liveryRouteRunsTomorrow(route));
       if (tomorrowFromSchedule) return 'Очікує на SCHEDULE завтра';
-      const demandProposal = liveryCharterDemandProposal(currentIcao, aircraft, title);
+      const demandProposal = liveryCharterDemandProposal(currentIcao, aircraft, title, routes);
       if (demandProposal) return demandProposal;
       if (liveryIsScheduleStuck(aircraft, routes, currentIcao)) {
         return `<span class="company-livery-stuck-text">${liveryScheduleStuckCardMessage()}</span>`;
@@ -4273,7 +4540,7 @@ function liverySuggestedRouteData(card, title, flights, latest, headline) {
   }
   const bases = liveryBaseIcaosForAircraft(aircraft);
   if (bases.includes(currentIcao)) {
-    const demandProposal = liveryCharterDemandProposal(currentIcao, aircraft, title);
+    const demandProposal = liveryCharterDemandProposal(currentIcao, aircraft, title, routes);
     if (demandProposal) return demandProposal;
   }
   const targetBase = bases.find(icao => icao !== currentIcao) || bases[0];
@@ -5283,10 +5550,12 @@ function openCompanyLiveryRouteMap(card) {
     const state = routeFilterState(key);
     return `<button type="button" data-route-filter="${key}"${state.disabled}>${label}</button>`;
   }).join('');
+  const proposalTipHtml = liveryRouteMapProposalTipHtml(context.proposal);
   body.innerHTML = `
     <div class="company-route-map-shell">
       <div id="companyRouteMap" class="company-route-map"></div>
-      ${context.isScheduleStuck ? `<div class="company-route-map-warning">${liveryScheduleStuckMessage(context.stuckIcao)}</div>` : ''}
+      ${context.isScheduleStuck ? `<div class="company-route-map-warning">${liveryScheduleStuckMessage(context.stuckIcao)}</div>` : proposalTipHtml}
+      <div class="company-route-map-warning company-route-map-mission-tip" hidden></div>
       <div class="company-route-map-filter">
         <button type="button" class="company-route-proposal-button active" data-route-filter="proposal"><span class="company-route-proposal-button-inner">${proposalButtonHtml}</span></button>
         <div class="company-route-schedule-box">
@@ -5307,12 +5576,42 @@ function openCompanyLiveryRouteMap(card) {
   setTimeout(() => initCompanyLiveryRouteMap(body, context), 0);
 }
 
+function liveryRouteMapProposalTipHtml(proposal) {
+  const title = String(proposal?.title || '').trim();
+  if (!title) return '';
+  const parts = title.split('\n').map(item => item.trim()).filter(Boolean);
+  if (!parts.length) return '';
+  return `<div class="company-route-map-warning company-route-map-proposal-tip"><strong>${esc(parts[0])}</strong>${parts.slice(1).map(item => `<span>${esc(item)}</span>`).join('')}</div>`;
+}
+
+function liveryRouteMissionRecord(routeOrNumber) {
+  const number = String(typeof routeOrNumber === 'object' ? routeOrNumber?.number : routeOrNumber || '').trim();
+  if (!number) return null;
+  return app.routeMissions?.routes?.[number] || app.routeMissions?.[number] || null;
+}
+
+function liveryRouteMissionHtml(routeOrNumber) {
+  const mission = liveryRouteMissionRecord(routeOrNumber);
+  if (!mission) return '';
+  const number = String(typeof routeOrNumber === 'object' ? routeOrNumber?.number : routeOrNumber || '').trim();
+  const dep = String(mission.dep || routeOrNumber?.dep || '').trim().toUpperCase();
+  const arr = String(mission.arr || routeOrNumber?.arr || '').trim().toUpperCase();
+  const title = String(mission.title || '').trim();
+  const body = String(mission.mission || '').trim();
+  const type = String(mission.type || '').trim();
+  const route = dep && arr ? `${dep} → ${arr}` : '';
+  if (!title && !body) return '';
+  return `<strong>${esc(title || `Рейс ${number}`)}</strong><span>${esc([number ? `№${number}` : '', route, type].filter(Boolean).join(' · '))}</span>${body ? `<p>${esc(body)}</p>` : ''}`;
+}
+
 function initCompanyLiveryRouteMap(container, context) {
   const mapEl = container.querySelector('#companyRouteMap');
   const listEl = container.querySelector('[data-route-list]');
   const listTitleEl = container.querySelector('.company-route-map-list-title');
   const listPanelEl = container.querySelector('.company-route-map-list');
   const listToggleEl = container.querySelector('[data-route-list-toggle]');
+  const proposalTipEl = container.querySelector('.company-route-map-proposal-tip');
+  const missionTipEl = container.querySelector('.company-route-map-mission-tip');
   const filterButtons = [...container.querySelectorAll('[data-route-filter]')];
   if (!mapEl || !listEl) return;
   if (typeof L === 'undefined') {
@@ -5433,6 +5732,17 @@ function initCompanyLiveryRouteMap(container, context) {
   let currentMode = 'proposal';
   let selectedNumber = '';
   const draw = (shouldFit = true) => {
+    if (proposalTipEl) proposalTipEl.hidden = currentMode !== 'proposal';
+    if (missionTipEl) {
+      const missionRoute = currentMode === 'proposal' && context.proposal?.kind === 'schedule'
+        ? context.proposal?.label
+        : selectedNumber
+          ? (context.routes || []).find(route => String(route.number) === selectedNumber)
+          : null;
+      const missionHtml = liveryRouteMissionHtml(missionRoute);
+      missionTipEl.innerHTML = missionHtml;
+      missionTipEl.hidden = !missionHtml;
+    }
     clear();
     const bounds = [];
     const airportSeen = new Set();
