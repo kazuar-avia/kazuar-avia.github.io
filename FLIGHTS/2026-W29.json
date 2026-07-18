@@ -22834,6 +22834,176 @@
                         "elev": 587
                     }
                 }
+            },
+            {
+                "_id": "6a5ba60950c8a562fc828ef8",
+                "aircraft": {
+                    "_id": "695a67f93dc76275bad0c740",
+                    "name": "McDonnell Douglas MD-82",
+                    "customName": "Bravo Anda Khors l MD-82 based in UKKK l UR-CRX",
+                    "icao": "MD82"
+                },
+                "type": "pax",
+                "flightNumber": "499",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 140,
+                    "cargo": 15,
+                    "weights": {
+                        "cargo": 1005
+                    }
+                },
+                "depTime": "2026-07-18T17:10:00.000Z",
+                "duration": 110,
+                "arrTime": "2026-07-18T19:00:00.000Z",
+                "depTimeAct": "2026-07-18T17:24:25.120Z",
+                "delay": 44,
+                "takeoffTimeAct": "2026-07-18T17:33:39.107Z",
+                "durationAct": 131,
+                "arrTimeAct": "2026-07-18T19:44:25.878Z",
+                "open": "2026-07-18T17:24:15.138Z",
+                "close": "2026-07-18T19:53:55.225Z",
+                "rating": 8.2,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 838,
+                        "fuel": 6753,
+                        "expenses": 14606,
+                        "penalties": 0,
+                        "revenue": 19505,
+                        "balance": 4899,
+                        "prices": {
+                            "ticketPrice": 124,
+                            "cargoUnitPrice": 143,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.85
+                            }
+                        },
+                        "payload": {
+                            "pax": 140,
+                            "cargo": 15,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 140
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 7635,
+                        "aircraft": 5395,
+                        "handling": 988,
+                        "landing": 588
+                    },
+                    "revenue": {
+                        "tickets": 17360,
+                        "cargo": 2145
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 6.40m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -38,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 44
+                                    },
+                                    "weather": {
+                                        "windDir": 200,
+                                        "windSpd": 7.29,
+                                        "windX": 6.96
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.38G (321 ft/min, challenging  conditions)<br/>Distance from threshold: 213m (accepted range: 209-838m)<br/>Average centerline deviation: 0.92m<br/>Max centerline deviation: 2.59m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 41
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.38,
+                                        "rate": 321
+                                    },
+                                    "weather": {
+                                        "windDir": 142.42,
+                                        "windSpd": 4,
+                                        "windX": -2.55
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 905ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -142,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 55
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-18T16:12:57.501Z",
+                "updatedAt": "2026-07-18T19:53:55.319Z",
+                "dep": {
+                    "icao": "EETN",
+                    "name": "Lennart Meri Tallinn Airport",
+                    "city": "Tallinn",
+                    "location": {
+                        "lat": 59.413246,
+                        "lon": 24.83264,
+                        "elev": 131
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
             }
         ]
     },
