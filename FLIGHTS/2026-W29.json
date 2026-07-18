@@ -19690,6 +19690,193 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6a5b784750c8a562fc7e0123",
+                "aircraft": {
+                    "_id": "6980e9459da57b990a02e1bd",
+                    "name": "Boeing 737 MAX 8",
+                    "customName": "Ukraine Int l 737-MAX8 178 pax iFly l UR-MXA",
+                    "icao": "B38M"
+                },
+                "type": "pax",
+                "flightNumber": "187",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 178,
+                    "cargo": 19,
+                    "weights": {
+                        "cargo": 1558
+                    }
+                },
+                "depTime": "2026-07-18T14:30:00.000Z",
+                "duration": 125,
+                "arrTime": "2026-07-18T16:35:00.000Z",
+                "depTimeAct": "2026-07-18T13:35:01.445Z",
+                "delay": -75,
+                "takeoffTimeAct": "2026-07-18T13:39:19.807Z",
+                "durationAct": 101,
+                "arrTimeAct": "2026-07-18T15:20:29.294Z",
+                "open": "2026-07-18T13:30:45.145Z",
+                "close": "2026-07-18T15:23:58.859Z",
+                "rating": 5.62,
+                "simulator": "msfs",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 642,
+                        "fuel": 3692,
+                        "expenses": 13369,
+                        "penalties": 3471,
+                        "revenue": 32433,
+                        "balance": 15593,
+                        "prices": {
+                            "ticketPrice": 153,
+                            "cargoUnitPrice": 177,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 178,
+                            "cargo": 19,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 12,
+                                "Y": 166
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3340,
+                        "aircraft": 4925,
+                        "handling": 892,
+                        "landing": 4212
+                    },
+                    "revenue": {
+                        "tickets": 29070,
+                        "cargo": 3363
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight departed 39 minutes too early (max 15 minutes before scheduled is allowed)",
+                            "penalty": {
+                                "points": -195,
+                                "cash": 3471
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 18.49m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -143,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.42,
+                                        "rate": 385
+                                    },
+                                    "weather": {
+                                        "windDir": 39.99,
+                                        "windSpd": 17.09,
+                                        "windX": 10.2
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.42G (385 ft/min, challenging  conditions)<br/>Distance from threshold: 439m (accepted range: 204-819m)<br/>Average centerline deviation: 8.13m<br/>Max centerline deviation: 18.49m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.42,
+                                        "rate": 385
+                                    },
+                                    "weather": {
+                                        "windDir": 39.99,
+                                        "windSpd": 17.09,
+                                        "windX": 10.2
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No STROBE lights for 6067s when required",
+                            "penalty": {
+                                "points": -100,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-18T12:57:43.197Z",
+                "updatedAt": "2026-07-18T15:23:58.970Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "LTFM",
+                    "name": "İstanbul Airport",
+                    "city": "Arnavutköy, Istanbul",
+                    "location": {
+                        "lat": 41.261297,
+                        "lon": 28.741951,
+                        "elev": 325
+                    }
+                },
+                "actArr": {
+                    "icao": "LTFM",
+                    "name": "İstanbul Airport",
+                    "city": "Arnavutköy, Istanbul",
+                    "location": {
+                        "lat": 41.261297,
+                        "lon": 28.741951,
+                        "elev": 325
+                    }
+                }
             }
         ]
     },
