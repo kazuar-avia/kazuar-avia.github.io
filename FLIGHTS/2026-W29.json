@@ -22414,6 +22414,156 @@
                         "elev": 8361
                     }
                 }
+            },
+            {
+                "_id": "6a5b75f750c8a562fc7dcaab",
+                "aircraft": {
+                    "_id": "6a0b23a267cd7e249842bd81",
+                    "name": "Airbus A380",
+                    "customName": "Dry lease l FBW A380-800 l 446 pax elite",
+                    "icao": "A388"
+                },
+                "type": "pax",
+                "flightNumber": "287I",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 446,
+                    "cargo": 74,
+                    "weights": {
+                        "cargo": 6068
+                    }
+                },
+                "depTime": "2026-07-18T13:10:00.000Z",
+                "duration": 105,
+                "arrTime": "2026-07-18T14:55:00.000Z",
+                "depTimeAct": "2026-07-18T12:59:47.330Z",
+                "delay": -8,
+                "takeoffTimeAct": "2026-07-18T13:01:43.324Z",
+                "durationAct": 105,
+                "arrTimeAct": "2026-07-18T14:46:39.306Z",
+                "open": "2026-07-18T12:56:11.346Z",
+                "close": "2026-07-18T14:49:32.872Z",
+                "rating": 8.4,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 713,
+                        "fuel": 20153,
+                        "expenses": 71255,
+                        "penalties": 0,
+                        "revenue": 135406,
+                        "balance": 64151,
+                        "prices": {
+                            "ticketPrice": 125,
+                            "cargoUnitPrice": 144,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 446,
+                            "cargo": 74,
+                            "paxByClass": {
+                                "F": 85,
+                                "C": 297,
+                                "Y": 64
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 23021,
+                        "aircraft": 32825,
+                        "handling": 8659,
+                        "landing": 6750
+                    },
+                    "revenue": {
+                        "tickets": 124750,
+                        "cargo": 10656
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 14.40m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -120,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 23
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.56G (491 ft/min, normal  conditions)<br/>Distance from threshold: 575m (accepted range: 205-824m)<br/>Average centerline deviation: 7.06m<br/>Max centerline deviation: 14.40m",
+                            "penalty": {
+                                "points": -40,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.56,
+                                        "rate": 491
+                                    },
+                                    "weather": {
+                                        "windDir": 180,
+                                        "windSpd": 8.94,
+                                        "windX": 0.13
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-18T12:47:51.390Z",
+                "updatedAt": "2026-07-18T14:49:32.954Z",
+                "dep": {
+                    "icao": "ZSPD",
+                    "name": "Shanghai Pudong International Airport",
+                    "city": "Shanghai (Pudong)",
+                    "location": {
+                        "lat": 31.1434,
+                        "lon": 121.805,
+                        "elev": 13
+                    }
+                },
+                "arr": {
+                    "icao": "ZBAA",
+                    "name": "Beijing Capital International Airport",
+                    "city": "Beijing",
+                    "location": {
+                        "lat": 40.080101013183594,
+                        "lon": 116.58499908447266,
+                        "elev": 116
+                    }
+                },
+                "actArr": {
+                    "icao": "ZBAA",
+                    "name": "Beijing Capital International Airport",
+                    "city": "Beijing",
+                    "location": {
+                        "lat": 40.080101013183594,
+                        "lon": 116.58499908447266,
+                        "elev": 116
+                    }
+                }
             }
         ]
     },
