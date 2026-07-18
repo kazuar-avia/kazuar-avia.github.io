@@ -18357,6 +18357,180 @@
                         "elev": 191
                     }
                 }
+            },
+            {
+                "_id": "6a5b2d735760ec7cdb386a79",
+                "aircraft": {
+                    "_id": "69ff231aa5e61d69a71c50f5",
+                    "name": "Airbus A340-600",
+                    "customName": "Dry Lease l Toliss A340-600 msfs l 372 pax in 3 class",
+                    "icao": "A346"
+                },
+                "type": "pax",
+                "flightNumber": "076P",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 365,
+                    "cargo": 77,
+                    "weights": {
+                        "cargo": 8162
+                    }
+                },
+                "depTime": "2026-07-18T08:10:00.000Z",
+                "duration": 195,
+                "arrTime": "2026-07-18T11:25:00.000Z",
+                "depTimeAct": "2026-07-18T07:52:16.985Z",
+                "delay": -20,
+                "takeoffTimeAct": "2026-07-18T08:00:33.275Z",
+                "durationAct": 184,
+                "arrTimeAct": "2026-07-18T11:04:48.600Z",
+                "open": "2026-07-18T07:39:36.814Z",
+                "close": "2026-07-18T11:10:05.855Z",
+                "rating": 7.35,
+                "simulator": "xp",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1421,
+                        "fuel": 24031,
+                        "expenses": 56302,
+                        "penalties": 28365,
+                        "revenue": 103986,
+                        "balance": 19319,
+                        "prices": {
+                            "ticketPrice": 178,
+                            "cargoUnitPrice": 190,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 366,
+                            "cargo": 77,
+                            "paxByClass": {
+                                "F": 23,
+                                "C": 67,
+                                "Y": 276
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 27451,
+                        "aircraft": 24910,
+                        "handling": 2341,
+                        "landing": 1600
+                    },
+                    "revenue": {
+                        "tickets": 89356,
+                        "cargo": 14630
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight departed 2 minutes too early (max 15 minutes before scheduled is allowed)",
+                            "penalty": {
+                                "points": -10,
+                                "cash": 365
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Terrible touchdown: 2.52G (973 ft/min, challenging  conditions)<br/>Distance from threshold: 152m (accepted range: 200-801m)<br/>Average centerline deviation: 3.68m<br/>Max centerline deviation: 3.68m",
+                            "penalty": {
+                                "points": -255,
+                                "cash": 28000
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 22
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.52,
+                                        "rate": 973
+                                    },
+                                    "weather": {
+                                        "windDir": 290.4,
+                                        "windSpd": 14.96,
+                                        "windX": 13.78
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.16G (221 ft/min, challenging  conditions)<br/>Distance from threshold: 630m (accepted range: 200-801m)<br/>Average centerline deviation: 3.57m<br/>Max centerline deviation: 5.24m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 20
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.16,
+                                        "rate": 221
+                                    },
+                                    "weather": {
+                                        "windDir": 288.84,
+                                        "windSpd": 19.96,
+                                        "windX": 18.05
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-18T07:38:27.371Z",
+                "updatedAt": "2026-07-18T11:10:05.952Z",
+                "dep": {
+                    "icao": "UGTB",
+                    "name": "Tbilisi International Airport",
+                    "city": "Tbilisi",
+                    "location": {
+                        "lat": 41.669201,
+                        "lon": 44.9547,
+                        "elev": 1624
+                    }
+                },
+                "arr": {
+                    "icao": "UACC",
+                    "name": "Nursultan Nazarbayev International Airport",
+                    "city": "Astana",
+                    "location": {
+                        "lat": 51.027035,
+                        "lon": 71.467094,
+                        "elev": 1165
+                    }
+                },
+                "actArr": {
+                    "icao": "UACC",
+                    "name": "Nursultan Nazarbayev International Airport",
+                    "city": "Astana",
+                    "location": {
+                        "lat": 51.027035,
+                        "lon": 71.467094,
+                        "elev": 1165
+                    }
+                }
             }
         ]
     },
