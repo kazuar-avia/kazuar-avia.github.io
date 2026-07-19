@@ -27019,6 +27019,212 @@
                         "elev": 375
                     }
                 }
+            },
+            {
+                "_id": "6a5c7a9ad7bb28994aa0a81c",
+                "aircraft": {
+                    "_id": "69ff17f1a5e61d69a71af116",
+                    "name": "Cessna 208 Caravan Freighter",
+                    "customName": "UCAA l Cessna 208 (cargo) based in UKDE UKCM l UR-VAN",
+                    "icao": "C208"
+                },
+                "type": "cargo",
+                "flightNumber": "13AB",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 0,
+                    "cargo": 10,
+                    "weights": {
+                        "cargo": 1180
+                    }
+                },
+                "depTime": "2026-07-19T07:40:00.000Z",
+                "duration": 100,
+                "arrTime": "2026-07-19T09:20:00.000Z",
+                "depTimeAct": "2026-07-19T07:20:20.781Z",
+                "delay": -35,
+                "takeoffTimeAct": "2026-07-19T07:22:59.212Z",
+                "durationAct": 82,
+                "arrTimeAct": "2026-07-19T08:45:20.534Z",
+                "open": "2026-07-19T07:20:05.462Z",
+                "close": "2026-07-19T09:39:32.908Z",
+                "rating": 4.56,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 233,
+                        "fuel": 266,
+                        "expenses": 604,
+                        "penalties": 20,
+                        "revenue": 1260,
+                        "balance": 636,
+                        "prices": {
+                            "ticketPrice": 101,
+                            "cargoUnitPrice": 126,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 0,
+                            "cargo": 10,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 301,
+                        "aircraft": 254,
+                        "handling": 5,
+                        "landing": 44
+                    },
+                    "revenue": {
+                        "tickets": 0,
+                        "cargo": 1260
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight departed 4 minutes too early (max 15 minutes before scheduled is allowed)",
+                            "penalty": {
+                                "points": -20,
+                                "cash": 20
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 20
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Unstable approach below 100ft: vertical speed above 0 ft/min (actual 98 ft/min)",
+                            "penalty": {
+                                "points": -49,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 21
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.48G (331 ft/min, challenging  conditions)<br/>Distance from threshold: 329m (accepted range: 209-838m)<br/>Average centerline deviation: 5.35m<br/>Max centerline deviation: 7.59m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 13
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.48,
+                                        "rate": 331
+                                    },
+                                    "weather": {
+                                        "windDir": 156.25,
+                                        "windSpd": 10.19,
+                                        "windX": -4.03
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No NAV lights for 32s when required",
+                            "penalty": {
+                                "points": -1,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        },
+                        {
+                            "title": "Stall warning for 24 seconds",
+                            "penalty": {
+                                "points": -360,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        },
+                        {
+                            "title": "Max G exceeded: 2.57G (max allowed: 2G)",
+                            "penalty": {
+                                "points": -114,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 20
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-19T07:19:54.280Z",
+                "updatedAt": "2026-07-19T09:39:33.300Z",
+                "dep": {
+                    "icao": "UKLT",
+                    "city": "Ternopil",
+                    "location": {
+                        "lat": 49.5242,
+                        "lon": 25.7001,
+                        "elev": 1072
+                    },
+                    "name": "Ternopil International Airport"
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
             }
         ]
     },
