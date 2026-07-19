@@ -27097,6 +27097,180 @@
                         "elev": 2049
                     }
                 }
+            },
+            {
+                "_id": "6a5ce54a50c8a562fc9c66e0",
+                "aircraft": {
+                    "_id": "6a0b23a267cd7e249842bd81",
+                    "name": "Airbus A380",
+                    "customName": "Dry lease l FBW A380-800 l 446 pax elite",
+                    "icao": "A388"
+                },
+                "type": "pax",
+                "flightNumber": "310N",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 446,
+                    "cargo": 73,
+                    "weights": {
+                        "cargo": 7300
+                    }
+                },
+                "depTime": "2026-07-19T15:10:00.000Z",
+                "duration": 90,
+                "arrTime": "2026-07-19T16:40:00.000Z",
+                "depTimeAct": "2026-07-19T15:04:18.821Z",
+                "delay": -11,
+                "takeoffTimeAct": "2026-07-19T15:07:16.828Z",
+                "durationAct": 82,
+                "arrTimeAct": "2026-07-19T16:29:17.817Z",
+                "open": "2026-07-19T15:03:01.160Z",
+                "close": "2026-07-19T16:32:40.068Z",
+                "rating": 8.43,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 519,
+                        "fuel": 16565,
+                        "expenses": 62804,
+                        "penalties": 0,
+                        "revenue": 125769,
+                        "balance": 62965,
+                        "prices": {
+                            "ticketPrice": 116,
+                            "cargoUnitPrice": 137,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 446,
+                            "cargo": 73,
+                            "paxByClass": {
+                                "F": 85,
+                                "C": 297,
+                                "Y": 64
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 18923,
+                        "aircraft": 30050,
+                        "handling": 9331,
+                        "landing": 4500
+                    },
+                    "revenue": {
+                        "tickets": 115768,
+                        "cargo": 10001
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 9.01m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -58,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 21
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 12.79m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -99,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 21
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.47,
+                                        "rate": 392
+                                    },
+                                    "weather": {
+                                        "windDir": 0.01,
+                                        "windSpd": 18.01,
+                                        "windX": 5.91
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.47G (392 ft/min, challenging  conditions)<br/>Distance from threshold: 542m (accepted range: 199-800m)<br/>Average centerline deviation: 5.27m<br/>Max centerline deviation: 12.79m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 21
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.47,
+                                        "rate": 392
+                                    },
+                                    "weather": {
+                                        "windDir": 0.01,
+                                        "windSpd": 18.01,
+                                        "windX": 5.91
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-19T14:55:06.578Z",
+                "updatedAt": "2026-07-19T16:32:40.144Z",
+                "dep": {
+                    "icao": "OMDB",
+                    "name": "Dubai International Airport",
+                    "city": "Dubai",
+                    "location": {
+                        "lat": 25.2527999878,
+                        "lon": 55.3643989563,
+                        "elev": 62
+                    }
+                },
+                "arr": {
+                    "icao": "OKKK",
+                    "name": "Kuwait International Airport",
+                    "city": "Kuwait City",
+                    "location": {
+                        "lat": 29.226601,
+                        "lon": 47.968899,
+                        "elev": 206
+                    }
+                },
+                "actArr": {
+                    "icao": "OKKK",
+                    "name": "Kuwait International Airport",
+                    "city": "Kuwait City",
+                    "location": {
+                        "lat": 29.226601,
+                        "lon": 47.968899,
+                        "elev": 206
+                    }
+                }
             }
         ]
     },
