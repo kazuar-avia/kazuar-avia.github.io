@@ -26392,6 +26392,171 @@
                         "elev": 62
                     }
                 }
+            },
+            {
+                "_id": "6a5cc32750c8a562fc986d03",
+                "aircraft": {
+                    "_id": "6a0b23a267cd7e249842bd81",
+                    "name": "Airbus A380",
+                    "customName": "Dry lease l FBW A380-800 l 446 pax elite",
+                    "icao": "A388"
+                },
+                "type": "pax",
+                "flightNumber": "945L",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 446,
+                    "cargo": 129,
+                    "weights": {
+                        "cargo": 12126
+                    }
+                },
+                "depTime": "2026-07-19T12:55:00.000Z",
+                "duration": 90,
+                "arrTime": "2026-07-19T14:25:00.000Z",
+                "depTimeAct": "2026-07-19T12:54:07.740Z",
+                "delay": 6,
+                "takeoffTimeAct": "2026-07-19T12:57:37.854Z",
+                "durationAct": 93,
+                "arrTimeAct": "2026-07-19T14:30:45.855Z",
+                "open": "2026-07-19T12:52:19.811Z",
+                "close": "2026-07-19T14:33:44.353Z",
+                "rating": 6.64,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 526,
+                        "fuel": 17261,
+                        "expenses": 67049,
+                        "penalties": 0,
+                        "revenue": 134439,
+                        "balance": 67390,
+                        "prices": {
+                            "ticketPrice": 117,
+                            "cargoUnitPrice": 137,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 446,
+                            "cargo": 129,
+                            "paxByClass": {
+                                "F": 85,
+                                "C": 297,
+                                "Y": 64
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 19718,
+                        "aircraft": 31925,
+                        "handling": 9406,
+                        "landing": 6000
+                    },
+                    "revenue": {
+                        "tickets": 116766,
+                        "cargo": 17673
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 7.14m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -36,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 33.47m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -300,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.31G (345 ft/min, challenging  conditions)<br/>Distance from threshold: 628m (accepted range: 213-854m)<br/>Average centerline deviation: 23.06m<br/>Max centerline deviation: 33.47m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.31,
+                                        "rate": 345
+                                    },
+                                    "weather": {
+                                        "windDir": 10,
+                                        "windSpd": 26.19,
+                                        "windX": 11.44
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-19T12:29:27.182Z",
+                "updatedAt": "2026-07-19T14:33:44.429Z",
+                "dep": {
+                    "icao": "OMDB",
+                    "name": "Dubai International Airport",
+                    "city": "Dubai",
+                    "location": {
+                        "lat": 25.2527999878,
+                        "lon": 55.3643989563,
+                        "elev": 62
+                    }
+                },
+                "arr": {
+                    "icao": "OERK",
+                    "name": "King Khaled International Airport",
+                    "city": "Riyadh",
+                    "location": {
+                        "lat": 24.9576,
+                        "lon": 46.698799,
+                        "elev": 2049
+                    }
+                },
+                "actArr": {
+                    "icao": "OERK",
+                    "name": "King Khaled International Airport",
+                    "city": "Riyadh",
+                    "location": {
+                        "lat": 24.9576,
+                        "lon": 46.698799,
+                        "elev": 2049
+                    }
+                }
             }
         ]
     },
