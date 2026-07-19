@@ -19874,6 +19874,180 @@
                         "elev": 826
                     }
                 }
+            },
+            {
+                "_id": "6a5c9eb250c8a562fc94d7e4",
+                "aircraft": {
+                    "_id": "69ff231aa5e61d69a71c50f5",
+                    "name": "Airbus A340-600",
+                    "customName": "Dry Lease l Toliss A340-600 msfs l 440 pax in 3 class",
+                    "icao": "A346"
+                },
+                "type": "pax",
+                "flightNumber": "1204",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 440,
+                    "cargo": 89,
+                    "weights": {
+                        "cargo": 9434
+                    }
+                },
+                "depTime": "2026-07-19T10:20:00.000Z",
+                "duration": 65,
+                "arrTime": "2026-07-19T11:25:00.000Z",
+                "depTimeAct": "2026-07-19T10:42:14.850Z",
+                "delay": 9,
+                "takeoffTimeAct": "2026-07-19T10:42:14.850Z",
+                "durationAct": 52,
+                "arrTimeAct": "2026-07-19T11:34:25.870Z",
+                "open": "2026-07-19T10:02:10.667Z",
+                "close": "2026-07-19T11:37:48.846Z",
+                "rating": 9.41,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 326,
+                        "fuel": 8352,
+                        "expenses": 37311,
+                        "penalties": 0,
+                        "revenue": 62422,
+                        "balance": 25111,
+                        "prices": {
+                            "ticketPrice": 105,
+                            "cargoUnitPrice": 128,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 440,
+                            "cargo": 89,
+                            "paxByClass": {
+                                "F": 8,
+                                "C": 22,
+                                "Y": 410
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 9541,
+                        "aircraft": 16750,
+                        "handling": 4000,
+                        "landing": 7020
+                    },
+                    "revenue": {
+                        "tickets": 51030,
+                        "cargo": 11392
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 5.00m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -15,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 34
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Short landing (188m from threshold before 191m min accepted)",
+                            "penalty": {
+                                "points": -2,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.67,
+                                        "rate": 545
+                                    },
+                                    "weather": {
+                                        "windDir": 60.01,
+                                        "windSpd": 16.19,
+                                        "windX": 13.25
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.67G (545 ft/min, challenging  conditions)<br/>Distance from threshold: 188m (accepted range: 191-765m)<br/>Average centerline deviation: 3.93m<br/>Max centerline deviation: 7.98m",
+                            "penalty": {
+                                "points": -42,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.67,
+                                        "rate": 545
+                                    },
+                                    "weather": {
+                                        "windDir": 60.01,
+                                        "windSpd": 16.19,
+                                        "windX": 13.25
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-19T09:53:54.053Z",
+                "updatedAt": "2026-07-19T11:37:48.953Z",
+                "dep": {
+                    "icao": "LTAI",
+                    "name": "Antalya International Airport",
+                    "city": "Antalya",
+                    "location": {
+                        "lat": 36.898701,
+                        "lon": 30.800501,
+                        "elev": 177
+                    }
+                },
+                "arr": {
+                    "icao": "LTFM",
+                    "name": "İstanbul Airport",
+                    "city": "Arnavutköy, Istanbul",
+                    "location": {
+                        "lat": 41.261297,
+                        "lon": 28.741951,
+                        "elev": 325
+                    }
+                },
+                "actArr": {
+                    "icao": "LTFM",
+                    "name": "İstanbul Airport",
+                    "city": "Arnavutköy, Istanbul",
+                    "location": {
+                        "lat": 41.261297,
+                        "lon": 28.741951,
+                        "elev": 325
+                    }
+                }
             }
         ]
     },
