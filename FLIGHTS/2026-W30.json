@@ -2369,6 +2369,165 @@
                         "elev": 4830
                     }
                 }
+            },
+            {
+                "_id": "6a5e35a750c8a562fcb48e24",
+                "aircraft": {
+                    "_id": "6a4687cc5760ec7cdbae102b",
+                    "name": "Boeing 737 MAX 8",
+                    "customName": "Dry Lease l 737-MAX8 160 pax 3 classes l XP11 ",
+                    "icao": "B38M"
+                },
+                "type": "pax",
+                "flightNumber": "14T",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 140,
+                    "cargo": 25,
+                    "weights": {
+                        "cargo": 3200
+                    }
+                },
+                "depTime": "2026-07-20T15:20:00.000Z",
+                "duration": 45,
+                "arrTime": "2026-07-20T16:05:00.000Z",
+                "depTimeAct": "2026-07-20T15:09:48.589Z",
+                "delay": -6,
+                "takeoffTimeAct": "2026-07-20T15:13:17.781Z",
+                "durationAct": 46,
+                "arrTimeAct": "2026-07-20T15:59:10.840Z",
+                "open": "2026-07-20T14:51:15.127Z",
+                "close": "2026-07-20T16:02:10.183Z",
+                "rating": 9.14,
+                "simulator": "xp",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 232,
+                        "fuel": 2257,
+                        "expenses": 8443,
+                        "penalties": 0,
+                        "revenue": 14441,
+                        "balance": 5998,
+                        "prices": {
+                            "ticketPrice": 79,
+                            "cargoUnitPrice": 91,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 140,
+                            "cargo": 25,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 14,
+                                "Y": 126
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2552,
+                        "aircraft": 4500,
+                        "handling": 641,
+                        "landing": 750
+                    },
+                    "revenue": {
+                        "tickets": 12166,
+                        "cargo": 2275
+                    },
+                    "violations": [
+                        {
+                            "title": "Long landing (884m from threshold beyond 638m max accepted)",
+                            "penalty": {
+                                "points": -86,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.26,
+                                        "rate": 173
+                                    },
+                                    "weather": {
+                                        "windDir": 311.62,
+                                        "windSpd": 6.45,
+                                        "windX": 5.64
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.26G (173 ft/min, normal  conditions)<br/>Distance from threshold: 884m (accepted range: 159-638m)<br/>Average centerline deviation: 1.15m<br/>Max centerline deviation: 2.38m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.26,
+                                        "rate": 173
+                                    },
+                                    "weather": {
+                                        "windDir": 311.62,
+                                        "windSpd": 6.45,
+                                        "windX": 5.64
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-20T14:50:15.791Z",
+                "updatedAt": "2026-07-20T16:02:10.260Z",
+                "dep": {
+                    "icao": "UKLN",
+                    "name": "Chernivtsi International Airport",
+                    "city": "Chernivtsi",
+                    "location": {
+                        "lat": 48.259300231933594,
+                        "lon": 25.98080062866211,
+                        "elev": 826
+                    }
+                },
+                "arr": {
+                    "icao": "LRCL",
+                    "name": "Cluj Avram Iancu International Airport",
+                    "city": "Cluj-Napoca",
+                    "location": {
+                        "lat": 46.787425,
+                        "lon": 23.684292,
+                        "elev": 1039
+                    }
+                },
+                "actArr": {
+                    "icao": "LRCL",
+                    "name": "Cluj Avram Iancu International Airport",
+                    "city": "Cluj-Napoca",
+                    "location": {
+                        "lat": 46.787425,
+                        "lon": 23.684292,
+                        "elev": 1039
+                    }
+                }
             }
         ]
     },
