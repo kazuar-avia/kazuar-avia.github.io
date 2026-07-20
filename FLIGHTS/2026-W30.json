@@ -1159,5 +1159,182 @@
                 }
             }
         ]
+    },
+    {
+        "pilot_id": "67267eeeeac32c34bb94afed",
+        "fullname": "Jeka Korzun",
+        "avatar": "67267eeeeac32c34bb94afed1730645334705",
+        "flights": [
+            {
+                "_id": "6a5db9d350c8a562fcabe86e",
+                "aircraft": {
+                    "_id": "6a0b23a267cd7e249842bd81",
+                    "name": "Airbus A380",
+                    "customName": "Dry lease l FBW A380-800 l 446 pax elite",
+                    "icao": "A388"
+                },
+                "type": "pax",
+                "flightNumber": "220Y",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 446,
+                    "cargo": 103,
+                    "weights": {
+                        "cargo": 12051
+                    }
+                },
+                "depTime": "2026-07-20T06:20:00.000Z",
+                "duration": 410,
+                "arrTime": "2026-07-20T13:10:00.000Z",
+                "depTimeAct": "2026-07-20T06:17:52.200Z",
+                "delay": -21,
+                "takeoffTimeAct": "2026-07-20T06:24:45.208Z",
+                "durationAct": 384,
+                "arrTimeAct": "2026-07-20T12:49:12.107Z",
+                "open": "2026-07-20T06:17:41.215Z",
+                "close": "2026-07-20T12:53:21.797Z",
+                "rating": 8.97,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 2990,
+                        "fuel": 83807,
+                        "expenses": 166444,
+                        "penalties": 0,
+                        "revenue": 384796,
+                        "balance": 218352,
+                        "prices": {
+                            "ticketPrice": 348,
+                            "cargoUnitPrice": 364,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 446,
+                            "cargo": 103,
+                            "paxByClass": {
+                                "F": 85,
+                                "C": 297,
+                                "Y": 64
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 95733,
+                        "aircraft": 52700,
+                        "handling": 9371,
+                        "landing": 8640
+                    },
+                    "revenue": {
+                        "tickets": 347304,
+                        "cargo": 37492
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 6.86m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -33,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 22
+                                    },
+                                    "weather": {
+                                        "windDir": 230,
+                                        "windSpd": 7.36,
+                                        "windX": 7.09
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 8.30m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -70,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 20
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.14G (106 ft/min, normal  conditions)<br/>Distance from threshold: 281m (accepted range: 198-793m)<br/>Average centerline deviation: 5.26m<br/>Max centerline deviation: 8.30m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 19
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.14,
+                                        "rate": 106
+                                    },
+                                    "weather": {
+                                        "windDir": 330.01,
+                                        "windSpd": 11.18,
+                                        "windX": -5.62
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-20T06:01:55.233Z",
+                "updatedAt": "2026-07-20T12:53:21.932Z",
+                "dep": {
+                    "icao": "OMDB",
+                    "name": "Dubai International Airport",
+                    "city": "Dubai",
+                    "location": {
+                        "lat": 25.2527999878,
+                        "lon": 55.3643989563,
+                        "elev": 62
+                    }
+                },
+                "arr": {
+                    "icao": "EHAM",
+                    "name": "Amsterdam Airport Schiphol",
+                    "city": "Amsterdam",
+                    "location": {
+                        "lat": 52.308601,
+                        "lon": 4.76389,
+                        "elev": -11
+                    }
+                },
+                "actArr": {
+                    "icao": "EHAM",
+                    "name": "Amsterdam Airport Schiphol",
+                    "city": "Amsterdam",
+                    "location": {
+                        "lat": 52.308601,
+                        "lon": 4.76389,
+                        "elev": -11
+                    }
+                }
+            }
+        ]
     }
 ]
