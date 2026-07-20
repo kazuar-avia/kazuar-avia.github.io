@@ -1628,6 +1628,176 @@
                         "elev": -11
                     }
                 }
+            },
+            {
+                "_id": "6a5e1b1450c8a562fcb22828",
+                "aircraft": {
+                    "_id": "69ff1763a5e61d69a71adbb5",
+                    "name": "Cessna 208 Caravan",
+                    "customName": "UCAA l Cessna 208 (pax) based in UKLR l UR-PAX",
+                    "icao": "C208"
+                },
+                "type": "pax",
+                "flightNumber": "859Q",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 11,
+                    "cargo": 1,
+                    "weights": {
+                        "cargo": 65
+                    }
+                },
+                "depTime": "2026-07-20T13:10:00.000Z",
+                "duration": 55,
+                "arrTime": "2026-07-20T14:05:00.000Z",
+                "depTimeAct": "2026-07-20T13:27:08.078Z",
+                "delay": -3,
+                "takeoffTimeAct": "2026-07-20T13:28:24.079Z",
+                "durationAct": 33,
+                "arrTimeAct": "2026-07-20T14:01:39.082Z",
+                "open": "2026-07-20T13:25:41.220Z",
+                "close": "2026-07-20T14:02:55.639Z",
+                "rating": 9.5,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 89,
+                        "fuel": 112,
+                        "expenses": 443,
+                        "penalties": 16,
+                        "revenue": 727,
+                        "balance": 268,
+                        "prices": {
+                            "ticketPrice": 60,
+                            "cargoUnitPrice": 67,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 11,
+                            "cargo": 1,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 11
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 127,
+                        "aircraft": 228,
+                        "handling": 56,
+                        "landing": 32
+                    },
+                    "revenue": {
+                        "tickets": 660,
+                        "cargo": 67
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight delayed 3 minutes (max 15 minutes after scheduled is allowed)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 16
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1013mb instead of 1026.72mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "weather": {
+                                        "windDir": 10.45,
+                                        "windSpd": 9.23,
+                                        "windX": -0.94
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.33G (135 ft/min, challenging  conditions)<br/>Distance from threshold: 246m (accepted range: 134-540m)<br/>Average centerline deviation: 2.87m<br/>Max centerline deviation: 4.29m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.33,
+                                        "rate": 135
+                                    },
+                                    "weather": {
+                                        "windDir": 19.99,
+                                        "windSpd": 17.91,
+                                        "windX": -10.13
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-20T12:56:52.357Z",
+                "updatedAt": "2026-07-20T14:02:55.730Z",
+                "dep": {
+                    "icao": "EGSX",
+                    "city": "Epping, Essex",
+                    "location": {
+                        "lat": 51.721699,
+                        "lon": 0.154167,
+                        "elev": 321
+                    },
+                    "name": "North Weald Airfield"
+                },
+                "arr": {
+                    "icao": "LFAC",
+                    "name": "Calais Marck Airport",
+                    "city": "Calais",
+                    "location": {
+                        "lat": 50.962101,
+                        "lon": 1.95476,
+                        "elev": 12
+                    }
+                },
+                "actArr": {
+                    "icao": "LFAC",
+                    "name": "Calais Marck Airport",
+                    "city": "Calais",
+                    "location": {
+                        "lat": 50.962101,
+                        "lon": 1.95476,
+                        "elev": 12
+                    }
+                }
             }
         ]
     },
