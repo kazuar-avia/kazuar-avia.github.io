@@ -7043,6 +7043,189 @@
                         "elev": 425
                     }
                 }
+            },
+            {
+                "_id": "6a5f810c50c8a562fccdf047",
+                "aircraft": {
+                    "_id": "69ef2347a5e61d69a7a9a2b0",
+                    "name": "Airbus A320",
+                    "customName": "WizzAir Ukraine l A320 IAE SL based in UKBB l UR-WUB",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "802D",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 170,
+                    "cargo": 10,
+                    "weights": {
+                        "cargo": 890
+                    }
+                },
+                "depTime": "2026-07-21T14:55:00.000Z",
+                "duration": 155,
+                "arrTime": "2026-07-21T17:30:00.000Z",
+                "depTimeAct": "2026-07-21T15:08:05.566Z",
+                "delay": 16,
+                "takeoffTimeAct": "2026-07-21T15:08:05.566Z",
+                "durationAct": 158,
+                "arrTimeAct": "2026-07-21T17:45:57.651Z",
+                "open": "2026-07-21T14:48:16.557Z",
+                "close": "2026-07-21T17:53:41.679Z",
+                "rating": 9.07,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 988,
+                        "fuel": 5220,
+                        "expenses": 15009,
+                        "penalties": 6213,
+                        "revenue": 26970,
+                        "balance": 5748,
+                        "prices": {
+                            "ticketPrice": 149,
+                            "cargoUnitPrice": 164,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 170,
+                            "cargo": 10,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 170
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 5902,
+                        "aircraft": 6825,
+                        "handling": 1400,
+                        "landing": 882
+                    },
+                    "revenue": {
+                        "tickets": 25330,
+                        "cargo": 1640
+                    },
+                    "violations": [
+                        {
+                            "title": "MLW exceeded: 1002kg above maximum landing weight of 64500kg",
+                            "penalty": {
+                                "points": -93,
+                                "cash": 6213
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 17
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.4,
+                                        "rate": 289
+                                    },
+                                    "weather": {
+                                        "windDir": 262.91,
+                                        "windSpd": 4.08,
+                                        "windX": -4.03
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.40G (289 ft/min, challenging  conditions)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 17
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.4,
+                                        "rate": 289
+                                    },
+                                    "weather": {
+                                        "windDir": 262.91,
+                                        "windSpd": 4.08,
+                                        "windX": -4.03
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Fuel used 4860 kg is lower than estimated minimum 5220 kg.",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 17
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.4,
+                                        "rate": 289
+                                    },
+                                    "weather": {
+                                        "windDir": 262.91,
+                                        "windSpd": 4.08,
+                                        "windX": -4.03
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-21T14:24:12.636Z",
+                "updatedAt": "2026-07-21T17:53:41.758Z",
+                "dep": {
+                    "icao": "EDDK",
+                    "name": "Cologne Bonn Airport",
+                    "city": "Köln (Cologne)",
+                    "location": {
+                        "lat": 50.865898,
+                        "lon": 7.14274,
+                        "elev": 302
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
             }
         ]
     },
