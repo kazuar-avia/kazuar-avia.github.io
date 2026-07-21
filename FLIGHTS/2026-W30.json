@@ -4819,6 +4819,171 @@
                         "elev": 62
                     }
                 }
+            },
+            {
+                "_id": "6a5f86a650c8a562fcce9764",
+                "aircraft": {
+                    "_id": "6a0b23a267cd7e249842bd81",
+                    "name": "Airbus A380",
+                    "customName": "Dry lease l FBW A380-800 l 446 pax elite",
+                    "icao": "A388"
+                },
+                "type": "pax",
+                "flightNumber": "029H",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 446,
+                    "cargo": 76,
+                    "weights": {
+                        "cargo": 6764
+                    }
+                },
+                "depTime": "2026-07-21T15:00:00.000Z",
+                "duration": 90,
+                "arrTime": "2026-07-21T16:30:00.000Z",
+                "depTimeAct": "2026-07-21T15:00:31.497Z",
+                "delay": -11,
+                "takeoffTimeAct": "2026-07-21T15:01:55.506Z",
+                "durationAct": 77,
+                "arrTimeAct": "2026-07-21T16:18:40.486Z",
+                "open": "2026-07-21T14:56:38.512Z",
+                "close": "2026-07-21T16:21:10.826Z",
+                "rating": 9.16,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 514,
+                        "fuel": 14805,
+                        "expenses": 65061,
+                        "penalties": 0,
+                        "revenue": 127178,
+                        "balance": 62117,
+                        "prices": {
+                            "ticketPrice": 117,
+                            "cargoUnitPrice": 137,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 446,
+                            "cargo": 76,
+                            "paxByClass": {
+                                "F": 85,
+                                "C": 297,
+                                "Y": 64
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 16912,
+                        "aircraft": 31775,
+                        "handling": 4574,
+                        "landing": 11800
+                    },
+                    "revenue": {
+                        "tickets": 116766,
+                        "cargo": 10412
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 6.75m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -32,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 8.49m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -52,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.40G (427 ft/min, normal  conditions)<br/>Distance from threshold: 530m (accepted range: 209-838m)<br/>Average centerline deviation: 6.24m<br/>Max centerline deviation: 8.49m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.4,
+                                        "rate": 427
+                                    },
+                                    "weather": {
+                                        "windDir": 230.02,
+                                        "windSpd": 8.36,
+                                        "windX": -8.31
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-21T14:48:06.718Z",
+                "updatedAt": "2026-07-21T16:21:10.900Z",
+                "dep": {
+                    "icao": "RJBB",
+                    "name": "Kansai International Airport",
+                    "city": "Osaka",
+                    "location": {
+                        "lat": 34.427299,
+                        "lon": 135.244003,
+                        "elev": 26
+                    }
+                },
+                "arr": {
+                    "icao": "RKSI",
+                    "name": "Incheon International Airport",
+                    "city": "Seoul",
+                    "location": {
+                        "lat": 37.469101,
+                        "lon": 126.450996,
+                        "elev": 23
+                    }
+                },
+                "actArr": {
+                    "icao": "RKSI",
+                    "name": "Incheon International Airport",
+                    "city": "Seoul",
+                    "location": {
+                        "lat": 37.469101,
+                        "lon": 126.450996,
+                        "elev": 23
+                    }
+                }
             }
         ]
     },
