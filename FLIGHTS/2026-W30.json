@@ -4691,5 +4691,177 @@
                 }
             }
         ]
+    },
+    {
+        "pilot_id": "69e65b62a5e61d69a7e5c6e3",
+        "fullname": "Alex Vi",
+        "avatar": "69e65b62a5e61d69a7e5c6e31776868638012",
+        "flights": [
+            {
+                "_id": "6a5e9b3fd7bb28994aa9506d",
+                "aircraft": {
+                    "_id": "6a4f8c7c5760ec7cdb60d2ea",
+                    "name": "Boeing 737-800",
+                    "customName": "Aerosvit l 737-800 based in UKBB l UR-AAN",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "186",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 174,
+                    "cargo": 30,
+                    "weights": {
+                        "cargo": 3450
+                    }
+                },
+                "depTime": "2026-07-20T22:30:00.000Z",
+                "duration": 155,
+                "arrTime": "2026-07-21T01:05:00.000Z",
+                "depTimeAct": "2026-07-20T22:47:40.335Z",
+                "delay": -11,
+                "takeoffTimeAct": "2026-07-20T22:50:05.337Z",
+                "durationAct": 124,
+                "arrTimeAct": "2026-07-21T00:54:12.203Z",
+                "open": "2026-07-20T22:08:01.217Z",
+                "close": "2026-07-21T01:03:04.515Z",
+                "rating": 7.13,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 859,
+                        "fuel": 6385,
+                        "expenses": 12861,
+                        "penalties": 261,
+                        "revenue": 43740,
+                        "balance": 30618,
+                        "prices": {
+                            "ticketPrice": 190,
+                            "cargoUnitPrice": 204,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 174,
+                            "cargo": 30,
+                            "paxByClass": {
+                                "F": 2,
+                                "C": 18,
+                                "Y": 154
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 5775,
+                        "aircraft": 5500,
+                        "handling": 884,
+                        "landing": 702
+                    },
+                    "revenue": {
+                        "tickets": 37620,
+                        "cargo": 6120
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight delayed 3 minutes (max 15 minutes after scheduled is allowed)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 261
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 54
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 20.56m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -269,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 48
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.47G (361 ft/min, normal  conditions)<br/>Distance from threshold: 686m (accepted range: 192-769m)<br/>Average centerline deviation: 16.53m<br/>Max centerline deviation: 20.56m",
+                            "penalty": {
+                                "points": -18,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 42
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.47,
+                                        "rate": 361
+                                    },
+                                    "weather": {
+                                        "windDir": 149.94,
+                                        "windSpd": 3.32,
+                                        "windX": -2.11
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-20T22:03:43.813Z",
+                "updatedAt": "2026-07-21T01:03:04.933Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "LTFE",
+                    "name": "Milas Bodrum International Airport",
+                    "city": "Bodrum",
+                    "location": {
+                        "lat": 37.250599,
+                        "lon": 27.664301,
+                        "elev": 21
+                    }
+                },
+                "actArr": {
+                    "icao": "LTFE",
+                    "name": "Milas Bodrum International Airport",
+                    "city": "Bodrum",
+                    "location": {
+                        "lat": 37.250599,
+                        "lon": 27.664301,
+                        "elev": 21
+                    }
+                }
+            }
+        ]
     }
 ]
