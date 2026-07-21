@@ -5119,6 +5119,171 @@
                         "elev": 23
                     }
                 }
+            },
+            {
+                "_id": "6a5f9d2d50c8a562fcd113da",
+                "aircraft": {
+                    "_id": "6a0b23a267cd7e249842bd81",
+                    "name": "Airbus A380",
+                    "customName": "Dry lease l FBW A380-800 l 446 pax elite",
+                    "icao": "A388"
+                },
+                "type": "pax",
+                "flightNumber": "490G",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 407,
+                    "cargo": 94,
+                    "weights": {
+                        "cargo": 12220
+                    }
+                },
+                "depTime": "2026-07-21T16:40:00.000Z",
+                "duration": 75,
+                "arrTime": "2026-07-21T17:55:00.000Z",
+                "depTimeAct": "2026-07-21T16:32:47.467Z",
+                "delay": -7,
+                "takeoffTimeAct": "2026-07-21T16:41:25.480Z",
+                "durationAct": 67,
+                "arrTimeAct": "2026-07-21T17:48:04.467Z",
+                "open": "2026-07-21T16:30:36.453Z",
+                "close": "2026-07-21T17:50:52.350Z",
+                "rating": 8.92,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 423,
+                        "fuel": 14118,
+                        "expenses": 61429,
+                        "penalties": 0,
+                        "revenue": 112728,
+                        "balance": 51299,
+                        "prices": {
+                            "ticketPrice": 110,
+                            "cargoUnitPrice": 132,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 407,
+                            "cargo": 94,
+                            "paxByClass": {
+                                "F": 78,
+                                "C": 271,
+                                "Y": 58
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 15961,
+                        "aircraft": 28925,
+                        "handling": 7453,
+                        "landing": 9090
+                    },
+                    "revenue": {
+                        "tickets": 100320,
+                        "cargo": 12408
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 7.71m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -43,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 19
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 8.53m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -65,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 17
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.25G (288 ft/min, normal  conditions)<br/>Distance from threshold: 361m (accepted range: 207-831m)<br/>Average centerline deviation: 5.43m<br/>Max centerline deviation: 8.53m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 17
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.25,
+                                        "rate": 288
+                                    },
+                                    "weather": {
+                                        "windDir": 49.96,
+                                        "windSpd": 9.3,
+                                        "windX": -5.34
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-21T16:24:13.582Z",
+                "updatedAt": "2026-07-21T17:50:52.462Z",
+                "dep": {
+                    "icao": "EDDF",
+                    "name": "Frankfurt Airport",
+                    "city": "Frankfurt am Main",
+                    "location": {
+                        "lat": 50.030241,
+                        "lon": 8.561096,
+                        "elev": 364
+                    }
+                },
+                "arr": {
+                    "icao": "EGLL",
+                    "name": "London Heathrow Airport",
+                    "city": "London",
+                    "location": {
+                        "lat": 51.4706,
+                        "lon": -0.461941,
+                        "elev": 83
+                    }
+                },
+                "actArr": {
+                    "icao": "EGLL",
+                    "name": "London Heathrow Airport",
+                    "city": "London",
+                    "location": {
+                        "lat": 51.4706,
+                        "lon": -0.461941,
+                        "elev": 83
+                    }
+                }
             }
         ]
     },
