@@ -4013,6 +4013,156 @@
                         "elev": 37
                     }
                 }
+            },
+            {
+                "_id": "6a5f6d6d50c8a562fccbb49c",
+                "aircraft": {
+                    "_id": "696285163dc76275ba9ef60c",
+                    "name": "Boeing 737-800",
+                    "customName": "UCAA l 737-800 (pax) based in UKKK l UR-UCA",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "1204",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 162,
+                    "cargo": 21,
+                    "weights": {
+                        "cargo": 1344
+                    }
+                },
+                "depTime": "2026-07-21T13:15:00.000Z",
+                "duration": 136,
+                "arrTime": "2026-07-21T15:31:00.000Z",
+                "depTimeAct": "2026-07-21T13:17:04.922Z",
+                "delay": -2,
+                "takeoffTimeAct": "2026-07-21T13:20:30.929Z",
+                "durationAct": 129,
+                "arrTimeAct": "2026-07-21T15:29:27.992Z",
+                "open": "2026-07-21T13:00:34.465Z",
+                "close": "2026-07-21T15:34:24.366Z",
+                "rating": 9.66,
+                "simulator": "msfs",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 996,
+                        "fuel": 5497,
+                        "expenses": 14232,
+                        "penalties": 0,
+                        "revenue": 32387,
+                        "balance": 18155,
+                        "prices": {
+                            "ticketPrice": 152,
+                            "cargoUnitPrice": 167,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 162,
+                            "cargo": 21,
+                            "paxByClass": {
+                                "F": 4,
+                                "C": 16,
+                                "Y": 142
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 6215,
+                        "aircraft": 6575,
+                        "handling": 821,
+                        "landing": 621
+                    },
+                    "revenue": {
+                        "tickets": 28880,
+                        "cargo": 3507
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 6.10m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -34,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 43
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.15G (115 ft/min, challenging  conditions)<br/>Distance from threshold: 438m (accepted range: 175-704m)<br/>Average centerline deviation: 1.39m<br/>Max centerline deviation: 2.26m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 47
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.15,
+                                        "rate": 115
+                                    },
+                                    "weather": {
+                                        "windDir": 301.51,
+                                        "windSpd": 12.88,
+                                        "windX": -2.52
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-21T13:00:29.881Z",
+                "updatedAt": "2026-07-21T15:34:24.444Z",
+                "dep": {
+                    "icao": "LFKJ",
+                    "name": "Ajaccio Napoléon Bonaparte airport",
+                    "city": "Ajaccio",
+                    "location": {
+                        "lat": 41.923599,
+                        "lon": 8.80292,
+                        "elev": 18
+                    }
+                },
+                "arr": {
+                    "icao": "UKWW",
+                    "name": "Vinnytsia/Gavyryshivka International Airport",
+                    "city": "Vinnitsa",
+                    "location": {
+                        "lat": 49.242531,
+                        "lon": 28.613778,
+                        "elev": 961
+                    }
+                },
+                "actArr": {
+                    "icao": "UKWW",
+                    "name": "Vinnytsia/Gavyryshivka International Airport",
+                    "city": "Vinnitsa",
+                    "location": {
+                        "lat": 49.242531,
+                        "lon": 28.613778,
+                        "elev": 961
+                    }
+                }
             }
         ]
     },
