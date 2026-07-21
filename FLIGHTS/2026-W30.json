@@ -3133,6 +3133,156 @@
                         "elev": 587
                     }
                 }
+            },
+            {
+                "_id": "6a5f36aa50c8a562fcc6904d",
+                "aircraft": {
+                    "_id": "6a4fa15e5760ec7cdb627803",
+                    "name": "Boeing 737-800",
+                    "customName": "Dry Lease l BOEING 737-800",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "02Q",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 151,
+                    "cargo": 27,
+                    "weights": {
+                        "cargo": 3537
+                    }
+                },
+                "depTime": "2026-07-21T09:20:00.000Z",
+                "duration": 600,
+                "arrTime": "2026-07-21T19:20:00.000Z",
+                "depTimeAct": "2026-07-21T09:45:07.124Z",
+                "delay": -456,
+                "takeoffTimeAct": "2026-07-21T09:54:36.139Z",
+                "durationAct": 109,
+                "arrTimeAct": "2026-07-21T11:43:34.224Z",
+                "open": "2026-07-21T09:28:16.131Z",
+                "close": "2026-07-21T11:57:44.273Z",
+                "rating": 10,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 697,
+                        "fuel": 4223,
+                        "expenses": 15237,
+                        "penalties": 830,
+                        "revenue": 24435,
+                        "balance": 8368,
+                        "prices": {
+                            "ticketPrice": 135,
+                            "cargoUnitPrice": 150,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 151,
+                            "cargo": 27,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 151
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4775,
+                        "aircraft": 5925,
+                        "handling": 2890,
+                        "landing": 1647
+                    },
+                    "revenue": {
+                        "tickets": 20385,
+                        "cargo": 4050
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight delayed 11 minutes (max 15 minutes after scheduled is allowed)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 830
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.31G (309 ft/min, normal  conditions)<br/>Distance from threshold: 446m (accepted range: 207-830m)<br/>Average centerline deviation: 2.59m<br/>Max centerline deviation: 3.35m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 34
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.31,
+                                        "rate": 309
+                                    },
+                                    "weather": {
+                                        "windDir": 200.31,
+                                        "windSpd": 13.82,
+                                        "windX": 0.17
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-21T09:06:50.766Z",
+                "updatedAt": "2026-07-21T11:57:44.396Z",
+                "dep": {
+                    "icao": "LFPG",
+                    "name": "Charles de Gaulle International Airport",
+                    "city": "Paris (Roissy-en-France, Val-d'Oise)",
+                    "location": {
+                        "lat": 49.012798,
+                        "lon": 2.55,
+                        "elev": 392
+                    }
+                },
+                "arr": {
+                    "icao": "LIRF",
+                    "name": "Rome–Fiumicino Leonardo da Vinci International Airport",
+                    "city": "Rome",
+                    "location": {
+                        "lat": 41.804532,
+                        "lon": 12.251998,
+                        "elev": 13
+                    }
+                },
+                "actArr": {
+                    "icao": "LIRF",
+                    "name": "Rome–Fiumicino Leonardo da Vinci International Airport",
+                    "city": "Rome",
+                    "location": {
+                        "lat": 41.804532,
+                        "lon": 12.251998,
+                        "elev": 13
+                    }
+                }
             }
         ]
     },
