@@ -8103,6 +8103,171 @@
                         "elev": 587
                     }
                 }
+            },
+            {
+                "_id": "6a5fb7f7d7bb28994aacd3e3",
+                "aircraft": {
+                    "_id": "695a82b73dc76275bad4f381",
+                    "name": "ATR 72-600",
+                    "customName": "Windrose l ATR-72 based in UKBB l UR-RWC",
+                    "icao": "AT76"
+                },
+                "type": "pax",
+                "flightNumber": "888F",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 62,
+                    "cargo": 7,
+                    "weights": {
+                        "cargo": 840
+                    }
+                },
+                "depTime": "2026-07-21T18:30:00.000Z",
+                "duration": 80,
+                "arrTime": "2026-07-21T19:50:00.000Z",
+                "depTimeAct": "2026-07-21T18:33:22.204Z",
+                "delay": -2,
+                "takeoffTimeAct": "2026-07-21T18:40:44.213Z",
+                "durationAct": 67,
+                "arrTimeAct": "2026-07-21T19:47:59.266Z",
+                "open": "2026-07-21T18:27:48.841Z",
+                "close": "2026-07-21T19:50:22.308Z",
+                "rating": 8.17,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 265,
+                        "fuel": 1130,
+                        "expenses": 3396,
+                        "penalties": 0,
+                        "revenue": 7275,
+                        "balance": 3879,
+                        "prices": {
+                            "ticketPrice": 103,
+                            "cargoUnitPrice": 127,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 62,
+                            "cargo": 7,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 62
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1022,
+                        "aircraft": 1948,
+                        "handling": 219,
+                        "landing": 207
+                    },
+                    "revenue": {
+                        "tickets": 6386,
+                        "cargo": 889
+                    },
+                    "violations": [
+                        {
+                            "title": "Average touchdown: 1.55G (367 ft/min, challenging  conditions)<br/>Distance from threshold: 315m (accepted range: 175-704m)<br/>Average centerline deviation: 2.05m<br/>Max centerline deviation: 3.71m",
+                            "penalty": {
+                                "points": -13,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.55,
+                                        "rate": 367
+                                    },
+                                    "weather": {
+                                        "windDir": 352.76,
+                                        "windSpd": 2.52,
+                                        "windX": -1.59
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 918ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -122,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gear",
+                                "payload": {
+                                    "system": {
+                                        "fps": 45
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Max G exceeded: 2.24G (max allowed: 2G)",
+                            "penalty": {
+                                "points": -48,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 45
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-21T18:18:31.630Z",
+                "updatedAt": "2026-07-21T19:50:22.415Z",
+                "dep": {
+                    "icao": "UKKK",
+                    "name": "Ihor Sikorsky Kyiv International Airport (Zhuliany)",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.40194,
+                        "lon": 30.45194,
+                        "elev": 587
+                    }
+                },
+                "arr": {
+                    "icao": "UKOH",
+                    "name": "Kherson International Airport",
+                    "city": "Kherson",
+                    "location": {
+                        "lat": 46.6758,
+                        "lon": 32.506401,
+                        "elev": 148
+                    }
+                },
+                "actArr": {
+                    "icao": "UKOH",
+                    "name": "Kherson International Airport",
+                    "city": "Kherson",
+                    "location": {
+                        "lat": 46.6758,
+                        "lon": 32.506401,
+                        "elev": 148
+                    }
+                }
             }
         ]
     },
