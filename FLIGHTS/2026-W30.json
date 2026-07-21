@@ -2573,6 +2573,156 @@
                         "elev": 481
                     }
                 }
+            },
+            {
+                "_id": "6a5f888d50c8a562fccecfed",
+                "aircraft": {
+                    "_id": "695a7b833dc76275bad3af85",
+                    "name": "Boeing 737-800",
+                    "customName": "Kharkiv Airlines l 737-800 based in UKHH UKBB UKCC l UR-CLR",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "0210",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 184,
+                    "cargo": 17,
+                    "weights": {
+                        "cargo": 1513
+                    }
+                },
+                "depTime": "2026-07-21T15:20:00.000Z",
+                "duration": 200,
+                "arrTime": "2026-07-21T18:40:00.000Z",
+                "depTimeAct": "2026-07-21T15:18:33.337Z",
+                "delay": 14,
+                "takeoffTimeAct": "2026-07-21T15:29:05.344Z",
+                "durationAct": 205,
+                "arrTimeAct": "2026-07-21T18:54:19.565Z",
+                "open": "2026-07-21T14:58:33.076Z",
+                "close": "2026-07-21T19:03:05.629Z",
+                "rating": 9.79,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1350,
+                        "fuel": 9069,
+                        "expenses": 18579,
+                        "penalties": 0,
+                        "revenue": 35597,
+                        "balance": 17018,
+                        "prices": {
+                            "ticketPrice": 176,
+                            "cargoUnitPrice": 189,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 184,
+                            "cargo": 17,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 184
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 8203,
+                        "aircraft": 8025,
+                        "handling": 650,
+                        "landing": 1701
+                    },
+                    "revenue": {
+                        "tickets": 32384,
+                        "cargo": 3213
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 9.52m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -21,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 14
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.18G (166 ft/min, challenging  conditions)<br/>Distance from threshold: 591m (accepted range: 209-838m)<br/>Average centerline deviation: 6.41m<br/>Max centerline deviation: 9.52m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 15
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.18,
+                                        "rate": 166
+                                    },
+                                    "weather": {
+                                        "windDir": 350,
+                                        "windSpd": 18.81,
+                                        "windX": -0.32
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-21T14:56:13.857Z",
+                "updatedAt": "2026-07-21T19:03:05.709Z",
+                "dep": {
+                    "icao": "UKHH",
+                    "name": "Kharkiv International Airport",
+                    "city": "Kharkiv",
+                    "location": {
+                        "lat": 49.926943,
+                        "lon": 36.290814,
+                        "elev": 508
+                    }
+                },
+                "arr": {
+                    "icao": "HECA",
+                    "name": "Cairo International Airport",
+                    "city": "Cairo",
+                    "location": {
+                        "lat": 30.111534,
+                        "lon": 31.396694,
+                        "elev": 322
+                    }
+                },
+                "actArr": {
+                    "icao": "HECA",
+                    "name": "Cairo International Airport",
+                    "city": "Cairo",
+                    "location": {
+                        "lat": 30.111534,
+                        "lon": 31.396694,
+                        "elev": 322
+                    }
+                }
             }
         ]
     },
