@@ -10355,6 +10355,154 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6a60e7ac50c8a562fce90a6a",
+                "aircraft": {
+                    "_id": "6a4687cc5760ec7cdbae102b",
+                    "name": "Boeing 737 MAX 8",
+                    "customName": "Dry Lease l 737-MAX8 160 pax 3 classes l XP11 ",
+                    "icao": "B38M"
+                },
+                "type": "pax",
+                "flightNumber": "37T",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 160,
+                    "cargo": 32,
+                    "weights": {
+                        "cargo": 3552
+                    }
+                },
+                "depTime": "2026-07-22T16:20:00.000Z",
+                "duration": 100,
+                "arrTime": "2026-07-22T18:00:00.000Z",
+                "depTimeAct": "2026-07-22T16:21:17.536Z",
+                "delay": 3,
+                "takeoffTimeAct": "2026-07-22T16:27:50.202Z",
+                "durationAct": 95,
+                "arrTimeAct": "2026-07-22T18:03:09.351Z",
+                "open": "2026-07-22T16:10:28.237Z",
+                "close": "2026-07-22T18:08:00.395Z",
+                "rating": 9.66,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 601,
+                        "fuel": 4060,
+                        "expenses": 11823,
+                        "penalties": 0,
+                        "revenue": 25568,
+                        "balance": 13745,
+                        "prices": {
+                            "ticketPrice": 120,
+                            "cargoUnitPrice": 139,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 160,
+                            "cargo": 32,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 16,
+                                "Y": 144
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4590,
+                        "aircraft": 5275,
+                        "handling": 1454,
+                        "landing": 504
+                    },
+                    "revenue": {
+                        "tickets": 21120,
+                        "cargo": 4448
+                    },
+                    "violations": [
+                        {
+                            "title": "Average touchdown: 1.57G (754 ft/min, challenging  conditions)",
+                            "penalty": {
+                                "points": -18,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.57,
+                                        "rate": 754
+                                    },
+                                    "weather": {
+                                        "windDir": 6.84,
+                                        "windSpd": 0,
+                                        "windX": 0
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No BEACON lights for 93s when required",
+                            "penalty": {
+                                "points": -16,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-22T15:54:20.664Z",
+                "updatedAt": "2026-07-22T18:08:00.481Z",
+                "dep": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                },
+                "arr": {
+                    "icao": "UKOO",
+                    "name": "Odessa International Airport",
+                    "city": "Odessa",
+                    "location": {
+                        "lat": 46.4268,
+                        "lon": 30.6765,
+                        "elev": 172
+                    }
+                },
+                "actArr": {
+                    "icao": "UKOO",
+                    "name": "Odessa International Airport",
+                    "city": "Odessa",
+                    "location": {
+                        "lat": 46.4268,
+                        "lon": 30.6765,
+                        "elev": 172
+                    }
+                }
             }
         ]
     },
