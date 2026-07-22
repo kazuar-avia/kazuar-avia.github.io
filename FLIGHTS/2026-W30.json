@@ -2716,6 +2716,171 @@
                         "elev": 1247
                     }
                 }
+            },
+            {
+                "_id": "6a60db6150c8a562fce7b61f",
+                "aircraft": {
+                    "_id": "695a66383dc76275bad0826f",
+                    "name": "Airbus A320",
+                    "customName": "Dry Lease l A320 CFM FENIX msfs2024",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "28T",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 170,
+                    "cargo": 20,
+                    "weights": {
+                        "cargo": 2220
+                    }
+                },
+                "depTime": "2026-07-22T15:50:00.000Z",
+                "duration": 50,
+                "arrTime": "2026-07-22T16:40:00.000Z",
+                "depTimeAct": "2026-07-22T15:48:42.465Z",
+                "delay": 7,
+                "takeoffTimeAct": "2026-07-22T16:05:51.451Z",
+                "durationAct": 41,
+                "arrTimeAct": "2026-07-22T16:46:44.408Z",
+                "open": "2026-07-22T15:47:44.474Z",
+                "close": "2026-07-22T16:52:47.434Z",
+                "rating": 9.57,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 248,
+                        "fuel": 2049,
+                        "expenses": 8659,
+                        "penalties": 0,
+                        "revenue": 17606,
+                        "balance": 8947,
+                        "prices": {
+                            "ticketPrice": 87,
+                            "cargoUnitPrice": 106,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 170,
+                            "cargo": 20,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 8,
+                                "Y": 162
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2317,
+                        "aircraft": 4200,
+                        "handling": 1386,
+                        "landing": 756
+                    },
+                    "revenue": {
+                        "tickets": 15486,
+                        "cargo": 2120
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 6.09m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -34,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.41G (320 ft/min, normal  conditions)<br/>Distance from threshold: 301m (accepted range: 193-775m)<br/>Average centerline deviation: 2.77m<br/>Max centerline deviation: 6.09m",
+                            "penalty": {
+                                "points": -3,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.41,
+                                        "rate": 320
+                                    },
+                                    "weather": {
+                                        "windDir": 290,
+                                        "windSpd": 14.06,
+                                        "windX": -5.23
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Max G exceeded: 2.03G (max allowed: 2G)",
+                            "penalty": {
+                                "points": -6,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-22T15:01:53.464Z",
+                "updatedAt": "2026-07-22T16:52:47.514Z",
+                "dep": {
+                    "icao": "LKPR",
+                    "name": "Václav Havel Airport Prague",
+                    "city": "Prague",
+                    "location": {
+                        "lat": 50.100874,
+                        "lon": 14.259911,
+                        "elev": 1247
+                    }
+                },
+                "arr": {
+                    "icao": "LZIB",
+                    "name": "M. R. Štefánik Airport",
+                    "city": "Bratislava",
+                    "location": {
+                        "lat": 48.1702,
+                        "lon": 17.2127,
+                        "elev": 436
+                    }
+                },
+                "actArr": {
+                    "icao": "LZIB",
+                    "name": "M. R. Štefánik Airport",
+                    "city": "Bratislava",
+                    "location": {
+                        "lat": 48.1702,
+                        "lon": 17.2127,
+                        "elev": 436
+                    }
+                }
             }
         ]
     },
