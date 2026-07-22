@@ -6902,6 +6902,156 @@
                         "elev": 314
                     }
                 }
+            },
+            {
+                "_id": "6a606a9150c8a562fcdf299e",
+                "aircraft": {
+                    "_id": "6a4671586748d36670c9277b",
+                    "name": "Boeing 737 MAX 8",
+                    "customName": "Dry Lease l 737-MAX8 189 pax l msfs 2024",
+                    "icao": "B38M"
+                },
+                "type": "pax",
+                "flightNumber": "215A",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 171,
+                    "cargo": 18,
+                    "weights": {
+                        "cargo": 2034
+                    }
+                },
+                "depTime": "2026-07-22T07:20:00.000Z",
+                "duration": 40,
+                "arrTime": "2026-07-22T08:00:00.000Z",
+                "depTimeAct": "2026-07-22T07:12:24.127Z",
+                "delay": -15,
+                "takeoffTimeAct": "2026-07-22T07:15:43.225Z",
+                "durationAct": 29,
+                "arrTimeAct": "2026-07-22T07:44:58.639Z",
+                "open": "2026-07-22T07:00:50.686Z",
+                "close": "2026-07-22T07:48:13.827Z",
+                "rating": 9.94,
+                "simulator": "xp",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 143,
+                        "fuel": 1316,
+                        "expenses": 6999,
+                        "penalties": 0,
+                        "revenue": 14854,
+                        "balance": 7855,
+                        "prices": {
+                            "ticketPrice": 68,
+                            "cargoUnitPrice": 81,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 172,
+                            "cargo": 18,
+                            "paxByClass": {
+                                "F": 4,
+                                "C": 13,
+                                "Y": 155
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1488,
+                        "aircraft": 4075,
+                        "handling": 869,
+                        "landing": 567
+                    },
+                    "revenue": {
+                        "tickets": 13396,
+                        "cargo": 1458
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 8.30m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -6,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 23
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.15G (150 ft/min, challenging  conditions)<br/>Distance from threshold: 497m (accepted range: 193-775m)<br/>Average centerline deviation: 1.53m<br/>Max centerline deviation: 2.97m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.15,
+                                        "rate": 150
+                                    },
+                                    "weather": {
+                                        "windDir": 56.98,
+                                        "windSpd": 8.86,
+                                        "windX": -2.58
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-22T07:00:33.773Z",
+                "updatedAt": "2026-07-22T07:48:13.904Z",
+                "dep": {
+                    "icao": "LRSB",
+                    "name": "Sibiu International Airport",
+                    "city": "Sibiu",
+                    "location": {
+                        "lat": 45.785841,
+                        "lon": 24.086666,
+                        "elev": 1496
+                    }
+                },
+                "arr": {
+                    "icao": "LRBS",
+                    "name": "Bucharest Băneasa Aurel Vlaicu International Airport",
+                    "city": "Bucharest",
+                    "location": {
+                        "lat": 44.503201,
+                        "lon": 26.1021,
+                        "elev": 297
+                    }
+                },
+                "actArr": {
+                    "icao": "LRBS",
+                    "name": "Bucharest Băneasa Aurel Vlaicu International Airport",
+                    "city": "Bucharest",
+                    "location": {
+                        "lat": 44.503201,
+                        "lon": 26.1021,
+                        "elev": 297
+                    }
+                }
             }
         ]
     },
