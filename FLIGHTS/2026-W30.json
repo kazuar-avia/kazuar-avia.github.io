@@ -6755,6 +6755,200 @@
                         "elev": 961
                     }
                 }
+            },
+            {
+                "_id": "6a60ee7550c8a562fce9bd01",
+                "aircraft": {
+                    "_id": "69f0eb2ca5e61d69a7cfbe9e",
+                    "name": "Boeing 737-900",
+                    "customName": "Ukraine Int l 737-900ER Single Class based in UKBB l UR-PSI",
+                    "icao": "B739"
+                },
+                "type": "pax",
+                "flightNumber": "1204",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 204,
+                    "cargo": 39,
+                    "weights": {
+                        "cargo": 3705
+                    }
+                },
+                "depTime": "2026-07-22T17:30:00.000Z",
+                "duration": 105,
+                "arrTime": "2026-07-22T19:15:00.000Z",
+                "depTimeAct": "2026-07-22T17:59:08.843Z",
+                "delay": 19,
+                "takeoffTimeAct": "2026-07-22T18:11:25.399Z",
+                "durationAct": 83,
+                "arrTimeAct": "2026-07-22T19:34:00.437Z",
+                "open": "2026-07-22T17:07:16.199Z",
+                "close": "2026-07-22T19:39:24.487Z",
+                "rating": 9.84,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 574,
+                        "fuel": 3891,
+                        "expenses": 12306,
+                        "penalties": 1530,
+                        "revenue": 30387,
+                        "balance": 16551,
+                        "prices": {
+                            "ticketPrice": 122,
+                            "cargoUnitPrice": 141,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 204,
+                            "cargo": 39,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 204
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4399,
+                        "aircraft": 5875,
+                        "handling": 1303,
+                        "landing": 729
+                    },
+                    "revenue": {
+                        "tickets": 24888,
+                        "cargo": 5499
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight delayed 15 minutes (max 15 minutes after scheduled is allowed)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 1530
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline takeoff (deviation 4.04m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    },
+                                    "weather": {
+                                        "windDir": 10,
+                                        "windSpd": 3.72,
+                                        "windX": -2.06
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 4.96m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -16,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.15,
+                                        "rate": 180
+                                    },
+                                    "weather": {
+                                        "windDir": 279.99,
+                                        "windSpd": 10.11,
+                                        "windX": -8.58
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.15G (180 ft/min, normal  conditions)<br/>Distance from threshold: 287m (accepted range: 194-777m)<br/>Average centerline deviation: 1.33m<br/>Max centerline deviation: 4.96m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.15,
+                                        "rate": 180
+                                    },
+                                    "weather": {
+                                        "windDir": 279.99,
+                                        "windSpd": 10.11,
+                                        "windX": -8.58
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-22T16:23:17.837Z",
+                "updatedAt": "2026-07-22T19:39:24.603Z",
+                "dep": {
+                    "icao": "LZIB",
+                    "name": "M. R. Štefánik Airport",
+                    "city": "Bratislava",
+                    "location": {
+                        "lat": 48.1702,
+                        "lon": 17.2127,
+                        "elev": 436
+                    }
+                },
+                "arr": {
+                    "icao": "LBBG",
+                    "name": "Burgas Airport",
+                    "city": "Burgas",
+                    "location": {
+                        "lat": 42.569917,
+                        "lon": 27.515173,
+                        "elev": 135
+                    }
+                },
+                "actArr": {
+                    "icao": "LBBG",
+                    "name": "Burgas Airport",
+                    "city": "Burgas",
+                    "location": {
+                        "lat": 42.569917,
+                        "lon": 27.515173,
+                        "elev": 135
+                    }
+                }
             }
         ]
     },
