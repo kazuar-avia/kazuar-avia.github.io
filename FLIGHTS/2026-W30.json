@@ -16003,6 +16003,195 @@
                         "elev": 12
                     }
                 }
+            },
+            {
+                "_id": "6a61f53750c8a562fcfbac81",
+                "aircraft": {
+                    "_id": "695a66383dc76275bad0826f",
+                    "name": "Airbus A320",
+                    "customName": "Dry Lease l A320 CFM FENIX msfs2024",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "3946",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 176,
+                    "cargo": 1,
+                    "weights": {
+                        "cargo": 61
+                    }
+                },
+                "depTime": "2026-07-23T11:40:00.000Z",
+                "duration": 55,
+                "arrTime": "2026-07-23T12:35:00.000Z",
+                "depTimeAct": "2026-07-23T11:41:38.328Z",
+                "delay": 5,
+                "takeoffTimeAct": "2026-07-23T11:49:24.319Z",
+                "durationAct": 51,
+                "arrTimeAct": "2026-07-23T12:40:06.249Z",
+                "open": "2026-07-23T11:25:12.961Z",
+                "close": "2026-07-23T12:44:21.264Z",
+                "rating": 6.58,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 259,
+                        "fuel": 2621,
+                        "expenses": 9849,
+                        "penalties": 0,
+                        "revenue": 18894,
+                        "balance": 9045,
+                        "prices": {
+                            "ticketPrice": 102,
+                            "cargoUnitPrice": 126,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 176,
+                            "cargo": 1,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 8,
+                                "Y": 168
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2964,
+                        "aircraft": 4625,
+                        "handling": 1585,
+                        "landing": 675
+                    },
+                    "revenue": {
+                        "tickets": 18768,
+                        "cargo": 126
+                    },
+                    "violations": [
+                        {
+                            "title": "Unstable approach below 300ft: vertical speed above 370 ft/min (actual 537 ft/min)",
+                            "penalty": {
+                                "points": -83,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 47
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 8.91m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -79,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (1273m from threshold beyond 758m max accepted)",
+                            "penalty": {
+                                "points": -180,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.33,
+                                        "rate": 245
+                                    },
+                                    "weather": {
+                                        "windDir": 330,
+                                        "windSpd": 12.12,
+                                        "windX": 4.59
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.33G (245 ft/min, normal  conditions)<br/>Distance from threshold: 1273m (accepted range: 189-758m)<br/>Average centerline deviation: 3.79m<br/>Max centerline deviation: 8.91m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.33,
+                                        "rate": 245
+                                    },
+                                    "weather": {
+                                        "windDir": 330,
+                                        "windSpd": 12.12,
+                                        "windX": 4.59
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-23T11:04:23.242Z",
+                "updatedAt": "2026-07-23T12:44:21.348Z",
+                "dep": {
+                    "icao": "LEPA",
+                    "name": "Palma de Mallorca Airport",
+                    "city": "Palma de Mallorca",
+                    "location": {
+                        "lat": 39.551701,
+                        "lon": 2.73881,
+                        "elev": 27
+                    }
+                },
+                "arr": {
+                    "icao": "LEZG",
+                    "name": "Zaragoza Airport",
+                    "city": "Zaragoza",
+                    "location": {
+                        "lat": 41.666199,
+                        "lon": -1.04155,
+                        "elev": 863
+                    }
+                },
+                "actArr": {
+                    "icao": "LEZG",
+                    "name": "Zaragoza Airport",
+                    "city": "Zaragoza",
+                    "location": {
+                        "lat": 41.666199,
+                        "lon": -1.04155,
+                        "elev": 863
+                    }
+                }
             }
         ]
     },
