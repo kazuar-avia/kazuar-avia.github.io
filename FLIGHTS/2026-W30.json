@@ -13791,6 +13791,176 @@
                         "elev": 1417
                     }
                 }
+            },
+            {
+                "_id": "6a622ce250c8a562fc0198c1",
+                "aircraft": {
+                    "_id": "695a3c883dc76275baca9e49",
+                    "name": "Airbus A320",
+                    "customName": "WizzAir Ukraine l A320 IAE WL based in UKKK l UR-WUC",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "81",
+                "free": false,
+                "schedule": false,
+                "charter": true,
+                "payload": {
+                    "pax": 180,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-07-23T16:30:00.000Z",
+                "duration": 125,
+                "arrTime": "2026-07-23T18:35:00.000Z",
+                "depTimeAct": "2026-07-23T16:17:30.777Z",
+                "delay": -11,
+                "takeoffTimeAct": "2026-07-23T16:30:05.783Z",
+                "durationAct": 114,
+                "arrTimeAct": "2026-07-23T18:24:20.885Z",
+                "open": "2026-07-23T15:46:53.863Z",
+                "close": "2026-07-23T18:29:56.606Z",
+                "rating": 8.15,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 659,
+                        "fuel": 4639,
+                        "expenses": 15102,
+                        "penalties": 0,
+                        "revenue": 33480,
+                        "balance": 18378,
+                        "prices": {
+                            "ticketPrice": 186,
+                            "cargoUnitPrice": 214,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 180,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 180
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 5245,
+                        "aircraft": 6050,
+                        "handling": 972,
+                        "landing": 2835
+                    },
+                    "revenue": {
+                        "tickets": 33480,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 6.16m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -35,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "weather": {
+                                        "windDir": 329.99,
+                                        "windSpd": 13.01,
+                                        "windX": 8.21
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.34G (306 ft/min, challenging  conditions)<br/>Distance from threshold: 664m (accepted range: 209-838m)<br/>Average centerline deviation: 1.36m<br/>Max centerline deviation: 4.49m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 35
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.34,
+                                        "rate": 306
+                                    },
+                                    "weather": {
+                                        "windDir": 310,
+                                        "windSpd": 12.38,
+                                        "windX": 9.34
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 311ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 36
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-23T15:01:54.033Z",
+                "updatedAt": "2026-07-23T18:29:56.691Z",
+                "dep": {
+                    "icao": "LRTR",
+                    "name": "Timişoara Traian Vuia Airport",
+                    "city": "Timişoara",
+                    "location": {
+                        "lat": 45.809898,
+                        "lon": 21.3379,
+                        "elev": 348
+                    }
+                },
+                "arr": {
+                    "icao": "EDDF",
+                    "name": "Frankfurt Airport",
+                    "city": "Frankfurt am Main",
+                    "location": {
+                        "lat": 50.030241,
+                        "lon": 8.561096,
+                        "elev": 364
+                    }
+                },
+                "actArr": {
+                    "icao": "EDDF",
+                    "name": "Frankfurt Airport",
+                    "city": "Frankfurt am Main",
+                    "location": {
+                        "lat": 50.030241,
+                        "lon": 8.561096,
+                        "elev": 364
+                    }
+                }
             }
         ]
     },
