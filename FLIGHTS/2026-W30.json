@@ -10317,6 +10317,161 @@
                         "elev": 364
                     }
                 }
+            },
+            {
+                "_id": "6a62487d50c8a562fc048aaf",
+                "aircraft": {
+                    "_id": "6988b97c9da57b990ad5c8f7",
+                    "name": "Airbus A321 neo",
+                    "customName": "Dry Lease l iniBuilds A321LR (neo) l 220 pax",
+                    "icao": "A21N"
+                },
+                "type": "pax",
+                "flightNumber": "825M",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 220,
+                    "cargo": 28,
+                    "weights": {
+                        "cargo": 1792
+                    }
+                },
+                "depTime": "2026-07-23T17:15:00.000Z",
+                "duration": 80,
+                "arrTime": "2026-07-23T18:35:00.000Z",
+                "depTimeAct": "2026-07-23T17:17:30.886Z",
+                "delay": 4,
+                "takeoffTimeAct": "2026-07-23T17:20:48.903Z",
+                "durationAct": 78,
+                "arrTimeAct": "2026-07-23T18:39:06.891Z",
+                "open": "2026-07-23T17:15:42.173Z",
+                "close": "2026-07-23T18:43:01.920Z",
+                "rating": 9.62,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 460,
+                        "fuel": 3653,
+                        "expenses": 14487,
+                        "penalties": 0,
+                        "revenue": 28364,
+                        "balance": 13877,
+                        "prices": {
+                            "ticketPrice": 112,
+                            "cargoUnitPrice": 133,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 220,
+                            "cargo": 28,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 220
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4130,
+                        "aircraft": 5765,
+                        "handling": 2810,
+                        "landing": 1782
+                    },
+                    "revenue": {
+                        "tickets": 24640,
+                        "cargo": 3724
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 7.27m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -38,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 23
+                                    },
+                                    "weather": {
+                                        "windDir": 239.97,
+                                        "windSpd": 7.74,
+                                        "windX": 7.29
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.29G (255 ft/min, normal  conditions)<br/>Distance from threshold: 657m (accepted range: 197-789m)<br/>Average centerline deviation: 1.97m<br/>Max centerline deviation: 3.70m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 22
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.29,
+                                        "rate": 255
+                                    },
+                                    "weather": {
+                                        "windDir": 100,
+                                        "windSpd": 5.6,
+                                        "windX": 2.99
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-23T16:59:41.643Z",
+                "updatedAt": "2026-07-23T18:43:02.010Z",
+                "dep": {
+                    "icao": "LIMC",
+                    "name": "Milan Malpensa International Airport",
+                    "city": "Ferno (VA)",
+                    "location": {
+                        "lat": 45.6306,
+                        "lon": 8.72811,
+                        "elev": 768
+                    }
+                },
+                "arr": {
+                    "icao": "LEBL",
+                    "name": "Josep Tarradellas Barcelona-El Prat Airport",
+                    "city": "Barcelona",
+                    "location": {
+                        "lat": 41.2971,
+                        "lon": 2.07846,
+                        "elev": 12
+                    }
+                },
+                "actArr": {
+                    "icao": "LEBL",
+                    "name": "Josep Tarradellas Barcelona-El Prat Airport",
+                    "city": "Barcelona",
+                    "location": {
+                        "lat": 41.2971,
+                        "lon": 2.07846,
+                        "elev": 12
+                    }
+                }
             }
         ]
     },
