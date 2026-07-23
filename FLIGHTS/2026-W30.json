@@ -18191,6 +18191,141 @@
                         "elev": 172
                     }
                 }
+            },
+            {
+                "_id": "6a622d7950c8a562fc01a675",
+                "aircraft": {
+                    "_id": "6988b97c9da57b990ad5c8f7",
+                    "name": "Airbus A321 neo",
+                    "customName": "Dry Lease l iniBuilds A321LR (neo) l 220 pax",
+                    "icao": "A21N"
+                },
+                "type": "pax",
+                "flightNumber": "0711",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 220,
+                    "cargo": 30,
+                    "weights": {
+                        "cargo": 3480
+                    }
+                },
+                "depTime": "2026-07-23T15:25:00.000Z",
+                "duration": 95,
+                "arrTime": "2026-07-23T17:00:00.000Z",
+                "depTimeAct": "2026-07-23T15:34:23.395Z",
+                "delay": 26,
+                "takeoffTimeAct": "2026-07-23T15:40:05.062Z",
+                "durationAct": 106,
+                "arrTimeAct": "2026-07-23T17:25:46.206Z",
+                "open": "2026-07-23T15:32:18.493Z",
+                "close": "2026-07-23T17:27:42.340Z",
+                "rating": 0,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 562,
+                        "fuel": 3597,
+                        "expenses": 11297,
+                        "penalties": 1000000,
+                        "revenue": 30100,
+                        "balance": -981197,
+                        "prices": {
+                            "ticketPrice": 118,
+                            "cargoUnitPrice": 138,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 220,
+                            "cargo": 30,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 220
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3254,
+                        "aircraft": 6205,
+                        "handling": 1109,
+                        "landing": 729
+                    },
+                    "revenue": {
+                        "tickets": 25960,
+                        "cargo": 4140
+                    },
+                    "violations": [
+                        {
+                            "title": "Crashed on landing: Main gear collapse due to extremely hard landing",
+                            "penalty": {
+                                "points": -1000,
+                                "cash": 1000000
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    },
+                                    "touchDown": {
+                                        "gForce": 4.82,
+                                        "rate": 1540
+                                    },
+                                    "weather": {
+                                        "windDir": 108.97,
+                                        "windSpd": 5.51,
+                                        "windX": 4.97
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-23T15:04:25.618Z",
+                "updatedAt": "2026-07-23T17:27:42.529Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "LBBG",
+                    "name": "Burgas Airport",
+                    "city": "Burgas",
+                    "location": {
+                        "lat": 42.569917,
+                        "lon": 27.515173,
+                        "elev": 135
+                    }
+                },
+                "actArr": {
+                    "icao": "LBBG",
+                    "name": "Burgas Airport",
+                    "city": "Burgas",
+                    "location": {
+                        "lat": 42.569917,
+                        "lon": 27.515173,
+                        "elev": 135
+                    }
+                }
             }
         ]
     }
