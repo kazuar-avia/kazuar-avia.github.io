@@ -12510,6 +12510,156 @@
                         "elev": 325
                     }
                 }
+            },
+            {
+                "_id": "6a63287850c8a562fc12fe1a",
+                "aircraft": {
+                    "_id": "6a4687cc5760ec7cdbae102b",
+                    "name": "Boeing 737 MAX 8",
+                    "customName": "Dry Lease l 737-MAX8 160 pax 3 classes l XP11 ",
+                    "icao": "B38M"
+                },
+                "type": "pax",
+                "flightNumber": "80Y",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 160,
+                    "cargo": 42,
+                    "weights": {
+                        "cargo": 2604
+                    }
+                },
+                "depTime": "2026-07-24T09:25:00.000Z",
+                "duration": 35,
+                "arrTime": "2026-07-24T10:00:00.000Z",
+                "depTimeAct": "2026-07-24T09:11:41.176Z",
+                "delay": -28,
+                "takeoffTimeAct": "2026-07-24T09:17:08.186Z",
+                "durationAct": 15,
+                "arrTimeAct": "2026-07-24T09:31:49.163Z",
+                "open": "2026-07-24T09:02:09.690Z",
+                "close": "2026-07-24T09:35:55.244Z",
+                "rating": 9.62,
+                "simulator": "xp",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 63,
+                        "fuel": 759,
+                        "expenses": 9229,
+                        "penalties": 0,
+                        "revenue": 10934,
+                        "balance": 1705,
+                        "prices": {
+                            "ticketPrice": 49,
+                            "cargoUnitPrice": 55,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 160,
+                            "cargo": 42,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 16,
+                                "Y": 144
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 886,
+                        "aircraft": 3850,
+                        "handling": 3743,
+                        "landing": 750
+                    },
+                    "revenue": {
+                        "tickets": 8624,
+                        "cargo": 2310
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 6.40m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -38,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.23G (179 ft/min, normal  conditions)<br/>Distance from threshold: 793m (accepted range: 211-848m)<br/>Average centerline deviation: 1.21m<br/>Max centerline deviation: 2.02m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.23,
+                                        "rate": 179
+                                    },
+                                    "weather": {
+                                        "windDir": 317.26,
+                                        "windSpd": 7.03,
+                                        "windX": 4.8
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-24T08:55:20.171Z",
+                "updatedAt": "2026-07-24T09:35:55.333Z",
+                "dep": {
+                    "icao": "KDEN",
+                    "name": "Denver International Airport",
+                    "city": "Denver",
+                    "location": {
+                        "lat": 39.861698150635,
+                        "lon": -104.672996521,
+                        "elev": 5431
+                    }
+                },
+                "arr": {
+                    "icao": "KCOS",
+                    "name": "City of Colorado Springs Municipal Airport",
+                    "city": "Colorado Springs",
+                    "location": {
+                        "lat": 38.805801,
+                        "lon": -104.700996,
+                        "elev": 6187
+                    }
+                },
+                "actArr": {
+                    "icao": "KCOS",
+                    "name": "City of Colorado Springs Municipal Airport",
+                    "city": "Colorado Springs",
+                    "location": {
+                        "lat": 38.805801,
+                        "lon": -104.700996,
+                        "elev": 6187
+                    }
+                }
             }
         ]
     },
