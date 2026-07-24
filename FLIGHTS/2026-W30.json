@@ -17793,6 +17793,180 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6a63833150c8a562fc1b24df",
+                "aircraft": {
+                    "_id": "69ef2347a5e61d69a7a9a2b0",
+                    "name": "Airbus A320",
+                    "customName": "WizzAir Ukraine l A320 IAE SL based in UKBB l UR-WUB",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "471W",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 51,
+                    "cargo": 22,
+                    "weights": {
+                        "cargo": 1540
+                    }
+                },
+                "depTime": "2026-07-24T15:50:00.000Z",
+                "duration": 140,
+                "arrTime": "2026-07-24T18:10:00.000Z",
+                "depTimeAct": "2026-07-24T15:56:10.460Z",
+                "delay": -8,
+                "takeoffTimeAct": "2026-07-24T15:56:10.460Z",
+                "durationAct": 125,
+                "arrTimeAct": "2026-07-24T18:01:32.514Z",
+                "open": "2026-07-24T15:37:51.910Z",
+                "close": "2026-07-24T18:07:31.530Z",
+                "rating": 9.68,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 876,
+                        "fuel": 4422,
+                        "expenses": 12347,
+                        "penalties": 0,
+                        "revenue": 10448,
+                        "balance": -1899,
+                        "prices": {
+                            "ticketPrice": 138,
+                            "cargoUnitPrice": 155,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 51,
+                            "cargo": 22,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 51
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 5000,
+                        "aircraft": 6225,
+                        "handling": 240,
+                        "landing": 882
+                    },
+                    "revenue": {
+                        "tickets": 7038,
+                        "cargo": 3410
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 6.76m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -32,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 21
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.14G (180 ft/min, challenging  conditions)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 15
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.14,
+                                        "rate": 180
+                                    },
+                                    "weather": {
+                                        "windDir": 7.91,
+                                        "windSpd": 5.29,
+                                        "windX": 0.44
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Fuel used 3716 kg is lower than estimated minimum 4422 kg.",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 15
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.14,
+                                        "rate": 180
+                                    },
+                                    "weather": {
+                                        "windDir": 7.91,
+                                        "windSpd": 5.29,
+                                        "windX": 0.44
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-24T15:22:25.981Z",
+                "updatedAt": "2026-07-24T18:07:31.619Z",
+                "dep": {
+                    "icao": "EDHL",
+                    "name": "Lübeck Blankensee Airport",
+                    "city": "Lübeck",
+                    "location": {
+                        "lat": 53.805401,
+                        "lon": 10.7192,
+                        "elev": 53
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
             }
         ]
     },
