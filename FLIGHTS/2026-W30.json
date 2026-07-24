@@ -12638,6 +12638,156 @@
                         "elev": 12
                     }
                 }
+            },
+            {
+                "_id": "6a638cce50c8a562fc1c17f6",
+                "aircraft": {
+                    "_id": "6988b97c9da57b990ad5c8f7",
+                    "name": "Airbus A321 neo",
+                    "customName": "Dry Lease l iniBuilds A321LR (neo) l 220 pax",
+                    "icao": "A21N"
+                },
+                "type": "pax",
+                "flightNumber": "951G",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 220,
+                    "cargo": 23,
+                    "weights": {
+                        "cargo": 2507
+                    }
+                },
+                "depTime": "2026-07-24T16:25:00.000Z",
+                "duration": 85,
+                "arrTime": "2026-07-24T17:50:00.000Z",
+                "depTimeAct": "2026-07-24T16:27:33.438Z",
+                "delay": -8,
+                "takeoffTimeAct": "2026-07-24T16:34:17.443Z",
+                "durationAct": 67,
+                "arrTimeAct": "2026-07-24T17:41:40.435Z",
+                "open": "2026-07-24T16:26:08.943Z",
+                "close": "2026-07-24T17:44:52.047Z",
+                "rating": 9.57,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 444,
+                        "fuel": 2931,
+                        "expenses": 13953,
+                        "penalties": 0,
+                        "revenue": 27942,
+                        "balance": 13989,
+                        "prices": {
+                            "ticketPrice": 113,
+                            "cargoUnitPrice": 134,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 220,
+                            "cargo": 23,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 220
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3314,
+                        "aircraft": 5463,
+                        "handling": 2584,
+                        "landing": 2592
+                    },
+                    "revenue": {
+                        "tickets": 24860,
+                        "cargo": 3082
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 5.23m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -20,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.49G (401 ft/min, normal  conditions)<br/>Distance from threshold: 697m (accepted range: 199-797m)<br/>Average centerline deviation: 3.67m<br/>Max centerline deviation: 5.23m",
+                            "penalty": {
+                                "points": -23,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 22
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.49,
+                                        "rate": 401
+                                    },
+                                    "weather": {
+                                        "windDir": 170.02,
+                                        "windSpd": 4.16,
+                                        "windX": -4.13
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-24T16:03:26.823Z",
+                "updatedAt": "2026-07-24T17:44:52.124Z",
+                "dep": {
+                    "icao": "EIDW",
+                    "name": "Dublin Airport",
+                    "city": "Dublin",
+                    "location": {
+                        "lat": 53.428713,
+                        "lon": -6.262121,
+                        "elev": 242
+                    }
+                },
+                "arr": {
+                    "icao": "EHAM",
+                    "name": "Amsterdam Airport Schiphol",
+                    "city": "Amsterdam",
+                    "location": {
+                        "lat": 52.308601,
+                        "lon": 4.76389,
+                        "elev": -11
+                    }
+                },
+                "actArr": {
+                    "icao": "EHAM",
+                    "name": "Amsterdam Airport Schiphol",
+                    "city": "Amsterdam",
+                    "location": {
+                        "lat": 52.308601,
+                        "lon": 4.76389,
+                        "elev": -11
+                    }
+                }
             }
         ]
     },
