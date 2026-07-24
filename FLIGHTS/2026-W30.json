@@ -4420,6 +4420,180 @@
                         "elev": 308
                     }
                 }
+            },
+            {
+                "_id": "6a630fce50c8a562fc1185ba",
+                "aircraft": {
+                    "_id": "695a66383dc76275bad0826f",
+                    "name": "Airbus A320",
+                    "customName": "Dry Lease l A320 CFM FENIX msfs2024",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "24A",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 176,
+                    "cargo": 33,
+                    "weights": {
+                        "cargo": 2013
+                    }
+                },
+                "depTime": "2026-07-24T07:29:00.000Z",
+                "duration": 60,
+                "arrTime": "2026-07-24T08:29:00.000Z",
+                "depTimeAct": "2026-07-24T07:26:09.085Z",
+                "delay": 0,
+                "takeoffTimeAct": "2026-07-24T07:33:31.075Z",
+                "durationAct": 56,
+                "arrTimeAct": "2026-07-24T08:29:15.998Z",
+                "open": "2026-07-24T07:14:15.354Z",
+                "close": "2026-07-24T08:32:05.354Z",
+                "rating": 9.56,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 338,
+                        "fuel": 2804,
+                        "expenses": 10256,
+                        "penalties": 0,
+                        "revenue": 23143,
+                        "balance": 12887,
+                        "prices": {
+                            "ticketPrice": 103,
+                            "cargoUnitPrice": 127,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 176,
+                            "cargo": 33,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 8,
+                                "Y": 168
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3170,
+                        "aircraft": 4600,
+                        "handling": 1757,
+                        "landing": 729
+                    },
+                    "revenue": {
+                        "tickets": 18952,
+                        "cargo": 4191
+                    },
+                    "violations": [
+                        {
+                            "title": "Unstable approach below 300ft: vertical speed below -1500 ft/min (actual -1503 ft/min)",
+                            "penalty": {
+                                "points": -1,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 6.69m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -43,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.06,
+                                        "rate": 71
+                                    },
+                                    "weather": {
+                                        "windDir": 240.02,
+                                        "windSpd": 12,
+                                        "windX": -9.05
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.06G (71 ft/min, normal  conditions)<br/>Distance from threshold: 370m (accepted range: 189-758m)<br/>Average centerline deviation: 3.10m<br/>Max centerline deviation: 6.69m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.06,
+                                        "rate": 71
+                                    },
+                                    "weather": {
+                                        "windDir": 240.02,
+                                        "windSpd": 12,
+                                        "windX": -9.05
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-24T07:10:06.423Z",
+                "updatedAt": "2026-07-24T08:32:05.460Z",
+                "dep": {
+                    "icao": "LGAV",
+                    "name": "Athens Eleftherios Venizelos International Airport",
+                    "city": "Spata-Artemida",
+                    "location": {
+                        "lat": 37.936401,
+                        "lon": 23.9445,
+                        "elev": 308
+                    }
+                },
+                "arr": {
+                    "icao": "LTBS",
+                    "name": "Dalaman International Airport",
+                    "city": "Dalaman",
+                    "location": {
+                        "lat": 36.7131004333,
+                        "lon": 28.7924995422,
+                        "elev": 20
+                    }
+                },
+                "actArr": {
+                    "icao": "LTBS",
+                    "name": "Dalaman International Airport",
+                    "city": "Dalaman",
+                    "location": {
+                        "lat": 36.7131004333,
+                        "lon": 28.7924995422,
+                        "elev": 20
+                    }
+                }
             }
         ]
     },
