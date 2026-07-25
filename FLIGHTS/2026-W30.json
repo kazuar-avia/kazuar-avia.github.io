@@ -20219,6 +20219,156 @@
                         "elev": 587
                     }
                 }
+            },
+            {
+                "_id": "6a63d825d7bb28994ab91078",
+                "aircraft": {
+                    "_id": "695a7ab13dc76275bad3933a",
+                    "name": "Boeing 737-800",
+                    "customName": "SkyLine Express l 737-800 based in UKDE UKLL l UR-SLG",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "47K",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 184,
+                    "cargo": 23,
+                    "weights": {
+                        "cargo": 2001
+                    }
+                },
+                "depTime": "2026-07-24T21:55:00.000Z",
+                "duration": 110,
+                "arrTime": "2026-07-24T23:45:00.000Z",
+                "depTimeAct": "2026-07-24T21:56:04.249Z",
+                "delay": 137,
+                "takeoffTimeAct": "2026-07-24T22:02:43.482Z",
+                "durationAct": 239,
+                "arrTimeAct": "2026-07-25T02:01:54.957Z",
+                "open": "2026-07-24T21:33:40.092Z",
+                "close": "2026-07-25T02:51:11.005Z",
+                "rating": 0,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1149,
+                        "fuel": 8833,
+                        "expenses": 18816,
+                        "penalties": 1000000,
+                        "revenue": 25898,
+                        "balance": -992918,
+                        "prices": {
+                            "ticketPrice": 123,
+                            "cargoUnitPrice": 142,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 184,
+                            "cargo": 23,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 184
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 7989,
+                        "aircraft": 8875,
+                        "handling": 926,
+                        "landing": 1026
+                    },
+                    "revenue": {
+                        "tickets": 22632,
+                        "cargo": 3266
+                    },
+                    "violations": [
+                        {
+                            "title": "Insufficient fuel reserves on landing (actual: 174 kg, required: 985 kg based on OFP)",
+                            "penalty": {
+                                "points": -600,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 49
+                                    },
+                                    "touchDown": {
+                                        "gForce": 3.96,
+                                        "rate": 0
+                                    },
+                                    "weather": {
+                                        "windDir": 21.61,
+                                        "windSpd": 5.29,
+                                        "windX": -3.61
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Crashed on landing: Landing not on the runway",
+                            "penalty": {
+                                "points": -1000,
+                                "cash": 1000000
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 49
+                                    },
+                                    "touchDown": {
+                                        "gForce": 3.96,
+                                        "rate": 0
+                                    },
+                                    "weather": {
+                                        "windDir": 21.61,
+                                        "windSpd": 5.29,
+                                        "windX": -3.61
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-24T21:24:53.984Z",
+                "updatedAt": "2026-07-25T02:51:11.157Z",
+                "dep": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "arr": {
+                    "icao": "EDDH",
+                    "name": "Hamburg Helmut Schmidt Airport",
+                    "city": "Hamburg",
+                    "location": {
+                        "lat": 53.630402,
+                        "lon": 9.98823,
+                        "elev": 53
+                    }
+                },
+                "actArr": null
             }
         ]
     },
