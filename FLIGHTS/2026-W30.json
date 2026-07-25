@@ -15096,6 +15096,171 @@
                         "elev": -11
                     }
                 }
+            },
+            {
+                "_id": "6a64bdf350c8a562fc35ced6",
+                "aircraft": {
+                    "_id": "6988b97c9da57b990ad5c8f7",
+                    "name": "Airbus A321 neo",
+                    "customName": "Dry Lease l iniBuilds A321LR (neo) l 220 pax",
+                    "icao": "A21N"
+                },
+                "type": "pax",
+                "flightNumber": "48K",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 220,
+                    "cargo": 25,
+                    "weights": {
+                        "cargo": 1800
+                    }
+                },
+                "depTime": "2026-07-25T14:00:00.000Z",
+                "duration": 295,
+                "arrTime": "2026-07-25T18:55:00.000Z",
+                "depTimeAct": "2026-07-25T13:55:22.508Z",
+                "delay": -36,
+                "takeoffTimeAct": "2026-07-25T13:57:02.513Z",
+                "durationAct": 262,
+                "arrTimeAct": "2026-07-25T18:19:26.449Z",
+                "open": "2026-07-25T13:51:56.516Z",
+                "close": "2026-07-25T18:22:06.470Z",
+                "rating": 9.86,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1882,
+                        "fuel": 11963,
+                        "expenses": 27363,
+                        "penalties": 0,
+                        "revenue": 59320,
+                        "balance": 31957,
+                        "prices": {
+                            "ticketPrice": 241,
+                            "cargoUnitPrice": 252,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 220,
+                            "cargo": 25,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 220
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 14035,
+                        "aircraft": 11155,
+                        "handling": 1333,
+                        "landing": 840
+                    },
+                    "revenue": {
+                        "tickets": 53020,
+                        "cargo": 6300
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 4.35m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -6,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 34
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 4.48m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -8,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 21
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.17G (183 ft/min, normal  conditions)<br/>Distance from threshold: 653m (accepted range: 197-789m)<br/>Average centerline deviation: 2.50m<br/>Max centerline deviation: 4.48m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.17,
+                                        "rate": 183
+                                    },
+                                    "weather": {
+                                        "windDir": 30,
+                                        "windSpd": 5.46,
+                                        "windX": -1.56
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-25T13:45:23.998Z",
+                "updatedAt": "2026-07-25T18:22:06.564Z",
+                "dep": {
+                    "icao": "SMJP",
+                    "name": "Johan Adolf Pengel International Airport",
+                    "city": "Zandery",
+                    "location": {
+                        "lat": 5.45283,
+                        "lon": -55.187801,
+                        "elev": 59
+                    }
+                },
+                "arr": {
+                    "icao": "SGAS",
+                    "name": "Aeropuerto Internacional Silvio Pettirossi",
+                    "city": "Asunción",
+                    "location": {
+                        "lat": -25.240156,
+                        "lon": -57.519227,
+                        "elev": 292
+                    }
+                },
+                "actArr": {
+                    "icao": "SGAS",
+                    "name": "Aeropuerto Internacional Silvio Pettirossi",
+                    "city": "Asunción",
+                    "location": {
+                        "lat": -25.240156,
+                        "lon": -57.519227,
+                        "elev": 292
+                    }
+                }
             }
         ]
     },
