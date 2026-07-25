@@ -6562,6 +6562,156 @@
                         "elev": 18
                     }
                 }
+            },
+            {
+                "_id": "6a6485bd50c8a562fc2ff80c",
+                "aircraft": {
+                    "_id": "695a66383dc76275bad0826f",
+                    "name": "Airbus A320",
+                    "customName": "Dry Lease l A320 CFM FENIX msfs2024",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "24BA",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 167,
+                    "cargo": 1,
+                    "weights": {
+                        "cargo": 135
+                    }
+                },
+                "depTime": "2026-07-25T10:05:00.000Z",
+                "duration": 50,
+                "arrTime": "2026-07-25T10:55:00.000Z",
+                "depTimeAct": "2026-07-25T10:01:07.440Z",
+                "delay": -5,
+                "takeoffTimeAct": "2026-07-25T10:07:18.431Z",
+                "durationAct": 43,
+                "arrTimeAct": "2026-07-25T10:50:13.386Z",
+                "open": "2026-07-25T10:00:33.448Z",
+                "close": "2026-07-25T10:55:40.733Z",
+                "rating": 9.83,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 243,
+                        "fuel": 2098,
+                        "expenses": 8953,
+                        "penalties": 0,
+                        "revenue": 16566,
+                        "balance": 7613,
+                        "prices": {
+                            "ticketPrice": 94,
+                            "cargoUnitPrice": 116,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 167,
+                            "cargo": 1,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 8,
+                                "Y": 159
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2372,
+                        "aircraft": 4575,
+                        "handling": 836,
+                        "landing": 1170
+                    },
+                    "revenue": {
+                        "tickets": 16450,
+                        "cargo": 116
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 5.08m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -17,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.38G (282 ft/min, normal  conditions)<br/>Distance from threshold: 406m (accepted range: 199-800m)<br/>Average centerline deviation: 2.88m<br/>Max centerline deviation: 5.08m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.38,
+                                        "rate": 282
+                                    },
+                                    "weather": {
+                                        "windDir": 110,
+                                        "windSpd": 9,
+                                        "windX": -3.55
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-25T09:45:33.834Z",
+                "updatedAt": "2026-07-25T10:55:40.812Z",
+                "dep": {
+                    "icao": "LFKJ",
+                    "name": "Ajaccio Napoléon Bonaparte airport",
+                    "city": "Ajaccio",
+                    "location": {
+                        "lat": 41.923599,
+                        "lon": 8.80292,
+                        "elev": 18
+                    }
+                },
+                "arr": {
+                    "icao": "LFML",
+                    "name": "Marseille Provence Airport",
+                    "city": "Marignane, Bouches-du-Rhône",
+                    "location": {
+                        "lat": 43.438088,
+                        "lon": 5.2125,
+                        "elev": 74
+                    }
+                },
+                "actArr": {
+                    "icao": "LFML",
+                    "name": "Marseille Provence Airport",
+                    "city": "Marignane, Bouches-du-Rhône",
+                    "location": {
+                        "lat": 43.438088,
+                        "lon": 5.2125,
+                        "elev": 74
+                    }
+                }
             }
         ]
     },
