@@ -27121,6 +27121,182 @@
                         "elev": 74
                     }
                 }
+            },
+            {
+                "_id": "6a64e76ad7bb28994abc2c2e",
+                "aircraft": {
+                    "_id": "695a3bf33dc76275baca8db5",
+                    "name": "Boeing 737-800",
+                    "customName": "Ukraine Int l 737-800 based in UKBB l UR-UIA",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "335",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 61,
+                    "cargo": 20,
+                    "weights": {
+                        "cargo": 1880
+                    }
+                },
+                "depTime": "2026-07-25T16:55:00.000Z",
+                "duration": 190,
+                "arrTime": "2026-07-25T20:05:00.000Z",
+                "depTimeAct": "2026-07-25T17:19:02.820Z",
+                "delay": 18,
+                "takeoffTimeAct": "2026-07-25T17:25:21.821Z",
+                "durationAct": 178,
+                "arrTimeAct": "2026-07-25T20:23:12.738Z",
+                "open": "2026-07-25T17:09:19.687Z",
+                "close": "2026-07-25T20:33:50.775Z",
+                "rating": 8.97,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1216,
+                        "fuel": 7441,
+                        "expenses": 15453,
+                        "penalties": 305,
+                        "revenue": 13888,
+                        "balance": -1870,
+                        "prices": {
+                            "ticketPrice": 168,
+                            "cargoUnitPrice": 182,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 61,
+                            "cargo": 20,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 61
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 6730,
+                        "aircraft": 7350,
+                        "handling": 320,
+                        "landing": 1053
+                    },
+                    "revenue": {
+                        "tickets": 10248,
+                        "cargo": 3640
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight delayed 10 minutes (max 15 minutes after scheduled is allowed)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 305
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.13G (205 ft/min, normal  conditions)<br/>Distance from threshold: 597m (accepted range: 200-801m)<br/>Average centerline deviation: 0.54m<br/>Max centerline deviation: 2.24m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.13,
+                                        "rate": 205
+                                    },
+                                    "weather": {
+                                        "windDir": 320.39,
+                                        "windSpd": 10.39,
+                                        "windX": -1.51
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No BEACON lights for 41s when required",
+                            "penalty": {
+                                "points": -3,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        },
+                        {
+                            "title": "No STROBE lights for 10174s when required",
+                            "penalty": {
+                                "points": -100,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-25T16:42:18.430Z",
+                "updatedAt": "2026-07-25T20:33:51.192Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "LFML",
+                    "name": "Marseille Provence Airport",
+                    "city": "Marignane, Bouches-du-Rhône",
+                    "location": {
+                        "lat": 43.438088,
+                        "lon": 5.2125,
+                        "elev": 74
+                    }
+                },
+                "actArr": {
+                    "icao": "LFML",
+                    "name": "Marseille Provence Airport",
+                    "city": "Marignane, Bouches-du-Rhône",
+                    "location": {
+                        "lat": 43.438088,
+                        "lon": 5.2125,
+                        "elev": 74
+                    }
+                }
             }
         ]
     }
