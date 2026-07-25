@@ -8282,6 +8282,176 @@
                         "elev": 69
                     }
                 }
+            },
+            {
+                "_id": "6a643ff750c8a562fc2b114a",
+                "aircraft": {
+                    "_id": "695a63363dc76275bacff63f",
+                    "name": "Boeing 777-200ER",
+                    "customName": "Ukraine Int l 777-200 based in UKBB l UR-GOA",
+                    "icao": "B772"
+                },
+                "type": "pax",
+                "flightNumber": "0772",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 294,
+                    "cargo": 41,
+                    "weights": {
+                        "cargo": 4756
+                    }
+                },
+                "depTime": "2026-07-25T05:00:00.000Z",
+                "duration": 675,
+                "arrTime": "2026-07-25T16:15:00.000Z",
+                "depTimeAct": "2026-07-25T05:22:11.537Z",
+                "delay": -32,
+                "takeoffTimeAct": "2026-07-25T05:42:46.565Z",
+                "durationAct": 601,
+                "arrTimeAct": "2026-07-25T15:43:18.104Z",
+                "open": "2026-07-25T04:49:34.688Z",
+                "close": "2026-07-25T15:50:29.275Z",
+                "rating": 9.31,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 4714,
+                        "fuel": 67799,
+                        "expenses": 127773,
+                        "penalties": 1176,
+                        "revenue": 235098,
+                        "balance": 106149,
+                        "prices": {
+                            "ticketPrice": 541,
+                            "cargoUnitPrice": 588,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.85
+                            }
+                        },
+                        "payload": {
+                            "pax": 294,
+                            "cargo": 41,
+                            "paxByClass": {
+                                "F": 18,
+                                "C": 42,
+                                "Y": 234
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 77447,
+                        "aircraft": 44425,
+                        "handling": 4431,
+                        "landing": 1470
+                    },
+                    "revenue": {
+                        "tickets": 210990,
+                        "cargo": 24108
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight delayed 8 minutes (max 15 minutes after scheduled is allowed)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 1176
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 50
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline takeoff (deviation 9.98m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -69,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 36
+                                    },
+                                    "weather": {
+                                        "windDir": 139.99,
+                                        "windSpd": 9.02,
+                                        "windX": 0.03
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.38G (338 ft/min, challenging  conditions)<br/>Distance from threshold: 692m (accepted range: 209-838m)<br/>Average centerline deviation: 1.38m<br/>Max centerline deviation: 1.71m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 45
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.38,
+                                        "rate": 338
+                                    },
+                                    "weather": {
+                                        "windDir": 353.88,
+                                        "windSpd": 6.25,
+                                        "windX": -0.03
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-25T04:47:51.535Z",
+                "updatedAt": "2026-07-25T15:50:29.419Z",
+                "dep": {
+                    "icao": "WMKK",
+                    "name": "Kuala Lumpur International Airport",
+                    "city": "Sepang",
+                    "location": {
+                        "lat": 2.74558,
+                        "lon": 101.709999,
+                        "elev": 69
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
             }
         ]
     },
