@@ -440,10 +440,47 @@ LYBR: {cc:"me", name:"Чорногорія"}, // Berane
 VC: {cc:"lk", name:"Шрі-Ланка"},
 SU: {cc:"uy", name:"Уругвай"},
 WN00: {cc:"us", name:"США"},
-  SP: {cc:"pe", name:"Перу"},
-	TT: {cc:"tt", name:"Тринідад і Тобаго"}, 
-	SG: {cc:"py", name:"Парагвай"},
-	};
+  SP: {cc:"pe", name:"Перу"}
+
+  
+};
+
+Object.assign(ICAO_COUNTRY, {
+  AG:{cc:'sb',name:'Соломонові Острови'}, AN:{cc:'nr',name:'Науру'}, AY:{cc:'pg',name:'Папуа Нова Гвінея'},
+  BG:{cc:'gl',name:'Гренландія'}, BI:{cc:'is',name:'Ісландія'}, BK:{cc:'xk',name:'Косово'}, C:{cc:'ca',name:'Канада'},
+  DA:{cc:'dz',name:'Алжир'}, DB:{cc:'bj',name:'Бенін'}, DF:{cc:'bf',name:'Буркіна-Фасо'}, DG:{cc:'gh',name:'Гана'}, DI:{cc:'ci',name:'Кот-дʼІвуар'}, DN:{cc:'ng',name:'Нігерія'}, DR:{cc:'ne',name:'Нігер'}, DT:{cc:'tn',name:'Туніс'}, DX:{cc:'tg',name:'Того'},
+  EB:{cc:'be',name:'Бельгія'}, ED:{cc:'de',name:'Німеччина'}, EE:{cc:'ee',name:'Естонія'}, EF:{cc:'fi',name:'Фінляндія'}, EG:{cc:'gb',name:'Велика Британія'}, EH:{cc:'nl',name:'Нідерланди'}, EI:{cc:'ie',name:'Ірландія'}, EK:{cc:'dk',name:'Данія'}, EL:{cc:'lu',name:'Люксембург'}, EN:{cc:'no',name:'Норвегія'}, EP:{cc:'pl',name:'Польща'}, ES:{cc:'se',name:'Швеція'}, ET:{cc:'de',name:'Німеччина'}, EV:{cc:'lv',name:'Латвія'}, EY:{cc:'lt',name:'Литва'},
+  FA:{cc:'za',name:'Південна Африка'}, FB:{cc:'bw',name:'Ботсвана'}, FC:{cc:'cg',name:'Конго'}, FD:{cc:'sz',name:'Есватіні'}, FE:{cc:'cf',name:'ЦАР'}, FG:{cc:'gq',name:'Екваторіальна Гвінея'}, FH:{cc:'sh',name:'Острів Святої Єлени'}, FI:{cc:'mu',name:'Маврикій'}, FJ:{cc:'io',name:'Британська Територія в Індійському Океані'}, FK:{cc:'cm',name:'Камерун'}, FL:{cc:'zm',name:'Замбія'}, FM:{cc:'mg',name:'Мадагаскар'}, FN:{cc:'ao',name:'Ангола'}, FO:{cc:'ga',name:'Габон'}, FP:{cc:'st',name:'Сан-Томе і Принсіпі'}, FQ:{cc:'mz',name:'Мозамбік'}, FS:{cc:'sc',name:'Сейшельські Острови'}, FT:{cc:'td',name:'Чад'}, FV:{cc:'zw',name:'Зімбабве'}, FW:{cc:'mw',name:'Малаві'}, FX:{cc:'ls',name:'Лесото'}, FY:{cc:'na',name:'Намібія'}, FZ:{cc:'cd',name:'ДР Конго'},
+  GA:{cc:'ml',name:'Малі'}, GB:{cc:'gm',name:'Гамбія'}, GC:{cc:'es',name:'Іспанія'}, GE:{cc:'es',name:'Іспанія'}, GF:{cc:'sl',name:'Сьєрра-Леоне'}, GG:{cc:'gw',name:'Гвінея-Бісау'}, GL:{cc:'lr',name:'Ліберія'}, GM:{cc:'ma',name:'Марокко'}, GO:{cc:'sn',name:'Сенегал'}, GQ:{cc:'mr',name:'Мавританія'}, GS:{cc:'eh',name:'Західна Сахара'}, GU:{cc:'gn',name:'Гвінея'}, GV:{cc:'cv',name:'Кабо-Верде'},
+  HA:{cc:'et',name:'Ефіопія'}, HB:{cc:'bi',name:'Бурунді'}, HC:{cc:'so',name:'Сомалі'}, HD:{cc:'dj',name:'Джибуті'}, HE:{cc:'eg',name:'Єгипет'}, HH:{cc:'er',name:'Еритрея'}, HK:{cc:'ke',name:'Кенія'}, HL:{cc:'ly',name:'Лівія'}, HR:{cc:'rw',name:'Руанда'}, HS:{cc:'sd',name:'Судан'}, HT:{cc:'tz',name:'Танзанія'}, HU:{cc:'ug',name:'Уганда'},
+  K:{cc:'us',name:'США'},
+  LA:{cc:'al',name:'Албанія'}, LB:{cc:'bg',name:'Болгарія'}, LC:{cc:'cy',name:'Кіпр'}, LD:{cc:'hr',name:'Хорватія'}, LE:{cc:'es',name:'Іспанія'}, LF:{cc:'fr',name:'Франція'}, LG:{cc:'gr',name:'Греція'}, LH:{cc:'hu',name:'Угорщина'}, LI:{cc:'it',name:'Італія'}, LJ:{cc:'si',name:'Словенія'}, LK:{cc:'cz',name:'Чехія'}, LL:{cc:'il',name:'Ізраїль'}, LM:{cc:'mt',name:'Мальта'}, LO:{cc:'at',name:'Австрія'}, LOW:{cc:'at',name:'Австрія'}, LP:{cc:'pt',name:'Португалія'}, LQ:{cc:'ba',name:'Боснія і Герцеговина'}, LR:{cc:'ro',name:'Румунія'}, LS:{cc:'ch',name:'Швейцарія'}, LT:{cc:'tr',name:'Туреччина'}, LU:{cc:'md',name:'Молдова'}, LW:{cc:'mk',name:'Північна Македонія'}, LX:{cc:'gi',name:'Гібралтар'}, LYPG:{cc:'me',name:'Чорногорія'}, LYTV:{cc:'me',name:'Чорногорія'}, LYBR:{cc:'me',name:'Чорногорія'}, LY:{cc:'rs',name:'Сербія'}, LZ:{cc:'sk',name:'Словаччина'},
+  MB:{cc:'tc',name:'Теркс і Кайкос'}, MD:{cc:'do',name:'Домініканська Республіка'}, MG:{cc:'gt',name:'Гватемала'}, MH:{cc:'hn',name:'Гондурас'}, MK:{cc:'jm',name:'Ямайка'}, MM:{cc:'mx',name:'Мексика'}, MN:{cc:'ni',name:'Нікарагуа'}, MP:{cc:'pa',name:'Панама'}, MR:{cc:'cr',name:'Коста-Рика'}, MS:{cc:'sv',name:'Сальвадор'}, MT:{cc:'ht',name:'Гаїті'}, MU:{cc:'cu',name:'Куба'}, MW:{cc:'ky',name:'Кайманові Острови'}, MY:{cc:'bs',name:'Багамські Острови'}, MZ:{cc:'bz',name:'Беліз'},
+  NC:{cc:'ck',name:'Острови Кука'}, NF:{cc:'fj',name:'Фіджі'}, NG:{cc:'ki',name:'Кірибаті'}, NI:{cc:'nu',name:'Ніуе'}, NL:{cc:'wf',name:'Волліс і Футуна'}, NS:{cc:'ws',name:'Самоа'}, NT:{cc:'pf',name:'Французька Полінезія'}, NV:{cc:'vu',name:'Вануату'}, NW:{cc:'nc',name:'Нова Каледонія'}, NZ:{cc:'nz',name:'Нова Зеландія'},
+  OA:{cc:'af',name:'Афганістан'}, OB:{cc:'bh',name:'Бахрейн'}, OE:{cc:'sa',name:'Саудівська Аравія'}, OI:{cc:'ir',name:'Іран'}, OJ:{cc:'jo',name:'Йорданія'}, OK:{cc:'kw',name:'Кувейт'}, OL:{cc:'lb',name:'Ліван'}, OM:{cc:'ae',name:'ОАЕ'}, OO:{cc:'om',name:'Оман'}, OP:{cc:'pk',name:'Пакистан'}, OR:{cc:'iq',name:'Ірак'}, OS:{cc:'sy',name:'Сирія'}, OT:{cc:'qa',name:'Катар'}, OY:{cc:'ye',name:'Ємен'},
+  PA:{cc:'us',name:'США'}, PB:{cc:'us',name:'США'}, PF:{cc:'us',name:'США'}, PG:{cc:'gu',name:'Гуам'}, PH:{cc:'us',name:'США'}, PJ:{cc:'us',name:'США'}, PK:{cc:'mh',name:'Маршаллові Острови'}, PL:{cc:'ki',name:'Кірибаті'}, PM:{cc:'us',name:'США'}, PT:{cc:'fm',name:'Мікронезія'}, PW:{cc:'pw',name:'Палау'},
+  RC:{cc:'tw',name:'Тайвань'}, RJ:{cc:'jp',name:'Японія'}, RK:{cc:'kr',name:'Південна Корея'}, RO:{cc:'jp',name:'Японія'}, RP:{cc:'ph',name:'Філіппіни'},
+  SA:{cc:'ar',name:'Аргентина'}, SB:{cc:'br',name:'Бразилія'}, SC:{cc:'cl',name:'Чилі'}, SE:{cc:'ec',name:'Еквадор'}, SF:{cc:'fk',name:'Фолклендські Острови'}, SG:{cc:'py',name:'Парагвай'}, SK:{cc:'co',name:'Колумбія'}, SL:{cc:'bo',name:'Болівія'}, SM:{cc:'sr',name:'Суринам'}, SO:{cc:'gf',name:'Французька Гвіана'}, SP:{cc:'pe',name:'Перу'}, SU:{cc:'uy',name:'Уругвай'}, SV:{cc:'ve',name:'Венесуела'}, SY:{cc:'gy',name:'Гаяна'},
+  TA:{cc:'ag',name:'Антигуа і Барбуда'}, TB:{cc:'bb',name:'Барбадос'}, TD:{cc:'dm',name:'Домініка'}, TF:{cc:'gp',name:'Гваделупа'}, TG:{cc:'gd',name:'Гренада'}, TI:{cc:'vi',name:'Американські Віргінські Острови'}, TJ:{cc:'pr',name:'Пуерто-Рико'}, TK:{cc:'kn',name:'Сент-Кіттс і Невіс'}, TL:{cc:'lc',name:'Сент-Люсія'}, TN:{cc:'sx',name:'Сінт-Мартен'}, TQ:{cc:'ai',name:'Ангілья'}, TR:{cc:'ms',name:'Монтсеррат'}, TT:{cc:'tt',name:'Тринідад і Тобаго'}, TU:{cc:'vg',name:'Британські Віргінські Острови'}, TV:{cc:'vc',name:'Сент-Вінсент і Гренадини'}, TX:{cc:'bm',name:'Бермуди'},
+  UA:{cc:'kz',name:'Казахстан'}, UB:{cc:'az',name:'Азербайджан'}, UC:{cc:'kg',name:'Киргизстан'}, UD:{cc:'am',name:'Вірменія'}, UG:{cc:'ge',name:'Грузія'}, UK:{cc:'ua',name:'Україна'}, UM:{cc:'by',name:'Білорусь'}, UR:{cc:'ua',name:'Україна'}, UT:{cc:'uz',name:'Узбекистан'}, UU:{cc:'ru',name:'Росія'}, UW:{cc:'ru',name:'Росія'}, UZ:{cc:'tm',name:'Туркменістан'},
+  VA:{cc:'in',name:'Індія'}, VC:{cc:'lk',name:'Шрі-Ланка'}, VD:{cc:'kh',name:'Камбоджа'}, VE:{cc:'in',name:'Індія'}, VG:{cc:'bd',name:'Бангладеш'}, VH:{cc:'hk',name:'Гонконг'}, VI:{cc:'in',name:'Індія'}, VL:{cc:'la',name:'Лаос'}, VM:{cc:'mo',name:'Макао'}, VN:{cc:'np',name:'Непал'}, VO:{cc:'in',name:'Індія'}, VQ:{cc:'bt',name:'Бутан'}, VR:{cc:'mv',name:'Мальдіви'}, VT:{cc:'th',name:'Таїланд'}, VV:{cc:'vn',name:'Вʼєтнам'}, VY:{cc:'mm',name:'Мʼянма'},
+  WA:{cc:'id',name:'Індонезія'}, WB:{cc:'bn',name:'Бруней'}, WI:{cc:'id',name:'Індонезія'}, WM:{cc:'my',name:'Малайзія'}, WP:{cc:'tl',name:'Тимор-Лешті'}, WN00:{cc:'us',name:'США'}, WS:{cc:'sg',name:'Сінгапур'}, W:{cc:'id',name:'Індонезія'},
+  Y:{cc:'au',name:'Австралія'},
+  ZA:{cc:'al',name:'Албанія'}, ZB:{cc:'cn',name:'Китай'}, ZG:{cc:'cn',name:'Китай'}, ZH:{cc:'cn',name:'Китай'}, ZJ:{cc:'cn',name:'Китай'}, ZL:{cc:'cn',name:'Китай'}, ZM:{cc:'mn',name:'Монголія'}, ZP:{cc:'cn',name:'Китай'}, ZS:{cc:'cn',name:'Китай'}, ZU:{cc:'cn',name:'Китай'}, ZW:{cc:'cn',name:'Китай'}, ZY:{cc:'cn',name:'Китай'}
+});
+
+Object.assign(ICAO_COUNTRY, {
+  CZ:{cc:'ca',name:'Канада'},
+  SD:{cc:'br',name:'Бразилія'}, SI:{cc:'br',name:'Бразилія'}, SJ:{cc:'br',name:'Бразилія'},
+  SN:{cc:'br',name:'Бразилія'}, SS:{cc:'br',name:'Бразилія'}, SW:{cc:'br',name:'Бразилія'},
+  TNCA:{cc:'aw',name:'Аруба'}, TNCB:{cc:'bq',name:'Карибські Нідерланди'}, TNCC:{cc:'cw',name:'Кюрасао'},
+  TNCE:{cc:'bq',name:'Карибські Нідерланди'}, TNCM:{cc:'sx',name:'Сінт-Мартен'}, TNCS:{cc:'bq',name:'Карибські Нідерланди'},
+  TF:{cc:'is',name:'Ісландія'},
+  UTA:{cc:'tm',name:'Туркменістан'}, UTB:{cc:'tm',name:'Туркменістан'}, UTD:{cc:'tj',name:'Таджикистан'},
+  UTK:{cc:'uz',name:'Узбекистан'}, UTN:{cc:'uz',name:'Узбекистан'}, UTS:{cc:'uz',name:'Узбекистан'}, UTT:{cc:'uz',name:'Узбекистан'},
+  WB:{cc:'my',name:'Малайзія'}, WN:{cc:'id',name:'Індонезія'}, WR:{cc:'id',name:'Індонезія'},
+  ZK:{cc:'kp',name:'Північна Корея'}
+});
 
 function countryForAirport(icao) {
   const code = String(icao || '').trim().toUpperCase();
