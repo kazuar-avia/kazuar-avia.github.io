@@ -31515,6 +31515,217 @@
                         "elev": 147
                     }
                 }
+            },
+            {
+                "_id": "6a66484150c8a562fc5a555d",
+                "aircraft": {
+                    "_id": "6a0b23a267cd7e249842bd81",
+                    "name": "Airbus A380",
+                    "customName": "Dry lease l FBW A380-800 l 446 pax elite",
+                    "icao": "A388"
+                },
+                "type": "pax",
+                "flightNumber": "2118",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 446,
+                    "cargo": 81,
+                    "weights": {
+                        "cargo": 8910
+                    }
+                },
+                "depTime": "2026-07-26T18:50:00.000Z",
+                "duration": 135,
+                "arrTime": "2026-07-26T21:05:00.000Z",
+                "depTimeAct": "2026-07-26T19:04:53.588Z",
+                "delay": 16,
+                "takeoffTimeAct": "2026-07-26T19:15:11.747Z",
+                "durationAct": 126,
+                "arrTimeAct": "2026-07-26T21:21:25.354Z",
+                "open": "2026-07-26T18:06:42.589Z",
+                "close": "2026-07-26T21:31:35.373Z",
+                "rating": 7.03,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 890,
+                        "fuel": 26119,
+                        "expenses": 72722,
+                        "penalties": 5000,
+                        "revenue": 153435,
+                        "balance": 75713,
+                        "prices": {
+                            "ticketPrice": 141,
+                            "cargoUnitPrice": 157,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 446,
+                            "cargo": 81,
+                            "paxByClass": {
+                                "F": 85,
+                                "C": 297,
+                                "Y": 64
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 29528,
+                        "aircraft": 33350,
+                        "handling": 5254,
+                        "landing": 4590
+                    },
+                    "revenue": {
+                        "tickets": 140718,
+                        "cargo": 12717
+                    },
+                    "violations": [
+                        {
+                            "title": "Climb out with gear down above 10000ft",
+                            "penalty": {
+                                "points": -200,
+                                "cash": 5000
+                            },
+                            "entry": {
+                                "type": "gear",
+                                "payload": {
+                                    "system": {
+                                        "fps": 49
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 7.00m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -35,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "bounce",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.26,
+                                        "rate": 357
+                                    },
+                                    "weather": {
+                                        "windDir": 259.98,
+                                        "windSpd": 10.44,
+                                        "windX": -3.47
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (782m from threshold beyond 704m max accepted)",
+                            "penalty": {
+                                "points": -27,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.53,
+                                        "rate": 486
+                                    },
+                                    "weather": {
+                                        "windDir": 259.99,
+                                        "windSpd": 10.44,
+                                        "windX": -2.74
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.53G (486 ft/min, normal  conditions)<br/>Distance from threshold: 782m (accepted range: 175-704m)<br/>Average centerline deviation: 4.05m<br/>Max centerline deviation: 7.00m",
+                            "penalty": {
+                                "points": -33,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.53,
+                                        "rate": 486
+                                    },
+                                    "weather": {
+                                        "windDir": 259.99,
+                                        "windSpd": 10.44,
+                                        "windX": -2.74
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No NAV lights for 34s when required",
+                            "penalty": {
+                                "points": -2,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-26T17:47:45.345Z",
+                "updatedAt": "2026-07-26T21:31:35.492Z",
+                "dep": {
+                    "icao": "ESSA",
+                    "name": "Stockholm-Arlanda Airport",
+                    "city": "Stockholm",
+                    "location": {
+                        "lat": 59.64849,
+                        "lon": 17.928829,
+                        "elev": 137
+                    }
+                },
+                "arr": {
+                    "icao": "LSZH",
+                    "name": "Zürich Airport",
+                    "city": "Zurich",
+                    "location": {
+                        "lat": 47.458056,
+                        "lon": 8.548056,
+                        "elev": 1417
+                    }
+                },
+                "actArr": {
+                    "icao": "LSZH",
+                    "name": "Zürich Airport",
+                    "city": "Zurich",
+                    "location": {
+                        "lat": 47.458056,
+                        "lon": 8.548056,
+                        "elev": 1417
+                    }
+                }
             }
         ]
     },
