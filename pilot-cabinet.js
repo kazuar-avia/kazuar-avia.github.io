@@ -442,7 +442,8 @@ SU: {cc:"uy", name:"Уругвай"},
 WN00: {cc:"us", name:"США"},
   SP: {cc:"pe", name:"Перу"},
 	TT: {cc:"tt", name:"Тринідад і Тобаго"}, 
-};
+	SG: {cc:"py", name:"Парагвай"},
+	};
 
 function countryForAirport(icao) {
   const code = String(icao || '').trim().toUpperCase();
