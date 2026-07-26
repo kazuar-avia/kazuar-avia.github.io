@@ -16293,6 +16293,171 @@
                         "elev": 768
                     }
                 }
+            },
+            {
+                "_id": "6a65c72550c8a562fc4b8f98",
+                "aircraft": {
+                    "_id": "6988b97c9da57b990ad5c8f7",
+                    "name": "Airbus A321 neo",
+                    "customName": "Dry Lease l iniBuilds A321LR (neo) l 220 pax",
+                    "icao": "A21N"
+                },
+                "type": "pax",
+                "flightNumber": "99L",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 220,
+                    "cargo": 25,
+                    "weights": {
+                        "cargo": 2500
+                    }
+                },
+                "depTime": "2026-07-26T08:50:00.000Z",
+                "duration": 155,
+                "arrTime": "2026-07-26T11:25:00.000Z",
+                "depTimeAct": "2026-07-26T08:49:46.176Z",
+                "delay": -15,
+                "takeoffTimeAct": "2026-07-26T08:53:08.198Z",
+                "durationAct": 137,
+                "arrTimeAct": "2026-07-26T11:09:44.141Z",
+                "open": "2026-07-26T08:46:22.015Z",
+                "close": "2026-07-26T11:11:20.186Z",
+                "rating": 8.84,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 925,
+                        "fuel": 5764,
+                        "expenses": 17504,
+                        "penalties": 0,
+                        "revenue": 36390,
+                        "balance": 18886,
+                        "prices": {
+                            "ticketPrice": 147,
+                            "cargoUnitPrice": 162,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 220,
+                            "cargo": 25,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 220
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 6763,
+                        "aircraft": 7718,
+                        "handling": 1553,
+                        "landing": 1470
+                    },
+                    "revenue": {
+                        "tickets": 32340,
+                        "cargo": 4050
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 7.49m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -57,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 23
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 7.65m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -59,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 20
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.21G (244 ft/min, normal  conditions)<br/>Distance from threshold: 646m (accepted range: 200-801m)<br/>Average centerline deviation: 6.67m<br/>Max centerline deviation: 7.65m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 22
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.21,
+                                        "rate": 244
+                                    },
+                                    "weather": {
+                                        "windDir": 190.02,
+                                        "windSpd": 8.06,
+                                        "windX": 4.69
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-26T08:36:53.193Z",
+                "updatedAt": "2026-07-26T11:11:20.281Z",
+                "dep": {
+                    "icao": "SLVR",
+                    "name": "Viru Viru International Airport",
+                    "city": "Santa Cruz",
+                    "location": {
+                        "lat": -17.6448,
+                        "lon": -63.135399,
+                        "elev": 1224
+                    }
+                },
+                "arr": {
+                    "icao": "SPJC",
+                    "name": "Jorge Chávez International Airport",
+                    "city": "Lima",
+                    "location": {
+                        "lat": -12.0219,
+                        "lon": -77.114305,
+                        "elev": 113
+                    }
+                },
+                "actArr": {
+                    "icao": "SPJC",
+                    "name": "Jorge Chávez International Airport",
+                    "city": "Lima",
+                    "location": {
+                        "lat": -12.0219,
+                        "lon": -77.114305,
+                        "elev": 113
+                    }
+                }
             }
         ]
     },
