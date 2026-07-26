@@ -22713,6 +22713,165 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6a65e47f50c8a562fc4e7138",
+                "aircraft": {
+                    "_id": "695a63363dc76275bacff63f",
+                    "name": "Boeing 777-200ER",
+                    "customName": "Ukraine Int l 777-200 based in UKBB l UR-GOA",
+                    "icao": "B772"
+                },
+                "type": "pax",
+                "flightNumber": "58B",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 132,
+                    "cargo": 55,
+                    "weights": {
+                        "cargo": 5170
+                    }
+                },
+                "depTime": "2026-07-26T11:10:00.000Z",
+                "duration": 65,
+                "arrTime": "2026-07-26T12:15:00.000Z",
+                "depTimeAct": "2026-07-26T11:06:15.349Z",
+                "delay": -4,
+                "takeoffTimeAct": "2026-07-26T11:17:31.356Z",
+                "durationAct": 53,
+                "arrTimeAct": "2026-07-26T12:10:33.377Z",
+                "open": "2026-07-26T11:03:02.143Z",
+                "close": "2026-07-26T12:15:27.423Z",
+                "rating": 10,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 343,
+                        "fuel": 4951,
+                        "expenses": 19383,
+                        "penalties": 0,
+                        "revenue": 25415,
+                        "balance": 6032,
+                        "prices": {
+                            "ticketPrice": 105,
+                            "cargoUnitPrice": 128,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.7,
+                                "fuel": 0.8,
+                                "ground": 0.7
+                            }
+                        },
+                        "payload": {
+                            "pax": 132,
+                            "cargo": 55,
+                            "paxByClass": {
+                                "F": 8,
+                                "C": 19,
+                                "Y": 105
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4478,
+                        "aircraft": 12765,
+                        "handling": 705,
+                        "landing": 1435
+                    },
+                    "revenue": {
+                        "tickets": 18375,
+                        "cargo": 7040
+                    },
+                    "violations": [
+                        {
+                            "title": "Great touchdown: 1.24G (415 ft/min, challenging  conditions)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.24,
+                                        "rate": 415
+                                    },
+                                    "weather": {
+                                        "windDir": 224.37,
+                                        "windSpd": 11,
+                                        "windX": -11
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Fuel used 3471 kg is lower than estimated minimum 4951 kg.",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.24,
+                                        "rate": 415
+                                    },
+                                    "weather": {
+                                        "windDir": 224.37,
+                                        "windSpd": 11,
+                                        "windX": -11
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-26T10:42:07.565Z",
+                "updatedAt": "2026-07-26T12:15:27.517Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "actArr": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                }
             }
         ]
     },
