@@ -7720,6 +7720,156 @@
                         "elev": 39
                     }
                 }
+            },
+            {
+                "_id": "6a66364450c8a562fc582d39",
+                "aircraft": {
+                    "_id": "695a66383dc76275bad0826f",
+                    "name": "Airbus A320",
+                    "customName": "Dry Lease l A320 CFM FENIX msfs2024",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "32P",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 166,
+                    "cargo": 15,
+                    "weights": {
+                        "cargo": 2100
+                    }
+                },
+                "depTime": "2026-07-26T16:50:00.000Z",
+                "duration": 75,
+                "arrTime": "2026-07-26T18:05:00.000Z",
+                "depTimeAct": "2026-07-26T16:46:43.993Z",
+                "delay": -17,
+                "takeoffTimeAct": "2026-07-26T16:52:48.991Z",
+                "durationAct": 55,
+                "arrTimeAct": "2026-07-26T17:47:30.925Z",
+                "open": "2026-07-26T16:45:47.517Z",
+                "close": "2026-07-26T17:49:59.970Z",
+                "rating": 9.81,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 379,
+                        "fuel": 2753,
+                        "expenses": 9741,
+                        "penalties": 0,
+                        "revenue": 20931,
+                        "balance": 11190,
+                        "prices": {
+                            "ticketPrice": 109,
+                            "cargoUnitPrice": 131,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 166,
+                            "cargo": 15,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 8,
+                                "Y": 158
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3113,
+                        "aircraft": 4725,
+                        "handling": 1336,
+                        "landing": 567
+                    },
+                    "revenue": {
+                        "tickets": 18966,
+                        "cargo": 1965
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 5.31m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -19,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.36G (256 ft/min, normal  conditions)<br/>Distance from threshold: 669m (accepted range: 176-705m)<br/>Average centerline deviation: 1.55m<br/>Max centerline deviation: 5.31m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.36,
+                                        "rate": 256
+                                    },
+                                    "weather": {
+                                        "windDir": 114.8,
+                                        "windSpd": 10.33,
+                                        "windX": 3.69
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-26T16:31:00.419Z",
+                "updatedAt": "2026-07-26T17:50:00.058Z",
+                "dep": {
+                    "icao": "LICC",
+                    "name": "Catania-Fontanarossa Airport",
+                    "city": "Catania",
+                    "location": {
+                        "lat": 37.466801,
+                        "lon": 15.0664,
+                        "elev": 39
+                    }
+                },
+                "arr": {
+                    "icao": "LYTV",
+                    "name": "Tivat Airport",
+                    "city": "Tivat",
+                    "location": {
+                        "lat": 42.404701232910156,
+                        "lon": 18.72330093383789,
+                        "elev": 20
+                    }
+                },
+                "actArr": {
+                    "icao": "LYTV",
+                    "name": "Tivat Airport",
+                    "city": "Tivat",
+                    "location": {
+                        "lat": 42.404701232910156,
+                        "lon": 18.72330093383789,
+                        "elev": 20
+                    }
+                }
             }
         ]
     },
