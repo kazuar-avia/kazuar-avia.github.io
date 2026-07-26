@@ -27778,6 +27778,161 @@
                     },
                     "name": "Zhytomyr Airport"
                 }
+            },
+            {
+                "_id": "6a65d99050c8a562fc4d3358",
+                "aircraft": {
+                    "_id": "695a66383dc76275bad0826f",
+                    "name": "Airbus A320",
+                    "customName": "Dry Lease l A320 CFM FENIX msfs2024",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "888",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 176,
+                    "cargo": 3,
+                    "weights": {
+                        "cargo": 195
+                    }
+                },
+                "depTime": "2026-07-26T10:35:00.000Z",
+                "duration": 250,
+                "arrTime": "2026-07-26T14:45:00.000Z",
+                "depTimeAct": "2026-07-26T10:27:11.317Z",
+                "delay": 68,
+                "takeoffTimeAct": "2026-07-26T10:39:31.309Z",
+                "durationAct": 313,
+                "arrTimeAct": "2026-07-26T15:52:34.859Z",
+                "open": "2026-07-26T10:10:34.918Z",
+                "close": "2026-07-26T15:57:02.097Z",
+                "rating": 8.7,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 2384,
+                        "fuel": 13893,
+                        "expenses": 25265,
+                        "penalties": 4518,
+                        "revenue": 38742,
+                        "balance": 8959,
+                        "prices": {
+                            "ticketPrice": 207,
+                            "cargoUnitPrice": 218,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 1,
+                                "fuel": 0.8,
+                                "ground": 0.85
+                            }
+                        },
+                        "payload": {
+                            "pax": 176,
+                            "cargo": 3,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 8,
+                                "Y": 168
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 12565,
+                        "aircraft": 10875,
+                        "handling": 865,
+                        "landing": 960
+                    },
+                    "revenue": {
+                        "tickets": 38088,
+                        "cargo": 654
+                    },
+                    "violations": [
+                        {
+                            "title": "MTOW exceeded: 830kg above maximum takeoff weight of 73500kg",
+                            "penalty": {
+                                "points": -68,
+                                "cash": 4518
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 56
+                                    },
+                                    "weather": {
+                                        "windDir": 310.86,
+                                        "windSpd": 4.16,
+                                        "windX": -3.27
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.65G (482 ft/min, normal  conditions)<br/>Distance from threshold: 262m (accepted range: 200-801m)<br/>Average centerline deviation: 1.25m<br/>Max centerline deviation: 2.23m",
+                            "penalty": {
+                                "points": -62,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 57
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.65,
+                                        "rate": 482
+                                    },
+                                    "weather": {
+                                        "windDir": 30,
+                                        "windSpd": 5.47,
+                                        "windX": -1.07
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-26T09:55:28.117Z",
+                "updatedAt": "2026-07-26T15:57:02.217Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "UACC",
+                    "name": "Nursultan Nazarbayev International Airport",
+                    "city": "Astana",
+                    "location": {
+                        "lat": 51.027035,
+                        "lon": 71.467094,
+                        "elev": 1165
+                    }
+                },
+                "actArr": {
+                    "icao": "UACC",
+                    "name": "Nursultan Nazarbayev International Airport",
+                    "city": "Astana",
+                    "location": {
+                        "lat": 51.027035,
+                        "lon": 71.467094,
+                        "elev": 1165
+                    }
+                }
             }
         ]
     },
