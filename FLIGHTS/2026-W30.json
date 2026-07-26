@@ -3597,6 +3597,156 @@
                         "elev": 74
                     }
                 }
+            },
+            {
+                "_id": "6a65b98850c8a562fc4a7f3e",
+                "aircraft": {
+                    "_id": "69e3df6ea5e61d69a7a56c57",
+                    "name": "Boeing 737-700",
+                    "customName": "SkyUp l 737-700 based in UKBB UKON l UR-SQE",
+                    "icao": "B737"
+                },
+                "type": "pax",
+                "flightNumber": "264T",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 143,
+                    "cargo": 24,
+                    "weights": {
+                        "cargo": 2136
+                    }
+                },
+                "depTime": "2026-07-26T07:55:00.000Z",
+                "duration": 95,
+                "arrTime": "2026-07-26T09:30:00.000Z",
+                "depTimeAct": "2026-07-26T07:54:32.494Z",
+                "delay": -10,
+                "takeoffTimeAct": "2026-07-26T07:54:39.485Z",
+                "durationAct": 85,
+                "arrTimeAct": "2026-07-26T09:19:58.653Z",
+                "open": "2026-07-26T07:53:19.673Z",
+                "close": "2026-07-26T09:21:44.700Z",
+                "rating": 9.58,
+                "simulator": "msfs",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 539,
+                        "fuel": 3403,
+                        "expenses": 10865,
+                        "penalties": 0,
+                        "revenue": 21602,
+                        "balance": 10737,
+                        "prices": {
+                            "ticketPrice": 118,
+                            "cargoUnitPrice": 138,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 143,
+                            "cargo": 24,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 12,
+                                "Y": 131
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3848,
+                        "aircraft": 5084,
+                        "handling": 1555,
+                        "landing": 378
+                    },
+                    "revenue": {
+                        "tickets": 18290,
+                        "cargo": 3312
+                    },
+                    "violations": [
+                        {
+                            "title": "Great touchdown: 1.21G (214 ft/min, challenging  conditions)<br/>Distance from threshold: 362m (accepted range: 140-564m)<br/>Average centerline deviation: 1.14m<br/>Max centerline deviation: 3.04m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.21,
+                                        "rate": 214
+                                    },
+                                    "weather": {
+                                        "windDir": 270.12,
+                                        "windSpd": 1.04,
+                                        "windX": -0.73
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Max G exceeded: 2.21G (max allowed: 2G)",
+                            "penalty": {
+                                "points": -42,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 38
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-26T07:38:48.728Z",
+                "updatedAt": "2026-07-26T09:21:44.788Z",
+                "dep": {
+                    "icao": "LOWW",
+                    "name": "Vienna International Airport",
+                    "city": "Vienna",
+                    "location": {
+                        "lat": 48.110298,
+                        "lon": 16.5697,
+                        "elev": 600
+                    }
+                },
+                "arr": {
+                    "icao": "UKKV",
+                    "city": "Zhytomyr",
+                    "location": {
+                        "lat": 50.270556,
+                        "lon": 28.738611,
+                        "elev": 722.5
+                    },
+                    "name": "Zhytomyr Airport"
+                },
+                "actArr": {
+                    "icao": "UKKV",
+                    "city": "Zhytomyr",
+                    "location": {
+                        "lat": 50.270556,
+                        "lon": 28.738611,
+                        "elev": 722.5
+                    },
+                    "name": "Zhytomyr Airport"
+                }
             }
         ]
     },
