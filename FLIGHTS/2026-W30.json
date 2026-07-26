@@ -32447,6 +32447,156 @@
                         "elev": 375
                     }
                 }
+            },
+            {
+                "_id": "6a66707f50c8a562fc5f74a6",
+                "aircraft": {
+                    "_id": "6a4e7b3c5760ec7cdb4f39a3",
+                    "name": "Boeing 737-800",
+                    "customName": "Ukraine Int l 737-800 based in UKLL UKHH l UR-PSE",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "0711",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 158,
+                    "cargo": 30,
+                    "weights": {
+                        "cargo": 4140
+                    }
+                },
+                "depTime": "2026-07-26T20:50:00.000Z",
+                "duration": 50,
+                "arrTime": "2026-07-26T21:40:00.000Z",
+                "depTimeAct": "2026-07-26T20:55:06.860Z",
+                "delay": 1,
+                "takeoffTimeAct": "2026-07-26T21:01:21.624Z",
+                "durationAct": 39,
+                "arrTimeAct": "2026-07-26T21:40:50.478Z",
+                "open": "2026-07-26T20:49:52.422Z",
+                "close": "2026-07-26T21:41:32.242Z",
+                "rating": 9.71,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 215,
+                        "fuel": 1984,
+                        "expenses": 7764,
+                        "penalties": 0,
+                        "revenue": 17906,
+                        "balance": 10142,
+                        "prices": {
+                            "ticketPrice": 88,
+                            "cargoUnitPrice": 107,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 158,
+                            "cargo": 30,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 9,
+                                "Y": 149
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2243,
+                        "aircraft": 4175,
+                        "handling": 725,
+                        "landing": 621
+                    },
+                    "revenue": {
+                        "tickets": 14696,
+                        "cargo": 3210
+                    },
+                    "violations": [
+                        {
+                            "title": "Unstable approach below 300ft: vertical speed below -1500 ft/min (actual -1512 ft/min)",
+                            "penalty": {
+                                "points": -6,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.59G (253 ft/min, challenging  conditions)",
+                            "penalty": {
+                                "points": -23,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 21
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.59,
+                                        "rate": 253
+                                    },
+                                    "weather": {
+                                        "windDir": 273.49,
+                                        "windSpd": 8.72,
+                                        "windX": -7.57
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-26T20:39:27.355Z",
+                "updatedAt": "2026-07-26T21:41:32.313Z",
+                "dep": {
+                    "icao": "UKKE",
+                    "name": "Cherkasy International Airport",
+                    "city": "Cherkasy",
+                    "location": {
+                        "lat": 49.4156,
+                        "lon": 31.9953,
+                        "elev": 375
+                    }
+                },
+                "arr": {
+                    "icao": "UKOH",
+                    "name": "Kherson International Airport",
+                    "city": "Kherson",
+                    "location": {
+                        "lat": 46.6758,
+                        "lon": 32.506401,
+                        "elev": 148
+                    }
+                },
+                "actArr": {
+                    "icao": "UKOH",
+                    "name": "Kherson International Airport",
+                    "city": "Kherson",
+                    "location": {
+                        "lat": 46.6758,
+                        "lon": 32.506401,
+                        "elev": 148
+                    }
+                }
             }
         ]
     },
