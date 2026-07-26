@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
   const PERIODS = [
     ['today', 'За сьогодні (з 00:00 UTC)'],
     ['weekToDate', 'З початку тижня'],
@@ -189,6 +189,18 @@
     const head = parts.join(' ');
     return `${head ? `${esc(head)} ` : ''}<span class="pilot-name-tail">${esc(last)}${badge}</span>`;
   };
+  function profilePilotPlainName(pilotId) {
+    const id = String(pilotId || '').trim();
+    if (!id) return 'Пілот';
+    const awardPilot = Array.isArray(newskyAwardRequirements?.pilotsAwards)
+      ? newskyAwardRequirements.pilotsAwards.find(pilot => String(pilot?.pilot_id || pilot?.pilotId || pilot?.id || '').trim() === id)
+      : null;
+    const awardName = String(awardPilot?.fullname || awardPilot?.name || '').trim();
+    if (awardName) return awardName;
+    const flightPilot = availableFlights.find(flight => String(flight?.pilot?.id || '').trim() === id)?.pilot;
+    const flightName = String(flightPilot?.name || flightPilot?.fullname || '').trim();
+    return flightName || 'Пілот';
+  }
   const pilotAvatarUrl = value => {
     const hash = String(value || 'default').trim();
     return `https://newsky.app/api/pilot/avatar/${encodeURIComponent(hash && hash !== 'null' ? hash : 'default')}`;
@@ -628,24 +640,79 @@
     return buildAircraftAwardStatsCache().byPilot.get(pilotId) || [];
   }
 
+  function normalizeNewskyAward(raw) {
+    const id = String(raw?._id || raw?.id || '').trim();
+    const imageId = String(raw?.image || raw?.imageId || '').trim();
+    const legs = Array.isArray(raw?.details?.legs)
+      ? raw.details.legs.map(leg => ({
+        dep:String(leg?.dep?.icao || leg?.dep || '').toUpperCase(),
+        arr:String(leg?.arr?.icao || leg?.arr || '').toUpperCase(),
+        depName:String(leg?.dep?.name || '').trim(),
+        arrName:String(leg?.arr?.name || '').trim(),
+        distNm:Number(leg?.dist || leg?.distNm) || 0
+      })).filter(leg => leg.dep && leg.arr)
+      : (Array.isArray(raw?.legs) ? raw.legs : []);
+    const airframes = Array.isArray(raw?.details?.airframes)
+      ? raw.details.airframes
+      : (Array.isArray(raw?.require?.airframes) ? raw.require.airframes : []);
+    const minRating = Number(raw?.minRating ?? raw?.require?.minRating) || 0;
+    return {
+      id,
+      _id:id,
+      title:raw?.title || 'NewSky Award',
+      type:raw?.type || 'tour',
+      started:raw?.started !== false,
+      closed:Boolean(raw?.closed),
+      deleted:Boolean(raw?.deleted),
+      info:raw?.info || '',
+      imageId,
+      imageXs:raw?.imageXs || (imageId ? `https://newsky.app/api/award/image/${imageId}_xs` : ''),
+      url:raw?.url || (id ? `https://newsky.app/award/${id}` : 'https://newsky.app/airline/ukl/awards'),
+      activeFrom:raw?.activeFrom || raw?.start || null,
+      activeTo:raw?.activeTo || raw?.end || null,
+      require:{
+        minRating,
+        ordered:raw?.details?.ordered || raw?.require?.ordered || 'random',
+        airframes
+      },
+      legs
+    };
+  }
+
   function loadNewskyAwardRequirements() {
     if (newskyAwardRequirements) return Promise.resolve(newskyAwardRequirements);
     if (newskyAwardRequirementsPromise) return newskyAwardRequirementsPromise;
-    newskyAwardRequirementsPromise = fetch('ukl_awards_requirements_v1_1.json')
-      .then(response => {
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    newskyAwardRequirementsPromise = Promise.all([
+      fetch('FLIGHTS/awards.json', {cache:'default'}).then(response => {
+        if (!response.ok) throw new Error(`awards.json HTTP ${response.status}`);
+        return response.json();
+      }),
+      fetch('FLIGHTS/pilots_awards.json', {cache:'default'}).then(response => {
+        if (!response.ok) throw new Error(`pilots_awards.json HTTP ${response.status}`);
         return response.json();
       })
-      .then(data => {
-        newskyAwardRequirements = data;
+    ])
+      .then(([awardsData,pilotsAwardsData]) => {
+        const awards = (Array.isArray(awardsData?.results) ? awardsData.results : (Array.isArray(awardsData?.awards) ? awardsData.awards : (Array.isArray(awardsData) ? awardsData : [])))
+          .map(normalizeNewskyAward)
+          .filter(award => award.id);
+        const pilots = Array.isArray(pilotsAwardsData?.results)
+          ? pilotsAwardsData.results
+          : (Array.isArray(pilotsAwardsData?.pilots) ? pilotsAwardsData.pilots : (Array.isArray(pilotsAwardsData) ? pilotsAwardsData : []));
+        newskyAwardRequirements = {
+          schemaVersion:'newsky-live',
+          awards,
+          pilotsAwards:pilots,
+          awardsById:new Map(awards.map(award => [String(award.id),award]))
+        };
         newskyAwardStatsCache = null;
-        if (availableFlights.length) buildNewskyAwardStatsCache();
+        buildNewskyAwardStatsCache();
         dispatchEvent(new CustomEvent('ucaa-profile-awards-updated'));
         if (current) render();
-        return data;
+        return newskyAwardRequirements;
       })
       .catch(error => {
-        console.warn('Не вдалося завантажити умови нагород NewSky:', error);
+        console.warn('Не вдалося завантажити фактичні нагороди NewSky:', error);
         return null;
       });
     return newskyAwardRequirementsPromise;
@@ -824,34 +891,45 @@
     if (newskyAwardStatsCache) return newskyAwardStatsCache;
     const byPilot = new Map();
     const byAward = new Map();
-    const completed = availableFlights.filter(flight => flight.status === 'completed' && flight.pilot?.id);
-    const pilotIds = [...new Set(completed.map(flight => flight.pilot.id))];
-    if (!newskyAwardRequirements?.awards) {
-      newskyAwardStatsCache = {byPilot, byAward, totalPilots:pilotIds.length};
+    const pilots = Array.isArray(newskyAwardRequirements?.pilotsAwards) ? newskyAwardRequirements.pilotsAwards : [];
+    const awardsById = newskyAwardRequirements?.awardsById instanceof Map
+      ? newskyAwardRequirements.awardsById
+      : new Map((newskyAwardRequirements?.awards || []).map(award => [String(award.id || award._id),award]));
+    if (!pilots.length || !awardsById.size) {
+      newskyAwardStatsCache = {byPilot, byAward, totalPilots:pilots.length};
       return newskyAwardStatsCache;
     }
-    pilotIds.forEach(pilotId => {
-      const pilotFlights = completed.filter(flight => flight.pilot.id === pilotId);
-      const earned = newskyAwardRequirements.awards
-        .map(award => evaluateNewskyAward(pilotFlights, award))
+    pilots.forEach(pilot => {
+      const pilotId = String(pilot?.pilot_id || pilot?.pilotId || pilot?.id || '').trim();
+      if (!pilotId) return;
+      const pilotName = pilot?.fullname || pilot?.name || 'Пілот';
+      const earned = (Array.isArray(pilot?.awards) ? pilot.awards : [])
+        .filter(item => String(item?.status || '').toLowerCase() === 'completed')
+        .map(item => {
+          const award = awardsById.get(String(item?.award_id || item?.awardId || ''));
+          return award ? {award,pilotAward:item,matchedFlights:[]} : null;
+        })
         .filter(Boolean);
       byPilot.set(pilotId, earned);
       earned.forEach(result => {
         const holders = byAward.get(result.award.id) || [];
         holders.push({
           pilotId,
-          pilotName:pilotFlights[0]?.pilot?.name || 'Пілот',
+          pilotName,
           result
         });
         byAward.set(result.award.id, holders);
       });
     });
-    newskyAwardStatsCache = {byPilot, byAward, totalPilots:pilotIds.length};
+    newskyAwardStatsCache = {byPilot, byAward, totalPilots:pilots.length};
     return newskyAwardStatsCache;
   }
 
   function newskyAwardLargeImage(award) {
-    return String(award?.imageXs || '').replace(/_xs(?=$|[?#])/i, '');
+    const image = String(award?.imageXs || award?.image || award?.imageId || '').trim();
+    if (!image) return '';
+    if (/^https?:\/\//i.test(image)) return image.replace(/_xs(?=$|[?#])/i, '');
+    return `https://newsky.app/api/award/image/${encodeURIComponent(image)}`;
   }
 
   function newskyAwardAirframeLabel(award) {
@@ -868,6 +946,8 @@
       const group = newskyAwardRequirements?.aircraftGroups?.[token];
       return Array.isArray(group)
         ? `категорія ${groupNames[token] || token}`
+        : groupNames[token]
+          ? `категорія ${groupNames[token]}`
         : String(token);
     }).join('<br>');
   }
@@ -888,9 +968,13 @@
     const holdersCaption = otherHolders === 0
       ? 'Більше ніхто не отримав цю нагороду (поки що!)'
       : `Нагороду також мають ${otherHolders} ${otherHolders === 1 ? 'людина' : 'людей'} в авіакомпанії (${percent}%).`;
+    const completedDate = result?.pilotAward?.completed_date
+      ? new Date(result.pilotAward.completed_date).toLocaleDateString('uk-UA',{timeZone:'UTC'})
+      : '';
+    const progress = result?.pilotAward?.legs_done ? `<br><strong>Виконано:</strong> ${esc(result.pilotAward.legs_done)}` : '';
     return [
       `<div class="newsky-award-tooltip-head"><strong>${esc(award.title)}</strong><img src="${esc(newskyAwardLargeImage(award))}" alt=""></div>`,
-      `<div><strong>Потрібно виконати:</strong> ${award.legs.length} ${flightWord(award.legs.length)}${minimumRating ? `<br><strong>Мінімальний рейтинг:</strong> ${minimumRating.toFixed(minimumRating % 1 ? 1 : 0)}` : ''}<br><strong>Період:</strong> ${periodFrom} — ${periodTo}</div>`,
+      `<div><strong>Потрібно виконати:</strong> ${award.legs.length} ${flightWord(award.legs.length)}${progress}${completedDate ? `<br><strong>Отримано:</strong> ${esc(completedDate)}` : ''}${minimumRating ? `<br><strong>Мінімальний рейтинг:</strong> ${minimumRating.toFixed(minimumRating % 1 ? 1 : 0)}` : ''}<br><strong>Період:</strong> ${periodFrom} — ${periodTo}</div>`,
       `<div><strong>Літаки:</strong><br>${newskyAwardAirframeLabel(award)}</div>`,
       `<div>${holdersCaption}</div>`
     ].join('');
@@ -903,6 +987,232 @@
       const award = result.award;
       return `<a class="newsky-achievement-award" href="${esc(award.url)}" target="_blank" rel="noopener noreferrer" data-award-tooltip="${esc(newskyAwardTooltipHtml(result,pilotId))}" aria-label="${esc(award.title)}"><img src="${esc(newskyAwardLargeImage(award))}" alt="${esc(award.title)}"></a>`;
     }).join('');
+  }
+
+  function newskyPilotAwardProgressMap(pilotId) {
+    const entry = (newskyAwardRequirements?.pilotsAwards || []).find(pilot =>
+      String(pilot?.pilot_id || pilot?.pilotId || pilot?.id || '').trim() === String(pilotId || '').trim()
+    );
+    const map = new Map();
+    (Array.isArray(entry?.awards) ? entry.awards : []).forEach(item => {
+      const awardId = String(item?.award_id || item?.awardId || '').trim();
+      if (awardId) map.set(awardId,item);
+    });
+    return map;
+  }
+
+  function newskyAwardProgressRatio(progress) {
+    const explicit = Number(progress?.progress_pct);
+    if (Number.isFinite(explicit) && explicit >= 0) return Math.max(0,Math.min(1,explicit));
+    const match = String(progress?.legs_done || '').match(/(\d+)\s*\/\s*(\d+)/);
+    if (match) {
+      const done = Number(match[1]) || 0;
+      const total = Number(match[2]) || 0;
+      return total ? Math.max(0,Math.min(1,done / total)) : 0;
+    }
+    return 0;
+  }
+
+  function newskyAwardProgressText(award, progress, ratio) {
+    if (progress?.legs_done) return String(progress.legs_done);
+    const total = Array.isArray(award?.legs) ? award.legs.length : 0;
+    return total ? `${Math.round(ratio * total)}/${total}` : `${Math.round(ratio * 100)}%`;
+  }
+
+  function newskyAwardProgressDoneCount(progress, award, status) {
+    if (status === 'completed') return Array.isArray(award?.legs) ? award.legs.length : 0;
+    const match = String(progress?.legs_done || '').match(/(\d+)\s*\/\s*(\d+)/);
+    return match ? Math.max(0,Number(match[1]) || 0) : 0;
+  }
+
+  function newskyAwardIsUnavailable(award) {
+    if (!award || award.deleted) return true;
+    if (award.closed) return true;
+    if (!award.activeTo) return false;
+    const end = new Date(award.activeTo);
+    const now = referenceNow instanceof Date && Number.isFinite(referenceNow.getTime()) ? referenceNow : new Date();
+    return Number.isFinite(end.getTime()) && end.getTime() < now.getTime();
+  }
+
+  function newskyAwardBrowserItems(pilotId) {
+    if (!newskyAwardRequirements) return [];
+    const progressMap = newskyPilotAwardProgressMap(pilotId);
+    return (newskyAwardRequirements.awards || [])
+      .filter(award => award && award.id && !award.deleted)
+      .map(award => {
+        const progress = progressMap.get(award.id) || null;
+        const ratio = progress ? newskyAwardProgressRatio(progress) : 0;
+        const rawStatus = String(progress?.status || (ratio >= 1 ? 'completed' : ratio > 0 ? 'in_progress' : 'not_started')).toLowerCase();
+        const completed = rawStatus === 'completed';
+        const unavailable = !completed && newskyAwardIsUnavailable(award);
+        const status = unavailable ? 'unavailable' : rawStatus;
+        return {
+          award,
+          progress,
+          ratio,
+          percent:Math.round(ratio * 100),
+          progressText:newskyAwardProgressText(award,progress,ratio),
+          status,
+          matchedLegs:newskyAwardMatchedLegs(pilotId,award,progress,status)
+        };
+      })
+      .sort((a,b) => {
+        const statusRank = item => item.status === 'unavailable' ? 3 : item.status === 'completed' ? 2 : item.ratio > 0 ? 0 : 1;
+        const rankDiff = statusRank(a) - statusRank(b);
+        if (rankDiff) return rankDiff;
+        const aDone = a.status === 'completed';
+        const bDone = b.status === 'completed';
+        if (aDone !== bDone) return aDone ? 1 : -1;
+        const aHas = a.ratio > 0;
+        const bHas = b.ratio > 0;
+        if (aHas !== bHas) return aHas ? -1 : 1;
+        if (aHas && bHas && b.ratio !== a.ratio) return b.ratio - a.ratio;
+        return String(a.award.title || '').localeCompare(String(b.award.title || ''),'uk');
+      });
+  }
+
+  function newskyAwardAirframePlainLabel(award) {
+    return newskyAwardAirframeLabel(award).replace(/<br\s*\/?>/gi, ', ');
+  }
+
+  function newskyAwardOrderLabel(value) {
+    const key = String(value || 'random').trim();
+    if (key === 'sequence_start') return 'З першого';
+    if (key === 'sequence') return 'З будь-якого, далі по порядку';
+    if (key === 'random') return 'Будь-який';
+    return key;
+  }
+
+  function newskyAwardFlightOperationKey(flight) {
+    return String(window.UCAADashboardFlightUI?.flightOperation?.(flight)?.key || flight?.operation || flight?.flightKind || '').toLowerCase();
+  }
+
+  function newskyAwardMatchedLegsFromFlights(flights, award, targetDone) {
+    const legs = Array.isArray(award?.legs) ? award.legs : [];
+    const matched = new Map();
+    if (!legs.length || targetDone <= 0) return matched;
+    const routeKey = (dep, arr) => `${String(dep || '').toUpperCase()}-${String(arr || '').toUpperCase()}`;
+    const ordered = award?.require?.ordered;
+    if (ordered === 'sequence' || ordered === 'sequence_start') {
+      let legIndex = 0;
+      for (const flight of flights) {
+        const leg = legs[legIndex];
+        if (!leg) break;
+        if (routeKey(flight.departure?.icao,flight.arrival?.icao) !== routeKey(leg.dep,leg.arr)) continue;
+        matched.set(legIndex,flight);
+        legIndex += 1;
+        if (matched.size >= targetDone) break;
+      }
+      return matched;
+    }
+    const byRoute = new Map();
+    flights.forEach(flight => {
+        const key = routeKey(flight.departure?.icao,flight.arrival?.icao);
+        const list = byRoute.get(key) || [];
+        list.push(flight);
+        byRoute.set(key,list);
+    });
+    legs.forEach((leg,index) => {
+      if (matched.size >= targetDone) return;
+      const key = routeKey(leg.dep,leg.arr);
+      const list = byRoute.get(key) || [];
+      const flight = list.shift();
+      if (!flight) return;
+      matched.set(index,flight);
+    });
+    return matched;
+  }
+
+  function newskyAwardMatchedLegs(pilotId, award, progress, status) {
+    const targetDone = newskyAwardProgressDoneCount(progress, award, status);
+    const matched = new Map();
+    if (!pilotId || targetDone <= 0) return matched;
+    const acceptedAirframes = newskyAwardAirframes(award);
+    const eligible = availableFlights
+      .filter(flight => flight?.pilot?.id === pilotId && isNewskyAwardEligibleFlight(flight, award, acceptedAirframes))
+      .sort((a,b) => newskyAwardFlightTime(a) - newskyAwardFlightTime(b));
+    const freeEligible = eligible.filter(flight => newskyAwardFlightOperationKey(flight) === 'free');
+    const freeMatched = newskyAwardMatchedLegsFromFlights(freeEligible, award, targetDone);
+    if (freeMatched.size >= targetDone || !eligible.length) return freeMatched;
+    const anyMatched = newskyAwardMatchedLegsFromFlights(eligible, award, targetDone);
+    return anyMatched.size > freeMatched.size ? anyMatched : freeMatched;
+  }
+
+  function newskyAwardBrowserDetailsHtml(item) {
+    const {award,progress,ratio,percent,progressText,status,matchedLegs} = item;
+    const completedDate = progress?.completed_date
+      ? new Date(progress.completed_date).toLocaleDateString('uk-UA',{timeZone:'UTC'})
+      : '';
+    const unavailableUntil = status === 'unavailable' && award?.activeTo
+      ? new Date(award.activeTo).toLocaleDateString('uk-UA',{timeZone:'UTC'})
+      : '';
+    const statusLabel = status === 'completed'
+      ? 'Виконано'
+      : status === 'unavailable'
+        ? `Недоступно${unavailableUntil ? ` - термін до ${unavailableUntil}` : ''}`
+      : ratio > 0
+        ? 'В процесі'
+        : 'Не розпочато';
+    const minimumRatingText = Number(award?.require?.minRating)
+      ? Number(award.require.minRating).toFixed(Number(award.require.minRating) % 1 ? 1 : 0)
+      : 'без мінімуму';
+    const airframesText = newskyAwardAirframePlainLabel(award);
+    const orderText = newskyAwardOrderLabel(award?.require?.ordered);
+    const legs = (Array.isArray(award.legs) ? award.legs : []).map((leg,index) => {
+      const depTitle = leg.depName ? ` title="${esc(leg.depName)}"` : '';
+      const arrTitle = leg.arrName ? ` title="${esc(leg.arrName)}"` : '';
+      const matchedFlight = matchedLegs?.get(index);
+      const done = Boolean(matchedFlight);
+      const flightNumber = String(matchedFlight?.flightNumber || '').trim();
+      const doneTitle = flightNumber ? ` title="Зараховано рейсом ${esc(flightNumber)}"` : ' title="Зараховано у прогресі"';
+      return `<li class="${done?'done':''}"><span class="newsky-awards-leg-no">${index+1}</span><span class="newsky-awards-leg-route"><strong${depTitle}>${esc(leg.dep)}</strong><span class="newsky-awards-leg-arrow">→</span><strong${arrTitle}>${esc(leg.arr)}</strong></span><span class="newsky-awards-leg-dist">${leg.distNm?`${Math.round(leg.distNm)} nm`:'—'}</span><span class="newsky-awards-leg-status">${done?`<span class="newsky-awards-leg-done"${doneTitle}>✓${flightNumber?` <small>${esc(flightNumber)}</small>`:''}</span>`:''}</span></li>`;
+    }).join('');
+    return `<details class="newsky-awards-item ${status === 'unavailable' ? 'unavailable' : status === 'completed' ? 'completed' : ratio > 0 ? 'progressing' : 'empty'}">
+      <summary>
+        <img class="newsky-awards-thumb" src="${esc(newskyAwardLargeImage(award))}" alt="${esc(award.title)}">
+        <span class="newsky-awards-main">
+          <strong>${esc(award.title)}</strong>
+          <span class="newsky-awards-meta">${esc(statusLabel)} · ${esc(progressText)}${completedDate ? ` · отримано ${esc(completedDate)}` : ''}</span>
+          <span class="newsky-awards-meta newsky-awards-summary-rules"><b>Рейтинг:</b> ${esc(minimumRatingText)} · <b>Літаки:</b> ${esc(airframesText)} · <b>Порядок:</b> ${esc(orderText)}</span>
+          <span class="newsky-awards-progress" aria-label="Прогрес ${percent}%"><i style="width:${percent}%"></i></span>
+        </span>
+        <span class="newsky-awards-percent">${percent}%</span>
+      </summary>
+      <div class="newsky-awards-details">
+        ${legs ? `<ol class="newsky-awards-legs">${legs}</ol>` : '<div class="newsky-awards-empty-note">Маршрути для цієї нагороди не описані у файлі.</div>'}
+        ${award.info ? `<div class="newsky-awards-info">${award.info}</div>` : ''}
+        <a class="newsky-awards-open" href="${esc(award.url)}" target="_blank" rel="noopener noreferrer">Відкрити в NewSky</a>
+      </div>
+    </details>`;
+  }
+
+  function newskyAwardsBrowserHtml(pilotId) {
+    const items = newskyAwardBrowserItems(pilotId);
+    const completed = items.filter(item => item.status === 'completed').length;
+    const inProgress = items.filter(item => item.ratio > 0 && item.status !== 'completed' && item.status !== 'unavailable').length;
+    const unavailable = items.filter(item => item.status === 'unavailable').length;
+    const pilotName = profilePilotPlainName(pilotId);
+    return `<div class="newsky-awards-head"><h2>Список Awards NewSky ${esc(pilotName)}</h2><button type="button" class="close" data-newsky-awards-close aria-label="Закрити">×</button></div>
+      <div class="newsky-awards-body">
+        <div class="newsky-awards-counts">Виконано: <strong>${completed}</strong> <span>(внизу списка)</span> · В процесі: <strong>${inProgress}</strong> <span>(зверху списка)</span> · Не доступні: <strong>${unavailable}</strong> · Всього: <strong>${items.length}</strong></div>
+        <div class="newsky-awards-list">${items.length ? items.map(newskyAwardBrowserDetailsHtml).join('') : '<div class="newsky-awards-empty-note">Awards не завантажились.</div>'}</div>
+      </div>`;
+  }
+
+  async function openNewskyAwardsBrowser(pilotId) {
+    await loadNewskyAwardRequirements();
+    document.querySelector('#newskyAwardsDialog')?.remove();
+    const dialog = document.createElement('dialog');
+    dialog.id = 'newskyAwardsDialog';
+    dialog.className = 'newsky-awards-dialog';
+    dialog.innerHTML = newskyAwardsBrowserHtml(pilotId);
+    document.body.appendChild(dialog);
+    dialog.addEventListener('click', event => {
+      if (event.target.closest('[data-newsky-awards-close]')) dialog.close();
+    });
+    dialog.addEventListener('close', () => dialog.remove(), {once:true});
+    if (dialog.showModal) dialog.showModal();
+    else dialog.setAttribute('open','open');
   }
 
   function aircraftAwardManufacturer(family) {
@@ -1276,6 +1586,12 @@
         .profile-v2 .newsky-achievement-award{box-sizing:border-box;display:inline-flex;flex:0 0 auto;width:auto;height:35px;margin:17px 6px 0 1px;align-items:center;justify-content:center;padding:0;background:transparent;cursor:pointer;text-decoration:none}
         .profile-v2 .aircraft-award + .newsky-achievement-award{margin-left:16px}
         .profile-v2 .newsky-achievement-award img{box-sizing:border-box;display:block;width:auto;height:35px;max-width:none;border:1px solid #708999;border-radius:5px;box-shadow:0 1px 3px #0002;object-fit:contain}
+        .newsky-awards-dialog{box-sizing:border-box;width:min(900px,calc(100vw - 24px));max-height:min(800px,calc(100vh - 124px));margin-top:100px;padding:0;border:1px solid #333;box-shadow:0 8px 30px #0005;background:#f7f7f7;color:#111}.newsky-awards-dialog::backdrop{background:#0006}
+        .newsky-awards-head{display:flex;align-items:center;gap:8px;background:#c7eef2;border-bottom:1px solid #555;padding:8px 10px}.newsky-awards-head h2{flex:1;margin:0;font-size:18px;line-height:1.2}.newsky-awards-head .close{font-weight:bold}
+        .newsky-awards-body{box-sizing:border-box;max-height:calc(min(800px,100vh - 124px) - 45px);overflow:auto;padding:8px;font:13px/1.35 Arial,sans-serif}.newsky-awards-counts{border:1px solid #aaa;background:#eef8fa;padding:5px 7px;margin-bottom:6px;text-align:center}.newsky-awards-counts span{color:#666;font-size:12px}
+        .newsky-awards-item{border:1px solid #999;background:#fff;margin:0 0 6px}.newsky-awards-item summary{display:grid;grid-template-columns:142px minmax(0,1fr) 58px;gap:8px;align-items:center;padding:5px 6px;cursor:pointer;list-style:none}.newsky-awards-item summary::-webkit-details-marker{display:none}.newsky-awards-item[open] summary{border-bottom:1px solid #ccc;background:#f8fbff}.newsky-awards-item.completed summary{background:#eef8ef}.newsky-awards-item.progressing summary{background:#fff9e6}.newsky-awards-item.unavailable summary{background:#eee;color:#777}
+        .newsky-awards-thumb{box-sizing:border-box;width:138px;height:70px;border:1px solid #888;border-radius:4px;background:#fff;object-fit:contain}.newsky-awards-main{display:block;min-width:0}.newsky-awards-main strong{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.newsky-awards-meta{display:block;margin:1px 0 4px;color:#555;font-size:12px}.newsky-awards-summary-rules{white-space:normal;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;line-height:13px;max-height:26px}.newsky-awards-summary-rules b{font-weight:bold;color:#333}.newsky-awards-progress{display:block;height:8px;border:1px solid #888;background:#eee}.newsky-awards-progress i{display:block;height:100%;background:#56ad5b}.newsky-awards-item.progressing .newsky-awards-progress i{background:#e1a21a}.newsky-awards-item.unavailable .newsky-awards-progress i{background:#999}.newsky-awards-item.unavailable .newsky-awards-percent{color:#777}.newsky-awards-percent{font-weight:bold;text-align:right;color:#0645ad}
+        .newsky-awards-details{padding:8px 10px;background:#fff}.newsky-awards-info{margin-bottom:8px;color:#222;font:13px/1.35 Arial,sans-serif}.newsky-awards-info *{font-family:Arial,sans-serif!important;font-size:13px!important;line-height:1.35!important}.newsky-awards-info p{margin:0 0 6px}.newsky-awards-info a{color:#0645ad}.newsky-awards-rules{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:6px;border:1px solid #ddd;background:#fafafa;padding:6px;margin-bottom:8px}.newsky-awards-rules span{min-width:0}.newsky-awards-legs{columns:3;column-gap:12px;margin:0 0 8px;padding:0;list-style:none}.newsky-awards-legs li{display:grid;grid-template-columns:22px 100px 48px minmax(34px,auto);gap:3px;align-items:center;break-inside:avoid;margin:0 0 3px;padding:2px 4px;border-bottom:1px dotted #e5e5e5;color:#666;font-size:12px;line-height:16px}.newsky-awards-legs li.done{background:#eef8ef;color:#08783f;font-weight:bold}.newsky-awards-leg-no{display:inline-flex;align-items:center;justify-content:center;width:18px;height:16px;border-radius:8px;background:#eee;color:#666;font:11px/16px Arial,sans-serif}.newsky-awards-legs li.done .newsky-awards-leg-no{background:#57b66a;color:#fff}.newsky-awards-leg-route{white-space:nowrap}.newsky-awards-leg-arrow{display:inline-block;margin:0 3px;color:#777}.newsky-awards-leg-dist{color:#666;white-space:nowrap;font-weight:normal}.newsky-awards-leg-status{white-space:nowrap;text-align:left}.newsky-awards-leg-done{display:inline-flex;align-items:center;gap:3px;color:#0a8a3d;font:bold 12px/16px Arial,sans-serif}.newsky-awards-leg-done small{font:bold 10px/14px Arial,sans-serif;color:#08783f}.newsky-awards-open{display:inline-block;color:#0645ad}.newsky-awards-empty-note{padding:8px;color:#777;text-align:center}
         .profile-aircraft-award-tooltip{position:fixed;z-index:1000;box-sizing:border-box;width:max-content;max-width:350px;padding:8px 10px;border:1px solid #666;background:#fff;color:#222;font:12px/1.35 Arial,sans-serif;text-align:left;box-shadow:0 5px 16px #0004;pointer-events:none}
         .profile-aircraft-award-tooltip>div+div{margin-top:7px;padding-top:7px;border-top:1px dotted #bbb}.profile-aircraft-award-tooltip strong{font-weight:bold}
         .profile-aircraft-award-tooltip .newsky-award-tooltip-head{display:flex;flex-direction:column;align-items:center;gap:3px;padding:0;font-size:14px;text-align:center}.profile-aircraft-award-tooltip .newsky-award-tooltip-head strong{display:block;margin:0}.profile-aircraft-award-tooltip .newsky-award-tooltip-head img{display:block;flex:0 0 auto;width:280px;max-width:100%;height:auto;margin:0;object-fit:contain}
@@ -1284,7 +1600,7 @@
         .profile-v2 .profile-section-title{font-weight:bold;text-align:center;background:#c7eef2;border:1px solid #777;padding:5px;margin-top:8px}
         .profile-v2 .profile-overall{table-layout:fixed;font-size:12px}.profile-v2 .profile-overall th{font-size:11px;line-height:1.15;vertical-align:middle;padding-left:3px;padding-right:3px;white-space:nowrap}.profile-v2 .profile-overall td{font-family:Consolas,monospace;font-size:13px;font-weight:bold;vertical-align:middle;white-space:nowrap}
         .profile-v2 .profile-overall th[title],.profile-v2 .profile-overall td[title]{cursor:help}.profile-v2 .profile-overall th[title]:hover,.profile-v2 .profile-overall td[title]:hover{background:#fffbe3}
-        .profile-v2 .profile-tip{position:relative;cursor:help}.profile-v2 .profile-tip:hover{background:#fffbe3}
+        .profile-v2 .profile-tip{position:relative;cursor:help}.profile-v2 .profile-tip:hover{background:#fffbe3}.profile-v2 .profile-awards-list-button.profile-tip{cursor:pointer}
         .profile-v2 .profile-tooltip-box{position:absolute;left:50%;top:calc(100% + 5px);transform:translateX(-50%);z-index:100;width:max-content;max-width:350px;padding:7px 9px;border:1px solid #666;background:#fff;color:#222;font-family:Arial,sans-serif;font-size:11px;font-weight:normal;line-height:1.35;text-align:left;white-space:pre-line;box-shadow:0 4px 12px #0003;opacity:0;visibility:hidden;pointer-events:none}
         .profile-v2 .profile-tip:hover .profile-tooltip-box{opacity:1;visibility:visible}
         .profile-v2 .profile-tooltip-section{display:block;white-space:pre-line}.profile-v2 .profile-tooltip-rule{height:0;margin:5px 0;border:0;border-top:1px solid #ccc}
@@ -1870,7 +2186,7 @@
     const membershipDays = profileMembershipDays(firstCompleted);
     const membershipText = membershipDays ? `${membershipDays} ${dayWord(membershipDays)}` : '—';
     page.content.innerHTML = `<div class="profile-v2">
-      <div class="profile-identity"><div class="profile-avatar-wrap"><img class="profile-avatar" src="${esc(avatar)}" alt="${esc(lifetime.name)}" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='https://newsky.app/api/pilot/avatar/default'}">${simBadge}</div><div class="profile-person"><h3><span class="profile-title-name">${pilotNameWithStreak(lifetime)}</span></h3><div class="profile-newsky-row"><a class="profile-badge profile-tip" data-tooltip="Відкрити профіль пілота у NewSky" href="https://newsky.app/pilot/${encodeURIComponent(lifetime.id)}" target="_blank" rel="noopener noreferrer">NewSky</a><a class="profile-badge profile-tip" data-tooltip="Відкрити список всіх нагород у NewSky" href="https://newsky.app/airline/ukl/awards" target="_blank" rel="noopener noreferrer">Список Awards</a></div><small>В авіакомпанії: ${esc(membershipText)}</small>${profileFleetRoleHtml(lifetime.id)}</div>${aircraftAwardsHtml(lifetime)}</div>
+      <div class="profile-identity"><div class="profile-avatar-wrap"><img class="profile-avatar" src="${esc(avatar)}" alt="${esc(lifetime.name)}" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='https://newsky.app/api/pilot/avatar/default'}">${simBadge}</div><div class="profile-person"><h3><span class="profile-title-name">${pilotNameWithStreak(lifetime)}</span></h3><div class="profile-newsky-row"><a class="profile-badge profile-tip" data-tooltip="Відкрити профіль пілота у NewSky" href="https://newsky.app/pilot/${encodeURIComponent(lifetime.id)}" target="_blank" rel="noopener noreferrer">NewSky</a><button type="button" class="profile-badge profile-tip profile-awards-list-button" data-tooltip="Відкрити локальний список Awards NewSky">Список Awards</button></div><small>В авіакомпанії: ${esc(membershipText)}</small>${profileFleetRoleHtml(lifetime.id)}</div>${aircraftAwardsHtml(lifetime)}</div>
       <div class="profile-section-title">ЗАГАЛЬНА ІНФОРМАЦІЯ ПРО ПІЛОТА</div>
       <table class="profile-overall"><colgroup><col style="width:14%"><col style="width:19%"><col style="width:16.7%"><col style="width:20%"><col style="width:calc(13.3% + 8px)"><col style="width:calc(17% - 8px)"></colgroup><tbody>
         <tr><th>Наліт за весь час</th><td class="profile-tip" data-tooltip="${esc(hoursValueTip)}">${compactTime(lifetime.minutes)}<span class="profile-divider">|</span>${rankHtml(hoursRank,hoursRanking.length)}</td><th>Прибуток для АК</th><td class="profile-tip" data-tooltip="${esc(profitValueTip)}">${money(lifetime.companyProfit,true)}<span class="profile-divider">|</span>${rankHtml(profitRank,profitRanking.length)}</td><th class="profile-tip" data-tooltip="${esc(cleanNameTip)}">Польотів без штрафів</th><td class="profile-tip" data-tooltip="${esc(cleanValueTip)}">${currentQuality.cleanPct.toFixed(0)}%<span class="profile-divider">|</span>${rankHtml(cleanRank,cleanRanking.length)}</td></tr>
@@ -1888,6 +2204,10 @@
     </div>`;
 
     wireAircraftAwardTooltips(page.content);
+    page.content.querySelector('.profile-awards-list-button')?.addEventListener('click', event => {
+      event.preventDefault();
+      openNewskyAwardsBrowser(lifetime.id);
+    });
     page.content.querySelectorAll('.profile-tip[data-tooltip]').forEach(element => {
       const [mainText,excludedText=''] = String(element.dataset.tooltip || '').split('\n@@EXCLUDED@@\n');
       const box = document.createElement('span');
