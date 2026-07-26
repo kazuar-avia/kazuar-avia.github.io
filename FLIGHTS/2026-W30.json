@@ -29943,6 +29943,193 @@
                         "elev": 1417
                     }
                 }
+            },
+            {
+                "_id": "6a66272f50c8a562fc5640b9",
+                "aircraft": {
+                    "_id": "6a0b23a267cd7e249842bd81",
+                    "name": "Airbus A380",
+                    "customName": "Dry lease l FBW A380-800 l 446 pax elite",
+                    "icao": "A388"
+                },
+                "type": "pax",
+                "flightNumber": "1026",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 138,
+                    "cargo": 109,
+                    "weights": {
+                        "cargo": 7848
+                    }
+                },
+                "depTime": "2026-07-26T16:10:00.000Z",
+                "duration": 60,
+                "arrTime": "2026-07-26T17:10:00.000Z",
+                "depTimeAct": "2026-07-26T16:07:12.479Z",
+                "delay": 9,
+                "takeoffTimeAct": "2026-07-26T16:19:15.465Z",
+                "durationAct": 59,
+                "arrTimeAct": "2026-07-26T17:18:34.376Z",
+                "open": "2026-07-26T15:35:05.037Z",
+                "close": "2026-07-26T17:25:36.400Z",
+                "rating": 7.76,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 353,
+                        "fuel": 13259,
+                        "expenses": 49084,
+                        "penalties": 0,
+                        "revenue": 45567,
+                        "balance": -3517,
+                        "prices": {
+                            "ticketPrice": 103,
+                            "cargoUnitPrice": 127,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 138,
+                            "cargo": 109,
+                            "paxByClass": {
+                                "F": 26,
+                                "C": 92,
+                                "Y": 20
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 14990,
+                        "aircraft": 28325,
+                        "handling": 1539,
+                        "landing": 4230
+                    },
+                    "revenue": {
+                        "tickets": 31724,
+                        "cargo": 13843
+                    },
+                    "violations": [
+                        {
+                            "title": "Delayed gear retraction after takeoff more than 30s, actual: 46s)",
+                            "penalty": {
+                                "points": -25,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gear",
+                                "payload": {
+                                    "system": {
+                                        "fps": 35
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Short landing (64m from threshold before 189m min accepted)",
+                            "penalty": {
+                                "points": -99,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 33
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.28,
+                                        "rate": 286
+                                    },
+                                    "weather": {
+                                        "windDir": 229.95,
+                                        "windSpd": 20.37,
+                                        "windX": -0.58
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.28G (286 ft/min, challenging  conditions)<br/>Distance from threshold: 337m (accepted range: 189-758m)<br/>Average centerline deviation: 3.58m<br/>Max centerline deviation: 7.74m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 33
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.28,
+                                        "rate": 286
+                                    },
+                                    "weather": {
+                                        "windDir": 229.95,
+                                        "windSpd": 20.37,
+                                        "windX": -0.58
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No NAV lights for 4383s when required",
+                            "penalty": {
+                                "points": -100,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-26T15:26:39.206Z",
+                "updatedAt": "2026-07-26T17:25:36.496Z",
+                "dep": {
+                    "icao": "LSZH",
+                    "name": "Zürich Airport",
+                    "city": "Zurich",
+                    "location": {
+                        "lat": 47.458056,
+                        "lon": 8.548056,
+                        "elev": 1417
+                    }
+                },
+                "arr": {
+                    "icao": "EDDL",
+                    "name": "Düsseldorf Airport",
+                    "city": "Düsseldorf",
+                    "location": {
+                        "lat": 51.289501,
+                        "lon": 6.76678,
+                        "elev": 147
+                    }
+                },
+                "actArr": {
+                    "icao": "EDDL",
+                    "name": "Düsseldorf Airport",
+                    "city": "Düsseldorf",
+                    "location": {
+                        "lat": 51.289501,
+                        "lon": 6.76678,
+                        "elev": 147
+                    }
+                }
             }
         ]
     },
