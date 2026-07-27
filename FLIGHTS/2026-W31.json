@@ -1025,6 +1025,180 @@
                         "elev": 21
                     }
                 }
+            },
+            {
+                "_id": "6a6776a750c8a562fc707fab",
+                "aircraft": {
+                    "_id": "6a4671586748d36670c9277b",
+                    "name": "Boeing 737 MAX 8",
+                    "customName": "Dry Lease l 737-MAX8 189 pax l msfs 2024",
+                    "icao": "B38M"
+                },
+                "type": "pax",
+                "flightNumber": "8012",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 168,
+                    "cargo": 24,
+                    "weights": {
+                        "cargo": 1608
+                    }
+                },
+                "depTime": "2026-07-27T15:50:00.000Z",
+                "duration": 150,
+                "arrTime": "2026-07-27T18:20:00.000Z",
+                "depTimeAct": "2026-07-27T15:38:33.018Z",
+                "delay": -50,
+                "takeoffTimeAct": "2026-07-27T15:47:42.076Z",
+                "durationAct": 102,
+                "arrTimeAct": "2026-07-27T17:29:49.767Z",
+                "open": "2026-07-27T15:26:23.250Z",
+                "close": "2026-07-27T17:36:02.769Z",
+                "rating": 8.56,
+                "simulator": "msfs",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 593,
+                        "fuel": 3876,
+                        "expenses": 15325,
+                        "penalties": 0,
+                        "revenue": 26496,
+                        "balance": 11171,
+                        "prices": {
+                            "ticketPrice": 120,
+                            "cargoUnitPrice": 139,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 168,
+                            "cargo": 24,
+                            "paxByClass": {
+                                "F": 4,
+                                "C": 13,
+                                "Y": 151
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4523,
+                        "aircraft": 6050,
+                        "handling": 852,
+                        "landing": 3900
+                    },
+                    "revenue": {
+                        "tickets": 23160,
+                        "cargo": 3336
+                    },
+                    "violations": [
+                        {
+                            "title": "Great touchdown: 1.28G (261 ft/min, challenging  conditions)<br/>Distance from threshold: 629m (accepted range: 196-786m)<br/>Average centerline deviation: 3.29m<br/>Max centerline deviation: 6.82m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.28,
+                                        "rate": 261
+                                    },
+                                    "weather": {
+                                        "windDir": 139.98,
+                                        "windSpd": 11.87,
+                                        "windX": -4.55
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Max G exceeded: 2.72G (max allowed: 2G)",
+                            "penalty": {
+                                "points": -144,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Fuel used 3665 kg is lower than estimated minimum 3876 kg.",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.28,
+                                        "rate": 261
+                                    },
+                                    "weather": {
+                                        "windDir": 139.98,
+                                        "windSpd": 11.87,
+                                        "windX": -4.55
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-27T15:17:59.917Z",
+                "updatedAt": "2026-07-27T17:36:02.864Z",
+                "dep": {
+                    "icao": "PASI",
+                    "name": "Sitka Rocky Gutierrez Airport",
+                    "city": "Sitka",
+                    "location": {
+                        "lat": 57.04710006713867,
+                        "lon": -135.36199951171875,
+                        "elev": 21
+                    }
+                },
+                "arr": {
+                    "icao": "PANC",
+                    "name": "Ted Stevens Anchorage International Airport",
+                    "city": "Anchorage",
+                    "location": {
+                        "lat": 61.179004,
+                        "lon": -149.992561,
+                        "elev": 152
+                    }
+                },
+                "actArr": {
+                    "icao": "PANC",
+                    "name": "Ted Stevens Anchorage International Airport",
+                    "city": "Anchorage",
+                    "location": {
+                        "lat": 61.179004,
+                        "lon": -149.992561,
+                        "elev": 152
+                    }
+                }
             }
         ]
     },
