@@ -1887,6 +1887,156 @@
                         "elev": 508
                     }
                 }
+            },
+            {
+                "_id": "6a679589d7bb28994ac62396",
+                "aircraft": {
+                    "_id": "6a44988d5760ec7cdb8cca2a",
+                    "name": "Fokker F100",
+                    "customName": "UCAA l Fokker 100 based in UKHH l UR-FKR",
+                    "icao": "F100"
+                },
+                "type": "pax",
+                "flightNumber": "12H",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 43,
+                    "cargo": 18,
+                    "weights": {
+                        "cargo": 2196
+                    }
+                },
+                "depTime": "2026-07-27T17:45:00.000Z",
+                "duration": 85,
+                "arrTime": "2026-07-27T19:10:00.000Z",
+                "depTimeAct": "2026-07-27T17:46:26.036Z",
+                "delay": -11,
+                "takeoffTimeAct": "2026-07-27T17:51:48.071Z",
+                "durationAct": 67,
+                "arrTimeAct": "2026-07-27T18:58:46.052Z",
+                "open": "2026-07-27T17:31:00.170Z",
+                "close": "2026-07-27T19:07:07.964Z",
+                "rating": 9.86,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 401,
+                        "fuel": 2708,
+                        "expenses": 6048,
+                        "penalties": 0,
+                        "revenue": 6941,
+                        "balance": 893,
+                        "prices": {
+                            "ticketPrice": 107,
+                            "cargoUnitPrice": 130,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 43,
+                            "cargo": 18,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 43
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3062,
+                        "aircraft": 2379,
+                        "handling": 202,
+                        "landing": 405
+                    },
+                    "revenue": {
+                        "tickets": 4601,
+                        "cargo": 2340
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 5.18m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -14,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.25G (252 ft/min, normal  conditions)<br/>Distance from threshold: 612m (accepted range: 203-815m)<br/>Average centerline deviation: 3.32m<br/>Max centerline deviation: 5.18m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.25,
+                                        "rate": 252
+                                    },
+                                    "weather": {
+                                        "windDir": 280.06,
+                                        "windSpd": 10.63,
+                                        "windX": -7.76
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-27T17:29:45.146Z",
+                "updatedAt": "2026-07-27T19:07:08.061Z",
+                "dep": {
+                    "icao": "UKKV",
+                    "city": "Zhytomyr",
+                    "location": {
+                        "lat": 50.270556,
+                        "lon": 28.738611,
+                        "elev": 722.5
+                    },
+                    "name": "Zhytomyr Airport"
+                },
+                "arr": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                },
+                "actArr": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                }
             }
         ]
     },
