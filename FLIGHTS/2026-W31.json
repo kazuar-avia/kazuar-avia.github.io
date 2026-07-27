@@ -138,6 +138,165 @@
                         "elev": 595
                     }
                 }
+            },
+            {
+                "_id": "6a67164150c8a562fc68af5d",
+                "aircraft": {
+                    "_id": "695a3bf33dc76275baca8db5",
+                    "name": "Boeing 737-800",
+                    "customName": "Ukraine Int l 737-800 based in UKBB l UR-UIA",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "927L",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 184,
+                    "cargo": 25,
+                    "weights": {
+                        "cargo": 1650
+                    }
+                },
+                "depTime": "2026-07-27T08:50:00.000Z",
+                "duration": 45,
+                "arrTime": "2026-07-27T09:35:00.000Z",
+                "depTimeAct": "2026-07-27T08:41:59.347Z",
+                "delay": -21,
+                "takeoffTimeAct": "2026-07-27T08:46:09.645Z",
+                "durationAct": 27,
+                "arrTimeAct": "2026-07-27T09:13:30.965Z",
+                "open": "2026-07-27T08:39:51.960Z",
+                "close": "2026-07-27T09:16:34.843Z",
+                "rating": 8.89,
+                "simulator": "xp",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 145,
+                        "fuel": 1352,
+                        "expenses": 6976,
+                        "penalties": 7385,
+                        "revenue": 16936,
+                        "balance": 2575,
+                        "prices": {
+                            "ticketPrice": 79,
+                            "cargoUnitPrice": 96,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 184,
+                            "cargo": 25,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 184
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1529,
+                        "aircraft": 3875,
+                        "handling": 1005,
+                        "landing": 567
+                    },
+                    "revenue": {
+                        "tickets": 14536,
+                        "cargo": 2400
+                    },
+                    "violations": [
+                        {
+                            "title": "MLW exceeded: 1225kg above maximum landing weight of 66361kg",
+                            "penalty": {
+                                "points": -111,
+                                "cash": 7385
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 19
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.11,
+                                        "rate": 127
+                                    },
+                                    "weather": {
+                                        "windDir": 254.91,
+                                        "windSpd": 10.23,
+                                        "windX": -10.01
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.11G (127 ft/min, challenging  conditions)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 19
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.11,
+                                        "rate": 127
+                                    },
+                                    "weather": {
+                                        "windDir": 254.91,
+                                        "windSpd": 10.23,
+                                        "windX": -10.01
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-27T08:26:41.554Z",
+                "updatedAt": "2026-07-27T09:16:34.932Z",
+                "dep": {
+                    "icao": "LUKK",
+                    "name": "Chişinău International Airport",
+                    "city": "Chişinău",
+                    "location": {
+                        "lat": 46.9277,
+                        "lon": 28.931,
+                        "elev": 399
+                    }
+                },
+                "arr": {
+                    "icao": "UKLN",
+                    "name": "Chernivtsi International Airport",
+                    "city": "Chernivtsi",
+                    "location": {
+                        "lat": 48.259300231933594,
+                        "lon": 25.98080062866211,
+                        "elev": 826
+                    }
+                },
+                "actArr": {
+                    "icao": "UKLN",
+                    "name": "Chernivtsi International Airport",
+                    "city": "Chernivtsi",
+                    "location": {
+                        "lat": 48.259300231933594,
+                        "lon": 25.98080062866211,
+                        "elev": 826
+                    }
+                }
             }
         ]
     },
