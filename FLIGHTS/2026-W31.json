@@ -740,5 +740,160 @@
                 }
             }
         ]
+    },
+    {
+        "pilot_id": "67af93e134cf96eb9a5b249d",
+        "fullname": "Andy Crown",
+        "avatar": "default",
+        "flights": [
+            {
+                "_id": "6a670c5450c8a562fc681e80",
+                "aircraft": {
+                    "_id": "6a4687cc5760ec7cdbae102b",
+                    "name": "Boeing 737 MAX 8",
+                    "customName": "Dry Lease l 737-MAX8 160 pax 3 classes l XP11 ",
+                    "icao": "B38M"
+                },
+                "type": "pax",
+                "flightNumber": "904",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 160,
+                    "cargo": 20,
+                    "weights": {
+                        "cargo": 1200
+                    }
+                },
+                "depTime": "2026-07-27T08:10:00.000Z",
+                "duration": 95,
+                "arrTime": "2026-07-27T09:45:00.000Z",
+                "depTimeAct": "2026-07-27T08:10:50.992Z",
+                "delay": 14,
+                "takeoffTimeAct": "2026-07-27T08:18:28.804Z",
+                "durationAct": 101,
+                "arrTimeAct": "2026-07-27T09:58:59.912Z",
+                "open": "2026-07-27T08:00:17.411Z",
+                "close": "2026-07-27T10:02:05.609Z",
+                "rating": 4.8,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 540,
+                        "fuel": 4236,
+                        "expenses": 12020,
+                        "penalties": 0,
+                        "revenue": 27960,
+                        "balance": 15940,
+                        "prices": {
+                            "ticketPrice": 140,
+                            "cargoUnitPrice": 166,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 160,
+                            "cargo": 20,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 16,
+                                "Y": 144
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4789,
+                        "aircraft": 4900,
+                        "handling": 1449,
+                        "landing": 882
+                    },
+                    "revenue": {
+                        "tickets": 24640,
+                        "cargo": 3320
+                    },
+                    "violations": [
+                        {
+                            "title": "Average touchdown: 1.58G (559 ft/min, challenging  conditions)",
+                            "penalty": {
+                                "points": -20,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.58,
+                                        "rate": 559
+                                    },
+                                    "weather": {
+                                        "windDir": 213.31,
+                                        "windSpd": 11.5,
+                                        "windX": 5.68
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Stall warning for 503 seconds",
+                            "penalty": {
+                                "points": -500,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-27T07:44:20.211Z",
+                "updatedAt": "2026-07-27T10:02:05.696Z",
+                "dep": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
+            }
+        ]
     }
 ]
