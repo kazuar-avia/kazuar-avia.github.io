@@ -456,6 +456,154 @@
                         "elev": 595
                     }
                 }
+            },
+            {
+                "_id": "6a68933a50c8a562fc834566",
+                "aircraft": {
+                    "_id": "6a5248215760ec7cdb96211d",
+                    "name": "Airbus A319",
+                    "customName": "Windrode A319 UR-WRY",
+                    "icao": "A319"
+                },
+                "type": "pax",
+                "flightNumber": "406D",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 150,
+                    "cargo": 20,
+                    "weights": {
+                        "cargo": 2240
+                    }
+                },
+                "depTime": "2026-07-28T12:00:00.000Z",
+                "duration": 55,
+                "arrTime": "2026-07-28T12:55:00.000Z",
+                "depTimeAct": "2026-07-28T11:51:02.484Z",
+                "delay": -27,
+                "takeoffTimeAct": "2026-07-28T11:51:02.484Z",
+                "durationAct": 37,
+                "arrTimeAct": "2026-07-28T12:28:26.820Z",
+                "open": "2026-07-28T11:35:41.531Z",
+                "close": "2026-07-28T12:32:49.014Z",
+                "rating": 9.82,
+                "simulator": "xp",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 212,
+                        "fuel": 1623,
+                        "expenses": 7181,
+                        "penalties": 0,
+                        "revenue": 17820,
+                        "balance": 10639,
+                        "prices": {
+                            "ticketPrice": 102,
+                            "cargoUnitPrice": 126,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 150,
+                            "cargo": 20,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 150
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1835,
+                        "aircraft": 4087,
+                        "handling": 819,
+                        "landing": 440
+                    },
+                    "revenue": {
+                        "tickets": 15300,
+                        "cargo": 2520
+                    },
+                    "violations": [
+                        {
+                            "title": "Great touchdown: 1.22G (119 ft/min, normal  conditions)<br/>Distance from threshold: 585m (accepted range: 187-751m)<br/>Average centerline deviation: 0.54m<br/>Max centerline deviation: 1.39m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.22,
+                                        "rate": 119
+                                    },
+                                    "weather": {
+                                        "windDir": 264.09,
+                                        "windSpd": 6.41,
+                                        "windX": -0.75
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No STROBE lights for 188s when required",
+                            "penalty": {
+                                "points": -18,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-28T11:32:10.570Z",
+                "updatedAt": "2026-07-28T12:32:49.097Z",
+                "dep": {
+                    "icao": "LUKK",
+                    "name": "Chişinău International Airport",
+                    "city": "Chişinău",
+                    "location": {
+                        "lat": 46.9277,
+                        "lon": 28.931,
+                        "elev": 399
+                    }
+                },
+                "arr": {
+                    "icao": "LRSB",
+                    "name": "Sibiu International Airport",
+                    "city": "Sibiu",
+                    "location": {
+                        "lat": 45.785841,
+                        "lon": 24.086666,
+                        "elev": 1496
+                    }
+                },
+                "actArr": {
+                    "icao": "LRSB",
+                    "name": "Sibiu International Airport",
+                    "city": "Sibiu",
+                    "location": {
+                        "lat": 45.785841,
+                        "lon": 24.086666,
+                        "elev": 1496
+                    }
+                }
             }
         ]
     },
