@@ -8022,5 +8022,182 @@
                 }
             }
         ]
+    },
+    {
+        "pilot_id": "69581efe3dc76275ba8e9df6",
+        "fullname": "Andrii Moskalenko",
+        "avatar": "69581efe3dc76275ba8e9df61782830286148",
+        "flights": [
+            {
+                "_id": "6a68f35950c8a562fc8c0fa7",
+                "aircraft": {
+                    "_id": "6a0b23a267cd7e249842bd81",
+                    "name": "Airbus A380",
+                    "customName": "Dry lease l FBW A380-800 l 446 pax elite",
+                    "icao": "A388"
+                },
+                "type": "pax",
+                "flightNumber": "2143",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 344,
+                    "cargo": 76,
+                    "weights": {
+                        "cargo": 9576
+                    }
+                },
+                "depTime": "2026-07-28T19:20:00.000Z",
+                "duration": 110,
+                "arrTime": "2026-07-28T21:10:00.000Z",
+                "depTimeAct": "2026-07-28T19:17:57.096Z",
+                "delay": 3,
+                "takeoffTimeAct": "2026-07-28T19:28:16.084Z",
+                "durationAct": 105,
+                "arrTimeAct": "2026-07-28T21:13:11.916Z",
+                "open": "2026-07-28T18:59:57.703Z",
+                "close": "2026-07-28T21:20:51.930Z",
+                "rating": 9.62,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 774,
+                        "fuel": 21158,
+                        "expenses": 62486,
+                        "penalties": 0,
+                        "revenue": 108937,
+                        "balance": 46451,
+                        "prices": {
+                            "ticketPrice": 127,
+                            "cargoUnitPrice": 145,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 344,
+                            "cargo": 76,
+                            "paxByClass": {
+                                "F": 66,
+                                "C": 229,
+                                "Y": 49
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 23920,
+                        "aircraft": 31775,
+                        "handling": 2201,
+                        "landing": 4590
+                    },
+                    "revenue": {
+                        "tickets": 97917,
+                        "cargo": 11020
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 6.75m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -32,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    },
+                                    "weather": {
+                                        "windDir": 120,
+                                        "windSpd": 8.04,
+                                        "windX": 0.32
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 4.49m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -6,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.35G (410 ft/min, normal  conditions)<br/>Distance from threshold: 521m (accepted range: 195-784m)<br/>Average centerline deviation: 2.14m<br/>Max centerline deviation: 4.49m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.35,
+                                        "rate": 410
+                                    },
+                                    "weather": {
+                                        "windDir": 350,
+                                        "windSpd": 3,
+                                        "windX": -1.67
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-28T18:22:17.527Z",
+                "updatedAt": "2026-07-28T21:20:52.019Z",
+                "dep": {
+                    "icao": "LEVC",
+                    "name": "Valencia Airport",
+                    "city": "Valencia",
+                    "location": {
+                        "lat": 39.4893,
+                        "lon": -0.481625,
+                        "elev": 240
+                    }
+                },
+                "arr": {
+                    "icao": "LSZH",
+                    "name": "Zürich Airport",
+                    "city": "Zurich",
+                    "location": {
+                        "lat": 47.458056,
+                        "lon": 8.548056,
+                        "elev": 1417
+                    }
+                },
+                "actArr": {
+                    "icao": "LSZH",
+                    "name": "Zürich Airport",
+                    "city": "Zurich",
+                    "location": {
+                        "lat": 47.458056,
+                        "lon": 8.548056,
+                        "elev": 1417
+                    }
+                }
+            }
+        ]
     }
 ]
