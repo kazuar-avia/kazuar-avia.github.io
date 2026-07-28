@@ -297,6 +297,165 @@
                         "elev": 826
                     }
                 }
+            },
+            {
+                "_id": "6a683fcc50c8a562fc7de345",
+                "aircraft": {
+                    "_id": "695a3cec3dc76275bacaaa27",
+                    "name": "Boeing 737-600",
+                    "customName": "Air Onix l 737-600 based in UKFF l UR-KRD",
+                    "icao": "B736"
+                },
+                "type": "pax",
+                "flightNumber": "32T",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 113,
+                    "cargo": 12,
+                    "weights": {
+                        "cargo": 1236
+                    }
+                },
+                "depTime": "2026-07-28T05:55:00.000Z",
+                "duration": 55,
+                "arrTime": "2026-07-28T06:50:00.000Z",
+                "depTimeAct": "2026-07-28T05:48:03.097Z",
+                "delay": -13,
+                "takeoffTimeAct": "2026-07-28T05:54:11.050Z",
+                "durationAct": 43,
+                "arrTimeAct": "2026-07-28T06:36:55.504Z",
+                "open": "2026-07-28T05:43:40.267Z",
+                "close": "2026-07-28T06:39:27.982Z",
+                "rating": 9.5,
+                "simulator": "xp",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 233,
+                        "fuel": 1531,
+                        "expenses": 6908,
+                        "penalties": 0,
+                        "revenue": 13446,
+                        "balance": 6538,
+                        "prices": {
+                            "ticketPrice": 102,
+                            "cargoUnitPrice": 126,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 113,
+                            "cargo": 12,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 4,
+                                "Y": 109
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1749,
+                        "aircraft": 4168,
+                        "handling": 571,
+                        "landing": 420
+                    },
+                    "revenue": {
+                        "tickets": 11934,
+                        "cargo": 1512
+                    },
+                    "violations": [
+                        {
+                            "title": "Great touchdown: 1.11G (152 ft/min, normal  conditions)<br/>Distance from threshold: 670m (accepted range: 179-717m)<br/>Average centerline deviation: 1.79m<br/>Max centerline deviation: 2.26m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 18
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.11,
+                                        "rate": 152
+                                    },
+                                    "weather": {
+                                        "windDir": 294.03,
+                                        "windSpd": 3.02,
+                                        "windX": -2.05
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on landing: 1012mb instead of 1018.96mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 18
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.11,
+                                        "rate": 152
+                                    },
+                                    "weather": {
+                                        "windDir": 294.03,
+                                        "windSpd": 3.02,
+                                        "windX": -2.05
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-28T05:36:12.422Z",
+                "updatedAt": "2026-07-28T06:39:28.067Z",
+                "dep": {
+                    "icao": "UACK",
+                    "name": "Kokshetau Airport",
+                    "city": "Kokshetau",
+                    "location": {
+                        "lat": 53.329102,
+                        "lon": 69.594597,
+                        "elev": 900
+                    }
+                },
+                "arr": {
+                    "icao": "UAUU",
+                    "name": "Kostanay West Airport",
+                    "city": "Kostanay",
+                    "location": {
+                        "lat": 53.20690155029297,
+                        "lon": 63.55030059814453,
+                        "elev": 595
+                    }
+                },
+                "actArr": {
+                    "icao": "UAUU",
+                    "name": "Kostanay West Airport",
+                    "city": "Kostanay",
+                    "location": {
+                        "lat": 53.20690155029297,
+                        "lon": 63.55030059814453,
+                        "elev": 595
+                    }
+                }
             }
         ]
     },
