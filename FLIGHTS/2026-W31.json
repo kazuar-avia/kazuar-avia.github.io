@@ -7240,6 +7240,156 @@
                         "elev": 508
                     }
                 }
+            },
+            {
+                "_id": "6a68fc7450c8a562fc8cef45",
+                "aircraft": {
+                    "_id": "6a4f90ec5760ec7cdb612ec3",
+                    "name": "Airbus A320",
+                    "customName": "Aerosvit vs DonbassAero l A320 CFM based in UKBB l UR-DAH",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "994",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 103,
+                    "cargo": 28,
+                    "weights": {
+                        "cargo": 3080
+                    }
+                },
+                "depTime": "2026-07-28T19:15:00.000Z",
+                "duration": 70,
+                "arrTime": "2026-07-28T20:25:00.000Z",
+                "depTimeAct": "2026-07-28T19:18:47.375Z",
+                "delay": -13,
+                "takeoffTimeAct": "2026-07-28T19:21:23.892Z",
+                "durationAct": 51,
+                "arrTimeAct": "2026-07-28T20:12:02.608Z",
+                "open": "2026-07-28T19:12:28.013Z",
+                "close": "2026-07-28T20:16:22.116Z",
+                "rating": 9.45,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 275,
+                        "fuel": 1800,
+                        "expenses": 6256,
+                        "penalties": 0,
+                        "revenue": 17477,
+                        "balance": 11221,
+                        "prices": {
+                            "ticketPrice": 127,
+                            "cargoUnitPrice": 157,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.7,
+                                "fuel": 0.8,
+                                "ground": 0.7
+                            }
+                        },
+                        "payload": {
+                            "pax": 103,
+                            "cargo": 28,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 103
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1628,
+                        "aircraft": 3375,
+                        "handling": 371,
+                        "landing": 882
+                    },
+                    "revenue": {
+                        "tickets": 13081,
+                        "cargo": 4396
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 11.11m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -55,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 22
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.14G (49 ft/min, challenging  conditions)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 23
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.14,
+                                        "rate": 49
+                                    },
+                                    "weather": {
+                                        "windDir": 296.52,
+                                        "windSpd": 6.93,
+                                        "windX": 6.39
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-28T19:01:08.784Z",
+                "updatedAt": "2026-07-28T20:16:22.185Z",
+                "dep": {
+                    "icao": "UKHH",
+                    "name": "Kharkiv International Airport",
+                    "city": "Kharkiv",
+                    "location": {
+                        "lat": 49.926943,
+                        "lon": 36.290814,
+                        "elev": 508
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
             }
         ]
     },
