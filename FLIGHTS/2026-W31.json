@@ -6138,6 +6138,232 @@
                         "elev": 172
                     }
                 }
+            },
+            {
+                "_id": "6a68caae50c8a562fc87feee",
+                "aircraft": {
+                    "_id": "696d16883dc76275bababd67",
+                    "name": "ATR 42-600",
+                    "customName": "UkrPost l ATR 42-600 (fake cargo) based in UKLU l UR-ATR",
+                    "icao": "AT46"
+                },
+                "type": "pax",
+                "flightNumber": "26K",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 46,
+                    "cargo": 6,
+                    "weights": {
+                        "cargo": 390
+                    }
+                },
+                "depTime": "2026-07-28T16:10:00.000Z",
+                "duration": 55,
+                "arrTime": "2026-07-28T17:05:00.000Z",
+                "depTimeAct": "2026-07-28T15:51:00.387Z",
+                "delay": -25,
+                "takeoffTimeAct": "2026-07-28T15:59:38.888Z",
+                "durationAct": 40,
+                "arrTimeAct": "2026-07-28T16:39:51.313Z",
+                "open": "2026-07-28T15:31:55.584Z",
+                "close": "2026-07-28T16:42:27.339Z",
+                "rating": 8.12,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 168,
+                        "fuel": 348,
+                        "expenses": 2065,
+                        "penalties": 69,
+                        "revenue": 4048,
+                        "balance": 1914,
+                        "prices": {
+                            "ticketPrice": 76,
+                            "cargoUnitPrice": 92,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 46,
+                            "cargo": 6,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 46
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 394,
+                        "aircraft": 1310,
+                        "handling": 210,
+                        "landing": 151
+                    },
+                    "revenue": {
+                        "tickets": 3496,
+                        "cargo": 552
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight departed 3 minutes too early (max 15 minutes before scheduled is allowed)",
+                            "penalty": {
+                                "points": -15,
+                                "cash": 69
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (768m from threshold beyond 704m max accepted)",
+                            "penalty": {
+                                "points": -22,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 50
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.27,
+                                        "rate": 265
+                                    },
+                                    "weather": {
+                                        "windDir": 289.73,
+                                        "windSpd": 8.65,
+                                        "windX": -5.24
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.27G (265 ft/min, challenging  conditions)<br/>Distance from threshold: 768m (accepted range: 175-704m)<br/>Average centerline deviation: 3.74m<br/>Max centerline deviation: 4.97m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 50
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.27,
+                                        "rate": 265
+                                    },
+                                    "weather": {
+                                        "windDir": 289.73,
+                                        "windSpd": 8.65,
+                                        "windX": -5.24
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 738ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gear",
+                                "payload": {
+                                    "system": {
+                                        "fps": 47
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No BEACON lights for 32s when required",
+                            "penalty": {
+                                "points": -1,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        },
+                        {
+                            "title": "Fuel used 0 kg is lower than estimated minimum 348 kg.",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 50
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.27,
+                                        "rate": 265
+                                    },
+                                    "weather": {
+                                        "windDir": 289.73,
+                                        "windSpd": 8.65,
+                                        "windX": -5.24
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-28T15:28:46.296Z",
+                "updatedAt": "2026-07-28T16:42:27.421Z",
+                "dep": {
+                    "icao": "UKKV",
+                    "city": "Zhytomyr",
+                    "location": {
+                        "lat": 50.270556,
+                        "lon": 28.738611,
+                        "elev": 722.5
+                    },
+                    "name": "Zhytomyr Airport"
+                },
+                "arr": {
+                    "icao": "UKKE",
+                    "name": "Cherkasy International Airport",
+                    "city": "Cherkasy",
+                    "location": {
+                        "lat": 49.4156,
+                        "lon": 31.9953,
+                        "elev": 375
+                    }
+                },
+                "actArr": {
+                    "icao": "UKKE",
+                    "name": "Cherkasy International Airport",
+                    "city": "Cherkasy",
+                    "location": {
+                        "lat": 49.4156,
+                        "lon": 31.9953,
+                        "elev": 375
+                    }
+                }
             }
         ]
     },
