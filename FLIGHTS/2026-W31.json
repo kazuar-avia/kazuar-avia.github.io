@@ -10027,6 +10027,195 @@
                         "elev": 171
                     }
                 }
+            },
+            {
+                "_id": "6a6a1ffa50c8a562fca033d3",
+                "aircraft": {
+                    "_id": "6988b97c9da57b990ad5c8f7",
+                    "name": "Airbus A321 neo",
+                    "customName": "Dry Lease l iniBuilds A321LR (neo) l 220 pax",
+                    "icao": "A21N"
+                },
+                "type": "pax",
+                "flightNumber": "84Y",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 220,
+                    "cargo": 22,
+                    "weights": {
+                        "cargo": 2794
+                    }
+                },
+                "depTime": "2026-07-29T15:55:00.000Z",
+                "duration": 70,
+                "arrTime": "2026-07-29T17:05:00.000Z",
+                "depTimeAct": "2026-07-29T15:55:15.824Z",
+                "delay": -4,
+                "takeoffTimeAct": "2026-07-29T15:57:41.844Z",
+                "durationAct": 63,
+                "arrTimeAct": "2026-07-29T17:00:46.837Z",
+                "open": "2026-07-29T15:53:51.861Z",
+                "close": "2026-07-29T17:03:40.847Z",
+                "rating": 9.62,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 376,
+                        "fuel": 2776,
+                        "expenses": 14087,
+                        "penalties": 0,
+                        "revenue": 26620,
+                        "balance": 12533,
+                        "prices": {
+                            "ticketPrice": 108,
+                            "cargoUnitPrice": 130,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 220,
+                            "cargo": 22,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 220
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3139,
+                        "aircraft": 5518,
+                        "handling": 3990,
+                        "landing": 1440
+                    },
+                    "revenue": {
+                        "tickets": 23760,
+                        "cargo": 2860
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 4.93m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -15,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 21
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 5.78m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -21,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "spoilers",
+                                "payload": {
+                                    "system": {
+                                        "fps": 5
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (845m from threshold beyond 838m max accepted)",
+                            "penalty": {
+                                "points": -2,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 17
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.25,
+                                        "rate": 303
+                                    },
+                                    "weather": {
+                                        "windDir": 110.09,
+                                        "windSpd": 13.85,
+                                        "windX": 7.16
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.25G (303 ft/min, normal  conditions)<br/>Distance from threshold: 845m (accepted range: 209-838m)<br/>Average centerline deviation: 3.30m<br/>Max centerline deviation: 5.78m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 17
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.25,
+                                        "rate": 303
+                                    },
+                                    "weather": {
+                                        "windDir": 110.09,
+                                        "windSpd": 13.85,
+                                        "windX": 7.16
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-29T15:44:58.047Z",
+                "updatedAt": "2026-07-29T17:03:40.920Z",
+                "dep": {
+                    "icao": "EHAM",
+                    "name": "Amsterdam Airport Schiphol",
+                    "city": "Amsterdam",
+                    "location": {
+                        "lat": 52.308601,
+                        "lon": 4.76389,
+                        "elev": -11
+                    }
+                },
+                "arr": {
+                    "icao": "EDDB",
+                    "name": "Berlin Brandenburg Airport",
+                    "city": "Berlin",
+                    "location": {
+                        "lat": 52.362247,
+                        "lon": 13.500672,
+                        "elev": 157
+                    }
+                },
+                "actArr": {
+                    "icao": "EDDB",
+                    "name": "Berlin Brandenburg Airport",
+                    "city": "Berlin",
+                    "location": {
+                        "lat": 52.362247,
+                        "lon": 13.500672,
+                        "elev": 157
+                    }
+                }
             }
         ]
     },
