@@ -12784,6 +12784,171 @@
                         "elev": 157
                     }
                 }
+            },
+            {
+                "_id": "6a6b69bcef75cc3330cb300e",
+                "aircraft": {
+                    "_id": "6988b97c9da57b990ad5c8f7",
+                    "name": "Airbus A321 neo",
+                    "customName": "Dry Lease l iniBuilds A321LR (neo) l 220 pax",
+                    "icao": "A21N"
+                },
+                "type": "pax",
+                "flightNumber": "812U",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 220,
+                    "cargo": 29,
+                    "weights": {
+                        "cargo": 2146
+                    }
+                },
+                "depTime": "2026-07-30T15:25:00.000Z",
+                "duration": 140,
+                "arrTime": "2026-07-30T17:45:00.000Z",
+                "depTimeAct": "2026-07-30T15:21:40.382Z",
+                "delay": -25,
+                "takeoffTimeAct": "2026-07-30T15:24:23.380Z",
+                "durationAct": 115,
+                "arrTimeAct": "2026-07-30T17:19:31.380Z",
+                "open": "2026-07-30T15:15:23.427Z",
+                "close": "2026-07-30T17:21:51.396Z",
+                "rating": 7.57,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 792,
+                        "fuel": 6358,
+                        "expenses": 17038,
+                        "penalties": 0,
+                        "revenue": 35075,
+                        "balance": 18037,
+                        "prices": {
+                            "ticketPrice": 139,
+                            "cargoUnitPrice": 155,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 220,
+                            "cargo": 29,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 220
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 7460,
+                        "aircraft": 7113,
+                        "handling": 1115,
+                        "landing": 1350
+                    },
+                    "revenue": {
+                        "tickets": 30580,
+                        "cargo": 4495
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 5.56m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -22,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 23.52m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -221,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "spoilers",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.30G (325 ft/min, normal  conditions)<br/>Distance from threshold: 576m (accepted range: 195-784m)<br/>Average centerline deviation: 20.93m<br/>Max centerline deviation: 23.52m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.3,
+                                        "rate": 325
+                                    },
+                                    "weather": {
+                                        "windDir": 59.99,
+                                        "windSpd": 14.03,
+                                        "windX": -6.89
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-30T15:11:56.541Z",
+                "updatedAt": "2026-07-30T17:21:51.483Z",
+                "dep": {
+                    "icao": "SAVC",
+                    "name": "General E. Mosconi Airport",
+                    "city": "Comodoro Rivadavia",
+                    "location": {
+                        "lat": -45.7853,
+                        "lon": -67.4655,
+                        "elev": 189
+                    }
+                },
+                "arr": {
+                    "icao": "SAEZ",
+                    "name": "Minister Pistarini International Airport",
+                    "city": "Buenos Aires (Ezeiza)",
+                    "location": {
+                        "lat": -34.8222,
+                        "lon": -58.5358,
+                        "elev": 67
+                    }
+                },
+                "actArr": {
+                    "icao": "SAEZ",
+                    "name": "Minister Pistarini International Airport",
+                    "city": "Buenos Aires (Ezeiza)",
+                    "location": {
+                        "lat": -34.8222,
+                        "lon": -58.5358,
+                        "elev": 67
+                    }
+                }
             }
         ]
     },
