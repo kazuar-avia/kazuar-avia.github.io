@@ -4567,6 +4567,156 @@
                         "elev": 362
                     }
                 }
+            },
+            {
+                "_id": "6a6b7700ef75cc3330cc6a9c",
+                "aircraft": {
+                    "_id": "6a4687cc5760ec7cdbae102b",
+                    "name": "Boeing 737 MAX 8",
+                    "customName": "Dry Lease l 737-MAX8 160 pax 3 classes l XP11 ",
+                    "icao": "B38M"
+                },
+                "type": "pax",
+                "flightNumber": "904",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 160,
+                    "cargo": 40,
+                    "weights": {
+                        "cargo": 3080
+                    }
+                },
+                "depTime": "2026-07-30T16:35:00.000Z",
+                "duration": 95,
+                "arrTime": "2026-07-30T18:10:00.000Z",
+                "depTimeAct": "2026-07-30T16:36:08.396Z",
+                "delay": -11,
+                "takeoffTimeAct": "2026-07-30T16:39:00.924Z",
+                "durationAct": 80,
+                "arrTimeAct": "2026-07-30T17:58:34.485Z",
+                "open": "2026-07-30T16:22:24.645Z",
+                "close": "2026-07-30T18:04:04.759Z",
+                "rating": 8.5,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 516,
+                        "fuel": 3420,
+                        "expenses": 10582,
+                        "penalties": 0,
+                        "revenue": 31280,
+                        "balance": 20698,
+                        "prices": {
+                            "ticketPrice": 140,
+                            "cargoUnitPrice": 166,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 160,
+                            "cargo": 40,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 16,
+                                "Y": 144
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3867,
+                        "aircraft": 4375,
+                        "handling": 1458,
+                        "landing": 882
+                    },
+                    "revenue": {
+                        "tickets": 24640,
+                        "cargo": 6640
+                    },
+                    "violations": [
+                        {
+                            "title": "Great touchdown: 1.11G (127 ft/min, challenging  conditions)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 33
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.11,
+                                        "rate": 127
+                                    },
+                                    "weather": {
+                                        "windDir": 350.44,
+                                        "windSpd": 6.14,
+                                        "windX": -1.28
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 471ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 33
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-30T16:08:32.782Z",
+                "updatedAt": "2026-07-30T18:04:04.840Z",
+                "dep": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
             }
         ]
     },
