@@ -6735,6 +6735,156 @@
                         "elev": 37
                     }
                 }
+            },
+            {
+                "_id": "6a6b40e4ef75cc3330c7552e",
+                "aircraft": {
+                    "_id": "695a66383dc76275bad0826f",
+                    "name": "Airbus A320",
+                    "customName": "Dry Lease l A320 CFM FENIX msfs2024",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "20LM",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 165,
+                    "cargo": 11,
+                    "weights": {
+                        "cargo": 1452
+                    }
+                },
+                "depTime": "2026-07-30T12:32:00.000Z",
+                "duration": 65,
+                "arrTime": "2026-07-30T13:37:00.000Z",
+                "depTimeAct": "2026-07-30T12:31:49.204Z",
+                "delay": -5,
+                "takeoffTimeAct": "2026-07-30T12:40:49.185Z",
+                "durationAct": 51,
+                "arrTimeAct": "2026-07-30T13:31:31.130Z",
+                "open": "2026-07-30T12:31:38.582Z",
+                "close": "2026-07-30T13:32:44.159Z",
+                "rating": 7.47,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 293,
+                        "fuel": 2873,
+                        "expenses": 9734,
+                        "penalties": 5000,
+                        "revenue": 19678,
+                        "balance": 4944,
+                        "prices": {
+                            "ticketPrice": 105,
+                            "cargoUnitPrice": 128,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 166,
+                            "cargo": 11,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 8,
+                                "Y": 158
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3248,
+                        "aircraft": 4750,
+                        "handling": 836,
+                        "landing": 900
+                    },
+                    "revenue": {
+                        "tickets": 18270,
+                        "cargo": 1408
+                    },
+                    "violations": [
+                        {
+                            "title": "Climb out with gear down above 10000ft",
+                            "penalty": {
+                                "points": -200,
+                                "cash": 5000
+                            },
+                            "entry": {
+                                "type": "gear",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.61G (461 ft/min, normal  conditions)<br/>Distance from threshold: 571m (accepted range: 174-697m)<br/>Average centerline deviation: 0.74m<br/>Max centerline deviation: 1.29m",
+                            "penalty": {
+                                "points": -53,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.61,
+                                        "rate": 461
+                                    },
+                                    "weather": {
+                                        "windDir": 173.29,
+                                        "windSpd": 3.68,
+                                        "windX": 0.22
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-30T12:17:40.423Z",
+                "updatedAt": "2026-07-30T13:32:44.250Z",
+                "dep": {
+                    "icao": "LIEO",
+                    "name": "Olbia Costa Smeralda Airport",
+                    "city": "Olbia (SS)",
+                    "location": {
+                        "lat": 40.898701,
+                        "lon": 9.51763,
+                        "elev": 37
+                    }
+                },
+                "arr": {
+                    "icao": "LIML",
+                    "name": "Milano Linate Airport",
+                    "city": "Segrate (MI)",
+                    "location": {
+                        "lat": 45.445099,
+                        "lon": 9.27674,
+                        "elev": 353
+                    }
+                },
+                "actArr": {
+                    "icao": "LIML",
+                    "name": "Milano Linate Airport",
+                    "city": "Segrate (MI)",
+                    "location": {
+                        "lat": 45.445099,
+                        "lon": 9.27674,
+                        "elev": 353
+                    }
+                }
             }
         ]
     },
