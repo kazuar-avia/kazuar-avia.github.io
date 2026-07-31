@@ -12511,7 +12511,7 @@
     {
         "pilot_id": "6a4771715760ec7cdbbdf901",
         "fullname": "Saint Helgi",
-        "avatar": "6a4771715760ec7cdbbdf9011783534614052",
+        "avatar": "6a4771715760ec7cdbbdf9011785514527985",
         "flights": [
             {
                 "_id": "6a6734e050c8a562fc6abfb7",
@@ -14289,6 +14289,176 @@
                         "lat": 51.103719,
                         "lon": 16.882096,
                         "elev": 404
+                    }
+                }
+            },
+            {
+                "_id": "6a6cbde3ef75cc3330e261a0",
+                "aircraft": {
+                    "_id": "69f0eb2ca5e61d69a7cfbe9e",
+                    "name": "Boeing 737-900",
+                    "customName": "Ukraine Int l 737-900ER Single Class based in UKBB l UR-PSI",
+                    "icao": "B739"
+                },
+                "type": "pax",
+                "flightNumber": "113",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 204,
+                    "cargo": 10,
+                    "weights": {
+                        "cargo": 1300
+                    }
+                },
+                "depTime": "2026-07-31T16:10:00.000Z",
+                "duration": 170,
+                "arrTime": "2026-07-31T19:00:00.000Z",
+                "depTimeAct": "2026-07-31T15:49:17.648Z",
+                "delay": -30,
+                "takeoffTimeAct": "2026-07-31T16:01:49.662Z",
+                "durationAct": 148,
+                "arrTimeAct": "2026-07-31T18:30:14.801Z",
+                "open": "2026-07-31T15:26:10.165Z",
+                "close": "2026-07-31T18:37:41.299Z",
+                "rating": 9.18,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1020,
+                        "fuel": 7687,
+                        "expenses": 17847,
+                        "penalties": 510,
+                        "revenue": 40840,
+                        "balance": 22483,
+                        "prices": {
+                            "ticketPrice": 190,
+                            "cargoUnitPrice": 208,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 204,
+                            "cargo": 10,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 204
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 8781,
+                        "aircraft": 6710,
+                        "handling": 1474,
+                        "landing": 882
+                    },
+                    "revenue": {
+                        "tickets": 38760,
+                        "cargo": 2080
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight departed 5 minutes too early (max 15 minutes before scheduled is allowed)",
+                            "penalty": {
+                                "points": -25,
+                                "cash": 510
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 34
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline takeoff (deviation 7.51m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -57,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 38
+                                    },
+                                    "weather": {
+                                        "windDir": 200,
+                                        "windSpd": 13.02,
+                                        "windX": -0.11
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.30G (245 ft/min, challenging  conditions)<br/>Distance from threshold: 317m (accepted range: 209-838m)<br/>Average centerline deviation: 1.50m<br/>Max centerline deviation: 2.11m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.3,
+                                        "rate": 245
+                                    },
+                                    "weather": {
+                                        "windDir": 113.21,
+                                        "windSpd": 1.72,
+                                        "windX": 0.03
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-31T15:23:15.416Z",
+                "updatedAt": "2026-07-31T18:37:41.417Z",
+                "dep": {
+                    "icao": "LCLK",
+                    "name": "Larnaca International Airport",
+                    "city": "Larnaca",
+                    "location": {
+                        "lat": 34.875099,
+                        "lon": 33.624901,
+                        "elev": 8
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
                     }
                 }
             }
