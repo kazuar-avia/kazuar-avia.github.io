@@ -17806,6 +17806,219 @@
                         "elev": 1417
                     }
                 }
+            },
+            {
+                "_id": "6a6cdc35ef75cc3330e53436",
+                "aircraft": {
+                    "_id": "6a0b23a267cd7e249842bd81",
+                    "name": "Airbus A380",
+                    "customName": "Dry lease l FBW A380-800 l 446 pax elite",
+                    "icao": "A388"
+                },
+                "type": "pax",
+                "flightNumber": "2085",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 402,
+                    "cargo": 121,
+                    "weights": {
+                        "cargo": 7865
+                    }
+                },
+                "depTime": "2026-07-31T18:10:00.000Z",
+                "duration": 155,
+                "arrTime": "2026-07-31T20:45:00.000Z",
+                "depTimeAct": "2026-07-31T18:31:00.398Z",
+                "delay": 8,
+                "takeoffTimeAct": "2026-07-31T18:47:43.106Z",
+                "durationAct": 125,
+                "arrTimeAct": "2026-07-31T20:52:48.132Z",
+                "open": "2026-07-31T17:45:07.019Z",
+                "close": "2026-07-31T21:01:06.179Z",
+                "rating": 8.33,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 982,
+                        "fuel": 25035,
+                        "expenses": 70937,
+                        "penalties": 1407,
+                        "revenue": 156288,
+                        "balance": 83944,
+                        "prices": {
+                            "ticketPrice": 151,
+                            "cargoUnitPrice": 166,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 403,
+                            "cargo": 121,
+                            "paxByClass": {
+                                "F": 77,
+                                "C": 268,
+                                "Y": 58
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 28303,
+                        "aircraft": 33275,
+                        "handling": 4769,
+                        "landing": 4590
+                    },
+                    "revenue": {
+                        "tickets": 136202,
+                        "cargo": 20086
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight delayed 7 minutes (max 15 minutes after scheduled is allowed)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 1407
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 12.63m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -100,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (832m from threshold beyond 784m max accepted)",
+                            "penalty": {
+                                "points": -17,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.23,
+                                        "rate": 285
+                                    },
+                                    "weather": {
+                                        "windDir": 130.01,
+                                        "windSpd": 7.73,
+                                        "windX": -0.83
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.23G (285 ft/min, normal  conditions)<br/>Distance from threshold: 832m (accepted range: 195-784m)<br/>Average centerline deviation: 9.97m<br/>Max centerline deviation: 12.63m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.23,
+                                        "rate": 285
+                                    },
+                                    "weather": {
+                                        "windDir": 130.01,
+                                        "windSpd": 7.73,
+                                        "windX": -0.83
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on landing: 1013mb instead of 1016mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.23,
+                                        "rate": 285
+                                    },
+                                    "weather": {
+                                        "windDir": 130.01,
+                                        "windSpd": 7.73,
+                                        "windX": -0.83
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-31T17:32:37.445Z",
+                "updatedAt": "2026-07-31T21:01:06.270Z",
+                "dep": {
+                    "icao": "LPPT",
+                    "name": "Lisbon Humberto Delgado Airport",
+                    "city": "Lisbon",
+                    "location": {
+                        "lat": 38.7813,
+                        "lon": -9.13592,
+                        "elev": 374
+                    }
+                },
+                "arr": {
+                    "icao": "LSZH",
+                    "name": "Zürich Airport",
+                    "city": "Zurich",
+                    "location": {
+                        "lat": 47.458056,
+                        "lon": 8.548056,
+                        "elev": 1417
+                    }
+                },
+                "actArr": {
+                    "icao": "LSZH",
+                    "name": "Zürich Airport",
+                    "city": "Zurich",
+                    "location": {
+                        "lat": 47.458056,
+                        "lon": 8.548056,
+                        "elev": 1417
+                    }
+                }
             }
         ]
     },
