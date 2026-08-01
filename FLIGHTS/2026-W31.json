@@ -18852,6 +18852,185 @@
                         "elev": 28
                     }
                 }
+            },
+            {
+                "_id": "6a6cefddef75cc3330e730a0",
+                "aircraft": {
+                    "_id": "699ae4f09da57b990ac12987",
+                    "name": "Boeing 777 Freighter",
+                    "customName": "UCAA l 777F (cargo) based in UKBB l UR-CRG",
+                    "icao": "B77L"
+                },
+                "type": "cargo",
+                "flightNumber": "5164",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 0,
+                    "cargo": 709,
+                    "weights": {
+                        "cargo": 88625
+                    }
+                },
+                "depTime": "2026-07-31T19:40:00.000Z",
+                "duration": 565,
+                "arrTime": "2026-08-01T05:05:00.000Z",
+                "depTimeAct": "2026-07-31T19:41:08.911Z",
+                "delay": 21,
+                "takeoffTimeAct": "2026-07-31T19:53:37.592Z",
+                "durationAct": 572,
+                "arrTimeAct": "2026-08-01T05:25:58.934Z",
+                "open": "2026-07-31T18:58:35.841Z",
+                "close": "2026-08-01T05:29:15.125Z",
+                "rating": 9.34,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 4343,
+                        "fuel": 83116,
+                        "expenses": 138507,
+                        "penalties": 0,
+                        "revenue": 474321,
+                        "balance": 335814,
+                        "prices": {
+                            "ticketPrice": 622,
+                            "cargoUnitPrice": 669,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 0,
+                            "cargo": 709,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 94944,
+                        "aircraft": 39860,
+                        "handling": 2233,
+                        "landing": 1470
+                    },
+                    "revenue": {
+                        "tickets": 0,
+                        "cargo": 474321
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 7.43m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -39,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    },
+                                    "weather": {
+                                        "windDir": 90.05,
+                                        "windSpd": 8.98,
+                                        "windX": 2.57
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (916m from threshold beyond 838m max accepted)",
+                            "penalty": {
+                                "points": -27,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.3,
+                                        "rate": 262
+                                    },
+                                    "weather": {
+                                        "windDir": 164.07,
+                                        "windSpd": 2.69,
+                                        "windX": -0.87
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.30G (262 ft/min, challenging  conditions)<br/>Distance from threshold: 916m (accepted range: 209-838m)<br/>Average centerline deviation: 2.00m<br/>Max centerline deviation: 5.89m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.3,
+                                        "rate": 262
+                                    },
+                                    "weather": {
+                                        "windDir": 164.07,
+                                        "windSpd": 2.69,
+                                        "windX": -0.87
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-07-31T18:56:29.539Z",
+                "updatedAt": "2026-08-01T05:29:15.250Z",
+                "dep": {
+                    "icao": "VHHH",
+                    "name": "Hong Kong International Airport",
+                    "city": "Hong Kong",
+                    "location": {
+                        "lat": 22.308901,
+                        "lon": 113.915001,
+                        "elev": 28
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
             }
         ]
     },
