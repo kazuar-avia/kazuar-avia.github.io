@@ -5311,6 +5311,156 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6a6ddd58ef75cc3330f80232",
+                "aircraft": {
+                    "_id": "6a4687cc5760ec7cdbae102b",
+                    "name": "Boeing 737 MAX 8",
+                    "customName": "Dry Lease l 737-MAX8 160 pax 3 classes l XP11 ",
+                    "icao": "B38M"
+                },
+                "type": "pax",
+                "flightNumber": "168",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 160,
+                    "cargo": 29,
+                    "weights": {
+                        "cargo": 2117
+                    }
+                },
+                "depTime": "2026-08-01T12:15:00.000Z",
+                "duration": 150,
+                "arrTime": "2026-08-01T14:45:00.000Z",
+                "depTimeAct": "2026-08-01T12:16:21.175Z",
+                "delay": -21,
+                "takeoffTimeAct": "2026-08-01T12:22:21.885Z",
+                "durationAct": 122,
+                "arrTimeAct": "2026-08-01T14:23:52.220Z",
+                "open": "2026-08-01T12:05:39.699Z",
+                "close": "2026-08-01T14:27:59.125Z",
+                "rating": 8.85,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 776,
+                        "fuel": 5094,
+                        "expenses": 11414,
+                        "penalties": 0,
+                        "revenue": 35869,
+                        "balance": 24455,
+                        "prices": {
+                            "ticketPrice": 172,
+                            "cargoUnitPrice": 193,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 160,
+                            "cargo": 29,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 16,
+                                "Y": 144
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4608,
+                        "aircraft": 5425,
+                        "handling": 814,
+                        "landing": 567
+                    },
+                    "revenue": {
+                        "tickets": 30272,
+                        "cargo": 5597
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 4.16m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -3,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 34
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Uncomfortable touchdown: 1.92G (952 ft/min, normal  conditions)<br/>Distance from threshold: 478m (accepted range: 187-752m)<br/>Average centerline deviation: 3.29m<br/>Max centerline deviation: 4.16m",
+                            "penalty": {
+                                "points": -112,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 34
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.92,
+                                        "rate": 952
+                                    },
+                                    "weather": {
+                                        "windDir": 152.31,
+                                        "windSpd": 6.01,
+                                        "windX": -5.42
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-01T11:49:44.245Z",
+                "updatedAt": "2026-08-01T14:27:59.229Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "LDPL",
+                    "name": "Pula Airport",
+                    "city": "Pula",
+                    "location": {
+                        "lat": 44.893501,
+                        "lon": 13.9222,
+                        "elev": 274
+                    }
+                },
+                "actArr": {
+                    "icao": "LDPL",
+                    "name": "Pula Airport",
+                    "city": "Pula",
+                    "location": {
+                        "lat": 44.893501,
+                        "lon": 13.9222,
+                        "elev": 274
+                    }
+                }
             }
         ]
     },
