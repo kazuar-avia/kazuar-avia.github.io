@@ -22396,6 +22396,219 @@
                         "elev": 587
                     }
                 }
+            },
+            {
+                "_id": "6a6e1f14ef75cc3330fefb66",
+                "aircraft": {
+                    "_id": "695a67f93dc76275bad0c740",
+                    "name": "McDonnell Douglas MD-82",
+                    "customName": "Bravo Anda Khors l MD-82 based in UKKK l UR-CRX",
+                    "icao": "MD82"
+                },
+                "type": "pax",
+                "flightNumber": "335",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 162,
+                    "cargo": 21,
+                    "weights": {
+                        "cargo": 1764
+                    }
+                },
+                "depTime": "2026-08-01T17:05:00.000Z",
+                "duration": 115,
+                "arrTime": "2026-08-01T19:00:00.000Z",
+                "depTimeAct": "2026-08-01T17:25:23.926Z",
+                "delay": 72,
+                "takeoffTimeAct": "2026-08-01T17:35:35.926Z",
+                "durationAct": 157,
+                "arrTimeAct": "2026-08-01T20:12:06.854Z",
+                "open": "2026-08-01T16:33:17.480Z",
+                "close": "2026-08-01T20:24:53.906Z",
+                "rating": 2.37,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 941,
+                        "fuel": 8443,
+                        "expenses": 17128,
+                        "penalties": 486,
+                        "revenue": 23640,
+                        "balance": 6026,
+                        "prices": {
+                            "ticketPrice": 127,
+                            "cargoUnitPrice": 146,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 162,
+                            "cargo": 21,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 162
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 9545,
+                        "aircraft": 5780,
+                        "handling": 1467,
+                        "landing": 336
+                    },
+                    "revenue": {
+                        "tickets": 20574,
+                        "cargo": 3066
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight delayed 6 minutes (max 15 minutes after scheduled is allowed)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 486
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline takeoff (deviation 15.38m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -131,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    },
+                                    "weather": {
+                                        "windDir": 210.02,
+                                        "windSpd": 12.35,
+                                        "windX": -3.32
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 9.55m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -32,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.41G (283 ft/min, challenging  conditions)<br/>Distance from threshold: 294m (accepted range: 169-679m)<br/>Average centerline deviation: 4.62m<br/>Max centerline deviation: 9.55m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.41,
+                                        "rate": 283
+                                    },
+                                    "weather": {
+                                        "windDir": 161.79,
+                                        "windSpd": 3.26,
+                                        "windX": 3.2
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 722ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Stall warning for 30 seconds",
+                            "penalty": {
+                                "points": -450,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-01T16:30:12.485Z",
+                "updatedAt": "2026-08-01T20:24:54.006Z",
+                "dep": {
+                    "icao": "EFHK",
+                    "name": "Helsinki Vantaa Airport",
+                    "city": "Helsinki (Vantaa)",
+                    "location": {
+                        "lat": 60.318363,
+                        "lon": 24.963341,
+                        "elev": 179
+                    }
+                },
+                "arr": {
+                    "icao": "UKKK",
+                    "name": "Ihor Sikorsky Kyiv International Airport (Zhuliany)",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.40194,
+                        "lon": 30.45194,
+                        "elev": 587
+                    }
+                },
+                "actArr": {
+                    "icao": "UKKK",
+                    "name": "Ihor Sikorsky Kyiv International Airport (Zhuliany)",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.40194,
+                        "lon": 30.45194,
+                        "elev": 587
+                    }
+                }
             }
         ]
     },
