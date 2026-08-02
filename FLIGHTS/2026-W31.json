@@ -22824,6 +22824,180 @@
                         "elev": 171
                     }
                 }
+            },
+            {
+                "_id": "6a6f677fef75cc33301c3a66",
+                "aircraft": {
+                    "_id": "6988b97c9da57b990ad5c8f7",
+                    "name": "Airbus A321 neo",
+                    "customName": "Dry Lease l iniBuilds A321LR (neo) l 220 pax",
+                    "icao": "A21N"
+                },
+                "type": "pax",
+                "flightNumber": "179F",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 220,
+                    "cargo": 39,
+                    "weights": {
+                        "cargo": 2379
+                    }
+                },
+                "depTime": "2026-08-02T16:10:00.000Z",
+                "duration": 100,
+                "arrTime": "2026-08-02T17:50:00.000Z",
+                "depTimeAct": "2026-08-02T16:06:26.651Z",
+                "delay": -15,
+                "takeoffTimeAct": "2026-08-02T16:08:37.654Z",
+                "durationAct": 86,
+                "arrTimeAct": "2026-08-02T17:35:07.647Z",
+                "open": "2026-08-02T16:03:37.820Z",
+                "close": "2026-08-02T17:47:46.024Z",
+                "rating": 9.51,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 615,
+                        "fuel": 3751,
+                        "expenses": 14384,
+                        "penalties": 0,
+                        "revenue": 31860,
+                        "balance": 17476,
+                        "prices": {
+                            "ticketPrice": 120,
+                            "cargoUnitPrice": 140,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 220,
+                            "cargo": 39,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 220
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4241,
+                        "aircraft": 5985,
+                        "handling": 2592,
+                        "landing": 1566
+                    },
+                    "revenue": {
+                        "tickets": 26400,
+                        "cargo": 5460
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 7.15m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -36,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 16
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (862m from threshold beyond 824m max accepted)",
+                            "penalty": {
+                                "points": -13,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 18
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.15,
+                                        "rate": 172
+                                    },
+                                    "weather": {
+                                        "windDir": 80,
+                                        "windSpd": 9.51,
+                                        "windX": -6.29
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.15G (172 ft/min, normal  conditions)<br/>Distance from threshold: 862m (accepted range: 205-824m)<br/>Average centerline deviation: 3.29m<br/>Max centerline deviation: 7.15m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 18
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.15,
+                                        "rate": 172
+                                    },
+                                    "weather": {
+                                        "windDir": 80,
+                                        "windSpd": 9.51,
+                                        "windX": -6.29
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-02T15:51:27.093Z",
+                "updatedAt": "2026-08-02T17:47:46.098Z",
+                "dep": {
+                    "icao": "EIDW",
+                    "name": "Dublin Airport",
+                    "city": "Dublin",
+                    "location": {
+                        "lat": 53.428713,
+                        "lon": -6.262121,
+                        "elev": 242
+                    }
+                },
+                "arr": {
+                    "icao": "EDDK",
+                    "name": "Cologne Bonn Airport",
+                    "city": "Köln (Cologne)",
+                    "location": {
+                        "lat": 50.865898,
+                        "lon": 7.14274,
+                        "elev": 302
+                    }
+                },
+                "actArr": {
+                    "icao": "EDDK",
+                    "name": "Cologne Bonn Airport",
+                    "city": "Köln (Cologne)",
+                    "location": {
+                        "lat": 50.865898,
+                        "lon": 7.14274,
+                        "elev": 302
+                    }
+                }
             }
         ]
     },
