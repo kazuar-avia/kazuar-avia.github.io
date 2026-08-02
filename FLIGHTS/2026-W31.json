@@ -5751,6 +5751,141 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6a6f3c00ef75cc333016a81e",
+                "aircraft": {
+                    "_id": "6a4687cc5760ec7cdbae102b",
+                    "name": "Boeing 737 MAX 8",
+                    "customName": "Dry Lease l 737-MAX8 160 pax 3 classes l XP11 ",
+                    "icao": "B38M"
+                },
+                "type": "pax",
+                "flightNumber": "938",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 160,
+                    "cargo": 30,
+                    "weights": {
+                        "cargo": 3720
+                    }
+                },
+                "depTime": "2026-08-02T13:15:00.000Z",
+                "duration": 95,
+                "arrTime": "2026-08-02T14:50:00.000Z",
+                "depTimeAct": "2026-08-02T13:16:28.008Z",
+                "delay": -7,
+                "takeoffTimeAct": "2026-08-02T13:21:57.391Z",
+                "durationAct": 81,
+                "arrTimeAct": "2026-08-02T14:42:33.463Z",
+                "open": "2026-08-02T13:05:47.314Z",
+                "close": "2026-08-02T14:46:38.437Z",
+                "rating": 10,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 475,
+                        "fuel": 3686,
+                        "expenses": 9789,
+                        "penalties": 0,
+                        "revenue": 29620,
+                        "balance": 19831,
+                        "prices": {
+                            "ticketPrice": 140,
+                            "cargoUnitPrice": 166,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 160,
+                            "cargo": 30,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 16,
+                                "Y": 144
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3334,
+                        "aircraft": 4425,
+                        "handling": 815,
+                        "landing": 1215
+                    },
+                    "revenue": {
+                        "tickets": 24640,
+                        "cargo": 4980
+                    },
+                    "violations": [
+                        {
+                            "title": "Great touchdown: 1.24G (108 ft/min, normal  conditions)<br/>Distance from threshold: 688m (accepted range: 203-814m)<br/>Average centerline deviation: 1.33m<br/>Max centerline deviation: 1.93m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "bounce",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.24,
+                                        "rate": 108
+                                    },
+                                    "weather": {
+                                        "windDir": 288.32,
+                                        "windSpd": 4.72,
+                                        "windX": -3.27
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-02T12:45:52.167Z",
+                "updatedAt": "2026-08-02T14:46:38.511Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                },
+                "actArr": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                }
             }
         ]
     },
