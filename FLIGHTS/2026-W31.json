@@ -2705,6 +2705,161 @@
                         "elev": 135
                     }
                 }
+            },
+            {
+                "_id": "6a6f1e22ef75cc3330137f86",
+                "aircraft": {
+                    "_id": "6a4f69f85760ec7cdb5e7cef",
+                    "name": "Boeing 737-800",
+                    "customName": "SkyUp l 737-800 based in UKOO UKBB l UR-SQC",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "2909",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 118,
+                    "cargo": 21,
+                    "weights": {
+                        "cargo": 2583
+                    }
+                },
+                "depTime": "2026-08-02T10:50:00.000Z",
+                "duration": 60,
+                "arrTime": "2026-08-02T11:50:00.000Z",
+                "depTimeAct": "2026-08-02T10:44:30.839Z",
+                "delay": -14,
+                "takeoffTimeAct": "2026-08-02T10:44:36.826Z",
+                "durationAct": 52,
+                "arrTimeAct": "2026-08-02T11:36:24.927Z",
+                "open": "2026-08-02T10:44:04.155Z",
+                "close": "2026-08-02T11:43:36.970Z",
+                "rating": 9.5,
+                "simulator": "msfs",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 283,
+                        "fuel": 2136,
+                        "expenses": 8141,
+                        "penalties": 0,
+                        "revenue": 17129,
+                        "balance": 8988,
+                        "prices": {
+                            "ticketPrice": 119,
+                            "cargoUnitPrice": 147,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 118,
+                            "cargo": 21,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 118
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2415,
+                        "aircraft": 4000,
+                        "handling": 646,
+                        "landing": 1080
+                    },
+                    "revenue": {
+                        "tickets": 14042,
+                        "cargo": 3087
+                    },
+                    "violations": [
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1013mb instead of 1007mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 33
+                                    },
+                                    "weather": {
+                                        "windDir": 251.39,
+                                        "windSpd": 2.83,
+                                        "windX": -0.79
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.18G (184 ft/min, normal  conditions)<br/>Distance from threshold: 557m (accepted range: 199-800m)<br/>Average centerline deviation: 0.40m<br/>Max centerline deviation: 0.82m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 35
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.18,
+                                        "rate": 184
+                                    },
+                                    "weather": {
+                                        "windDir": 251.41,
+                                        "windSpd": 2.9,
+                                        "windX": -0.33
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-02T10:38:26.652Z",
+                "updatedAt": "2026-08-02T11:43:37.050Z",
+                "dep": {
+                    "icao": "LUKK",
+                    "name": "Chişinău International Airport",
+                    "city": "Chişinău",
+                    "location": {
+                        "lat": 46.9277,
+                        "lon": 28.931,
+                        "elev": 399
+                    }
+                },
+                "arr": {
+                    "icao": "LROP",
+                    "name": "Bucharest Henri Coandă International Airport",
+                    "city": "Otopeni",
+                    "location": {
+                        "lat": 44.572127,
+                        "lon": 26.103396,
+                        "elev": 314
+                    }
+                },
+                "actArr": {
+                    "icao": "LROP",
+                    "name": "Bucharest Henri Coandă International Airport",
+                    "city": "Otopeni",
+                    "location": {
+                        "lat": 44.572127,
+                        "lon": 26.103396,
+                        "elev": 314
+                    }
+                }
             }
         ]
     },
