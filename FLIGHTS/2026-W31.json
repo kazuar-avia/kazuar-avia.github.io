@@ -22195,6 +22195,180 @@
                         "elev": 6
                     }
                 }
+            },
+            {
+                "_id": "6a6f540fef75cc333019b0d0",
+                "aircraft": {
+                    "_id": "69ff1763a5e61d69a71adbb5",
+                    "name": "Cessna 208 Caravan",
+                    "customName": "UCAA l Cessna 208 (pax) based in UKLR l UR-PAX",
+                    "icao": "C208"
+                },
+                "type": "pax",
+                "flightNumber": "845H",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 11,
+                    "cargo": 2,
+                    "weights": {
+                        "cargo": 170
+                    }
+                },
+                "depTime": "2026-08-02T14:45:00.000Z",
+                "duration": 30,
+                "arrTime": "2026-08-02T15:15:00.000Z",
+                "depTimeAct": "2026-08-02T14:28:58.684Z",
+                "delay": -35,
+                "takeoffTimeAct": "2026-08-02T14:28:58.684Z",
+                "durationAct": 11,
+                "arrTimeAct": "2026-08-02T14:39:48.685Z",
+                "open": "2026-08-02T14:28:38.695Z",
+                "close": "2026-08-02T14:41:08.738Z",
+                "rating": 7.64,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 25,
+                        "fuel": 34,
+                        "expenses": 366,
+                        "penalties": 5000,
+                        "revenue": 442,
+                        "balance": -4924,
+                        "prices": {
+                            "ticketPrice": 34,
+                            "cargoUnitPrice": 34,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 11,
+                            "cargo": 2,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 11
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 39,
+                        "aircraft": 206,
+                        "handling": 89,
+                        "landing": 32
+                    },
+                    "revenue": {
+                        "tickets": 374,
+                        "cargo": 68
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 7.04m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -49,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Uncomfortable touchdown: 1.77G (417 ft/min, normal  conditions)<br/>Distance from threshold: 131m (accepted range: 115-464m)<br/>Average centerline deviation: 3.59m<br/>Max centerline deviation: 7.04m",
+                            "penalty": {
+                                "points": -87,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.77,
+                                        "rate": 417
+                                    },
+                                    "weather": {
+                                        "windDir": 320,
+                                        "windSpd": 14.56,
+                                        "windX": -6.38
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Tail wind value exceeded on landing (measured: 12 KT, allowed: 10 KT)",
+                            "penalty": {
+                                "points": -100,
+                                "cash": 5000
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.77,
+                                        "rate": 417
+                                    },
+                                    "weather": {
+                                        "windDir": 320,
+                                        "windSpd": 14.56,
+                                        "windX": -6.38
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-02T14:28:31.526Z",
+                "updatedAt": "2026-08-02T14:41:08.803Z",
+                "dep": {
+                    "icao": "BIKF",
+                    "name": "Keflavik International Airport",
+                    "city": "Reykjavík",
+                    "location": {
+                        "lat": 63.985001,
+                        "lon": -22.6056,
+                        "elev": 171
+                    }
+                },
+                "arr": {
+                    "icao": "BIRK",
+                    "name": "Reykjavík Domestic Airport",
+                    "city": "Reykjavík",
+                    "location": {
+                        "lat": 64.128732,
+                        "lon": -21.93759,
+                        "elev": 48
+                    }
+                },
+                "actArr": {
+                    "icao": "BIRK",
+                    "name": "Reykjavík Domestic Airport",
+                    "city": "Reykjavík",
+                    "location": {
+                        "lat": 64.128732,
+                        "lon": -21.93759,
+                        "elev": 48
+                    }
+                }
             }
         ]
     },
