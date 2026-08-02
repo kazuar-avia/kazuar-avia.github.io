@@ -9864,6 +9864,184 @@
                         "elev": 36
                     }
                 }
+            },
+            {
+                "_id": "6a6ede81ef75cc33300e9752",
+                "aircraft": {
+                    "_id": "695a66383dc76275bad0826f",
+                    "name": "Airbus A320",
+                    "customName": "Dry Lease l A320 CFM FENIX msfs2024",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "42BB",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 166,
+                    "cargo": 3,
+                    "weights": {
+                        "cargo": 378
+                    }
+                },
+                "depTime": "2026-08-02T06:21:00.000Z",
+                "duration": 70,
+                "arrTime": "2026-08-02T07:31:00.000Z",
+                "depTimeAct": "2026-08-02T06:21:42.971Z",
+                "delay": 20,
+                "takeoffTimeAct": "2026-08-02T06:24:28.343Z",
+                "durationAct": 87,
+                "arrTimeAct": "2026-08-02T07:51:03.229Z",
+                "open": "2026-08-02T06:08:06.364Z",
+                "close": "2026-08-02T07:53:18.249Z",
+                "rating": 4.36,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 442,
+                        "fuel": 4035,
+                        "expenses": 12298,
+                        "penalties": 150000,
+                        "revenue": 19005,
+                        "balance": -143293,
+                        "prices": {
+                            "ticketPrice": 107,
+                            "cargoUnitPrice": 129,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 166,
+                            "cargo": 3,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 8,
+                                "Y": 158
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4562,
+                        "aircraft": 5325,
+                        "handling": 1196,
+                        "landing": 1215
+                    },
+                    "revenue": {
+                        "tickets": 18618,
+                        "cargo": 387
+                    },
+                    "violations": [
+                        {
+                            "title": "Tail strike on landing (pitch: 14.7, max: 13.0)",
+                            "penalty": {
+                                "points": -400,
+                                "cash": 150000
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 4.06m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -1,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 57
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.51G (371 ft/min, normal  conditions)<br/>Distance from threshold: 481m (accepted range: 203-815m)<br/>Average centerline deviation: 1.93m<br/>Max centerline deviation: 4.06m",
+                            "penalty": {
+                                "points": -28,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 58
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.51,
+                                        "rate": 371
+                                    },
+                                    "weather": {
+                                        "windDir": 300,
+                                        "windSpd": 7.97,
+                                        "windX": -3.55
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Stall warning for 9 seconds",
+                            "penalty": {
+                                "points": -135,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-02T06:06:57.202Z",
+                "updatedAt": "2026-08-02T07:53:18.351Z",
+                "dep": {
+                    "icao": "EVRA",
+                    "name": "Riga International Airport",
+                    "city": "Riga",
+                    "location": {
+                        "lat": 56.920752,
+                        "lon": 23.970711,
+                        "elev": 36
+                    }
+                },
+                "arr": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                },
+                "actArr": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                }
             }
         ]
     },
