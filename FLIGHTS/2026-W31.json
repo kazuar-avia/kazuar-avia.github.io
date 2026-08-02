@@ -22504,6 +22504,176 @@
                         "elev": 48
                     }
                 }
+            },
+            {
+                "_id": "6a6f5770ef75cc33301a1531",
+                "aircraft": {
+                    "_id": "69ff1763a5e61d69a71adbb5",
+                    "name": "Cessna 208 Caravan",
+                    "customName": "UCAA l Cessna 208 (pax) based in UKLR l UR-PAX",
+                    "icao": "C208"
+                },
+                "type": "pax",
+                "flightNumber": "562Z",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 11,
+                    "cargo": 2,
+                    "weights": {
+                        "cargo": 170
+                    }
+                },
+                "depTime": "2026-08-02T14:55:00.000Z",
+                "duration": 30,
+                "arrTime": "2026-08-02T15:25:00.000Z",
+                "depTimeAct": "2026-08-02T14:43:48.681Z",
+                "delay": -30,
+                "takeoffTimeAct": "2026-08-02T14:45:18.677Z",
+                "durationAct": 10,
+                "arrTimeAct": "2026-08-02T14:55:05.690Z",
+                "open": "2026-08-02T14:43:05.789Z",
+                "close": "2026-08-02T14:57:19.174Z",
+                "rating": 8.31,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 22,
+                        "fuel": 31,
+                        "expenses": 348,
+                        "penalties": 0,
+                        "revenue": 442,
+                        "balance": 94,
+                        "prices": {
+                            "ticketPrice": 34,
+                            "cargoUnitPrice": 34,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 11,
+                            "cargo": 2,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 11
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 36,
+                        "aircraft": 205,
+                        "handling": 56,
+                        "landing": 51
+                    },
+                    "revenue": {
+                        "tickets": 374,
+                        "cargo": 68
+                    },
+                    "violations": [
+                        {
+                            "title": "Incorrect flaps for takeoff",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "weather": {
+                                        "windDir": 320.02,
+                                        "windSpd": 17.72,
+                                        "windX": 17.43
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 9.38m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -19,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.08G (68 ft/min, challenging  conditions)<br/>Distance from threshold: 525m (accepted range: 190-764m)<br/>Average centerline deviation: 7.59m<br/>Max centerline deviation: 9.38m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.08,
+                                        "rate": 68
+                                    },
+                                    "weather": {
+                                        "windDir": 333.87,
+                                        "windSpd": 17.21,
+                                        "windX": 12.26
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-02T14:42:56.587Z",
+                "updatedAt": "2026-08-02T14:57:19.268Z",
+                "dep": {
+                    "icao": "BIRK",
+                    "name": "Reykjavík Domestic Airport",
+                    "city": "Reykjavík",
+                    "location": {
+                        "lat": 64.128732,
+                        "lon": -21.93759,
+                        "elev": 48
+                    }
+                },
+                "arr": {
+                    "icao": "BIKF",
+                    "name": "Keflavik International Airport",
+                    "city": "Reykjavík",
+                    "location": {
+                        "lat": 63.985001,
+                        "lon": -22.6056,
+                        "elev": 171
+                    }
+                },
+                "actArr": {
+                    "icao": "BIKF",
+                    "name": "Keflavik International Airport",
+                    "city": "Reykjavík",
+                    "location": {
+                        "lat": 63.985001,
+                        "lon": -22.6056,
+                        "elev": 171
+                    }
+                }
             }
         ]
     },
