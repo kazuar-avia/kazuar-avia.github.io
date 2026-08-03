@@ -2602,5 +2602,162 @@
                 }
             }
         ]
+    },
+    {
+        "pilot_id": "6969fd073dc76275ba58551f",
+        "fullname": "Illia Mendelis",
+        "avatar": "6969fd073dc76275ba58551f1784405195733",
+        "flights": [
+            {
+                "_id": "6a70d224ef75cc33303ccde8",
+                "aircraft": {
+                    "_id": "6988b97c9da57b990ad5c8f7",
+                    "name": "Airbus A321 neo",
+                    "customName": "Dry Lease l iniBuilds A321LR (neo) l 220 pax",
+                    "icao": "A21N"
+                },
+                "type": "pax",
+                "flightNumber": "0711",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 220,
+                    "cargo": 30,
+                    "weights": {
+                        "cargo": 4050
+                    }
+                },
+                "depTime": "2026-08-03T18:00:00.000Z",
+                "duration": 65,
+                "arrTime": "2026-08-03T19:05:00.000Z",
+                "depTimeAct": "2026-08-03T17:57:11.649Z",
+                "delay": -13,
+                "takeoffTimeAct": "2026-08-03T18:04:19.695Z",
+                "durationAct": 48,
+                "arrTimeAct": "2026-08-03T18:52:07.397Z",
+                "open": "2026-08-03T17:46:12.843Z",
+                "close": "2026-08-03T18:52:14.448Z",
+                "rating": 9.95,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 298,
+                        "fuel": 2482,
+                        "expenses": 10538,
+                        "penalties": 0,
+                        "revenue": 26940,
+                        "balance": 16402,
+                        "prices": {
+                            "ticketPrice": 105,
+                            "cargoUnitPrice": 128,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 220,
+                            "cargo": 30,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 220
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2806,
+                        "aircraft": 5078,
+                        "handling": 1994,
+                        "landing": 660
+                    },
+                    "revenue": {
+                        "tickets": 23100,
+                        "cargo": 3840
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 4.46m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -5,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 22
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.21G (208 ft/min, normal  conditions)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.21,
+                                        "rate": 208
+                                    },
+                                    "weather": {
+                                        "windDir": 271.02,
+                                        "windSpd": 8.29,
+                                        "windX": -4.13
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-03T17:38:44.009Z",
+                "updatedAt": "2026-08-03T18:52:14.531Z",
+                "dep": {
+                    "icao": "EFHK",
+                    "name": "Helsinki Vantaa Airport",
+                    "city": "Helsinki (Vantaa)",
+                    "location": {
+                        "lat": 60.318363,
+                        "lon": 24.963341,
+                        "elev": 179
+                    }
+                },
+                "arr": {
+                    "icao": "EFOU",
+                    "name": "Oulu Airport",
+                    "city": "Oulu / Oulunsalo",
+                    "location": {
+                        "lat": 64.930099,
+                        "lon": 25.354601,
+                        "elev": 47
+                    }
+                },
+                "actArr": {
+                    "icao": "EFOU",
+                    "name": "Oulu Airport",
+                    "city": "Oulu / Oulunsalo",
+                    "location": {
+                        "lat": 64.930099,
+                        "lon": 25.354601,
+                        "elev": 47
+                    }
+                }
+            }
+        ]
     }
 ]
