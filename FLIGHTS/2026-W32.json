@@ -2743,6 +2743,156 @@
                         "elev": 20
                     }
                 }
+            },
+            {
+                "_id": "6a70fb9328a8e3fe147b2382",
+                "aircraft": {
+                    "_id": "695a7b833dc76275bad3af85",
+                    "name": "Boeing 737-800",
+                    "customName": "Kharkiv Airlines l 737-800 based in UKHH UKBB UKCC l UR-CLR",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "515",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 139,
+                    "cargo": 32,
+                    "weights": {
+                        "cargo": 4000
+                    }
+                },
+                "depTime": "2026-08-03T21:05:00.000Z",
+                "duration": 40,
+                "arrTime": "2026-08-03T21:45:00.000Z",
+                "depTimeAct": "2026-08-03T20:58:34.685Z",
+                "delay": -9,
+                "takeoffTimeAct": "2026-08-03T21:08:24.986Z",
+                "durationAct": 27,
+                "arrTimeAct": "2026-08-03T21:35:38.530Z",
+                "open": "2026-08-03T20:35:56.508Z",
+                "close": "2026-08-03T21:42:57.034Z",
+                "rating": 8.67,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 138,
+                        "fuel": 1550,
+                        "expenses": 6122,
+                        "penalties": 0,
+                        "revenue": 11467,
+                        "balance": 5345,
+                        "prices": {
+                            "ticketPrice": 65,
+                            "cargoUnitPrice": 76,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 139,
+                            "cargo": 32,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 139
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1402,
+                        "aircraft": 3575,
+                        "handling": 497,
+                        "landing": 648
+                    },
+                    "revenue": {
+                        "tickets": 9035,
+                        "cargo": 2432
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 14.19m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -133,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "spoilers",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.32G (284 ft/min, challenging  conditions)<br/>Distance from threshold: 487m (accepted range: 185-744m)<br/>Average centerline deviation: 11.24m<br/>Max centerline deviation: 14.19m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 35
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.32,
+                                        "rate": 284
+                                    },
+                                    "weather": {
+                                        "windDir": 41.99,
+                                        "windSpd": 4.33,
+                                        "windX": -3.12
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-03T20:35:31.782Z",
+                "updatedAt": "2026-08-03T21:42:57.138Z",
+                "dep": {
+                    "icao": "UKHH",
+                    "name": "Kharkiv International Airport",
+                    "city": "Kharkiv",
+                    "location": {
+                        "lat": 49.926943,
+                        "lon": 36.290814,
+                        "elev": 508
+                    }
+                },
+                "arr": {
+                    "icao": "UKDD",
+                    "name": "Dnipro International Airport",
+                    "city": "Dnipro",
+                    "location": {
+                        "lat": 48.357201,
+                        "lon": 35.100601,
+                        "elev": 481
+                    }
+                },
+                "actArr": {
+                    "icao": "UKDD",
+                    "name": "Dnipro International Airport",
+                    "city": "Dnipro",
+                    "location": {
+                        "lat": 48.357201,
+                        "lon": 35.100601,
+                        "elev": 481
+                    }
+                }
             }
         ]
     },
