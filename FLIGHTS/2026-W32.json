@@ -767,6 +767,165 @@
                         "elev": 1247
                     }
                 }
+            },
+            {
+                "_id": "6a7067a9ef75cc3330324e28",
+                "aircraft": {
+                    "_id": "695a66383dc76275bad0826f",
+                    "name": "Airbus A320",
+                    "customName": "Dry Lease l A320 CFM FENIX msfs2024",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "40JB",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 167,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-08-03T10:20:00.000Z",
+                "duration": 60,
+                "arrTime": "2026-08-03T11:20:00.000Z",
+                "depTimeAct": "2026-08-03T10:20:40.148Z",
+                "delay": -4,
+                "takeoffTimeAct": "2026-08-03T10:25:15.156Z",
+                "durationAct": 51,
+                "arrTimeAct": "2026-08-03T11:15:54.103Z",
+                "open": "2026-08-03T10:17:32.161Z",
+                "close": "2026-08-03T11:18:44.133Z",
+                "rating": 7.41,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 300,
+                        "fuel": 2467,
+                        "expenses": 9402,
+                        "penalties": 20000,
+                        "revenue": 18025,
+                        "balance": -11377,
+                        "prices": {
+                            "ticketPrice": 103,
+                            "cargoUnitPrice": 127,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 167,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 8,
+                                "Y": 159
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2789,
+                        "aircraft": 4600,
+                        "handling": 1353,
+                        "landing": 660
+                    },
+                    "revenue": {
+                        "tickets": 18025,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 6.09m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -34,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 2
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.4,
+                                        "rate": 369
+                                    },
+                                    "weather": {
+                                        "windDir": 110,
+                                        "windSpd": 11.65,
+                                        "windX": 9.04
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Bad touchdown: 2.40G (369 ft/min, normal  conditions)<br/>Distance from threshold: 600m (accepted range: 164-660m)<br/>Average centerline deviation: 4.35m<br/>Max centerline deviation: 6.09m",
+                            "penalty": {
+                                "points": -225,
+                                "cash": 20000
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 2
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.4,
+                                        "rate": 369
+                                    },
+                                    "weather": {
+                                        "windDir": 110,
+                                        "windSpd": 11.65,
+                                        "windX": 9.04
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-03T10:04:25.053Z",
+                "updatedAt": "2026-08-03T11:18:44.217Z",
+                "dep": {
+                    "icao": "LKPR",
+                    "name": "Václav Havel Airport Prague",
+                    "city": "Prague",
+                    "location": {
+                        "lat": 50.100874,
+                        "lon": 14.259911,
+                        "elev": 1247
+                    }
+                },
+                "arr": {
+                    "icao": "EDLP",
+                    "name": "Paderborn Lippstadt Airport",
+                    "city": "Büren",
+                    "location": {
+                        "lat": 51.614101,
+                        "lon": 8.61632,
+                        "elev": 699
+                    }
+                },
+                "actArr": {
+                    "icao": "EDLP",
+                    "name": "Paderborn Lippstadt Airport",
+                    "city": "Büren",
+                    "location": {
+                        "lat": 51.614101,
+                        "lon": 8.61632,
+                        "elev": 699
+                    }
+                }
             }
         ]
     },
