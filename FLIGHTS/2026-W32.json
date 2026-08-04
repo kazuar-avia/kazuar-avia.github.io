@@ -1408,6 +1408,161 @@
                         "elev": 669
                     }
                 }
+            },
+            {
+                "_id": "6a7214ceef75cc33305765b1",
+                "aircraft": {
+                    "_id": "6988b97c9da57b990ad5c8f7",
+                    "name": "Airbus A321 neo",
+                    "customName": "Dry Lease l iniBuilds A321LR (neo) l 220 pax",
+                    "icao": "A21N"
+                },
+                "type": "pax",
+                "flightNumber": "75N",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 220,
+                    "cargo": 21,
+                    "weights": {
+                        "cargo": 1743
+                    }
+                },
+                "depTime": "2026-08-04T16:50:00.000Z",
+                "duration": 75,
+                "arrTime": "2026-08-04T18:05:00.000Z",
+                "depTimeAct": "2026-08-04T16:47:02.160Z",
+                "delay": -19,
+                "takeoffTimeAct": "2026-08-04T16:51:05.159Z",
+                "durationAct": 55,
+                "arrTimeAct": "2026-08-04T17:46:19.141Z",
+                "open": "2026-08-04T16:44:48.300Z",
+                "close": "2026-08-04T17:50:34.156Z",
+                "rating": 9.5,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 339,
+                        "fuel": 2561,
+                        "expenses": 10459,
+                        "penalties": 0,
+                        "revenue": 26490,
+                        "balance": 16031,
+                        "prices": {
+                            "ticketPrice": 108,
+                            "cargoUnitPrice": 130,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 220,
+                            "cargo": 21,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 220
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3005,
+                        "aircraft": 5463,
+                        "handling": 1331,
+                        "landing": 660
+                    },
+                    "revenue": {
+                        "tickets": 23760,
+                        "cargo": 2730
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 7.11m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    },
+                                    "weather": {
+                                        "windDir": 30,
+                                        "windSpd": 3,
+                                        "windX": -2.4
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.17G (159 ft/min, normal  conditions)<br/>Distance from threshold: 224m (accepted range: 183-734m)<br/>Average centerline deviation: 1.59m<br/>Max centerline deviation: 2.17m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.17,
+                                        "rate": 159
+                                    },
+                                    "weather": {
+                                        "windDir": 150.03,
+                                        "windSpd": 4.98,
+                                        "windX": 3.64
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-04T16:35:26.152Z",
+                "updatedAt": "2026-08-04T17:50:34.231Z",
+                "dep": {
+                    "icao": "SAWC",
+                    "name": "El Calafate - Commander Armando Tola International Airport",
+                    "city": "El Calafate",
+                    "location": {
+                        "lat": -50.2803,
+                        "lon": -72.053101,
+                        "elev": 669
+                    }
+                },
+                "arr": {
+                    "icao": "SAVC",
+                    "name": "General E. Mosconi Airport",
+                    "city": "Comodoro Rivadavia",
+                    "location": {
+                        "lat": -45.7853,
+                        "lon": -67.4655,
+                        "elev": 189
+                    }
+                },
+                "actArr": {
+                    "icao": "SAVC",
+                    "name": "General E. Mosconi Airport",
+                    "city": "Comodoro Rivadavia",
+                    "location": {
+                        "lat": -45.7853,
+                        "lon": -67.4655,
+                        "elev": 189
+                    }
+                }
             }
         ]
     },
