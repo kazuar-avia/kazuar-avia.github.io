@@ -1099,6 +1099,180 @@
                         "elev": 302
                     }
                 }
+            },
+            {
+                "_id": "6a720104ef75cc3330553b87",
+                "aircraft": {
+                    "_id": "6988b97c9da57b990ad5c8f7",
+                    "name": "Airbus A321 neo",
+                    "customName": "Dry Lease l iniBuilds A321LR (neo) l 220 pax",
+                    "icao": "A21N"
+                },
+                "type": "pax",
+                "flightNumber": "43M",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 220,
+                    "cargo": 44,
+                    "weights": {
+                        "cargo": 4004
+                    }
+                },
+                "depTime": "2026-08-04T15:25:00.000Z",
+                "duration": 70,
+                "arrTime": "2026-08-04T16:35:00.000Z",
+                "depTimeAct": "2026-08-04T15:25:55.178Z",
+                "delay": -5,
+                "takeoffTimeAct": "2026-08-04T15:29:31.190Z",
+                "durationAct": 61,
+                "arrTimeAct": "2026-08-04T16:30:24.166Z",
+                "open": "2026-08-04T15:22:31.198Z",
+                "close": "2026-08-04T16:32:07.198Z",
+                "rating": 9.76,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 369,
+                        "fuel": 2955,
+                        "expenses": 11127,
+                        "penalties": 0,
+                        "revenue": 29260,
+                        "balance": 18133,
+                        "prices": {
+                            "ticketPrice": 107,
+                            "cargoUnitPrice": 130,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 220,
+                            "cargo": 44,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 220
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3467,
+                        "aircraft": 5628,
+                        "handling": 1342,
+                        "landing": 690
+                    },
+                    "revenue": {
+                        "tickets": 23540,
+                        "cargo": 5720
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 4.94m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -15,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Short landing (176m from threshold before 177m min accepted)",
+                            "penalty": {
+                                "points": -1,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.43,
+                                        "rate": 297
+                                    },
+                                    "weather": {
+                                        "windDir": 30.03,
+                                        "windSpd": 3,
+                                        "windX": -2.01
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.43G (297 ft/min, normal  conditions)<br/>Distance from threshold: 176m (accepted range: 177-710m)<br/>Average centerline deviation: 1.30m<br/>Max centerline deviation: 3.16m",
+                            "penalty": {
+                                "points": -8,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.43,
+                                        "rate": 297
+                                    },
+                                    "weather": {
+                                        "windDir": 30.03,
+                                        "windSpd": 3,
+                                        "windX": -2.01
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-04T15:11:00.452Z",
+                "updatedAt": "2026-08-04T16:32:07.280Z",
+                "dep": {
+                    "icao": "SAWH",
+                    "name": "Ushuaia - Malvinas Argentinas International Airport",
+                    "city": "Ushuaia",
+                    "location": {
+                        "lat": -54.8433,
+                        "lon": -68.2958,
+                        "elev": 102
+                    }
+                },
+                "arr": {
+                    "icao": "SAWC",
+                    "name": "El Calafate - Commander Armando Tola International Airport",
+                    "city": "El Calafate",
+                    "location": {
+                        "lat": -50.2803,
+                        "lon": -72.053101,
+                        "elev": 669
+                    }
+                },
+                "actArr": {
+                    "icao": "SAWC",
+                    "name": "El Calafate - Commander Armando Tola International Airport",
+                    "city": "El Calafate",
+                    "location": {
+                        "lat": -50.2803,
+                        "lon": -72.053101,
+                        "elev": 669
+                    }
+                }
             }
         ]
     },
