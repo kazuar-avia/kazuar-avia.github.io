@@ -463,6 +463,180 @@
                         "elev": 508
                     }
                 }
+            },
+            {
+                "_id": "6a71a4f3ef75cc33304cbde6",
+                "aircraft": {
+                    "_id": "695a7b833dc76275bad3af85",
+                    "name": "Boeing 737-800",
+                    "customName": "Kharkiv Airlines l 737-800 based in UKHH UKBB UKCC l UR-CLR",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "0210",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 111,
+                    "cargo": 18,
+                    "weights": {
+                        "cargo": 2070
+                    }
+                },
+                "depTime": "2026-08-04T09:05:00.000Z",
+                "duration": 105,
+                "arrTime": "2026-08-04T10:50:00.000Z",
+                "depTimeAct": "2026-08-04T08:56:11.545Z",
+                "delay": -13,
+                "takeoffTimeAct": "2026-08-04T09:02:59.562Z",
+                "durationAct": 94,
+                "arrTimeAct": "2026-08-04T10:36:36.657Z",
+                "open": "2026-08-04T08:41:53.227Z",
+                "close": "2026-08-04T10:41:32.275Z",
+                "rating": 6.55,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 595,
+                        "fuel": 4017,
+                        "expenses": 10034,
+                        "penalties": 0,
+                        "revenue": 15951,
+                        "balance": 5917,
+                        "prices": {
+                            "ticketPrice": 121,
+                            "cargoUnitPrice": 140,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 111,
+                            "cargo": 18,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 111
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3633,
+                        "aircraft": 5250,
+                        "handling": 395,
+                        "landing": 756
+                    },
+                    "revenue": {
+                        "tickets": 13431,
+                        "cargo": 2520
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 5.92m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -30,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 34
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (1448m from threshold beyond 706m max accepted)",
+                            "penalty": {
+                                "points": -260,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.62,
+                                        "rate": 491
+                                    },
+                                    "weather": {
+                                        "windDir": 130,
+                                        "windSpd": 10.74,
+                                        "windX": -0.11
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.62G (491 ft/min, normal  conditions)<br/>Distance from threshold: 1448m (accepted range: 176-706m)<br/>Average centerline deviation: 3.92m<br/>Max centerline deviation: 5.92m",
+                            "penalty": {
+                                "points": -55,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.62,
+                                        "rate": 491
+                                    },
+                                    "weather": {
+                                        "windDir": 130,
+                                        "windSpd": 10.74,
+                                        "windX": -0.11
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-04T08:38:11.088Z",
+                "updatedAt": "2026-08-04T10:41:32.357Z",
+                "dep": {
+                    "icao": "UKHH",
+                    "name": "Kharkiv International Airport",
+                    "city": "Kharkiv",
+                    "location": {
+                        "lat": 49.926943,
+                        "lon": 36.290814,
+                        "elev": 508
+                    }
+                },
+                "arr": {
+                    "icao": "LBWN",
+                    "name": "Varna Airport",
+                    "city": "Varna",
+                    "location": {
+                        "lat": 43.232101,
+                        "lon": 27.8251,
+                        "elev": 230
+                    }
+                },
+                "actArr": {
+                    "icao": "LBWN",
+                    "name": "Varna Airport",
+                    "city": "Varna",
+                    "location": {
+                        "lat": 43.232101,
+                        "lon": 27.8251,
+                        "elev": 230
+                    }
+                }
             }
         ]
     },
