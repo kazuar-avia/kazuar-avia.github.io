@@ -7322,6 +7322,169 @@
                         "elev": 1071
                     }
                 }
+            },
+            {
+                "_id": "6a7329c628a8e3fe14800867",
+                "aircraft": {
+                    "_id": "6a4f68e35760ec7cdb5e6c2d",
+                    "name": "Boeing 737-800",
+                    "customName": "SkyUp l 737-800 based in UKLL UKHH UKDE l UR-SQB",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "81",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 170,
+                    "cargo": 29,
+                    "weights": {
+                        "cargo": 1856
+                    }
+                },
+                "depTime": "2026-08-05T12:35:00.000Z",
+                "duration": 100,
+                "arrTime": "2026-08-05T14:15:00.000Z",
+                "depTimeAct": "2026-08-05T12:36:13.430Z",
+                "delay": -13,
+                "takeoffTimeAct": "2026-08-05T12:42:18.447Z",
+                "durationAct": 80,
+                "arrTimeAct": "2026-08-05T14:02:29.518Z",
+                "open": "2026-08-05T12:17:59.633Z",
+                "close": "2026-08-05T14:05:02.571Z",
+                "rating": 8.96,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 565,
+                        "fuel": 4012,
+                        "expenses": 9959,
+                        "penalties": 0,
+                        "revenue": 24232,
+                        "balance": 14273,
+                        "prices": {
+                            "ticketPrice": 119,
+                            "cargoUnitPrice": 138,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 170,
+                            "cargo": 29,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 170
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3629,
+                        "aircraft": 4900,
+                        "handling": 863,
+                        "landing": 567
+                    },
+                    "revenue": {
+                        "tickets": 20230,
+                        "cargo": 4002
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 7.61m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -59,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.17G (180 ft/min, normal  conditions)<br/>Distance from threshold: 351m (accepted range: 175-704m)<br/>Average centerline deviation: 4.97m<br/>Max centerline deviation: 7.61m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.17,
+                                        "rate": 180
+                                    },
+                                    "weather": {
+                                        "windDir": 249.37,
+                                        "windSpd": 5.1,
+                                        "windX": -4.7
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No NAV lights for 206s when required",
+                            "penalty": {
+                                "points": -45,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-05T12:17:10.820Z",
+                "updatedAt": "2026-08-05T14:05:03.142Z",
+                "dep": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "arr": {
+                    "icao": "LYTV",
+                    "name": "Tivat Airport",
+                    "city": "Tivat",
+                    "location": {
+                        "lat": 42.404701232910156,
+                        "lon": 18.72330093383789,
+                        "elev": 20
+                    }
+                },
+                "actArr": {
+                    "icao": "LYTV",
+                    "name": "Tivat Airport",
+                    "city": "Tivat",
+                    "location": {
+                        "lat": 42.404701232910156,
+                        "lon": 18.72330093383789,
+                        "elev": 20
+                    }
+                }
             }
         ]
     },
