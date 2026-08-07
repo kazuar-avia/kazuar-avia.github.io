@@ -18260,5 +18260,216 @@
                 }
             }
         ]
+    },
+    {
+        "pilot_id": "6a4a3a585760ec7cdbf933ff",
+        "fullname": "Serhii Petrovich",
+        "avatar": "6a4a3a585760ec7cdbf933ff1783249624912",
+        "flights": [
+            {
+                "_id": "6a7648f0ef75cc3330ae061f",
+                "aircraft": {
+                    "_id": "699ae4f09da57b990ac12987",
+                    "name": "Boeing 777 Freighter",
+                    "customName": "UCAA l 777F (cargo) based in UKBB l UR-CRG",
+                    "icao": "B77L"
+                },
+                "type": "cargo",
+                "flightNumber": "53H",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 0,
+                    "cargo": 34,
+                    "weights": {
+                        "cargo": 3706
+                    }
+                },
+                "depTime": "2026-08-07T21:35:00.000Z",
+                "duration": 95,
+                "arrTime": "2026-08-07T23:10:00.000Z",
+                "depTimeAct": "2026-08-07T21:28:04.721Z",
+                "delay": -1,
+                "takeoffTimeAct": "2026-08-07T21:36:20.732Z",
+                "durationAct": 93,
+                "arrTimeAct": "2026-08-07T23:09:09.780Z",
+                "open": "2026-08-07T21:26:06.609Z",
+                "close": "2026-08-07T23:14:10.812Z",
+                "rating": 7.27,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 610,
+                        "fuel": 9177,
+                        "expenses": 29245,
+                        "penalties": 0,
+                        "revenue": 4692,
+                        "balance": -24553,
+                        "prices": {
+                            "ticketPrice": 118,
+                            "cargoUnitPrice": 138,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 0,
+                            "cargo": 34,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 10375,
+                        "aircraft": 17010,
+                        "handling": 15,
+                        "landing": 1845
+                    },
+                    "revenue": {
+                        "tickets": 0,
+                        "cargo": 4692
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 8.28m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -48,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 8.63m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -75,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 21
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.15G (85 ft/min, normal  conditions)<br/>Distance from threshold: 646m (accepted range: 203-815m)<br/>Average centerline deviation: 5.28m<br/>Max centerline deviation: 8.63m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 21
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.15,
+                                        "rate": 85
+                                    },
+                                    "weather": {
+                                        "windDir": 57.76,
+                                        "windSpd": 7,
+                                        "windX": 1.7
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 878ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 19
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Fuel used 8078 kg is lower than estimated minimum 9177 kg.",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 21
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.15,
+                                        "rate": 85
+                                    },
+                                    "weather": {
+                                        "windDir": 57.76,
+                                        "windSpd": 7,
+                                        "windX": 1.7
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-07T21:06:56.654Z",
+                "updatedAt": "2026-08-07T23:14:10.879Z",
+                "dep": {
+                    "icao": "LKMT",
+                    "name": "Ostrava Leos Janáček Airport",
+                    "city": "Mošnov",
+                    "location": {
+                        "lat": 49.696301,
+                        "lon": 18.111099,
+                        "elev": 844
+                    }
+                },
+                "arr": {
+                    "icao": "EBLG",
+                    "name": "Liège Airport",
+                    "city": "Grâce-Hollogne",
+                    "location": {
+                        "lat": 50.638574,
+                        "lon": 5.443897,
+                        "elev": 659
+                    }
+                },
+                "actArr": {
+                    "icao": "EBLG",
+                    "name": "Liège Airport",
+                    "city": "Grâce-Hollogne",
+                    "location": {
+                        "lat": 50.638574,
+                        "lon": 5.443897,
+                        "elev": 659
+                    }
+                }
+            }
+        ]
     }
 ]
