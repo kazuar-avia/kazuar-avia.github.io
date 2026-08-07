@@ -8464,6 +8464,156 @@
                         "elev": 83
                     }
                 }
+            },
+            {
+                "_id": "6a75bc11ef75cc3330a0a404",
+                "aircraft": {
+                    "_id": "695ebf3c3dc76275ba3e31f1",
+                    "name": "Boeing 777-300ER",
+                    "customName": "SkyLine Express l 777-300ER based in UKBB l UR-AZR",
+                    "icao": "B77W"
+                },
+                "type": "pax",
+                "flightNumber": "317W",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 531,
+                    "cargo": 90,
+                    "weights": {
+                        "cargo": 6030
+                    }
+                },
+                "depTime": "2026-08-07T11:18:00.000Z",
+                "duration": 205,
+                "arrTime": "2026-08-07T14:43:00.000Z",
+                "depTimeAct": "2026-08-07T11:13:21.920Z",
+                "delay": -14,
+                "takeoffTimeAct": "2026-08-07T11:13:43.926Z",
+                "durationAct": 195,
+                "arrTimeAct": "2026-08-07T14:29:02.326Z",
+                "open": "2026-08-07T11:12:55.919Z",
+                "close": "2026-08-07T14:31:19.360Z",
+                "rating": 9.5,
+                "simulator": "msfs",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1366,
+                        "fuel": 28739,
+                        "expenses": 67628,
+                        "penalties": 0,
+                        "revenue": 114813,
+                        "balance": 47185,
+                        "prices": {
+                            "ticketPrice": 183,
+                            "cargoUnitPrice": 196,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.85
+                            }
+                        },
+                        "payload": {
+                            "pax": 531,
+                            "cargo": 90,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 531
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 32490,
+                        "aircraft": 23723,
+                        "handling": 9693,
+                        "landing": 1722
+                    },
+                    "revenue": {
+                        "tickets": 97173,
+                        "cargo": 17640
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 7.48m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -40,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.54G (521 ft/min, challenging  conditions)<br/>Distance from threshold: 409m (accepted range: 197-790m)<br/>Average centerline deviation: 1.88m<br/>Max centerline deviation: 4.01m",
+                            "penalty": {
+                                "points": -10,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.54,
+                                        "rate": 521
+                                    },
+                                    "weather": {
+                                        "windDir": 7.34,
+                                        "windSpd": 9.54,
+                                        "windX": 4.73
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-07T11:05:53.376Z",
+                "updatedAt": "2026-08-07T14:31:19.498Z",
+                "dep": {
+                    "icao": "LEMD",
+                    "name": "Adolfo Suárez Madrid–Barajas Airport",
+                    "city": "Madrid",
+                    "location": {
+                        "lat": 40.471926,
+                        "lon": -3.56264,
+                        "elev": 1998
+                    }
+                },
+                "arr": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "actArr": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                }
             }
         ]
     },
