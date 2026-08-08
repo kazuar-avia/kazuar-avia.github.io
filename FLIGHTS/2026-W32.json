@@ -11308,6 +11308,176 @@
                         "elev": 31
                     }
                 }
+            },
+            {
+                "_id": "6a77094eef75cc3330ba8d02",
+                "aircraft": {
+                    "_id": "6a4fa15e5760ec7cdb627803",
+                    "name": "Boeing 737-800",
+                    "customName": "Dry Lease l BOEING 737-800",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "36W",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 163,
+                    "cargo": 20,
+                    "weights": {
+                        "cargo": 1320
+                    }
+                },
+                "depTime": "2026-08-08T11:30:00.000Z",
+                "duration": 85,
+                "arrTime": "2026-08-08T12:55:00.000Z",
+                "depTimeAct": "2026-08-08T11:29:11.132Z",
+                "delay": -11,
+                "takeoffTimeAct": "2026-08-08T11:36:11.142Z",
+                "durationAct": 68,
+                "arrTimeAct": "2026-08-08T12:43:53.205Z",
+                "open": "2026-08-08T10:57:17.821Z",
+                "close": "2026-08-08T12:50:41.235Z",
+                "rating": 5.97,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 440,
+                        "fuel": 3319,
+                        "expenses": 11993,
+                        "penalties": 150000,
+                        "revenue": 23359,
+                        "balance": -138634,
+                        "prices": {
+                            "ticketPrice": 113,
+                            "cargoUnitPrice": 134,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 163,
+                            "cargo": 20,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 20,
+                                "Y": 143
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3873,
+                        "aircraft": 5200,
+                        "handling": 1660,
+                        "landing": 1260
+                    },
+                    "revenue": {
+                        "tickets": 20679,
+                        "cargo": 2680
+                    },
+                    "violations": [
+                        {
+                            "title": "Tail strike on takeoff (pitch: 12.6, allowed: 12.0)",
+                            "penalty": {
+                                "points": -400,
+                                "cash": 150000
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 36
+                                    },
+                                    "weather": {
+                                        "windDir": 320.01,
+                                        "windSpd": 4,
+                                        "windX": 0.04
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 4.20m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -3,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "spoilers",
+                                "payload": {
+                                    "system": {
+                                        "fps": 42
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.20G (210 ft/min, normal  conditions)<br/>Distance from threshold: 389m (accepted range: 179-719m)<br/>Average centerline deviation: 2.47m<br/>Max centerline deviation: 4.20m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 46
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.2,
+                                        "rate": 210
+                                    },
+                                    "weather": {
+                                        "windDir": 159.89,
+                                        "windSpd": 7.07,
+                                        "windX": -0.05
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-08T10:47:42.343Z",
+                "updatedAt": "2026-08-08T12:50:41.310Z",
+                "dep": {
+                    "icao": "KPDX",
+                    "name": "Portland International Airport",
+                    "city": "Portland",
+                    "location": {
+                        "lat": 45.588699,
+                        "lon": -122.598,
+                        "elev": 31
+                    }
+                },
+                "arr": {
+                    "icao": "KSMF",
+                    "name": "Sacramento International Airport",
+                    "city": "Sacramento",
+                    "location": {
+                        "lat": 38.6954,
+                        "lon": -121.591003,
+                        "elev": 27
+                    }
+                },
+                "actArr": {
+                    "icao": "KSMF",
+                    "name": "Sacramento International Airport",
+                    "city": "Sacramento",
+                    "location": {
+                        "lat": 38.6954,
+                        "lon": -121.591003,
+                        "elev": 27
+                    }
+                }
             }
         ]
     },
