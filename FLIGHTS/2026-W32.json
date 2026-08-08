@@ -21645,6 +21645,176 @@
                         "elev": 506
                     }
                 }
+            },
+            {
+                "_id": "6a7756a9ef75cc3330c2377f",
+                "aircraft": {
+                    "_id": "69ac6222c739a30ec84c1abb",
+                    "name": "Airbus A300-600F",
+                    "customName": "UCAA l A300-600 (cargo) based in UKKM l UR-LDC",
+                    "icao": "A306"
+                },
+                "type": "cargo",
+                "flightNumber": "335",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 0,
+                    "cargo": 303,
+                    "weights": {
+                        "cargo": 37875
+                    }
+                },
+                "depTime": "2026-08-08T17:05:00.000Z",
+                "duration": 115,
+                "arrTime": "2026-08-08T19:00:00.000Z",
+                "depTimeAct": "2026-08-08T17:05:17.660Z",
+                "delay": 6,
+                "takeoffTimeAct": "2026-08-08T17:13:44.653Z",
+                "durationAct": 112,
+                "arrTimeAct": "2026-08-08T19:05:37.613Z",
+                "open": "2026-08-08T16:30:15.842Z",
+                "close": "2026-08-08T19:18:37.651Z",
+                "rating": 8.59,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 730,
+                        "fuel": 10229,
+                        "expenses": 19690,
+                        "penalties": 0,
+                        "revenue": 44238,
+                        "balance": 24548,
+                        "prices": {
+                            "ticketPrice": 128,
+                            "cargoUnitPrice": 146,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 0,
+                            "cargo": 303,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 9252,
+                        "aircraft": 8635,
+                        "handling": 318,
+                        "landing": 1485
+                    },
+                    "revenue": {
+                        "tickets": 0,
+                        "cargo": 44238
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 11.80m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -67,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 16
+                                    },
+                                    "weather": {
+                                        "windDir": 6.7,
+                                        "windSpd": 4.78,
+                                        "windX": 3.59
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 8.44m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -9,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.76G (545 ft/min, challenging  conditions)<br/>Distance from threshold: 287m (accepted range: 175-704m)<br/>Average centerline deviation: 5.44m<br/>Max centerline deviation: 8.44m",
+                            "penalty": {
+                                "points": -65,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.76,
+                                        "rate": 545
+                                    },
+                                    "weather": {
+                                        "windDir": 249.59,
+                                        "windSpd": 15.05,
+                                        "windX": 6.85
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-08T16:17:45.393Z",
+                "updatedAt": "2026-08-08T19:18:37.756Z",
+                "dep": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "arr": {
+                    "icao": "ESSA",
+                    "name": "Stockholm-Arlanda Airport",
+                    "city": "Stockholm",
+                    "location": {
+                        "lat": 59.64849,
+                        "lon": 17.928829,
+                        "elev": 137
+                    }
+                },
+                "actArr": {
+                    "icao": "ESSA",
+                    "name": "Stockholm-Arlanda Airport",
+                    "city": "Stockholm",
+                    "location": {
+                        "lat": 59.64849,
+                        "lon": 17.928829,
+                        "elev": 137
+                    }
+                }
             }
         ]
     },
