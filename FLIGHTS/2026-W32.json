@@ -17638,6 +17638,180 @@
                         "elev": 768
                     }
                 }
+            },
+            {
+                "_id": "6a76eaf7ef75cc3330b80812",
+                "aircraft": {
+                    "_id": "6988b9149da57b990ad5b53e",
+                    "name": "Airbus A320 neo",
+                    "customName": "DRY LEASE l free A320neo v2 msfs2024",
+                    "icao": "A20N"
+                },
+                "type": "pax",
+                "flightNumber": "436I",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 180,
+                    "cargo": 30,
+                    "weights": {
+                        "cargo": 4110
+                    }
+                },
+                "depTime": "2026-08-08T09:00:00.000Z",
+                "duration": 90,
+                "arrTime": "2026-08-08T10:30:00.000Z",
+                "depTimeAct": "2026-08-08T08:58:01.159Z",
+                "delay": -10,
+                "takeoffTimeAct": "2026-08-08T09:08:28.151Z",
+                "durationAct": 72,
+                "arrTimeAct": "2026-08-08T10:20:04.164Z",
+                "open": "2026-08-08T08:44:37.180Z",
+                "close": "2026-08-08T10:23:53.105Z",
+                "rating": 9.71,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 493,
+                        "fuel": 2692,
+                        "expenses": 11489,
+                        "penalties": 838,
+                        "revenue": 25470,
+                        "balance": 13143,
+                        "prices": {
+                            "ticketPrice": 115,
+                            "cargoUnitPrice": 136,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 180,
+                            "cargo": 30,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 6,
+                                "Y": 174
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3044,
+                        "aircraft": 4975,
+                        "handling": 2309,
+                        "landing": 1161
+                    },
+                    "revenue": {
+                        "tickets": 21390,
+                        "cargo": 4080
+                    },
+                    "violations": [
+                        {
+                            "title": "MLW exceeded: 139kg above maximum landing weight of 66300kg",
+                            "penalty": {
+                                "points": -13,
+                                "cash": 838
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.11,
+                                        "rate": 105
+                                    },
+                                    "weather": {
+                                        "windDir": 76.6,
+                                        "windSpd": 6.4,
+                                        "windX": 5.32
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 4.99m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -16,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.16G (0 ft/min, normal  conditions)<br/>Distance from threshold: 722m (accepted range: 203-816m)<br/>Average centerline deviation: 3.31m<br/>Max centerline deviation: 4.99m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "bounce",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.16,
+                                        "rate": 0
+                                    },
+                                    "weather": {
+                                        "windDir": 30.49,
+                                        "windSpd": 6.16,
+                                        "windX": 6
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-08T08:38:15.512Z",
+                "updatedAt": "2026-08-08T10:23:53.194Z",
+                "dep": {
+                    "icao": "LIMC",
+                    "name": "Milan Malpensa International Airport",
+                    "city": "Ferno (VA)",
+                    "location": {
+                        "lat": 45.6306,
+                        "lon": 8.72811,
+                        "elev": 768
+                    }
+                },
+                "arr": {
+                    "icao": "LHBP",
+                    "name": "Budapest Liszt Ferenc International Airport",
+                    "city": "Budapest",
+                    "location": {
+                        "lat": 47.43018,
+                        "lon": 19.262393,
+                        "elev": 495
+                    }
+                },
+                "actArr": {
+                    "icao": "LHBP",
+                    "name": "Budapest Liszt Ferenc International Airport",
+                    "city": "Budapest",
+                    "location": {
+                        "lat": 47.43018,
+                        "lon": 19.262393,
+                        "elev": 495
+                    }
+                }
             }
         ]
     },
