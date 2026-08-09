@@ -29332,5 +29332,175 @@
                 }
             }
         ]
+    },
+    {
+        "pilot_id": "690a53113dc76275ba867994",
+        "fullname": "Lou Ken",
+        "avatar": "690a53113dc76275ba8679941762285983623",
+        "flights": [
+            {
+                "_id": "6a78c305ef75cc3330e76881",
+                "aircraft": {
+                    "_id": "695ebf3c3dc76275ba3e31f1",
+                    "name": "Boeing 777-300ER",
+                    "customName": "SkyLine Express l 777-300ER based in UKBB l UR-AZR",
+                    "icao": "B77W"
+                },
+                "type": "pax",
+                "flightNumber": "198I",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 531,
+                    "cargo": 79,
+                    "weights": {
+                        "cargo": 6794
+                    }
+                },
+                "depTime": "2026-08-09T18:30:00.000Z",
+                "duration": 180,
+                "arrTime": "2026-08-09T21:30:00.000Z",
+                "depTimeAct": "2026-08-09T18:49:51.263Z",
+                "delay": 17,
+                "takeoffTimeAct": "2026-08-09T18:57:16.273Z",
+                "durationAct": 170,
+                "arrTimeAct": "2026-08-09T21:47:09.101Z",
+                "open": "2026-08-09T18:44:51.444Z",
+                "close": "2026-08-09T21:52:58.898Z",
+                "rating": 9,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1179,
+                        "fuel": 22266,
+                        "expenses": 59454,
+                        "penalties": 1327,
+                        "revenue": 102366,
+                        "balance": 41585,
+                        "prices": {
+                            "ticketPrice": 166,
+                            "cargoUnitPrice": 180,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 531,
+                            "cargo": 79,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 531
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 25172,
+                        "aircraft": 22375,
+                        "handling": 10143,
+                        "landing": 1764
+                    },
+                    "revenue": {
+                        "tickets": 88146,
+                        "cargo": 14220
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight delayed 5 minutes (max 15 minutes after scheduled is allowed)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 1327
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.22G (417 ft/min, challenging  conditions)<br/>Distance from threshold: 334m (accepted range: 209-839m)<br/>Average centerline deviation: 1.60m<br/>Max centerline deviation: 3.12m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.22,
+                                        "rate": 417
+                                    },
+                                    "weather": {
+                                        "windDir": 28.25,
+                                        "windSpd": 8.21,
+                                        "windX": -3.54
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No NAV lights for 10865s when required",
+                            "penalty": {
+                                "points": -100,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-09T18:12:21.916Z",
+                "updatedAt": "2026-08-09T21:52:58.983Z",
+                "dep": {
+                    "icao": "LFPG",
+                    "name": "Charles de Gaulle International Airport",
+                    "city": "Paris (Roissy-en-France, Val-d'Oise)",
+                    "location": {
+                        "lat": 49.012798,
+                        "lon": 2.55,
+                        "elev": 392
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
+            }
+        ]
     }
 ]
