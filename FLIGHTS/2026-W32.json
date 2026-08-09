@@ -7965,6 +7965,180 @@
                         "elev": 353
                     }
                 }
+            },
+            {
+                "_id": "6a7850c1ef75cc3330d8f0be",
+                "aircraft": {
+                    "_id": "695a66383dc76275bad0826f",
+                    "name": "Airbus A320",
+                    "customName": "Dry Lease l A320 CFM FENIX msfs2024",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "42LZ",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 162,
+                    "cargo": 11,
+                    "weights": {
+                        "cargo": 902
+                    }
+                },
+                "depTime": "2026-08-09T10:17:00.000Z",
+                "duration": 90,
+                "arrTime": "2026-08-09T11:47:00.000Z",
+                "depTimeAct": "2026-08-09T10:18:40.119Z",
+                "delay": -6,
+                "takeoffTimeAct": "2026-08-09T10:25:46.100Z",
+                "durationAct": 75,
+                "arrTimeAct": "2026-08-09T11:40:43.987Z",
+                "open": "2026-08-09T10:05:45.112Z",
+                "close": "2026-08-09T11:43:11.996Z",
+                "rating": 9.73,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 520,
+                        "fuel": 3450,
+                        "expenses": 10833,
+                        "penalties": 0,
+                        "revenue": 20931,
+                        "balance": 10098,
+                        "prices": {
+                            "ticketPrice": 115,
+                            "cargoUnitPrice": 136,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 162,
+                            "cargo": 11,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 7,
+                                "Y": 155
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3901,
+                        "aircraft": 5225,
+                        "handling": 1140,
+                        "landing": 567
+                    },
+                    "revenue": {
+                        "tickets": 19435,
+                        "cargo": 1496
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 5.52m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -22,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (719m from threshold beyond 704m max accepted)",
+                            "penalty": {
+                                "points": -5,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.23,
+                                        "rate": 270
+                                    },
+                                    "weather": {
+                                        "windDir": 243.26,
+                                        "windSpd": 6.67,
+                                        "windX": -6.17
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.23G (270 ft/min, normal  conditions)<br/>Distance from threshold: 719m (accepted range: 175-704m)<br/>Average centerline deviation: 3.54m<br/>Max centerline deviation: 5.52m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.23,
+                                        "rate": 270
+                                    },
+                                    "weather": {
+                                        "windDir": 243.26,
+                                        "windSpd": 6.67,
+                                        "windX": -6.17
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-09T10:04:49.637Z",
+                "updatedAt": "2026-08-09T11:43:12.076Z",
+                "dep": {
+                    "icao": "LIML",
+                    "name": "Milano Linate Airport",
+                    "city": "Segrate (MI)",
+                    "location": {
+                        "lat": 45.445099,
+                        "lon": 9.27674,
+                        "elev": 353
+                    }
+                },
+                "arr": {
+                    "icao": "LYTV",
+                    "name": "Tivat Airport",
+                    "city": "Tivat",
+                    "location": {
+                        "lat": 42.404701232910156,
+                        "lon": 18.72330093383789,
+                        "elev": 20
+                    }
+                },
+                "actArr": {
+                    "icao": "LYTV",
+                    "name": "Tivat Airport",
+                    "city": "Tivat",
+                    "location": {
+                        "lat": 42.404701232910156,
+                        "lon": 18.72330093383789,
+                        "elev": 20
+                    }
+                }
             }
         ]
     },
