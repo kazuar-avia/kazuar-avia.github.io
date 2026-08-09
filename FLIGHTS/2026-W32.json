@@ -2630,6 +2630,171 @@
                         "elev": 325
                     }
                 }
+            },
+            {
+                "_id": "6a786aabef75cc3330dbf892",
+                "aircraft": {
+                    "_id": "6988b97c9da57b990ad5c8f7",
+                    "name": "Airbus A321 neo",
+                    "customName": "Dry Lease l iniBuilds A321LR (neo) l 220 pax",
+                    "icao": "A21N"
+                },
+                "type": "pax",
+                "flightNumber": "78V",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 220,
+                    "cargo": 42,
+                    "weights": {
+                        "cargo": 3486
+                    }
+                },
+                "depTime": "2026-08-09T12:10:00.000Z",
+                "duration": 100,
+                "arrTime": "2026-08-09T13:50:00.000Z",
+                "depTimeAct": "2026-08-09T12:06:23.460Z",
+                "delay": -11,
+                "takeoffTimeAct": "2026-08-09T12:10:27.515Z",
+                "durationAct": 88,
+                "arrTimeAct": "2026-08-09T13:38:39.427Z",
+                "open": "2026-08-09T12:05:26.856Z",
+                "close": "2026-08-09T13:41:16.467Z",
+                "rating": 9.31,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 549,
+                        "fuel": 3969,
+                        "expenses": 13970,
+                        "penalties": 0,
+                        "revenue": 32280,
+                        "balance": 18310,
+                        "prices": {
+                            "ticketPrice": 120,
+                            "cargoUnitPrice": 140,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 220,
+                            "cargo": 42,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 220
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4487,
+                        "aircraft": 6040,
+                        "handling": 1877,
+                        "landing": 1566
+                    },
+                    "revenue": {
+                        "tickets": 26400,
+                        "cargo": 5880
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 4.96m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -11,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 7.56m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -58,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "spoilers",
+                                "payload": {
+                                    "system": {
+                                        "fps": 21
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.36G (331 ft/min, normal  conditions)<br/>Distance from threshold: 598m (accepted range: 180-721m)<br/>Average centerline deviation: 5.30m<br/>Max centerline deviation: 7.56m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 22
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.36,
+                                        "rate": 331
+                                    },
+                                    "weather": {
+                                        "windDir": 260,
+                                        "windSpd": 10.35,
+                                        "windX": -2.33
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-09T11:55:23.949Z",
+                "updatedAt": "2026-08-09T13:41:16.561Z",
+                "dep": {
+                    "icao": "EDDK",
+                    "name": "Cologne Bonn Airport",
+                    "city": "Köln (Cologne)",
+                    "location": {
+                        "lat": 50.865898,
+                        "lon": 7.14274,
+                        "elev": 302
+                    }
+                },
+                "arr": {
+                    "icao": "EIDW",
+                    "name": "Dublin Airport",
+                    "city": "Dublin",
+                    "location": {
+                        "lat": 53.428713,
+                        "lon": -6.262121,
+                        "elev": 242
+                    }
+                },
+                "actArr": {
+                    "icao": "EIDW",
+                    "name": "Dublin Airport",
+                    "city": "Dublin",
+                    "location": {
+                        "lat": 53.428713,
+                        "lon": -6.262121,
+                        "elev": 242
+                    }
+                }
             }
         ]
     },
