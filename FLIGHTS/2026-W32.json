@@ -25584,6 +25584,217 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6a785e6aef75cc3330da7606",
+                "aircraft": {
+                    "_id": "6a4fd7e55760ec7cdb6783b0",
+                    "name": "Fokker F28-1000 Fellowship",
+                    "customName": "Air Ukraine l Fokker 28 (Yak-40) based in UKKK l UR-40393",
+                    "icao": "F28"
+                },
+                "type": "pax",
+                "flightNumber": "60S",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 50,
+                    "cargo": 10,
+                    "weights": {
+                        "cargo": 830
+                    }
+                },
+                "depTime": "2026-08-09T11:15:00.000Z",
+                "duration": 65,
+                "arrTime": "2026-08-09T12:20:00.000Z",
+                "depTimeAct": "2026-08-09T11:23:05.528Z",
+                "delay": 15,
+                "takeoffTimeAct": "2026-08-09T11:34:36.543Z",
+                "durationAct": 61,
+                "arrTimeAct": "2026-08-09T12:35:20.637Z",
+                "open": "2026-08-09T11:20:51.164Z",
+                "close": "2026-08-09T13:30:06.372Z",
+                "rating": 6.48,
+                "simulator": "msfs",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 312,
+                        "fuel": 1723,
+                        "expenses": 3939,
+                        "penalties": 0,
+                        "revenue": 7862,
+                        "balance": 3923,
+                        "prices": {
+                            "ticketPrice": 103,
+                            "cargoUnitPrice": 127,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 50,
+                            "cargo": 10,
+                            "paxByClass": {
+                                "F": 2,
+                                "C": 8,
+                                "Y": 40
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1559,
+                        "aircraft": 1908,
+                        "handling": 256,
+                        "landing": 216
+                    },
+                    "revenue": {
+                        "tickets": 6592,
+                        "cargo": 1270
+                    },
+                    "violations": [
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1005mb instead of 1019.6mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    },
+                                    "weather": {
+                                        "windDir": 1.43,
+                                        "windSpd": 12.24,
+                                        "windX": 0
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.33G (364 ft/min, challenging  conditions)<br/>Distance from threshold: 318m (accepted range: 175-701m)<br/>Average centerline deviation: 0.83m<br/>Max centerline deviation: 1.57m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 35
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.33,
+                                        "rate": 364
+                                    },
+                                    "weather": {
+                                        "windDir": 360,
+                                        "windSpd": 11.47,
+                                        "windX": -0.07
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 530ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 36
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No BEACON lights for 197s when required",
+                            "penalty": {
+                                "points": -42,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter not STD (1013 mb / 29.92 inHg) on cruise",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        },
+                        {
+                            "title": "Min G exceeded: -0.3G (min allowed: 0G)",
+                            "penalty": {
+                                "points": -60,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 38
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-09T11:03:06.654Z",
+                "updatedAt": "2026-08-09T13:30:06.449Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "UKDE",
+                    "name": "Zaporizhzhia International Airport",
+                    "city": "Zaporizhia",
+                    "location": {
+                        "lat": 47.867000579833984,
+                        "lon": 35.31570053100586,
+                        "elev": 373
+                    }
+                },
+                "actArr": {
+                    "icao": "UKDE",
+                    "name": "Zaporizhzhia International Airport",
+                    "city": "Zaporizhia",
+                    "location": {
+                        "lat": 47.867000579833984,
+                        "lon": 35.31570053100586,
+                        "elev": 373
+                    }
+                }
             }
         ]
     },
