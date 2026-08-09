@@ -26804,6 +26804,224 @@
                         "elev": 137
                     }
                 }
+            },
+            {
+                "_id": "6a78928128a8e3fe1491008f",
+                "aircraft": {
+                    "_id": "69ac6222c739a30ec84c1abb",
+                    "name": "Airbus A300-600F",
+                    "customName": "UCAA l A300-600 (cargo) based in UKKM l UR-LDC",
+                    "icao": "A306"
+                },
+                "type": "cargo",
+                "flightNumber": "335",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 0,
+                    "cargo": 216,
+                    "weights": {
+                        "cargo": 13392
+                    }
+                },
+                "depTime": "2026-08-09T17:00:00.000Z",
+                "duration": 115,
+                "arrTime": "2026-08-09T18:55:00.000Z",
+                "depTimeAct": "2026-08-09T17:15:50.620Z",
+                "delay": 11,
+                "takeoffTimeAct": "2026-08-09T17:24:18.608Z",
+                "durationAct": 102,
+                "arrTimeAct": "2026-08-09T19:05:57.602Z",
+                "open": "2026-08-09T16:30:21.064Z",
+                "close": "2026-08-09T19:12:05.625Z",
+                "rating": 7.65,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 684,
+                        "fuel": 7946,
+                        "expenses": 18226,
+                        "penalties": 0,
+                        "revenue": 31536,
+                        "balance": 13310,
+                        "prices": {
+                            "ticketPrice": 128,
+                            "cargoUnitPrice": 146,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 0,
+                            "cargo": 216,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 8983,
+                        "aircraft": 8285,
+                        "handling": 97,
+                        "landing": 861
+                    },
+                    "revenue": {
+                        "tickets": 0,
+                        "cargo": 31536
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 4.13m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -2,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 19
+                                    },
+                                    "weather": {
+                                        "windDir": 269.99,
+                                        "windSpd": 2.05,
+                                        "windX": 1.86
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Short landing (154m from threshold before 197m min accepted)",
+                            "penalty": {
+                                "points": -33,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 23
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.45,
+                                        "rate": 384
+                                    },
+                                    "weather": {
+                                        "windDir": 269.96,
+                                        "windSpd": 2.17,
+                                        "windX": 1.01
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.45G (384 ft/min, challenging  conditions)<br/>Distance from threshold: 154m (accepted range: 197-790m)<br/>Average centerline deviation: 1.15m<br/>Max centerline deviation: 2.04m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 23
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.45,
+                                        "rate": 384
+                                    },
+                                    "weather": {
+                                        "windDir": 269.96,
+                                        "windSpd": 2.17,
+                                        "windX": 1.01
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on landing: 1020mb instead of 1013.25mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 23
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.45,
+                                        "rate": 384
+                                    },
+                                    "weather": {
+                                        "windDir": 269.96,
+                                        "windSpd": 2.17,
+                                        "windX": 1.01
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 312ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gear",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-09T14:45:21.934Z",
+                "updatedAt": "2026-08-09T19:12:05.711Z",
+                "dep": {
+                    "icao": "ESGG",
+                    "name": "Göteborg Landvetter Airport",
+                    "city": "Göteborg",
+                    "location": {
+                        "lat": 57.6628,
+                        "lon": 12.2798,
+                        "elev": 506
+                    }
+                },
+                "arr": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "actArr": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                }
             }
         ]
     },
