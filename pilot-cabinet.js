@@ -3193,7 +3193,7 @@ const NEWSKY_AIRCRAFT_NAMES = {
   '6a4fa1d65760ec7cdb62803f': 'Dry Lease l 777-300ER GE 370 pax',
   '6a27e52ea5e61d69a774349a': 'Dry Lease l 787-8 GEnx by Bravo l 227 pax',
   '695a66383dc76275bad0826f': 'Dry Lease l A320 CFM FENIX msfs2024',
-  '6a5e237a50c8a562fcb2e8d7': 'Dry Lease l A330-300 RR iniBuilds l 375 pax elite',
+  '6a4fa6895760ec7cdb62e44d': 'Dry Lease l A330-200 RR iniBuilds l 257 pax elite',
   '69847d4e9da57b990a58cf4f': 'Dry Lease l A350-900 by iniBuilds l 324 pax elite',
   '6a4fa15e5760ec7cdb627803': 'Dry Lease l BOEING 737-800',
   '6a18241ea5e61d69a736205d': 'Dry Lease l E195',
