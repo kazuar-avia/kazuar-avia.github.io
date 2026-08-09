@@ -20948,6 +20948,176 @@
                         "elev": 495
                     }
                 }
+            },
+            {
+                "_id": "6a783ce2ef75cc3330d6d5f0",
+                "aircraft": {
+                    "_id": "6a4fa15e5760ec7cdb627803",
+                    "name": "Boeing 737-800",
+                    "customName": "Dry Lease l BOEING 737-800",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "02W",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 163,
+                    "cargo": 39,
+                    "weights": {
+                        "cargo": 3315
+                    }
+                },
+                "depTime": "2026-08-09T09:00:00.000Z",
+                "duration": 95,
+                "arrTime": "2026-08-09T10:35:00.000Z",
+                "depTimeAct": "2026-08-09T08:57:50.101Z",
+                "delay": -12,
+                "takeoffTimeAct": "2026-08-09T09:06:46.118Z",
+                "durationAct": 76,
+                "arrTimeAct": "2026-08-09T10:22:58.130Z",
+                "open": "2026-08-09T08:46:10.152Z",
+                "close": "2026-08-09T10:28:17.001Z",
+                "rating": 6.5,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 500,
+                        "fuel": 3326,
+                        "expenses": 8853,
+                        "penalties": 0,
+                        "revenue": 26754,
+                        "balance": 17901,
+                        "prices": {
+                            "ticketPrice": 117,
+                            "cargoUnitPrice": 137,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.7,
+                                "fuel": 0.8,
+                                "ground": 0.7
+                            }
+                        },
+                        "payload": {
+                            "pax": 163,
+                            "cargo": 39,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 20,
+                                "Y": 143
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3009,
+                        "aircraft": 4500,
+                        "handling": 840,
+                        "landing": 504
+                    },
+                    "revenue": {
+                        "tickets": 21411,
+                        "cargo": 5343
+                    },
+                    "violations": [
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1013mb instead of 1022.22mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 19
+                                    },
+                                    "weather": {
+                                        "windDir": 76.95,
+                                        "windSpd": 6.38,
+                                        "windX": 5.43
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 26.68m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -300,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 22
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.29G (216 ft/min, challenging  conditions)<br/>Distance from threshold: 506m (accepted range: 175-704m)<br/>Average centerline deviation: 9.91m<br/>Max centerline deviation: 26.68m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 21
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.29,
+                                        "rate": 216
+                                    },
+                                    "weather": {
+                                        "windDir": 13.16,
+                                        "windSpd": 12.37,
+                                        "windX": -11.58
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-09T08:40:02.909Z",
+                "updatedAt": "2026-08-09T10:28:17.084Z",
+                "dep": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "arr": {
+                    "icao": "UKHH",
+                    "name": "Kharkiv International Airport",
+                    "city": "Kharkiv",
+                    "location": {
+                        "lat": 49.926943,
+                        "lon": 36.290814,
+                        "elev": 508
+                    }
+                },
+                "actArr": {
+                    "icao": "UKHH",
+                    "name": "Kharkiv International Airport",
+                    "city": "Kharkiv",
+                    "location": {
+                        "lat": 49.926943,
+                        "lon": 36.290814,
+                        "elev": 508
+                    }
+                }
             }
         ]
     },
