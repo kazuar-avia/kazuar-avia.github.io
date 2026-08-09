@@ -19095,6 +19095,200 @@
                         "elev": 137
                     }
                 }
+            },
+            {
+                "_id": "6a784e2728a8e3fe148fc345",
+                "aircraft": {
+                    "_id": "6a4f8c7c5760ec7cdb60d2ea",
+                    "name": "Boeing 737-800",
+                    "customName": "Aerosvit l 737-800 based in UKBB l UR-AAN",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "938",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 174,
+                    "cargo": 18,
+                    "weights": {
+                        "cargo": 1494
+                    }
+                },
+                "depTime": "2026-08-09T10:15:00.000Z",
+                "duration": 95,
+                "arrTime": "2026-08-09T11:50:00.000Z",
+                "depTimeAct": "2026-08-09T10:14:31.458Z",
+                "delay": -16,
+                "takeoffTimeAct": "2026-08-09T10:18:25.106Z",
+                "durationAct": 75,
+                "arrTimeAct": "2026-08-09T11:33:53.919Z",
+                "open": "2026-08-09T10:03:31.816Z",
+                "close": "2026-08-09T11:38:17.356Z",
+                "rating": 9.26,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 475,
+                        "fuel": 3549,
+                        "expenses": 9572,
+                        "penalties": 0,
+                        "revenue": 30708,
+                        "balance": 21136,
+                        "prices": {
+                            "ticketPrice": 140,
+                            "cargoUnitPrice": 166,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 174,
+                            "cargo": 18,
+                            "paxByClass": {
+                                "F": 2,
+                                "C": 18,
+                                "Y": 154
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3210,
+                        "aircraft": 4275,
+                        "handling": 872,
+                        "landing": 1215
+                    },
+                    "revenue": {
+                        "tickets": 27720,
+                        "cargo": 2988
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 8.05m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -1,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 38
+                                    },
+                                    "weather": {
+                                        "windDir": 358.62,
+                                        "windSpd": 10.29,
+                                        "windX": 0.75
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 5.60m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -23,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.38G (316 ft/min, normal  conditions)<br/>Distance from threshold: 437m (accepted range: 184-738m)<br/>Average centerline deviation: 3.61m<br/>Max centerline deviation: 5.60m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 43
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.38,
+                                        "rate": 316
+                                    },
+                                    "weather": {
+                                        "windDir": 100.03,
+                                        "windSpd": 9.87,
+                                        "windX": -2.32
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on landing: 1013mb instead of 1022mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 43
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.38,
+                                        "rate": 316
+                                    },
+                                    "weather": {
+                                        "windDir": 100.03,
+                                        "windSpd": 9.87,
+                                        "windX": -2.32
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-09T09:53:43.272Z",
+                "updatedAt": "2026-08-09T11:38:17.764Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                },
+                "actArr": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                }
             }
         ]
     },
