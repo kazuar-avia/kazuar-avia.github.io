@@ -432,6 +432,156 @@
                         "elev": 508
                     }
                 }
+            },
+            {
+                "_id": "6a7a0db728a8e3fe1496448f",
+                "aircraft": {
+                    "_id": "6a4f68e35760ec7cdb5e6c2d",
+                    "name": "Boeing 737-800",
+                    "customName": "SkyUp l 737-800 based in UKLL UKHH UKDE l UR-SQB",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "395",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 109,
+                    "cargo": 22,
+                    "weights": {
+                        "cargo": 2728
+                    }
+                },
+                "depTime": "2026-08-10T17:55:00.000Z",
+                "duration": 120,
+                "arrTime": "2026-08-10T19:55:00.000Z",
+                "depTimeAct": "2026-08-10T17:46:03.807Z",
+                "delay": -32,
+                "takeoffTimeAct": "2026-08-10T17:50:05.815Z",
+                "durationAct": 93,
+                "arrTimeAct": "2026-08-10T19:22:46.910Z",
+                "open": "2026-08-10T17:43:38.574Z",
+                "close": "2026-08-10T19:25:31.938Z",
+                "rating": 9.64,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 641,
+                        "fuel": 4079,
+                        "expenses": 9534,
+                        "penalties": 0,
+                        "revenue": 20811,
+                        "balance": 11277,
+                        "prices": {
+                            "ticketPrice": 155,
+                            "cargoUnitPrice": 178,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 109,
+                            "cargo": 22,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 109
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3690,
+                        "aircraft": 4725,
+                        "handling": 390,
+                        "landing": 729
+                    },
+                    "revenue": {
+                        "tickets": 16895,
+                        "cargo": 3916
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 6.20m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -36,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "spoilers",
+                                "payload": {
+                                    "system": {
+                                        "fps": 38
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.33G (289 ft/min, normal  conditions)<br/>Distance from threshold: 619m (accepted range: 193-776m)<br/>Average centerline deviation: 3.48m<br/>Max centerline deviation: 6.20m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "bounce",
+                                "payload": {
+                                    "system": {
+                                        "fps": 36
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.33,
+                                        "rate": 289
+                                    },
+                                    "weather": {
+                                        "windDir": 90,
+                                        "windSpd": 5,
+                                        "windX": 3.58
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-10T17:43:19.093Z",
+                "updatedAt": "2026-08-10T19:25:32.030Z",
+                "dep": {
+                    "icao": "UKHH",
+                    "name": "Kharkiv International Airport",
+                    "city": "Kharkiv",
+                    "location": {
+                        "lat": 49.926943,
+                        "lon": 36.290814,
+                        "elev": 508
+                    }
+                },
+                "arr": {
+                    "icao": "LBBG",
+                    "name": "Burgas Airport",
+                    "city": "Burgas",
+                    "location": {
+                        "lat": 42.569917,
+                        "lon": 27.515173,
+                        "elev": 135
+                    }
+                },
+                "actArr": {
+                    "icao": "LBBG",
+                    "name": "Burgas Airport",
+                    "city": "Burgas",
+                    "location": {
+                        "lat": 42.569917,
+                        "lon": 27.515173,
+                        "elev": 135
+                    }
+                }
             }
         ]
     },
