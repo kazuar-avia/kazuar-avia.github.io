@@ -3147,6 +3147,156 @@
                         "elev": 961
                     }
                 }
+            },
+            {
+                "_id": "6a7addf4ef75cc33300fe585",
+                "aircraft": {
+                    "_id": "696285163dc76275ba9ef60c",
+                    "name": "Boeing 737-800",
+                    "customName": "UCAA l 737-800 (pax) based in UKKK l UR-UCA",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "1204",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 165,
+                    "cargo": 32,
+                    "weights": {
+                        "cargo": 2464
+                    }
+                },
+                "depTime": "2026-08-11T08:50:00.000Z",
+                "duration": 140,
+                "arrTime": "2026-08-11T11:10:00.000Z",
+                "depTimeAct": "2026-08-11T08:52:47.799Z",
+                "delay": -2,
+                "takeoffTimeAct": "2026-08-11T08:57:21.798Z",
+                "durationAct": 131,
+                "arrTimeAct": "2026-08-11T11:08:05.880Z",
+                "open": "2026-08-11T08:33:11.352Z",
+                "close": "2026-08-11T11:12:49.929Z",
+                "rating": 9.88,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 958,
+                        "fuel": 5906,
+                        "expenses": 14800,
+                        "penalties": 0,
+                        "revenue": 29636,
+                        "balance": 14836,
+                        "prices": {
+                            "ticketPrice": 148,
+                            "cargoUnitPrice": 163,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 165,
+                            "cargo": 32,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 165
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 6677,
+                        "aircraft": 6475,
+                        "handling": 757,
+                        "landing": 891
+                    },
+                    "revenue": {
+                        "tickets": 24420,
+                        "cargo": 5216
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 4.73m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -12,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 19
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.21G (179 ft/min, normal  conditions)<br/>Distance from threshold: 508m (accepted range: 189-758m)<br/>Average centerline deviation: 2.73m<br/>Max centerline deviation: 4.73m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.21,
+                                        "rate": 179
+                                    },
+                                    "weather": {
+                                        "windDir": 190,
+                                        "windSpd": 14.08,
+                                        "windX": -6.5
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-11T08:31:48.516Z",
+                "updatedAt": "2026-08-11T11:12:50.014Z",
+                "dep": {
+                    "icao": "UKWW",
+                    "name": "Vinnytsia/Gavyryshivka International Airport",
+                    "city": "Vinnitsa",
+                    "location": {
+                        "lat": 49.242531,
+                        "lon": 28.613778,
+                        "elev": 961
+                    }
+                },
+                "arr": {
+                    "icao": "LCLK",
+                    "name": "Larnaca International Airport",
+                    "city": "Larnaca",
+                    "location": {
+                        "lat": 34.875099,
+                        "lon": 33.624901,
+                        "elev": 8
+                    }
+                },
+                "actArr": {
+                    "icao": "LCLK",
+                    "name": "Larnaca International Airport",
+                    "city": "Larnaca",
+                    "location": {
+                        "lat": 34.875099,
+                        "lon": 33.624901,
+                        "elev": 8
+                    }
+                }
             }
         ]
     },
