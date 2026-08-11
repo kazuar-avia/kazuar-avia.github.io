@@ -8621,6 +8621,156 @@
                         "elev": 157
                     }
                 }
+            },
+            {
+                "_id": "6a7b56d0ef75cc33301bad98",
+                "aircraft": {
+                    "_id": "695a66383dc76275bad0826f",
+                    "name": "Airbus A320",
+                    "customName": "Dry Lease l A320 CFM FENIX msfs2024",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "9CK",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 170,
+                    "cargo": 7,
+                    "weights": {
+                        "cargo": 707
+                    }
+                },
+                "depTime": "2026-08-11T18:15:00.000Z",
+                "duration": 70,
+                "arrTime": "2026-08-11T19:25:00.000Z",
+                "depTimeAct": "2026-08-11T18:31:18.208Z",
+                "delay": 63,
+                "takeoffTimeAct": "2026-08-11T18:52:27.164Z",
+                "durationAct": 96,
+                "arrTimeAct": "2026-08-11T20:28:22.018Z",
+                "open": "2026-08-11T17:30:25.250Z",
+                "close": "2026-08-11T20:38:40.028Z",
+                "rating": 10,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 503,
+                        "fuel": 4653,
+                        "expenses": 14896,
+                        "penalties": 170,
+                        "revenue": 20134,
+                        "balance": 5068,
+                        "prices": {
+                            "ticketPrice": 108,
+                            "cargoUnitPrice": 130,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 170,
+                            "cargo": 7,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 8,
+                                "Y": 162
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 5261,
+                        "aircraft": 5750,
+                        "handling": 2145,
+                        "landing": 1740
+                    },
+                    "revenue": {
+                        "tickets": 19224,
+                        "cargo": 910
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight delayed 2 minutes (max 15 minutes after scheduled is allowed)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 170
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 38
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.35G (280 ft/min, normal  conditions)<br/>Distance from threshold: 716m (accepted range: 202-811m)<br/>Average centerline deviation: 0.36m<br/>Max centerline deviation: 0.71m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.35,
+                                        "rate": 280
+                                    },
+                                    "weather": {
+                                        "windDir": 60,
+                                        "windSpd": 8.12,
+                                        "windX": -0.58
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-11T17:07:28.445Z",
+                "updatedAt": "2026-08-11T20:38:40.124Z",
+                "dep": {
+                    "icao": "EDDM",
+                    "name": "Munich Airport",
+                    "city": "Munich",
+                    "location": {
+                        "lat": 48.353802,
+                        "lon": 11.7861,
+                        "elev": 1487
+                    }
+                },
+                "arr": {
+                    "icao": "EBBR",
+                    "name": "Brussels Airport",
+                    "city": "Zaventem",
+                    "location": {
+                        "lat": 50.901402,
+                        "lon": 4.48444,
+                        "elev": 175
+                    }
+                },
+                "actArr": {
+                    "icao": "EBBR",
+                    "name": "Brussels Airport",
+                    "city": "Zaventem",
+                    "location": {
+                        "lat": 50.901402,
+                        "lon": 4.48444,
+                        "elev": 175
+                    }
+                }
             }
         ]
     },
