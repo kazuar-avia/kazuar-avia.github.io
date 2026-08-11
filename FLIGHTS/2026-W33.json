@@ -1558,6 +1558,156 @@
                         "elev": 1071
                     }
                 }
+            },
+            {
+                "_id": "6a7ab628ef75cc33300cf10a",
+                "aircraft": {
+                    "_id": "695a66383dc76275bad0826f",
+                    "name": "Airbus A320",
+                    "customName": "Dry Lease l A320 CFM FENIX msfs2024",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "42MC",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 160,
+                    "cargo": 22,
+                    "weights": {
+                        "cargo": 1606
+                    }
+                },
+                "depTime": "2026-08-11T05:56:00.000Z",
+                "duration": 105,
+                "arrTime": "2026-08-11T07:41:00.000Z",
+                "depTimeAct": "2026-08-11T05:54:30.036Z",
+                "delay": -5,
+                "takeoffTimeAct": "2026-08-11T05:59:43.030Z",
+                "durationAct": 96,
+                "arrTimeAct": "2026-08-11T07:35:34.904Z",
+                "open": "2026-08-11T05:53:33.045Z",
+                "close": "2026-08-11T07:39:05.927Z",
+                "rating": 9.6,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 653,
+                        "fuel": 4060,
+                        "expenses": 12135,
+                        "penalties": 0,
+                        "revenue": 23309,
+                        "balance": 11174,
+                        "prices": {
+                            "ticketPrice": 121,
+                            "cargoUnitPrice": 141,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 160,
+                            "cargo": 22,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 7,
+                                "Y": 153
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4590,
+                        "aircraft": 5600,
+                        "handling": 730,
+                        "landing": 1215
+                    },
+                    "revenue": {
+                        "tickets": 20207,
+                        "cargo": 3102
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 6.01m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -30,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Greased touchdown: 1.03G (49 ft/min, normal  conditions)<br/>Distance from threshold: 563m (accepted range: 200-802m)<br/>Average centerline deviation: 3.24m<br/>Max centerline deviation: 6.01m",
+                            "penalty": {
+                                "points": -10,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 59
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.03,
+                                        "rate": 49
+                                    },
+                                    "weather": {
+                                        "windDir": 340,
+                                        "windSpd": 10,
+                                        "windX": -3.69
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-11T05:42:00.953Z",
+                "updatedAt": "2026-08-11T07:39:06.013Z",
+                "dep": {
+                    "icao": "LGKR",
+                    "name": "Corfu Ioannis Kapodistrias International Airport",
+                    "city": "Kerkyra (Corfu)",
+                    "location": {
+                        "lat": 39.602024,
+                        "lon": 19.912038,
+                        "elev": 6
+                    }
+                },
+                "arr": {
+                    "icao": "LTAI",
+                    "name": "Antalya International Airport",
+                    "city": "Antalya",
+                    "location": {
+                        "lat": 36.898701,
+                        "lon": 30.800501,
+                        "elev": 177
+                    }
+                },
+                "actArr": {
+                    "icao": "LTAI",
+                    "name": "Antalya International Airport",
+                    "city": "Antalya",
+                    "location": {
+                        "lat": 36.898701,
+                        "lon": 30.800501,
+                        "elev": 177
+                    }
+                }
             }
         ]
     },
