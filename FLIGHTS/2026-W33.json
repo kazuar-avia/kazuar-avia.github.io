@@ -852,6 +852,195 @@
                         "elev": 587
                     }
                 }
+            },
+            {
+                "_id": "6a7b1142ef75cc333014c7f5",
+                "aircraft": {
+                    "_id": "695a7b183dc76275bad3a123",
+                    "name": "Boeing 737-800",
+                    "customName": "Ukraine Int l 737-800 based in UKOO UKDE UKOH l UR-PSO",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "293",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 184,
+                    "cargo": 19,
+                    "weights": {
+                        "cargo": 1786
+                    }
+                },
+                "depTime": "2026-08-11T12:30:00.000Z",
+                "duration": 120,
+                "arrTime": "2026-08-11T14:30:00.000Z",
+                "depTimeAct": "2026-08-11T12:35:35.340Z",
+                "delay": 39,
+                "takeoffTimeAct": "2026-08-11T12:43:49.351Z",
+                "durationAct": 146,
+                "arrTimeAct": "2026-08-11T15:09:22.863Z",
+                "open": "2026-08-11T12:22:40.505Z",
+                "close": "2026-08-11T15:13:05.386Z",
+                "rating": 7.34,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 744,
+                        "fuel": 7152,
+                        "expenses": 16256,
+                        "penalties": 1935,
+                        "revenue": 32124,
+                        "balance": 13933,
+                        "prices": {
+                            "ticketPrice": 156,
+                            "cargoUnitPrice": 180,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 184,
+                            "cargo": 19,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 184
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 8170,
+                        "aircraft": 5800,
+                        "handling": 1665,
+                        "landing": 621
+                    },
+                    "revenue": {
+                        "tickets": 28704,
+                        "cargo": 3420
+                    },
+                    "violations": [
+                        {
+                            "title": "MLW exceeded: 321kg above maximum landing weight of 66361kg",
+                            "penalty": {
+                                "points": -29,
+                                "cash": 1935
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.36,
+                                        "rate": 234
+                                    },
+                                    "weather": {
+                                        "windDir": 269.99,
+                                        "windSpd": 7.08,
+                                        "windX": -6.24
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 9.69m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -37,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.36G (234 ft/min, challenging  conditions)<br/>Distance from threshold: 596m (accepted range: 175-704m)<br/>Average centerline deviation: 4.61m<br/>Max centerline deviation: 9.69m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.36,
+                                        "rate": 234
+                                    },
+                                    "weather": {
+                                        "windDir": 269.99,
+                                        "windSpd": 7.08,
+                                        "windX": -6.24
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Min G exceeded: -1.07G (min allowed: 0G)",
+                            "penalty": {
+                                "points": -200,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-11T12:10:42.210Z",
+                "updatedAt": "2026-08-11T15:13:05.476Z",
+                "dep": {
+                    "icao": "LTAI",
+                    "name": "Antalya International Airport",
+                    "city": "Antalya",
+                    "location": {
+                        "lat": 36.898701,
+                        "lon": 30.800501,
+                        "elev": 177
+                    }
+                },
+                "arr": {
+                    "icao": "UKOH",
+                    "name": "Kherson International Airport",
+                    "city": "Kherson",
+                    "location": {
+                        "lat": 46.6758,
+                        "lon": 32.506401,
+                        "elev": 148
+                    }
+                },
+                "actArr": {
+                    "icao": "UKOH",
+                    "name": "Kherson International Airport",
+                    "city": "Kherson",
+                    "location": {
+                        "lat": 46.6758,
+                        "lon": 32.506401,
+                        "elev": 148
+                    }
+                }
             }
         ]
     },
