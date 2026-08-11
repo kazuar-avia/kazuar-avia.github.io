@@ -3087,6 +3087,185 @@
                         "elev": 1247
                     }
                 }
+            },
+            {
+                "_id": "6a7a5588ef75cc333007bad7",
+                "aircraft": {
+                    "_id": "695a66383dc76275bad0826f",
+                    "name": "Airbus A320",
+                    "customName": "Dry Lease l A320 CFM FENIX msfs2024",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "193C",
+                "free": false,
+                "schedule": false,
+                "charter": true,
+                "payload": {
+                    "pax": 176,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-08-10T23:20:00.000Z",
+                "duration": 180,
+                "arrTime": "2026-08-11T02:20:00.000Z",
+                "depTimeAct": "2026-08-10T23:10:52.244Z",
+                "delay": -21,
+                "takeoffTimeAct": "2026-08-10T23:18:45.513Z",
+                "durationAct": 160,
+                "arrTimeAct": "2026-08-11T01:58:45.589Z",
+                "open": "2026-08-10T23:03:02.502Z",
+                "close": "2026-08-11T02:05:38.635Z",
+                "rating": 9.48,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1143,
+                        "fuel": 7125,
+                        "expenses": 17852,
+                        "penalties": 0,
+                        "revenue": 44712,
+                        "balance": 26860,
+                        "prices": {
+                            "ticketPrice": 243,
+                            "cargoUnitPrice": 264,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 176,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 8,
+                                "Y": 168
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 8055,
+                        "aircraft": 7350,
+                        "handling": 1232,
+                        "landing": 1215
+                    },
+                    "revenue": {
+                        "tickets": 44712,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Altimeter incorrect on takeoff: 948mb instead of 1002mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 66
+                                    },
+                                    "weather": {
+                                        "windDir": 199.99,
+                                        "windSpd": 13,
+                                        "windX": 1.38
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (822m from threshold beyond 815m max accepted)",
+                            "penalty": {
+                                "points": -2,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 59
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.31,
+                                        "rate": 243
+                                    },
+                                    "weather": {
+                                        "windDir": 260.12,
+                                        "windSpd": 11.18,
+                                        "windX": 10.86
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.31G (243 ft/min, challenging  conditions)<br/>Distance from threshold: 822m (accepted range: 203-815m)<br/>Average centerline deviation: 1.86m<br/>Max centerline deviation: 4.06m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 59
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.31,
+                                        "rate": 243
+                                    },
+                                    "weather": {
+                                        "windDir": 260.12,
+                                        "windSpd": 11.18,
+                                        "windX": 10.86
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-10T22:49:44.070Z",
+                "updatedAt": "2026-08-11T02:05:38.728Z",
+                "dep": {
+                    "icao": "ENTC",
+                    "name": "Tromsø Airport, Langnes",
+                    "city": "Tromsø",
+                    "location": {
+                        "lat": 69.683296,
+                        "lon": 18.9189,
+                        "elev": 31
+                    }
+                },
+                "arr": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                },
+                "actArr": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                }
             }
         ]
     },
