@@ -6921,6 +6921,209 @@
                         "elev": 961
                     }
                 }
+            },
+            {
+                "_id": "6a7cc90aef75cc333037d069",
+                "aircraft": {
+                    "_id": "6a48a7935760ec7cdbd54058",
+                    "name": "Cessna 172",
+                    "customName": "Cessna C172",
+                    "icao": "C172"
+                },
+                "type": "pax",
+                "flightNumber": "174M",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 3,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-08-12T19:40:00.000Z",
+                "duration": 20,
+                "arrTime": "2026-08-12T20:00:00.000Z",
+                "depTimeAct": "2026-08-12T19:37:00.321Z",
+                "delay": -10,
+                "takeoffTimeAct": "2026-08-12T19:38:46.329Z",
+                "durationAct": 11,
+                "arrTimeAct": "2026-08-12T19:49:49.337Z",
+                "open": "2026-08-12T19:27:10.137Z",
+                "close": "2026-08-12T19:53:08.367Z",
+                "rating": 8.99,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 16,
+                        "fuel": 5,
+                        "expenses": 115,
+                        "penalties": 0,
+                        "revenue": 99,
+                        "balance": -16,
+                        "prices": {
+                            "ticketPrice": 33,
+                            "cargoUnitPrice": 32,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 3,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 3
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 5,
+                        "aircraft": 77,
+                        "handling": 11,
+                        "landing": 22
+                    },
+                    "revenue": {
+                        "tickets": 99,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1013mb instead of 1024.5mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "weather": {
+                                        "windDir": 347.93,
+                                        "windSpd": 5.09,
+                                        "windX": 5.03
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 8.07m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -1,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.36,
+                                        "rate": 242
+                                    },
+                                    "weather": {
+                                        "windDir": 343.3,
+                                        "windSpd": 2.23,
+                                        "windX": 0.29
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.36G (242 ft/min, challenging  conditions)<br/>Distance from threshold: 334m (accepted range: 199-800m)<br/>Average centerline deviation: 6.74m<br/>Max centerline deviation: 8.07m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.36,
+                                        "rate": 242
+                                    },
+                                    "weather": {
+                                        "windDir": 343.3,
+                                        "windSpd": 2.23,
+                                        "windX": 0.29
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on landing: 1013mb instead of 1024.8mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.36,
+                                        "rate": 242
+                                    },
+                                    "weather": {
+                                        "windDir": 343.3,
+                                        "windSpd": 2.23,
+                                        "windX": 0.29
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-12T19:27:06.035Z",
+                "updatedAt": "2026-08-12T19:53:08.445Z",
+                "dep": {
+                    "icao": "UKKK",
+                    "name": "Ihor Sikorsky Kyiv International Airport (Zhuliany)",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.40194,
+                        "lon": 30.45194,
+                        "elev": 587
+                    }
+                },
+                "arr": {
+                    "icao": "UKKM",
+                    "name": "Hostomel Airport",
+                    "city": "Kiev",
+                    "location": {
+                        "lat": 50.6035,
+                        "lon": 30.1919,
+                        "elev": 517
+                    }
+                },
+                "actArr": {
+                    "icao": "UKKM",
+                    "name": "Hostomel Airport",
+                    "city": "Kiev",
+                    "location": {
+                        "lat": 50.6035,
+                        "lon": 30.1919,
+                        "elev": 517
+                    }
+                }
             }
         ]
     },
