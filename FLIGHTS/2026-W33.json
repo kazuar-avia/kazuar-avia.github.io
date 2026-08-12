@@ -13880,5 +13880,167 @@
                 }
             }
         ]
+    },
+    {
+        "pilot_id": "690a53113dc76275ba867994",
+        "fullname": "Lou Ken",
+        "avatar": "690a53113dc76275ba8679941762285983623",
+        "flights": [
+            {
+                "_id": "6a7cc88cef75cc333037c69e",
+                "aircraft": {
+                    "_id": "6a4fa1d65760ec7cdb62803f",
+                    "name": "Boeing 777-300ER",
+                    "customName": "Dry Lease l 777-300ER GE 370 pax",
+                    "icao": "B77W"
+                },
+                "type": "pax",
+                "flightNumber": "672Z",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 198,
+                    "cargo": 107,
+                    "weights": {
+                        "cargo": 7169
+                    }
+                },
+                "depTime": "2026-08-12T19:55:00.000Z",
+                "duration": 165,
+                "arrTime": "2026-08-12T22:40:00.000Z",
+                "depTimeAct": "2026-08-12T20:09:31.897Z",
+                "delay": 49,
+                "takeoffTimeAct": "2026-08-12T20:18:35.897Z",
+                "durationAct": 190,
+                "arrTimeAct": "2026-08-12T23:28:33.756Z",
+                "open": "2026-08-12T19:48:35.003Z",
+                "close": "2026-08-12T23:30:51.437Z",
+                "rating": 9.5,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1098,
+                        "fuel": 22650,
+                        "expenses": 49696,
+                        "penalties": 0,
+                        "revenue": 60778,
+                        "balance": 11082,
+                        "prices": {
+                            "ticketPrice": 156,
+                            "cargoUnitPrice": 170,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 197,
+                            "cargo": 107,
+                            "paxByClass": {
+                                "F": 13,
+                                "C": 37,
+                                "Y": 147
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 20485,
+                        "aircraft": 22950,
+                        "handling": 1077,
+                        "landing": 5184
+                    },
+                    "revenue": {
+                        "tickets": 42588,
+                        "cargo": 18190
+                    },
+                    "violations": [
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1013mb instead of 1023.6mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 35
+                                    },
+                                    "weather": {
+                                        "windDir": 354.07,
+                                        "windSpd": 7.68,
+                                        "windX": 1.23
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.09G (52 ft/min, normal  conditions)<br/>Distance from threshold: 440m (accepted range: 198-795m)<br/>Average centerline deviation: 1.04m<br/>Max centerline deviation: 2.14m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 18
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.09,
+                                        "rate": 52
+                                    },
+                                    "weather": {
+                                        "windDir": 90.13,
+                                        "windSpd": 7.13,
+                                        "windX": 3.76
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-12T19:25:00.353Z",
+                "updatedAt": "2026-08-12T23:30:51.511Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "EHAM",
+                    "name": "Amsterdam Airport Schiphol",
+                    "city": "Amsterdam",
+                    "location": {
+                        "lat": 52.308601,
+                        "lon": 4.76389,
+                        "elev": -11
+                    }
+                },
+                "actArr": {
+                    "icao": "EHAM",
+                    "name": "Amsterdam Airport Schiphol",
+                    "city": "Amsterdam",
+                    "location": {
+                        "lat": 52.308601,
+                        "lon": 4.76389,
+                        "elev": -11
+                    }
+                }
+            }
+        ]
     }
 ]
