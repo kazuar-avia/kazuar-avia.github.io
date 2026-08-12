@@ -9284,6 +9284,247 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6a7c3f10ef75cc33302b93d4",
+                "aircraft": {
+                    "_id": "69ef2326a5e61d69a7a9a128",
+                    "name": "Airbus A320",
+                    "customName": "Windrose l A320 based in UKDD UKBB l UR-WRW",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "953",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 130,
+                    "cargo": 24,
+                    "weights": {
+                        "cargo": 1824
+                    }
+                },
+                "depTime": "2026-08-12T10:15:00.000Z",
+                "duration": 130,
+                "arrTime": "2026-08-12T12:25:00.000Z",
+                "depTimeAct": "2026-08-12T10:15:41.612Z",
+                "delay": -6,
+                "takeoffTimeAct": "2026-08-12T10:28:26.677Z",
+                "durationAct": 111,
+                "arrTimeAct": "2026-08-12T12:19:27.886Z",
+                "open": "2026-08-12T09:45:34.976Z",
+                "close": "2026-08-12T12:50:27.150Z",
+                "rating": 0,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 699,
+                        "fuel": 4552,
+                        "expenses": 11007,
+                        "penalties": 391646,
+                        "revenue": 25322,
+                        "balance": -377331,
+                        "prices": {
+                            "ticketPrice": 161,
+                            "cargoUnitPrice": 183,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 130,
+                            "cargo": 24,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 130
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4117,
+                        "aircraft": 5175,
+                        "handling": 662,
+                        "landing": 1053
+                    },
+                    "revenue": {
+                        "tickets": 20930,
+                        "cargo": 4392
+                    },
+                    "violations": [
+                        {
+                            "title": "MLW exceeded: 346kg above maximum landing weight of 64500kg",
+                            "penalty": {
+                                "points": -32,
+                                "cash": 2146
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 1
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.77,
+                                        "rate": 649
+                                    },
+                                    "weather": {
+                                        "windDir": 29.93,
+                                        "windSpd": 9.87,
+                                        "windX": -9.82
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Tail strike on landing (pitch: 18.8, max: 13.0)",
+                            "penalty": {
+                                "points": -400,
+                                "cash": 150000
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Wing/engine strike on landing (bank: 15.2, max: 14.7)",
+                            "penalty": {
+                                "points": -400,
+                                "cash": 150000
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Runway excursion on landing (38m from runway edge)",
+                            "penalty": {
+                                "points": -300,
+                                "cash": 30000
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (2264m from threshold beyond 780m max accepted)",
+                            "penalty": {
+                                "points": -350,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 1
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.77,
+                                        "rate": 649
+                                    },
+                                    "weather": {
+                                        "windDir": 29.93,
+                                        "windSpd": 9.87,
+                                        "windX": -9.82
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Terrible touchdown: 2.73G (873 ft/min, challenging  conditions)<br/>Distance from threshold: 2264m (accepted range: 194-780m)<br/>Average centerline deviation: 35.16m<br/>Max centerline deviation: 64.93m",
+                            "penalty": {
+                                "points": -307,
+                                "cash": 59500
+                            },
+                            "entry": {
+                                "type": "bounce",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.73,
+                                        "rate": 873
+                                    },
+                                    "weather": {
+                                        "windDir": 29.95,
+                                        "windSpd": 9.38,
+                                        "windX": -8.17
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Stall warning for 1 seconds",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-12T09:38:24.806Z",
+                "updatedAt": "2026-08-12T12:50:27.607Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "LKPR",
+                    "name": "Václav Havel Airport Prague",
+                    "city": "Prague",
+                    "location": {
+                        "lat": 50.100874,
+                        "lon": 14.259911,
+                        "elev": 1247
+                    }
+                },
+                "actArr": {
+                    "icao": "LKPR",
+                    "name": "Václav Havel Airport Prague",
+                    "city": "Prague",
+                    "location": {
+                        "lat": 50.100874,
+                        "lon": 14.259911,
+                        "elev": 1247
+                    }
+                }
             }
         ]
     },
