@@ -11245,6 +11245,200 @@
                         "elev": 362
                     }
                 }
+            },
+            {
+                "_id": "6a7c8ce8ef75cc33303248a5",
+                "aircraft": {
+                    "_id": "6a4fa15e5760ec7cdb627803",
+                    "name": "Boeing 737-800",
+                    "customName": "Dry Lease l BOEING 737-800",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "0210",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 163,
+                    "cargo": 18,
+                    "weights": {
+                        "cargo": 2052
+                    }
+                },
+                "depTime": "2026-08-12T15:40:00.000Z",
+                "duration": 110,
+                "arrTime": "2026-08-12T17:30:00.000Z",
+                "depTimeAct": "2026-08-12T15:32:58.334Z",
+                "delay": 8,
+                "takeoffTimeAct": "2026-08-12T15:43:09.340Z",
+                "durationAct": 115,
+                "arrTimeAct": "2026-08-12T17:37:42.485Z",
+                "open": "2026-08-12T15:15:24.066Z",
+                "close": "2026-08-12T17:44:02.097Z",
+                "rating": 7.79,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 750,
+                        "fuel": 5247,
+                        "expenses": 13661,
+                        "penalties": 0,
+                        "revenue": 25467,
+                        "balance": 11806,
+                        "prices": {
+                            "ticketPrice": 125,
+                            "cargoUnitPrice": 144,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 163,
+                            "cargo": 18,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 20,
+                                "Y": 143
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 5932,
+                        "aircraft": 5750,
+                        "handling": 1475,
+                        "landing": 504
+                    },
+                    "revenue": {
+                        "tickets": 22875,
+                        "cargo": 2592
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 7.57m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -51,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    },
+                                    "weather": {
+                                        "windDir": 280,
+                                        "windSpd": 8.44,
+                                        "windX": -0.04
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (825m from threshold beyond 704m max accepted)",
+                            "penalty": {
+                                "points": -42,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 36
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.18,
+                                        "rate": 196
+                                    },
+                                    "weather": {
+                                        "windDir": 344.1,
+                                        "windSpd": 2.91,
+                                        "windX": 0.05
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.18G (196 ft/min, challenging  conditions)<br/>Distance from threshold: 825m (accepted range: 175-704m)<br/>Average centerline deviation: 0.85m<br/>Max centerline deviation: 1.67m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 36
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.18,
+                                        "rate": 196
+                                    },
+                                    "weather": {
+                                        "windDir": 344.1,
+                                        "windSpd": 2.91,
+                                        "windX": 0.05
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Min G exceeded: -0.64G (min allowed: 0G)",
+                            "penalty": {
+                                "points": -128,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 39
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-12T15:10:32.606Z",
+                "updatedAt": "2026-08-12T17:44:02.178Z",
+                "dep": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                },
+                "arr": {
+                    "icao": "UKHH",
+                    "name": "Kharkiv International Airport",
+                    "city": "Kharkiv",
+                    "location": {
+                        "lat": 49.926943,
+                        "lon": 36.290814,
+                        "elev": 508
+                    }
+                },
+                "actArr": {
+                    "icao": "UKHH",
+                    "name": "Kharkiv International Airport",
+                    "city": "Kharkiv",
+                    "location": {
+                        "lat": 49.926943,
+                        "lon": 36.290814,
+                        "elev": 508
+                    }
+                }
             }
         ]
     },
