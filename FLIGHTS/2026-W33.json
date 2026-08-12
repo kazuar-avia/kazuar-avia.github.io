@@ -10650,6 +10650,171 @@
                         "elev": 919
                     }
                 }
+            },
+            {
+                "_id": "6a7c425728a8e3fe149c21a4",
+                "aircraft": {
+                    "_id": "695a82b73dc76275bad4f381",
+                    "name": "ATR 72-600",
+                    "customName": "Windrose l ATR-72 based in UKBB l UR-RWC",
+                    "icao": "AT76"
+                },
+                "type": "pax",
+                "flightNumber": "114W",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 72,
+                    "cargo": 10,
+                    "weights": {
+                        "cargo": 760
+                    }
+                },
+                "depTime": "2026-08-12T10:10:00.000Z",
+                "duration": 50,
+                "arrTime": "2026-08-12T11:00:00.000Z",
+                "depTimeAct": "2026-08-12T10:13:17.659Z",
+                "delay": 7,
+                "takeoffTimeAct": "2026-08-12T10:23:05.670Z",
+                "durationAct": 44,
+                "arrTimeAct": "2026-08-12T11:07:25.694Z",
+                "open": "2026-08-12T10:02:16.672Z",
+                "close": "2026-08-12T11:09:21.772Z",
+                "rating": 7.95,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 127,
+                        "fuel": 509,
+                        "expenses": 3030,
+                        "penalties": 0,
+                        "revenue": 5184,
+                        "balance": 2154,
+                        "prices": {
+                            "ticketPrice": 62,
+                            "cargoUnitPrice": 72,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 72,
+                            "cargo": 10,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 72
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 576,
+                        "aircraft": 1840,
+                        "handling": 394,
+                        "landing": 220
+                    },
+                    "revenue": {
+                        "tickets": 4464,
+                        "cargo": 720
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 8.90m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -55,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 35
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.18G (176 ft/min, normal  conditions)<br/>Distance from threshold: 379m (accepted range: 175-701m)<br/>Average centerline deviation: 5.66m<br/>Max centerline deviation: 8.90m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 35
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.18,
+                                        "rate": 176
+                                    },
+                                    "weather": {
+                                        "windDir": 9.99,
+                                        "windSpd": 11.75,
+                                        "windX": 4.98
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 821ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gear",
+                                "payload": {
+                                    "system": {
+                                        "fps": 36
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-12T09:52:23.885Z",
+                "updatedAt": "2026-08-12T11:09:21.878Z",
+                "dep": {
+                    "icao": "UKLI",
+                    "name": "Ivano-Frankivsk International Airport",
+                    "city": "Ivano-Frankivsk",
+                    "location": {
+                        "lat": 48.88420104980469,
+                        "lon": 24.686100006103516,
+                        "elev": 919
+                    }
+                },
+                "arr": {
+                    "icao": "LRSV",
+                    "name": "Suceava Stefan cel Mare Airport",
+                    "city": "Suceava",
+                    "location": {
+                        "lat": 47.6875,
+                        "lon": 26.35409927368164,
+                        "elev": 1375
+                    }
+                },
+                "actArr": {
+                    "icao": "LRSV",
+                    "name": "Suceava Stefan cel Mare Airport",
+                    "city": "Suceava",
+                    "location": {
+                        "lat": 47.6875,
+                        "lon": 26.35409927368164,
+                        "elev": 1375
+                    }
+                }
             }
         ]
     }
