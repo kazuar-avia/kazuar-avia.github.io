@@ -1461,6 +1461,156 @@
                         "elev": 481
                     }
                 }
+            },
+            {
+                "_id": "6a7bbbb3ef75cc3330253406",
+                "aircraft": {
+                    "_id": "6a4f69f85760ec7cdb5e7cef",
+                    "name": "Boeing 737-800",
+                    "customName": "SkyUp l 737-800 based in UKOO UKBB l UR-SQC",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "955",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 180,
+                    "cargo": 25,
+                    "weights": {
+                        "cargo": 2200
+                    }
+                },
+                "depTime": "2026-08-12T00:40:00.000Z",
+                "duration": 100,
+                "arrTime": "2026-08-12T02:20:00.000Z",
+                "depTimeAct": "2026-08-12T00:41:29.002Z",
+                "delay": -10,
+                "takeoffTimeAct": "2026-08-12T00:46:59.010Z",
+                "durationAct": 83,
+                "arrTimeAct": "2026-08-12T02:09:44.087Z",
+                "open": "2026-08-12T00:26:28.546Z",
+                "close": "2026-08-12T02:12:43.131Z",
+                "rating": 9.17,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 564,
+                        "fuel": 4047,
+                        "expenses": 11401,
+                        "penalties": 0,
+                        "revenue": 25075,
+                        "balance": 13674,
+                        "prices": {
+                            "ticketPrice": 120,
+                            "cargoUnitPrice": 139,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 180,
+                            "cargo": 25,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 180
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4576,
+                        "aircraft": 5275,
+                        "handling": 983,
+                        "landing": 567
+                    },
+                    "revenue": {
+                        "tickets": 21600,
+                        "cargo": 3475
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 9.10m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -83,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.14G (174 ft/min, normal  conditions)<br/>Distance from threshold: 482m (accepted range: 175-704m)<br/>Average centerline deviation: 4.39m<br/>Max centerline deviation: 9.10m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.14,
+                                        "rate": 174
+                                    },
+                                    "weather": {
+                                        "windDir": 65.47,
+                                        "windSpd": 2.91,
+                                        "windX": 2.8
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-12T00:17:55.793Z",
+                "updatedAt": "2026-08-12T02:12:43.222Z",
+                "dep": {
+                    "icao": "LUKK",
+                    "name": "Chişinău International Airport",
+                    "city": "Chişinău",
+                    "location": {
+                        "lat": 46.9277,
+                        "lon": 28.931,
+                        "elev": 399
+                    }
+                },
+                "arr": {
+                    "icao": "LYTV",
+                    "name": "Tivat Airport",
+                    "city": "Tivat",
+                    "location": {
+                        "lat": 42.404701232910156,
+                        "lon": 18.72330093383789,
+                        "elev": 20
+                    }
+                },
+                "actArr": {
+                    "icao": "LYTV",
+                    "name": "Tivat Airport",
+                    "city": "Tivat",
+                    "location": {
+                        "lat": 42.404701232910156,
+                        "lon": 18.72330093383789,
+                        "elev": 20
+                    }
+                }
             }
         ]
     },
