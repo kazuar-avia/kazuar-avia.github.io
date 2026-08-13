@@ -13600,6 +13600,180 @@
                         "elev": 102
                     }
                 }
+            },
+            {
+                "_id": "6a7df727ef75cc333050a6c6",
+                "aircraft": {
+                    "_id": "6988b97c9da57b990ad5c8f7",
+                    "name": "Airbus A321 neo",
+                    "customName": "Dry Lease l iniBuilds A321LR (neo) l 220 pax",
+                    "icao": "A21N"
+                },
+                "type": "pax",
+                "flightNumber": "52F",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 65,
+                    "cargo": 40,
+                    "weights": {
+                        "cargo": 2760
+                    }
+                },
+                "depTime": "2026-08-13T17:10:00.000Z",
+                "duration": 110,
+                "arrTime": "2026-08-13T19:00:00.000Z",
+                "depTimeAct": "2026-08-13T17:07:34.762Z",
+                "delay": -16,
+                "takeoffTimeAct": "2026-08-13T17:09:45.762Z",
+                "durationAct": 95,
+                "arrTimeAct": "2026-08-13T18:44:20.731Z",
+                "open": "2026-08-13T17:03:28.103Z",
+                "close": "2026-08-13T18:49:27.772Z",
+                "rating": 9.7,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 617,
+                        "fuel": 4036,
+                        "expenses": 12304,
+                        "penalties": 0,
+                        "revenue": 14235,
+                        "balance": 1931,
+                        "prices": {
+                            "ticketPrice": 131,
+                            "cargoUnitPrice": 143,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 65,
+                            "cargo": 40,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 65
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4736,
+                        "aircraft": 6563,
+                        "handling": 345,
+                        "landing": 660
+                    },
+                    "revenue": {
+                        "tickets": 8515,
+                        "cargo": 5720
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 4.35m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -5,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Short landing (152m from threshold before 183m min accepted)",
+                            "penalty": {
+                                "points": -25,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.14,
+                                        "rate": 85
+                                    },
+                                    "weather": {
+                                        "windDir": 39.92,
+                                        "windSpd": 9.06,
+                                        "windX": -3.84
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.14G (85 ft/min, normal  conditions)<br/>Distance from threshold: 152m (accepted range: 183-734m)<br/>Average centerline deviation: 2.69m<br/>Max centerline deviation: 4.35m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.14,
+                                        "rate": 85
+                                    },
+                                    "weather": {
+                                        "windDir": 39.92,
+                                        "windSpd": 9.06,
+                                        "windX": -3.84
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-13T16:56:07.969Z",
+                "updatedAt": "2026-08-13T18:49:27.844Z",
+                "dep": {
+                    "icao": "SAZR",
+                    "name": "Santa Rosa Airport",
+                    "city": "Santa Rosa",
+                    "location": {
+                        "lat": -36.588299,
+                        "lon": -64.275703,
+                        "elev": 630
+                    }
+                },
+                "arr": {
+                    "icao": "SAVC",
+                    "name": "General E. Mosconi Airport",
+                    "city": "Comodoro Rivadavia",
+                    "location": {
+                        "lat": -45.7853,
+                        "lon": -67.4655,
+                        "elev": 189
+                    }
+                },
+                "actArr": {
+                    "icao": "SAVC",
+                    "name": "General E. Mosconi Airport",
+                    "city": "Comodoro Rivadavia",
+                    "location": {
+                        "lat": -45.7853,
+                        "lon": -67.4655,
+                        "elev": 189
+                    }
+                }
             }
         ]
     },
