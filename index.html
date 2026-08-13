@@ -8789,12 +8789,12 @@ function renderAirportPopupButtons(icao) {
   ]);
 
   const chartsUrls = {
-    UKKM: "https://vacc-ua.org/static/files/charts/UKKM_JEPP.pdf"
+    UKKM: "https://kazuar.in.ua/GROUND/UKKM.pdf"
   };
 
   const chartsUrl =
     chartsUrls[code] ||
-    `https://vacc-ua.org/static/files/charts/${code}.pdf`;
+    `https://kazuar.in.ua/GROUND/${code}.pdf`;
 
   const chartsButton = noChartsAirports.has(code)
     ? ""
