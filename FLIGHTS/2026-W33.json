@@ -9736,6 +9736,156 @@
                         "elev": 54
                     }
                 }
+            },
+            {
+                "_id": "6a7d9878ef75cc33304468d8",
+                "aircraft": {
+                    "_id": "696285163dc76275ba9ef60c",
+                    "name": "Boeing 737-800",
+                    "customName": "UCAA l 737-800 (pax) based in UKKK l UR-UCA",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "1204",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 147,
+                    "cargo": 18,
+                    "weights": {
+                        "cargo": 1260
+                    }
+                },
+                "depTime": "2026-08-13T10:35:00.000Z",
+                "duration": 106,
+                "arrTime": "2026-08-13T12:21:00.000Z",
+                "depTimeAct": "2026-08-13T10:34:11.138Z",
+                "delay": 9,
+                "takeoffTimeAct": "2026-08-13T10:37:16.143Z",
+                "durationAct": 112,
+                "arrTimeAct": "2026-08-13T12:29:44.202Z",
+                "open": "2026-08-13T10:12:37.903Z",
+                "close": "2026-08-13T12:34:23.249Z",
+                "rating": 9.56,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 735,
+                        "fuel": 4928,
+                        "expenses": 13087,
+                        "penalties": 0,
+                        "revenue": 21609,
+                        "balance": 8522,
+                        "prices": {
+                            "ticketPrice": 129,
+                            "cargoUnitPrice": 147,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 147,
+                            "cargo": 18,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 147
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 5572,
+                        "aircraft": 6150,
+                        "handling": 744,
+                        "landing": 621
+                    },
+                    "revenue": {
+                        "tickets": 18963,
+                        "cargo": 2646
+                    },
+                    "violations": [
+                        {
+                            "title": "Great touchdown: 1.24G (189 ft/min, challenging  conditions)<br/>Distance from threshold: 457m (accepted range: 175-704m)<br/>Average centerline deviation: 2.08m<br/>Max centerline deviation: 3.61m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.24,
+                                        "rate": 189
+                                    },
+                                    "weather": {
+                                        "windDir": 347.13,
+                                        "windSpd": 12,
+                                        "windX": 6.26
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Max G exceeded: 2.22G (max allowed: 2G)",
+                            "penalty": {
+                                "points": -44,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-13T10:12:08.275Z",
+                "updatedAt": "2026-08-13T12:34:23.346Z",
+                "dep": {
+                    "icao": "LGSK",
+                    "name": "Skiathos Island National Airport",
+                    "city": "Skiathos",
+                    "location": {
+                        "lat": 39.177101,
+                        "lon": 23.5037,
+                        "elev": 54
+                    }
+                },
+                "arr": {
+                    "icao": "UKWW",
+                    "name": "Vinnytsia/Gavyryshivka International Airport",
+                    "city": "Vinnitsa",
+                    "location": {
+                        "lat": 49.242531,
+                        "lon": 28.613778,
+                        "elev": 961
+                    }
+                },
+                "actArr": {
+                    "icao": "UKWW",
+                    "name": "Vinnytsia/Gavyryshivka International Airport",
+                    "city": "Vinnitsa",
+                    "location": {
+                        "lat": 49.242531,
+                        "lon": 28.613778,
+                        "elev": 961
+                    }
+                }
             }
         ]
     },
