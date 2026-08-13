@@ -3329,6 +3329,176 @@
                         "elev": 1411
                     }
                 }
+            },
+            {
+                "_id": "6a7e0375ef75cc33305256dd",
+                "aircraft": {
+                    "_id": "695a7a463dc76275bad385fd",
+                    "name": "Boeing 737-800",
+                    "customName": "Bees l 737-800 based in UKKK UKLL UKOH l UR-UBA",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "93S",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 176,
+                    "cargo": 18,
+                    "weights": {
+                        "cargo": 2232
+                    }
+                },
+                "depTime": "2026-08-13T18:00:00.000Z",
+                "duration": 60,
+                "arrTime": "2026-08-13T19:00:00.000Z",
+                "depTimeAct": "2026-08-13T17:59:24.166Z",
+                "delay": 8,
+                "takeoffTimeAct": "2026-08-13T18:04:38.552Z",
+                "durationAct": 63,
+                "arrTimeAct": "2026-08-13T19:07:30.329Z",
+                "open": "2026-08-13T17:50:03.670Z",
+                "close": "2026-08-13T19:11:30.928Z",
+                "rating": 7.86,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 390,
+                        "fuel": 3124,
+                        "expenses": 12892,
+                        "penalties": 0,
+                        "revenue": 21646,
+                        "balance": 8754,
+                        "prices": {
+                            "ticketPrice": 110,
+                            "cargoUnitPrice": 127,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 176,
+                            "cargo": 18,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 176
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3532,
+                        "aircraft": 4775,
+                        "handling": 1750,
+                        "landing": 2835
+                    },
+                    "revenue": {
+                        "tickets": 19360,
+                        "cargo": 2286
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 4.18m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -3,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    },
+                                    "weather": {
+                                        "windDir": 352.82,
+                                        "windSpd": 1.48,
+                                        "windX": 1.18
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 17.49m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -211,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 34
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.12G (34 ft/min, normal  conditions)<br/>Distance from threshold: 548m (accepted range: 209-838m)<br/>Average centerline deviation: 14.30m<br/>Max centerline deviation: 17.49m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.12,
+                                        "rate": 34
+                                    },
+                                    "weather": {
+                                        "windDir": 70,
+                                        "windSpd": 8,
+                                        "windX": 0.2
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-13T17:48:37.779Z",
+                "updatedAt": "2026-08-13T19:11:31.009Z",
+                "dep": {
+                    "icao": "LSGG",
+                    "name": "Geneva Cointrin International Airport",
+                    "city": "Geneva",
+                    "location": {
+                        "lat": 46.238098,
+                        "lon": 6.10895,
+                        "elev": 1411
+                    }
+                },
+                "arr": {
+                    "icao": "EDDF",
+                    "name": "Frankfurt Airport",
+                    "city": "Frankfurt am Main",
+                    "location": {
+                        "lat": 50.030241,
+                        "lon": 8.561096,
+                        "elev": 364
+                    }
+                },
+                "actArr": {
+                    "icao": "EDDF",
+                    "name": "Frankfurt Airport",
+                    "city": "Frankfurt am Main",
+                    "location": {
+                        "lat": 50.030241,
+                        "lon": 8.561096,
+                        "elev": 364
+                    }
+                }
             }
         ]
     },
