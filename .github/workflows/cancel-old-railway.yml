@@ -1,4 +1,4 @@
-name: Test Railway CLI
+name: Test Railway deployment info
 
 on:
   push:
@@ -11,8 +11,17 @@ jobs:
     container: ghcr.io/railwayapp/cli:latest
 
     steps:
-      - name: Test Railway
+      - name: Test Railway deployment info
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
         run: |
+          echo "=== SERVICE STATUS ==="
           railway status
+
+          echo
+          echo "=== SERVICE LIST ==="
+          railway service list
+
+          echo
+          echo "=== LATEST DEPLOYMENT LOGS ==="
+          railway logs --latest --json
