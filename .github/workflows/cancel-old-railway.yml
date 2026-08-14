@@ -1,4 +1,4 @@
-name: Test Railway token
+name: Test Railway CLI
 
 on:
   push:
@@ -8,58 +8,11 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    container: ghcr.io/railwayapp/cli:latest
 
     steps:
-      - name: Test Railway API
+      - name: Test Railway
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
         run: |
-          python3 - <<'PY'
-          import os
-          import json
-          import urllib.request
-          import urllib.error
-          import hashlib
-
-          token = os.environ.get("RAILWAY_TOKEN", "")
-
-          print("Secret exists:", bool(token))
-          print("Secret length:", len(token))
-          print("Secret SHA256:", hashlib.sha256(token.encode()).hexdigest())
-
-          url = "https://backboard.railway.com/graphql/v2"
-
-          headers = {
-              "Project-Access-Token": token,
-              "Content-Type": "application/json"
-          }
-
-          query = """
-          query {
-            project(id: "54b4da1a-b57f-404b-9b9c-cf8af2915ea7") {
-              id
-              name
-            }
-          }
-          """
-
-          body = json.dumps({
-              "query": query
-          }).encode()
-
-          req = urllib.request.Request(
-              url,
-              data=body,
-              headers=headers,
-              method="POST"
-          )
-
-          try:
-              with urllib.request.urlopen(req) as response:
-                  print("HTTP:", response.status)
-                  print("RESPONSE:", response.read().decode())
-          except urllib.error.HTTPError as e:
-              print("HTTP:", e.code)
-              print("RESPONSE:", e.read().decode())
-              raise
-          PY
+          railway status
