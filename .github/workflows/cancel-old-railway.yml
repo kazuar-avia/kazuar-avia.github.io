@@ -26,23 +26,43 @@ jobs:
             --service efe286ee-8bf7-4113-8b79-4676bb804e0f \
             --json > deployments.json
 
-          echo "DEPLOYMENTS:"
-          cat deployments.json
+          echo "Deployments received"
 
-          echo "PROCESSING:"
+          awk '
+          /"id":/ {
+              id=$0
+              gsub(/.*"id": *"/,"",id)
+              gsub(/".*/,"",id)
+          }
 
-          jq -c '.[] | select(.status == "BUILDING" or .status == "QUEUED")' deployments.json |
-          while read -r deployment; do
-            ID=$(echo "$deployment" | jq -r '.id')
-            STATUS=$(echo "$deployment" | jq -r '.status')
-            COMMIT=$(echo "$deployment" | jq -r '.meta.commitHash // empty')
+          /"status":/ {
+              status=$0
+              gsub(/.*"status": *"/,"",status)
+              gsub(/".*/,"",status)
+          }
 
-            echo "FOUND: $ID | $STATUS | $COMMIT"
+          /"commitHash":/ {
+              commit=$0
+              gsub(/.*"commitHash": *"/,"",commit)
+              gsub(/".*/,"",commit)
 
-            if [ -z "$COMMIT" ]; then
-              echo "SKIP: no commitHash"
+              if (status == "BUILDING" || status == "QUEUED") {
+                  print id "|" status "|" commit
+              }
+          }
+          ' deployments.json > active.txt
+
+          echo "Active deployments:"
+
+          cat active.txt
+
+          while IFS='|' read -r ID STATUS COMMIT; do
+
+            if [ -z "$ID" ]; then
               continue
             fi
+
+            echo "Found: $ID | $STATUS | $COMMIT"
 
             if [ "$COMMIT" = "$CURRENT_SHA" ]; then
               echo "KEEP: $ID"
@@ -54,4 +74,5 @@ jobs:
             railway api \
               --variables "{\"id\":\"$ID\"}" \
               'mutation($id: String!) { deploymentCancel(id: $id) }'
-          done
+
+          done < active.txt
