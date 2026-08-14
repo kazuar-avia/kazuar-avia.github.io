@@ -11727,6 +11727,171 @@
                         "elev": 961
                     }
                 }
+            },
+            {
+                "_id": "6a7df6b1ef75cc3330509670",
+                "aircraft": {
+                    "_id": "695a63363dc76275bacff63f",
+                    "name": "Boeing 777-200ER",
+                    "customName": "Ukraine Int l 777-200 based in UKBB l UR-GOA",
+                    "icao": "B772"
+                },
+                "type": "pax",
+                "flightNumber": "1204",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 177,
+                    "cargo": 83,
+                    "weights": {
+                        "cargo": 5727
+                    }
+                },
+                "depTime": "2026-08-13T18:15:00.000Z",
+                "duration": 780,
+                "arrTime": "2026-08-14T07:15:00.000Z",
+                "depTimeAct": "2026-08-13T18:13:55.496Z",
+                "delay": -18,
+                "takeoffTimeAct": "2026-08-13T18:23:20.510Z",
+                "durationAct": 754,
+                "arrTimeAct": "2026-08-14T06:57:18.930Z",
+                "open": "2026-08-13T17:49:45.025Z",
+                "close": "2026-08-14T07:03:57.992Z",
+                "rating": 7.18,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 5855,
+                        "fuel": 77714,
+                        "expenses": 128634,
+                        "penalties": 0,
+                        "revenue": 229914,
+                        "balance": 101280,
+                        "prices": {
+                            "ticketPrice": 723,
+                            "cargoUnitPrice": 723,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 1,
+                                "fuel": 0.8,
+                                "ground": 0.85
+                            }
+                        },
+                        "payload": {
+                            "pax": 177,
+                            "cargo": 83,
+                            "paxByClass": {
+                                "F": 11,
+                                "C": 25,
+                                "Y": 141
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 70285,
+                        "aircraft": 52895,
+                        "handling": 954,
+                        "landing": 4500
+                    },
+                    "revenue": {
+                        "tickets": 169905,
+                        "cargo": 60009
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 14.27m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -147,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 15
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.62G (475 ft/min, normal  conditions)<br/>Distance from threshold: 705m (accepted range: 206-828m)<br/>Average centerline deviation: 4.28m<br/>Max centerline deviation: 14.27m",
+                            "penalty": {
+                                "points": -55,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 16
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.62,
+                                        "rate": 475
+                                    },
+                                    "weather": {
+                                        "windDir": 40,
+                                        "windSpd": 6.47,
+                                        "windX": -6.17
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 947ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -80,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-13T16:54:09.198Z",
+                "updatedAt": "2026-08-14T07:03:58.111Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "SKBO",
+                    "name": "El Dorado International Airport",
+                    "city": "Bogota",
+                    "location": {
+                        "lat": 4.70159,
+                        "lon": -74.1469,
+                        "elev": 8361
+                    }
+                },
+                "actArr": {
+                    "icao": "SKBO",
+                    "name": "El Dorado International Airport",
+                    "city": "Bogota",
+                    "location": {
+                        "lat": 4.70159,
+                        "lon": -74.1469,
+                        "elev": 8361
+                    }
+                }
             }
         ]
     },
