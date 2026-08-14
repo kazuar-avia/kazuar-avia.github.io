@@ -16092,6 +16092,191 @@
                         "elev": 189
                     }
                 }
+            },
+            {
+                "_id": "6a7ee2eaef75cc333067c4ef",
+                "aircraft": {
+                    "_id": "6a0b23a267cd7e249842bd81",
+                    "name": "Airbus A380",
+                    "customName": "Dry lease l FBW A380-800 l 446 pax elite",
+                    "icao": "A388"
+                },
+                "type": "pax",
+                "flightNumber": "80M",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 334,
+                    "cargo": 162,
+                    "weights": {
+                        "cargo": 10044
+                    }
+                },
+                "depTime": "2026-08-14T09:55:00.000Z",
+                "duration": 350,
+                "arrTime": "2026-08-14T15:45:00.000Z",
+                "depTimeAct": "2026-08-14T09:52:38.966Z",
+                "delay": -23,
+                "takeoffTimeAct": "2026-08-14T09:55:46.977Z",
+                "durationAct": 326,
+                "arrTimeAct": "2026-08-14T15:21:39.834Z",
+                "open": "2026-08-14T09:50:33.984Z",
+                "close": "2026-08-14T15:34:09.501Z",
+                "rating": 5.72,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 2431,
+                        "fuel": 64306,
+                        "expenses": 135178,
+                        "penalties": 150000,
+                        "revenue": 286750,
+                        "balance": 1572,
+                        "prices": {
+                            "ticketPrice": 316,
+                            "cargoUnitPrice": 311,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 334,
+                            "cargo": 162,
+                            "paxByClass": {
+                                "F": 64,
+                                "C": 222,
+                                "Y": 48
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 75033,
+                        "aircraft": 50450,
+                        "handling": 7095,
+                        "landing": 2600
+                    },
+                    "revenue": {
+                        "tickets": 236368,
+                        "cargo": 50382
+                    },
+                    "violations": [
+                        {
+                            "title": "Tail strike on takeoff (pitch: 12.2, allowed: 11.5)",
+                            "penalty": {
+                                "points": -400,
+                                "cash": 150000
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    },
+                                    "weather": {
+                                        "windDir": 200,
+                                        "windSpd": 5.09,
+                                        "windX": -4.81
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline takeoff (deviation 4.39m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -6,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 5.45m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -22,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.12G (195 ft/min, normal  conditions)<br/>Distance from threshold: 379m (accepted range: 197-789m)<br/>Average centerline deviation: 3.25m<br/>Max centerline deviation: 5.45m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.12,
+                                        "rate": 195
+                                    },
+                                    "weather": {
+                                        "windDir": 100,
+                                        "windSpd": 4.55,
+                                        "windX": -4.52
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-14T09:42:02.703Z",
+                "updatedAt": "2026-08-14T15:34:09.600Z",
+                "dep": {
+                    "icao": "KLAS",
+                    "name": "Harry Reid International Airport",
+                    "city": "Las Vegas",
+                    "location": {
+                        "lat": 36.083361,
+                        "lon": -115.151817,
+                        "elev": 2181
+                    }
+                },
+                "arr": {
+                    "icao": "PHKO",
+                    "name": "Ellison Onizuka Kona International Airport at Keahole",
+                    "city": "Kailua-Kona",
+                    "location": {
+                        "lat": 19.738783,
+                        "lon": -156.045603,
+                        "elev": 47
+                    }
+                },
+                "actArr": {
+                    "icao": "PHKO",
+                    "name": "Ellison Onizuka Kona International Airport at Keahole",
+                    "city": "Kailua-Kona",
+                    "location": {
+                        "lat": 19.738783,
+                        "lon": -156.045603,
+                        "elev": 47
+                    }
+                }
             }
         ]
     },
