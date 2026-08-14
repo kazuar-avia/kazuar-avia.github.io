@@ -1,18 +1,140 @@
-name: Test Railway API CLI
+name: Cancel old Railway deployments
 
 on:
   push:
     branches:
       - main
 
+concurrency:
+  group: cancel-old-railway
+  cancel-in-progress: true
+
 jobs:
-  test:
+  cancel-old:
     runs-on: ubuntu-latest
     container: ghcr.io/railwayapp/cli:latest
 
     steps:
-      - name: Test Railway API CLI
+      - name: Cancel old Railway deployments
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
+          CURRENT_SHA: ${{ github.sha }}
         run: |
-          railway api --help
+          python3 - <<'PY'
+          import os
+          import json
+          import subprocess
+          import sys
+
+          current_sha = os.environ["CURRENT_SHA"]
+
+          project_id = "54b4da1a-b57f-404b-9b9c-cf8af2915ea7"
+          service_id = "efe286ee-8bf7-4113-8b79-4676bb804e0f"
+          environment_id = "e4a12790-f825-4d85-aec9-db5ee1ecc2b4"
+
+          query = """
+          query($input: DeploymentListInput!) {
+            deployments(input: $input) {
+              edges {
+                node {
+                  id
+                  status
+                  meta
+                }
+              }
+            }
+          }
+          """
+
+          variables = json.dumps({
+              "input": {
+                  "projectId": project_id,
+                  "serviceId": service_id,
+                  "environmentId": environment_id
+              }
+          })
+
+          result = subprocess.run(
+              [
+                  "railway",
+                  "api",
+                  "--compact",
+                  "--variables",
+                  variables,
+                  query
+              ],
+              capture_output=True,
+              text=True
+          )
+
+          if result.returncode != 0:
+              print(result.stdout)
+              print(result.stderr)
+              sys.exit(result.returncode)
+
+          data = json.loads(result.stdout)
+
+          if "errors" in data:
+              print(data["errors"])
+              sys.exit(1)
+
+          deployments = [
+              edge["node"]
+              for edge in data["data"]["deployments"]["edges"]
+          ]
+
+          print("Current GitHub commit:", current_sha)
+
+          for deployment in deployments:
+              if deployment["status"] not in ("BUILDING", "QUEUED"):
+                  continue
+
+              meta = deployment.get("meta") or {}
+              commit_hash = meta.get("commitHash")
+
+              print(
+                  "Found:",
+                  deployment["id"],
+                  deployment["status"],
+                  commit_hash
+              )
+
+              if not commit_hash:
+                  print("SKIP:", deployment["id"])
+                  continue
+
+              if commit_hash == current_sha:
+                  print("KEEP:", deployment["id"])
+                  continue
+
+              mutation = """
+              mutation($id: String!) {
+                deploymentCancel(id: $id)
+              }
+              """
+
+              variables = json.dumps({
+                  "id": deployment["id"]
+              })
+
+              cancel = subprocess.run(
+                  [
+                      "railway",
+                      "api",
+                      "--compact",
+                      "--variables",
+                      variables,
+                      mutation
+                  ],
+                  capture_output=True,
+                  text=True
+              )
+
+              if cancel.returncode != 0:
+                  print(cancel.stdout)
+                  print(cancel.stderr)
+                  sys.exit(cancel.returncode)
+
+              print("CANCEL:", deployment["id"])
+              print(cancel.stdout)
+          PY
