@@ -17776,6 +17776,185 @@
                         "elev": 1071
                     }
                 }
+            },
+            {
+                "_id": "6a7f2305ef75cc33306fa4b2",
+                "aircraft": {
+                    "_id": "69ef2347a5e61d69a7a9a2b0",
+                    "name": "Airbus A320",
+                    "customName": "WizzAir Ukraine l A320 IAE SL based in UKBB l UR-WUB",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "2366",
+                "free": false,
+                "schedule": false,
+                "charter": true,
+                "payload": {
+                    "pax": 169,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-08-14T14:55:00.000Z",
+                "duration": 240,
+                "arrTime": "2026-08-14T18:55:00.000Z",
+                "depTimeAct": "2026-08-14T14:41:08.756Z",
+                "delay": -32,
+                "takeoffTimeAct": "2026-08-14T14:49:05.775Z",
+                "durationAct": 214,
+                "arrTimeAct": "2026-08-14T18:23:14.078Z",
+                "open": "2026-08-14T14:39:30.097Z",
+                "close": "2026-08-14T18:29:13.118Z",
+                "rating": 9.41,
+                "simulator": "msfs",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1550,
+                        "fuel": 9116,
+                        "expenses": 22257,
+                        "penalties": 0,
+                        "revenue": 50700,
+                        "balance": 28443,
+                        "prices": {
+                            "ticketPrice": 300,
+                            "cargoUnitPrice": 318,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 169,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 169
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 10306,
+                        "aircraft": 8700,
+                        "handling": 761,
+                        "landing": 2490
+                    },
+                    "revenue": {
+                        "tickets": 50700,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 5.85m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -21,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    },
+                                    "weather": {
+                                        "windDir": 9.99,
+                                        "windSpd": 8.09,
+                                        "windX": 2.78
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (933m from threshold beyond 823m max accepted)",
+                            "penalty": {
+                                "points": -38,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 35
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.08,
+                                        "rate": 77
+                                    },
+                                    "weather": {
+                                        "windDir": 350,
+                                        "windSpd": 12.64,
+                                        "windX": 1.65
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.08G (77 ft/min, normal  conditions)<br/>Distance from threshold: 933m (accepted range: 205-823m)<br/>Average centerline deviation: 1.62m<br/>Max centerline deviation: 2.89m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 35
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.08,
+                                        "rate": 77
+                                    },
+                                    "weather": {
+                                        "windDir": 350,
+                                        "windSpd": 12.64,
+                                        "windX": 1.65
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-14T14:15:33.738Z",
+                "updatedAt": "2026-08-14T18:29:13.206Z",
+                "dep": {
+                    "icao": "LGKR",
+                    "name": "Corfu Ioannis Kapodistrias International Airport",
+                    "city": "Kerkyra (Corfu)",
+                    "location": {
+                        "lat": 39.602024,
+                        "lon": 19.912038,
+                        "elev": 6
+                    }
+                },
+                "arr": {
+                    "icao": "OEJN",
+                    "name": "King Abdulaziz International Airport",
+                    "city": "Jeddah",
+                    "location": {
+                        "lat": 21.6796,
+                        "lon": 39.156502,
+                        "elev": 48
+                    }
+                },
+                "actArr": {
+                    "icao": "OEJN",
+                    "name": "King Abdulaziz International Airport",
+                    "city": "Jeddah",
+                    "location": {
+                        "lat": 21.6796,
+                        "lon": 39.156502,
+                        "elev": 48
+                    }
+                }
             }
         ]
     },
