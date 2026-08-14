@@ -13740,6 +13740,141 @@
                         "elev": 22
                     }
                 }
+            },
+            {
+                "_id": "6a7f4cc1ef75cc3330754ac1",
+                "aircraft": {
+                    "_id": "6a017caea5e61d69a759b0a8",
+                    "name": "Boeing 747-400",
+                    "customName": "Dry Lease l 747-400 l 375 pax elite",
+                    "icao": "B744"
+                },
+                "type": "pax",
+                "flightNumber": "3812",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 375,
+                    "cargo": 61,
+                    "weights": {
+                        "cargo": 8418
+                    }
+                },
+                "depTime": "2026-08-14T17:45:00.000Z",
+                "duration": 60,
+                "arrTime": "2026-08-14T18:45:00.000Z",
+                "depTimeAct": "2026-08-14T17:57:36.508Z",
+                "delay": 13,
+                "takeoffTimeAct": "2026-08-14T18:03:15.521Z",
+                "durationAct": 55,
+                "arrTimeAct": "2026-08-14T18:58:22.779Z",
+                "open": "2026-08-14T17:18:16.224Z",
+                "close": "2026-08-14T18:58:55.235Z",
+                "rating": 9.85,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 303,
+                        "fuel": 8650,
+                        "expenses": 29015,
+                        "penalties": 0,
+                        "revenue": 89110,
+                        "balance": 60095,
+                        "prices": {
+                            "ticketPrice": 138,
+                            "cargoUnitPrice": 160,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 375,
+                            "cargo": 61,
+                            "paxByClass": {
+                                "F": 50,
+                                "C": 50,
+                                "Y": 275
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 9779,
+                        "aircraft": 14888,
+                        "handling": 2052,
+                        "landing": 2296
+                    },
+                    "revenue": {
+                        "tickets": 79350,
+                        "cargo": 9760
+                    },
+                    "violations": [
+                        {
+                            "title": "Average touchdown: 1.56G (711 ft/min, challenging  conditions)<br/>Distance from threshold: 553m (accepted range: 196-785m)<br/>Average centerline deviation: 2.19m<br/>Max centerline deviation: 6.62m",
+                            "penalty": {
+                                "points": -15,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 53
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.56,
+                                        "rate": 711
+                                    },
+                                    "weather": {
+                                        "windDir": 83.43,
+                                        "windSpd": 9.47,
+                                        "windX": -7.46
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-14T17:13:37.988Z",
+                "updatedAt": "2026-08-14T18:58:55.314Z",
+                "dep": {
+                    "icao": "LUKK",
+                    "name": "Chişinău International Airport",
+                    "city": "Chişinău",
+                    "location": {
+                        "lat": 46.9277,
+                        "lon": 28.931,
+                        "elev": 399
+                    }
+                },
+                "arr": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "actArr": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                }
             }
         ]
     },
