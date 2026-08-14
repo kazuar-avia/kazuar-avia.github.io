@@ -3958,6 +3958,180 @@
                         "elev": 374
                     }
                 }
+            },
+            {
+                "_id": "6a7f01daef75cc33306b4677",
+                "aircraft": {
+                    "_id": "696285163dc76275ba9ef60c",
+                    "name": "Boeing 737-800",
+                    "customName": "UCAA l 737-800 (pax) based in UKKK l UR-UCA",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "5015",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 145,
+                    "cargo": 26,
+                    "weights": {
+                        "cargo": 2444
+                    }
+                },
+                "depTime": "2026-08-14T12:05:00.000Z",
+                "duration": 70,
+                "arrTime": "2026-08-14T13:15:00.000Z",
+                "depTimeAct": "2026-08-14T12:08:03.995Z",
+                "delay": -10,
+                "takeoffTimeAct": "2026-08-14T12:10:19.997Z",
+                "durationAct": 55,
+                "arrTimeAct": "2026-08-14T13:05:20.051Z",
+                "open": "2026-08-14T12:04:23.805Z",
+                "close": "2026-08-14T13:07:29.118Z",
+                "rating": 6.57,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 263,
+                        "fuel": 2181,
+                        "expenses": 7410,
+                        "penalties": 0,
+                        "revenue": 23683,
+                        "balance": 16273,
+                        "prices": {
+                            "ticketPrice": 135,
+                            "cargoUnitPrice": 158,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 145,
+                            "cargo": 26,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 145
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2466,
+                        "aircraft": 3775,
+                        "handling": 665,
+                        "landing": 504
+                    },
+                    "revenue": {
+                        "tickets": 19575,
+                        "cargo": 4108
+                    },
+                    "violations": [
+                        {
+                            "title": "Long landing (1230m from threshold beyond 679m max accepted)",
+                            "penalty": {
+                                "points": -193,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 1
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.35,
+                                        "rate": 250
+                                    },
+                                    "weather": {
+                                        "windDir": 347.42,
+                                        "windSpd": 6.87,
+                                        "windX": -6.84
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.50G (355 ft/min, challenging  conditions)<br/>Distance from threshold: 1230m (accepted range: 169-679m)<br/>Average centerline deviation: 4.07m<br/>Max centerline deviation: 6.36m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "bounce",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.5,
+                                        "rate": 355
+                                    },
+                                    "weather": {
+                                        "windDir": 347.44,
+                                        "windSpd": 9.28,
+                                        "windX": -9.22
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 558ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-14T11:54:02.830Z",
+                "updatedAt": "2026-08-14T13:07:29.200Z",
+                "dep": {
+                    "icao": "UKDD",
+                    "name": "Dnipro International Airport",
+                    "city": "Dnipro",
+                    "location": {
+                        "lat": 48.357201,
+                        "lon": 35.100601,
+                        "elev": 481
+                    }
+                },
+                "arr": {
+                    "icao": "UKKK",
+                    "name": "Ihor Sikorsky Kyiv International Airport (Zhuliany)",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.40194,
+                        "lon": 30.45194,
+                        "elev": 587
+                    }
+                },
+                "actArr": {
+                    "icao": "UKKK",
+                    "name": "Ihor Sikorsky Kyiv International Airport (Zhuliany)",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.40194,
+                        "lon": 30.45194,
+                        "elev": 587
+                    }
+                }
             }
         ]
     },
