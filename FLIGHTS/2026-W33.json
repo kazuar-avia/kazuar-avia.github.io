@@ -12804,6 +12804,180 @@
                         "elev": 8361
                     }
                 }
+            },
+            {
+                "_id": "6a7f150fef75cc33306dc42a",
+                "aircraft": {
+                    "_id": "6a7f14f4ef75cc33306dbfc3",
+                    "name": "Boeing 757-300",
+                    "customName": "Boeing 757-300",
+                    "icao": "B753"
+                },
+                "type": "pax",
+                "flightNumber": "575I",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 110,
+                    "cargo": 30,
+                    "weights": {
+                        "cargo": 2190
+                    }
+                },
+                "depTime": "2026-08-14T13:40:00.000Z",
+                "duration": 35,
+                "arrTime": "2026-08-14T14:15:00.000Z",
+                "depTimeAct": "2026-08-14T14:00:05.730Z",
+                "delay": 21,
+                "takeoffTimeAct": "2026-08-14T14:08:13.747Z",
+                "durationAct": 28,
+                "arrTimeAct": "2026-08-14T14:36:00.304Z",
+                "open": "2026-08-14T13:16:07.588Z",
+                "close": "2026-08-14T14:38:14.366Z",
+                "rating": 9.19,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 128,
+                        "fuel": 1662,
+                        "expenses": 9676,
+                        "penalties": 330,
+                        "revenue": 10740,
+                        "balance": 734,
+                        "prices": {
+                            "ticketPrice": 60,
+                            "cargoUnitPrice": 66,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 110,
+                            "cargo": 30,
+                            "paxByClass": {
+                                "F": 7,
+                                "C": 15,
+                                "Y": 88
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1879,
+                        "aircraft": 6080,
+                        "handling": 565,
+                        "landing": 1152
+                    },
+                    "revenue": {
+                        "tickets": 8760,
+                        "cargo": 1980
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight delayed 6 minutes (max 15 minutes after scheduled is allowed)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 330
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 50
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 4.99m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -11,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 48
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.68,
+                                        "rate": 744
+                                    },
+                                    "weather": {
+                                        "windDir": 215.62,
+                                        "windSpd": 9.37,
+                                        "windX": 6.82
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.68G (744 ft/min, normal  conditions)<br/>Distance from threshold: 237m (accepted range: 173-693m)<br/>Average centerline deviation: 2.75m<br/>Max centerline deviation: 4.99m",
+                            "penalty": {
+                                "points": -70,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 48
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.68,
+                                        "rate": 744
+                                    },
+                                    "weather": {
+                                        "windDir": 215.62,
+                                        "windSpd": 9.37,
+                                        "windX": 6.82
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-14T13:15:59.468Z",
+                "updatedAt": "2026-08-14T14:38:14.449Z",
+                "dep": {
+                    "icao": "LGSK",
+                    "name": "Skiathos Island National Airport",
+                    "city": "Skiathos",
+                    "location": {
+                        "lat": 39.177101,
+                        "lon": 23.5037,
+                        "elev": 54
+                    }
+                },
+                "arr": {
+                    "icao": "LGTS",
+                    "name": "Thessaloniki Macedonia International Airport",
+                    "city": "Thessaloniki",
+                    "location": {
+                        "lat": 40.51928,
+                        "lon": 22.970009,
+                        "elev": 22
+                    }
+                },
+                "actArr": {
+                    "icao": "LGTS",
+                    "name": "Thessaloniki Macedonia International Airport",
+                    "city": "Thessaloniki",
+                    "location": {
+                        "lat": 40.51928,
+                        "lon": 22.970009,
+                        "elev": 22
+                    }
+                }
             }
         ]
     },
