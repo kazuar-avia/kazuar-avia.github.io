@@ -18558,6 +18558,185 @@
                         "elev": 48
                     }
                 }
+            },
+            {
+                "_id": "6a7f618bef75cc333077f229",
+                "aircraft": {
+                    "_id": "69ff1763a5e61d69a71adbb5",
+                    "name": "Cessna 208 Caravan",
+                    "customName": "UCAA l Cessna 208 (pax) based in UKLR l UR-PAX",
+                    "icao": "C208"
+                },
+                "type": "pax",
+                "flightNumber": "5185",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 11,
+                    "cargo": 1,
+                    "weights": {
+                        "cargo": 96
+                    }
+                },
+                "depTime": "2026-08-14T18:53:00.000Z",
+                "duration": 50,
+                "arrTime": "2026-08-14T19:43:00.000Z",
+                "depTimeAct": "2026-08-14T18:50:27.105Z",
+                "delay": -19,
+                "takeoffTimeAct": "2026-08-14T18:52:04.127Z",
+                "durationAct": 32,
+                "arrTimeAct": "2026-08-14T19:24:12.164Z",
+                "open": "2026-08-14T18:43:45.586Z",
+                "close": "2026-08-14T19:26:25.180Z",
+                "rating": 9,
+                "simulator": "msfs",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 76,
+                        "fuel": 97,
+                        "expenses": 328,
+                        "penalties": 0,
+                        "revenue": 808,
+                        "balance": 480,
+                        "prices": {
+                            "ticketPrice": 67,
+                            "cargoUnitPrice": 71,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 11,
+                            "cargo": 1,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 11
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 110,
+                        "aircraft": 140,
+                        "handling": 50,
+                        "landing": 28
+                    },
+                    "revenue": {
+                        "tickets": 737,
+                        "cargo": 71
+                    },
+                    "violations": [
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1019mb instead of 1022.4mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 54
+                                    },
+                                    "weather": {
+                                        "windDir": 146.32,
+                                        "windSpd": 0.79,
+                                        "windX": -0.36
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.27G (158 ft/min, challenging  conditions)<br/>Distance from threshold: 314m (accepted range: 157-630m)<br/>Average centerline deviation: 0.93m<br/>Max centerline deviation: 1.24m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.27,
+                                        "rate": 158
+                                    },
+                                    "weather": {
+                                        "windDir": 96.33,
+                                        "windSpd": 1.99,
+                                        "windX": -0.32
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on landing: 1019mb instead of 1022.8mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.27,
+                                        "rate": 158
+                                    },
+                                    "weather": {
+                                        "windDir": 96.33,
+                                        "windSpd": 1.99,
+                                        "windX": -0.32
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-14T18:42:19.829Z",
+                "updatedAt": "2026-08-14T19:26:25.258Z",
+                "dep": {
+                    "icao": "UKLR",
+                    "name": "Rivne International Airport",
+                    "city": "Rivne",
+                    "location": {
+                        "lat": 50.60710144042969,
+                        "lon": 26.141599655151367,
+                        "elev": 755
+                    }
+                },
+                "arr": {
+                    "icao": "UKLT",
+                    "city": "Ternopil",
+                    "location": {
+                        "lat": 49.5242,
+                        "lon": 25.7001,
+                        "elev": 1072
+                    },
+                    "name": "Ternopil International Airport"
+                },
+                "actArr": {
+                    "icao": "UKLT",
+                    "city": "Ternopil",
+                    "location": {
+                        "lat": 49.5242,
+                        "lon": 25.7001,
+                        "elev": 1072
+                    },
+                    "name": "Ternopil International Airport"
+                }
             }
         ]
     },
