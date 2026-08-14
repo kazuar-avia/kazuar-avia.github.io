@@ -22,20 +22,14 @@ jobs:
         run: |
           echo "Current GitHub commit: $CURRENT_SHA"
 
-          railway link \
-            --project 54b4da1a-b57f-404b-9b9c-cf8af2915ea7 \
-            --environment e4a12790-f825-4d85-aec9-db5ee1ecc2b4 \
-            --service efe286ee-8bf7-4113-8b79-4676bb804e0f
+          railway deployment list \
+            --service efe286ee-8bf7-4113-8b79-4676bb804e0f \
+            --json > deployments.json
 
-          railway deployment list --json > deployments.json
-
-          echo "Deployments:"
+          echo "DEPLOYMENTS:"
           cat deployments.json
 
-          if ! command -v jq >/dev/null 2>&1; then
-            echo "jq not found"
-            exit 1
-          fi
+          echo "PROCESSING:"
 
           jq -c '.[] | select(.status == "BUILDING" or .status == "QUEUED")' deployments.json |
           while read -r deployment; do
@@ -43,7 +37,7 @@ jobs:
             STATUS=$(echo "$deployment" | jq -r '.status')
             COMMIT=$(echo "$deployment" | jq -r '.meta.commitHash // empty')
 
-            echo "Found: $ID | $STATUS | $COMMIT"
+            echo "FOUND: $ID | $STATUS | $COMMIT"
 
             if [ -z "$COMMIT" ]; then
               echo "SKIP: no commitHash"
