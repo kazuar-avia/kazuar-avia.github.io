@@ -29373,6 +29373,186 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6a8097e8ef75cc33309ce43f",
+                "aircraft": {
+                    "_id": "6a4fd7e55760ec7cdb6783b0",
+                    "name": "Fokker F28-1000 Fellowship",
+                    "customName": "Air Ukraine l Fokker 28 (Yak-40) based in UKKK l UR-40393",
+                    "icao": "F28"
+                },
+                "type": "pax",
+                "flightNumber": "520",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 50,
+                    "cargo": 7,
+                    "weights": {
+                        "cargo": 567
+                    }
+                },
+                "depTime": "2026-08-15T18:05:00.000Z",
+                "duration": 45,
+                "arrTime": "2026-08-15T18:50:00.000Z",
+                "depTimeAct": "2026-08-15T18:21:14.024Z",
+                "delay": 79,
+                "takeoffTimeAct": "2026-08-15T18:32:21.008Z",
+                "durationAct": 97,
+                "arrTimeAct": "2026-08-15T20:09:25.860Z",
+                "open": "2026-08-15T17:38:15.308Z",
+                "close": "2026-08-15T20:14:30.978Z",
+                "rating": 9.38,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 416,
+                        "fuel": 2111,
+                        "expenses": 4472,
+                        "penalties": 50,
+                        "revenue": 5033,
+                        "balance": 511,
+                        "prices": {
+                            "ticketPrice": 70,
+                            "cargoUnitPrice": 79,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 50,
+                            "cargo": 7,
+                            "paxByClass": {
+                                "F": 2,
+                                "C": 8,
+                                "Y": 40
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1910,
+                        "aircraft": 2178,
+                        "handling": 177,
+                        "landing": 207
+                    },
+                    "revenue": {
+                        "tickets": 4480,
+                        "cargo": 553
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight delayed 2 minutes (max 15 minutes after scheduled is allowed)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 50
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 57
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.18G (208 ft/min, challenging  conditions)<br/>Distance from threshold: 409m (accepted range: 175-704m)<br/>Average centerline deviation: 3.39m<br/>Max centerline deviation: 4.81m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 58
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.18,
+                                        "rate": 208
+                                    },
+                                    "weather": {
+                                        "windDir": 180,
+                                        "windSpd": 2.32,
+                                        "windX": -1.56
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Max G exceeded: 2.17G (max allowed: 2G)",
+                            "penalty": {
+                                "points": -34,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 55
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Min G exceeded: -0.14G (min allowed: 0G)",
+                            "penalty": {
+                                "points": -28,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 59
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-15T16:46:32.743Z",
+                "updatedAt": "2026-08-15T20:14:31.070Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "UKWW",
+                    "name": "Vinnytsia/Gavyryshivka International Airport",
+                    "city": "Vinnitsa",
+                    "location": {
+                        "lat": 49.242531,
+                        "lon": 28.613778,
+                        "elev": 961
+                    }
+                },
+                "actArr": {
+                    "icao": "UKWW",
+                    "name": "Vinnytsia/Gavyryshivka International Airport",
+                    "city": "Vinnitsa",
+                    "location": {
+                        "lat": 49.242531,
+                        "lon": 28.613778,
+                        "elev": 961
+                    }
+                }
             }
         ]
     },
