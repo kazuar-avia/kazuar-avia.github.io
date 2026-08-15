@@ -9,8 +9,6 @@ const OUTPUT_ROOT = path.resolve(__dirname, '..');
 const COMPANY_DIR = path.join(OUTPUT_ROOT, 'COMPANY');
 const FLIGHTS_DIR = path.join(OUTPUT_ROOT, 'FLIGHTS');
 const BONUS_FILE = path.join(COMPANY_DIR, 'guaranteed-bonuses.json');
-const TOP_POOL_CURRENT_FILE = path.join(COMPANY_DIR, 'top-pool-current.json');
-const TOP_POOLS_DIR = path.join(COMPANY_DIR, 'TOP-POOLS');
 const LIVE_URL = 'https://newsky.app/api/airline-api/flights/ongoing';
 const LIVE_DETAIL_URL = 'https://newsky.app/api/airline-api/flight/';
 const DEFAULT_TOKEN = 'UKR_uSTNynarbU8B8A61nvDLqmSl7Ji8xK';
@@ -513,27 +511,7 @@ function normalizeLiveFlight(raw) {
     schedule: isSchedule,
     free: isFree,
     charter: isCharter,
-    startedAt: raw.depTimeAct || raw.takeoffTimeAct || raw.takeoff || raw.depTime || raw.open || raw.createdAt || null,
     airborne: Boolean(raw.depTimeAct || raw.takeoffTimeAct || raw.takeoff || raw.status === 'enroute' || raw.status === 'ENROUTE')
-  };
-}
-
-function liveFromCompletedFlight(flight) {
-  const aircraftIds = [cleanId(flight?.aircraft?.id || flight?.aircraft?._id || flight?.aircraftId)].filter(Boolean);
-  const typeText = String(flight?.flightType || '').trim().toLowerCase();
-  return {
-    id: cleanId(flight?.id || flight?._id),
-    pilotId: cleanId(flight?.pilot?.id || flight?.pilotId),
-    flightNumber: String(flight?.flightNumber || '').trim(),
-    depIcao: upper(flight?.departure?.icao),
-    arrIcao: upper(flight?.actualArrival?.icao || flight?.arrival?.icao),
-    aircraftIds,
-    airlineIcao: 'UKL',
-    schedule: Boolean(flight?.operations?.scheduled) || typeText === 'schedule' || typeText === 'scheduled',
-    free: Boolean(flight?.operations?.free) || typeText === 'free',
-    charter: Boolean(flight?.operations?.charter) || typeText === 'charter',
-    startedAt: flight?.times?.actualDeparture || flight?.times?.takeoff || flight?.times?.scheduledDeparture || flight?.times?.opened || flight?.createdAt || null,
-    airborne: false
   };
 }
 
@@ -619,189 +597,8 @@ function completedMap(flights) {
   });
   return map;
 }
-function topPoolCategoryFromMode(value) {
-  const key = String(value || '').trim();
-  return {
-    quick: 'hot',
-    hot: 'hot',
-    earn: 'cash',
-    cash: 'cash',
-    return: 'returnRoute',
-    returnRoute: 'returnRoute',
-    idle: 'idle'
-  }[key] || key || '';
-}
 
-function topPoolItemsFromCurrent(pool) {
-  const result = [];
-  if (pool?.categories) {
-    Object.entries(pool.categories).forEach(([mode, category]) => {
-      array(category?.items).forEach(item => {
-        const proposal = item.proposal || {};
-        const proposalType = String(proposal.type || '').trim().toLowerCase();
-        const flightNumberRaw = String(proposal.flightNumber || '').trim();
-        const flightNumber = proposalType === 'free' || /^FREE/i.test(flightNumberRaw) ? 'FREE' : flightNumberRaw;
-        const aircraftId = cleanId(item.aircraftId);
-        if (!aircraftId) return;
-        result.push({
-          poolKey: [mode, item.rank, aircraftId, flightNumber || proposalType || 'route', upper(proposal.depIcao), upper(proposal.arrIcao)].join('|'),
-          category: topPoolCategoryFromMode(mode),
-          sourceMode: mode,
-          categoryLabel: category?.label || item.mode || mode,
-          rank: Number(item.rank) || 0,
-          aircraftId,
-          proposalType,
-          flightNumber,
-          depIcao: upper(proposal.depIcao),
-          arrIcao: upper(proposal.arrIcao)
-          ,
-          premiumUsd: proposal.premiumUsd ?? null,
-          durationMinutes: proposal.durationMinutes ?? null,
-          durationText: proposal.durationText || null
-        });
-      });
-    });
-    return result;
-  }
-  return array(pool?.items).map(item => ({
-    poolKey: item.poolId || [item.category, item.rank, item.aircraftId, item.flightNumber || item.proposalType || 'aircraft', item.depIcao || '', item.arrIcao || ''].join('|'),
-    category: topPoolCategoryFromMode(item.category),
-    sourceMode: item.mode || item.category || '',
-    categoryLabel: item.categoryLabel || '',
-    rank: Number(item.rank) || 0,
-    aircraftId: cleanId(item.aircraftId),
-    proposalType: String(item.proposalType || item.type || '').trim().toLowerCase(),
-    flightNumber: String(item.flightNumber || '').trim(),
-    depIcao: upper(item.depIcao),
-    arrIcao: upper(item.arrIcao),
-    premiumUsd: item.premiumUsd ?? null,
-    durationMinutes: item.durationMinutes ?? null,
-    durationText: item.durationText || null
-  })).filter(item => item.aircraftId);
-}
-
-function parseDateMs(value) {
-  const time = new Date(value || 0).getTime();
-  return Number.isFinite(time) ? time : 0;
-}
-
-function poolGeneratedTime(pool) {
-  return parseDateMs(pool?.generatedAtLocal || pool?.generatedAt || pool?.createdAt);
-}
-
-function claimableUntilTime(pool) {
-  const explicit = parseDateMs(pool?.claimableUntil || pool?.activeUntil);
-  if (explicit) return explicit;
-  const generated = poolGeneratedTime(pool);
-  return generated ? generated + 24 * 3600000 : 0;
-}
-
-function liveIsInsidePoolWindow(live, pool) {
-  const generated = poolGeneratedTime(pool);
-  if (!generated) return true;
-  const started = parseDateMs(live.startedAt) || Date.now();
-  if (started < generated) return false;
-  const claimableUntil = claimableUntilTime(pool);
-  if (claimableUntil && started > claimableUntil) return false;
-  return true;
-}
-
-function walkJsonFiles(dir) {
-  if (!fs.existsSync(dir)) return [];
-  const result = [];
-  for (const entry of fs.readdirSync(dir, {withFileTypes: true})) {
-    const file = path.join(dir, entry.name);
-    if (entry.isDirectory()) result.push(...walkJsonFiles(file));
-    else if (entry.isFile() && /\.json$/i.test(entry.name)) result.push(file);
-  }
-  return result;
-}
-
-function topPoolFingerprint(pool) {
-  const generatedAt = pool?.generatedAtLocal || pool?.generatedAt || pool?.createdAt || '';
-  const schema = pool?.schema || `legacy-v${pool?.version || 1}`;
-  const sourceUrl = pool?.sourceUrl || '';
-  const itemCount = topPoolItemsFromCurrent(pool).length;
-  return [schema, generatedAt, sourceUrl, itemCount].join('|');
-}
-
-function loadTopPools() {
-  const pools = [];
-  const current = readJson(TOP_POOL_CURRENT_FILE, null);
-  if (current) pools.push({...current, _sourceFile: path.relative(OUTPUT_ROOT, TOP_POOL_CURRENT_FILE).replace(/\\/g, '/')});
-  for (const file of walkJsonFiles(TOP_POOLS_DIR)) {
-    const data = readJson(file, null);
-    if (!data) continue;
-    const sourceFile = path.relative(OUTPUT_ROOT, file).replace(/\\/g, '/');
-    if (Array.isArray(data.snapshots)) {
-      data.snapshots.forEach(snapshot => {
-        if (snapshot && typeof snapshot === 'object') pools.push({...snapshot, _sourceFile: sourceFile});
-      });
-    } else if (data.categories || data.items) {
-      pools.push({...data, _sourceFile: sourceFile});
-    }
-  }
-  const seen = new Set();
-  return pools.filter(pool => {
-    const key = topPoolFingerprint(pool);
-    if (seen.has(key)) return false;
-    seen.add(key);
-    return true;
-  }).sort((a, b) => poolGeneratedTime(b) - poolGeneratedTime(a));
-}
-
-function topPoolItemsFromPools(pools) {
-  return array(pools).flatMap(pool => topPoolItemsFromCurrent(pool).map(item => ({...item, pool})));
-}
-
-function topPoolItemOperationMatches(item, live) {
-  if (item.proposalType === 'free' || upper(item.flightNumber) === 'FREE') return live.free === true;
-  if (item.proposalType === 'schedule') {
-    const expected = String(item.flightNumber || '').trim().replace(/^0+(?=\d)/, '');
-    const actual = String(live.flightNumber || '').trim().replace(/^0+(?=\d)/, '');
-    return live.schedule === true && (!expected || expected === actual);
-  }
-  if (item.proposalType === 'charter') return live.charter === true;
-  return true;
-}
-
-function topPoolMatchForLive(live, aircraftId, topPoolItems) {
-  const normalizedAircraftId = cleanId(aircraftId);
-  return array(topPoolItems).find(item => {
-    if (item.pool && !liveIsInsidePoolWindow(live, item.pool)) return false;
-    if (cleanId(item.aircraftId) !== normalizedAircraftId) return false;
-    if (item.depIcao && item.depIcao !== live.depIcao) return false;
-    if (item.arrIcao && item.arrIcao !== live.arrIcao) return false;
-    return topPoolItemOperationMatches(item, live);
-  }) || null;
-}
-
-function topPoolRecordFields(match) {
-  return {
-    pie: Boolean(match),
-    pieType: match?.category || null,
-    pieSourceMode: match?.sourceMode || null,
-    pieRank: match?.rank || null,
-    piePoolKey: match?.poolKey || null,
-    piePoolGeneratedAt: match?.pool ? (match.pool.generatedAtLocal || match.pool.generatedAt || null) : null
-  };
-}
-
-function proposalFromTopPoolMatch(match) {
-  if (!match) return null;
-  return {
-    kind: match.proposalType || (upper(match.flightNumber) === 'FREE' ? 'free' : 'schedule'),
-    reason: 'top-pool',
-    flightNumber: match.flightNumber || null,
-    dep: {icao: match.depIcao},
-    arr: {icao: match.arrIcao},
-    durationMinutes: match.durationMinutes ?? null,
-    durationText: match.durationText || null
-  };
-}
-
-
-function recordFromLive(live, aircraft, proposal, amount, topPoolMatch = null) {
+function recordFromLive(live, aircraft, proposal, amount) {
   return {
     amount,
     pilotId: live.pilotId,
@@ -814,136 +611,343 @@ function recordFromLive(live, aircraft, proposal, amount, topPoolMatch = null) {
     status: 'matched',
     proposalType: proposal.kind,
     proposalReason: proposal.reason,
-    ...topPoolRecordFields(topPoolMatch),
     updatedAt: new Date().toISOString()
   };
 }
 
-function recordFromCompleted(flight, aircraft, proposal, amount, topPoolMatch = null) {
-  const live = liveFromCompletedFlight(flight);
-  return {
-    ...recordFromLive(live, aircraft, proposal, amount, topPoolMatch),
-    state: 'DONE',
-    status: 'earned',
-    updatedAt: new Date().toISOString()
-  };
-}
+const TOP_POOL_CURRENT_FILE = path.join(COMPANY_DIR, 'top-pool-current.json');
+const TOP_AWARDS_FILE = path.join(COMPANY_DIR, 'top-awards-log.json');
+const TOP_POOLS_DIR = path.join(COMPANY_DIR, 'TOP-POOLS');
 
-async function main() {
-  const now = new Date();
-  const matching = readJson(path.join(COMPANY_DIR, 'livery-matching.json'), {liveries: []});
-  const db = readJson(path.join(COMPANY_DIR, 'ucaa-livery-database.json'), {aircraft: [], scheduleAssignments: []});
-  const bonuses = readJson(BONUS_FILE, {version: 1, flights: {}});
-  const topPoolItems = topPoolItemsFromPools(loadTopPools());
-  const completedFlights = loadCompletedFlights();
-  const completedById = completedMap(completedFlights);
-  if (args.has('--debug-completed')) {
-    console.error(JSON.stringify({
-      completedFlights: completedFlights.length,
-      hasTestUrfkr: completedById.has('test-live-match-urfkr'),
-      testUrfkr: completedById.get('test-live-match-urfkr') || null
-    }, null, 2));
+function ensureDir(dir) { fs.mkdirSync(dir, {recursive: true}); }
+function parseNumberArg(name, fallback) {
+  const value = Number(argValue(name));
+  return Number.isFinite(value) && value > 0 ? value : fallback;
+}
+function parseNowArg() {
+  const value = argValue('--now');
+  const date = value ? new Date(value) : new Date();
+  return Number.isFinite(date.getTime()) ? date : new Date();
+}
+function flightBlockSpeedNmPerHour(aircraft, title = '') {
+  const text = upper(`${aircraft?.airframeIdent || ''} ${aircraft?.airframeType || ''} ${aircraft?.name || ''} ${title}`);
+  if (/\bAN-?2\b/.test(text) || text.includes('UR-40308')) return 60;
+  if (/\bC208\b/.test(text) || text.includes('CESSNA')) return 135;
+  if (/\bAT4|AT42|AT7|AT72|AT76\b/.test(text)) return 240;
+  return 300;
+}
+function blockMinutesForRoute(airports, aircraft, dep, arr) {
+  const nm = distanceNm(airports, dep, arr);
+  const speed = flightBlockSpeedNmPerHour(aircraft);
+  if (!nm || !speed) return 0;
+  return Math.max(10, Math.round((40 + nm / speed * 60) / 10) * 10);
+}
+function displayTitle(aircraft = {}) {
+  return String(aircraft.displayName || aircraft.title || aircraft.name || aircraft.customName || aircraft.registration || aircraft.id || '').trim();
+}
+function aircraftGroup(aircraft = {}) {
+  const raw = String(aircraft.group || aircraft.category || aircraft.leaseType || aircraft.fleetGroup || '').toLowerCase();
+  if (['wet','sub','dry','fictional','fun'].includes(raw)) return raw;
+  const text = `${aircraft.name || ''} ${aircraft.displayName || ''} ${aircraft.title || ''}`.toLowerCase();
+  if (text.includes('dry lease')) return 'dry';
+  if (text.includes('wet lease')) return 'wet';
+  if (text.includes('sub-lease') || text.includes('sub lease')) return 'sub';
+  if (text.includes('fan lease') || text.includes('fun lease') || text.includes('fictional')) return 'fictional';
+  return raw || 'unknown';
+}
+function htmlAttr(tag, name) {
+  const match = String(tag || '').match(new RegExp(`${name}\\s*=\\s*(["'])(.*?)\\1`, 'i'));
+  return match ? match[2] : '';
+}
+function decodeHtmlAttr(value) {
+  return String(value || '')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>');
+}
+function loadHtmlAircraftMeta() {
+  const htmlFile = path.join(OUTPUT_ROOT, 'pilot-cabinet.html');
+  const html = fs.existsSync(htmlFile) ? fs.readFileSync(htmlFile, 'utf8') : '';
+  const meta = new Map();
+  const sectionRe = /<section\b[^>]*class=["'][^"']*\b(company-section)\b[^"']*\b(wetlease-section|sublease-section|fictional-section|drylease-section)\b[^"']*["'][^>]*>([\s\S]*?)(?=<section\b[^>]*class=["'][^"']*\bcompany-section\b|<\/main>|<script\b)/gi;
+  const groupByClass = {'wetlease-section': 'wet', 'sublease-section': 'sub', 'fictional-section': 'fictional', 'drylease-section': 'dry'};
+  let section;
+  while ((section = sectionRe.exec(html))) {
+    const group = groupByClass[section[2]] || 'unknown';
+    const body = section[3] || '';
+    const cardRe = /<div\b[^>]*\bcompany-livery-card\b[^>]*>/gi;
+    let card;
+    while ((card = cardRe.exec(body))) {
+      const tag = card[0];
+      const id = cleanId(htmlAttr(tag, 'data-aircraft-id'));
+      const title = decodeHtmlAttr(htmlAttr(tag, 'data-livery-title'));
+      const currentIcao = upper(htmlAttr(tag, 'data-current-icao'));
+      if (!id) continue;
+      meta.set(id, {group, title, currentIcao});
+    }
   }
-  const airports = loadAirportLocations(completedFlights);
+  return meta;
+}
+function proposalCandidateFromAircraft({aircraft, proposal, amount, airports, htmlMeta}) {
+  const dep = upper(proposal?.dep);
+  const arr = upper(proposal?.arr);
+  const blockMinutes = blockMinutesForRoute(airports, aircraft, dep, arr);
+  const html = htmlMeta || {};
+  const title = html.title || displayTitle(aircraft);
+  const group = html.group || aircraftGroup(aircraft);
+  return {
+    aircraft,
+    aircraftId: cleanId(aircraft.id || aircraft._id),
+    registration: upper(aircraft.registration),
+    aircraftTitle: title,
+    group,
+    flightNumber: String(proposal?.number || '').trim(),
+    dep,
+    arr,
+    proposalKind: String(proposal?.kind || '').toLowerCase(),
+    proposalReason: String(proposal?.reason || '').toLowerCase(),
+    blockMinutes,
+    amount: Number(amount) || 0,
+    ratePerHour: blockMinutes > 0 ? (Number(amount) || 0) / (blockMinutes / 60) : 0
+  };
+}
+function loadProposalCandidates({db, matching, airports, completedFlights, now}) {
   const aircraftMaps = aircraftKeyData(db, matching);
   applyLatestCompletedLocations(completedFlights, aircraftMaps);
   const coefficient = loadAircraftCoefficient();
   const demand = parseDemandFile(path.join(OUTPUT_ROOT, 'newsky-charter-results.txt'));
-
-  const probeAircraftId = cleanId(argValue('--probe-aircraft'));
-  if (probeAircraftId) {
-    const aircraft = aircraftMaps.byId.get(probeAircraftId);
-    const proposal = aircraft ? proposedRouteForAircraft({db, aircraft, airports, demand, now, completedFlights}) : null;
-    const amount = proposal ? premiumAmount(airports, coefficient, aircraft, proposal.dep, proposal.arr) : 0;
-    console.log(JSON.stringify({
-      aircraftId: probeAircraftId,
-      registration: aircraft?.registration || '',
-      name: aircraft?.name || '',
-      currentIcao: upper(aircraft?.lastflightlocationICAO || aircraft?.lastFlightLocationIcao || aircraft?.locationIcao),
-      scheduleIcao: upper(aircraft?.locationIcao),
-      proposal,
-      amount
-    }, null, 2));
-    return;
+  const htmlMetaById = loadHtmlAircraftMeta();
+  const items = [];
+  const seen = new Set();
+  for (const aircraft of aircraftMaps.byId.values()) {
+    const id = cleanId(aircraft.id || aircraft._id);
+    if (!id || seen.has(id)) continue;
+    seen.add(id);
+    const proposal = proposedRouteForAircraft({db, aircraft, airports, demand, now, completedFlights});
+    if (!proposal) continue;
+    const amount = premiumAmount(airports, coefficient, aircraft, proposal.dep, proposal.arr);
+    if (!(amount > 0)) continue;
+    const item = proposalCandidateFromAircraft({aircraft, proposal, amount, airports, htmlMeta: htmlMetaById.get(id)});
+    if (!item.dep || !item.arr || !item.blockMinutes) continue;
+    items.push(item);
   }
-
-  const liveFlights = await loadLiveFlights();
-  const liveById = new Map(liveFlights.map(flight => [flight.id, flight]));
-  if (args.has('--debug-live')) {
-    console.error(JSON.stringify({liveFlights}, null, 2));
+  return items;
+}
+function latestCompletedForAircraft(completedFlights, item) {
+  return completedFlights
+    .filter(flight => completedFlightMatchesAircraft(flight, item.aircraft))
+    .sort((a, b) => completedFlightEndTime(b) - completedFlightEndTime(a))[0] || null;
+}
+function idleCandidates(items, completedFlights, now) {
+  const byAircraft = new Map();
+  for (const item of items) {
+    if (!['wet', 'sub', 'fictional', 'fun'].includes(item.group)) continue;
+    const key = item.aircraftId || item.registration;
+    if (!key || byAircraft.has(key)) continue;
+    const latest = latestCompletedForAircraft(completedFlights, item);
+    const latestDate = latest ? completedFlightEndTime(latest) : null;
+    const idleDays = latestDate && Number.isFinite(latestDate.getTime()) ? Math.floor(Math.max(0, now - latestDate) / 86400000) : Number.POSITIVE_INFINITY;
+    byAircraft.set(key, {...item, latestDate, idleDays});
   }
-
-  const next = {version: Number(bonuses.version) || 1, updatedAt: bonuses.updatedAt || '', flights: {}};
-
-  Object.entries(bonuses.flights || {}).forEach(([id, record]) => {
-    const state = String(record?.state || '').toUpperCase();
-    if (state === 'DONE') {
-      next.flights[id] = record;
-      return;
-    }
-    if (completedById.has(id)) {
-      if (Number(record?.amount) > 0) next.flights[id] = {...record, state: 'DONE', status: 'earned', updatedAt: now.toISOString()};
-      return;
-    }
-    if (state === 'LIVE' && Number(record?.amount) > 0 && !liveById.has(id)) {
-      next.flights[id] = {...record, state: 'LIVE', status: 'pending-completion-check', updatedAt: now.toISOString()};
-    }
+  return [...byAircraft.values()];
+}
+function topPoolItem(category, rank, item, now, windowHours, graceHours, extra = {}) {
+  const generatedAt = now.toISOString();
+  const activeUntil = new Date(now.getTime() + windowHours * 3600000).toISOString();
+  const claimableUntil = new Date(now.getTime() + (windowHours + graceHours) * 3600000).toISOString();
+  const idParts = [generatedAt.replace(/[-:.TZ]/g, '').slice(0, 12), category, item.registration || item.aircraftId, item.flightNumber || item.proposalKind || 'any', item.dep, item.arr].filter(Boolean);
+  return {
+    poolId: idParts.join('-'), generatedAt, activeUntil, claimableUntil,
+    category,
+    categoryLabel: {hot: 'Гарячі пиріжки < 2 год', cash: 'Підняти кеш $/год', returnRoute: 'Повернути на маршрут', idle: 'Вивести з простоя'}[category] || category,
+    rank,
+    aircraftId: item.aircraftId,
+    registration: item.registration,
+    aircraftTitle: item.aircraftTitle,
+    group: item.group,
+    flightNumber: item.flightNumber,
+    dep: item.dep,
+    arr: item.arr,
+    proposalKind: item.proposalKind,
+    proposalReason: item.proposalReason,
+    source: item.proposalKind,
+    blockMinutes: item.blockMinutes,
+    premium: item.amount,
+    ratePerHour: item.ratePerHour,
+    idleDays: Number.isFinite(extra.idleDays) ? extra.idleDays : undefined,
+    latestCompletedAt: extra.latestDate && Number.isFinite(extra.latestDate.getTime()) ? extra.latestDate.toISOString() : undefined,
+    status: 'active'
+  };
+}
+function buildTopPool({candidates, completedFlights, now, windowHours, graceHours}) {
+  const schedule = candidates.filter(item => item.proposalKind === 'schedule' && item.blockMinutes > 0);
+  const hotSchedule = schedule
+    .filter(item => item.blockMinutes < 120)
+    .sort((a, b) => a.blockMinutes - b.blockMinutes || b.ratePerHour - a.ratePerHour || a.aircraftTitle.localeCompare(b.aircraftTitle, 'uk'));
+  const usedHot = new Set(hotSchedule.map(item => item.aircraftId));
+  const hotFallback = candidates
+    .filter(item => item.proposalKind !== 'schedule' && item.blockMinutes < 120)
+    .filter(item => !(item.dep.startsWith('UK') && item.arr.startsWith('UK')))
+    .filter(item => !usedHot.has(item.aircraftId))
+    .sort((a, b) => a.blockMinutes - b.blockMinutes || b.ratePerHour - a.ratePerHour || a.aircraftTitle.localeCompare(b.aircraftTitle, 'uk'));
+  const hot = hotSchedule.slice(0, 6);
+  if (hot.length < 6) hot.push(...hotFallback.slice(0, 6 - hot.length));
+  const cash = [...schedule]
+    .sort((a, b) => b.ratePerHour - a.ratePerHour || a.blockMinutes - b.blockMinutes || a.aircraftTitle.localeCompare(b.aircraftTitle, 'uk'))
+    .slice(0, 6);
+  const returnRoute = candidates
+    .filter(item => item.proposalKind === 'free' && item.proposalReason === 'schedule-positioning' && item.blockMinutes > 0)
+    .sort((a, b) => a.blockMinutes - b.blockMinutes || a.aircraftTitle.localeCompare(b.aircraftTitle, 'uk'))
+    .slice(0, 6);
+  const idle = idleCandidates(candidates, completedFlights, now)
+    .sort((a, b) => {
+      if (!Number.isFinite(a.idleDays) && Number.isFinite(b.idleDays)) return -1;
+      if (Number.isFinite(a.idleDays) && !Number.isFinite(b.idleDays)) return 1;
+      return b.idleDays - a.idleDays || a.aircraftTitle.localeCompare(b.aircraftTitle, 'uk');
+    })
+    .slice(0, 6);
+  const items = [];
+  hot.forEach((item, index) => items.push(topPoolItem('hot', index + 1, item, now, windowHours, graceHours)));
+  cash.forEach((item, index) => items.push(topPoolItem('cash', index + 1, item, now, windowHours, graceHours)));
+  returnRoute.forEach((item, index) => items.push(topPoolItem('returnRoute', index + 1, item, now, windowHours, graceHours)));
+  idle.forEach((item, index) => items.push(topPoolItem('idle', index + 1, item, now, windowHours, graceHours, {idleDays: item.idleDays, latestDate: item.latestDate})));
+  return {
+    version: 2,
+    generatedAt: now.toISOString(),
+    activeUntil: new Date(now.getTime() + windowHours * 3600000).toISOString(),
+    claimableUntil: new Date(now.getTime() + (windowHours + graceHours) * 3600000).toISOString(),
+    windowHours,
+    graceHours,
+    source: {proposalEngine: 'scripts/update-guaranteed-bonuses.js functions', flights: argValue('--weeks') || 'manifest/archive/live week'},
+    counts: {hot: hot.length, cash: cash.length, returnRoute: returnRoute.length, idle: idle.length, total: items.length},
+    items
+  };
+}
+function isoWeekFileKey(date) {
+  const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+  const day = d.getUTCDay() || 7;
+  d.setUTCDate(d.getUTCDate() + 4 - day);
+  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+  const week = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+  return `${d.getUTCFullYear()}-W${String(week).padStart(2, '0')}`;
+}
+function loadPoolArchive(now) {
+  ensureDir(TOP_POOLS_DIR);
+  const file = path.join(TOP_POOLS_DIR, `${isoWeekFileKey(now)}.json`);
+  return {file, data: readJson(file, {version: 1, snapshots: []})};
+}
+function collectClaimableItems(currentPool, archiveData, now) {
+  const items = [];
+  const add = item => {
+    if (!item?.poolId) return;
+    const until = parseDate(item.claimableUntil);
+    if (until && until.getTime() >= now.getTime()) items.push(item);
+  };
+  array(currentPool.items).forEach(add);
+  array(archiveData.snapshots).forEach(snapshot => array(snapshot.items).forEach(add));
+  return [...new Map(items.map(item => [item.poolId, item])).values()];
+}
+function completedByAircraft(flight, item) {
+  const aircraftId = cleanId(flight?.aircraft?.id || flight?.aircraft?._id || flight?.aircraftId);
+  if (item.aircraftId && aircraftId && item.aircraftId === aircraftId) return true;
+  const reg = upper(item.registration);
+  if (!reg) return false;
+  const text = upper(`${flight?.aircraft?.name || ''} ${flight?.aircraft?.customName || ''}`);
+  return text.includes(reg);
+}
+function completedMatchesPoolItem(flight, item) {
+  if (!completedByAircraft(flight, item)) return false;
+  const dep = upper(flight?.departure?.icao);
+  const arr = upper(flight?.arrival?.icao || flight?.actualArrival?.icao);
+  if (item.dep && dep && item.dep !== dep) return false;
+  if (item.arr && arr && item.arr !== arr) return false;
+  if (item.flightNumber && String(flight?.flightNumber || '').trim() !== String(item.flightNumber).trim()) return false;
+  return true;
+}
+function awardPriority(category) { return {returnRoute: 1, idle: 2, cash: 3, hot: 4}[category] || 99; }
+function awardIdFor(item, flight) { return [item.poolId, flight.id, item.category].filter(Boolean).join('::'); }
+function evaluateAwards({claimableItems, completedFlights, now, windowStart, awardsLog}) {
+  const existing = new Set(array(awardsLog.awards).map(item => item.awardId));
+  const recentCompleted = completedFlights.filter(flight => {
+    const done = completedFlightEndTime(flight);
+    return done >= windowStart && done <= now;
   });
-
-  for (const live of liveFlights) {
-    for (const aircraftId of live.aircraftIds) {
-      const aircraft = aircraftMaps.byId.get(aircraftId);
-      if (!aircraft) continue;
-      const topPoolMatch = topPoolMatchForLive(live, aircraftId, topPoolItems);
-      const topPoolAmount = Number(topPoolMatch?.premiumUsd || 0);
-      if (topPoolMatch && topPoolAmount > 0) {
-        next.flights[live.id] = recordFromLive(live, aircraft, proposalFromTopPoolMatch(topPoolMatch), Math.round(topPoolAmount), topPoolMatch);
-        break;
-      }
-      const proposal = proposedRouteForAircraft({db, aircraft, airports, demand, now, completedFlights});
-      if (args.has('--debug-live')) {
-        console.error(JSON.stringify({liveId: live.id, aircraftId, depIcao: live.depIcao, arrIcao: live.arrIcao, proposal}, null, 2));
-      }
-      if (!proposal) continue;
-      if (proposal.dep !== live.depIcao || proposal.arr !== live.arrIcao) continue;
-      if (!liveMatchesProposalOperation(live, proposal)) continue;
-      const amount = premiumAmount(airports, coefficient, aircraft, proposal.dep, proposal.arr);
-      if (amount <= 0) continue;
-      next.flights[live.id] = recordFromLive(live, aircraft, proposal, amount, topPoolMatch);
-      break;
-    }
+  const awards = [];
+  for (const flight of recentCompleted) {
+    const matches = claimableItems
+      .filter(item => completedMatchesPoolItem(flight, item))
+      .sort((a, b) => awardPriority(a.category) - awardPriority(b.category) || a.rank - b.rank);
+    const chosen = matches[0];
+    if (!chosen) continue;
+    const awardId = awardIdFor(chosen, flight);
+    if (existing.has(awardId)) continue;
+    awards.push({
+      awardId,
+      awardedAt: now.toISOString(),
+      category: chosen.category,
+      categoryLabel: chosen.categoryLabel,
+      poolId: chosen.poolId,
+      rank: chosen.rank,
+      flightId: flight.id,
+      flightNumber: String(flight.flightNumber || '').trim(),
+      dep: upper(flight?.departure?.icao),
+      arr: upper(flight?.arrival?.icao || flight?.actualArrival?.icao),
+      aircraftId: chosen.aircraftId,
+      registration: chosen.registration,
+      aircraftTitle: chosen.aircraftTitle,
+      pilotId: flight?.pilot?.id || flight?.pilotId || '',
+      pilotName: flight?.pilot?.username || flight?.pilot?.name || flight?.pilotName || '',
+      premium: chosen.premium,
+      blockMinutes: chosen.blockMinutes,
+      ratePerHour: chosen.ratePerHour
+    });
+    existing.add(awardId);
   }
-
-  for (const flight of completedFlights) {
-    const flightId = cleanId(flight.id || flight._id);
-    if (!flightId || next.flights[flightId]) continue;
-    const live = liveFromCompletedFlight(flight);
-    if (!live.depIcao || !live.arrIcao || !live.aircraftIds.length) continue;
-    for (const aircraftId of live.aircraftIds) {
-      const aircraft = aircraftMaps.byId.get(aircraftId);
-      if (!aircraft) continue;
-      const topPoolMatch = topPoolMatchForLive(live, aircraftId, topPoolItems);
-      const topPoolAmount = Number(topPoolMatch?.premiumUsd || 0);
-      if (!topPoolMatch || topPoolAmount <= 0) continue;
-      next.flights[flightId] = recordFromCompleted(flight, aircraft, proposalFromTopPoolMatch(topPoolMatch), Math.round(topPoolAmount), topPoolMatch);
-      break;
-    }
-  }
-
-  if (args.has('--dry-run')) {
-    console.log(JSON.stringify(next, null, 2));
+  return awards;
+}
+async function main() {
+  const now = parseNowArg();
+  const windowHours = parseNumberArg('--window-hours', 6);
+  const graceHours = parseNumberArg('--grace-hours', 24);
+  const dryRun = args.has('--dry-run');
+  const matching = readJson(path.join(COMPANY_DIR, 'livery-matching.json'), {liveries: []});
+  const db = readJson(path.join(COMPANY_DIR, 'ucaa-livery-database.json'), {aircraft: [], scheduleAssignments: []});
+  const completedFlights = loadCompletedFlights();
+  const airports = loadAirportLocations(completedFlights);
+  const candidates = loadProposalCandidates({db, matching, airports, completedFlights, now});
+  const currentPool = readJson(TOP_POOL_CURRENT_FILE, {version: 2, items: []});
+  const archive = loadPoolArchive(now);
+  const awardsLog = readJson(TOP_AWARDS_FILE, {version: 1, awards: []});
+  const windowStart = new Date(now.getTime() - windowHours * 3600000);
+  const claimableItems = collectClaimableItems(currentPool, archive.data, now);
+  const newAwards = evaluateAwards({claimableItems, completedFlights, now, windowStart, awardsLog});
+  const nextPool = buildTopPool({candidates, completedFlights, now, windowHours, graceHours});
+  const nextAwardsLog = {...awardsLog, version: 1, updatedAt: now.toISOString(), awards: [...array(awardsLog.awards), ...newAwards]};
+  const nextArchive = {...archive.data, version: 1, snapshots: [...array(archive.data.snapshots), nextPool]};
+  const summary = {
+    generatedAt: nextPool.generatedAt,
+    activeUntil: nextPool.activeUntil,
+    claimableUntil: nextPool.claimableUntil,
+    windowStart: windowStart.toISOString(),
+    completedFlights: completedFlights.length,
+    proposalCandidates: candidates.length,
+    claimableItems: claimableItems.length,
+    newAwards: newAwards.length,
+    counts: nextPool.counts,
+    dryRun
+  };
+  if (dryRun) {
+    console.log(JSON.stringify({summary, pool: nextPool, newAwards}, null, 2));
     return;
   }
-  if (sameFlights(bonuses.flights || {}, next.flights)) {
-    console.log(`no changes for ${path.relative(process.cwd(), BONUS_FILE)}: ${Object.keys(next.flights).length} records`);
-    return;
-  }
-  next.updatedAt = now.toISOString();
-  writeJson(BONUS_FILE, next);
-  console.log(`updated ${path.relative(process.cwd(), BONUS_FILE)}: ${Object.keys(next.flights).length} records`);
+  ensureDir(COMPANY_DIR);
+  ensureDir(TOP_POOLS_DIR);
+  writeJson(TOP_POOL_CURRENT_FILE, nextPool);
+  writeJson(TOP_AWARDS_FILE, nextAwardsLog);
+  writeJson(archive.file, nextArchive);
+  console.log(JSON.stringify(summary, null, 2));
 }
 
-main().catch(error => {
-  console.error(error && error.stack ? error.stack : String(error));
-  process.exitCode = 1;
-});
+main().catch(error => { console.error(error && error.stack ? error.stack : error); process.exit(1); });
