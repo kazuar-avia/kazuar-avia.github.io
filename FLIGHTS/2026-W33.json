@@ -30037,5 +30037,191 @@
                 }
             }
         ]
+    },
+    {
+        "pilot_id": "6957b3673dc76275ba7e053e",
+        "fullname": "Kazuar Avia",
+        "avatar": "6957b3673dc76275ba7e053e1777215050804",
+        "flights": [
+            {
+                "_id": "6a80a787ef75cc33309f4814",
+                "aircraft": {
+                    "_id": "6a44988d5760ec7cdb8cca2a",
+                    "name": "Fokker F100",
+                    "customName": "UCAA l Fokker 100 based in UKHH l UR-FKR",
+                    "icao": "F100"
+                },
+                "type": "pax",
+                "flightNumber": "335",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 49,
+                    "cargo": 11,
+                    "weights": {
+                        "cargo": 1452
+                    }
+                },
+                "depTime": "2026-08-15T18:25:00.000Z",
+                "duration": 55,
+                "arrTime": "2026-08-15T19:20:00.000Z",
+                "depTimeAct": "2026-08-15T18:37:31.667Z",
+                "delay": 60,
+                "takeoffTimeAct": "2026-08-15T18:43:26.671Z",
+                "durationAct": 96,
+                "arrTimeAct": "2026-08-15T20:19:46.655Z",
+                "open": "2026-08-15T18:07:19.790Z",
+                "close": "2026-08-15T20:25:43.702Z",
+                "rating": 9,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 408,
+                        "fuel": 2650,
+                        "expenses": 6134,
+                        "penalties": 0,
+                        "revenue": 6247,
+                        "balance": 113,
+                        "prices": {
+                            "ticketPrice": 101,
+                            "cargoUnitPrice": 118,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 49,
+                            "cargo": 11,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 49
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2996,
+                        "aircraft": 2705,
+                        "handling": 226,
+                        "landing": 207
+                    },
+                    "revenue": {
+                        "tickets": 4949,
+                        "cargo": 1298
+                    },
+                    "violations": [
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1018mb instead of 1013.25mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "weather": {
+                                        "windDir": 270,
+                                        "windSpd": 2,
+                                        "windX": -1.25
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.26G (242 ft/min, challenging  conditions)<br/>Distance from threshold: 506m (accepted range: 175-704m)<br/>Average centerline deviation: 3.98m<br/>Max centerline deviation: 5.70m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.26,
+                                        "rate": 242
+                                    },
+                                    "weather": {
+                                        "windDir": 270.11,
+                                        "windSpd": 2.09,
+                                        "windX": -1.49
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on landing: 1020mb instead of 1013.25mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.26,
+                                        "rate": 242
+                                    },
+                                    "weather": {
+                                        "windDir": 270.11,
+                                        "windSpd": 2.09,
+                                        "windX": -1.49
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-15T17:53:11.084Z",
+                "updatedAt": "2026-08-15T20:25:43.823Z",
+                "dep": {
+                    "icao": "UKON",
+                    "name": "Mykolaiv International Airport",
+                    "city": "Mykolaiv",
+                    "location": {
+                        "lat": 47.057899,
+                        "lon": 31.9198,
+                        "elev": 184
+                    }
+                },
+                "arr": {
+                    "icao": "UKWW",
+                    "name": "Vinnytsia/Gavyryshivka International Airport",
+                    "city": "Vinnitsa",
+                    "location": {
+                        "lat": 49.242531,
+                        "lon": 28.613778,
+                        "elev": 961
+                    }
+                },
+                "actArr": {
+                    "icao": "UKWW",
+                    "name": "Vinnytsia/Gavyryshivka International Airport",
+                    "city": "Vinnitsa",
+                    "location": {
+                        "lat": 49.242531,
+                        "lon": 28.613778,
+                        "elev": 961
+                    }
+                }
+            }
+        ]
     }
 ]
