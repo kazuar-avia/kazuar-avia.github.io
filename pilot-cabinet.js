@@ -5985,26 +5985,25 @@ function companyFixedTopPoolPremiumHtml(item) {
   const value = Number(item?.proposal?.premiumUsd);
   return Number.isFinite(value) && value > 0 ? `<strong>${money(Math.round(value))}</strong>` : '&mdash;';
 }
-function companyFixedTopPoolFleetDurationForClone(clone, proposal) {
+function companyFixedTopPoolFleetRouteHtmlForClone(clone, proposal) {
   const dep = String(proposal?.depIcao || '').trim().toUpperCase();
   const arr = String(proposal?.arrIcao || '').trim().toUpperCase();
   if (!clone || !dep || !arr) return '';
-  const text = clone.querySelector('.company-livery-offer-route')?.innerText || '';
+  const routeEl = clone.querySelector('.company-livery-offer-route');
+  const text = routeEl?.innerText || '';
   const routeRe = new RegExp(`\\b${dep}\\b\\s*-\\s*\\b${arr}\\b`, 'i');
   if (!routeRe.test(text)) return '';
-  const match = text.match(/\(~?(\d{1,2}:\d{2})\)/);
-  return match ? match[1].padStart(5, '0') : '';
+  return routeEl?.innerHTML || '';
 }
 
 function applyCompanyFixedTopPoolStatus(clone, item) {
   const proposal = item?.proposal || {};
-  const fleetDuration = companyFixedTopPoolFleetDurationForClone(clone, proposal);
-  const viewItem = fleetDuration ? {...item, proposal: {...proposal, durationText: fleetDuration}} : item;
-  const routeHtml = companyFixedTopPoolRouteHtml(viewItem);
+  const fleetRouteHtml = companyFixedTopPoolFleetRouteHtmlForClone(clone, proposal);
+  const routeHtml = fleetRouteHtml || companyFixedTopPoolRouteHtml(item);
   const offer = clone.querySelector('.company-livery-status-offer');
   if (!offer || !routeHtml || routeHtml === '—') return;
   offer.classList.remove('company-livery-status-offer-muted');
-  offer.innerHTML = `💰 Гарантована премія ${companyFixedTopPoolPremiumHtml(viewItem)} за рейс:<div class="company-livery-offer-route">${routeHtml}</div>`;
+  offer.innerHTML = `💰 Гарантована премія ${companyFixedTopPoolPremiumHtml(item)} за рейс:<div class="company-livery-offer-route">${routeHtml}</div>`;
 }
 
 function companyFixedTopPoolNormalizeIcao(value) {
