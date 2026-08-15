@@ -6246,7 +6246,11 @@ function companyFixedTopPoolNoteHtml(item, category, mode, index) {
   if (mode === 'quick') return `<strong>ТОП <img class="company-pyrih-icon" src="pyrih.png" alt="пиріжок" aria-hidden="true"> #${index + 1}</strong>`;
   const rawBase = item.categoryNote || `${category.label || mode} #${index + 1}`;
   let baseText = mode === 'idle' ? String(rawBase).replace(/\s*[·•]\s*останній\s+\d{1,2}\.\d{1,2}\s*$/iu, '') : String(rawBase);
-  if (mode === 'earn') baseText = baseText.replace(/^ТОП\s+\$\/год/u, 'ТОП 💸 $/год');
+  if (mode === 'earn') {
+    baseText = baseText.replace(/^ТОП\s+\$\/год/u, 'ТОП 💸 $/год');
+    const rate = Math.round(Number(item?.ratePerHour) || 0);
+    if (rate > 0 && !/\$\s*\d+[\s\u00A0]*\/\s*год/u.test(baseText)) baseText += ` · $${rate}/год`;
+  }
   if (mode === 'return') baseText = baseText.replace(/^На маршрут(?!\s*🔁)/u, 'На маршрут 🔁');
   if (mode === 'idle') baseText = baseText.replace(/^Простій(?!\s*🧰)/u, 'Простій 🧰');
   const base = esc(baseText).replace(/🧰/g, '<span class="company-toolbox-icon">🧰</span>');
