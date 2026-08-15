@@ -307,14 +307,12 @@ function baseIcaosForAircraft(aircraft = {}) {
 function scheduleRoutesForAircraft(db, aircraft = {}) {
   const id = cleanId(aircraft.id || aircraft._id);
   const reg = upper(aircraft.registration);
-  const code = upper(aircraft.airframeIdent || aircraft.airframeType || aircraft.icao);
   return array(db.scheduleAssignments)
     .filter(route => route?.active !== false)
     .filter(route => {
       const ids = new Set(array(route.assignedAircraftIds).map(cleanId).filter(Boolean));
       const regs = new Set(array(route.assignedRegistrations).map(upper).filter(Boolean));
-      const airframes = new Set(array(route.airframes).map(upper).filter(Boolean));
-      return (id && ids.has(id)) || (reg && regs.has(reg)) || (!ids.size && !regs.size && code && airframes.has(code));
+      return (id && ids.has(id)) || (reg && regs.has(reg));
     })
     .map(route => ({...route, dep: upper(route.dep), arr: upper(route.arr), number: String(route.number || '').trim()}))
     .filter(route => route.dep && route.arr);
