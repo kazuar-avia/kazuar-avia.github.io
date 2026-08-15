@@ -19954,6 +19954,176 @@
                         "elev": 755
                     }
                 }
+            },
+            {
+                "_id": "6a807d0aef75cc333098ccb3",
+                "aircraft": {
+                    "_id": "69ff1763a5e61d69a71adbb5",
+                    "name": "Cessna 208 Caravan",
+                    "customName": "UCAA l Cessna 208 (pax) based in UKLR l UR-PAX",
+                    "icao": "C208"
+                },
+                "type": "pax",
+                "flightNumber": "31X",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 11,
+                    "cargo": 1,
+                    "weights": {
+                        "cargo": 100
+                    }
+                },
+                "depTime": "2026-08-15T15:05:00.000Z",
+                "duration": 125,
+                "arrTime": "2026-08-15T17:10:00.000Z",
+                "depTimeAct": "2026-08-15T14:55:28.920Z",
+                "delay": -39,
+                "takeoffTimeAct": "2026-08-15T14:55:31.918Z",
+                "durationAct": 95,
+                "arrTimeAct": "2026-08-15T16:30:44.882Z",
+                "open": "2026-08-15T14:53:19.928Z",
+                "close": "2026-08-15T16:32:38.534Z",
+                "rating": 9.06,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 295,
+                        "fuel": 286,
+                        "expenses": 838,
+                        "penalties": 678,
+                        "revenue": 1349,
+                        "balance": -167,
+                        "prices": {
+                            "ticketPrice": 111,
+                            "cargoUnitPrice": 128,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 11,
+                            "cargo": 1,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 11
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 336,
+                        "aircraft": 290,
+                        "handling": 179,
+                        "landing": 33
+                    },
+                    "revenue": {
+                        "tickets": 1221,
+                        "cargo": 128
+                    },
+                    "violations": [
+                        {
+                            "title": "MTOW exceeded: 7kg above maximum takeoff weight of 3969kg",
+                            "penalty": {
+                                "points": -10,
+                                "cash": 678
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "weather": {
+                                        "windDir": 70,
+                                        "windSpd": 5.62,
+                                        "windX": -4.63
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.14G (108 ft/min, normal  conditions)<br/>Distance from threshold: 112m (accepted range: 164-660m)<br/>Average centerline deviation: 2.10m<br/>Max centerline deviation: 3.65m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 34
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.14,
+                                        "rate": 108
+                                    },
+                                    "weather": {
+                                        "windDir": 299.98,
+                                        "windSpd": 7.75,
+                                        "windX": -7.29
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Max G exceeded: 2.42G (max allowed: 2G)",
+                            "penalty": {
+                                "points": -84,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-15T14:51:54.448Z",
+                "updatedAt": "2026-08-15T16:32:38.603Z",
+                "dep": {
+                    "icao": "SKBO",
+                    "name": "El Dorado International Airport",
+                    "city": "Bogota",
+                    "location": {
+                        "lat": 4.70159,
+                        "lon": -74.1469,
+                        "elev": 8361
+                    }
+                },
+                "arr": {
+                    "icao": "SKPS",
+                    "name": "Antonio Nariño Airport",
+                    "city": "Chachagüí",
+                    "location": {
+                        "lat": 1.396722,
+                        "lon": -77.29093,
+                        "elev": 5951
+                    }
+                },
+                "actArr": {
+                    "icao": "SKPS",
+                    "name": "Antonio Nariño Airport",
+                    "city": "Chachagüí",
+                    "location": {
+                        "lat": 1.396722,
+                        "lon": -77.29093,
+                        "elev": 5951
+                    }
+                }
             }
         ]
     },
