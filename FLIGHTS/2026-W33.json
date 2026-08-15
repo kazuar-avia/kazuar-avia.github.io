@@ -19622,6 +19622,154 @@
                         "elev": 505
                     }
                 }
+            },
+            {
+                "_id": "6a802538ef75cc33308c908e",
+                "aircraft": {
+                    "_id": "6a5e237a50c8a562fcb2e8d7",
+                    "name": "Airbus A330-300",
+                    "customName": "Dry Lease l A330-300 RR iniBuilds l 375 pax elite",
+                    "icao": "A333"
+                },
+                "type": "pax",
+                "flightNumber": "94R",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 375,
+                    "cargo": 39,
+                    "weights": {
+                        "cargo": 4602
+                    }
+                },
+                "depTime": "2026-08-15T08:50:00.000Z",
+                "duration": 85,
+                "arrTime": "2026-08-15T10:15:00.000Z",
+                "depTimeAct": "2026-08-15T08:56:22.157Z",
+                "delay": 10,
+                "takeoffTimeAct": "2026-08-15T09:03:40.849Z",
+                "durationAct": 81,
+                "arrTimeAct": "2026-08-15T10:25:06.119Z",
+                "open": "2026-08-15T08:45:01.984Z",
+                "close": "2026-08-15T10:30:01.914Z",
+                "rating": 8.6,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 503,
+                        "fuel": 7248,
+                        "expenses": 27214,
+                        "penalties": 0,
+                        "revenue": 60925,
+                        "balance": 33711,
+                        "prices": {
+                            "ticketPrice": 121,
+                            "cargoUnitPrice": 135,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 1,
+                                "fuel": 0.8,
+                                "ground": 0.85
+                            }
+                        },
+                        "payload": {
+                            "pax": 375,
+                            "cargo": 39,
+                            "paxByClass": {
+                                "F": 15,
+                                "C": 40,
+                                "Y": 320
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 6556,
+                        "aircraft": 16380,
+                        "handling": 1878,
+                        "landing": 2400
+                    },
+                    "revenue": {
+                        "tickets": 55660,
+                        "cargo": 5265
+                    },
+                    "violations": [
+                        {
+                            "title": "Average touchdown: 1.56G (492 ft/min, normal  conditions)",
+                            "penalty": {
+                                "points": -40,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.56,
+                                        "rate": 492
+                                    },
+                                    "weather": {
+                                        "windDir": 215.97,
+                                        "windSpd": 3.85,
+                                        "windX": 2.09
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No NAV lights for 5391s when required",
+                            "penalty": {
+                                "points": -100,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-15T08:37:12.514Z",
+                "updatedAt": "2026-08-15T10:30:02.010Z",
+                "dep": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "arr": {
+                    "icao": "EDDB",
+                    "name": "Berlin Brandenburg Airport",
+                    "city": "Berlin",
+                    "location": {
+                        "lat": 52.362247,
+                        "lon": 13.500672,
+                        "elev": 157
+                    }
+                },
+                "actArr": {
+                    "icao": "EDDB",
+                    "name": "Berlin Brandenburg Airport",
+                    "city": "Berlin",
+                    "location": {
+                        "lat": 52.362247,
+                        "lon": 13.500672,
+                        "elev": 157
+                    }
+                }
             }
         ]
     },
