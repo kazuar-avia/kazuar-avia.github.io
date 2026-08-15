@@ -20394,6 +20394,156 @@
                         "elev": 5951
                     }
                 }
+            },
+            {
+                "_id": "6a809770ef75cc33309cd35c",
+                "aircraft": {
+                    "_id": "6a4f90ec5760ec7cdb612ec3",
+                    "name": "Airbus A320",
+                    "customName": "Aerosvit vs DonbassAero l A320 CFM based in UKBB l UR-DAH",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "28U",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 180,
+                    "cargo": 5,
+                    "weights": {
+                        "cargo": 405
+                    }
+                },
+                "depTime": "2026-08-15T17:00:00.000Z",
+                "duration": 120,
+                "arrTime": "2026-08-15T19:00:00.000Z",
+                "depTimeAct": "2026-08-15T16:58:06.870Z",
+                "delay": -21,
+                "takeoffTimeAct": "2026-08-15T17:08:52.884Z",
+                "durationAct": 90,
+                "arrTimeAct": "2026-08-15T18:38:55.848Z",
+                "open": "2026-08-15T16:55:43.107Z",
+                "close": "2026-08-15T18:41:24.879Z",
+                "rating": 9.73,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 692,
+                        "fuel": 3924,
+                        "expenses": 14236,
+                        "penalties": 0,
+                        "revenue": 25580,
+                        "balance": 11344,
+                        "prices": {
+                            "ticketPrice": 138,
+                            "cargoUnitPrice": 148,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 180,
+                            "cargo": 5,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 180
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4579,
+                        "aircraft": 5600,
+                        "handling": 3247,
+                        "landing": 810
+                    },
+                    "revenue": {
+                        "tickets": 24840,
+                        "cargo": 740
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 6.40m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -27,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.34G (254 ft/min, challenging  conditions)<br/>Distance from threshold: 474m (accepted range: 188-754m)<br/>Average centerline deviation: 1.33m<br/>Max centerline deviation: 1.82m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.34,
+                                        "rate": 254
+                                    },
+                                    "weather": {
+                                        "windDir": 270,
+                                        "windSpd": 19.57,
+                                        "windX": -2.89
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-15T16:44:32.585Z",
+                "updatedAt": "2026-08-15T18:41:24.957Z",
+                "dep": {
+                    "icao": "KJFK",
+                    "name": "John F. Kennedy International Airport",
+                    "city": "New York",
+                    "location": {
+                        "lat": 40.639447,
+                        "lon": -73.779317,
+                        "elev": 13
+                    }
+                },
+                "arr": {
+                    "icao": "TXKF",
+                    "name": "L.F. Wade International Airport",
+                    "city": "Hamilton",
+                    "location": {
+                        "lat": 32.363802,
+                        "lon": -64.67824,
+                        "elev": 12
+                    }
+                },
+                "actArr": {
+                    "icao": "TXKF",
+                    "name": "L.F. Wade International Airport",
+                    "city": "Hamilton",
+                    "location": {
+                        "lat": 32.363802,
+                        "lon": -64.67824,
+                        "elev": 12
+                    }
+                }
             }
         ]
     },
