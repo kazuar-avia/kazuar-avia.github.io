@@ -21929,6 +21929,219 @@
                         "elev": 157
                     }
                 }
+            },
+            {
+                "_id": "6a80b605ef75cc3330a1a96c",
+                "aircraft": {
+                    "_id": "6a18241ea5e61d69a736205d",
+                    "name": "Embraer 195",
+                    "customName": "Dry Lease l E195",
+                    "icao": "E195"
+                },
+                "type": "pax",
+                "flightNumber": "258Y",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 114,
+                    "cargo": 23,
+                    "weights": {
+                        "cargo": 2944
+                    }
+                },
+                "depTime": "2026-08-15T19:10:00.000Z",
+                "duration": 60,
+                "arrTime": "2026-08-15T20:10:00.000Z",
+                "depTimeAct": "2026-08-15T19:11:58.232Z",
+                "delay": -40,
+                "takeoffTimeAct": "2026-08-15T19:19:46.485Z",
+                "durationAct": 11,
+                "arrTimeAct": "2026-08-15T19:30:29.537Z",
+                "open": "2026-08-15T18:55:06.873Z",
+                "close": "2026-08-15T19:31:48.568Z",
+                "rating": -0.2,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": true,
+                "result": {
+                    "totals": {
+                        "distance": 36,
+                        "fuel": 474,
+                        "expenses": 0,
+                        "penalties": 0,
+                        "revenue": 0,
+                        "balance": 0,
+                        "prices": {
+                            "ticketPrice": 42,
+                            "cargoUnitPrice": 42,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.7,
+                                "fuel": 0.8,
+                                "ground": 0.7
+                            }
+                        },
+                        "payload": {
+                            "pax": 114,
+                            "cargo": 23,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 114
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 429,
+                        "aircraft": 1552,
+                        "handling": 407,
+                        "landing": 168
+                    },
+                    "revenue": {
+                        "tickets": 4788,
+                        "cargo": 966
+                    },
+                    "violations": [
+                        {
+                            "title": "Emergency Declared",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "emergency",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Incorrect flaps for landing",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.72,
+                                        "rate": 603
+                                    },
+                                    "weather": {
+                                        "windDir": 0.09,
+                                        "windSpd": 2.34,
+                                        "windX": -2.32
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 8.98m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -17,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Short landing (165m from threshold before 175m min accepted)",
+                            "penalty": {
+                                "points": -9,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.72,
+                                        "rate": 603
+                                    },
+                                    "weather": {
+                                        "windDir": 0.09,
+                                        "windSpd": 2.34,
+                                        "windX": -2.32
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.72G (603 ft/min, challenging  conditions)<br/>Distance from threshold: 165m (accepted range: 175-704m)<br/>Average centerline deviation: 3.91m<br/>Max centerline deviation: 8.98m",
+                            "penalty": {
+                                "points": -55,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.72,
+                                        "rate": 603
+                                    },
+                                    "weather": {
+                                        "windDir": 0.09,
+                                        "windSpd": 2.34,
+                                        "windX": -2.32
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-15T18:55:01.673Z",
+                "updatedAt": "2026-08-15T19:31:48.637Z",
+                "dep": {
+                    "icao": "UKHH",
+                    "name": "Kharkiv International Airport",
+                    "city": "Kharkiv",
+                    "location": {
+                        "lat": 49.926943,
+                        "lon": 36.290814,
+                        "elev": 508
+                    }
+                },
+                "arr": {
+                    "icao": "UKKK",
+                    "name": "Igor Sikorsky Kyiv International Airport (Zhuliany)",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.40194,
+                        "lon": 30.45194,
+                        "elev": 587
+                    }
+                },
+                "actArr": {
+                    "icao": "UKHH",
+                    "name": "Kharkiv International Airport",
+                    "city": "Kharkiv",
+                    "location": {
+                        "lat": 49.926943,
+                        "lon": 36.290814,
+                        "elev": 508
+                    }
+                }
             }
         ]
     },
