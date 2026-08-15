@@ -19,13 +19,21 @@
     '#f2b778','#eda36f','#e2c06f','#d8a862','#ccd9ea','#bfd8ee'
   ];
   const MONTH_AWARD_MONTHS = ['СІЧ','ЛЮТ','БЕР','КВІ','ТРА','ЧЕР','ЛИП','СЕР','ВЕР','ЖОВ','ЛИС','ГРУ'];
+  const TOP_MONTH_AWARD_THRESHOLD = 3;
+  const TOP_MONTH_AWARD_DEFS = [
+    {category:'hot', key:'top-hot', emoji:'🥧', iconHtml:'<img class="profile-monthly-top-pyrih" src="pyrih.png" alt="Пиріжки">', label:'ТОП Гарячі пиріжки', shortLabel:'HUSTLE'},
+    {category:'cash', key:'top-cash', emoji:'💸', label:'ТОП Підняти кеш', shortLabel:'CASH'},
+    {category:'returnRoute', key:'top-returnRoute', emoji:'🔁', label:'ТОП Повернув на маршрут', shortLabel:'ROUTE'},
+    {category:'idle', key:'top-idle', emoji:'🧰', label:'ТОП Вивів з простоя', shortLabel:'SAVE'}
+  ];
   let specialProfileAwards = [];
   let specialProfileAwardsPromise = null;
+  let guaranteedProfileBonuses = {};
   function monthlyAwardPeriods() {
     const dates = availableFlights.map(dateOf).filter(date => date instanceof Date && !Number.isNaN(date.getTime()));
     if (!dates.length) return [];
     const first = new Date(Math.min(...dates.map(date => date.getTime())));
-    const now = new Date();
+    const now = referenceNow instanceof Date && Number.isFinite(referenceNow.getTime()) ? referenceNow : new Date();
     const lastCompletedMonth = new Date(Date.UTC(now.getUTCFullYear(),now.getUTCMonth(),1));
     const cursor = new Date(Date.UTC(first.getUTCFullYear(),first.getUTCMonth(),1));
     const periods = [];
@@ -493,7 +501,10 @@
   }
 
   function allPilotIds() {
-    return [...new Set(availableFlights.map(flight => flight.pilot?.id).filter(Boolean))];
+    return [...new Set([
+      ...availableFlights.map(flight => flight.pilot?.id).filter(Boolean),
+      ...profileTopBonusRecords().map(({record}) => String(record?.pilotId || '').trim()).filter(Boolean)
+    ])];
   }
 
   function overallSummaries() {
@@ -1361,8 +1372,87 @@
     };
   }
 
+  function profileTopBonusRecords() {
+    const source = guaranteedProfileBonuses && typeof guaranteedProfileBonuses === 'object' ? guaranteedProfileBonuses : {};
+    const flights = source.flights && typeof source.flights === 'object' ? source.flights : source;
+    return Object.entries(flights || {})
+      .map(([flightId,record]) => ({flightId,record}))
+      .filter(({record}) => record && record.status === 'earned' && record.pie === true && record.pilotId && record.pieType);
+  }
+
+  function profileTopBonusSignature() {
+    return profileTopBonusRecords()
+      .map(({flightId,record}) => [
+        flightId,
+        record.pilotId || '',
+        record.pieType || '',
+        record.status || '',
+        record.updatedAt || record.earnedAt || record.completedAt || ''
+      ].join(':'))
+      .sort()
+      .join('|');
+  }
+
+  function profileTopBonusDate(record) {
+    const raw = record?.updatedAt || record?.earnedAt || record?.completedAt || record?.closedAt || record?.finishedAt || '';
+    const date = raw ? new Date(raw) : null;
+    return date && Number.isFinite(date.getTime()) ? date : null;
+  }
+
+  function topMonthlyAwardsForPeriod(year,month) {
+    const start = new Date(Date.UTC(year,month,1));
+    const end = new Date(Date.UTC(year,month+1,1));
+    const definitions = new Map(TOP_MONTH_AWARD_DEFS.map(def => [def.category,def]));
+    const grouped = new Map();
+    profileTopBonusRecords().forEach(({flightId,record}) => {
+      const definition = definitions.get(String(record.pieType || ''));
+      if (!definition) return;
+      const date = profileTopBonusDate(record);
+      if (!date || date < start || date >= end) return;
+      const pilotId = String(record.pilotId || '').trim();
+      if (!pilotId) return;
+      const key = `${definition.category}|${pilotId}`;
+      const item = grouped.get(key) || {
+        definition,
+        pilotId,
+        count:0,
+        flights:new Set(),
+        latest:0
+      };
+      const uniqueFlight = String(flightId || record.flightId || record.id || `${pilotId}-${definition.category}-${record.route || record.flightNumber || item.count}`);
+      if (item.flights.has(uniqueFlight)) return;
+      item.flights.add(uniqueFlight);
+      item.count += 1;
+      item.latest = Math.max(item.latest,date.getTime());
+      grouped.set(key,item);
+    });
+    const byCategory = new Map();
+    grouped.forEach(item => {
+      const list = byCategory.get(item.definition.category) || [];
+      list.push(item);
+      byCategory.set(item.definition.category,list);
+    });
+    const monthName = start.toLocaleDateString('uk-UA',{month:'long',year:'numeric',timeZone:'UTC'});
+    return [...byCategory.values()].map(list => {
+      const ranked = list.sort((a,b) => b.count-a.count || b.latest-a.latest || a.pilotId.localeCompare(b.pilotId));
+      const winner = ranked[0];
+      if (!winner || winner.count < TOP_MONTH_AWARD_THRESHOLD) return null;
+      return {
+        ...winner.definition,
+        year,
+        month,
+        monthName,
+        value:winner.count,
+        formatted:`${winner.count} ${flightWord(winner.count)}`,
+        flights:winner.count,
+        pilotId:winner.pilotId
+      };
+    }).filter(Boolean);
+  }
+
   function buildMonthlyAwardsCache() {
-    const key = profileFlightsSignature || profileCacheSignature();
+    const nowKeyDate = referenceNow instanceof Date && Number.isFinite(referenceNow.getTime()) ? referenceNow : new Date();
+    const key = `${profileFlightsSignature || profileCacheSignature()}:${profileTopBonusSignature()}:${nowKeyDate.toISOString().slice(0,7)}`;
     if (monthlyAwardsCache?.key === key) return monthlyAwardsCache.byPilot;
     const pilotIds = allPilotIds();
     const byPilot = new Map(pilotIds.map(id => [id,[]]));
@@ -1424,6 +1514,10 @@
           flights:winner.flights
         });
       });
+      topMonthlyAwardsForPeriod(year,month).forEach(award => {
+        if (!byPilot.has(award.pilotId)) byPilot.set(award.pilotId,[]);
+        byPilot.get(award.pilotId).push(award);
+      });
     });
     byPilot.forEach(awards => awards.sort((a,b) => b.year-a.year || b.month-a.month));
     monthlyAwardsCache = {key,byPilot};
@@ -1440,7 +1534,8 @@
       const tooltip = `<div><strong>${esc(award.label)}</strong><br>${esc(award.monthName)}<br>${esc(award.formatted)} за місяць</div>`;
       const variantClass = award.variant ? ` monthly-award-${award.variant}` : '';
       const text = award.shortLabel || `${MONTH_AWARD_MONTHS[award.month]} ${String(award.year).slice(-2)}`;
-      return `<span class="monthly-achievement-award${variantClass}" style="--month-award-color:${MONTH_AWARD_COLORS[award.month]}" data-award-tooltip="${esc(tooltip)}" aria-label="${esc(label)}"><span class="monthly-award-diamond"><span class="monthly-award-emoji">${award.emoji}</span><span class="monthly-award-date">${esc(text)}</span><span class="monthly-award-medal">🥇</span></span></span>`;
+      const icon = award.iconHtml || esc(award.emoji);
+      return `<span class="monthly-achievement-award${variantClass}" style="--month-award-color:${MONTH_AWARD_COLORS[award.month]}" data-award-tooltip="${esc(tooltip)}" aria-label="${esc(label)}"><span class="monthly-award-diamond"><span class="monthly-award-emoji">${icon}</span><span class="monthly-award-date">${esc(text)}</span><span class="monthly-award-medal">🥇</span></span></span>`;
     }).join('');
   }
 
@@ -2482,6 +2577,11 @@
     }
   }
 
+  function setGuaranteedBonuses(data) {
+    guaranteedProfileBonuses = data && typeof data === 'object' ? data : {};
+    monthlyAwardsCache = null;
+  }
+
   addEventListener('hashchange', () => {
     if (String(location.hash || '').startsWith('#profile')) {
       const page = ensureProfilePage();
@@ -2568,5 +2668,5 @@
       }).join('');
   }
 
-  window.UCAAPilotProfile = {open,setFlights,cardAwards,cardAircraftAwardsHtml,cardSpecialAwardsHtml,warmProfileCaches};
+  window.UCAAPilotProfile = {open,setFlights,setGuaranteedBonuses,cardAwards,cardAircraftAwardsHtml,cardSpecialAwardsHtml,warmProfileCaches};
 })();
