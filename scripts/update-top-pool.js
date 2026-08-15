@@ -758,6 +758,11 @@ function topPoolItem(category, rank, item, now, windowHours, graceHours, extra =
   const activeUntil = new Date(now.getTime() + windowHours * 3600000).toISOString();
   const claimableUntil = new Date(now.getTime() + (windowHours + graceHours) * 3600000).toISOString();
   const idParts = [generatedAt.replace(/[-:.TZ]/g, '').slice(0, 12), category, item.registration || item.aircraftId, item.flightNumber || item.proposalKind || 'any', item.dep, item.arr].filter(Boolean);
+  const flightNumber = item.flightNumber || (item.proposalKind === 'free' ? 'FREE' : '');
+  const type = item.proposalKind === 'schedule' ? 'schedule' : 'free';
+  const durationText = Number.isFinite(item.blockMinutes)
+    ? `${String(Math.floor(item.blockMinutes / 60)).padStart(2, '0')}:${String(item.blockMinutes % 60).padStart(2, '0')}`
+    : '';
   return {
     poolId: idParts.join('-'), generatedAt, activeUntil, claimableUntil,
     category,
@@ -776,6 +781,17 @@ function topPoolItem(category, rank, item, now, windowHours, graceHours, extra =
     blockMinutes: item.blockMinutes,
     premium: item.amount,
     ratePerHour: item.ratePerHour,
+    proposal: {
+      type,
+      flightNumber,
+      depIcao: item.dep,
+      arrIcao: item.arr,
+      durationText,
+      premiumUsd: item.amount,
+      reason: item.proposalReason,
+      source: item.proposalKind,
+      routeText: `${item.dep || ''} - ${item.arr || ''}`.trim()
+    },
     idleDays: Number.isFinite(extra.idleDays) ? extra.idleDays : undefined,
     latestCompletedAt: extra.latestDate && Number.isFinite(extra.latestDate.getTime()) ? extra.latestDate.toISOString() : undefined,
     status: 'active'
@@ -808,11 +824,11 @@ function buildTopPool({candidates, completedFlights, now, windowHours, graceHour
       return b.idleDays - a.idleDays || a.aircraftTitle.localeCompare(b.aircraftTitle, 'uk');
     })
     .slice(0, 6);
-  const items = [];
-  hot.forEach((item, index) => items.push(topPoolItem('hot', index + 1, item, now, windowHours, graceHours)));
-  cash.forEach((item, index) => items.push(topPoolItem('cash', index + 1, item, now, windowHours, graceHours)));
-  returnRoute.forEach((item, index) => items.push(topPoolItem('returnRoute', index + 1, item, now, windowHours, graceHours)));
-  idle.forEach((item, index) => items.push(topPoolItem('idle', index + 1, item, now, windowHours, graceHours, {idleDays: item.idleDays, latestDate: item.latestDate})));
+  const hotItems = hot.map((item, index) => topPoolItem('hot', index + 1, item, now, windowHours, graceHours));
+  const cashItems = cash.map((item, index) => topPoolItem('cash', index + 1, item, now, windowHours, graceHours));
+  const returnRouteItems = returnRoute.map((item, index) => topPoolItem('returnRoute', index + 1, item, now, windowHours, graceHours));
+  const idleItems = idle.map((item, index) => topPoolItem('idle', index + 1, item, now, windowHours, graceHours, {idleDays: item.idleDays, latestDate: item.latestDate}));
+  const items = [...hotItems, ...cashItems, ...returnRouteItems, ...idleItems];
   return {
     version: 2,
     generatedAt: now.toISOString(),
@@ -822,6 +838,12 @@ function buildTopPool({candidates, completedFlights, now, windowHours, graceHour
     graceHours,
     source: {proposalEngine: 'scripts/update-guaranteed-bonuses.js functions', flights: argValue('--weeks') || 'manifest/archive/live week'},
     counts: {hot: hot.length, cash: cash.length, returnRoute: returnRoute.length, idle: idle.length, total: items.length},
+    categories: {
+      quick: {key: 'quick', category: 'hot', label: 'Гарячі пиріжки', items: hotItems},
+      earn: {key: 'earn', category: 'cash', label: 'Підняти кеш $/год', items: cashItems},
+      return: {key: 'return', category: 'returnRoute', label: 'Повернути на маршрут', items: returnRouteItems},
+      idle: {key: 'idle', category: 'idle', label: 'Вивести з простоя', items: idleItems}
+    },
     items
   };
 }
