@@ -26696,6 +26696,185 @@
                         "elev": 213
                     }
                 }
+            },
+            {
+                "_id": "6a810ea1ef75cc3330ada052",
+                "aircraft": {
+                    "_id": "695a63363dc76275bacff63f",
+                    "name": "Boeing 777-200ER",
+                    "customName": "Ukraine Int l 777-200 based in UKBB l UR-GOA",
+                    "icao": "B772"
+                },
+                "type": "pax",
+                "flightNumber": "242",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 294,
+                    "cargo": 60,
+                    "weights": {
+                        "cargo": 4320
+                    }
+                },
+                "depTime": "2026-08-16T01:30:00.000Z",
+                "duration": 600,
+                "arrTime": "2026-08-16T11:30:00.000Z",
+                "depTimeAct": "2026-08-16T01:35:23.948Z",
+                "delay": 19,
+                "takeoffTimeAct": "2026-08-16T01:41:27.679Z",
+                "durationAct": 608,
+                "arrTimeAct": "2026-08-16T11:49:22.547Z",
+                "open": "2026-08-16T01:15:02.512Z",
+                "close": "2026-08-16T11:55:20.049Z",
+                "rating": 9.9,
+                "simulator": "msfs",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 5078,
+                        "fuel": 66085,
+                        "expenses": 122090,
+                        "penalties": 0,
+                        "revenue": 345360,
+                        "balance": 223270,
+                        "prices": {
+                            "ticketPrice": 764,
+                            "cargoUnitPrice": 790,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 294,
+                            "cargo": 60,
+                            "paxByClass": {
+                                "F": 18,
+                                "C": 42,
+                                "Y": 234
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 77531,
+                        "aircraft": 41840,
+                        "handling": 1879,
+                        "landing": 840
+                    },
+                    "revenue": {
+                        "tickets": 297960,
+                        "cargo": 47400
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 4.32m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -5,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    },
+                                    "weather": {
+                                        "windDir": 60.01,
+                                        "windSpd": 16.26,
+                                        "windX": -8.46
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Short landing (202m from threshold before 209m min accepted)",
+                            "penalty": {
+                                "points": -5,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.19,
+                                        "rate": 323
+                                    },
+                                    "weather": {
+                                        "windDir": 217.63,
+                                        "windSpd": 10.49,
+                                        "windX": 4.4
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.19G (323 ft/min, challenging  conditions)<br/>Distance from threshold: 202m (accepted range: 209-838m)<br/>Average centerline deviation: 4.48m<br/>Max centerline deviation: 7.49m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.19,
+                                        "rate": 323
+                                    },
+                                    "weather": {
+                                        "windDir": 217.63,
+                                        "windSpd": 10.49,
+                                        "windX": 4.4
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-16T01:13:05.176Z",
+                "updatedAt": "2026-08-16T11:55:20.172Z",
+                "dep": {
+                    "icao": "MDLR",
+                    "name": "Casa De Campo International Airport",
+                    "city": "La Romana",
+                    "location": {
+                        "lat": 18.452222,
+                        "lon": -68.911111,
+                        "elev": 213
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
             }
         ]
     },
