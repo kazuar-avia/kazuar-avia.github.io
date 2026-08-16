@@ -27553,6 +27553,156 @@
                         "elev": 508
                     }
                 }
+            },
+            {
+                "_id": "6a8212abef75cc3330cfc9ca",
+                "aircraft": {
+                    "_id": "6a4fa15e5760ec7cdb627803",
+                    "name": "Boeing 737-800",
+                    "customName": "Dry Lease l BOEING 737-800",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "95",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 117,
+                    "cargo": 30,
+                    "weights": {
+                        "cargo": 3420
+                    }
+                },
+                "depTime": "2026-08-16T19:55:00.000Z",
+                "duration": 60,
+                "arrTime": "2026-08-16T20:55:00.000Z",
+                "depTimeAct": "2026-08-16T20:07:21.065Z",
+                "delay": 4,
+                "takeoffTimeAct": "2026-08-16T20:10:41.718Z",
+                "durationAct": 49,
+                "arrTimeAct": "2026-08-16T20:59:22.741Z",
+                "open": "2026-08-16T19:56:54.754Z",
+                "close": "2026-08-16T21:08:28.342Z",
+                "rating": 9.49,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 271,
+                        "fuel": 2129,
+                        "expenses": 6676,
+                        "penalties": 0,
+                        "revenue": 18059,
+                        "balance": 11383,
+                        "prices": {
+                            "ticketPrice": 109,
+                            "cargoUnitPrice": 126,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.7,
+                                "fuel": 0.8,
+                                "ground": 0.7
+                            }
+                        },
+                        "payload": {
+                            "pax": 117,
+                            "cargo": 30,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 14,
+                                "Y": 103
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1926,
+                        "aircraft": 3825,
+                        "handling": 421,
+                        "landing": 504
+                    },
+                    "revenue": {
+                        "tickets": 14279,
+                        "cargo": 3780
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 10.45m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -51,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.14G (187 ft/min, challenging  conditions)<br/>Distance from threshold: 408m (accepted range: 169-679m)<br/>Average centerline deviation: 4.81m<br/>Max centerline deviation: 10.45m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 21
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.14,
+                                        "rate": 187
+                                    },
+                                    "weather": {
+                                        "windDir": 198.84,
+                                        "windSpd": 7.56,
+                                        "windX": 6.97
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-16T19:42:35.184Z",
+                "updatedAt": "2026-08-16T21:08:28.422Z",
+                "dep": {
+                    "icao": "UKHH",
+                    "name": "Kharkiv International Airport",
+                    "city": "Kharkiv",
+                    "location": {
+                        "lat": 49.926943,
+                        "lon": 36.290814,
+                        "elev": 508
+                    }
+                },
+                "arr": {
+                    "icao": "UKKK",
+                    "name": "Igor Sikorsky Kyiv International Airport (Zhuliany)",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.40194,
+                        "lon": 30.45194,
+                        "elev": 587
+                    }
+                },
+                "actArr": {
+                    "icao": "UKKK",
+                    "name": "Igor Sikorsky Kyiv International Airport (Zhuliany)",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.40194,
+                        "lon": 30.45194,
+                        "elev": 587
+                    }
+                }
             }
         ]
     },
