@@ -282,5 +282,175 @@
                 }
             }
         ]
+    },
+    {
+        "pilot_id": "69ea36d0a5e61d69a7350b79",
+        "fullname": "Volodymyr Kotliarskyi",
+        "avatar": "default",
+        "flights": [
+            {
+                "_id": "6a82fe4fef75cc3330ea1c30",
+                "aircraft": {
+                    "_id": "6a4fd7e55760ec7cdb6783b0",
+                    "name": "Fokker F28-1000 Fellowship",
+                    "customName": "Air Ukraine l Fokker 28 (Yak-40) based in UKKK l UR-40393",
+                    "icao": "F28"
+                },
+                "type": "pax",
+                "flightNumber": "522",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 50,
+                    "cargo": 10,
+                    "weights": {
+                        "cargo": 1170
+                    }
+                },
+                "depTime": "2026-08-17T13:10:00.000Z",
+                "duration": 40,
+                "arrTime": "2026-08-17T13:50:00.000Z",
+                "depTimeAct": "2026-08-17T13:10:43.393Z",
+                "delay": -3,
+                "takeoffTimeAct": "2026-08-17T13:18:16.374Z",
+                "durationAct": 29,
+                "arrTimeAct": "2026-08-17T13:47:21.335Z",
+                "open": "2026-08-17T13:00:31.195Z",
+                "close": "2026-08-17T13:58:38.347Z",
+                "rating": 7.28,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 138,
+                        "fuel": 841,
+                        "expenses": 3017,
+                        "penalties": 0,
+                        "revenue": 4954,
+                        "balance": 1937,
+                        "prices": {
+                            "ticketPrice": 66,
+                            "cargoUnitPrice": 73,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 50,
+                            "cargo": 10,
+                            "paxByClass": {
+                                "F": 2,
+                                "C": 8,
+                                "Y": 40
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 951,
+                        "aircraft": 1668,
+                        "handling": 230,
+                        "landing": 168
+                    },
+                    "revenue": {
+                        "tickets": 4224,
+                        "cargo": 730
+                    },
+                    "violations": [
+                        {
+                            "title": "Unstable approach below 200ft: vertical speed above 0 ft/min (actual 264 ft/min)",
+                            "penalty": {
+                                "points": -132,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 55
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.66G (558 ft/min, challenging  conditions)<br/>Distance from threshold: 457m (accepted range: 169-679m)<br/>Average centerline deviation: 1.66m<br/>Max centerline deviation: 2.63m",
+                            "penalty": {
+                                "points": -40,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 51
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.66,
+                                        "rate": 558
+                                    },
+                                    "weather": {
+                                        "windDir": 262.73,
+                                        "windSpd": 7.59,
+                                        "windX": -0.04
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No NAV lights for 483s when required",
+                            "penalty": {
+                                "points": -100,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-17T12:27:59.242Z",
+                "updatedAt": "2026-08-17T13:58:38.418Z",
+                "dep": {
+                    "icao": "UKWW",
+                    "name": "Vinnytsia/Gavyryshivka International Airport",
+                    "city": "Vinnitsa",
+                    "location": {
+                        "lat": 49.242531,
+                        "lon": 28.613778,
+                        "elev": 961
+                    }
+                },
+                "arr": {
+                    "icao": "UKKK",
+                    "name": "Igor Sikorsky Kyiv International Airport (Zhuliany)",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.40194,
+                        "lon": 30.45194,
+                        "elev": 587
+                    }
+                },
+                "actArr": {
+                    "icao": "UKKK",
+                    "name": "Igor Sikorsky Kyiv International Airport (Zhuliany)",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.40194,
+                        "lon": 30.45194,
+                        "elev": 587
+                    }
+                }
+            }
+        ]
     }
 ]
