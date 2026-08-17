@@ -452,5 +452,177 @@
                 }
             }
         ]
+    },
+    {
+        "pilot_id": "69e65b62a5e61d69a7e5c6e3",
+        "fullname": "Alex Vi",
+        "avatar": "69e65b62a5e61d69a7e5c6e31776868638012",
+        "flights": [
+            {
+                "_id": "6a82ec38ef75cc3330e7a49f",
+                "aircraft": {
+                    "_id": "6a4e7b3c5760ec7cdb4f39a3",
+                    "name": "Boeing 737-800",
+                    "customName": "Ukraine Int l 737-800 based in UKLL UKHH l UR-PSE",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "215",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 184,
+                    "cargo": 34,
+                    "weights": {
+                        "cargo": 2414
+                    }
+                },
+                "depTime": "2026-08-17T11:40:00.000Z",
+                "duration": 150,
+                "arrTime": "2026-08-17T14:10:00.000Z",
+                "depTimeAct": "2026-08-17T11:41:36.043Z",
+                "delay": -6,
+                "takeoffTimeAct": "2026-08-17T11:47:23.315Z",
+                "durationAct": 137,
+                "arrTimeAct": "2026-08-17T14:04:26.993Z",
+                "open": "2026-08-17T11:21:28.874Z",
+                "close": "2026-08-17T14:09:30.991Z",
+                "rating": 8.41,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 963,
+                        "fuel": 5776,
+                        "expenses": 13202,
+                        "penalties": 0,
+                        "revenue": 43626,
+                        "balance": 30424,
+                        "prices": {
+                            "ticketPrice": 190,
+                            "cargoUnitPrice": 199,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 184,
+                            "cargo": 34,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 10,
+                                "Y": 174
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 5224,
+                        "aircraft": 5825,
+                        "handling": 938,
+                        "landing": 1215
+                    },
+                    "revenue": {
+                        "tickets": 36860,
+                        "cargo": 6766
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 8.51m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -9,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.10G (125 ft/min, challenging  conditions)<br/>Distance from threshold: 448m (accepted range: 200-802m)<br/>Average centerline deviation: 4.34m<br/>Max centerline deviation: 6.64m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.1,
+                                        "rate": 125
+                                    },
+                                    "weather": {
+                                        "windDir": 110,
+                                        "windSpd": 10.45,
+                                        "windX": -10.01
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 715ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-17T11:10:48.492Z",
+                "updatedAt": "2026-08-17T14:09:31.412Z",
+                "dep": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "arr": {
+                    "icao": "LTAI",
+                    "name": "Antalya International Airport",
+                    "city": "Antalya",
+                    "location": {
+                        "lat": 36.898701,
+                        "lon": 30.800501,
+                        "elev": 177
+                    }
+                },
+                "actArr": {
+                    "icao": "LTAI",
+                    "name": "Antalya International Airport",
+                    "city": "Antalya",
+                    "location": {
+                        "lat": 36.898701,
+                        "lon": 30.800501,
+                        "elev": 177
+                    }
+                }
+            }
+        ]
     }
 ]
