@@ -816,6 +816,180 @@
                         "elev": 62
                     }
                 }
+            },
+            {
+                "_id": "6a837f10ef75cc3330fbfe9c",
+                "aircraft": {
+                    "_id": "6a4f7c085760ec7cdb5fbade",
+                    "name": "Boeing 737-600",
+                    "customName": "Dniproavia l 737-600 based in UKDD l UR-DNC",
+                    "icao": "B736"
+                },
+                "type": "pax",
+                "flightNumber": "1801",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 103,
+                    "cargo": 13,
+                    "weights": {
+                        "cargo": 1391
+                    }
+                },
+                "depTime": "2026-08-17T21:50:00.000Z",
+                "duration": 60,
+                "arrTime": "2026-08-17T22:50:00.000Z",
+                "depTimeAct": "2026-08-17T21:51:41.337Z",
+                "delay": -9,
+                "takeoffTimeAct": "2026-08-17T21:53:31.918Z",
+                "durationAct": 48,
+                "arrTimeAct": "2026-08-17T22:41:16.122Z",
+                "open": "2026-08-17T21:44:20.990Z",
+                "close": "2026-08-17T22:44:00.872Z",
+                "rating": 9.88,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 274,
+                        "fuel": 1995,
+                        "expenses": 6302,
+                        "penalties": 0,
+                        "revenue": 18925,
+                        "balance": 12623,
+                        "prices": {
+                            "ticketPrice": 134,
+                            "cargoUnitPrice": 157,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 103,
+                            "cargo": 13,
+                            "paxByClass": {
+                                "F": 2,
+                                "C": 17,
+                                "Y": 84
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2256,
+                        "aircraft": 3240,
+                        "handling": 470,
+                        "landing": 336
+                    },
+                    "revenue": {
+                        "tickets": 16884,
+                        "cargo": 2041
+                    },
+                    "violations": [
+                        {
+                            "title": "Speeding when vacating runway (going 54KT, accepted max 50KT)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Short landing (192m from threshold before 209m min accepted)",
+                            "penalty": {
+                                "points": -12,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.29,
+                                        "rate": 265
+                                    },
+                                    "weather": {
+                                        "windDir": 307.88,
+                                        "windSpd": 2.57,
+                                        "windX": 2.13
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.29G (265 ft/min, challenging  conditions)<br/>Distance from threshold: 192m (accepted range: 209-838m)<br/>Average centerline deviation: 1.79m<br/>Max centerline deviation: 3.57m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.29,
+                                        "rate": 265
+                                    },
+                                    "weather": {
+                                        "windDir": 307.88,
+                                        "windSpd": 2.57,
+                                        "windX": 2.13
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-17T21:37:20.885Z",
+                "updatedAt": "2026-08-17T22:44:00.951Z",
+                "dep": {
+                    "icao": "UKDD",
+                    "name": "Dnipro International Airport",
+                    "city": "Dnipro",
+                    "location": {
+                        "lat": 48.357201,
+                        "lon": 35.100601,
+                        "elev": 481
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
             }
         ]
     },
