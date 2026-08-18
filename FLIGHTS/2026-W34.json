@@ -3731,6 +3731,186 @@
                         "elev": 587
                     }
                 }
+            },
+            {
+                "_id": "6a849f65ef75cc33301d1746",
+                "aircraft": {
+                    "_id": "695a2a573dc76275bac8ccc8",
+                    "name": "Boeing 737-800 Freighter",
+                    "customName": "Supernova l 737-800F based in LKMT l UR-NPA",
+                    "icao": "B738"
+                },
+                "type": "cargo",
+                "flightNumber": "73I",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 0,
+                    "cargo": 148,
+                    "weights": {
+                        "cargo": 20720
+                    }
+                },
+                "depTime": "2026-08-18T18:20:00.000Z",
+                "duration": 50,
+                "arrTime": "2026-08-18T19:10:00.000Z",
+                "depTimeAct": "2026-08-18T18:37:03.194Z",
+                "delay": 29,
+                "takeoffTimeAct": "2026-08-18T18:43:06.090Z",
+                "durationAct": 55,
+                "arrTimeAct": "2026-08-18T19:38:31.989Z",
+                "open": "2026-08-18T18:35:00.396Z",
+                "close": "2026-08-18T19:41:38.019Z",
+                "rating": 8.86,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 270,
+                        "fuel": 2695,
+                        "expenses": 8498,
+                        "penalties": 222,
+                        "revenue": 16280,
+                        "balance": 7560,
+                        "prices": {
+                            "ticketPrice": 95,
+                            "cargoUnitPrice": 110,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 0,
+                            "cargo": 148,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3047,
+                        "aircraft": 4514,
+                        "handling": 67,
+                        "landing": 870
+                    },
+                    "revenue": {
+                        "tickets": 0,
+                        "cargo": 16280
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight delayed 3 minutes (max 15 minutes after scheduled is allowed)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 222
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 53
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 11.19m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -103,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 49
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Speeding when vacating runway (going 56KT, accepted max 50KT)",
+                            "penalty": {
+                                "points": -11,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 45
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.19G (202 ft/min, normal  conditions)<br/>Distance from threshold: 508m (accepted range: 176-705m)<br/>Average centerline deviation: 10.16m<br/>Max centerline deviation: 11.19m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 44
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.19,
+                                        "rate": 202
+                                    },
+                                    "weather": {
+                                        "windDir": 249.99,
+                                        "windSpd": 1.5,
+                                        "windX": -0.88
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-18T18:07:33.047Z",
+                "updatedAt": "2026-08-18T19:41:38.105Z",
+                "dep": {
+                    "icao": "LKMT",
+                    "name": "Leoš Janáček Airport Ostrava",
+                    "city": "Mošnov",
+                    "location": {
+                        "lat": 49.696301,
+                        "lon": 18.111099,
+                        "elev": 844
+                    }
+                },
+                "arr": {
+                    "icao": "EPPO",
+                    "name": "Poznań-Ławica Airport",
+                    "city": "Poznań",
+                    "location": {
+                        "lat": 52.421598,
+                        "lon": 16.823359,
+                        "elev": 308
+                    }
+                },
+                "actArr": {
+                    "icao": "EPPO",
+                    "name": "Poznań-Ławica Airport",
+                    "city": "Poznań",
+                    "location": {
+                        "lat": 52.421598,
+                        "lon": 16.823359,
+                        "elev": 308
+                    }
+                }
             }
         ]
     },
