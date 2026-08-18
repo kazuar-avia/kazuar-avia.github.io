@@ -7199,6 +7199,154 @@
                         "elev": 362
                     }
                 }
+            },
+            {
+                "_id": "6a848cf3ef75cc33301a7d26",
+                "aircraft": {
+                    "_id": "6a4f8c7c5760ec7cdb60d2ea",
+                    "name": "Boeing 737-800",
+                    "customName": "Aerosvit l 737-800 based in UKBB l UR-AAN",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "904",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 174,
+                    "cargo": 28,
+                    "weights": {
+                        "cargo": 3584
+                    }
+                },
+                "depTime": "2026-08-18T17:10:00.000Z",
+                "duration": 95,
+                "arrTime": "2026-08-18T18:45:00.000Z",
+                "depTimeAct": "2026-08-18T17:11:09.641Z",
+                "delay": -6,
+                "takeoffTimeAct": "2026-08-18T17:16:04.643Z",
+                "durationAct": 83,
+                "arrTimeAct": "2026-08-18T18:38:45.131Z",
+                "open": "2026-08-18T17:00:19.953Z",
+                "close": "2026-08-18T18:42:39.805Z",
+                "rating": 8.92,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 540,
+                        "fuel": 3972,
+                        "expenses": 11024,
+                        "penalties": 0,
+                        "revenue": 33952,
+                        "balance": 22928,
+                        "prices": {
+                            "ticketPrice": 148,
+                            "cargoUnitPrice": 166,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 174,
+                            "cargo": 28,
+                            "paxByClass": {
+                                "F": 2,
+                                "C": 18,
+                                "Y": 154
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4491,
+                        "aircraft": 4450,
+                        "handling": 1579,
+                        "landing": 504
+                    },
+                    "revenue": {
+                        "tickets": 29304,
+                        "cargo": 4648
+                    },
+                    "violations": [
+                        {
+                            "title": "Average touchdown: 1.53G (364 ft/min, challenging  conditions)",
+                            "penalty": {
+                                "points": -8,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.53,
+                                        "rate": 364
+                                    },
+                                    "weather": {
+                                        "windDir": 215.97,
+                                        "windSpd": 16.46,
+                                        "windX": 9.17
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No STROBE lights for 4936s when required",
+                            "penalty": {
+                                "points": -100,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-18T16:48:51.563Z",
+                "updatedAt": "2026-08-18T18:42:39.880Z",
+                "dep": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
             }
         ]
     }
