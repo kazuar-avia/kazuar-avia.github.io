@@ -1221,6 +1221,161 @@
                         "elev": 13
                     }
                 }
+            },
+            {
+                "_id": "6a8476fdef75cc33301741b2",
+                "aircraft": {
+                    "_id": "6988b97c9da57b990ad5c8f7",
+                    "name": "Airbus A321 neo",
+                    "customName": "Dry Lease l iniBuilds A321LR (neo) l 220 pax",
+                    "icao": "A21N"
+                },
+                "type": "pax",
+                "flightNumber": "75S",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 60,
+                    "cargo": 16,
+                    "weights": {
+                        "cargo": 976
+                    }
+                },
+                "depTime": "2026-08-18T15:30:00.000Z",
+                "duration": 120,
+                "arrTime": "2026-08-18T17:30:00.000Z",
+                "depTimeAct": "2026-08-18T15:36:49.253Z",
+                "delay": 12,
+                "takeoffTimeAct": "2026-08-18T15:58:50.440Z",
+                "durationAct": 103,
+                "arrTimeAct": "2026-08-18T17:41:39.431Z",
+                "open": "2026-08-18T15:36:39.371Z",
+                "close": "2026-08-18T17:44:24.446Z",
+                "rating": 9.86,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 693,
+                        "fuel": 4176,
+                        "expenses": 12832,
+                        "penalties": 0,
+                        "revenue": 10648,
+                        "balance": -2184,
+                        "prices": {
+                            "ticketPrice": 138,
+                            "cargoUnitPrice": 148,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 60,
+                            "cargo": 16,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 60
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4721,
+                        "aircraft": 6783,
+                        "handling": 308,
+                        "landing": 1020
+                    },
+                    "revenue": {
+                        "tickets": 8280,
+                        "cargo": 2368
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 4.85m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -14,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "weather": {
+                                        "windDir": 259.94,
+                                        "windSpd": 12.21,
+                                        "windX": 6.22
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.14G (176 ft/min, normal  conditions)<br/>Distance from threshold: 653m (accepted range: 190-764m)<br/>Average centerline deviation: 0.80m<br/>Max centerline deviation: 1.25m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.14,
+                                        "rate": 176
+                                    },
+                                    "weather": {
+                                        "windDir": 272.8,
+                                        "windSpd": 7.8,
+                                        "windX": 0.29
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-18T15:15:09.664Z",
+                "updatedAt": "2026-08-18T17:44:24.518Z",
+                "dep": {
+                    "icao": "EGPE",
+                    "name": "Inverness Airport",
+                    "city": "Inverness",
+                    "location": {
+                        "lat": 57.5425,
+                        "lon": -4.0475,
+                        "elev": 31
+                    }
+                },
+                "arr": {
+                    "icao": "BIKF",
+                    "name": "Keflavik International Airport",
+                    "city": "Reykjavík",
+                    "location": {
+                        "lat": 63.985001,
+                        "lon": -22.6056,
+                        "elev": 171
+                    }
+                },
+                "actArr": {
+                    "icao": "BIKF",
+                    "name": "Keflavik International Airport",
+                    "city": "Reykjavík",
+                    "location": {
+                        "lat": 63.985001,
+                        "lon": -22.6056,
+                        "elev": 171
+                    }
+                }
             }
         ]
     },
