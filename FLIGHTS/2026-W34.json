@@ -916,6 +916,176 @@
                         "elev": 49
                     }
                 }
+            },
+            {
+                "_id": "6a842da6ef75cc33300d5c91",
+                "aircraft": {
+                    "_id": "699ae4f09da57b990ac12987",
+                    "name": "Boeing 777 Freighter",
+                    "customName": "UCAA l 777F (cargo) based in UKBB l UR-CRG",
+                    "icao": "B77L"
+                },
+                "type": "cargo",
+                "flightNumber": "934E",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 0,
+                    "cargo": 162,
+                    "weights": {
+                        "cargo": 22680
+                    }
+                },
+                "depTime": "2026-08-18T10:15:00.000Z",
+                "duration": 360,
+                "arrTime": "2026-08-18T16:15:00.000Z",
+                "depTimeAct": "2026-08-18T10:05:18.319Z",
+                "delay": -67,
+                "takeoffTimeAct": "2026-08-18T10:09:11.322Z",
+                "durationAct": 298,
+                "arrTimeAct": "2026-08-18T15:07:39.268Z",
+                "open": "2026-08-18T10:03:26.165Z",
+                "close": "2026-08-18T15:09:09.303Z",
+                "rating": 7.49,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 2281,
+                        "fuel": 37721,
+                        "expenses": 69386,
+                        "penalties": 0,
+                        "revenue": 48600,
+                        "balance": -20786,
+                        "prices": {
+                            "ticketPrice": 305,
+                            "cargoUnitPrice": 300,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 0,
+                            "cargo": 162,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 36715,
+                        "aircraft": 29390,
+                        "handling": 81,
+                        "landing": 3200
+                    },
+                    "revenue": {
+                        "tickets": 0,
+                        "cargo": 48600
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 5.86m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -29,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "weather": {
+                                        "windDir": 0.01,
+                                        "windSpd": 4.02,
+                                        "windX": -3.45
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 19.11m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -222,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.35G (335 ft/min, challenging  conditions)<br/>Distance from threshold: 464m (accepted range: 182-732m)<br/>Average centerline deviation: 9.50m<br/>Max centerline deviation: 19.11m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.35,
+                                        "rate": 335
+                                    },
+                                    "weather": {
+                                        "windDir": 69.99,
+                                        "windSpd": 16.4,
+                                        "windX": 4.26
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-18T10:02:14.189Z",
+                "updatedAt": "2026-08-18T15:09:09.389Z",
+                "dep": {
+                    "icao": "NSTU",
+                    "name": "Pago Pago International Airport",
+                    "city": "Pago Pago",
+                    "location": {
+                        "lat": -14.331,
+                        "lon": -170.710007,
+                        "elev": 32
+                    }
+                },
+                "arr": {
+                    "icao": "PHNL",
+                    "name": "Daniel K. Inouye International Airport",
+                    "city": "Honolulu, Oahu",
+                    "location": {
+                        "lat": 21.318387,
+                        "lon": -157.92567,
+                        "elev": 13
+                    }
+                },
+                "actArr": {
+                    "icao": "PHNL",
+                    "name": "Daniel K. Inouye International Airport",
+                    "city": "Honolulu, Oahu",
+                    "location": {
+                        "lat": 21.318387,
+                        "lon": -157.92567,
+                        "elev": 13
+                    }
+                }
             }
         ]
     },
