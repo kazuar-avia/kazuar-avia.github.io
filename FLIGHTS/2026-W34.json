@@ -2505,6 +2505,208 @@
                         "elev": 481
                     }
                 }
+            },
+            {
+                "_id": "6a841f1eef75cc33300bba86",
+                "aircraft": {
+                    "_id": "6a7ec30def75cc333064b43f",
+                    "name": "Boeing 737-800",
+                    "customName": "Kharkiv Wings l PMDG 737-800 based in Kharkiv l UR-KHW",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "5705",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 111,
+                    "cargo": 25,
+                    "weights": {
+                        "cargo": 2325
+                    }
+                },
+                "depTime": "2026-08-18T09:15:00.000Z",
+                "duration": 90,
+                "arrTime": "2026-08-18T10:45:00.000Z",
+                "depTimeAct": "2026-08-18T09:16:00.299Z",
+                "delay": -24,
+                "takeoffTimeAct": "2026-08-18T09:17:13.563Z",
+                "durationAct": 63,
+                "arrTimeAct": "2026-08-18T10:20:30.409Z",
+                "open": "2026-08-18T09:01:54.483Z",
+                "close": "2026-08-18T10:24:32.727Z",
+                "rating": 6.31,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 385,
+                        "fuel": 2967,
+                        "expenses": 8137,
+                        "penalties": 0,
+                        "revenue": 20195,
+                        "balance": 12058,
+                        "prices": {
+                            "ticketPrice": 145,
+                            "cargoUnitPrice": 164,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 111,
+                            "cargo": 25,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 111
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2684,
+                        "aircraft": 3975,
+                        "handling": 398,
+                        "landing": 1080
+                    },
+                    "revenue": {
+                        "tickets": 16095,
+                        "cargo": 4100
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 18.13m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -179,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (899m from threshold beyond 807m max accepted)",
+                            "penalty": {
+                                "points": -32,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.1,
+                                        "rate": 101
+                                    },
+                                    "weather": {
+                                        "windDir": 210,
+                                        "windSpd": 22.95,
+                                        "windX": -15.37
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.10G (101 ft/min, challenging  conditions)<br/>Distance from threshold: 899m (accepted range: 201-807m)<br/>Average centerline deviation: 11.90m<br/>Max centerline deviation: 18.13m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.1,
+                                        "rate": 101
+                                    },
+                                    "weather": {
+                                        "windDir": 210,
+                                        "windSpd": 22.95,
+                                        "windX": -15.37
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 131ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No NAV lights for 61s when required",
+                            "penalty": {
+                                "points": -8,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-18T09:00:14.893Z",
+                "updatedAt": "2026-08-18T10:24:32.805Z",
+                "dep": {
+                    "icao": "UKHH",
+                    "name": "Kharkiv International Airport",
+                    "city": "Kharkiv",
+                    "location": {
+                        "lat": 49.926943,
+                        "lon": 36.290814,
+                        "elev": 508
+                    }
+                },
+                "arr": {
+                    "icao": "LUKK",
+                    "name": "Chişinău International Airport",
+                    "city": "Chişinău",
+                    "location": {
+                        "lat": 46.92774,
+                        "lon": 28.931704,
+                        "elev": 399
+                    }
+                },
+                "actArr": {
+                    "icao": "LUKK",
+                    "name": "Chişinău International Airport",
+                    "city": "Chişinău",
+                    "location": {
+                        "lat": 46.92774,
+                        "lon": 28.931704,
+                        "elev": 399
+                    }
+                }
             }
         ]
     },
