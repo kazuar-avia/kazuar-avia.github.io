@@ -7268,6 +7268,195 @@
                         "elev": 37
                     }
                 }
+            },
+            {
+                "_id": "6a85ef55ef75cc333038b3a2",
+                "aircraft": {
+                    "_id": "695a66383dc76275bad0826f",
+                    "name": "Airbus A320",
+                    "customName": "Dry Lease l A320 CFM FENIX msfs2024",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "93A",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 161,
+                    "cargo": 18,
+                    "weights": {
+                        "cargo": 1458
+                    }
+                },
+                "depTime": "2026-08-19T18:15:00.000Z",
+                "duration": 50,
+                "arrTime": "2026-08-19T19:05:00.000Z",
+                "depTimeAct": "2026-08-19T18:14:27.730Z",
+                "delay": -3,
+                "takeoffTimeAct": "2026-08-19T18:21:35.721Z",
+                "durationAct": 40,
+                "arrTimeAct": "2026-08-19T19:01:35.692Z",
+                "open": "2026-08-19T18:01:38.318Z",
+                "close": "2026-08-19T19:03:35.713Z",
+                "rating": 7.89,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 203,
+                        "fuel": 2020,
+                        "expenses": 8664,
+                        "penalties": 0,
+                        "revenue": 17940,
+                        "balance": 9276,
+                        "prices": {
+                            "ticketPrice": 95,
+                            "cargoUnitPrice": 110,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 161,
+                            "cargo": 18,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 7,
+                                "Y": 154
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2284,
+                        "aircraft": 4475,
+                        "handling": 975,
+                        "landing": 930
+                    },
+                    "revenue": {
+                        "tickets": 15960,
+                        "cargo": 1980
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 6.12m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -34,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (893m from threshold beyond 758m max accepted)",
+                            "penalty": {
+                                "points": -47,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.45,
+                                        "rate": 350
+                                    },
+                                    "weather": {
+                                        "windDir": 240,
+                                        "windSpd": 6.4,
+                                        "windX": -2.61
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.45G (350 ft/min, normal  conditions)<br/>Distance from threshold: 893m (accepted range: 189-758m)<br/>Average centerline deviation: 2.56m<br/>Max centerline deviation: 6.12m",
+                            "penalty": {
+                                "points": -13,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.45,
+                                        "rate": 350
+                                    },
+                                    "weather": {
+                                        "windDir": 240,
+                                        "windSpd": 6.4,
+                                        "windX": -2.61
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 922ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -117,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-19T18:00:53.114Z",
+                "updatedAt": "2026-08-19T19:03:35.808Z",
+                "dep": {
+                    "icao": "LIEO",
+                    "name": "Olbia Costa Smeralda Airport",
+                    "city": "Olbia (SS)",
+                    "location": {
+                        "lat": 40.898953,
+                        "lon": 9.518457,
+                        "elev": 37
+                    }
+                },
+                "arr": {
+                    "icao": "LIRP",
+                    "name": "Pisa International Airport",
+                    "city": "Pisa (PI)",
+                    "location": {
+                        "lat": 43.683899,
+                        "lon": 10.3927,
+                        "elev": 6
+                    }
+                },
+                "actArr": {
+                    "icao": "LIRP",
+                    "name": "Pisa International Airport",
+                    "city": "Pisa (PI)",
+                    "location": {
+                        "lat": 43.683899,
+                        "lon": 10.3927,
+                        "elev": 6
+                    }
+                }
             }
         ]
     },
