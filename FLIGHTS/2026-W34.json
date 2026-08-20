@@ -15426,5 +15426,195 @@
                 }
             }
         ]
+    },
+    {
+        "pilot_id": "690a53113dc76275ba867994",
+        "fullname": "Lou Ken",
+        "avatar": "690a53113dc76275ba8679941762285983623",
+        "flights": [
+            {
+                "_id": "6a872875ef75cc3330512ca7",
+                "aircraft": {
+                    "_id": "6a4fa1d65760ec7cdb62803f",
+                    "name": "Boeing 777-300ER",
+                    "customName": "Dry Lease l 777-300ER GE 370 pax",
+                    "icao": "B77W"
+                },
+                "type": "pax",
+                "flightNumber": "60B",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 89,
+                    "cargo": 68,
+                    "weights": {
+                        "cargo": 4488
+                    }
+                },
+                "depTime": "2026-08-20T16:35:00.000Z",
+                "duration": 170,
+                "arrTime": "2026-08-20T19:25:00.000Z",
+                "depTimeAct": "2026-08-20T17:04:42.716Z",
+                "delay": 25,
+                "takeoffTimeAct": "2026-08-20T17:08:12.712Z",
+                "durationAct": 162,
+                "arrTimeAct": "2026-08-20T19:49:52.560Z",
+                "open": "2026-08-20T16:57:36.727Z",
+                "close": "2026-08-20T19:52:49.991Z",
+                "rating": 8.5,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1038,
+                        "fuel": 23595,
+                        "expenses": 46180,
+                        "penalties": 667,
+                        "revenue": 33952,
+                        "balance": -12895,
+                        "prices": {
+                            "ticketPrice": 174,
+                            "cargoUnitPrice": 182,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 89,
+                            "cargo": 68,
+                            "paxByClass": {
+                                "F": 6,
+                                "C": 17,
+                                "Y": 66
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 21340,
+                        "aircraft": 21858,
+                        "handling": 336,
+                        "landing": 2646
+                    },
+                    "revenue": {
+                        "tickets": 21576,
+                        "cargo": 12376
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight delayed 15 minutes (max 15 minutes after scheduled is allowed)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 667
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1020mb instead of 1010.6mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 23
+                                    },
+                                    "weather": {
+                                        "windDir": 199.66,
+                                        "windSpd": 9.26,
+                                        "windX": 2.67
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.19G (371 ft/min, challenging  conditions)<br/>Distance from threshold: 245m (accepted range: 207-831m)<br/>Average centerline deviation: 0.90m<br/>Max centerline deviation: 2.14m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 20
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.19,
+                                        "rate": 371
+                                    },
+                                    "weather": {
+                                        "windDir": 224.97,
+                                        "windSpd": 6.13,
+                                        "windX": -0.12
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No BEACON lights for 10346s when required",
+                            "penalty": {
+                                "points": -100,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-20T16:16:53.911Z",
+                "updatedAt": "2026-08-20T19:52:50.064Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "LSGG",
+                    "name": "Geneva International Airport",
+                    "city": "Geneva",
+                    "location": {
+                        "lat": 46.238098,
+                        "lon": 6.10895,
+                        "elev": 1411
+                    }
+                },
+                "actArr": {
+                    "icao": "LSGG",
+                    "name": "Geneva International Airport",
+                    "city": "Geneva",
+                    "location": {
+                        "lat": 46.238098,
+                        "lon": 6.10895,
+                        "elev": 1411
+                    }
+                }
+            }
+        ]
     }
 ]
