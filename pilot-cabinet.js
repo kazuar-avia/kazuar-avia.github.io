@@ -4300,7 +4300,7 @@ function liveryBlockSpeedNmPerHour(aircraft, title = '') {
   if (text.includes('C208') || text.includes('UR-PAX') || text.includes('UR-VAN')) return 150;
   if (text.includes('F27') || text.includes('F271') || text.includes('UR-KZR')) return 180;
   if (text.includes('AT42') || text.includes('AT72') || text.includes('AT75') || text.includes('AT76') || text.includes('ATR') || text.includes('UR-RWC') || text.includes('UR-ATR')) return 200;
-  return 300;
+  return 330;
 }
 
 function liveryRouteDistanceNmText(from, to, aircraft = null, title = '') {
@@ -4308,7 +4308,7 @@ function liveryRouteDistanceNmText(from, to, aircraft = null, title = '') {
   if (!km) return '';
   const nm = Math.max(1, Math.round(km / 1.852));
   const speed = liveryBlockSpeedNmPerHour(aircraft, title);
-  const blockMinutes = Math.max(10, Math.round((40 + nm / speed * 60) / 10) * 10);
+  const blockMinutes = Math.max(10, Math.round((30 + nm / speed * 60) / 10) * 10);
   const timeText = `${String(Math.floor(blockMinutes / 60)).padStart(2, '0')}:${String(blockMinutes % 60).padStart(2, '0')}`;
   return ` <span class="company-route-block-time" title="BLOCK TIME, ~${nm.toLocaleString('uk-UA')} nm">(~${timeText})</span>`;
 }
