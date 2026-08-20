@@ -4300,7 +4300,7 @@ function liveryBlockSpeedNmPerHour(aircraft, title = '') {
   if (text.includes('C208') || text.includes('UR-PAX') || text.includes('UR-VAN')) return 150;
   if (text.includes('F27') || text.includes('F271') || text.includes('UR-KZR')) return 180;
   if (text.includes('AT42') || text.includes('AT72') || text.includes('AT75') || text.includes('AT76') || text.includes('ATR') || text.includes('UR-RWC') || text.includes('UR-ATR')) return 200;
-  return 330;
+  return 331;
 }
 
 function liveryRouteDistanceNmText(from, to, aircraft = null, title = '') {
