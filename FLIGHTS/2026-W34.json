@@ -996,6 +996,156 @@
                         "elev": 191
                     }
                 }
+            },
+            {
+                "_id": "6a86f2c1ef75cc33304b7677",
+                "aircraft": {
+                    "_id": "6a4fa15e5760ec7cdb627803",
+                    "name": "Boeing 737-800",
+                    "customName": "Dry Lease l BOEING 737-800",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "1204",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 175,
+                    "cargo": 38,
+                    "weights": {
+                        "cargo": 4788
+                    }
+                },
+                "depTime": "2026-08-20T12:50:00.000Z",
+                "duration": 199,
+                "arrTime": "2026-08-20T16:09:00.000Z",
+                "depTimeAct": "2026-08-20T12:40:21.232Z",
+                "delay": 3,
+                "takeoffTimeAct": "2026-08-20T12:48:12.242Z",
+                "durationAct": 204,
+                "arrTimeAct": "2026-08-20T16:12:26.785Z",
+                "open": "2026-08-20T12:30:28.750Z",
+                "close": "2026-08-20T16:16:24.828Z",
+                "rating": 8.5,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1410,
+                        "fuel": 8634,
+                        "expenses": 19498,
+                        "penalties": 0,
+                        "revenue": 49278,
+                        "balance": 29780,
+                        "prices": {
+                            "ticketPrice": 204,
+                            "cargoUnitPrice": 207,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 175,
+                            "cargo": 38,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 28,
+                                "Y": 147
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 9550,
+                        "aircraft": 8050,
+                        "handling": 1277,
+                        "landing": 621
+                    },
+                    "revenue": {
+                        "tickets": 41412,
+                        "cargo": 7866
+                    },
+                    "violations": [
+                        {
+                            "title": "Great touchdown: 1.12G (100 ft/min, challenging  conditions)<br/>Distance from threshold: 532m (accepted range: 175-704m)<br/>Average centerline deviation: 1.87m<br/>Max centerline deviation: 2.98m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 49
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.12,
+                                        "rate": 100
+                                    },
+                                    "weather": {
+                                        "windDir": 204.44,
+                                        "windSpd": 5.6,
+                                        "windX": -5.27
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 815ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-20T12:27:45.561Z",
+                "updatedAt": "2026-08-20T16:16:24.997Z",
+                "dep": {
+                    "icao": "HESH",
+                    "name": "Sharm El Sheikh International Airport",
+                    "city": "Sharm El Sheikh",
+                    "location": {
+                        "lat": 27.977272,
+                        "lon": 34.394717,
+                        "elev": 191
+                    }
+                },
+                "arr": {
+                    "icao": "UKWW",
+                    "name": "Vinnytsia/Gavyryshivka International Airport",
+                    "city": "Vinnitsa",
+                    "location": {
+                        "lat": 49.242531,
+                        "lon": 28.613778,
+                        "elev": 961
+                    }
+                },
+                "actArr": {
+                    "icao": "UKWW",
+                    "name": "Vinnytsia/Gavyryshivka International Airport",
+                    "city": "Vinnitsa",
+                    "location": {
+                        "lat": 49.242531,
+                        "lon": 28.613778,
+                        "elev": 961
+                    }
+                }
             }
         ]
     },
