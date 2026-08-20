@@ -15060,6 +15060,220 @@
                         "elev": 191
                     }
                 }
+            },
+            {
+                "_id": "6a8731d4ef75cc3330523f52",
+                "aircraft": {
+                    "_id": "6a4f8c7c5760ec7cdb60d2ea",
+                    "name": "Boeing 737-800",
+                    "customName": "Aerosvit l 737-800 based in UKBB l UR-AAN",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "217D",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 174,
+                    "cargo": 23,
+                    "weights": {
+                        "cargo": 1518
+                    }
+                },
+                "depTime": "2026-08-20T17:30:00.000Z",
+                "duration": 60,
+                "arrTime": "2026-08-20T18:30:00.000Z",
+                "depTimeAct": "2026-08-20T17:25:02.406Z",
+                "delay": -6,
+                "takeoffTimeAct": "2026-08-20T17:38:01.843Z",
+                "durationAct": 46,
+                "arrTimeAct": "2026-08-20T18:23:58.930Z",
+                "open": "2026-08-20T17:07:48.926Z",
+                "close": "2026-08-20T18:26:37.986Z",
+                "rating": 6.44,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 288,
+                        "fuel": 2382,
+                        "expenses": 7286,
+                        "penalties": 5000,
+                        "revenue": 25433,
+                        "balance": 13147,
+                        "prices": {
+                            "ticketPrice": 113,
+                            "cargoUnitPrice": 133,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.7,
+                                "fuel": 0.8,
+                                "ground": 0.7
+                            }
+                        },
+                        "payload": {
+                            "pax": 174,
+                            "cargo": 23,
+                            "paxByClass": {
+                                "F": 2,
+                                "C": 18,
+                                "Y": 154
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2155,
+                        "aircraft": 3750,
+                        "handling": 877,
+                        "landing": 504
+                    },
+                    "revenue": {
+                        "tickets": 22374,
+                        "cargo": 3059
+                    },
+                    "violations": [
+                        {
+                            "title": "Tail wind value exceeded on takeoff (measured: 16 KT, allowed: 15 KT)",
+                            "penalty": {
+                                "points": -100,
+                                "cash": 5000
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 39
+                                    },
+                                    "weather": {
+                                        "windDir": 187.52,
+                                        "windSpd": 17.49,
+                                        "windX": -7.29
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1014mb instead of 1017.6mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 39
+                                    },
+                                    "weather": {
+                                        "windDir": 187.52,
+                                        "windSpd": 17.49,
+                                        "windX": -7.29
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 12.07m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -56,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.35,
+                                        "rate": 292
+                                    },
+                                    "weather": {
+                                        "windDir": 200.9,
+                                        "windSpd": 5.26,
+                                        "windX": 1.04
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.35G (292 ft/min, challenging  conditions)<br/>Distance from threshold: 675m (accepted range: 209-838m)<br/>Average centerline deviation: 5.79m<br/>Max centerline deviation: 12.07m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.35,
+                                        "rate": 292
+                                    },
+                                    "weather": {
+                                        "windDir": 200.9,
+                                        "windSpd": 5.26,
+                                        "windX": 1.04
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 643ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 43
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-20T16:56:52.525Z",
+                "updatedAt": "2026-08-20T18:26:38.067Z",
+                "dep": {
+                    "icao": "UKOO",
+                    "name": "Odesa International Airport",
+                    "city": "Odesa",
+                    "location": {
+                        "lat": 46.427196,
+                        "lon": 30.672649,
+                        "elev": 172
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
             }
         ]
     }
