@@ -2429,6 +2429,234 @@
                         "elev": 312
                     }
                 }
+            },
+            {
+                "_id": "6a8822f7ef75cc333064468a",
+                "aircraft": {
+                    "_id": "699ae4f09da57b990ac12987",
+                    "name": "Boeing 777 Freighter",
+                    "customName": "UCAA l 777F (cargo) based in UKBB l UR-CRG",
+                    "icao": "B77L"
+                },
+                "type": "cargo",
+                "flightNumber": "58C",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 0,
+                    "cargo": 516,
+                    "weights": {
+                        "cargo": 71724
+                    }
+                },
+                "depTime": "2026-08-21T10:20:00.000Z",
+                "duration": 525,
+                "arrTime": "2026-08-21T19:05:00.000Z",
+                "depTimeAct": "2026-08-21T10:10:52.697Z",
+                "delay": -80,
+                "takeoffTimeAct": "2026-08-21T10:12:35.709Z",
+                "durationAct": 453,
+                "arrTimeAct": "2026-08-21T17:45:25.586Z",
+                "open": "2026-08-21T10:08:28.713Z",
+                "close": "2026-08-21T17:50:28.635Z",
+                "rating": 0.91,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 3687,
+                        "fuel": 63831,
+                        "expenses": 112348,
+                        "penalties": 0,
+                        "revenue": 245100,
+                        "balance": 132752,
+                        "prices": {
+                            "ticketPrice": 461,
+                            "cargoUnitPrice": 475,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 0,
+                            "cargo": 516,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 72161,
+                        "aircraft": 37390,
+                        "handling": 697,
+                        "landing": 2100
+                    },
+                    "revenue": {
+                        "tickets": 0,
+                        "cargo": 245100
+                    },
+                    "violations": [
+                        {
+                            "title": "Unstable approach below 400ft: vertical speed below -1500 ft/min (actual -2690 ft/min)",
+                            "penalty": {
+                                "points": -500,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "spoilers",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 5.25m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -19,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "spoilers",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (1389m from threshold beyond 847m max accepted)",
+                            "penalty": {
+                                "points": -190,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.21,
+                                        "rate": 236
+                                    },
+                                    "weather": {
+                                        "windDir": 100,
+                                        "windSpd": 9.96,
+                                        "windX": 6.8
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.21G (236 ft/min, normal  conditions)<br/>Distance from threshold: 1389m (accepted range: 211-847m)<br/>Average centerline deviation: 3.22m<br/>Max centerline deviation: 5.25m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.21,
+                                        "rate": 236
+                                    },
+                                    "weather": {
+                                        "windDir": 100,
+                                        "windSpd": 9.96,
+                                        "windX": 6.8
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on landing: 1013mb instead of 1024mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.21,
+                                        "rate": 236
+                                    },
+                                    "weather": {
+                                        "windDir": 100,
+                                        "windSpd": 9.96,
+                                        "windX": 6.8
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 12ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-21T10:05:43.822Z",
+                "updatedAt": "2026-08-21T17:50:28.731Z",
+                "dep": {
+                    "icao": "EDDF",
+                    "name": "Frankfurt Main Airport",
+                    "city": "Frankfurt am Main",
+                    "location": {
+                        "lat": 50.026706,
+                        "lon": 8.55835,
+                        "elev": 364
+                    }
+                },
+                "arr": {
+                    "icao": "HKJK",
+                    "name": "Jomo Kenyatta International Airport",
+                    "city": "Nairobi",
+                    "location": {
+                        "lat": -1.318886,
+                        "lon": 36.928233,
+                        "elev": 5330
+                    }
+                },
+                "actArr": {
+                    "icao": "HKJK",
+                    "name": "Jomo Kenyatta International Airport",
+                    "city": "Nairobi",
+                    "location": {
+                        "lat": -1.318886,
+                        "lon": 36.928233,
+                        "elev": 5330
+                    }
+                }
             }
         ]
     },
