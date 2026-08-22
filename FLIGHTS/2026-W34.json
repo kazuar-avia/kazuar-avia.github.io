@@ -12086,6 +12086,180 @@
                         "elev": 179
                     }
                 }
+            },
+            {
+                "_id": "6a8986bdef75cc3330837c50",
+                "aircraft": {
+                    "_id": "6988b97c9da57b990ad5c8f7",
+                    "name": "Airbus A321 neo",
+                    "customName": "Dry Lease l iniBuilds A321LR (neo) l 220 pax",
+                    "icao": "A21N"
+                },
+                "type": "pax",
+                "flightNumber": "58C",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 220,
+                    "cargo": 47,
+                    "weights": {
+                        "cargo": 4371
+                    }
+                },
+                "depTime": "2026-08-22T11:40:00.000Z",
+                "duration": 95,
+                "arrTime": "2026-08-22T13:15:00.000Z",
+                "depTimeAct": "2026-08-22T11:50:51.306Z",
+                "delay": 2,
+                "takeoffTimeAct": "2026-08-22T11:56:50.933Z",
+                "durationAct": 80,
+                "arrTimeAct": "2026-08-22T13:16:46.181Z",
+                "open": "2026-08-22T11:31:06.701Z",
+                "close": "2026-08-22T13:25:22.622Z",
+                "rating": 8.94,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 542,
+                        "fuel": 3378,
+                        "expenses": 11616,
+                        "penalties": 0,
+                        "revenue": 35242,
+                        "balance": 23626,
+                        "prices": {
+                            "ticketPrice": 129,
+                            "cargoUnitPrice": 146,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 220,
+                            "cargo": 47,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 220
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3819,
+                        "aircraft": 5490,
+                        "handling": 1803,
+                        "landing": 504
+                    },
+                    "revenue": {
+                        "tickets": 28380,
+                        "cargo": 6862
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 10.39m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -104,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (684m from threshold beyond 679m max accepted)",
+                            "penalty": {
+                                "points": -2,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.38,
+                                        "rate": 569
+                                    },
+                                    "weather": {
+                                        "windDir": 219.26,
+                                        "windSpd": 9.42,
+                                        "windX": 6.91
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.38G (569 ft/min, challenging  conditions)<br/>Distance from threshold: 684m (accepted range: 169-679m)<br/>Average centerline deviation: 1.90m<br/>Max centerline deviation: 4.10m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.38,
+                                        "rate": 569
+                                    },
+                                    "weather": {
+                                        "windDir": 219.26,
+                                        "windSpd": 9.42,
+                                        "windX": 6.91
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-22T11:23:41.413Z",
+                "updatedAt": "2026-08-22T13:25:22.709Z",
+                "dep": {
+                    "icao": "LHBP",
+                    "name": "Budapest Liszt Ferenc International Airport",
+                    "city": "Budapest",
+                    "location": {
+                        "lat": 47.43018,
+                        "lon": 19.262393,
+                        "elev": 495
+                    }
+                },
+                "arr": {
+                    "icao": "UKKK",
+                    "name": "Igor Sikorsky Kyiv International Airport (Zhuliany)",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.40194,
+                        "lon": 30.45194,
+                        "elev": 587
+                    }
+                },
+                "actArr": {
+                    "icao": "UKKK",
+                    "name": "Igor Sikorsky Kyiv International Airport (Zhuliany)",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.40194,
+                        "lon": 30.45194,
+                        "elev": 587
+                    }
+                }
             }
         ]
     },
