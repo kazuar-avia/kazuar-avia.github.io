@@ -1581,6 +1581,156 @@
                         "elev": 79
                     }
                 }
+            },
+            {
+                "_id": "6a89702cef75cc33308170e8",
+                "aircraft": {
+                    "_id": "6a4fa15e5760ec7cdb627803",
+                    "name": "Boeing 737-800",
+                    "customName": "Dry Lease l BOEING 737-800",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "1204",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 183,
+                    "cargo": 17,
+                    "weights": {
+                        "cargo": 1615
+                    }
+                },
+                "depTime": "2026-08-22T10:10:00.000Z",
+                "duration": 100,
+                "arrTime": "2026-08-22T11:50:00.000Z",
+                "depTimeAct": "2026-08-22T10:04:01.949Z",
+                "delay": -7,
+                "takeoffTimeAct": "2026-08-22T10:08:50.956Z",
+                "durationAct": 95,
+                "arrTimeAct": "2026-08-22T11:43:21.996Z",
+                "open": "2026-08-22T09:47:29.953Z",
+                "close": "2026-08-22T11:45:50.031Z",
+                "rating": 10,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 676,
+                        "fuel": 4204,
+                        "expenses": 11920,
+                        "penalties": 0,
+                        "revenue": 29445,
+                        "balance": 17525,
+                        "prices": {
+                            "ticketPrice": 139,
+                            "cargoUnitPrice": 154,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 183,
+                            "cargo": 17,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 10,
+                                "Y": 173
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4753,
+                        "aircraft": 5550,
+                        "handling": 996,
+                        "landing": 621
+                    },
+                    "revenue": {
+                        "tickets": 26827,
+                        "cargo": 2618
+                    },
+                    "violations": [
+                        {
+                            "title": "Unstable approach below 300ft: vertical speed below -1500 ft/min (actual -1501 ft/min)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 43
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.36G (347 ft/min, challenging  conditions)<br/>Distance from threshold: 437m (accepted range: 175-704m)<br/>Average centerline deviation: 1.70m<br/>Max centerline deviation: 3.56m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 41
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.36,
+                                        "rate": 347
+                                    },
+                                    "weather": {
+                                        "windDir": 210.1,
+                                        "windSpd": 7.75,
+                                        "windX": -6.9
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-22T09:47:24.403Z",
+                "updatedAt": "2026-08-22T11:45:50.109Z",
+                "dep": {
+                    "icao": "LDSP",
+                    "name": "Split Saint Jerome Airport",
+                    "city": "Split",
+                    "location": {
+                        "lat": 43.538898,
+                        "lon": 16.298,
+                        "elev": 79
+                    }
+                },
+                "arr": {
+                    "icao": "UKWW",
+                    "name": "Vinnytsia/Gavyryshivka International Airport",
+                    "city": "Vinnitsa",
+                    "location": {
+                        "lat": 49.242531,
+                        "lon": 28.613778,
+                        "elev": 961
+                    }
+                },
+                "actArr": {
+                    "icao": "UKWW",
+                    "name": "Vinnytsia/Gavyryshivka International Airport",
+                    "city": "Vinnitsa",
+                    "location": {
+                        "lat": 49.242531,
+                        "lon": 28.613778,
+                        "elev": 961
+                    }
+                }
             }
         ]
     },
