@@ -18282,6 +18282,165 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6a89ace8ef75cc3330880a64",
+                "aircraft": {
+                    "_id": "695a3bf33dc76275baca8db5",
+                    "name": "Boeing 737-800",
+                    "customName": "Ukraine Int l 737-800 based in UKBB l UR-UIA",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "340",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 119,
+                    "cargo": 37,
+                    "weights": {
+                        "cargo": 2516
+                    }
+                },
+                "depTime": "2026-08-22T14:25:00.000Z",
+                "duration": 135,
+                "arrTime": "2026-08-22T16:40:00.000Z",
+                "depTimeAct": "2026-08-22T14:29:10.561Z",
+                "delay": 7,
+                "takeoffTimeAct": "2026-08-22T14:34:29.023Z",
+                "durationAct": 132,
+                "arrTimeAct": "2026-08-22T16:46:39.426Z",
+                "open": "2026-08-22T14:24:20.230Z",
+                "close": "2026-08-22T16:51:01.806Z",
+                "rating": 7.11,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 839,
+                        "fuel": 6128,
+                        "expenses": 12402,
+                        "penalties": 23000,
+                        "revenue": 29452,
+                        "balance": -5950,
+                        "prices": {
+                            "ticketPrice": 185,
+                            "cargoUnitPrice": 201,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 119,
+                            "cargo": 37,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 119
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 5543,
+                        "aircraft": 5700,
+                        "handling": 430,
+                        "landing": 729
+                    },
+                    "revenue": {
+                        "tickets": 22015,
+                        "cargo": 7437
+                    },
+                    "violations": [
+                        {
+                            "title": "Short landing (119m from threshold before 177m min accepted)",
+                            "penalty": {
+                                "points": -49,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.46,
+                                        "rate": 1009
+                                    },
+                                    "weather": {
+                                        "windDir": 59.38,
+                                        "windSpd": 9.54,
+                                        "windX": 1.14
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Bad touchdown: 2.46G (1009 ft/min, normal  conditions)<br/>Distance from threshold: 380m (accepted range: 177-711m)<br/>Average centerline deviation: 1.73m<br/>Max centerline deviation: 2.39m",
+                            "penalty": {
+                                "points": -240,
+                                "cash": 23000
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.46,
+                                        "rate": 1009
+                                    },
+                                    "weather": {
+                                        "windDir": 59.38,
+                                        "windSpd": 9.54,
+                                        "windX": 1.14
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-22T14:06:32.850Z",
+                "updatedAt": "2026-08-22T16:51:01.906Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "LDSP",
+                    "name": "Split Saint Jerome Airport",
+                    "city": "Split",
+                    "location": {
+                        "lat": 43.538898,
+                        "lon": 16.298,
+                        "elev": 79
+                    }
+                },
+                "actArr": {
+                    "icao": "LDSP",
+                    "name": "Split Saint Jerome Airport",
+                    "city": "Split",
+                    "location": {
+                        "lat": 43.538898,
+                        "lon": 16.298,
+                        "elev": 79
+                    }
+                }
             }
         ]
     },
