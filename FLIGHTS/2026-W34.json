@@ -24485,6 +24485,180 @@
                         "elev": 1071
                     }
                 }
+            },
+            {
+                "_id": "6a8ae086ef75cc3330a39c33",
+                "aircraft": {
+                    "_id": "695a7ab13dc76275bad3933a",
+                    "name": "Boeing 737-800",
+                    "customName": "SkyLine Express l 737-800 based in UKDE UKLL l UR-SLG",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "92C",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 184,
+                    "cargo": 24,
+                    "weights": {
+                        "cargo": 2616
+                    }
+                },
+                "depTime": "2026-08-23T12:10:00.000Z",
+                "duration": 185,
+                "arrTime": "2026-08-23T15:15:00.000Z",
+                "depTimeAct": "2026-08-23T12:07:04.513Z",
+                "delay": 14,
+                "takeoffTimeAct": "2026-08-23T12:07:16.081Z",
+                "durationAct": 202,
+                "arrTimeAct": "2026-08-23T15:29:03.944Z",
+                "open": "2026-08-23T12:06:36.869Z",
+                "close": "2026-08-23T15:34:01.004Z",
+                "rating": 9.73,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1192,
+                        "fuel": 8782,
+                        "expenses": 20139,
+                        "penalties": 0,
+                        "revenue": 36704,
+                        "balance": 16565,
+                        "prices": {
+                            "ticketPrice": 176,
+                            "cargoUnitPrice": 180,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 184,
+                            "cargo": 24,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 184
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 7943,
+                        "aircraft": 7950,
+                        "handling": 1330,
+                        "landing": 2916
+                    },
+                    "revenue": {
+                        "tickets": 32384,
+                        "cargo": 4320
+                    },
+                    "violations": [
+                        {
+                            "title": "Long landing (794m from threshold beyond 728m max accepted)",
+                            "penalty": {
+                                "points": -23,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.09,
+                                        "rate": 98
+                                    },
+                                    "weather": {
+                                        "windDir": 50,
+                                        "windSpd": 13.51,
+                                        "windX": -4.1
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.09G (98 ft/min, normal  conditions)<br/>Distance from threshold: 794m (accepted range: 181-728m)<br/>Average centerline deviation: 2.08m<br/>Max centerline deviation: 3.84m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.09,
+                                        "rate": 98
+                                    },
+                                    "weather": {
+                                        "windDir": 50,
+                                        "windSpd": 13.51,
+                                        "windX": -4.1
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Max G exceeded: 2.02G (max allowed: 2G)",
+                            "penalty": {
+                                "points": -4,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-23T11:59:02.171Z",
+                "updatedAt": "2026-08-23T15:34:01.114Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "LFPG",
+                    "name": "Charles de Gaulle International Airport",
+                    "city": "Paris (Roissy-en-France, Val-d'Oise)",
+                    "location": {
+                        "lat": 49.00896,
+                        "lon": 2.554117,
+                        "elev": 392
+                    }
+                },
+                "actArr": {
+                    "icao": "LFPG",
+                    "name": "Charles de Gaulle International Airport",
+                    "city": "Paris (Roissy-en-France, Val-d'Oise)",
+                    "location": {
+                        "lat": 49.00896,
+                        "lon": 2.554117,
+                        "elev": 392
+                    }
+                }
             }
         ]
     },
