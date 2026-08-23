@@ -23140,6 +23140,176 @@
                         "elev": 481
                     }
                 }
+            },
+            {
+                "_id": "6a8b1cc6ef75cc3330aab661",
+                "aircraft": {
+                    "_id": "6a5e237a50c8a562fcb2e8d7",
+                    "name": "Airbus A330-300",
+                    "customName": "Dry Lease l A330-300 RR iniBuilds l 375 pax elite",
+                    "icao": "A333"
+                },
+                "type": "pax",
+                "flightNumber": "556U",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 375,
+                    "cargo": 62,
+                    "weights": {
+                        "cargo": 8122
+                    }
+                },
+                "depTime": "2026-08-23T16:30:00.000Z",
+                "duration": 125,
+                "arrTime": "2026-08-23T18:35:00.000Z",
+                "depTimeAct": "2026-08-23T16:27:15.845Z",
+                "delay": 4,
+                "takeoffTimeAct": "2026-08-23T16:33:40.845Z",
+                "durationAct": 126,
+                "arrTimeAct": "2026-08-23T18:39:18.672Z",
+                "open": "2026-08-23T16:18:28.441Z",
+                "close": "2026-08-23T18:46:12.697Z",
+                "rating": 8.85,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 825,
+                        "fuel": 12553,
+                        "expenses": 35062,
+                        "penalties": 0,
+                        "revenue": 75204,
+                        "balance": 40142,
+                        "prices": {
+                            "ticketPrice": 143,
+                            "cargoUnitPrice": 152,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 375,
+                            "cargo": 62,
+                            "paxByClass": {
+                                "F": 15,
+                                "C": 40,
+                                "Y": 320
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 11353,
+                        "aircraft": 18275,
+                        "handling": 2734,
+                        "landing": 2700
+                    },
+                    "revenue": {
+                        "tickets": 65780,
+                        "cargo": 9424
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 9.08m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -15,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 41
+                                    },
+                                    "weather": {
+                                        "windDir": 301,
+                                        "windSpd": 10.02,
+                                        "windX": 7.45
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 7.10m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.60G (621 ft/min, normal  conditions)<br/>Distance from threshold: 270m (accepted range: 201-808m)<br/>Average centerline deviation: 3.69m<br/>Max centerline deviation: 7.10m",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 36
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.6,
+                                        "rate": 621
+                                    },
+                                    "weather": {
+                                        "windDir": 310,
+                                        "windSpd": 9.34,
+                                        "windX": -6.26
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-23T16:16:06.830Z",
+                "updatedAt": "2026-08-23T18:46:12.794Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "EKCH",
+                    "name": "Copenhagen Kastrup Airport",
+                    "city": "Copenhagen",
+                    "location": {
+                        "lat": 55.617900848389,
+                        "lon": 12.656000137329,
+                        "elev": 17
+                    }
+                },
+                "actArr": {
+                    "icao": "EKCH",
+                    "name": "Copenhagen Kastrup Airport",
+                    "city": "Copenhagen",
+                    "location": {
+                        "lat": 55.617900848389,
+                        "lon": 12.656000137329,
+                        "elev": 17
+                    }
+                }
             }
         ]
     },
