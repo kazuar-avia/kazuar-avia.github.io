@@ -19745,6 +19745,215 @@
                         "elev": 1247
                     }
                 }
+            },
+            {
+                "_id": "6a8aaabaef75cc33309e513c",
+                "aircraft": {
+                    "_id": "6a7ec30def75cc333064b43f",
+                    "name": "Boeing 737-800",
+                    "customName": "Kharkiv Wings l PMDG 737-800 based in Kharkiv l UR-KHW",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "0210",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 175,
+                    "cargo": 32,
+                    "weights": {
+                        "cargo": 2336
+                    }
+                },
+                "depTime": "2026-08-23T08:40:00.000Z",
+                "duration": 120,
+                "arrTime": "2026-08-23T10:40:00.000Z",
+                "depTimeAct": "2026-08-23T08:33:34.315Z",
+                "delay": -3,
+                "takeoffTimeAct": "2026-08-23T08:41:00.334Z",
+                "durationAct": 116,
+                "arrTimeAct": "2026-08-23T10:37:00.455Z",
+                "open": "2026-08-23T08:16:26.646Z",
+                "close": "2026-08-23T10:43:53.165Z",
+                "rating": 1.84,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 835,
+                        "fuel": 5159,
+                        "expenses": 13569,
+                        "penalties": 6398,
+                        "revenue": 29635,
+                        "balance": 9668,
+                        "prices": {
+                            "ticketPrice": 141,
+                            "cargoUnitPrice": 155,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 175,
+                            "cargo": 32,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 175
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 5833,
+                        "aircraft": 5800,
+                        "handling": 1432,
+                        "landing": 504
+                    },
+                    "revenue": {
+                        "tickets": 24675,
+                        "cargo": 4960
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 22.99m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -300,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 35
+                                    },
+                                    "weather": {
+                                        "windDir": 219.98,
+                                        "windSpd": 7.06,
+                                        "windX": -2.45
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "MLW exceeded: 1061kg above maximum landing weight of 66361kg",
+                            "penalty": {
+                                "points": -96,
+                                "cash": 6398
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.18,
+                                        "rate": 155
+                                    },
+                                    "weather": {
+                                        "windDir": 285.9,
+                                        "windSpd": 9.72,
+                                        "windX": -9.33
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 30.64m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -300,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "spoilers",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Speeding when vacating runway (going 66KT, accepted max 50KT)",
+                            "penalty": {
+                                "points": -120,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.18G (155 ft/min, challenging  conditions)<br/>Distance from threshold: 410m (accepted range: 209-838m)<br/>Average centerline deviation: 15.12m<br/>Max centerline deviation: 30.64m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.18,
+                                        "rate": 155
+                                    },
+                                    "weather": {
+                                        "windDir": 285.9,
+                                        "windSpd": 9.72,
+                                        "windX": -9.33
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-23T08:09:30.553Z",
+                "updatedAt": "2026-08-23T10:43:53.258Z",
+                "dep": {
+                    "icao": "LKPR",
+                    "name": "Václav Havel Airport Prague",
+                    "city": "Prague",
+                    "location": {
+                        "lat": 50.100874,
+                        "lon": 14.259911,
+                        "elev": 1247
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
             }
         ]
     },
