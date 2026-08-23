@@ -26255,6 +26255,213 @@
                     }
                 },
                 "actArr": null
+            },
+            {
+                "_id": "6a8b2396ef75cc3330ab8d22",
+                "aircraft": {
+                    "_id": "6a870e69ef75cc33304e6290",
+                    "name": "Lockheed L1011-500",
+                    "customName": "Lockheed Tristar L1011-500",
+                    "icao": "L101"
+                },
+                "type": "pax",
+                "flightNumber": "86C",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 285,
+                    "cargo": 46,
+                    "weights": {
+                        "cargo": 6026
+                    }
+                },
+                "depTime": "2026-08-23T17:25:00.000Z",
+                "duration": 75,
+                "arrTime": "2026-08-23T18:40:00.000Z",
+                "depTimeAct": "2026-08-23T17:26:09.326Z",
+                "delay": 2,
+                "takeoffTimeAct": "2026-08-23T17:30:58.334Z",
+                "durationAct": 71,
+                "arrTimeAct": "2026-08-23T18:41:54.966Z",
+                "open": "2026-08-23T17:12:50.455Z",
+                "close": "2026-08-23T18:49:10.288Z",
+                "rating": 8.13,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 409,
+                        "fuel": 8269,
+                        "expenses": 28702,
+                        "penalties": 0,
+                        "revenue": 46506,
+                        "balance": 17804,
+                        "prices": {
+                            "ticketPrice": 115,
+                            "cargoUnitPrice": 131,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.7,
+                                "fuel": 0.8,
+                                "ground": 0.7
+                            }
+                        },
+                        "payload": {
+                            "pax": 285,
+                            "cargo": 46,
+                            "paxByClass": {
+                                "F": 6,
+                                "C": 49,
+                                "Y": 230
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 7479,
+                        "aircraft": 16162,
+                        "handling": 1876,
+                        "landing": 3185
+                    },
+                    "revenue": {
+                        "tickets": 40480,
+                        "cargo": 6026
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 4.16m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -2,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1020mb instead of 1013.25mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 38
+                                    },
+                                    "weather": {
+                                        "windDir": 270,
+                                        "windSpd": 1,
+                                        "windX": -0.71
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.05G (90 ft/min, challenging  conditions)<br/>Distance from threshold: 377m (accepted range: 185-741m)<br/>Average centerline deviation: 2.24m<br/>Max centerline deviation: 4.52m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 39
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.05,
+                                        "rate": 90
+                                    },
+                                    "weather": {
+                                        "windDir": 270.44,
+                                        "windSpd": 1.08,
+                                        "windX": 0.73
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on landing: 1017mb instead of 1013.25mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 39
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.05,
+                                        "rate": 90
+                                    },
+                                    "weather": {
+                                        "windDir": 270.44,
+                                        "windSpd": 1.08,
+                                        "windX": 0.73
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Overspeed for 17 seconds",
+                            "penalty": {
+                                "points": -85,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-23T16:45:10.705Z",
+                "updatedAt": "2026-08-23T18:49:10.382Z",
+                "dep": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "arr": {
+                    "icao": "UKOO",
+                    "name": "Odesa International Airport",
+                    "city": "Odesa",
+                    "location": {
+                        "lat": 46.427196,
+                        "lon": 30.672649,
+                        "elev": 172
+                    }
+                },
+                "actArr": {
+                    "icao": "UKOO",
+                    "name": "Odesa International Airport",
+                    "city": "Odesa",
+                    "location": {
+                        "lat": 46.427196,
+                        "lon": 30.672649,
+                        "elev": 172
+                    }
+                }
             }
         ]
     },
