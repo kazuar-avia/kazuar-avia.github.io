@@ -3805,5 +3805,184 @@
                 }
             }
         ]
+    },
+    {
+        "pilot_id": "695807ad3dc76275ba8a6e4b",
+        "fullname": "Alex Zaugarov",
+        "avatar": "695807ad3dc76275ba8a6e4b1767377295052",
+        "flights": [
+            {
+                "_id": "6a8c7bacef75cc3330c91a92",
+                "aircraft": {
+                    "_id": "6a8b4a79ef75cc3330b07e20",
+                    "name": "Boeing 757-200 Freighter",
+                    "customName": "B757-200 UR-SFS",
+                    "icao": "B752"
+                },
+                "type": "cargo",
+                "flightNumber": "51L",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 0,
+                    "cargo": 228,
+                    "weights": {
+                        "cargo": 21660
+                    }
+                },
+                "depTime": "2026-08-24T17:55:00.000Z",
+                "duration": 65,
+                "arrTime": "2026-08-24T19:00:00.000Z",
+                "depTimeAct": "2026-08-24T17:47:19.099Z",
+                "delay": -12,
+                "takeoffTimeAct": "2026-08-24T17:56:42.564Z",
+                "durationAct": 51,
+                "arrTimeAct": "2026-08-24T18:47:41.290Z",
+                "open": "2026-08-24T17:20:13.838Z",
+                "close": "2026-08-24T18:52:35.924Z",
+                "rating": 9,
+                "simulator": "xp",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 254,
+                        "fuel": 2706,
+                        "expenses": 9633,
+                        "penalties": 0,
+                        "revenue": 28956,
+                        "balance": 19323,
+                        "prices": {
+                            "ticketPrice": 109,
+                            "cargoUnitPrice": 127,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 0,
+                            "cargo": 228,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3060,
+                        "aircraft": 5105,
+                        "handling": 103,
+                        "landing": 1365
+                    },
+                    "revenue": {
+                        "tickets": 0,
+                        "cargo": 28956
+                    },
+                    "violations": [
+                        {
+                            "title": "Great touchdown: 1.09G (120 ft/min, challenging  conditions)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.09,
+                                        "rate": 120
+                                    },
+                                    "weather": {
+                                        "windDir": 269.85,
+                                        "windSpd": 5.41,
+                                        "windX": -5.4
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on landing: 1020mb instead of 1017.96mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.09,
+                                        "rate": 120
+                                    },
+                                    "weather": {
+                                        "windDir": 269.85,
+                                        "windSpd": 5.41,
+                                        "windX": -5.4
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter not STD (1013 mb / 29.92 inHg) on cruise",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-24T17:13:16.029Z",
+                "updatedAt": "2026-08-24T18:52:36.009Z",
+                "dep": {
+                    "icao": "UKDE",
+                    "name": "Zaporizhzhia International Airport",
+                    "city": "Zaporizhia",
+                    "location": {
+                        "lat": 47.866962,
+                        "lon": 35.314723,
+                        "elev": 373
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
+            }
+        ]
     }
 ]
