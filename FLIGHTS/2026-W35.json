@@ -867,5 +867,162 @@
                 }
             }
         ]
+    },
+    {
+        "pilot_id": "653037e6139a4e9a333116c1",
+        "fullname": "Roman Zavialov",
+        "avatar": "default",
+        "flights": [
+            {
+                "_id": "6a8bf12cef75cc3330bb8a10",
+                "aircraft": {
+                    "_id": "695a3bf33dc76275baca8db5",
+                    "name": "Boeing 737-800",
+                    "customName": "Ukraine Int l 737-800 based in UKBB l UR-UIA",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "6029",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 184,
+                    "cargo": 35,
+                    "weights": {
+                        "cargo": 2975
+                    }
+                },
+                "depTime": "2026-08-24T07:40:00.000Z",
+                "duration": 145,
+                "arrTime": "2026-08-24T10:05:00.000Z",
+                "depTimeAct": "2026-08-24T07:45:46.867Z",
+                "delay": 9,
+                "takeoffTimeAct": "2026-08-24T07:52:19.862Z",
+                "durationAct": 142,
+                "arrTimeAct": "2026-08-24T10:14:10.957Z",
+                "open": "2026-08-24T07:45:35.868Z",
+                "close": "2026-08-24T10:19:38.664Z",
+                "rating": 9.81,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1010,
+                        "fuel": 6485,
+                        "expenses": 16157,
+                        "penalties": 0,
+                        "revenue": 33533,
+                        "balance": 17376,
+                        "prices": {
+                            "ticketPrice": 152,
+                            "cargoUnitPrice": 159,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 184,
+                            "cargo": 35,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 184
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 7332,
+                        "aircraft": 6450,
+                        "handling": 1010,
+                        "landing": 1365
+                    },
+                    "revenue": {
+                        "tickets": 27968,
+                        "cargo": 5565
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 8.82m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -11,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.53G (487 ft/min, challenging  conditions)<br/>Distance from threshold: 617m (accepted range: 209-838m)<br/>Average centerline deviation: 4.56m<br/>Max centerline deviation: 8.82m",
+                            "penalty": {
+                                "points": -8,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "bounce",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.53,
+                                        "rate": 487
+                                    },
+                                    "weather": {
+                                        "windDir": 275.45,
+                                        "windSpd": 10.77,
+                                        "windX": -10.57
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-24T07:22:20.493Z",
+                "updatedAt": "2026-08-24T10:19:38.762Z",
+                "dep": {
+                    "icao": "LIPR",
+                    "name": "Federico Fellini International Airport",
+                    "city": "Rimini (RN)",
+                    "location": {
+                        "lat": 44.020024,
+                        "lon": 12.612198,
+                        "elev": 40
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
+            }
+        ]
     }
 ]
