@@ -273,6 +273,156 @@
                         "elev": 170
                     }
                 }
+            },
+            {
+                "_id": "6a8c6ab9ef75cc3330c7414b",
+                "aircraft": {
+                    "_id": "6a4fa15e5760ec7cdb627803",
+                    "name": "Boeing 737-800",
+                    "customName": "Dry Lease l BOEING 737-800",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "78",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 178,
+                    "cargo": 22,
+                    "weights": {
+                        "cargo": 2376
+                    }
+                },
+                "depTime": "2026-08-24T16:45:00.000Z",
+                "duration": 50,
+                "arrTime": "2026-08-24T17:35:00.000Z",
+                "depTimeAct": "2026-08-24T16:41:40.936Z",
+                "delay": -2,
+                "takeoffTimeAct": "2026-08-24T16:49:37.957Z",
+                "durationAct": 44,
+                "arrTimeAct": "2026-08-24T17:33:28.983Z",
+                "open": "2026-08-24T16:19:11.282Z",
+                "close": "2026-08-24T17:45:14.025Z",
+                "rating": 9.88,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 228,
+                        "fuel": 2163,
+                        "expenses": 10221,
+                        "penalties": 0,
+                        "revenue": 19730,
+                        "balance": 9509,
+                        "prices": {
+                            "ticketPrice": 97,
+                            "cargoUnitPrice": 112,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 178,
+                            "cargo": 22,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 178
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2446,
+                        "aircraft": 4600,
+                        "handling": 1435,
+                        "landing": 1740
+                    },
+                    "revenue": {
+                        "tickets": 17266,
+                        "cargo": 2464
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 4.71m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -12,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 35
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.16G (160 ft/min, normal  conditions)<br/>Distance from threshold: 745m (accepted range: 201-808m)<br/>Average centerline deviation: 2.38m<br/>Max centerline deviation: 4.71m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 35
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.16,
+                                        "rate": 160
+                                    },
+                                    "weather": {
+                                        "windDir": 47.47,
+                                        "windSpd": 6.93,
+                                        "windX": 0.08
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-24T16:00:57.947Z",
+                "updatedAt": "2026-08-24T17:45:14.117Z",
+                "dep": {
+                    "icao": "ENBR",
+                    "name": "Bergen Airport, Flesland",
+                    "city": "Bergen",
+                    "location": {
+                        "lat": 60.2934,
+                        "lon": 5.21814,
+                        "elev": 170
+                    }
+                },
+                "arr": {
+                    "icao": "ENGM",
+                    "name": "Oslo-Gardermoen International Airport",
+                    "city": "Oslo (Gardermoen)",
+                    "location": {
+                        "lat": 60.193901,
+                        "lon": 11.1004,
+                        "elev": 681
+                    }
+                },
+                "actArr": {
+                    "icao": "ENGM",
+                    "name": "Oslo-Gardermoen International Airport",
+                    "city": "Oslo (Gardermoen)",
+                    "location": {
+                        "lat": 60.193901,
+                        "lon": 11.1004,
+                        "elev": 681
+                    }
+                }
             }
         ]
     },
