@@ -2307,5 +2307,191 @@
                 }
             }
         ]
+    },
+    {
+        "pilot_id": "697926b59da57b990a364d04",
+        "fullname": "Bond Matvii",
+        "avatar": "default",
+        "flights": [
+            {
+                "_id": "6a8c4cf9ef75cc3330c3e267",
+                "aircraft": {
+                    "_id": "6a4f90ec5760ec7cdb612ec3",
+                    "name": "Airbus A320",
+                    "customName": "Aerosvit vs DonbassAero l A320 CFM based in UKBB l UR-DAH",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "34Y",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 180,
+                    "cargo": 10,
+                    "weights": {
+                        "cargo": 750
+                    }
+                },
+                "depTime": "2026-08-24T14:30:00.000Z",
+                "duration": 70,
+                "arrTime": "2026-08-24T15:40:00.000Z",
+                "depTimeAct": "2026-08-24T14:20:25.320Z",
+                "delay": -25,
+                "takeoffTimeAct": "2026-08-24T14:25:19.332Z",
+                "durationAct": 50,
+                "arrTimeAct": "2026-08-24T15:14:58.015Z",
+                "open": "2026-08-24T13:54:04.483Z",
+                "close": "2026-08-24T15:21:18.984Z",
+                "rating": 9,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 300,
+                        "fuel": 2128,
+                        "expenses": 8100,
+                        "penalties": 0,
+                        "revenue": 21450,
+                        "balance": 13350,
+                        "prices": {
+                            "ticketPrice": 112,
+                            "cargoUnitPrice": 129,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 180,
+                            "cargo": 10,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 180
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2406,
+                        "aircraft": 4150,
+                        "handling": 977,
+                        "landing": 567
+                    },
+                    "revenue": {
+                        "tickets": 20160,
+                        "cargo": 1290
+                    },
+                    "violations": [
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1019mb instead of 1013.25mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 55
+                                    },
+                                    "weather": {
+                                        "windDir": 270,
+                                        "windSpd": 1.01,
+                                        "windX": -0.71
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.37G (245 ft/min, challenging  conditions)<br/>Distance from threshold: 229m (accepted range: 175-704m)<br/>Average centerline deviation: 1.63m<br/>Max centerline deviation: 3.72m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 51
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.37,
+                                        "rate": 245
+                                    },
+                                    "weather": {
+                                        "windDir": 269.83,
+                                        "windSpd": 1.09,
+                                        "windX": -0.15
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on landing: 1017mb instead of 1013.25mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 51
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.37,
+                                        "rate": 245
+                                    },
+                                    "weather": {
+                                        "windDir": 269.83,
+                                        "windSpd": 1.09,
+                                        "windX": -0.15
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-24T13:54:01.533Z",
+                "updatedAt": "2026-08-24T15:21:19.065Z",
+                "dep": {
+                    "icao": "UKKV",
+                    "city": "Zhytomyr",
+                    "location": {
+                        "lat": 50.270556,
+                        "lon": 28.738611,
+                        "elev": 722.5
+                    },
+                    "name": "Zhytomyr Airport"
+                },
+                "arr": {
+                    "icao": "UKHH",
+                    "name": "Kharkiv International Airport",
+                    "city": "Kharkiv",
+                    "location": {
+                        "lat": 49.926943,
+                        "lon": 36.290814,
+                        "elev": 508
+                    }
+                },
+                "actArr": {
+                    "icao": "UKHH",
+                    "name": "Kharkiv International Airport",
+                    "city": "Kharkiv",
+                    "location": {
+                        "lat": 49.926943,
+                        "lon": 36.290814,
+                        "elev": 508
+                    }
+                }
+            }
+        ]
     }
 ]
