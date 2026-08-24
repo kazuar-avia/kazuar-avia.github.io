@@ -962,6 +962,161 @@
                         "elev": 1247
                     }
                 }
+            },
+            {
+                "_id": "6a8c58e9ef75cc3330c534c7",
+                "aircraft": {
+                    "_id": "6a4f8c7c5760ec7cdb60d2ea",
+                    "name": "Boeing 737-800",
+                    "customName": "Aerosvit l 737-800 based in UKBB l UR-AAN",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "775L",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 174,
+                    "cargo": 35,
+                    "weights": {
+                        "cargo": 2660
+                    }
+                },
+                "depTime": "2026-08-24T14:55:00.000Z",
+                "duration": 70,
+                "arrTime": "2026-08-24T16:05:00.000Z",
+                "depTimeAct": "2026-08-24T14:58:09.836Z",
+                "delay": -14,
+                "takeoffTimeAct": "2026-08-24T14:58:15.837Z",
+                "durationAct": 53,
+                "arrTimeAct": "2026-08-24T15:50:57.941Z",
+                "open": "2026-08-24T14:55:08.200Z",
+                "close": "2026-08-24T15:57:59.984Z",
+                "rating": 9.5,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 343,
+                        "fuel": 2684,
+                        "expenses": 9039,
+                        "penalties": 0,
+                        "revenue": 26889,
+                        "balance": 17850,
+                        "prices": {
+                            "ticketPrice": 113,
+                            "cargoUnitPrice": 129,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 174,
+                            "cargo": 35,
+                            "paxByClass": {
+                                "F": 2,
+                                "C": 18,
+                                "Y": 154
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2428,
+                        "aircraft": 4225,
+                        "handling": 1279,
+                        "landing": 1107
+                    },
+                    "revenue": {
+                        "tickets": 22374,
+                        "cargo": 4515
+                    },
+                    "violations": [
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1013mb instead of 1018.5mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "weather": {
+                                        "windDir": 287.45,
+                                        "windSpd": 13.38,
+                                        "windX": -12.71
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.31G (252 ft/min, challenging  conditions)<br/>Distance from threshold: 629m (accepted range: 209-838m)<br/>Average centerline deviation: 1.20m<br/>Max centerline deviation: 1.86m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 46
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.31,
+                                        "rate": 252
+                                    },
+                                    "weather": {
+                                        "windDir": 332.45,
+                                        "windSpd": 5.87,
+                                        "windX": 3.49
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-24T14:44:57.029Z",
+                "updatedAt": "2026-08-24T15:58:00.076Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "UKCC",
+                    "city": "Donetsk",
+                    "location": {
+                        "lat": 48.075072,
+                        "lon": 37.72527,
+                        "elev": 791
+                    },
+                    "name": "Donetsk Sergei Prokofiev International Airport"
+                },
+                "actArr": {
+                    "icao": "UKCC",
+                    "city": "Donetsk",
+                    "location": {
+                        "lat": 48.075072,
+                        "lon": 37.72527,
+                        "elev": 791
+                    },
+                    "name": "Donetsk Sergei Prokofiev International Airport"
+                }
             }
         ]
     },
