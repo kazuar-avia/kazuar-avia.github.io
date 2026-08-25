@@ -2716,6 +2716,171 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6a8d4921ef75cc3330d83e60",
+                "aircraft": {
+                    "_id": "695a3bf33dc76275baca8db5",
+                    "name": "Boeing 737-800",
+                    "customName": "Ukraine Int l 737-800 based in UKBB l UR-UIA",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "6036",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 184,
+                    "cargo": 22,
+                    "weights": {
+                        "cargo": 2112
+                    }
+                },
+                "depTime": "2026-08-25T08:10:00.000Z",
+                "duration": 190,
+                "arrTime": "2026-08-25T11:20:00.000Z",
+                "depTimeAct": "2026-08-25T08:14:02.675Z",
+                "delay": 9,
+                "takeoffTimeAct": "2026-08-25T08:18:31.624Z",
+                "durationAct": 191,
+                "arrTimeAct": "2026-08-25T11:29:10.786Z",
+                "open": "2026-08-25T08:11:19.690Z",
+                "close": "2026-08-25T11:35:03.843Z",
+                "rating": 9.74,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1219,
+                        "fuel": 8845,
+                        "expenses": 18030,
+                        "penalties": 0,
+                        "revenue": 36940,
+                        "balance": 18910,
+                        "prices": {
+                            "ticketPrice": 179,
+                            "cargoUnitPrice": 182,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 184,
+                            "cargo": 22,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 184
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 8000,
+                        "aircraft": 7650,
+                        "handling": 1327,
+                        "landing": 1053
+                    },
+                    "revenue": {
+                        "tickets": 32936,
+                        "cargo": 4004
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 4.36m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -6,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "spoilers",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.36G (303 ft/min, normal  conditions)<br/>Distance from threshold: 351m (accepted range: 200-801m)<br/>Average centerline deviation: 2.17m<br/>Max centerline deviation: 4.36m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.36,
+                                        "rate": 303
+                                    },
+                                    "weather": {
+                                        "windDir": 280,
+                                        "windSpd": 7.85,
+                                        "windX": -3.54
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Max G exceeded: 2.1G (max allowed: 2G)",
+                            "penalty": {
+                                "points": -20,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 34
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-25T07:49:53.090Z",
+                "updatedAt": "2026-08-25T11:35:03.972Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "LFML",
+                    "name": "Marseille Provence Airport",
+                    "city": "Marignane, Bouches-du-Rhône",
+                    "location": {
+                        "lat": 43.438088,
+                        "lon": 5.2125,
+                        "elev": 74
+                    }
+                },
+                "actArr": {
+                    "icao": "LFML",
+                    "name": "Marseille Provence Airport",
+                    "city": "Marignane, Bouches-du-Rhône",
+                    "location": {
+                        "lat": 43.438088,
+                        "lon": 5.2125,
+                        "elev": 74
+                    }
+                }
             }
         ]
     },
