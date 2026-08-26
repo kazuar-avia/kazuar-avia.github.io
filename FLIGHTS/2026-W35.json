@@ -3767,6 +3767,165 @@
                         "elev": 399
                     }
                 }
+            },
+            {
+                "_id": "6a8ee993ef75cc3330fb735f",
+                "aircraft": {
+                    "_id": "6a4fa15e5760ec7cdb627803",
+                    "name": "Boeing 737-800",
+                    "customName": "Dry Lease l BOEING 737-800",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "2949",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 189,
+                    "cargo": 26,
+                    "weights": {
+                        "cargo": 2418
+                    }
+                },
+                "depTime": "2026-08-26T13:45:00.000Z",
+                "duration": 90,
+                "arrTime": "2026-08-26T15:15:00.000Z",
+                "depTimeAct": "2026-08-26T13:50:55.662Z",
+                "delay": 17,
+                "takeoffTimeAct": "2026-08-26T13:58:24.795Z",
+                "durationAct": 94,
+                "arrTimeAct": "2026-08-26T15:32:04.860Z",
+                "open": "2026-08-26T13:46:00.736Z",
+                "close": "2026-08-26T15:36:23.161Z",
+                "rating": 9.21,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 591,
+                        "fuel": 4040,
+                        "expenses": 12034,
+                        "penalties": 5273,
+                        "revenue": 33148,
+                        "balance": 15841,
+                        "prices": {
+                            "ticketPrice": 152,
+                            "cargoUnitPrice": 170,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 189,
+                            "cargo": 26,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 189
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4568,
+                        "aircraft": 5025,
+                        "handling": 1226,
+                        "landing": 1215
+                    },
+                    "revenue": {
+                        "tickets": 28728,
+                        "cargo": 4420
+                    },
+                    "violations": [
+                        {
+                            "title": "MLW exceeded: 875kg above maximum landing weight of 66361kg",
+                            "penalty": {
+                                "points": -79,
+                                "cash": 5273
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 19
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.1,
+                                        "rate": 130
+                                    },
+                                    "weather": {
+                                        "windDir": 6.01,
+                                        "windSpd": 0,
+                                        "windX": 0
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.10G (130 ft/min, normal  conditions)<br/>Distance from threshold: 713m (accepted range: 203-814m)<br/>Average centerline deviation: 0.45m<br/>Max centerline deviation: 0.87m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 19
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.1,
+                                        "rate": 130
+                                    },
+                                    "weather": {
+                                        "windDir": 6.01,
+                                        "windSpd": 0,
+                                        "windX": 0
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-26T13:26:43.741Z",
+                "updatedAt": "2026-08-26T15:36:23.278Z",
+                "dep": {
+                    "icao": "LUKK",
+                    "name": "Chişinău International Airport",
+                    "city": "Chişinău",
+                    "location": {
+                        "lat": 46.92774,
+                        "lon": 28.931704,
+                        "elev": 399
+                    }
+                },
+                "arr": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                },
+                "actArr": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                }
             }
         ]
     },
