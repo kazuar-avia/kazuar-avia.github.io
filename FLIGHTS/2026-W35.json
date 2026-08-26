@@ -3625,6 +3625,180 @@
                         "elev": 175
                     }
                 }
+            },
+            {
+                "_id": "6a8ef427ef75cc3330fcd47c",
+                "aircraft": {
+                    "_id": "6a4f68e35760ec7cdb5e6c2d",
+                    "name": "Boeing 737-800",
+                    "customName": "SkyUp l 737-800 based in UKLL UKHH UKDE l UR-SQB",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "217D",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 184,
+                    "cargo": 34,
+                    "weights": {
+                        "cargo": 3094
+                    }
+                },
+                "depTime": "2026-08-26T14:30:00.000Z",
+                "duration": 95,
+                "arrTime": "2026-08-26T16:05:00.000Z",
+                "depTimeAct": "2026-08-26T14:32:52.226Z",
+                "delay": -7,
+                "takeoffTimeAct": "2026-08-26T14:34:13.005Z",
+                "durationAct": 83,
+                "arrTimeAct": "2026-08-26T15:57:30.766Z",
+                "open": "2026-08-26T14:32:42.597Z",
+                "close": "2026-08-26T16:01:05.794Z",
+                "rating": 9.65,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 562,
+                        "fuel": 3659,
+                        "expenses": 11639,
+                        "penalties": 0,
+                        "revenue": 27692,
+                        "balance": 16053,
+                        "prices": {
+                            "ticketPrice": 125,
+                            "cargoUnitPrice": 138,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 184,
+                            "cargo": 34,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 184
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4137,
+                        "aircraft": 5275,
+                        "handling": 1174,
+                        "landing": 1053
+                    },
+                    "revenue": {
+                        "tickets": 23000,
+                        "cargo": 4692
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 5.04m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -15,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (875m from threshold beyond 817m max accepted)",
+                            "penalty": {
+                                "points": -20,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 35
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.32,
+                                        "rate": 135
+                                    },
+                                    "weather": {
+                                        "windDir": 60.15,
+                                        "windSpd": 11.41,
+                                        "windX": -0.4
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.32G (135 ft/min, normal  conditions)<br/>Distance from threshold: 875m (accepted range: 204-817m)<br/>Average centerline deviation: 1.43m<br/>Max centerline deviation: 1.57m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 35
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.32,
+                                        "rate": 135
+                                    },
+                                    "weather": {
+                                        "windDir": 60.15,
+                                        "windSpd": 11.41,
+                                        "windX": -0.4
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-26T14:11:51.266Z",
+                "updatedAt": "2026-08-26T16:01:05.872Z",
+                "dep": {
+                    "icao": "EYVI",
+                    "name": "Vilnius International Airport",
+                    "city": "Vilnius",
+                    "location": {
+                        "lat": 54.634102,
+                        "lon": 25.285801,
+                        "elev": 648
+                    }
+                },
+                "arr": {
+                    "icao": "LKPR",
+                    "name": "Václav Havel Airport Prague",
+                    "city": "Prague",
+                    "location": {
+                        "lat": 50.100874,
+                        "lon": 14.259911,
+                        "elev": 1247
+                    }
+                },
+                "actArr": {
+                    "icao": "LKPR",
+                    "name": "Václav Havel Airport Prague",
+                    "city": "Prague",
+                    "location": {
+                        "lat": 50.100874,
+                        "lon": 14.259911,
+                        "elev": 1247
+                    }
+                }
             }
         ]
     },
