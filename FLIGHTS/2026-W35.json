@@ -2776,6 +2776,180 @@
                         "elev": 362
                     }
                 }
+            },
+            {
+                "_id": "6a8e709cef75cc3330f2ad77",
+                "aircraft": {
+                    "_id": "695a2a573dc76275bac8ccc8",
+                    "name": "Boeing 737-800 Freighter",
+                    "customName": "Supernova l 737-800F based in LKMT l UR-NPA",
+                    "icao": "B738"
+                },
+                "type": "cargo",
+                "flightNumber": "604",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 0,
+                    "cargo": 138,
+                    "weights": {
+                        "cargo": 17388
+                    }
+                },
+                "depTime": "2026-08-26T05:10:00.000Z",
+                "duration": 56,
+                "arrTime": "2026-08-26T06:06:00.000Z",
+                "depTimeAct": "2026-08-26T05:03:20.003Z",
+                "delay": -4,
+                "takeoffTimeAct": "2026-08-26T05:03:26.820Z",
+                "durationAct": 59,
+                "arrTimeAct": "2026-08-26T06:02:16.128Z",
+                "open": "2026-08-26T05:02:43.345Z",
+                "close": "2026-08-26T06:05:51.158Z",
+                "rating": 9.8,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 351,
+                        "fuel": 2671,
+                        "expenses": 7778,
+                        "penalties": 0,
+                        "revenue": 22356,
+                        "balance": 14578,
+                        "prices": {
+                            "ticketPrice": 142,
+                            "cargoUnitPrice": 162,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 0,
+                            "cargo": 138,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3020,
+                        "aircraft": 3967,
+                        "handling": 62,
+                        "landing": 729
+                    },
+                    "revenue": {
+                        "tickets": 0,
+                        "cargo": 22356
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 4.26m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -4,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 41
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 5.47m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -16,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 44
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.26,
+                                        "rate": 310
+                                    },
+                                    "weather": {
+                                        "windDir": 9.98,
+                                        "windSpd": 4.21,
+                                        "windX": -1.43
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.26G (310 ft/min, normal  conditions)<br/>Distance from threshold: 441m (accepted range: 200-801m)<br/>Average centerline deviation: 1.75m<br/>Max centerline deviation: 5.47m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 44
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.26,
+                                        "rate": 310
+                                    },
+                                    "weather": {
+                                        "windDir": 9.98,
+                                        "windSpd": 4.21,
+                                        "windX": -1.43
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-26T04:50:36.245Z",
+                "updatedAt": "2026-08-26T06:05:51.230Z",
+                "dep": {
+                    "icao": "LYBE",
+                    "name": "Belgrade Nikola Tesla Airport",
+                    "city": "Belgrade",
+                    "location": {
+                        "lat": 44.818401,
+                        "lon": 20.309099,
+                        "elev": 335
+                    }
+                },
+                "arr": {
+                    "icao": "LKMT",
+                    "name": "Leoš Janáček Airport Ostrava",
+                    "city": "Mošnov",
+                    "location": {
+                        "lat": 49.696301,
+                        "lon": 18.111099,
+                        "elev": 844
+                    }
+                },
+                "actArr": {
+                    "icao": "LKMT",
+                    "name": "Leoš Janáček Airport Ostrava",
+                    "city": "Mošnov",
+                    "location": {
+                        "lat": 49.696301,
+                        "lon": 18.111099,
+                        "elev": 844
+                    }
+                }
             }
         ]
     },
