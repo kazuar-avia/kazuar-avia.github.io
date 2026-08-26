@@ -3934,6 +3934,171 @@
                         "elev": 1247
                     }
                 }
+            },
+            {
+                "_id": "6a8f15f6ef75cc3330020acc",
+                "aircraft": {
+                    "_id": "6a4f68e35760ec7cdb5e6c2d",
+                    "name": "Boeing 737-800",
+                    "customName": "SkyUp l 737-800 based in UKLL UKHH UKDE l UR-SQB",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "217D",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 184,
+                    "cargo": 27,
+                    "weights": {
+                        "cargo": 1998
+                    }
+                },
+                "depTime": "2026-08-26T16:55:00.000Z",
+                "duration": 75,
+                "arrTime": "2026-08-26T18:10:00.000Z",
+                "depTimeAct": "2026-08-26T16:57:44.081Z",
+                "delay": 26,
+                "takeoffTimeAct": "2026-08-26T17:12:00.893Z",
+                "durationAct": 84,
+                "arrTimeAct": "2026-08-26T18:35:51.061Z",
+                "open": "2026-08-26T16:57:15.390Z",
+                "close": "2026-08-26T18:40:51.144Z",
+                "rating": 7.62,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 432,
+                        "fuel": 3314,
+                        "expenses": 11719,
+                        "penalties": 0,
+                        "revenue": 24881,
+                        "balance": 13162,
+                        "prices": {
+                            "ticketPrice": 116,
+                            "cargoUnitPrice": 131,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 184,
+                            "cargo": 27,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 184
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3747,
+                        "aircraft": 5450,
+                        "handling": 1502,
+                        "landing": 1020
+                    },
+                    "revenue": {
+                        "tickets": 21344,
+                        "cargo": 3537
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 7.66m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -42,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.31G (264 ft/min, normal  conditions)<br/>Distance from threshold: 588m (accepted range: 174-697m)<br/>Average centerline deviation: 2.52m<br/>Max centerline deviation: 7.66m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 36
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.31,
+                                        "rate": 264
+                                    },
+                                    "weather": {
+                                        "windDir": 260,
+                                        "windSpd": 1.8,
+                                        "windX": -1.81
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Max G exceeded: 2.98G (max allowed: 2G)",
+                            "penalty": {
+                                "points": -196,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 41
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-26T16:36:06.945Z",
+                "updatedAt": "2026-08-26T18:40:51.229Z",
+                "dep": {
+                    "icao": "LKPR",
+                    "name": "Václav Havel Airport Prague",
+                    "city": "Prague",
+                    "location": {
+                        "lat": 50.100874,
+                        "lon": 14.259911,
+                        "elev": 1247
+                    }
+                },
+                "arr": {
+                    "icao": "LIML",
+                    "name": "Milano Linate Airport",
+                    "city": "Segrate (MI)",
+                    "location": {
+                        "lat": 45.445099,
+                        "lon": 9.27674,
+                        "elev": 353
+                    }
+                },
+                "actArr": {
+                    "icao": "LIML",
+                    "name": "Milano Linate Airport",
+                    "city": "Segrate (MI)",
+                    "location": {
+                        "lat": 45.445099,
+                        "lon": 9.27674,
+                        "elev": 353
+                    }
+                }
             }
         ]
     },
