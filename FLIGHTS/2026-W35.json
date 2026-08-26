@@ -8187,6 +8187,156 @@
                         "elev": 234
                     }
                 }
+            },
+            {
+                "_id": "6a8eb6b8ef75cc3330f6cbc6",
+                "aircraft": {
+                    "_id": "699ae4f09da57b990ac12987",
+                    "name": "Boeing 777 Freighter",
+                    "customName": "UCAA l 777F (cargo) based in UKBB l UR-CRG",
+                    "icao": "B77L"
+                },
+                "type": "cargo",
+                "flightNumber": "55I",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 0,
+                    "cargo": 1015,
+                    "weights": {
+                        "cargo": 78155
+                    }
+                },
+                "depTime": "2026-08-26T10:00:00.000Z",
+                "duration": 450,
+                "arrTime": "2026-08-26T17:30:00.000Z",
+                "depTimeAct": "2026-08-26T09:52:57.207Z",
+                "delay": -88,
+                "takeoffTimeAct": "2026-08-26T09:55:41.210Z",
+                "durationAct": 366,
+                "arrTimeAct": "2026-08-26T16:02:11.108Z",
+                "open": "2026-08-26T09:51:06.224Z",
+                "close": "2026-08-26T16:03:30.150Z",
+                "rating": 9.49,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 3023,
+                        "fuel": 41770,
+                        "expenses": 90051,
+                        "penalties": 0,
+                        "revenue": 384685,
+                        "balance": 294634,
+                        "prices": {
+                            "ticketPrice": 383,
+                            "cargoUnitPrice": 379,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 0,
+                            "cargo": 1015,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 48738,
+                        "aircraft": 33130,
+                        "handling": 5583,
+                        "landing": 2600
+                    },
+                    "revenue": {
+                        "tickets": 0,
+                        "cargo": 384685
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 5.79m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -28,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.49G (373 ft/min, normal  conditions)<br/>Distance from threshold: 410m (accepted range: 200-801m)<br/>Average centerline deviation: 2.20m<br/>Max centerline deviation: 3.06m",
+                            "penalty": {
+                                "points": -23,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.49,
+                                        "rate": 373
+                                    },
+                                    "weather": {
+                                        "windDir": 210,
+                                        "windSpd": 11.32,
+                                        "windX": -5.72
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-26T09:49:44.077Z",
+                "updatedAt": "2026-08-26T16:03:30.241Z",
+                "dep": {
+                    "icao": "PANC",
+                    "name": "Ted Stevens Anchorage International Airport",
+                    "city": "Anchorage",
+                    "location": {
+                        "lat": 61.179004,
+                        "lon": -149.992561,
+                        "elev": 152
+                    }
+                },
+                "arr": {
+                    "icao": "KIAD",
+                    "name": "Washington Dulles International Airport",
+                    "city": "Dulles",
+                    "location": {
+                        "lat": 38.9445,
+                        "lon": -77.455803,
+                        "elev": 312
+                    }
+                },
+                "actArr": {
+                    "icao": "KIAD",
+                    "name": "Washington Dulles International Airport",
+                    "city": "Dulles",
+                    "location": {
+                        "lat": 38.9445,
+                        "lon": -77.455803,
+                        "elev": 312
+                    }
+                }
             }
         ]
     },
