@@ -10205,6 +10205,252 @@
                         "elev": 1071
                     }
                 }
+            },
+            {
+                "_id": "6a907098ef75cc33302056a8",
+                "aircraft": {
+                    "_id": "695a86b43dc76275bad5a644",
+                    "name": "Embraer 190",
+                    "customName": "Ukraine Int l E190 based in UKBB UKHH UKOO UKDD l UR-EMA",
+                    "icao": "E190"
+                },
+                "type": "pax",
+                "flightNumber": "218",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 112,
+                    "cargo": 15,
+                    "weights": {
+                        "cargo": 1515
+                    }
+                },
+                "depTime": "2026-08-27T17:30:00.000Z",
+                "duration": 90,
+                "arrTime": "2026-08-27T19:00:00.000Z",
+                "depTimeAct": "2026-08-27T17:32:23.803Z",
+                "delay": -6,
+                "takeoffTimeAct": "2026-08-27T17:38:52.379Z",
+                "durationAct": 75,
+                "arrTimeAct": "2026-08-27T18:54:14.128Z",
+                "open": "2026-08-27T17:20:54.169Z",
+                "close": "2026-08-27T18:58:12.788Z",
+                "rating": -0.9,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 366,
+                        "fuel": 2444,
+                        "expenses": 0,
+                        "penalties": 0,
+                        "revenue": 0,
+                        "balance": 0,
+                        "prices": {
+                            "ticketPrice": 139,
+                            "cargoUnitPrice": 173,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.7,
+                                "fuel": 0.8,
+                                "ground": 0.7
+                            }
+                        },
+                        "payload": {
+                            "pax": 112,
+                            "cargo": 15,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 4,
+                                "Y": 108
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2211,
+                        "aircraft": 1742,
+                        "handling": 732,
+                        "landing": 455
+                    },
+                    "revenue": {
+                        "tickets": 16124,
+                        "cargo": 2595
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 7.31m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -47,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    },
+                                    "weather": {
+                                        "windDir": 52.99,
+                                        "windSpd": 4.5,
+                                        "windX": 4.48
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Short landing (113m from threshold before 209m min accepted)",
+                            "penalty": {
+                                "points": -69,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.64,
+                                        "rate": 475
+                                    },
+                                    "weather": {
+                                        "windDir": 18,
+                                        "windSpd": 1.51,
+                                        "windX": -0.41
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.64G (475 ft/min, challenging  conditions)<br/>Distance from threshold: 504m (accepted range: 209-838m)<br/>Average centerline deviation: 3.39m<br/>Max centerline deviation: 5.14m",
+                            "penalty": {
+                                "points": -35,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.64,
+                                        "rate": 475
+                                    },
+                                    "weather": {
+                                        "windDir": 18,
+                                        "windSpd": 1.51,
+                                        "windX": -0.41
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Midair ZFW change",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gear",
+                                "payload": {
+                                    "system": {
+                                        "fps": 19
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No NAV lights for 196s when required",
+                            "penalty": {
+                                "points": -42,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        },
+                        {
+                            "title": "No BEACON lights for 1927s when required",
+                            "penalty": {
+                                "points": -100,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        },
+                        {
+                            "title": "No STROBE lights for 949s when required",
+                            "penalty": {
+                                "points": -100,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        },
+                        {
+                            "title": "Stall warning for 93 seconds",
+                            "penalty": {
+                                "points": -500,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-27T17:15:04.144Z",
+                "updatedAt": "2026-08-27T18:58:12.873Z",
+                "dep": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
             }
         ]
     },
