@@ -5229,6 +5229,176 @@
                         "elev": 147
                     }
                 }
+            },
+            {
+                "_id": "6a905091ef75cc33301d358e",
+                "aircraft": {
+                    "_id": "6a4f68e35760ec7cdb5e6c2d",
+                    "name": "Boeing 737-800",
+                    "customName": "SkyUp l 737-800 based in UKLL UKHH UKDE l UR-SQB",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "217D",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 184,
+                    "cargo": 17,
+                    "weights": {
+                        "cargo": 1292
+                    }
+                },
+                "depTime": "2026-08-27T15:15:00.000Z",
+                "duration": 145,
+                "arrTime": "2026-08-27T17:40:00.000Z",
+                "depTimeAct": "2026-08-27T15:11:43.044Z",
+                "delay": -16,
+                "takeoffTimeAct": "2026-08-27T15:11:58.258Z",
+                "durationAct": 132,
+                "arrTimeAct": "2026-08-27T17:23:37.279Z",
+                "open": "2026-08-27T15:11:07.937Z",
+                "close": "2026-08-27T17:26:44.305Z",
+                "rating": 7.77,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 846,
+                        "fuel": 4386,
+                        "expenses": 13319,
+                        "penalties": 0,
+                        "revenue": 30490,
+                        "balance": 17171,
+                        "prices": {
+                            "ticketPrice": 150,
+                            "cargoUnitPrice": 170,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 184,
+                            "cargo": 17,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 184
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4959,
+                        "aircraft": 6150,
+                        "handling": 1481,
+                        "landing": 729
+                    },
+                    "revenue": {
+                        "tickets": 27600,
+                        "cargo": 2890
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 6.00m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -23,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 33
+                                    },
+                                    "weather": {
+                                        "windDir": 49.94,
+                                        "windSpd": 5.72,
+                                        "windX": 4.22
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.14G (150 ft/min, normal  conditions)<br/>Distance from threshold: 351m (accepted range: 193-776m)<br/>Average centerline deviation: 2.25m<br/>Max centerline deviation: 2.84m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 43
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.14,
+                                        "rate": 150
+                                    },
+                                    "weather": {
+                                        "windDir": 90.01,
+                                        "windSpd": 8.02,
+                                        "windX": 5.58
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Max G exceeded: 3.15G (max allowed: 2G)",
+                            "penalty": {
+                                "points": -200,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 43
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-27T14:58:25.884Z",
+                "updatedAt": "2026-08-27T17:26:44.385Z",
+                "dep": {
+                    "icao": "LIML",
+                    "name": "Milano Linate Airport",
+                    "city": "Segrate (MI)",
+                    "location": {
+                        "lat": 45.445099,
+                        "lon": 9.27674,
+                        "elev": 353
+                    }
+                },
+                "arr": {
+                    "icao": "LBBG",
+                    "name": "Burgas Airport",
+                    "city": "Burgas",
+                    "location": {
+                        "lat": 42.569917,
+                        "lon": 27.515173,
+                        "elev": 135
+                    }
+                },
+                "actArr": {
+                    "icao": "LBBG",
+                    "name": "Burgas Airport",
+                    "city": "Burgas",
+                    "location": {
+                        "lat": 42.569917,
+                        "lon": 27.515173,
+                        "elev": 135
+                    }
+                }
             }
         ]
     },
