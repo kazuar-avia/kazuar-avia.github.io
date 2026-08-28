@@ -7518,6 +7518,184 @@
                         "elev": 648
                     }
                 }
+            },
+            {
+                "_id": "6a919c3628a8e3fe14dca392",
+                "aircraft": {
+                    "_id": "6a4fa15e5760ec7cdb627803",
+                    "name": "Boeing 737-800",
+                    "customName": "Dry Lease l BOEING 737-800",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "106",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 189,
+                    "cargo": 25,
+                    "weights": {
+                        "cargo": 3350
+                    }
+                },
+                "depTime": "2026-08-28T14:50:00.000Z",
+                "duration": 120,
+                "arrTime": "2026-08-28T16:50:00.000Z",
+                "depTimeAct": "2026-08-28T14:52:15.737Z",
+                "delay": -56,
+                "takeoffTimeAct": "2026-08-28T14:56:02.740Z",
+                "durationAct": 58,
+                "arrTimeAct": "2026-08-28T15:53:38.991Z",
+                "open": "2026-08-28T14:46:18.097Z",
+                "close": "2026-08-28T16:39:24.336Z",
+                "rating": 0,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 386,
+                        "fuel": 2726,
+                        "expenses": 9499,
+                        "penalties": 1000000,
+                        "revenue": 31427,
+                        "balance": -978072,
+                        "prices": {
+                            "ticketPrice": 143,
+                            "cargoUnitPrice": 176,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 189,
+                            "cargo": 25,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 189
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3082,
+                        "aircraft": 3850,
+                        "handling": 1202,
+                        "landing": 1365
+                    },
+                    "revenue": {
+                        "tickets": 27027,
+                        "cargo": 4400
+                    },
+                    "violations": [
+                        {
+                            "title": "Crashed on landing: Landing not on the runway",
+                            "penalty": {
+                                "points": -1000,
+                                "cash": 1000000
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 35
+                                    },
+                                    "touchDown": {
+                                        "gForce": 59.4,
+                                        "rate": 31891
+                                    },
+                                    "weather": {
+                                        "windDir": 124.66,
+                                        "windSpd": 9.56,
+                                        "windX": 5.95
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on landing: 1013mb instead of 1021.18mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 35
+                                    },
+                                    "touchDown": {
+                                        "gForce": 59.4,
+                                        "rate": 31891
+                                    },
+                                    "weather": {
+                                        "windDir": 124.66,
+                                        "windSpd": 9.56,
+                                        "windX": 5.95
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Stall warning for 50 seconds",
+                            "penalty": {
+                                "points": -500,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        },
+                        {
+                            "title": "Max G exceeded: 4.12G (max allowed: 2G)",
+                            "penalty": {
+                                "points": -200,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 34
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-28T14:33:26.198Z",
+                "updatedAt": "2026-08-28T16:39:24.551Z",
+                "dep": {
+                    "icao": "EYVI",
+                    "name": "Vilnius International Airport",
+                    "city": "Vilnius",
+                    "location": {
+                        "lat": 54.634102,
+                        "lon": 25.285801,
+                        "elev": 648
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": null
             }
         ]
     },
