@@ -15330,5 +15330,186 @@
                 }
             }
         ]
+    },
+    {
+        "pilot_id": "6a0781c2a5e61d69a7d893c0",
+        "fullname": "Valentin Petrovich",
+        "avatar": "6a0781c2a5e61d69a7d893c01778877475482",
+        "flights": [
+            {
+                "_id": "6a907ad7ef75cc333021460a",
+                "aircraft": {
+                    "_id": "696bb9e13dc76275ba8ddf8f",
+                    "name": "Airbus A330-200",
+                    "customName": "Windrose vs AUI l A330-200 based in UKBB l UR-WRQ",
+                    "icao": "A332"
+                },
+                "type": "pax",
+                "flightNumber": "251",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 321,
+                    "cargo": 55,
+                    "weights": {
+                        "cargo": 5555
+                    }
+                },
+                "depTime": "2026-08-27T18:30:00.000Z",
+                "duration": 600,
+                "arrTime": "2026-08-28T04:30:00.000Z",
+                "depTimeAct": "2026-08-27T18:30:30.023Z",
+                "delay": 6,
+                "takeoffTimeAct": "2026-08-27T18:44:55.829Z",
+                "durationAct": 591,
+                "arrTimeAct": "2026-08-28T04:35:46.005Z",
+                "open": "2026-08-27T18:02:31.454Z",
+                "close": "2026-08-28T04:47:56.019Z",
+                "rating": 9.25,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 4173,
+                        "fuel": 58102,
+                        "expenses": 96861,
+                        "penalties": 0,
+                        "revenue": 248507,
+                        "balance": 151646,
+                        "prices": {
+                            "ticketPrice": 652,
+                            "cargoUnitPrice": 713,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 321,
+                            "cargo": 55,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 321
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 52548,
+                        "aircraft": 37470,
+                        "handling": 2343,
+                        "landing": 4500
+                    },
+                    "revenue": {
+                        "tickets": 209292,
+                        "cargo": 39215
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 10.38m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -72,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (720m from threshold beyond 712m max accepted)",
+                            "penalty": {
+                                "points": -3,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.16,
+                                        "rate": 262
+                                    },
+                                    "weather": {
+                                        "windDir": 100,
+                                        "windSpd": 3,
+                                        "windX": -1.7
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.16G (262 ft/min, normal  conditions)<br/>Distance from threshold: 720m (accepted range: 177-712m)<br/>Average centerline deviation: 3.24m<br/>Max centerline deviation: 10.38m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.16,
+                                        "rate": 262
+                                    },
+                                    "weather": {
+                                        "windDir": 100,
+                                        "windSpd": 3,
+                                        "windX": -1.7
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-27T17:58:47.241Z",
+                "updatedAt": "2026-08-28T04:47:56.156Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "KJFK",
+                    "name": "John F. Kennedy International Airport",
+                    "city": "New York",
+                    "location": {
+                        "lat": 40.639447,
+                        "lon": -73.779317,
+                        "elev": 13
+                    }
+                },
+                "actArr": {
+                    "icao": "KJFK",
+                    "name": "John F. Kennedy International Airport",
+                    "city": "New York",
+                    "location": {
+                        "lat": 40.639447,
+                        "lon": -73.779317,
+                        "elev": 13
+                    }
+                }
+            }
+        ]
     }
 ]
