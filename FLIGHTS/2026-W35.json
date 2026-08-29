@@ -8434,6 +8434,176 @@
                         "elev": 600
                     }
                 }
+            },
+            {
+                "_id": "6a931ee3ef75cc33305c0e5a",
+                "aircraft": {
+                    "_id": "69f0eb2ca5e61d69a7cfbe9e",
+                    "name": "Boeing 737-900",
+                    "customName": "Ukraine Int l 737-900ER Single Class based in UKBB l UR-PSI",
+                    "icao": "B739"
+                },
+                "type": "pax",
+                "flightNumber": "217D",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 176,
+                    "cargo": 29,
+                    "weights": {
+                        "cargo": 3886
+                    }
+                },
+                "depTime": "2026-08-29T18:15:00.000Z",
+                "duration": 80,
+                "arrTime": "2026-08-29T19:35:00.000Z",
+                "depTimeAct": "2026-08-29T18:10:10.552Z",
+                "delay": -20,
+                "takeoffTimeAct": "2026-08-29T18:10:24.597Z",
+                "durationAct": 64,
+                "arrTimeAct": "2026-08-29T19:14:40.034Z",
+                "open": "2026-08-29T18:09:37.953Z",
+                "close": "2026-08-29T19:24:22.080Z",
+                "rating": 9.46,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 430,
+                        "fuel": 3125,
+                        "expenses": 11525,
+                        "penalties": 0,
+                        "revenue": 24944,
+                        "balance": 13419,
+                        "prices": {
+                            "ticketPrice": 118,
+                            "cargoUnitPrice": 144,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 176,
+                            "cargo": 29,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 176
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3457,
+                        "aircraft": 5380,
+                        "handling": 1122,
+                        "landing": 1566
+                    },
+                    "revenue": {
+                        "tickets": 20768,
+                        "cargo": 4176
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 4.24m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -4,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 42
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1013mb instead of 1005mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 41
+                                    },
+                                    "weather": {
+                                        "windDir": 70,
+                                        "windSpd": 6.94,
+                                        "windX": -6.81
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.20G (230 ft/min, challenging  conditions)<br/>Distance from threshold: 677m (accepted range: 191-768m)<br/>Average centerline deviation: 2.63m<br/>Max centerline deviation: 3.30m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.2,
+                                        "rate": 230
+                                    },
+                                    "weather": {
+                                        "windDir": 260.05,
+                                        "windSpd": 15.91,
+                                        "windX": -9.31
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-29T18:03:15.587Z",
+                "updatedAt": "2026-08-29T19:24:22.156Z",
+                "dep": {
+                    "icao": "HEMA",
+                    "name": "Marsa Alam International Airport",
+                    "city": "Marsa Alam",
+                    "location": {
+                        "lat": 25.555548,
+                        "lon": 34.59245,
+                        "elev": 213
+                    }
+                },
+                "arr": {
+                    "icao": "LLBG",
+                    "name": "Ben Gurion International Airport",
+                    "city": "Tel Aviv",
+                    "location": {
+                        "lat": 32.011398,
+                        "lon": 34.8867,
+                        "elev": 135
+                    }
+                },
+                "actArr": {
+                    "icao": "LLBG",
+                    "name": "Ben Gurion International Airport",
+                    "city": "Tel Aviv",
+                    "location": {
+                        "lat": 32.011398,
+                        "lon": 34.8867,
+                        "elev": 135
+                    }
+                }
             }
         ]
     },
