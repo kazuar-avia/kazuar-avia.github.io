@@ -7565,6 +7565,161 @@
                         "elev": 481
                     }
                 }
+            },
+            {
+                "_id": "6a92998def75cc33304d1af7",
+                "aircraft": {
+                    "_id": "69f0eb2ca5e61d69a7cfbe9e",
+                    "name": "Boeing 737-900",
+                    "customName": "Ukraine Int l 737-900ER Single Class based in UKBB l UR-PSI",
+                    "icao": "B739"
+                },
+                "type": "pax",
+                "flightNumber": "217D",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 204,
+                    "cargo": 27,
+                    "weights": {
+                        "cargo": 2889
+                    }
+                },
+                "depTime": "2026-08-29T08:45:00.000Z",
+                "duration": 115,
+                "arrTime": "2026-08-29T10:40:00.000Z",
+                "depTimeAct": "2026-08-29T08:41:57.020Z",
+                "delay": -24,
+                "takeoffTimeAct": "2026-08-29T08:42:02.288Z",
+                "durationAct": 94,
+                "arrTimeAct": "2026-08-29T10:15:54.000Z",
+                "open": "2026-08-29T08:41:26.779Z",
+                "close": "2026-08-29T10:21:14.060Z",
+                "rating": 9.5,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 696,
+                        "fuel": 4067,
+                        "expenses": 18855,
+                        "penalties": 0,
+                        "revenue": 32010,
+                        "balance": 13155,
+                        "prices": {
+                            "ticketPrice": 136,
+                            "cargoUnitPrice": 158,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 204,
+                            "cargo": 27,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 204
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4646,
+                        "aircraft": 6205,
+                        "handling": 6438,
+                        "landing": 1566
+                    },
+                    "revenue": {
+                        "tickets": 27744,
+                        "cargo": 4266
+                    },
+                    "violations": [
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1013mb instead of 1017mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 35
+                                    },
+                                    "weather": {
+                                        "windDir": 350,
+                                        "windSpd": 19.78,
+                                        "windX": -2.18
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.30G (245 ft/min, challenging  conditions)<br/>Distance from threshold: 226m (accepted range: 210-843m)<br/>Average centerline deviation: 1.58m<br/>Max centerline deviation: 2.73m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 39
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.3,
+                                        "rate": 245
+                                    },
+                                    "weather": {
+                                        "windDir": 249.99,
+                                        "windSpd": 21.19,
+                                        "windX": -2.19
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-29T08:34:21.502Z",
+                "updatedAt": "2026-08-29T10:21:14.154Z",
+                "dep": {
+                    "icao": "LTFM",
+                    "name": "İstanbul Airport",
+                    "city": "Istanbul",
+                    "location": {
+                        "lat": 41.274874,
+                        "lon": 28.732136,
+                        "elev": 325
+                    }
+                },
+                "arr": {
+                    "icao": "LLBG",
+                    "name": "Ben Gurion International Airport",
+                    "city": "Tel Aviv",
+                    "location": {
+                        "lat": 32.011398,
+                        "lon": 34.8867,
+                        "elev": 135
+                    }
+                },
+                "actArr": {
+                    "icao": "LLBG",
+                    "name": "Ben Gurion International Airport",
+                    "city": "Tel Aviv",
+                    "location": {
+                        "lat": 32.011398,
+                        "lon": 34.8867,
+                        "elev": 135
+                    }
+                }
             }
         ]
     },
