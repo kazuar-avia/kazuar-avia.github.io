@@ -19466,6 +19466,176 @@
                         "elev": 777
                     }
                 }
+            },
+            {
+                "_id": "6a931307ef75cc33305a8213",
+                "aircraft": {
+                    "_id": "695a66383dc76275bad0826f",
+                    "name": "Airbus A320",
+                    "customName": "Dry Lease l A320 CFM FENIX msfs2024",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "605R",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 176,
+                    "cargo": 29,
+                    "weights": {
+                        "cargo": 2001
+                    }
+                },
+                "depTime": "2026-08-29T17:25:00.000Z",
+                "duration": 70,
+                "arrTime": "2026-08-29T18:35:00.000Z",
+                "depTimeAct": "2026-08-29T17:35:21.313Z",
+                "delay": 0,
+                "takeoffTimeAct": "2026-08-29T17:36:18.403Z",
+                "durationAct": 58,
+                "arrTimeAct": "2026-08-29T18:34:38.313Z",
+                "open": "2026-08-29T17:35:12.325Z",
+                "close": "2026-08-29T18:36:00.326Z",
+                "rating": 8.67,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 337,
+                        "fuel": 2665,
+                        "expenses": 10871,
+                        "penalties": 0,
+                        "revenue": 25036,
+                        "balance": 14165,
+                        "prices": {
+                            "ticketPrice": 114,
+                            "cargoUnitPrice": 140,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 176,
+                            "cargo": 29,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 8,
+                                "Y": 168
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3013,
+                        "aircraft": 4800,
+                        "handling": 1951,
+                        "landing": 1107
+                    },
+                    "revenue": {
+                        "tickets": 20976,
+                        "cargo": 4060
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 4.02m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "weather": {
+                                        "windDir": 220,
+                                        "windSpd": 8.9,
+                                        "windX": -4.27
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 4.70m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -11,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "lights",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Uncomfortable touchdown: 1.98G (709 ft/min, normal  conditions)<br/>Distance from threshold: 334m (accepted range: 203-815m)<br/>Average centerline deviation: 3.76m<br/>Max centerline deviation: 4.70m",
+                            "penalty": {
+                                "points": -122,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.98,
+                                        "rate": 709
+                                    },
+                                    "weather": {
+                                        "windDir": 189.83,
+                                        "windSpd": 14.1,
+                                        "windX": -7.69
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-29T17:12:39.339Z",
+                "updatedAt": "2026-08-29T18:36:00.392Z",
+                "dep": {
+                    "icao": "EDDB",
+                    "name": "Berlin Brandenburg Airport",
+                    "city": "Berlin",
+                    "location": {
+                        "lat": 52.361738,
+                        "lon": 13.502341,
+                        "elev": 157
+                    }
+                },
+                "arr": {
+                    "icao": "EBLG",
+                    "name": "Liège Airport",
+                    "city": "Grâce-Hollogne",
+                    "location": {
+                        "lat": 50.638574,
+                        "lon": 5.443897,
+                        "elev": 659
+                    }
+                },
+                "actArr": {
+                    "icao": "EBLG",
+                    "name": "Liège Airport",
+                    "city": "Grâce-Hollogne",
+                    "location": {
+                        "lat": 50.638574,
+                        "lon": 5.443897,
+                        "elev": 659
+                    }
+                }
             }
         ]
     },
