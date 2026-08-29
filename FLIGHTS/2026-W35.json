@@ -24040,5 +24040,269 @@
                 }
             }
         ]
+    },
+    {
+        "pilot_id": "6a9177b0ef75cc3330330919",
+        "fullname": "Rodion Berezovskiy",
+        "avatar": "default",
+        "flights": [
+            {
+                "_id": "6a932f09ef75cc33305e4213",
+                "aircraft": {
+                    "_id": "6a4687cc5760ec7cdbae102b",
+                    "name": "Boeing 737 MAX 8",
+                    "customName": "Dry Lease l 737-MAX8 160 pax 3 classes l XP11 ",
+                    "icao": "B38M"
+                },
+                "type": "pax",
+                "flightNumber": "158",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 160,
+                    "cargo": 24,
+                    "weights": {
+                        "cargo": 2160
+                    }
+                },
+                "depTime": "2026-08-29T20:10:00.000Z",
+                "duration": 205,
+                "arrTime": "2026-08-29T23:35:00.000Z",
+                "depTimeAct": "2026-08-29T19:49:03.292Z",
+                "delay": -21,
+                "takeoffTimeAct": "2026-08-29T20:05:02.289Z",
+                "durationAct": 189,
+                "arrTimeAct": "2026-08-29T23:14:00.309Z",
+                "open": "2026-08-29T19:18:39.788Z",
+                "close": "2026-08-29T23:38:51.403Z",
+                "rating": 3.06,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1238,
+                        "fuel": 9433,
+                        "expenses": 18574,
+                        "penalties": 10963,
+                        "revenue": 46328,
+                        "balance": 16791,
+                        "prices": {
+                            "ticketPrice": 229,
+                            "cargoUnitPrice": 251,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 160,
+                            "cargo": 24,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 16,
+                                "Y": 144
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 8532,
+                        "aircraft": 7125,
+                        "handling": 1162,
+                        "landing": 1755
+                    },
+                    "revenue": {
+                        "tickets": 40304,
+                        "cargo": 6024
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight departed 5 minutes too early (max 15 minutes before scheduled is allowed)",
+                            "penalty": {
+                                "points": -25,
+                                "cash": 400
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 49
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1025mb instead of 1012.96mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 39
+                                    },
+                                    "weather": {
+                                        "windDir": 180,
+                                        "windSpd": 3.02,
+                                        "windX": -0.12
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Insufficient fuel reserves on landing (actual: 735 kg, required: 849 kg based on OFP)",
+                            "penalty": {
+                                "points": -161,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 42
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.41,
+                                        "rate": 425
+                                    },
+                                    "weather": {
+                                        "windDir": 239.89,
+                                        "windSpd": 11.54,
+                                        "windX": -3.72
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 16.97m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -210,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 42
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Landing before runway threshold, short by 15m",
+                            "penalty": {
+                                "points": -163,
+                                "cash": 10563
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 42
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.41,
+                                        "rate": 425
+                                    },
+                                    "weather": {
+                                        "windDir": 239.89,
+                                        "windSpd": 11.54,
+                                        "windX": -3.72
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.54G (185 ft/min, normal  conditions)<br/>Distance from threshold: 398m (accepted range: 196-786m)<br/>Average centerline deviation: 10.31m<br/>Max centerline deviation: 16.97m",
+                            "penalty": {
+                                "points": -35,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "bounce",
+                                "payload": {
+                                    "system": {
+                                        "fps": 43
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.54,
+                                        "rate": 185
+                                    },
+                                    "weather": {
+                                        "windDir": 239.89,
+                                        "windSpd": 11.8,
+                                        "windX": -4.08
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on landing: 1002mb instead of 1005.96mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 42
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.41,
+                                        "rate": 425
+                                    },
+                                    "weather": {
+                                        "windDir": 239.89,
+                                        "windSpd": 11.54,
+                                        "windX": -3.72
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-29T19:12:09.872Z",
+                "updatedAt": "2026-08-29T23:38:51.498Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "EGKK",
+                    "name": "London Gatwick Airport",
+                    "city": "London",
+                    "location": {
+                        "lat": 51.148744,
+                        "lon": -0.185739,
+                        "elev": 202
+                    }
+                },
+                "actArr": {
+                    "icao": "EGKK",
+                    "name": "London Gatwick Airport",
+                    "city": "London",
+                    "location": {
+                        "lat": 51.148744,
+                        "lon": -0.185739,
+                        "elev": 202
+                    }
+                }
+            }
+        ]
     }
 ]
