@@ -10858,6 +10858,174 @@
                         "elev": 362
                     }
                 }
+            },
+            {
+                "_id": "6a94223a28a8e3fe14e58514",
+                "aircraft": {
+                    "_id": "6a4fa15e5760ec7cdb627803",
+                    "name": "Boeing 737-800",
+                    "customName": "Dry Lease l BOEING 737-800",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "904",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 140,
+                    "cargo": 18,
+                    "weights": {
+                        "cargo": 2016
+                    }
+                },
+                "depTime": "2026-08-30T12:50:00.000Z",
+                "duration": 95,
+                "arrTime": "2026-08-30T14:25:00.000Z",
+                "depTimeAct": "2026-08-30T12:50:37.936Z",
+                "delay": -1,
+                "takeoffTimeAct": "2026-08-30T12:59:59.593Z",
+                "durationAct": 84,
+                "arrTimeAct": "2026-08-30T14:23:43.365Z",
+                "open": "2026-08-30T12:40:29.244Z",
+                "close": "2026-08-30T14:29:08.702Z",
+                "rating": 8.86,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 545,
+                        "fuel": 3672,
+                        "expenses": 11285,
+                        "penalties": 0,
+                        "revenue": 30620,
+                        "balance": 19335,
+                        "prices": {
+                            "ticketPrice": 148,
+                            "cargoUnitPrice": 180,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 140,
+                            "cargo": 18,
+                            "paxByClass": {
+                                "F": 9,
+                                "C": 18,
+                                "Y": 113
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4152,
+                        "aircraft": 4500,
+                        "handling": 1268,
+                        "landing": 1365
+                    },
+                    "revenue": {
+                        "tickets": 27380,
+                        "cargo": 3240
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 5.24m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -14,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    },
+                                    "weather": {
+                                        "windDir": 220.41,
+                                        "windSpd": 6.04,
+                                        "windX": 5.56
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.16G (163 ft/min, challenging  conditions)<br/>Distance from threshold: 531m (accepted range: 209-839m)<br/>Average centerline deviation: 3.85m<br/>Max centerline deviation: 6.67m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.16,
+                                        "rate": 163
+                                    },
+                                    "weather": {
+                                        "windDir": 220.44,
+                                        "windSpd": 4.7,
+                                        "windX": 2.95
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No STROBE lights for 5022s when required",
+                            "penalty": {
+                                "points": -100,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-30T12:29:46.730Z",
+                "updatedAt": "2026-08-30T14:29:08.803Z",
+                "dep": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
             }
         ]
     },
