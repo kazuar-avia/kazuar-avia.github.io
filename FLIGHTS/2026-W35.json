@@ -23488,6 +23488,195 @@
                         "elev": 659
                     }
                 }
+            },
+            {
+                "_id": "6a93ccbaef75cc33306b87a0",
+                "aircraft": {
+                    "_id": "6a0b23a267cd7e249842bd81",
+                    "name": "Airbus A380",
+                    "customName": "Dry lease l FBW A380-800 l 446 pax elite",
+                    "icao": "A388"
+                },
+                "type": "pax",
+                "flightNumber": "179J",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 446,
+                    "cargo": 96,
+                    "weights": {
+                        "cargo": 11520
+                    }
+                },
+                "depTime": "2026-08-30T06:35:00.000Z",
+                "duration": 610,
+                "arrTime": "2026-08-30T16:45:00.000Z",
+                "depTimeAct": "2026-08-30T06:31:59.522Z",
+                "delay": 28,
+                "takeoffTimeAct": "2026-08-30T06:35:21.516Z",
+                "durationAct": 637,
+                "arrTimeAct": "2026-08-30T17:12:46.356Z",
+                "open": "2026-08-30T06:29:10.523Z",
+                "close": "2026-08-30T17:14:58.442Z",
+                "rating": 7.05,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 4897,
+                        "fuel": 134367,
+                        "expenses": 243873,
+                        "penalties": 0,
+                        "revenue": 597038,
+                        "balance": 353165,
+                        "prices": {
+                            "ticketPrice": 541,
+                            "cargoUnitPrice": 595,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 446,
+                            "cargo": 96,
+                            "paxByClass": {
+                                "F": 85,
+                                "C": 297,
+                                "Y": 64
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 156780,
+                        "aircraft": 73775,
+                        "handling": 7218,
+                        "landing": 6100
+                    },
+                    "revenue": {
+                        "tickets": 539918,
+                        "cargo": 57120
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 10.29m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -71,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 13.63m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -156,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 9
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (1003m from threshold beyond 808m max accepted)",
+                            "penalty": {
+                                "points": -68,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 22
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.15,
+                                        "rate": 224
+                                    },
+                                    "weather": {
+                                        "windDir": 21.81,
+                                        "windSpd": 1.14,
+                                        "windX": 0
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.17G (150 ft/min, normal  conditions)<br/>Distance from threshold: 1003m (accepted range: 201-808m)<br/>Average centerline deviation: 10.00m<br/>Max centerline deviation: 13.63m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "bounce",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.17,
+                                        "rate": 150
+                                    },
+                                    "weather": {
+                                        "windDir": 21.81,
+                                        "windSpd": 1.15,
+                                        "windX": 0.01
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-30T06:24:58.516Z",
+                "updatedAt": "2026-08-30T17:14:58.549Z",
+                "dep": {
+                    "icao": "PANC",
+                    "name": "Ted Stevens Anchorage International Airport",
+                    "city": "Anchorage",
+                    "location": {
+                        "lat": 61.179004,
+                        "lon": -149.992561,
+                        "elev": 152
+                    }
+                },
+                "arr": {
+                    "icao": "ZUUU",
+                    "name": "Chengdu Shuangliu International Airport",
+                    "city": "Chengdu (Shuangliu)",
+                    "location": {
+                        "lat": 30.558257,
+                        "lon": 103.945966,
+                        "elev": 1625
+                    }
+                },
+                "actArr": {
+                    "icao": "ZUUU",
+                    "name": "Chengdu Shuangliu International Airport",
+                    "city": "Chengdu (Shuangliu)",
+                    "location": {
+                        "lat": 30.558257,
+                        "lon": 103.945966,
+                        "elev": 1625
+                    }
+                }
             }
         ]
     },
