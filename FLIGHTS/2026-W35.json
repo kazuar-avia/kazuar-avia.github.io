@@ -12424,6 +12424,156 @@
                         "elev": 1071
                     }
                 }
+            },
+            {
+                "_id": "6a93d366ef75cc33306c02c5",
+                "aircraft": {
+                    "_id": "6a4fa2fb5760ec7cdb629836",
+                    "name": "Boeing 777-200ER",
+                    "customName": "Dry Lease l 777-200ER PW 294 pax",
+                    "icao": "B772"
+                },
+                "type": "pax",
+                "flightNumber": "0777",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 288,
+                    "cargo": 59,
+                    "weights": {
+                        "cargo": 7080
+                    }
+                },
+                "depTime": "2026-08-30T07:30:00.000Z",
+                "duration": 165,
+                "arrTime": "2026-08-30T10:15:00.000Z",
+                "depTimeAct": "2026-08-30T07:25:47.836Z",
+                "delay": 18,
+                "takeoffTimeAct": "2026-08-30T07:34:10.860Z",
+                "durationAct": 179,
+                "arrTimeAct": "2026-08-30T10:33:19.055Z",
+                "open": "2026-08-30T07:00:48.286Z",
+                "close": "2026-08-30T10:42:25.310Z",
+                "rating": 6.12,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1158,
+                        "fuel": 17803,
+                        "expenses": 43286,
+                        "penalties": 0,
+                        "revenue": 71906,
+                        "balance": 28620,
+                        "prices": {
+                            "ticketPrice": 165,
+                            "cargoUnitPrice": 184,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 288,
+                            "cargo": 59,
+                            "paxByClass": {
+                                "F": 14,
+                                "C": 40,
+                                "Y": 234
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 16102,
+                        "aircraft": 20745,
+                        "handling": 2119,
+                        "landing": 4320
+                    },
+                    "revenue": {
+                        "tickets": 61050,
+                        "cargo": 10856
+                    },
+                    "violations": [
+                        {
+                            "title": "Unstable approach below 400ft: vertical speed below -1500 ft/min (actual -2220 ft/min)",
+                            "penalty": {
+                                "points": -360,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.61G (494 ft/min, challenging  conditions)<br/>Distance from threshold: 741m (accepted range: 199-797m)<br/>Average centerline deviation: 4.41m<br/>Max centerline deviation: 7.15m",
+                            "penalty": {
+                                "points": -28,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.61,
+                                        "rate": 494
+                                    },
+                                    "weather": {
+                                        "windDir": 289.99,
+                                        "windSpd": 23.64,
+                                        "windX": 0.31
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-30T06:53:26.316Z",
+                "updatedAt": "2026-08-30T10:42:25.407Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "EHAM",
+                    "name": "Amsterdam Airport Schiphol",
+                    "city": "Amsterdam",
+                    "location": {
+                        "lat": 52.308601,
+                        "lon": 4.76389,
+                        "elev": -11
+                    }
+                },
+                "actArr": {
+                    "icao": "EHAM",
+                    "name": "Amsterdam Airport Schiphol",
+                    "city": "Amsterdam",
+                    "location": {
+                        "lat": 52.308601,
+                        "lon": 4.76389,
+                        "elev": -11
+                    }
+                }
             }
         ]
     },
