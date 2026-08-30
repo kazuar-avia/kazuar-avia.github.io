@@ -19761,6 +19761,161 @@
                         "elev": 213
                     }
                 }
+            },
+            {
+                "_id": "6a9445d0ef75cc333078d246",
+                "aircraft": {
+                    "_id": "695ebf3c3dc76275ba3e31f1",
+                    "name": "Boeing 777-300ER",
+                    "customName": "SkyLine Express l 777-300ER based in UKBB l UR-AZR",
+                    "icao": "B77W"
+                },
+                "type": "pax",
+                "flightNumber": "800",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 531,
+                    "cargo": 68,
+                    "weights": {
+                        "cargo": 7412
+                    }
+                },
+                "depTime": "2026-08-30T15:30:00.000Z",
+                "duration": 210,
+                "arrTime": "2026-08-30T19:00:00.000Z",
+                "depTimeAct": "2026-08-30T15:34:07.399Z",
+                "delay": 14,
+                "takeoffTimeAct": "2026-08-30T15:41:20.038Z",
+                "durationAct": 212,
+                "arrTimeAct": "2026-08-30T19:13:41.543Z",
+                "open": "2026-08-30T15:15:38.723Z",
+                "close": "2026-08-30T19:18:20.081Z",
+                "rating": 9.72,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1466,
+                        "fuel": 25194,
+                        "expenses": 58500,
+                        "penalties": 0,
+                        "revenue": 151178,
+                        "balance": 92678,
+                        "prices": {
+                            "ticketPrice": 250,
+                            "cargoUnitPrice": 271,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 531,
+                            "cargo": 68,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 531
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 28482,
+                        "aircraft": 22300,
+                        "handling": 5288,
+                        "landing": 2430
+                    },
+                    "revenue": {
+                        "tickets": 132750,
+                        "cargo": 18428
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 5.74m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -28,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    },
+                                    "weather": {
+                                        "windDir": 230,
+                                        "windSpd": 6.5,
+                                        "windX": -0.26
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.14G (177 ft/min, normal  conditions)<br/>Distance from threshold: 532m (accepted range: 200-802m)<br/>Average centerline deviation: 2.74m<br/>Max centerline deviation: 3.98m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.14,
+                                        "rate": 177
+                                    },
+                                    "weather": {
+                                        "windDir": 345,
+                                        "windSpd": 2,
+                                        "windX": -0.73
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-30T15:01:36.537Z",
+                "updatedAt": "2026-08-30T19:18:20.185Z",
+                "dep": {
+                    "icao": "EDDL",
+                    "name": "Düsseldorf Airport",
+                    "city": "Düsseldorf",
+                    "location": {
+                        "lat": 51.289501,
+                        "lon": 6.76678,
+                        "elev": 147
+                    }
+                },
+                "arr": {
+                    "icao": "LTAI",
+                    "name": "Antalya International Airport",
+                    "city": "Antalya",
+                    "location": {
+                        "lat": 36.898701,
+                        "lon": 30.800501,
+                        "elev": 177
+                    }
+                },
+                "actArr": {
+                    "icao": "LTAI",
+                    "name": "Antalya International Airport",
+                    "city": "Antalya",
+                    "location": {
+                        "lat": 36.898701,
+                        "lon": 30.800501,
+                        "elev": 177
+                    }
+                }
             }
         ]
     },
