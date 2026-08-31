@@ -1323,6 +1323,176 @@
                         "elev": 1671
                     }
                 }
+            },
+            {
+                "_id": "6a958514ef75cc333094e0db",
+                "aircraft": {
+                    "_id": "6988b97c9da57b990ad5c8f7",
+                    "name": "Airbus A321 neo",
+                    "customName": "Dry Lease l iniBuilds A321LR (neo) l 220 pax",
+                    "icao": "A21N"
+                },
+                "type": "pax",
+                "flightNumber": "85I",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 220,
+                    "cargo": 28,
+                    "weights": {
+                        "cargo": 3724
+                    }
+                },
+                "depTime": "2026-08-31T14:00:00.000Z",
+                "duration": 200,
+                "arrTime": "2026-08-31T17:20:00.000Z",
+                "depTimeAct": "2026-08-31T13:56:12.868Z",
+                "delay": -25,
+                "takeoffTimeAct": "2026-08-31T13:59:37.865Z",
+                "durationAct": 175,
+                "arrTimeAct": "2026-08-31T16:54:41.833Z",
+                "open": "2026-08-31T13:55:25.659Z",
+                "close": "2026-08-31T16:57:42.871Z",
+                "rating": 9.49,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1240,
+                        "fuel": 7534,
+                        "expenses": 23696,
+                        "penalties": 0,
+                        "revenue": 46136,
+                        "balance": 22440,
+                        "prices": {
+                            "ticketPrice": 184,
+                            "cargoUnitPrice": 202,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 220,
+                            "cargo": 28,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 220
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 8791,
+                        "aircraft": 8763,
+                        "handling": 5242,
+                        "landing": 900
+                    },
+                    "revenue": {
+                        "tickets": 40480,
+                        "cargo": 5656
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 6.04m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -23,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 22
+                                    },
+                                    "weather": {
+                                        "windDir": 30.01,
+                                        "windSpd": 4,
+                                        "windX": -3.33
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 5.78m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -28,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "spoilers",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.25G (204 ft/min, normal  conditions)<br/>Distance from threshold: 679m (accepted range: 199-800m)<br/>Average centerline deviation: 4.46m<br/>Max centerline deviation: 5.78m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.25,
+                                        "rate": 204
+                                    },
+                                    "weather": {
+                                        "windDir": 19.81,
+                                        "windSpd": 4.59,
+                                        "windX": -3.68
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-31T13:43:48.959Z",
+                "updatedAt": "2026-08-31T16:57:42.948Z",
+                "dep": {
+                    "icao": "KMIA",
+                    "name": "Miami International Airport",
+                    "city": "Miami",
+                    "location": {
+                        "lat": 25.796011,
+                        "lon": -80.289751,
+                        "elev": 8
+                    }
+                },
+                "arr": {
+                    "icao": "SVMI",
+                    "name": "Maiquetía Simón Bolívar International Airport",
+                    "city": "Maiquetía",
+                    "location": {
+                        "lat": 10.602214,
+                        "lon": -66.991174,
+                        "elev": 234
+                    }
+                },
+                "actArr": {
+                    "icao": "SVMI",
+                    "name": "Maiquetía Simón Bolívar International Airport",
+                    "city": "Maiquetía",
+                    "location": {
+                        "lat": 10.602214,
+                        "lon": -66.991174,
+                        "elev": 234
+                    }
+                }
             }
         ]
     },
