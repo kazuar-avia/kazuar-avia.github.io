@@ -985,6 +985,209 @@
                         "elev": 1071
                     }
                 }
+            },
+            {
+                "_id": "6a957758ef75cc33309362f0",
+                "aircraft": {
+                    "_id": "6a93e543ef75cc33306d774a",
+                    "name": "Airbus A400M Atlas",
+                    "customName": "Airbus A400M Atlas",
+                    "icao": "A400"
+                },
+                "type": "cargo",
+                "flightNumber": "301P",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 0,
+                    "cargo": 163,
+                    "weights": {
+                        "cargo": 18419
+                    }
+                },
+                "depTime": "2026-08-31T13:00:00.000Z",
+                "duration": 60,
+                "arrTime": "2026-08-31T14:00:00.000Z",
+                "depTimeAct": "2026-08-31T12:52:43.878Z",
+                "delay": -24,
+                "takeoffTimeAct": "2026-08-31T12:55:20.880Z",
+                "durationAct": 41,
+                "arrTimeAct": "2026-08-31T13:36:14.873Z",
+                "open": "2026-08-31T12:50:55.473Z",
+                "close": "2026-08-31T13:38:41.055Z",
+                "rating": 7.65,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 231,
+                        "fuel": 3570,
+                        "expenses": 9076,
+                        "penalties": 2000,
+                        "revenue": 22168,
+                        "balance": 11092,
+                        "prices": {
+                            "ticketPrice": 108,
+                            "cargoUnitPrice": 136,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 0,
+                            "cargo": 163,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3949,
+                        "aircraft": 4625,
+                        "handling": 82,
+                        "landing": 420
+                    },
+                    "revenue": {
+                        "tickets": 0,
+                        "cargo": 22168
+                    },
+                    "violations": [
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1008mb instead of 1003.9mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "weather": {
+                                        "windDir": 31.99,
+                                        "windSpd": 3.27,
+                                        "windX": -1.78
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Hard touchdown: 2.04G (589 ft/min, challenging  conditions)<br/>Distance from threshold: 412m (accepted range: 175-702m)<br/>Average centerline deviation: 2.47m<br/>Max centerline deviation: 3.25m",
+                            "penalty": {
+                                "points": -135,
+                                "cash": 2000
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 23
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.04,
+                                        "rate": 589
+                                    },
+                                    "weather": {
+                                        "windDir": 261.47,
+                                        "windSpd": 8.4,
+                                        "windX": 7.06
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on landing: 1016mb instead of 1004.5mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 23
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.04,
+                                        "rate": 589
+                                    },
+                                    "weather": {
+                                        "windDir": 261.47,
+                                        "windSpd": 8.4,
+                                        "windX": 7.06
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Fuel used 515 kg is lower than estimated minimum 3570 kg.",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 23
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.04,
+                                        "rate": 589
+                                    },
+                                    "weather": {
+                                        "windDir": 261.47,
+                                        "windSpd": 8.4,
+                                        "windX": 7.06
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-31T12:45:12.293Z",
+                "updatedAt": "2026-08-31T13:38:41.466Z",
+                "dep": {
+                    "icao": "HSSK",
+                    "name": "Khartoum International Airport",
+                    "city": "Khartoum",
+                    "location": {
+                        "lat": 15.5895,
+                        "lon": 32.5532,
+                        "elev": 1265
+                    }
+                },
+                "arr": {
+                    "icao": "HSKA",
+                    "name": "Kassala Airport",
+                    "city": "Kassala",
+                    "location": {
+                        "lat": 15.387499809265137,
+                        "lon": 36.328800201416016,
+                        "elev": 1671
+                    }
+                },
+                "actArr": {
+                    "icao": "HSKA",
+                    "name": "Kassala Airport",
+                    "city": "Kassala",
+                    "location": {
+                        "lat": 15.387499809265137,
+                        "lon": 36.328800201416016,
+                        "elev": 1671
+                    }
+                }
             }
         ]
     },
