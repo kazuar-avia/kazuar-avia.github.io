@@ -637,6 +637,195 @@
                         "elev": 587
                     }
                 }
+            },
+            {
+                "_id": "6a954949ef75cc33308f2adb",
+                "aircraft": {
+                    "_id": "6a93e543ef75cc33306d774a",
+                    "name": "Airbus A400M Atlas",
+                    "customName": "Airbus A400M Atlas",
+                    "icao": "A400"
+                },
+                "type": "cargo",
+                "flightNumber": "08T",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 0,
+                    "cargo": 253,
+                    "weights": {
+                        "cargo": 15180
+                    }
+                },
+                "depTime": "2026-08-31T09:55:00.000Z",
+                "duration": 90,
+                "arrTime": "2026-08-31T11:25:00.000Z",
+                "depTimeAct": "2026-08-31T09:36:34.947Z",
+                "delay": -41,
+                "takeoffTimeAct": "2026-08-31T09:36:43.952Z",
+                "durationAct": 67,
+                "arrTimeAct": "2026-08-31T10:43:30.966Z",
+                "open": "2026-08-31T09:35:35.943Z",
+                "close": "2026-08-31T10:47:46.226Z",
+                "rating": 9.84,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 432,
+                        "fuel": 3561,
+                        "expenses": 8825,
+                        "penalties": 379,
+                        "revenue": 36685,
+                        "balance": 27481,
+                        "prices": {
+                            "ticketPrice": 120,
+                            "cargoUnitPrice": 145,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 0,
+                            "cargo": 253,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3221,
+                        "aircraft": 4675,
+                        "handling": 443,
+                        "landing": 486
+                    },
+                    "revenue": {
+                        "tickets": 0,
+                        "cargo": 36685
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight departed 3 minutes too early (max 15 minutes before scheduled is allowed)",
+                            "penalty": {
+                                "points": -15,
+                                "cash": 379
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline takeoff (deviation 4.08m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -1,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.47G (323 ft/min, challenging  conditions)<br/>Distance from threshold: 483m (accepted range: 177-710m)<br/>Average centerline deviation: 1.89m<br/>Max centerline deviation: 2.70m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.47,
+                                        "rate": 323
+                                    },
+                                    "weather": {
+                                        "windDir": 177.19,
+                                        "windSpd": 7.54,
+                                        "windX": 7.32
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Fuel used 871 kg is lower than estimated minimum 3561 kg.",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.47,
+                                        "rate": 323
+                                    },
+                                    "weather": {
+                                        "windDir": 177.19,
+                                        "windSpd": 7.54,
+                                        "windX": 7.32
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-31T09:28:41.608Z",
+                "updatedAt": "2026-08-31T10:47:46.303Z",
+                "dep": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "arr": {
+                    "icao": "UKHP",
+                    "name": "Suprunovka Airport",
+                    "city": "Poltava",
+                    "location": {
+                        "lat": 49.5686,
+                        "lon": 34.397202,
+                        "elev": 505
+                    }
+                },
+                "actArr": {
+                    "icao": "UKHP",
+                    "name": "Suprunovka Airport",
+                    "city": "Poltava",
+                    "location": {
+                        "lat": 49.5686,
+                        "lon": 34.397202,
+                        "elev": 505
+                    }
+                }
             }
         ]
     },
