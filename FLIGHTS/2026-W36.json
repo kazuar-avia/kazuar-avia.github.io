@@ -4235,6 +4235,156 @@
                         "elev": 21
                     }
                 }
+            },
+            {
+                "_id": "6a96dca1ef75cc3330b22c50",
+                "aircraft": {
+                    "_id": "6a4e7b3c5760ec7cdb4f39a3",
+                    "name": "Boeing 737-800",
+                    "customName": "Ukraine Int l 737-800 based in UKLL UKHH l UR-PSE",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "212",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 184,
+                    "cargo": 18,
+                    "weights": {
+                        "cargo": 1242
+                    }
+                },
+                "depTime": "2026-09-01T14:30:00.000Z",
+                "duration": 155,
+                "arrTime": "2026-09-01T17:05:00.000Z",
+                "depTimeAct": "2026-09-01T14:23:15.589Z",
+                "delay": -16,
+                "takeoffTimeAct": "2026-09-01T14:29:29.885Z",
+                "durationAct": 139,
+                "arrTimeAct": "2026-09-01T16:48:50.060Z",
+                "open": "2026-09-01T14:10:34.030Z",
+                "close": "2026-09-01T16:52:03.821Z",
+                "rating": 9.75,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 963,
+                        "fuel": 6388,
+                        "expenses": 13572,
+                        "penalties": 0,
+                        "revenue": 41578,
+                        "balance": 28006,
+                        "prices": {
+                            "ticketPrice": 194,
+                            "cargoUnitPrice": 219,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 184,
+                            "cargo": 18,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 10,
+                                "Y": 174
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 5778,
+                        "aircraft": 5875,
+                        "handling": 1190,
+                        "landing": 729
+                    },
+                    "revenue": {
+                        "tickets": 37636,
+                        "cargo": 3942
+                    },
+                    "violations": [
+                        {
+                            "title": "Delayed gear retraction after takeoff more than 30s, actual: 39s)",
+                            "penalty": {
+                                "points": -25,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gear",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.28G (242 ft/min, normal  conditions)<br/>Distance from threshold: 572m (accepted range: 182-729m)<br/>Average centerline deviation: 0.92m<br/>Max centerline deviation: 3.09m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 39
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.28,
+                                        "rate": 242
+                                    },
+                                    "weather": {
+                                        "windDir": 310.06,
+                                        "windSpd": 6.09,
+                                        "windX": 3.39
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-01T14:09:37.800Z",
+                "updatedAt": "2026-09-01T16:52:03.957Z",
+                "dep": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "arr": {
+                    "icao": "LGIR",
+                    "name": "Heraklion International Nikos Kazantzakis Airport",
+                    "city": "Heraklion",
+                    "location": {
+                        "lat": 35.339699,
+                        "lon": 25.1803,
+                        "elev": 115
+                    }
+                },
+                "actArr": {
+                    "icao": "LGIR",
+                    "name": "Heraklion International Nikos Kazantzakis Airport",
+                    "city": "Heraklion",
+                    "location": {
+                        "lat": 35.339699,
+                        "lon": 25.1803,
+                        "elev": 115
+                    }
+                }
             }
         ]
     },
