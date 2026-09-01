@@ -4090,6 +4090,180 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6a96bf4528a8e3fe14ec9658",
+                "aircraft": {
+                    "_id": "6a7ec30def75cc333064b43f",
+                    "name": "Boeing 737-800",
+                    "customName": "Kharkiv Wings l PMDG 737-800 based in Kharkiv l UR-KHW",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "938",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 178,
+                    "cargo": 31,
+                    "weights": {
+                        "cargo": 2604
+                    }
+                },
+                "depTime": "2026-09-01T12:25:00.000Z",
+                "duration": 95,
+                "arrTime": "2026-09-01T14:00:00.000Z",
+                "depTimeAct": "2026-09-01T12:26:33.939Z",
+                "delay": 7,
+                "takeoffTimeAct": "2026-09-01T12:34:53.857Z",
+                "durationAct": 93,
+                "arrTimeAct": "2026-09-01T14:07:27.866Z",
+                "open": "2026-09-01T12:14:50.399Z",
+                "close": "2026-09-01T14:12:06.045Z",
+                "rating": 7.05,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 522,
+                        "fuel": 4464,
+                        "expenses": 11253,
+                        "penalties": 14013,
+                        "revenue": 31924,
+                        "balance": 6658,
+                        "prices": {
+                            "ticketPrice": 148,
+                            "cargoUnitPrice": 180,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 178,
+                            "cargo": 31,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 178
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4038,
+                        "aircraft": 4700,
+                        "handling": 1300,
+                        "landing": 1215
+                    },
+                    "revenue": {
+                        "tickets": 26344,
+                        "cargo": 5580
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 10.88m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -51,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "spoilers",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Landing before runway threshold, short by 107m",
+                            "penalty": {
+                                "points": -244,
+                                "cash": 14013
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.35,
+                                        "rate": 600
+                                    },
+                                    "weather": {
+                                        "windDir": 249.92,
+                                        "windSpd": 12.22,
+                                        "windX": -8.45
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.35G (600 ft/min, challenging  conditions)<br/>Distance from threshold: 107m (accepted range: 184-738m)<br/>Average centerline deviation: 5.90m<br/>Max centerline deviation: 10.88m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.35,
+                                        "rate": 600
+                                    },
+                                    "weather": {
+                                        "windDir": 249.92,
+                                        "windSpd": 12.22,
+                                        "windX": -8.45
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-01T12:04:21.353Z",
+                "updatedAt": "2026-09-01T14:12:06.160Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                },
+                "actArr": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                }
             }
         ]
     },
