@@ -1970,6 +1970,176 @@
                         "elev": 234
                     }
                 }
+            },
+            {
+                "_id": "6a96a37fef75cc3330ac44eb",
+                "aircraft": {
+                    "_id": "695a66383dc76275bad0826f",
+                    "name": "Airbus A320",
+                    "customName": "Dry Lease l A320 CFM FENIX msfs2024",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "79H",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 150,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-09-01T10:20:00.000Z",
+                "duration": 320,
+                "arrTime": "2026-09-01T15:40:00.000Z",
+                "depTimeAct": "2026-09-01T10:07:24.860Z",
+                "delay": 11,
+                "takeoffTimeAct": "2026-09-01T10:14:07.869Z",
+                "durationAct": 337,
+                "arrTimeAct": "2026-09-01T15:50:38.783Z",
+                "open": "2026-09-01T10:07:13.892Z",
+                "close": "2026-09-01T15:53:13.814Z",
+                "rating": 5.05,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 2123,
+                        "fuel": 13834,
+                        "expenses": 30891,
+                        "penalties": 20000,
+                        "revenue": 43332,
+                        "balance": -7559,
+                        "prices": {
+                            "ticketPrice": 276,
+                            "cargoUnitPrice": 294,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 150,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 7,
+                                "Y": 143
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 16231,
+                        "aircraft": 11900,
+                        "handling": 1950,
+                        "landing": 810
+                    },
+                    "revenue": {
+                        "tickets": 43332,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "MTOW exceeded: 4551kg above maximum takeoff weight of 73500kg",
+                            "penalty": {
+                                "points": -300,
+                                "cash": 20000
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    },
+                                    "weather": {
+                                        "windDir": 330.64,
+                                        "windSpd": 1.39,
+                                        "windX": 0.63
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 16.00m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -195,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "lights",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.20G (181 ft/min, normal  conditions)<br/>Distance from threshold: 465m (accepted range: 195-784m)<br/>Average centerline deviation: 8.26m<br/>Max centerline deviation: 16.00m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.2,
+                                        "rate": 181
+                                    },
+                                    "weather": {
+                                        "windDir": 250.01,
+                                        "windSpd": 11.41,
+                                        "windX": 9.6
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-01T10:05:51.738Z",
+                "updatedAt": "2026-09-01T15:53:13.891Z",
+                "dep": {
+                    "icao": "SCEL",
+                    "name": "Comodoro Arturo Merino Benítez International Airport",
+                    "city": "Santiago",
+                    "location": {
+                        "lat": -33.393001556396484,
+                        "lon": -70.78579711914062,
+                        "elev": 1555
+                    }
+                },
+                "arr": {
+                    "icao": "SCIP",
+                    "name": "Mataveri International Airport",
+                    "city": "Isla De Pascua",
+                    "location": {
+                        "lat": -27.165411,
+                        "lon": -109.421027,
+                        "elev": 227
+                    }
+                },
+                "actArr": {
+                    "icao": "SCIP",
+                    "name": "Mataveri International Airport",
+                    "city": "Isla De Pascua",
+                    "location": {
+                        "lat": -27.165411,
+                        "lon": -109.421027,
+                        "elev": 227
+                    }
+                }
             }
         ]
     },
