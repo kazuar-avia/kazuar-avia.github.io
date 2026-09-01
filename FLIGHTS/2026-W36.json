@@ -2912,6 +2912,180 @@
                         "elev": 399
                     }
                 }
+            },
+            {
+                "_id": "6a968999ef75cc3330aa3463",
+                "aircraft": {
+                    "_id": "695a3bf33dc76275baca8db5",
+                    "name": "Boeing 737-800",
+                    "customName": "Ukraine Int l 737-800 based in UKBB l UR-UIA",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "80T",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 142,
+                    "cargo": 16,
+                    "weights": {
+                        "cargo": 1968
+                    }
+                },
+                "depTime": "2026-09-01T08:30:00.000Z",
+                "duration": 125,
+                "arrTime": "2026-09-01T10:35:00.000Z",
+                "depTimeAct": "2026-09-01T08:33:04.182Z",
+                "delay": -10,
+                "takeoffTimeAct": "2026-09-01T08:36:53.187Z",
+                "durationAct": 109,
+                "arrTimeAct": "2026-09-01T10:25:28.292Z",
+                "open": "2026-09-01T08:26:11.167Z",
+                "close": "2026-09-01T10:32:25.340Z",
+                "rating": 9.6,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 738,
+                        "fuel": 4691,
+                        "expenses": 12760,
+                        "penalties": 0,
+                        "revenue": 22614,
+                        "balance": 9854,
+                        "prices": {
+                            "ticketPrice": 141,
+                            "cargoUnitPrice": 162,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 142,
+                            "cargo": 16,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 142
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 5359,
+                        "aircraft": 5925,
+                        "handling": 774,
+                        "landing": 702
+                    },
+                    "revenue": {
+                        "tickets": 20022,
+                        "cargo": 2592
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 5.12m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -17,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 39
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (793m from threshold beyond 769m max accepted)",
+                            "penalty": {
+                                "points": -8,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.02,
+                                        "rate": 77
+                                    },
+                                    "weather": {
+                                        "windDir": 280,
+                                        "windSpd": 5.55,
+                                        "windX": -0.43
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Greased touchdown: 1.02G (77 ft/min, normal  conditions)<br/>Distance from threshold: 793m (accepted range: 192-769m)<br/>Average centerline deviation: 1.12m<br/>Max centerline deviation: 2.48m",
+                            "penalty": {
+                                "points": -15,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.02,
+                                        "rate": 77
+                                    },
+                                    "weather": {
+                                        "windDir": 280,
+                                        "windSpd": 5.55,
+                                        "windX": -0.43
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-01T08:15:21.798Z",
+                "updatedAt": "2026-09-01T10:32:25.442Z",
+                "dep": {
+                    "icao": "UGSB",
+                    "name": "Alexander Kartveli Batumi International Airport",
+                    "city": "Batumi",
+                    "location": {
+                        "lat": 41.60939,
+                        "lon": 41.600315,
+                        "elev": 105
+                    }
+                },
+                "arr": {
+                    "icao": "LTFE",
+                    "name": "Milas Bodrum International Airport",
+                    "city": "Bodrum",
+                    "location": {
+                        "lat": 37.249314,
+                        "lon": 27.66401,
+                        "elev": 21
+                    }
+                },
+                "actArr": {
+                    "icao": "LTFE",
+                    "name": "Milas Bodrum International Airport",
+                    "city": "Bodrum",
+                    "location": {
+                        "lat": 37.249314,
+                        "lon": 27.66401,
+                        "elev": 21
+                    }
+                }
             }
         ]
     },
