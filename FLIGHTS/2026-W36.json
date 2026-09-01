@@ -885,6 +885,161 @@
                         "elev": 791
                     }
                 }
+            },
+            {
+                "_id": "6a96ec39ef75cc3330b41ff0",
+                "aircraft": {
+                    "_id": "695a66383dc76275bad0826f",
+                    "name": "Airbus A320",
+                    "customName": "Dry Lease l A320 CFM FENIX msfs2024",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "24AZ",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 170,
+                    "cargo": 12,
+                    "weights": {
+                        "cargo": 1128
+                    }
+                },
+                "depTime": "2026-09-01T15:30:00.000Z",
+                "duration": 55,
+                "arrTime": "2026-09-01T16:25:00.000Z",
+                "depTimeAct": "2026-09-01T15:32:59.540Z",
+                "delay": -3,
+                "takeoffTimeAct": "2026-09-01T15:35:55.538Z",
+                "durationAct": 46,
+                "arrTimeAct": "2026-09-01T16:21:42.498Z",
+                "open": "2026-09-01T15:16:43.575Z",
+                "close": "2026-09-01T16:25:51.529Z",
+                "rating": 9.5,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 260,
+                        "fuel": 2304,
+                        "expenses": 9524,
+                        "penalties": 0,
+                        "revenue": 20856,
+                        "balance": 11332,
+                        "prices": {
+                            "ticketPrice": 108,
+                            "cargoUnitPrice": 136,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 170,
+                            "cargo": 12,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 8,
+                                "Y": 162
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2605,
+                        "aircraft": 4500,
+                        "handling": 1366,
+                        "landing": 1053
+                    },
+                    "revenue": {
+                        "tickets": 19224,
+                        "cargo": 1632
+                    },
+                    "violations": [
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1013mb instead of 1019mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "weather": {
+                                        "windDir": 289.99,
+                                        "windSpd": 9.23,
+                                        "windX": 4.78
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.22G (181 ft/min, normal  conditions)<br/>Distance from threshold: 645m (accepted range: 204-817m)<br/>Average centerline deviation: 1.07m<br/>Max centerline deviation: 2.05m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.22,
+                                        "rate": 181
+                                    },
+                                    "weather": {
+                                        "windDir": 260.04,
+                                        "windSpd": 8.64,
+                                        "windX": 1.93
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-01T15:16:09.900Z",
+                "updatedAt": "2026-09-01T16:25:51.609Z",
+                "dep": {
+                    "icao": "EPKK",
+                    "name": "Kraków John Paul II International Airport",
+                    "city": "Balice",
+                    "location": {
+                        "lat": 50.077702,
+                        "lon": 19.7848,
+                        "elev": 791
+                    }
+                },
+                "arr": {
+                    "icao": "LKPR",
+                    "name": "Václav Havel Airport Prague",
+                    "city": "Prague",
+                    "location": {
+                        "lat": 50.100874,
+                        "lon": 14.259911,
+                        "elev": 1247
+                    }
+                },
+                "actArr": {
+                    "icao": "LKPR",
+                    "name": "Václav Havel Airport Prague",
+                    "city": "Prague",
+                    "location": {
+                        "lat": 50.100874,
+                        "lon": 14.259911,
+                        "elev": 1247
+                    }
+                }
             }
         ]
     },
