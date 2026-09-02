@@ -3201,6 +3201,237 @@
                         "elev": 18
                     }
                 }
+            },
+            {
+                "_id": "6a985d8eef75cc3330d462b7",
+                "aircraft": {
+                    "_id": "6a93e543ef75cc33306d774a",
+                    "name": "Airbus A400M Atlas",
+                    "customName": "Airbus A400M Atlas",
+                    "icao": "A400"
+                },
+                "type": "cargo",
+                "flightNumber": "938Q",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 0,
+                    "cargo": 14,
+                    "weights": {
+                        "cargo": 1162
+                    }
+                },
+                "depTime": "2026-09-02T17:45:00.000Z",
+                "duration": 95,
+                "arrTime": "2026-09-02T19:20:00.000Z",
+                "depTimeAct": "2026-09-02T17:34:38.988Z",
+                "delay": -54,
+                "takeoffTimeAct": "2026-09-02T17:34:45.989Z",
+                "durationAct": 51,
+                "arrTimeAct": "2026-09-02T18:25:55.976Z",
+                "open": "2026-09-02T17:34:20.001Z",
+                "close": "2026-09-02T18:28:47.735Z",
+                "rating": 6.6,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 443,
+                        "fuel": 4441,
+                        "expenses": 8250,
+                        "penalties": 10788,
+                        "revenue": 1337,
+                        "balance": -17701,
+                        "prices": {
+                            "ticketPrice": 121,
+                            "cargoUnitPrice": 146,
+                            "costScalars": {
+                                "timeAcceleration": 0.654,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 0,
+                            "cargo": 14,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3389,
+                        "aircraft": 4434,
+                        "handling": 7,
+                        "landing": 420
+                    },
+                    "revenue": {
+                        "tickets": 0,
+                        "cargo": 1337
+                    },
+                    "violations": [
+                        {
+                            "title": "Landing before runway threshold, short by 21m",
+                            "penalty": {
+                                "points": -168,
+                                "cash": 10788
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.99,
+                                        "rate": 453
+                                    },
+                                    "weather": {
+                                        "windDir": 231.35,
+                                        "windSpd": 5.04,
+                                        "windX": 4.32
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Uncomfortable touchdown: 1.99G (453 ft/min, challenging  conditions)<br/>Distance from threshold: 21m (accepted range: 114-457m)<br/>Average centerline deviation: 3.26m<br/>Max centerline deviation: 5.04m",
+                            "penalty": {
+                                "points": -122,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.99,
+                                        "rate": 453
+                                    },
+                                    "weather": {
+                                        "windDir": 231.35,
+                                        "windSpd": 5.04,
+                                        "windX": 4.32
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on landing: 1013mb instead of 1007.2mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.99,
+                                        "rate": 453
+                                    },
+                                    "weather": {
+                                        "windDir": 231.35,
+                                        "windSpd": 5.04,
+                                        "windX": 4.32
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Time acceleration used (1.53x) - reduced revenue",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.99,
+                                        "rate": 453
+                                    },
+                                    "weather": {
+                                        "windDir": 231.35,
+                                        "windSpd": 5.04,
+                                        "windX": 4.32
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Fuel used 973 kg is lower than estimated minimum 4441 kg.",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.99,
+                                        "rate": 453
+                                    },
+                                    "weather": {
+                                        "windDir": 231.35,
+                                        "windSpd": 5.04,
+                                        "windX": 4.32
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-02T17:31:58.476Z",
+                "updatedAt": "2026-09-02T18:28:47.813Z",
+                "dep": {
+                    "icao": "CYBD",
+                    "name": "Bella Coola Airport",
+                    "city": "Bella Coola",
+                    "location": {
+                        "lat": 52.387501,
+                        "lon": -126.596001,
+                        "elev": 117
+                    }
+                },
+                "arr": {
+                    "icao": "CAJ3",
+                    "name": "Creston Valley Regional Airport - Art Sutcliffe Field",
+                    "city": "Creston",
+                    "location": {
+                        "lat": 49.03689956665,
+                        "lon": -116.49800109863,
+                        "elev": 2070
+                    }
+                },
+                "actArr": {
+                    "icao": "CAJ3",
+                    "name": "Creston Valley Regional Airport - Art Sutcliffe Field",
+                    "city": "Creston",
+                    "location": {
+                        "lat": 49.03689956665,
+                        "lon": -116.49800109863,
+                        "elev": 2070
+                    }
+                }
             }
         ]
     },
