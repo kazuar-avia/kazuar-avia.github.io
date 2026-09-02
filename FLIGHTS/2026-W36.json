@@ -7219,6 +7219,156 @@
                         "elev": 362
                     }
                 }
+            },
+            {
+                "_id": "6a97d68028a8e3fe14ef667f",
+                "aircraft": {
+                    "_id": "6a7ec30def75cc333064b43f",
+                    "name": "Boeing 737-800",
+                    "customName": "Kharkiv Wings l PMDG 737-800 based in Kharkiv l UR-KHW",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "904",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 171,
+                    "cargo": 19,
+                    "weights": {
+                        "cargo": 1748
+                    }
+                },
+                "depTime": "2026-09-02T08:15:00.000Z",
+                "duration": 95,
+                "arrTime": "2026-09-02T09:50:00.000Z",
+                "depTimeAct": "2026-09-02T08:15:32.584Z",
+                "delay": -3,
+                "takeoffTimeAct": "2026-09-02T08:21:17.156Z",
+                "durationAct": 86,
+                "arrTimeAct": "2026-09-02T09:47:17.013Z",
+                "open": "2026-09-02T08:04:22.453Z",
+                "close": "2026-09-02T09:51:27.739Z",
+                "rating": 7.13,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 548,
+                        "fuel": 3761,
+                        "expenses": 11715,
+                        "penalties": 14500,
+                        "revenue": 28728,
+                        "balance": 2513,
+                        "prices": {
+                            "ticketPrice": 148,
+                            "cargoUnitPrice": 180,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 171,
+                            "cargo": 19,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 171
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4252,
+                        "aircraft": 4550,
+                        "handling": 1548,
+                        "landing": 1365
+                    },
+                    "revenue": {
+                        "tickets": 25308,
+                        "cargo": 3420
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 14.62m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -90,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Bad touchdown: 2.29G (814 ft/min, challenging  conditions)<br/>Distance from threshold: 210m (accepted range: 209-838m)<br/>Average centerline deviation: 6.13m<br/>Max centerline deviation: 14.62m",
+                            "penalty": {
+                                "points": -197,
+                                "cash": 14500
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.29,
+                                        "rate": 814
+                                    },
+                                    "weather": {
+                                        "windDir": 243.36,
+                                        "windSpd": 14.11,
+                                        "windX": -12.3
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-02T07:55:44.818Z",
+                "updatedAt": "2026-09-02T09:51:27.859Z",
+                "dep": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
             }
         ]
     },
