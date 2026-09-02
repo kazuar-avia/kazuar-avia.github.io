@@ -4412,6 +4412,161 @@
                         "elev": 10
                     }
                 }
+            },
+            {
+                "_id": "6a983550ef75cc3330ced269",
+                "aircraft": {
+                    "_id": "6a4fa2fb5760ec7cdb629836",
+                    "name": "Boeing 777-200ER",
+                    "customName": "Dry Lease l 777-200ER PW 294 pax",
+                    "icao": "B772"
+                },
+                "type": "pax",
+                "flightNumber": "0777",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 294,
+                    "cargo": 52,
+                    "weights": {
+                        "cargo": 3640
+                    }
+                },
+                "depTime": "2026-09-02T15:15:00.000Z",
+                "duration": 165,
+                "arrTime": "2026-09-02T18:00:00.000Z",
+                "depTimeAct": "2026-09-02T15:15:36.883Z",
+                "delay": 35,
+                "takeoffTimeAct": "2026-09-02T15:23:31.890Z",
+                "durationAct": 192,
+                "arrTimeAct": "2026-09-02T18:35:17.113Z",
+                "open": "2026-09-02T15:12:51.252Z",
+                "close": "2026-09-02T18:44:51.775Z",
+                "rating": 9.49,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1291,
+                        "fuel": 18603,
+                        "expenses": 47702,
+                        "penalties": 0,
+                        "revenue": 72202,
+                        "balance": 24500,
+                        "prices": {
+                            "ticketPrice": 166,
+                            "cargoUnitPrice": 185,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 294,
+                            "cargo": 52,
+                            "paxByClass": {
+                                "F": 14,
+                                "C": 41,
+                                "Y": 239
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 21251,
+                        "aircraft": 21460,
+                        "handling": 2716,
+                        "landing": 2275
+                    },
+                    "revenue": {
+                        "tickets": 62582,
+                        "cargo": 9620
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 7.35m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -51,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 44
+                                    },
+                                    "weather": {
+                                        "windDir": 359.99,
+                                        "windSpd": 10.94,
+                                        "windX": 0.01
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.10G (92 ft/min, challenging  conditions)<br/>Distance from threshold: 586m (accepted range: 209-838m)<br/>Average centerline deviation: 0.99m<br/>Max centerline deviation: 1.08m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 39
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.1,
+                                        "rate": 92
+                                    },
+                                    "weather": {
+                                        "windDir": 270,
+                                        "windSpd": 2.54,
+                                        "windX": 0.08
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-02T14:40:16.601Z",
+                "updatedAt": "2026-09-02T18:44:51.889Z",
+                "dep": {
+                    "icao": "UBBB",
+                    "name": "Heydar Aliyev International Airport",
+                    "city": "Baku",
+                    "location": {
+                        "lat": 40.47278,
+                        "lon": 50.050931,
+                        "elev": 10
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
             }
         ]
     },
