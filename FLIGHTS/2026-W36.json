@@ -3872,6 +3872,156 @@
                         "elev": 62
                     }
                 }
+            },
+            {
+                "_id": "6a97fdf1ef75cc3330c99942",
+                "aircraft": {
+                    "_id": "6a4fa2fb5760ec7cdb629836",
+                    "name": "Boeing 777-200ER",
+                    "customName": "Dry Lease l 777-200ER PW 294 pax",
+                    "icao": "B772"
+                },
+                "type": "pax",
+                "flightNumber": "0777",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 294,
+                    "cargo": 71,
+                    "weights": {
+                        "cargo": 6887
+                    }
+                },
+                "depTime": "2026-09-02T11:30:00.000Z",
+                "duration": 160,
+                "arrTime": "2026-09-02T14:10:00.000Z",
+                "depTimeAct": "2026-09-02T11:24:11.629Z",
+                "delay": -8,
+                "takeoffTimeAct": "2026-09-02T11:31:00.664Z",
+                "durationAct": 151,
+                "arrTimeAct": "2026-09-02T14:02:13.819Z",
+                "open": "2026-09-02T10:48:50.763Z",
+                "close": "2026-09-02T14:04:42.899Z",
+                "rating": 9.06,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1035,
+                        "fuel": 15848,
+                        "expenses": 46746,
+                        "penalties": 0,
+                        "revenue": 73925,
+                        "balance": 27179,
+                        "prices": {
+                            "ticketPrice": 162,
+                            "cargoUnitPrice": 181,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 294,
+                            "cargo": 71,
+                            "paxByClass": {
+                                "F": 14,
+                                "C": 41,
+                                "Y": 239
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 18104,
+                        "aircraft": 20255,
+                        "handling": 6182,
+                        "landing": 2205
+                    },
+                    "revenue": {
+                        "tickets": 61074,
+                        "cargo": 12851
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 10.14m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -94,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 39
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.37G (375 ft/min, normal  conditions)<br/>Distance from threshold: 745m (accepted range: 191-765m)<br/>Average centerline deviation: 6.58m<br/>Max centerline deviation: 10.14m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 43
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.37,
+                                        "rate": 375
+                                    },
+                                    "weather": {
+                                        "windDir": 359.99,
+                                        "windSpd": 12.13,
+                                        "windX": 0.01
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-02T10:44:01.243Z",
+                "updatedAt": "2026-09-02T14:04:42.994Z",
+                "dep": {
+                    "icao": "OMDB",
+                    "name": "Dubai International Airport",
+                    "city": "Dubai",
+                    "location": {
+                        "lat": 25.24979,
+                        "lon": 55.370992,
+                        "elev": 62
+                    }
+                },
+                "arr": {
+                    "icao": "UBBB",
+                    "name": "Heydar Aliyev International Airport",
+                    "city": "Baku",
+                    "location": {
+                        "lat": 40.47278,
+                        "lon": 50.050931,
+                        "elev": 10
+                    }
+                },
+                "actArr": {
+                    "icao": "UBBB",
+                    "name": "Heydar Aliyev International Airport",
+                    "city": "Baku",
+                    "location": {
+                        "lat": 40.47278,
+                        "lon": 50.050931,
+                        "elev": 10
+                    }
+                }
             }
         ]
     },
