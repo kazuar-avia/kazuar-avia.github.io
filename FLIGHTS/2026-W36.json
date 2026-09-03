@@ -4872,6 +4872,195 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6a9540f0ef75cc33308e8912",
+                "aircraft": {
+                    "_id": "6a4fa2fb5760ec7cdb629836",
+                    "name": "Boeing 777-200ER",
+                    "customName": "Dry Lease l 777-200ER PW 294 pax",
+                    "icao": "B772"
+                },
+                "type": "pax",
+                "flightNumber": "0777",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 286,
+                    "cargo": 54,
+                    "weights": {
+                        "cargo": 4590
+                    }
+                },
+                "depTime": "2026-08-31T09:30:00.000Z",
+                "duration": 145,
+                "arrTime": "2026-08-31T11:55:00.000Z",
+                "depTimeAct": "2026-08-31T09:24:47.600Z",
+                "delay": 8,
+                "takeoffTimeAct": "2026-08-31T09:32:34.604Z",
+                "durationAct": 150,
+                "arrTimeAct": "2026-08-31T12:02:31.746Z",
+                "open": "2026-08-31T08:56:51.982Z",
+                "close": "2026-08-31T12:51:07.324Z",
+                "rating": 2.56,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 914,
+                        "fuel": 15793,
+                        "expenses": 40301,
+                        "penalties": 20000,
+                        "revenue": 66068,
+                        "balance": 5767,
+                        "prices": {
+                            "ticketPrice": 154,
+                            "cargoUnitPrice": 174,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 286,
+                            "cargo": 54,
+                            "paxByClass": {
+                                "F": 14,
+                                "C": 40,
+                                "Y": 232
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 14284,
+                        "aircraft": 19150,
+                        "handling": 2097,
+                        "landing": 4770
+                    },
+                    "revenue": {
+                        "tickets": 56672,
+                        "cargo": 9396
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 20.82m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -265,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 10
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (1035m from threshold beyond 738m max accepted)",
+                            "penalty": {
+                                "points": -104,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.4,
+                                        "rate": 0
+                                    },
+                                    "weather": {
+                                        "windDir": 229.99,
+                                        "windSpd": 24.31,
+                                        "windX": -0.2
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Bad touchdown: 2.40G (0 ft/min, challenging  conditions)<br/>Distance from threshold: 1035m (accepted range: 184-738m)<br/>Average centerline deviation: 18.34m<br/>Max centerline deviation: 20.82m",
+                            "penalty": {
+                                "points": -225,
+                                "cash": 20000
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.4,
+                                        "rate": 0
+                                    },
+                                    "weather": {
+                                        "windDir": 229.99,
+                                        "windSpd": 24.31,
+                                        "windX": -0.2
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 22ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-08-31T08:53:04.359Z",
+                "updatedAt": "2026-08-31T12:51:07.443Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "EDDF",
+                    "name": "Frankfurt Main Airport",
+                    "city": "Frankfurt am Main",
+                    "location": {
+                        "lat": 50.026706,
+                        "lon": 8.55835,
+                        "elev": 364
+                    }
+                },
+                "actArr": {
+                    "icao": "EDDF",
+                    "name": "Frankfurt Main Airport",
+                    "city": "Frankfurt am Main",
+                    "location": {
+                        "lat": 50.026706,
+                        "lon": 8.55835,
+                        "elev": 364
+                    }
+                }
             }
         ]
     },
