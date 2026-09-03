@@ -14853,6 +14853,165 @@
                         "elev": 278
                     }
                 }
+            },
+            {
+                "_id": "6a99e1b5ef75cc3330f5c0a6",
+                "aircraft": {
+                    "_id": "6a4f90ec5760ec7cdb612ec3",
+                    "name": "Airbus A320",
+                    "customName": "Aerosvit vs DonbassAero l A320 CFM based in UKBB l UR-DAH",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "28U",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 180,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-09-03T21:25:00.000Z",
+                "duration": 60,
+                "arrTime": "2026-09-03T22:25:00.000Z",
+                "depTimeAct": "2026-09-03T21:22:56.687Z",
+                "delay": -11,
+                "takeoffTimeAct": "2026-09-03T21:22:56.687Z",
+                "durationAct": 51,
+                "arrTimeAct": "2026-09-03T22:13:36.230Z",
+                "open": "2026-09-03T21:08:23.265Z",
+                "close": "2026-09-03T22:16:13.291Z",
+                "rating": 9.53,
+                "simulator": "xp",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 285,
+                        "fuel": 1893,
+                        "expenses": 8791,
+                        "penalties": 3111,
+                        "revenue": 19800,
+                        "balance": 7898,
+                        "prices": {
+                            "ticketPrice": 110,
+                            "cargoUnitPrice": 137,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 180,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 180
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2141,
+                        "aircraft": 4625,
+                        "handling": 1080,
+                        "landing": 945
+                    },
+                    "revenue": {
+                        "tickets": 19800,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "MLW exceeded: 502kg above maximum landing weight of 64500kg",
+                            "penalty": {
+                                "points": -47,
+                                "cash": 3111
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 17
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.27,
+                                        "rate": 193
+                                    },
+                                    "weather": {
+                                        "windDir": 299.99,
+                                        "windSpd": 2.4,
+                                        "windX": -0.07
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.27G (193 ft/min, normal  conditions)<br/>Distance from threshold: 646m (accepted range: 198-793m)<br/>Average centerline deviation: 1.75m<br/>Max centerline deviation: 3.94m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 17
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.27,
+                                        "rate": 193
+                                    },
+                                    "weather": {
+                                        "windDir": 299.99,
+                                        "windSpd": 2.4,
+                                        "windX": -0.07
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-03T21:08:05.916Z",
+                "updatedAt": "2026-09-03T22:16:13.378Z",
+                "dep": {
+                    "icao": "LDRI",
+                    "name": "Rijeka Airport",
+                    "city": "Rijeka(Omišalj)",
+                    "location": {
+                        "lat": 45.216376,
+                        "lon": 14.57085,
+                        "elev": 278
+                    }
+                },
+                "arr": {
+                    "icao": "LYBE",
+                    "name": "Belgrade Nikola Tesla Airport",
+                    "city": "Belgrade",
+                    "location": {
+                        "lat": 44.818401,
+                        "lon": 20.309099,
+                        "elev": 335
+                    }
+                },
+                "actArr": {
+                    "icao": "LYBE",
+                    "name": "Belgrade Nikola Tesla Airport",
+                    "city": "Belgrade",
+                    "location": {
+                        "lat": 44.818401,
+                        "lon": 20.309099,
+                        "elev": 335
+                    }
+                }
             }
         ]
     },
