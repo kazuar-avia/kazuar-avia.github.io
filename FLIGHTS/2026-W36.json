@@ -5790,6 +5790,176 @@
                         "elev": 362
                     }
                 }
+            },
+            {
+                "_id": "6a996618ef75cc3330e924d5",
+                "aircraft": {
+                    "_id": "6a4fa2fb5760ec7cdb629836",
+                    "name": "Boeing 777-200ER",
+                    "customName": "Dry Lease l 777-200ER PW 294 pax",
+                    "icao": "B772"
+                },
+                "type": "pax",
+                "flightNumber": "0777",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 294,
+                    "cargo": 44,
+                    "weights": {
+                        "cargo": 5940
+                    }
+                },
+                "depTime": "2026-09-03T13:10:00.000Z",
+                "duration": 110,
+                "arrTime": "2026-09-03T15:00:00.000Z",
+                "depTimeAct": "2026-09-03T12:51:20.507Z",
+                "delay": 9,
+                "takeoffTimeAct": "2026-09-03T13:02:22.536Z",
+                "durationAct": 127,
+                "arrTimeAct": "2026-09-03T15:09:19.672Z",
+                "open": "2026-09-03T12:24:17.310Z",
+                "close": "2026-09-03T15:23:59.085Z",
+                "rating": 9.38,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 724,
+                        "fuel": 11684,
+                        "expenses": 39130,
+                        "penalties": 441,
+                        "revenue": 56961,
+                        "balance": 17390,
+                        "prices": {
+                            "ticketPrice": 133,
+                            "cargoUnitPrice": 155,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 294,
+                            "cargo": 44,
+                            "paxByClass": {
+                                "F": 14,
+                                "C": 41,
+                                "Y": 239
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 13209,
+                        "aircraft": 18935,
+                        "handling": 2666,
+                        "landing": 4320
+                    },
+                    "revenue": {
+                        "tickets": 50141,
+                        "cargo": 6820
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight departed 3 minutes too early (max 15 minutes before scheduled is allowed)",
+                            "penalty": {
+                                "points": -15,
+                                "cash": 441
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 42
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline takeoff (deviation 7.28m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -47,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    },
+                                    "weather": {
+                                        "windDir": 270,
+                                        "windSpd": 13.92,
+                                        "windX": -0.18
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.14G (142 ft/min, challenging  conditions)<br/>Distance from threshold: 659m (accepted range: 205-823m)<br/>Average centerline deviation: 3.03m<br/>Max centerline deviation: 4.37m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.14,
+                                        "rate": 142
+                                    },
+                                    "weather": {
+                                        "windDir": 250,
+                                        "windSpd": 22.66,
+                                        "windX": 0.63
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-03T12:20:40.889Z",
+                "updatedAt": "2026-09-03T15:23:59.197Z",
+                "dep": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                },
+                "arr": {
+                    "icao": "EHAM",
+                    "name": "Amsterdam Airport Schiphol",
+                    "city": "Amsterdam",
+                    "location": {
+                        "lat": 52.308601,
+                        "lon": 4.76389,
+                        "elev": -11
+                    }
+                },
+                "actArr": {
+                    "icao": "EHAM",
+                    "name": "Amsterdam Airport Schiphol",
+                    "city": "Amsterdam",
+                    "location": {
+                        "lat": 52.308601,
+                        "lon": 4.76389,
+                        "elev": -11
+                    }
+                }
             }
         ]
     },
