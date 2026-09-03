@@ -1715,6 +1715,176 @@
                         "elev": 348
                     }
                 }
+            },
+            {
+                "_id": "6a99049aef75cc3330e2c01b",
+                "aircraft": {
+                    "_id": "695a66383dc76275bad0826f",
+                    "name": "Airbus A320",
+                    "customName": "Dry Lease l A320 CFM FENIX msfs2024",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "24BF",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 155,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-09-03T05:38:00.000Z",
+                "duration": 80,
+                "arrTime": "2026-09-03T06:58:00.000Z",
+                "depTimeAct": "2026-09-03T05:34:18.085Z",
+                "delay": -9,
+                "takeoffTimeAct": "2026-09-03T05:39:29.079Z",
+                "durationAct": 70,
+                "arrTimeAct": "2026-09-03T06:49:05.018Z",
+                "open": "2026-09-03T05:25:14.617Z",
+                "close": "2026-09-03T06:50:08.036Z",
+                "rating": 8,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 498,
+                        "fuel": 3479,
+                        "expenses": 10423,
+                        "penalties": 0,
+                        "revenue": 19116,
+                        "balance": 8693,
+                        "prices": {
+                            "ticketPrice": 118,
+                            "cargoUnitPrice": 143,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 155,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 7,
+                                "Y": 148
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3934,
+                        "aircraft": 4950,
+                        "handling": 837,
+                        "landing": 702
+                    },
+                    "revenue": {
+                        "tickets": 19116,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1013mb instead of 1019mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 2
+                                    },
+                                    "weather": {
+                                        "windDir": 90.01,
+                                        "windSpd": 4.31,
+                                        "windX": -1.44
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.24G (160 ft/min, normal  conditions)<br/>Distance from threshold: 509m (accepted range: 172-691m)<br/>Average centerline deviation: 1.02m<br/>Max centerline deviation: 2.01m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.24,
+                                        "rate": 160
+                                    },
+                                    "weather": {
+                                        "windDir": 34.82,
+                                        "windSpd": 0,
+                                        "windX": 0
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 597ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gear",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-03T05:24:42.214Z",
+                "updatedAt": "2026-09-03T06:50:08.125Z",
+                "dep": {
+                    "icao": "LRTR",
+                    "name": "Timișoara Traian Vuia International Airport",
+                    "city": "Timişoara",
+                    "location": {
+                        "lat": 45.809898,
+                        "lon": 21.3379,
+                        "elev": 348
+                    }
+                },
+                "arr": {
+                    "icao": "LGKR",
+                    "name": "Corfu Ioannis Kapodistrias International Airport",
+                    "city": "Kerkyra (Corfu)",
+                    "location": {
+                        "lat": 39.60145,
+                        "lon": 19.912179,
+                        "elev": 6
+                    }
+                },
+                "actArr": {
+                    "icao": "LGKR",
+                    "name": "Corfu Ioannis Kapodistrias International Airport",
+                    "city": "Kerkyra (Corfu)",
+                    "location": {
+                        "lat": 39.60145,
+                        "lon": 19.912179,
+                        "elev": 6
+                    }
+                }
             }
         ]
     },
