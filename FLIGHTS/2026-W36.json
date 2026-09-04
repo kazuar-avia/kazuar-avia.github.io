@@ -14244,6 +14244,193 @@
                         "elev": 399
                     }
                 }
+            },
+            {
+                "_id": "6a9aedff28a8e3fe14f8c123",
+                "aircraft": {
+                    "_id": "695a3bf33dc76275baca8db5",
+                    "name": "Boeing 737-800",
+                    "customName": "Ukraine Int l 737-800 based in UKBB l UR-UIA",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "2949",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 184,
+                    "cargo": 18,
+                    "weights": {
+                        "cargo": 1314
+                    }
+                },
+                "depTime": "2026-09-04T16:35:00.000Z",
+                "duration": 90,
+                "arrTime": "2026-09-04T18:05:00.000Z",
+                "depTimeAct": "2026-09-04T16:36:32.289Z",
+                "delay": 25,
+                "takeoffTimeAct": "2026-09-04T16:42:55.554Z",
+                "durationAct": 107,
+                "arrTimeAct": "2026-09-04T18:30:01.831Z",
+                "open": "2026-09-04T16:25:55.024Z",
+                "close": "2026-09-04T18:34:32.158Z",
+                "rating": 7.54,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 635,
+                        "fuel": 4973,
+                        "expenses": 13395,
+                        "penalties": 0,
+                        "revenue": 31262,
+                        "balance": 17867,
+                        "prices": {
+                            "ticketPrice": 152,
+                            "cargoUnitPrice": 183,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 184,
+                            "cargo": 18,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 184
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 5622,
+                        "aircraft": 5375,
+                        "handling": 1183,
+                        "landing": 1215
+                    },
+                    "revenue": {
+                        "tickets": 27968,
+                        "cargo": 3294
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 4.33m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -5,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "spoilers",
+                                "payload": {
+                                    "system": {
+                                        "fps": 22
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (1275m from threshold beyond 738m max accepted)",
+                            "penalty": {
+                                "points": -188,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.41,
+                                        "rate": 295
+                                    },
+                                    "weather": {
+                                        "windDir": 196.73,
+                                        "windSpd": 6.35,
+                                        "windX": 6.29
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.41G (295 ft/min, normal  conditions)<br/>Distance from threshold: 1275m (accepted range: 184-738m)<br/>Average centerline deviation: 1.66m<br/>Max centerline deviation: 4.33m",
+                            "penalty": {
+                                "points": -3,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.41,
+                                        "rate": 295
+                                    },
+                                    "weather": {
+                                        "windDir": 196.73,
+                                        "windSpd": 6.35,
+                                        "windX": 6.29
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter not STD (1013 mb / 29.92 inHg) on cruise",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-04T16:12:47.109Z",
+                "updatedAt": "2026-09-04T18:34:32.261Z",
+                "dep": {
+                    "icao": "LUKK",
+                    "name": "Chişinău International Airport",
+                    "city": "Chişinău",
+                    "location": {
+                        "lat": 46.92774,
+                        "lon": 28.931704,
+                        "elev": 399
+                    }
+                },
+                "arr": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                },
+                "actArr": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                }
             }
         ]
     },
