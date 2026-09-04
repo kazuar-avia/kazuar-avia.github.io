@@ -2290,6 +2290,156 @@
                         "elev": 300
                     }
                 }
+            },
+            {
+                "_id": "6a9a51b8ef75cc3330fc28a1",
+                "aircraft": {
+                    "_id": "695a66383dc76275bad0826f",
+                    "name": "Airbus A320",
+                    "customName": "Dry Lease l A320 CFM FENIX msfs2024",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "24BJ",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 170,
+                    "cargo": 15,
+                    "weights": {
+                        "cargo": 2010
+                    }
+                },
+                "depTime": "2026-09-04T05:20:00.000Z",
+                "duration": 40,
+                "arrTime": "2026-09-04T06:00:00.000Z",
+                "depTimeAct": "2026-09-04T05:20:26.604Z",
+                "delay": 11,
+                "takeoffTimeAct": "2026-09-04T05:27:14.608Z",
+                "durationAct": 43,
+                "arrTimeAct": "2026-09-04T06:10:32.561Z",
+                "open": "2026-09-04T05:06:56.945Z",
+                "close": "2026-09-04T06:14:15.594Z",
+                "rating": 6,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 185,
+                        "fuel": 2061,
+                        "expenses": 9241,
+                        "penalties": 150000,
+                        "revenue": 13126,
+                        "balance": -146115,
+                        "prices": {
+                            "ticketPrice": 67,
+                            "cargoUnitPrice": 80,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 170,
+                            "cargo": 15,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 8,
+                                "Y": 162
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2218,
+                        "aircraft": 4575,
+                        "handling": 1368,
+                        "landing": 1080
+                    },
+                    "revenue": {
+                        "tickets": 11926,
+                        "cargo": 1200
+                    },
+                    "violations": [
+                        {
+                            "title": "Tail strike on landing (pitch: 13.6, max: 13.0)",
+                            "penalty": {
+                                "points": -400,
+                                "cash": 150000
+                            },
+                            "entry": {
+                                "type": "stall_start",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.25G (214 ft/min, normal  conditions)<br/>Distance from threshold: 497m (accepted range: 173-696m)<br/>Average centerline deviation: 0.59m<br/>Max centerline deviation: 2.07m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.25,
+                                        "rate": 214
+                                    },
+                                    "weather": {
+                                        "windDir": 220,
+                                        "windSpd": 4.75,
+                                        "windX": 3.12
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-04T05:06:00.165Z",
+                "updatedAt": "2026-09-04T06:14:15.691Z",
+                "dep": {
+                    "icao": "LMML",
+                    "name": "Malta International Airport",
+                    "city": "Valletta",
+                    "location": {
+                        "lat": 35.845932,
+                        "lon": 14.491546,
+                        "elev": 300
+                    }
+                },
+                "arr": {
+                    "icao": "LICC",
+                    "name": "Catania-Fontanarossa Airport",
+                    "city": "Catania",
+                    "location": {
+                        "lat": 37.466801,
+                        "lon": 15.0664,
+                        "elev": 39
+                    }
+                },
+                "actArr": {
+                    "icao": "LICC",
+                    "name": "Catania-Fontanarossa Airport",
+                    "city": "Catania",
+                    "location": {
+                        "lat": 37.466801,
+                        "lon": 15.0664,
+                        "elev": 39
+                    }
+                }
             }
         ]
     },
