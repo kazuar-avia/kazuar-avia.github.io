@@ -9848,6 +9848,195 @@
                         "elev": 508
                     }
                 }
+            },
+            {
+                "_id": "6a9aaf9aef75cc333002495a",
+                "aircraft": {
+                    "_id": "6a4fa1d65760ec7cdb62803f",
+                    "name": "Boeing 777-300ER",
+                    "customName": "Dry Lease l 777-300ER GE 370 pax",
+                    "icao": "B77W"
+                },
+                "type": "pax",
+                "flightNumber": "21Q",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 370,
+                    "cargo": 47,
+                    "weights": {
+                        "cargo": 3854
+                    }
+                },
+                "depTime": "2026-09-04T11:59:00.000Z",
+                "duration": 270,
+                "arrTime": "2026-09-04T16:29:00.000Z",
+                "depTimeAct": "2026-09-04T11:58:22.168Z",
+                "delay": -20,
+                "takeoffTimeAct": "2026-09-04T11:58:37.467Z",
+                "durationAct": 250,
+                "arrTimeAct": "2026-09-04T16:09:05.015Z",
+                "open": "2026-09-04T11:57:54.913Z",
+                "close": "2026-09-04T16:11:34.053Z",
+                "rating": 9.15,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 2139,
+                        "fuel": 29374,
+                        "expenses": 58553,
+                        "penalties": 0,
+                        "revenue": 137927,
+                        "balance": 79374,
+                        "prices": {
+                            "ticketPrice": 244,
+                            "cargoUnitPrice": 261,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 1,
+                                "fuel": 0.8,
+                                "ground": 0.85
+                            }
+                        },
+                        "payload": {
+                            "pax": 370,
+                            "cargo": 47,
+                            "paxByClass": {
+                                "F": 25,
+                                "C": 70,
+                                "Y": 275
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 26566,
+                        "aircraft": 27575,
+                        "handling": 2672,
+                        "landing": 1740
+                    },
+                    "revenue": {
+                        "tickets": 125660,
+                        "cargo": 12267
+                    },
+                    "violations": [
+                        {
+                            "title": "Long landing (810m from threshold beyond 767m max accepted)",
+                            "penalty": {
+                                "points": -15,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 44
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.3,
+                                        "rate": 308
+                                    },
+                                    "weather": {
+                                        "windDir": 80.02,
+                                        "windSpd": 4.57,
+                                        "windX": 0.5
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.30G (308 ft/min, normal  conditions)<br/>Distance from threshold: 810m (accepted range: 191-767m)<br/>Average centerline deviation: 0.51m<br/>Max centerline deviation: 1.66m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 44
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.3,
+                                        "rate": 308
+                                    },
+                                    "weather": {
+                                        "windDir": 80.02,
+                                        "windSpd": 4.57,
+                                        "windX": 0.5
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Max G exceeded: 2.24G (max allowed: 2G)",
+                            "penalty": {
+                                "points": -48,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 45
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Min G exceeded: -0.11G (min allowed: 0G)",
+                            "penalty": {
+                                "points": -22,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 47
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-04T11:46:34.145Z",
+                "updatedAt": "2026-09-04T16:11:34.147Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "UTDD",
+                    "name": "Dushanbe International Airport",
+                    "city": "Dushanbe",
+                    "location": {
+                        "lat": 38.543746,
+                        "lon": 68.822977,
+                        "elev": 2575
+                    }
+                },
+                "actArr": {
+                    "icao": "UTDD",
+                    "name": "Dushanbe International Airport",
+                    "city": "Dushanbe",
+                    "location": {
+                        "lat": 38.543746,
+                        "lon": 68.822977,
+                        "elev": 2575
+                    }
+                }
             }
         ]
     },
