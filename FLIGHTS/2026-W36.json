@@ -21806,6 +21806,156 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6a9be7abef75cc33301d6c11",
+                "aircraft": {
+                    "_id": "6a8b4263ef75cc3330af7d4b",
+                    "name": "McDonnell Douglas MD-11 Freighter",
+                    "customName": "Dry Lease I MD-11 Freighter GE",
+                    "icao": "MD11"
+                },
+                "type": "cargo",
+                "flightNumber": "1204",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 0,
+                    "cargo": 384,
+                    "weights": {
+                        "cargo": 25344
+                    }
+                },
+                "depTime": "2026-09-05T10:30:00.000Z",
+                "duration": 235,
+                "arrTime": "2026-09-05T14:25:00.000Z",
+                "depTimeAct": "2026-09-05T10:34:29.047Z",
+                "delay": -3,
+                "takeoffTimeAct": "2026-09-05T10:40:06.069Z",
+                "durationAct": 222,
+                "arrTimeAct": "2026-09-05T14:22:26.440Z",
+                "open": "2026-09-05T10:11:03.635Z",
+                "close": "2026-09-05T14:30:26.236Z",
+                "rating": 9.68,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1428,
+                        "fuel": 22587,
+                        "expenses": 51909,
+                        "penalties": 0,
+                        "revenue": 78336,
+                        "balance": 26427,
+                        "prices": {
+                            "ticketPrice": 203,
+                            "cargoUnitPrice": 204,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 0,
+                            "cargo": 384,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 20428,
+                        "aircraft": 27155,
+                        "handling": 672,
+                        "landing": 3654
+                    },
+                    "revenue": {
+                        "tickets": 0,
+                        "cargo": 78336
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 4.61m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -9,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "spoilers",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.49G (385 ft/min, normal  conditions)<br/>Distance from threshold: 363m (accepted range: 181-726m)<br/>Average centerline deviation: 2.75m<br/>Max centerline deviation: 4.61m",
+                            "penalty": {
+                                "points": -23,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.49,
+                                        "rate": 385
+                                    },
+                                    "weather": {
+                                        "windDir": 209.8,
+                                        "windSpd": 6.52,
+                                        "windX": -5.78
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-05T09:58:03.106Z",
+                "updatedAt": "2026-09-05T14:30:26.342Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "EIDW",
+                    "name": "Dublin Airport",
+                    "city": "Dublin",
+                    "location": {
+                        "lat": 53.428713,
+                        "lon": -6.262121,
+                        "elev": 242
+                    }
+                },
+                "actArr": {
+                    "icao": "EIDW",
+                    "name": "Dublin Airport",
+                    "city": "Dublin",
+                    "location": {
+                        "lat": 53.428713,
+                        "lon": -6.262121,
+                        "elev": 242
+                    }
+                }
             }
         ]
     },
