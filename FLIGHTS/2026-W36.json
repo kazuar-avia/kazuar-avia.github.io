@@ -2917,6 +2917,186 @@
                         "elev": 1247
                     }
                 }
+            },
+            {
+                "_id": "6a9bef91ef75cc33301e34e5",
+                "aircraft": {
+                    "_id": "695a66383dc76275bad0826f",
+                    "name": "Airbus A320",
+                    "customName": "Dry Lease l A320 CFM FENIX msfs2024",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "24BN",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 175,
+                    "cargo": 22,
+                    "weights": {
+                        "cargo": 1584
+                    }
+                },
+                "depTime": "2026-09-05T10:47:00.000Z",
+                "duration": 55,
+                "arrTime": "2026-09-05T11:42:00.000Z",
+                "depTimeAct": "2026-09-05T10:45:15.438Z",
+                "delay": 14,
+                "takeoffTimeAct": "2026-09-05T10:51:20.217Z",
+                "durationAct": 64,
+                "arrTimeAct": "2026-09-05T11:55:41.348Z",
+                "open": "2026-09-05T10:32:39.011Z",
+                "close": "2026-09-05T11:57:01.386Z",
+                "rating": -0.2,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": true,
+                "result": {
+                    "totals": {
+                        "distance": 347,
+                        "fuel": 3223,
+                        "expenses": 0,
+                        "penalties": 0,
+                        "revenue": 0,
+                        "balance": 0,
+                        "prices": {
+                            "ticketPrice": 108,
+                            "cargoUnitPrice": 126,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 175,
+                            "cargo": 22,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 8,
+                                "Y": 167
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3644,
+                        "aircraft": 4950,
+                        "handling": 1428,
+                        "landing": 1080
+                    },
+                    "revenue": {
+                        "tickets": 19764,
+                        "cargo": 2772
+                    },
+                    "violations": [
+                        {
+                            "title": "Tail strike on landing (pitch: 13.3, max: 13.0)",
+                            "penalty": {
+                                "points": -400,
+                                "cash": 150000
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Emergency Declared",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "emergency",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Unstable approach below 300ft: vertical speed below -1500 ft/min (actual -1607 ft/min)",
+                            "penalty": {
+                                "points": -53,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.14G (133 ft/min, challenging  conditions)<br/>Distance from threshold: 609m (accepted range: 177-711m)<br/>Average centerline deviation: 2.26m<br/>Max centerline deviation: 4.66m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.14,
+                                        "rate": 133
+                                    },
+                                    "weather": {
+                                        "windDir": 250,
+                                        "windSpd": 15.15,
+                                        "windX": -2.42
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-05T10:31:45.208Z",
+                "updatedAt": "2026-09-05T11:57:01.494Z",
+                "dep": {
+                    "icao": "LKPR",
+                    "name": "Václav Havel Airport Prague",
+                    "city": "Prague",
+                    "location": {
+                        "lat": 50.100874,
+                        "lon": 14.259911,
+                        "elev": 1247
+                    }
+                },
+                "arr": {
+                    "icao": "EPKK",
+                    "name": "Kraków John Paul II International Airport",
+                    "city": "Balice",
+                    "location": {
+                        "lat": 50.077702,
+                        "lon": 19.7848,
+                        "elev": 791
+                    }
+                },
+                "actArr": {
+                    "icao": "EPKK",
+                    "name": "Kraków John Paul II International Airport",
+                    "city": "Balice",
+                    "location": {
+                        "lat": 50.077702,
+                        "lon": 19.7848,
+                        "elev": 791
+                    }
+                }
             }
         ]
     },
