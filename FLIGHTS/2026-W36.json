@@ -5273,6 +5273,161 @@
                         "elev": 495
                     }
                 }
+            },
+            {
+                "_id": "6a9c1033ef75cc333021a2ab",
+                "aircraft": {
+                    "_id": "6988b97c9da57b990ad5c8f7",
+                    "name": "Airbus A321 neo",
+                    "customName": "Dry Lease l iniBuilds A321LR (neo) l 220 pax",
+                    "icao": "A21N"
+                },
+                "type": "pax",
+                "flightNumber": "861B",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 220,
+                    "cargo": 29,
+                    "weights": {
+                        "cargo": 3857
+                    }
+                },
+                "depTime": "2026-09-05T13:05:00.000Z",
+                "duration": 235,
+                "arrTime": "2026-09-05T17:00:00.000Z",
+                "depTimeAct": "2026-09-05T13:01:14.852Z",
+                "delay": -37,
+                "takeoffTimeAct": "2026-09-05T13:07:55.276Z",
+                "durationAct": 195,
+                "arrTimeAct": "2026-09-05T16:22:50.232Z",
+                "open": "2026-09-05T12:57:26.291Z",
+                "close": "2026-09-05T16:24:23.270Z",
+                "rating": 9.96,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1452,
+                        "fuel": 8581,
+                        "expenses": 22021,
+                        "penalties": 0,
+                        "revenue": 52290,
+                        "balance": 30269,
+                        "prices": {
+                            "ticketPrice": 210,
+                            "cargoUnitPrice": 210,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 220,
+                            "cargo": 29,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 220
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 10013,
+                        "aircraft": 9313,
+                        "handling": 1555,
+                        "landing": 1140
+                    },
+                    "revenue": {
+                        "tickets": 46200,
+                        "cargo": 6090
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 4.26m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -4,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    },
+                                    "weather": {
+                                        "windDir": 20,
+                                        "windSpd": 5.68,
+                                        "windX": 1.92
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.22G (197 ft/min, normal  conditions)<br/>Distance from threshold: 553m (accepted range: 190-763m)<br/>Average centerline deviation: 1.95m<br/>Max centerline deviation: 3.83m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 21
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.22,
+                                        "rate": 197
+                                    },
+                                    "weather": {
+                                        "windDir": 49.93,
+                                        "windSpd": 3.69,
+                                        "windX": -1.89
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-05T12:50:59.860Z",
+                "updatedAt": "2026-09-05T16:24:23.356Z",
+                "dep": {
+                    "icao": "KCOS",
+                    "name": "City of Colorado Springs Municipal Airport",
+                    "city": "Colorado Springs",
+                    "location": {
+                        "lat": 38.805801,
+                        "lon": -104.700996,
+                        "elev": 6187
+                    }
+                },
+                "arr": {
+                    "icao": "KPBI",
+                    "name": "Palm Beach International Airport",
+                    "city": "West Palm Beach",
+                    "location": {
+                        "lat": 26.683201,
+                        "lon": -80.095596,
+                        "elev": 19
+                    }
+                },
+                "actArr": {
+                    "icao": "KPBI",
+                    "name": "Palm Beach International Airport",
+                    "city": "West Palm Beach",
+                    "location": {
+                        "lat": 26.683201,
+                        "lon": -80.095596,
+                        "elev": 19
+                    }
+                }
             }
         ]
     },
