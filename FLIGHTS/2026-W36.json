@@ -19132,6 +19132,156 @@
                         "elev": 1624
                     }
                 }
+            },
+            {
+                "_id": "6a9be448ef75cc33301d1ad5",
+                "aircraft": {
+                    "_id": "69ef2326a5e61d69a7a9a128",
+                    "name": "Airbus A320",
+                    "customName": "Windrose l A320 based in UKDD UKBB l UR-WRW",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "66I",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 27,
+                    "cargo": 12,
+                    "weights": {
+                        "cargo": 792
+                    }
+                },
+                "depTime": "2026-09-05T10:20:00.000Z",
+                "duration": 60,
+                "arrTime": "2026-09-05T11:20:00.000Z",
+                "depTimeAct": "2026-09-05T10:05:03.933Z",
+                "delay": -5,
+                "takeoffTimeAct": "2026-09-05T10:05:03.933Z",
+                "durationAct": 70,
+                "arrTimeAct": "2026-09-05T11:15:07.875Z",
+                "open": "2026-09-05T09:48:20.125Z",
+                "close": "2026-09-05T11:17:40.357Z",
+                "rating": 9.25,
+                "simulator": "xp",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 349,
+                        "fuel": 2475,
+                        "expenses": 9206,
+                        "penalties": 0,
+                        "revenue": 4626,
+                        "balance": -4580,
+                        "prices": {
+                            "ticketPrice": 110,
+                            "cargoUnitPrice": 138,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 27,
+                            "cargo": 12,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 27
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2798,
+                        "aircraft": 5250,
+                        "handling": 168,
+                        "landing": 990
+                    },
+                    "revenue": {
+                        "tickets": 2970,
+                        "cargo": 1656
+                    },
+                    "violations": [
+                        {
+                            "title": "Great touchdown: 1.20G (189 ft/min, challenging  conditions)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.2,
+                                        "rate": 189
+                                    },
+                                    "weather": {
+                                        "windDir": 20.94,
+                                        "windSpd": 15.13,
+                                        "windX": -5.8
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 950ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -75,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 44
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-05T09:43:36.326Z",
+                "updatedAt": "2026-09-05T11:17:40.439Z",
+                "dep": {
+                    "icao": "GCLA",
+                    "name": "La Palma Airport",
+                    "city": "Sta Cruz de la Palma, La Palma Island",
+                    "location": {
+                        "lat": 28.626499,
+                        "lon": -17.7556,
+                        "elev": 107
+                    }
+                },
+                "arr": {
+                    "icao": "LPMA",
+                    "name": "Cristiano Ronaldo International Airport",
+                    "city": "Funchal",
+                    "location": {
+                        "lat": 32.697812,
+                        "lon": -16.774613,
+                        "elev": 192
+                    }
+                },
+                "actArr": {
+                    "icao": "LPMA",
+                    "name": "Cristiano Ronaldo International Airport",
+                    "city": "Funchal",
+                    "location": {
+                        "lat": 32.697812,
+                        "lon": -16.774613,
+                        "elev": 192
+                    }
+                }
             }
         ]
     },
