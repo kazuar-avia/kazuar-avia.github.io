@@ -7621,6 +7621,161 @@
                         "elev": 14
                     }
                 }
+            },
+            {
+                "_id": "6a9bf583ef75cc33301ed071",
+                "aircraft": {
+                    "_id": "6a4fa2fb5760ec7cdb629836",
+                    "name": "Boeing 777-200ER",
+                    "customName": "Dry Lease l 777-200ER PW 294 pax",
+                    "icao": "B772"
+                },
+                "type": "pax",
+                "flightNumber": "0777",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 294,
+                    "cargo": 52,
+                    "weights": {
+                        "cargo": 3744
+                    }
+                },
+                "depTime": "2026-09-05T11:35:00.000Z",
+                "duration": 280,
+                "arrTime": "2026-09-05T16:15:00.000Z",
+                "depTimeAct": "2026-09-05T11:30:21.474Z",
+                "delay": -31,
+                "takeoffTimeAct": "2026-09-05T11:37:09.498Z",
+                "durationAct": 247,
+                "arrTimeAct": "2026-09-05T15:43:49.727Z",
+                "open": "2026-09-05T11:02:57.830Z",
+                "close": "2026-09-05T15:55:02.718Z",
+                "rating": 9.61,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1917,
+                        "fuel": 24683,
+                        "expenses": 62105,
+                        "penalties": 0,
+                        "revenue": 107523,
+                        "balance": 45418,
+                        "prices": {
+                            "ticketPrice": 251,
+                            "cargoUnitPrice": 248,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 294,
+                            "cargo": 52,
+                            "paxByClass": {
+                                "F": 14,
+                                "C": 41,
+                                "Y": 239
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 28801,
+                        "aircraft": 26060,
+                        "handling": 3554,
+                        "landing": 3690
+                    },
+                    "revenue": {
+                        "tickets": 94627,
+                        "cargo": 12896
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 7.42m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -39,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    },
+                                    "weather": {
+                                        "windDir": 329.99,
+                                        "windSpd": 2.02,
+                                        "windX": 0.01
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.40G (294 ft/min, normal  conditions)<br/>Distance from threshold: 364m (accepted range: 197-792m)<br/>Average centerline deviation: 1.04m<br/>Max centerline deviation: 1.52m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 39
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.4,
+                                        "rate": 294
+                                    },
+                                    "weather": {
+                                        "windDir": 359.91,
+                                        "windSpd": 10.97,
+                                        "windX": -0.24
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-05T10:57:07.050Z",
+                "updatedAt": "2026-09-05T15:55:02.880Z",
+                "dep": {
+                    "icao": "CYVR",
+                    "name": "Vancouver International Airport",
+                    "city": "Vancouver",
+                    "location": {
+                        "lat": 49.193901,
+                        "lon": -123.183998,
+                        "elev": 14
+                    }
+                },
+                "arr": {
+                    "icao": "CYYZ",
+                    "name": "Toronto Pearson International Airport",
+                    "city": "Toronto",
+                    "location": {
+                        "lat": 43.675935,
+                        "lon": -79.629421,
+                        "elev": 569
+                    }
+                },
+                "actArr": {
+                    "icao": "CYYZ",
+                    "name": "Toronto Pearson International Airport",
+                    "city": "Toronto",
+                    "location": {
+                        "lat": 43.675935,
+                        "lon": -79.629421,
+                        "elev": 569
+                    }
+                }
             }
         ]
     },
