@@ -7286,6 +7286,161 @@
                         "elev": 152
                     }
                 }
+            },
+            {
+                "_id": "6a9bacceef75cc333018d0c7",
+                "aircraft": {
+                    "_id": "6a4fa2fb5760ec7cdb629836",
+                    "name": "Boeing 777-200ER",
+                    "customName": "Dry Lease l 777-200ER PW 294 pax",
+                    "icao": "B772"
+                },
+                "type": "pax",
+                "flightNumber": "0777",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 294,
+                    "cargo": 75,
+                    "weights": {
+                        "cargo": 8250
+                    }
+                },
+                "depTime": "2026-09-05T06:30:00.000Z",
+                "duration": 185,
+                "arrTime": "2026-09-05T09:35:00.000Z",
+                "depTimeAct": "2026-09-05T06:23:12.201Z",
+                "delay": -5,
+                "takeoffTimeAct": "2026-09-05T06:30:26.210Z",
+                "durationAct": 180,
+                "arrTimeAct": "2026-09-05T09:30:05.379Z",
+                "open": "2026-09-05T05:50:33.411Z",
+                "close": "2026-09-05T09:46:40.992Z",
+                "rating": 9.74,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1267,
+                        "fuel": 15564,
+                        "expenses": 48584,
+                        "penalties": 0,
+                        "revenue": 83162,
+                        "balance": 34578,
+                        "prices": {
+                            "ticketPrice": 181,
+                            "cargoUnitPrice": 199,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 294,
+                            "cargo": 75,
+                            "paxByClass": {
+                                "F": 14,
+                                "C": 41,
+                                "Y": 239
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 18161,
+                        "aircraft": 22900,
+                        "handling": 4823,
+                        "landing": 2700
+                    },
+                    "revenue": {
+                        "tickets": 68237,
+                        "cargo": 14925
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 6.29m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -26,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    },
+                                    "weather": {
+                                        "windDir": 322.06,
+                                        "windSpd": 3.88,
+                                        "windX": -0.05
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.18G (162 ft/min, normal  conditions)<br/>Distance from threshold: 659m (accepted range: 205-824m)<br/>Average centerline deviation: 1.68m<br/>Max centerline deviation: 1.84m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 42
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.18,
+                                        "rate": 162
+                                    },
+                                    "weather": {
+                                        "windDir": 30,
+                                        "windSpd": 3.43,
+                                        "windX": -0.1
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-05T05:46:54.754Z",
+                "updatedAt": "2026-09-05T09:46:41.084Z",
+                "dep": {
+                    "icao": "PANC",
+                    "name": "Ted Stevens Anchorage International Airport",
+                    "city": "Anchorage",
+                    "location": {
+                        "lat": 61.179004,
+                        "lon": -149.992561,
+                        "elev": 152
+                    }
+                },
+                "arr": {
+                    "icao": "CYVR",
+                    "name": "Vancouver International Airport",
+                    "city": "Vancouver",
+                    "location": {
+                        "lat": 49.193901,
+                        "lon": -123.183998,
+                        "elev": 14
+                    }
+                },
+                "actArr": {
+                    "icao": "CYVR",
+                    "name": "Vancouver International Airport",
+                    "city": "Vancouver",
+                    "location": {
+                        "lat": 49.193901,
+                        "lon": -123.183998,
+                        "elev": 14
+                    }
+                }
             }
         ]
     },
