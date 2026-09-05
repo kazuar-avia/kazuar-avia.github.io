@@ -10640,6 +10640,161 @@
                         "elev": 481
                     }
                 }
+            },
+            {
+                "_id": "6a9ba9eaef75cc333018a0af",
+                "aircraft": {
+                    "_id": "6a4e7b3c5760ec7cdb4f39a3",
+                    "name": "Boeing 737-800",
+                    "customName": "Ukraine Int l 737-800 based in UKLL UKHH l UR-PSE",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "216",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 184,
+                    "cargo": 20,
+                    "weights": {
+                        "cargo": 2200
+                    }
+                },
+                "depTime": "2026-09-05T05:45:00.000Z",
+                "duration": 160,
+                "arrTime": "2026-09-05T08:25:00.000Z",
+                "depTimeAct": "2026-09-05T05:42:01.013Z",
+                "delay": 5,
+                "takeoffTimeAct": "2026-09-05T05:42:11.024Z",
+                "durationAct": 168,
+                "arrTimeAct": "2026-09-05T08:29:44.029Z",
+                "open": "2026-09-05T05:41:32.682Z",
+                "close": "2026-09-05T08:34:54.088Z",
+                "rating": 9.79,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1092,
+                        "fuel": 6388,
+                        "expenses": 14276,
+                        "penalties": 0,
+                        "revenue": 40732,
+                        "balance": 26456,
+                        "prices": {
+                            "ticketPrice": 188,
+                            "cargoUnitPrice": 213,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 184,
+                            "cargo": 20,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 10,
+                                "Y": 174
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 5778,
+                        "aircraft": 6575,
+                        "handling": 1194,
+                        "landing": 729
+                    },
+                    "revenue": {
+                        "tickets": 36472,
+                        "cargo": 4260
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 5.44m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -21,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    },
+                                    "weather": {
+                                        "windDir": 270,
+                                        "windSpd": 12.13,
+                                        "windX": -8.19
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.14G (111 ft/min, normal  conditions)<br/>Distance from threshold: 432m (accepted range: 189-758m)<br/>Average centerline deviation: 1.59m<br/>Max centerline deviation: 3.10m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.14,
+                                        "rate": 111
+                                    },
+                                    "weather": {
+                                        "windDir": 190,
+                                        "windSpd": 9,
+                                        "windX": -0.61
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-05T05:34:34.243Z",
+                "updatedAt": "2026-09-05T08:34:54.166Z",
+                "dep": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "arr": {
+                    "icao": "LTBS",
+                    "name": "Dalaman International Airport",
+                    "city": "Dalaman",
+                    "location": {
+                        "lat": 36.7131,
+                        "lon": 28.7925,
+                        "elev": 20
+                    }
+                },
+                "actArr": {
+                    "icao": "LTBS",
+                    "name": "Dalaman International Airport",
+                    "city": "Dalaman",
+                    "location": {
+                        "lat": 36.7131,
+                        "lon": 28.7925,
+                        "elev": 20
+                    }
+                }
             }
         ]
     },
