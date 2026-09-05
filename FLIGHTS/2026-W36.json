@@ -20177,6 +20177,165 @@
                         "elev": 192
                     }
                 }
+            },
+            {
+                "_id": "6a9c3112ef75cc333025c82b",
+                "aircraft": {
+                    "_id": "695a3c883dc76275baca9e49",
+                    "name": "Airbus A320",
+                    "customName": "WizzAir Ukraine l A320 IAE WL based in UKKK l UR-WUC",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "31B",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 173,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-09-05T15:45:00.000Z",
+                "duration": 75,
+                "arrTime": "2026-09-05T17:00:00.000Z",
+                "depTimeAct": "2026-09-05T15:43:35.360Z",
+                "delay": -2,
+                "takeoffTimeAct": "2026-09-05T15:43:35.360Z",
+                "durationAct": 75,
+                "arrTimeAct": "2026-09-05T16:58:23.453Z",
+                "open": "2026-09-05T15:15:49.206Z",
+                "close": "2026-09-05T17:05:42.579Z",
+                "rating": 9.84,
+                "simulator": "xp",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 450,
+                        "fuel": 2901,
+                        "expenses": 10743,
+                        "penalties": 1047,
+                        "revenue": 19895,
+                        "balance": 8105,
+                        "prices": {
+                            "ticketPrice": 115,
+                            "cargoUnitPrice": 131,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 173,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 173
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3280,
+                        "aircraft": 5375,
+                        "handling": 1038,
+                        "landing": 1050
+                    },
+                    "revenue": {
+                        "tickets": 19895,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "MLW exceeded: 169kg above maximum landing weight of 64500kg",
+                            "penalty": {
+                                "points": -16,
+                                "cash": 1047
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 20
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.09,
+                                        "rate": 112
+                                    },
+                                    "weather": {
+                                        "windDir": 45.53,
+                                        "windSpd": 7.15,
+                                        "windX": 6.58
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.09G (112 ft/min, normal  conditions)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 20
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.09,
+                                        "rate": 112
+                                    },
+                                    "weather": {
+                                        "windDir": 45.53,
+                                        "windSpd": 7.15,
+                                        "windX": 6.58
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-05T15:11:14.470Z",
+                "updatedAt": "2026-09-05T17:05:42.684Z",
+                "dep": {
+                    "icao": "LEMH",
+                    "name": "Menorca Airport",
+                    "city": "Mahón (Maó)",
+                    "location": {
+                        "lat": 39.862598,
+                        "lon": 4.21865,
+                        "elev": 302
+                    }
+                },
+                "arr": {
+                    "icao": "DTTA",
+                    "name": "Tunis Carthage International Airport",
+                    "city": "Tunis",
+                    "location": {
+                        "lat": 36.851002,
+                        "lon": 10.2272,
+                        "elev": 22
+                    }
+                },
+                "actArr": {
+                    "icao": "DTTA",
+                    "name": "Tunis Carthage International Airport",
+                    "city": "Tunis",
+                    "location": {
+                        "lat": 36.851002,
+                        "lon": 10.2272,
+                        "elev": 22
+                    }
+                }
             }
         ]
     },
