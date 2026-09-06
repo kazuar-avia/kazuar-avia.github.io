@@ -22289,6 +22289,156 @@
                         "elev": 22
                     }
                 }
+            },
+            {
+                "_id": "6a9d74b8ef75cc333044a7fc",
+                "aircraft": {
+                    "_id": "69ef2347a5e61d69a7a9a2b0",
+                    "name": "Airbus A320",
+                    "customName": "WizzAir Ukraine l A320 IAE SL based in UKBB l UR-WUB",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "88A",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 180,
+                    "cargo": 31,
+                    "weights": {
+                        "cargo": 1891
+                    }
+                },
+                "depTime": "2026-09-06T14:35:00.000Z",
+                "duration": 45,
+                "arrTime": "2026-09-06T15:20:00.000Z",
+                "depTimeAct": "2026-09-06T14:38:56.813Z",
+                "delay": 1,
+                "takeoffTimeAct": "2026-09-06T14:38:56.813Z",
+                "durationAct": 42,
+                "arrTimeAct": "2026-09-06T15:20:46.513Z",
+                "open": "2026-09-06T14:17:24.812Z",
+                "close": "2026-09-06T15:22:59.663Z",
+                "rating": 9.05,
+                "simulator": "xp",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 207,
+                        "fuel": 1705,
+                        "expenses": 8564,
+                        "penalties": 0,
+                        "revenue": 18096,
+                        "balance": 9532,
+                        "prices": {
+                            "ticketPrice": 84,
+                            "cargoUnitPrice": 96,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 180,
+                            "cargo": 31,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 180
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1928,
+                        "aircraft": 4550,
+                        "handling": 1276,
+                        "landing": 810
+                    },
+                    "revenue": {
+                        "tickets": 15120,
+                        "cargo": 2976
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 9.84m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -95,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.22G (167 ft/min, normal  conditions)<br/>Distance from threshold: 536m (accepted range: 177-711m)<br/>Average centerline deviation: 3.94m<br/>Max centerline deviation: 9.84m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.22,
+                                        "rate": 167
+                                    },
+                                    "weather": {
+                                        "windDir": 139.1,
+                                        "windSpd": 4.69,
+                                        "windX": -3.58
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-06T14:12:08.449Z",
+                "updatedAt": "2026-09-06T15:22:59.793Z",
+                "dep": {
+                    "icao": "LEIB",
+                    "name": "Ibiza Airport",
+                    "city": "Ibiza (Eivissa)",
+                    "location": {
+                        "lat": 38.872898,
+                        "lon": 1.37312,
+                        "elev": 24
+                    }
+                },
+                "arr": {
+                    "icao": "LEMH",
+                    "name": "Menorca Airport",
+                    "city": "Mahón (Maó)",
+                    "location": {
+                        "lat": 39.862598,
+                        "lon": 4.21865,
+                        "elev": 302
+                    }
+                },
+                "actArr": {
+                    "icao": "LEMH",
+                    "name": "Menorca Airport",
+                    "city": "Mahón (Maó)",
+                    "location": {
+                        "lat": 39.862598,
+                        "lon": 4.21865,
+                        "elev": 302
+                    }
+                }
             }
         ]
     },
