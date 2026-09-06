@@ -6466,6 +6466,195 @@
                         "elev": 1907
                     }
                 }
+            },
+            {
+                "_id": "6a9d7bc2ef75cc3330458e3c",
+                "aircraft": {
+                    "_id": "6a4f95025760ec7cdb6176e7",
+                    "name": "Airbus A320",
+                    "customName": "DART l A320 CFM based in UKKK l UR-CII",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "656H",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 180,
+                    "cargo": 24,
+                    "weights": {
+                        "cargo": 1464
+                    }
+                },
+                "depTime": "2026-09-06T14:55:00.000Z",
+                "duration": 120,
+                "arrTime": "2026-09-06T16:55:00.000Z",
+                "depTimeAct": "2026-09-06T14:56:57.718Z",
+                "delay": 89,
+                "takeoffTimeAct": "2026-09-06T15:00:49.737Z",
+                "durationAct": 203,
+                "arrTimeAct": "2026-09-06T18:23:47.681Z",
+                "open": "2026-09-06T14:55:35.971Z",
+                "close": "2026-09-06T18:39:55.322Z",
+                "rating": 9.23,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 788,
+                        "fuel": 6750,
+                        "expenses": 22703,
+                        "penalties": 0,
+                        "revenue": 27984,
+                        "balance": 5281,
+                        "prices": {
+                            "ticketPrice": 136,
+                            "cargoUnitPrice": 146,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 180,
+                            "cargo": 24,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 180
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 7876,
+                        "aircraft": 8575,
+                        "handling": 2352,
+                        "landing": 3900
+                    },
+                    "revenue": {
+                        "tickets": 24480,
+                        "cargo": 3504
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 5.68m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -27,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 1
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late gear retraction after takeoff more than 90s, actual: 114s",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gear",
+                                "payload": {
+                                    "system": {
+                                        "fps": 15
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.12G (96 ft/min, normal  conditions)<br/>Distance from threshold: 465m (accepted range: 168-675m)<br/>Average centerline deviation: 1.33m<br/>Max centerline deviation: 3.26m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.12,
+                                        "rate": 96
+                                    },
+                                    "weather": {
+                                        "windDir": 80.01,
+                                        "windSpd": 13.54,
+                                        "windX": -1.84
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Fuel used 4879 kg is lower than estimated minimum 6750 kg.",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.12,
+                                        "rate": 96
+                                    },
+                                    "weather": {
+                                        "windDir": 80.01,
+                                        "windSpd": 13.54,
+                                        "windX": -1.84
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-06T14:42:10.682Z",
+                "updatedAt": "2026-09-06T18:39:55.396Z",
+                "dep": {
+                    "icao": "KLGA",
+                    "name": "LaGuardia Airport",
+                    "city": "New York",
+                    "location": {
+                        "lat": 40.777199,
+                        "lon": -73.872597,
+                        "elev": 21
+                    }
+                },
+                "arr": {
+                    "icao": "KORD",
+                    "name": "Chicago O'Hare International Airport",
+                    "city": "Chicago",
+                    "location": {
+                        "lat": 41.9786,
+                        "lon": -87.9048,
+                        "elev": 680
+                    }
+                },
+                "actArr": {
+                    "icao": "KORD",
+                    "name": "Chicago O'Hare International Airport",
+                    "city": "Chicago",
+                    "location": {
+                        "lat": 41.9786,
+                        "lon": -87.9048,
+                        "elev": 680
+                    }
+                }
             }
         ]
     },
