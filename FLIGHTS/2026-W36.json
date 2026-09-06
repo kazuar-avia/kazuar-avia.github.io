@@ -8414,6 +8414,161 @@
                         "elev": 569
                     }
                 }
+            },
+            {
+                "_id": "6a9d0fc5ef75cc333039a2d4",
+                "aircraft": {
+                    "_id": "6a4fa2fb5760ec7cdb629836",
+                    "name": "Boeing 777-200ER",
+                    "customName": "Dry Lease l 777-200ER PW 294 pax",
+                    "icao": "B772"
+                },
+                "type": "pax",
+                "flightNumber": "0777",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 294,
+                    "cargo": 51,
+                    "weights": {
+                        "cargo": 4080
+                    }
+                },
+                "depTime": "2026-09-06T07:45:00.000Z",
+                "duration": 175,
+                "arrTime": "2026-09-06T10:40:00.000Z",
+                "depTimeAct": "2026-09-06T07:35:02.907Z",
+                "delay": -8,
+                "takeoffTimeAct": "2026-09-06T07:50:09.932Z",
+                "durationAct": 161,
+                "arrTimeAct": "2026-09-06T10:31:33.084Z",
+                "open": "2026-09-06T07:05:12.463Z",
+                "close": "2026-09-06T10:43:33.688Z",
+                "rating": 9.33,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1182,
+                        "fuel": 15285,
+                        "expenses": 53001,
+                        "penalties": 0,
+                        "revenue": 74676,
+                        "balance": 21675,
+                        "prices": {
+                            "ticketPrice": 174,
+                            "cargoUnitPrice": 178,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 294,
+                            "cargo": 51,
+                            "paxByClass": {
+                                "F": 14,
+                                "C": 41,
+                                "Y": 239
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 17835,
+                        "aircraft": 21330,
+                        "handling": 4786,
+                        "landing": 9050
+                    },
+                    "revenue": {
+                        "tickets": 65598,
+                        "cargo": 9078
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 9.94m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -67,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 39
+                                    },
+                                    "weather": {
+                                        "windDir": 360,
+                                        "windSpd": 4.68,
+                                        "windX": -0.11
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.17G (156 ft/min, normal  conditions)<br/>Distance from threshold: 609m (accepted range: 193-776m)<br/>Average centerline deviation: 0.18m<br/>Max centerline deviation: 0.42m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 38
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.17,
+                                        "rate": 156
+                                    },
+                                    "weather": {
+                                        "windDir": 250.01,
+                                        "windSpd": 3.07,
+                                        "windX": 0.03
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-06T07:01:25.427Z",
+                "updatedAt": "2026-09-06T10:43:33.791Z",
+                "dep": {
+                    "icao": "CYYZ",
+                    "name": "Toronto Pearson International Airport",
+                    "city": "Toronto",
+                    "location": {
+                        "lat": 43.675935,
+                        "lon": -79.629421,
+                        "elev": 569
+                    }
+                },
+                "arr": {
+                    "icao": "KMIA",
+                    "name": "Miami International Airport",
+                    "city": "Miami",
+                    "location": {
+                        "lat": 25.796011,
+                        "lon": -80.289751,
+                        "elev": 8
+                    }
+                },
+                "actArr": {
+                    "icao": "KMIA",
+                    "name": "Miami International Airport",
+                    "city": "Miami",
+                    "location": {
+                        "lat": 25.796011,
+                        "lon": -80.289751,
+                        "elev": 8
+                    }
+                }
             }
         ]
     },
