@@ -1309,5 +1309,175 @@
                 }
             }
         ]
+    },
+    {
+        "pilot_id": "69c3ced7c739a30ec89bfda3",
+        "fullname": "Yury Tr",
+        "avatar": "69c3ced7c739a30ec89bfda31774440239240",
+        "flights": [
+            {
+                "_id": "6a9e9c4cef75cc3330657c7f",
+                "aircraft": {
+                    "_id": "695a82b73dc76275bad4f381",
+                    "name": "ATR 72-600",
+                    "customName": "Windrose l ATR-72 based in UKBB l UR-RWC",
+                    "icao": "AT76"
+                },
+                "type": "pax",
+                "flightNumber": "748",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 72,
+                    "cargo": 13,
+                    "weights": {
+                        "cargo": 1326
+                    }
+                },
+                "depTime": "2026-09-07T11:30:00.000Z",
+                "duration": 75,
+                "arrTime": "2026-09-07T12:45:00.000Z",
+                "depTimeAct": "2026-09-07T11:33:56.885Z",
+                "delay": -8,
+                "takeoffTimeAct": "2026-09-07T11:37:15.890Z",
+                "durationAct": 60,
+                "arrTimeAct": "2026-09-07T12:37:08.939Z",
+                "open": "2026-09-07T11:30:11.604Z",
+                "close": "2026-09-07T12:39:21.027Z",
+                "rating": 7.95,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 253,
+                        "fuel": 619,
+                        "expenses": 2866,
+                        "penalties": 0,
+                        "revenue": 11761,
+                        "balance": 8895,
+                        "prices": {
+                            "ticketPrice": 135,
+                            "cargoUnitPrice": 157,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.7,
+                                "fuel": 0.8,
+                                "ground": 0.7
+                            }
+                        },
+                        "payload": {
+                            "pax": 72,
+                            "cargo": 13,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 72
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 560,
+                        "aircraft": 1590,
+                        "handling": 527,
+                        "landing": 189
+                    },
+                    "revenue": {
+                        "tickets": 9720,
+                        "cargo": 2041
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 17.74m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -202,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.31G (415 ft/min, challenging  conditions)<br/>Distance from threshold: 411m (accepted range: 175-704m)<br/>Average centerline deviation: 10.91m<br/>Max centerline deviation: 17.74m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 43
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.31,
+                                        "rate": 415
+                                    },
+                                    "weather": {
+                                        "windDir": 323.9,
+                                        "windSpd": 15.65,
+                                        "windX": 12.64
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No BEACON lights for 38s when required",
+                            "penalty": {
+                                "points": -3,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-07T11:13:16.464Z",
+                "updatedAt": "2026-09-07T12:39:21.150Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "UKHH",
+                    "name": "Kharkiv International Airport",
+                    "city": "Kharkiv",
+                    "location": {
+                        "lat": 49.926943,
+                        "lon": 36.290814,
+                        "elev": 508
+                    }
+                },
+                "actArr": {
+                    "icao": "UKHH",
+                    "name": "Kharkiv International Airport",
+                    "city": "Kharkiv",
+                    "location": {
+                        "lat": 49.926943,
+                        "lon": 36.290814,
+                        "elev": 508
+                    }
+                }
+            }
+        ]
     }
 ]
