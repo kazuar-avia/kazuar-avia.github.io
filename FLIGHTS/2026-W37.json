@@ -4265,6 +4265,156 @@
                         "elev": 587
                     }
                 }
+            },
+            {
+                "_id": "6a9ffae7ef75cc33308f454c",
+                "aircraft": {
+                    "_id": "695a7b183dc76275bad3a123",
+                    "name": "Boeing 737-800",
+                    "customName": "Ukraine Int l 737-800 based in UKOO UKDE UKOH l UR-PSO",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "221",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 184,
+                    "cargo": 15,
+                    "weights": {
+                        "cargo": 1305
+                    }
+                },
+                "depTime": "2026-09-08T12:50:00.000Z",
+                "duration": 120,
+                "arrTime": "2026-09-08T14:50:00.000Z",
+                "depTimeAct": "2026-09-08T12:55:20.539Z",
+                "delay": 5,
+                "takeoffTimeAct": "2026-09-08T13:13:45.572Z",
+                "durationAct": 101,
+                "arrTimeAct": "2026-09-08T14:54:31.707Z",
+                "open": "2026-09-08T12:21:46.304Z",
+                "close": "2026-09-08T15:07:15.762Z",
+                "rating": 9.19,
+                "simulator": "msfs",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 666,
+                        "fuel": 4584,
+                        "expenses": 11471,
+                        "penalties": 0,
+                        "revenue": 32846,
+                        "balance": 21375,
+                        "prices": {
+                            "ticketPrice": 164,
+                            "cargoUnitPrice": 178,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 184,
+                            "cargo": 15,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 184
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4146,
+                        "aircraft": 4925,
+                        "handling": 1185,
+                        "landing": 1215
+                    },
+                    "revenue": {
+                        "tickets": 30176,
+                        "cargo": 2670
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 5.74m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -28,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.61G (474 ft/min, normal  conditions)<br/>Distance from threshold: 404m (accepted range: 198-793m)<br/>Average centerline deviation: 3.20m<br/>Max centerline deviation: 5.74m",
+                            "penalty": {
+                                "points": -53,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.61,
+                                        "rate": 474
+                                    },
+                                    "weather": {
+                                        "windDir": 190.01,
+                                        "windSpd": 14.41,
+                                        "windX": -0.02
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-08T12:09:11.832Z",
+                "updatedAt": "2026-09-08T15:07:15.864Z",
+                "dep": {
+                    "icao": "UKOO",
+                    "name": "Odesa International Airport",
+                    "city": "Odesa",
+                    "location": {
+                        "lat": 46.427196,
+                        "lon": 30.672649,
+                        "elev": 172
+                    }
+                },
+                "arr": {
+                    "icao": "LTAI",
+                    "name": "Antalya International Airport",
+                    "city": "Antalya",
+                    "location": {
+                        "lat": 36.898701,
+                        "lon": 30.800501,
+                        "elev": 177
+                    }
+                },
+                "actArr": {
+                    "icao": "LTAI",
+                    "name": "Antalya International Airport",
+                    "city": "Antalya",
+                    "location": {
+                        "lat": 36.898701,
+                        "lon": 30.800501,
+                        "elev": 177
+                    }
+                }
             }
         ]
     }
