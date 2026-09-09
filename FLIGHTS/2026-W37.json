@@ -6234,6 +6234,165 @@
                         "elev": 362
                     }
                 }
+            },
+            {
+                "_id": "6aa18e9828a8e3fe140d3a6b",
+                "aircraft": {
+                    "_id": "695a3bf33dc76275baca8db5",
+                    "name": "Boeing 737-800",
+                    "customName": "Ukraine Int l 737-800 based in UKBB l UR-UIA",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "904",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 184,
+                    "cargo": 30,
+                    "weights": {
+                        "cargo": 3180
+                    }
+                },
+                "depTime": "2026-09-09T17:10:00.000Z",
+                "duration": 95,
+                "arrTime": "2026-09-09T18:45:00.000Z",
+                "depTimeAct": "2026-09-09T17:10:40.847Z",
+                "delay": 5,
+                "takeoffTimeAct": "2026-09-09T17:16:41.245Z",
+                "durationAct": 93,
+                "arrTimeAct": "2026-09-09T18:49:52.741Z",
+                "open": "2026-09-09T17:01:33.961Z",
+                "close": "2026-09-09T18:54:11.393Z",
+                "rating": 9.62,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 579,
+                        "fuel": 4494,
+                        "expenses": 12841,
+                        "penalties": 2538,
+                        "revenue": 32212,
+                        "balance": 16833,
+                        "prices": {
+                            "ticketPrice": 148,
+                            "cargoUnitPrice": 166,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 184,
+                            "cargo": 30,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 184
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 5081,
+                        "aircraft": 4725,
+                        "handling": 1670,
+                        "landing": 1365
+                    },
+                    "revenue": {
+                        "tickets": 27232,
+                        "cargo": 4980
+                    },
+                    "violations": [
+                        {
+                            "title": "MLW exceeded: 421kg above maximum landing weight of 66361kg",
+                            "penalty": {
+                                "points": -38,
+                                "cash": 2538
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.22,
+                                        "rate": 186
+                                    },
+                                    "weather": {
+                                        "windDir": 194.3,
+                                        "windSpd": 2.12,
+                                        "windX": 0.43
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.22G (186 ft/min, challenging  conditions)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.22,
+                                        "rate": 186
+                                    },
+                                    "weather": {
+                                        "windDir": 194.3,
+                                        "windSpd": 2.12,
+                                        "windX": 0.43
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-09T16:51:36.284Z",
+                "updatedAt": "2026-09-09T18:54:11.483Z",
+                "dep": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
             }
         ]
     },
