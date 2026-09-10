@@ -5059,6 +5059,176 @@
                         "elev": 844
                     }
                 }
+            },
+            {
+                "_id": "6aa26a0fef75cc3330d70046",
+                "aircraft": {
+                    "_id": "695ebf3c3dc76275ba3e31f1",
+                    "name": "Boeing 777-300ER",
+                    "customName": "SkyLine Express l 777-300ER based in UKBB l UR-AZR",
+                    "icao": "B77W"
+                },
+                "type": "pax",
+                "flightNumber": "838",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 405,
+                    "cargo": 111,
+                    "weights": {
+                        "cargo": 7881
+                    }
+                },
+                "depTime": "2026-09-10T08:40:00.000Z",
+                "duration": 160,
+                "arrTime": "2026-09-10T11:20:00.000Z",
+                "depTimeAct": "2026-09-10T08:34:39.467Z",
+                "delay": -24,
+                "takeoffTimeAct": "2026-09-10T08:34:57.014Z",
+                "durationAct": 141,
+                "arrTimeAct": "2026-09-10T10:55:55.851Z",
+                "open": "2026-09-10T08:34:16.322Z",
+                "close": "2026-09-10T10:59:47.906Z",
+                "rating": 9.36,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 999,
+                        "fuel": 16110,
+                        "expenses": 42711,
+                        "penalties": 0,
+                        "revenue": 103461,
+                        "balance": 60750,
+                        "prices": {
+                            "ticketPrice": 199,
+                            "cargoUnitPrice": 206,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 405,
+                            "cargo": 111,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 405
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 18213,
+                        "aircraft": 17708,
+                        "handling": 4060,
+                        "landing": 2730
+                    },
+                    "revenue": {
+                        "tickets": 80595,
+                        "cargo": 22866
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 4.12m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -2,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "weather": {
+                                        "windDir": 188.74,
+                                        "windSpd": 2.76,
+                                        "windX": -1.82
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.26G (249 ft/min, challenging  conditions)<br/>Distance from threshold: 723m (accepted range: 209-838m)<br/>Average centerline deviation: 1.85m<br/>Max centerline deviation: 5.14m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.26,
+                                        "rate": 249
+                                    },
+                                    "weather": {
+                                        "windDir": 196.1,
+                                        "windSpd": 17.65,
+                                        "windX": 4.8
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Max G exceeded: 2.31G (max allowed: 2G)",
+                            "penalty": {
+                                "points": -62,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-10T08:27:59.693Z",
+                "updatedAt": "2026-09-10T10:59:47.994Z",
+                "dep": {
+                    "icao": "EDDL",
+                    "name": "Düsseldorf Airport",
+                    "city": "Düsseldorf",
+                    "location": {
+                        "lat": 51.289501,
+                        "lon": 6.76678,
+                        "elev": 147
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
             }
         ]
     },
