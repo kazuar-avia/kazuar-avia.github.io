@@ -3492,6 +3492,156 @@
                         "elev": 353
                     }
                 }
+            },
+            {
+                "_id": "6aa2505cef75cc3330d4a891",
+                "aircraft": {
+                    "_id": "695a66383dc76275bad0826f",
+                    "name": "Airbus A320",
+                    "customName": "Dry Lease l A320 CFM FENIX msfs2024",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "24BP",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 160,
+                    "cargo": 8,
+                    "weights": {
+                        "cargo": 592
+                    }
+                },
+                "depTime": "2026-09-10T06:55:00.000Z",
+                "duration": 65,
+                "arrTime": "2026-09-10T08:00:00.000Z",
+                "depTimeAct": "2026-09-10T06:56:39.596Z",
+                "delay": 9,
+                "takeoffTimeAct": "2026-09-10T07:02:49.590Z",
+                "durationAct": 66,
+                "arrTimeAct": "2026-09-10T08:08:37.497Z",
+                "open": "2026-09-10T06:55:45.609Z",
+                "close": "2026-09-10T08:12:21.535Z",
+                "rating": 9.7,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 399,
+                        "fuel": 3213,
+                        "expenses": 10907,
+                        "penalties": 0,
+                        "revenue": 19561,
+                        "balance": 8654,
+                        "prices": {
+                            "ticketPrice": 111,
+                            "cargoUnitPrice": 128,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 160,
+                            "cargo": 8,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 7,
+                                "Y": 153
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3633,
+                        "aircraft": 5150,
+                        "handling": 1284,
+                        "landing": 840
+                    },
+                    "revenue": {
+                        "tickets": 18537,
+                        "cargo": 1024
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 5.82m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -30,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.18G (160 ft/min, normal  conditions)<br/>Distance from threshold: 677m (accepted range: 183-733m)<br/>Average centerline deviation: 2.30m<br/>Max centerline deviation: 5.82m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.18,
+                                        "rate": 160
+                                    },
+                                    "weather": {
+                                        "windDir": 230.02,
+                                        "windSpd": 8.27,
+                                        "windX": -0.51
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-10T06:38:20.077Z",
+                "updatedAt": "2026-09-10T08:12:21.621Z",
+                "dep": {
+                    "icao": "LIML",
+                    "name": "Milano Linate Airport",
+                    "city": "Segrate (MI)",
+                    "location": {
+                        "lat": 45.445099,
+                        "lon": 9.27674,
+                        "elev": 353
+                    }
+                },
+                "arr": {
+                    "icao": "LIEO",
+                    "name": "Olbia Costa Smeralda Airport",
+                    "city": "Olbia (SS)",
+                    "location": {
+                        "lat": 40.898953,
+                        "lon": 9.518457,
+                        "elev": 37
+                    }
+                },
+                "actArr": {
+                    "icao": "LIEO",
+                    "name": "Olbia Costa Smeralda Airport",
+                    "city": "Olbia (SS)",
+                    "location": {
+                        "lat": 40.898953,
+                        "lon": 9.518457,
+                        "elev": 37
+                    }
+                }
             }
         ]
     },
