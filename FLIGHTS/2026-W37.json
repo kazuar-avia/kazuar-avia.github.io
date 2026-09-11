@@ -741,6 +741,171 @@
                         "elev": 162
                     }
                 }
+            },
+            {
+                "_id": "6aa420c6ef75cc33300c81ed",
+                "aircraft": {
+                    "_id": "69e3df6ea5e61d69a7a56c57",
+                    "name": "Boeing 737-700",
+                    "customName": "SkyUp l 737-700 based in UKBB UKON l UR-SQE",
+                    "icao": "B737"
+                },
+                "type": "pax",
+                "flightNumber": "315",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 143,
+                    "cargo": 15,
+                    "weights": {
+                        "cargo": 1710
+                    }
+                },
+                "depTime": "2026-09-11T16:05:00.000Z",
+                "duration": 145,
+                "arrTime": "2026-09-11T18:30:00.000Z",
+                "depTimeAct": "2026-09-11T16:09:35.252Z",
+                "delay": -13,
+                "takeoffTimeAct": "2026-09-11T16:12:59.890Z",
+                "durationAct": 124,
+                "arrTimeAct": "2026-09-11T18:16:32.504Z",
+                "open": "2026-09-11T16:02:15.866Z",
+                "close": "2026-09-11T18:28:50.053Z",
+                "rating": 5.48,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 782,
+                        "fuel": 4765,
+                        "expenses": 11115,
+                        "penalties": 0,
+                        "revenue": 30425,
+                        "balance": 19310,
+                        "prices": {
+                            "ticketPrice": 178,
+                            "cargoUnitPrice": 189,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 143,
+                            "cargo": 15,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 12,
+                                "Y": 131
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4310,
+                        "aircraft": 5202,
+                        "handling": 1027,
+                        "landing": 576
+                    },
+                    "revenue": {
+                        "tickets": 27590,
+                        "cargo": 2835
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 19.70m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -252,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Speeding when vacating runway (going 89KT, accepted max 50KT)",
+                            "penalty": {
+                                "points": -200,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "stall_end",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.32G (254 ft/min, normal  conditions)<br/>Distance from threshold: 438m (accepted range: 185-743m)<br/>Average centerline deviation: 11.59m<br/>Max centerline deviation: 19.70m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.32,
+                                        "rate": 254
+                                    },
+                                    "weather": {
+                                        "windDir": 150,
+                                        "windSpd": 2.54,
+                                        "windX": -0.07
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-11T15:39:50.731Z",
+                "updatedAt": "2026-09-11T18:28:50.130Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "LOWS",
+                    "name": "Salzburg Airport",
+                    "city": "Salzburg",
+                    "location": {
+                        "lat": 47.793301,
+                        "lon": 13.0043,
+                        "elev": 1411
+                    }
+                },
+                "actArr": {
+                    "icao": "LOWS",
+                    "name": "Salzburg Airport",
+                    "city": "Salzburg",
+                    "location": {
+                        "lat": 47.793301,
+                        "lon": 13.0043,
+                        "elev": 1411
+                    }
+                }
             }
         ]
     },
