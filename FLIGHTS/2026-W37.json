@@ -9315,6 +9315,156 @@
                         "elev": 362
                     }
                 }
+            },
+            {
+                "_id": "6aa3995128a8e3fe1412871c",
+                "aircraft": {
+                    "_id": "695a3bf33dc76275baca8db5",
+                    "name": "Boeing 737-800",
+                    "customName": "Ukraine Int l 737-800 based in UKBB l UR-UIA",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "2950",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 184,
+                    "cargo": 17,
+                    "weights": {
+                        "cargo": 1989
+                    }
+                },
+                "depTime": "2026-09-11T06:21:00.000Z",
+                "duration": 90,
+                "arrTime": "2026-09-11T07:51:00.000Z",
+                "depTimeAct": "2026-09-11T06:22:28.273Z",
+                "delay": 22,
+                "takeoffTimeAct": "2026-09-11T06:29:01.588Z",
+                "durationAct": 104,
+                "arrTimeAct": "2026-09-11T08:13:19.640Z",
+                "open": "2026-09-11T06:14:43.328Z",
+                "close": "2026-09-11T08:16:50.584Z",
+                "rating": 8.8,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 622,
+                        "fuel": 5591,
+                        "expenses": 14365,
+                        "penalties": 0,
+                        "revenue": 30858,
+                        "balance": 16493,
+                        "prices": {
+                            "ticketPrice": 152,
+                            "cargoUnitPrice": 170,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 184,
+                            "cargo": 17,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 184
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 6321,
+                        "aircraft": 5300,
+                        "handling": 1664,
+                        "landing": 1080
+                    },
+                    "revenue": {
+                        "tickets": 27968,
+                        "cargo": 2890
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 4.58m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -8,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Uncomfortable touchdown: 1.92G (841 ft/min, normal  conditions)",
+                            "penalty": {
+                                "points": -112,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.92,
+                                        "rate": 841
+                                    },
+                                    "weather": {
+                                        "windDir": 108.49,
+                                        "windSpd": 8.93,
+                                        "windX": 3.13
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-11T06:01:53.433Z",
+                "updatedAt": "2026-09-11T08:16:50.704Z",
+                "dep": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                },
+                "arr": {
+                    "icao": "LUKK",
+                    "name": "Chişinău International Airport",
+                    "city": "Chişinău",
+                    "location": {
+                        "lat": 46.92774,
+                        "lon": 28.931704,
+                        "elev": 399
+                    }
+                },
+                "actArr": {
+                    "icao": "LUKK",
+                    "name": "Chişinău International Airport",
+                    "city": "Chişinău",
+                    "location": {
+                        "lat": 46.92774,
+                        "lon": 28.931704,
+                        "elev": 399
+                    }
+                }
             }
         ]
     },
