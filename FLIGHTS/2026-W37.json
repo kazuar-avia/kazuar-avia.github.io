@@ -14898,6 +14898,161 @@
                         "elev": 362
                     }
                 }
+            },
+            {
+                "_id": "6aa66ddfef75cc33304c837e",
+                "aircraft": {
+                    "_id": "6a4fa15e5760ec7cdb627803",
+                    "name": "Boeing 737-800",
+                    "customName": "Dry Lease l BOEING 737-800",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "0210",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 180,
+                    "cargo": 26,
+                    "weights": {
+                        "cargo": 1612
+                    }
+                },
+                "depTime": "2026-09-13T09:45:00.000Z",
+                "duration": 70,
+                "arrTime": "2026-09-13T10:55:00.000Z",
+                "depTimeAct": "2026-09-13T09:42:38.338Z",
+                "delay": 7,
+                "takeoffTimeAct": "2026-09-13T09:50:59.355Z",
+                "durationAct": 71,
+                "arrTimeAct": "2026-09-13T11:02:13.429Z",
+                "open": "2026-09-13T09:39:52.349Z",
+                "close": "2026-09-13T11:07:35.594Z",
+                "rating": 8.92,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 407,
+                        "fuel": 3353,
+                        "expenses": 11289,
+                        "penalties": 0,
+                        "revenue": 23902,
+                        "balance": 12613,
+                        "prices": {
+                            "ticketPrice": 113,
+                            "cargoUnitPrice": 137,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 180,
+                            "cargo": 26,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 180
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3791,
+                        "aircraft": 4975,
+                        "handling": 1632,
+                        "landing": 891
+                    },
+                    "revenue": {
+                        "tickets": 20340,
+                        "cargo": 3562
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 11.57m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -108,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    },
+                                    "weather": {
+                                        "windDir": 210,
+                                        "windSpd": 8.19,
+                                        "windX": -0.18
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.10G (88 ft/min, normal  conditions)<br/>Distance from threshold: 601m (accepted range: 194-777m)<br/>Average centerline deviation: 0.33m<br/>Max centerline deviation: 0.71m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 35
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.1,
+                                        "rate": 88
+                                    },
+                                    "weather": {
+                                        "windDir": 209.96,
+                                        "windSpd": 5.95,
+                                        "windX": 0.05
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-13T09:33:19.949Z",
+                "updatedAt": "2026-09-13T11:07:35.702Z",
+                "dep": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                },
+                "arr": {
+                    "icao": "EVRA",
+                    "name": "Riga International Airport",
+                    "city": "Riga",
+                    "location": {
+                        "lat": 56.920752,
+                        "lon": 23.970711,
+                        "elev": 36
+                    }
+                },
+                "actArr": {
+                    "icao": "EVRA",
+                    "name": "Riga International Airport",
+                    "city": "Riga",
+                    "location": {
+                        "lat": 56.920752,
+                        "lon": 23.970711,
+                        "elev": 36
+                    }
+                }
             }
         ]
     },
