@@ -2107,6 +2107,213 @@
                         "elev": 481
                     }
                 }
+            },
+            {
+                "_id": "6aa822abef75cc3330765b6a",
+                "aircraft": {
+                    "_id": "6a5ba6dd50c8a562fc82a3bd",
+                    "name": "Tupolev Tu-154",
+                    "customName": "UR-85535 l TU-154 l XP12",
+                    "icao": "T154"
+                },
+                "type": "pax",
+                "flightNumber": "848R",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 166,
+                    "cargo": 20,
+                    "weights": {
+                        "cargo": 2560
+                    }
+                },
+                "depTime": "2026-09-14T17:15:00.000Z",
+                "duration": 115,
+                "arrTime": "2026-09-14T19:10:00.000Z",
+                "depTimeAct": "2026-09-14T17:22:47.979Z",
+                "delay": 7,
+                "takeoffTimeAct": "2026-09-14T17:29:21.247Z",
+                "durationAct": 107,
+                "arrTimeAct": "2026-09-14T19:16:46.824Z",
+                "open": "2026-09-14T16:41:43.971Z",
+                "close": "2026-09-14T19:31:47.812Z",
+                "rating": 6.56,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 674,
+                        "fuel": 11058,
+                        "expenses": 17333,
+                        "penalties": 6747,
+                        "revenue": 25490,
+                        "balance": 1410,
+                        "prices": {
+                            "ticketPrice": 135,
+                            "cargoUnitPrice": 154,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 166,
+                            "cargo": 20,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 166
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 10001,
+                        "aircraft": 5575,
+                        "handling": 704,
+                        "landing": 1053
+                    },
+                    "revenue": {
+                        "tickets": 22410,
+                        "cargo": 3080
+                    },
+                    "violations": [
+                        {
+                            "title": "Incorrect flaps for takeoff",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "weather": {
+                                        "windDir": 36.87,
+                                        "windSpd": 5.37,
+                                        "windX": 4.13
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "MLW exceeded: 1324kg above maximum landing weight of 78500kg",
+                            "penalty": {
+                                "points": -101,
+                                "cash": 6747
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.16,
+                                        "rate": 111
+                                    },
+                                    "weather": {
+                                        "windDir": 3.09,
+                                        "windSpd": 3.07,
+                                        "windX": 2.7
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 7.23m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -52,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.16G (111 ft/min, normal  conditions)<br/>Distance from threshold: 563m (accepted range: 204-817m)<br/>Average centerline deviation: 4.46m<br/>Max centerline deviation: 7.23m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.16,
+                                        "rate": 111
+                                    },
+                                    "weather": {
+                                        "windDir": 3.09,
+                                        "windSpd": 3.07,
+                                        "windX": 2.7
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No BEACON lights for 191s when required",
+                            "penalty": {
+                                "points": -41,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-14T16:36:59.793Z",
+                "updatedAt": "2026-09-14T19:31:47.894Z",
+                "dep": {
+                    "icao": "UKKK",
+                    "name": "Igor Sikorsky Kyiv International Airport (Zhuliany)",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.40194,
+                        "lon": 30.45194,
+                        "elev": 587
+                    }
+                },
+                "arr": {
+                    "icao": "LKPR",
+                    "name": "Václav Havel Airport Prague",
+                    "city": "Prague",
+                    "location": {
+                        "lat": 50.100874,
+                        "lon": 14.259911,
+                        "elev": 1247
+                    }
+                },
+                "actArr": {
+                    "icao": "LKPR",
+                    "name": "Václav Havel Airport Prague",
+                    "city": "Prague",
+                    "location": {
+                        "lat": 50.100874,
+                        "lon": 14.259911,
+                        "elev": 1247
+                    }
+                }
             }
         ]
     },
