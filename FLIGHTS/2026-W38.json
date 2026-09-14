@@ -408,6 +408,169 @@
                         "elev": 362
                     }
                 }
+            },
+            {
+                "_id": "6aa8508bef75cc33307b809f",
+                "aircraft": {
+                    "_id": "695a82b73dc76275bad4f381",
+                    "name": "ATR 72-600",
+                    "customName": "Windrose l ATR-72 based in UKBB l UR-RWC",
+                    "icao": "AT76"
+                },
+                "type": "pax",
+                "flightNumber": "745",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 72,
+                    "cargo": 9,
+                    "weights": {
+                        "cargo": 738
+                    }
+                },
+                "depTime": "2026-09-14T20:10:00.000Z",
+                "duration": 80,
+                "arrTime": "2026-09-14T21:30:00.000Z",
+                "depTimeAct": "2026-09-14T20:10:07.336Z",
+                "delay": -6,
+                "takeoffTimeAct": "2026-09-14T20:14:11.351Z",
+                "durationAct": 70,
+                "arrTimeAct": "2026-09-14T21:24:15.460Z",
+                "open": "2026-09-14T20:06:26.348Z",
+                "close": "2026-09-14T21:27:39.499Z",
+                "rating": 8.91,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 275,
+                        "fuel": 742,
+                        "expenses": 3270,
+                        "penalties": 0,
+                        "revenue": 11142,
+                        "balance": 7872,
+                        "prices": {
+                            "ticketPrice": 134,
+                            "cargoUnitPrice": 166,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 72,
+                            "cargo": 9,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 72
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 672,
+                        "aircraft": 1835,
+                        "handling": 520,
+                        "landing": 243
+                    },
+                    "revenue": {
+                        "tickets": 9648,
+                        "cargo": 1494
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 8.87m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -19,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 35
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.66G (509 ft/min, challenging  conditions)<br/>Distance from threshold: 617m (accepted range: 185-744m)<br/>Average centerline deviation: 6.52m<br/>Max centerline deviation: 8.87m",
+                            "penalty": {
+                                "points": -40,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 33
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.66,
+                                        "rate": 509
+                                    },
+                                    "weather": {
+                                        "windDir": 38.22,
+                                        "windSpd": 7.12,
+                                        "windX": 5.81
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter not STD (1013 mb / 29.92 inHg) on cruise",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-14T19:52:43.813Z",
+                "updatedAt": "2026-09-14T21:27:39.582Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "UKDD",
+                    "name": "Dnipro International Airport",
+                    "city": "Dnipro",
+                    "location": {
+                        "lat": 48.357201,
+                        "lon": 35.100601,
+                        "elev": 481
+                    }
+                },
+                "actArr": {
+                    "icao": "UKDD",
+                    "name": "Dnipro International Airport",
+                    "city": "Dnipro",
+                    "location": {
+                        "lat": 48.357201,
+                        "lon": 35.100601,
+                        "elev": 481
+                    }
+                }
             }
         ]
     },
