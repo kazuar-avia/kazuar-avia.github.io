@@ -2611,6 +2611,241 @@
                         "elev": 15
                     }
                 }
+            },
+            {
+                "_id": "6aa82720ef75cc333076fb04",
+                "aircraft": {
+                    "_id": "695a82f03dc76275bad4fcbd",
+                    "name": "Airbus A320",
+                    "customName": "DonbassAero l A320 IAE based in UKCC UKOO l UR-DAB",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "577S",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 136,
+                    "cargo": 28,
+                    "weights": {
+                        "cargo": 3584
+                    }
+                },
+                "depTime": "2026-09-14T17:10:00.000Z",
+                "duration": 55,
+                "arrTime": "2026-09-14T18:05:00.000Z",
+                "depTimeAct": "2026-09-14T17:00:19.847Z",
+                "delay": -26,
+                "takeoffTimeAct": "2026-09-14T17:00:37.838Z",
+                "durationAct": 38,
+                "arrTimeAct": "2026-09-14T17:38:58.840Z",
+                "open": "2026-09-14T16:59:33.677Z",
+                "close": "2026-09-14T17:39:32.360Z",
+                "rating": 5.08,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 226,
+                        "fuel": 1735,
+                        "expenses": 8028,
+                        "penalties": 5000,
+                        "revenue": 18084,
+                        "balance": 5056,
+                        "prices": {
+                            "ticketPrice": 106,
+                            "cargoUnitPrice": 131,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 136,
+                            "cargo": 28,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 136
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1982,
+                        "aircraft": 4450,
+                        "handling": 966,
+                        "landing": 630
+                    },
+                    "revenue": {
+                        "tickets": 14416,
+                        "cargo": 3668
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 6.26m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -37,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (976m from threshold beyond 554m max accepted)",
+                            "penalty": {
+                                "points": -148,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 33
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.93,
+                                        "rate": 611
+                                    },
+                                    "weather": {
+                                        "windDir": 197.65,
+                                        "windSpd": 22.88,
+                                        "windX": -8.24
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Uncomfortable touchdown: 1.93G (611 ft/min, challenging  conditions)<br/>Distance from threshold: 976m (accepted range: 138-554m)<br/>Average centerline deviation: 5.64m<br/>Max centerline deviation: 7.51m",
+                            "penalty": {
+                                "points": -107,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 33
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.93,
+                                        "rate": 611
+                                    },
+                                    "weather": {
+                                        "windDir": 197.65,
+                                        "windSpd": 22.88,
+                                        "windX": -8.24
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Tail wind value exceeded on landing (measured: 21 KT, allowed: 15 KT)",
+                            "penalty": {
+                                "points": -100,
+                                "cash": 5000
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 33
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.93,
+                                        "rate": 611
+                                    },
+                                    "weather": {
+                                        "windDir": 197.65,
+                                        "windSpd": 22.88,
+                                        "windX": -8.24
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on landing: 1013mb instead of 1008.4mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 33
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.93,
+                                        "rate": 611
+                                    },
+                                    "weather": {
+                                        "windDir": 197.65,
+                                        "windSpd": 22.88,
+                                        "windX": -8.24
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter not STD (1013 mb / 29.92 inHg) on cruise",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-14T16:56:00.002Z",
+                "updatedAt": "2026-09-14T17:39:32.431Z",
+                "dep": {
+                    "icao": "RPMD",
+                    "name": "Francisco Bangoy International Airport",
+                    "city": "Davao",
+                    "location": {
+                        "lat": 7.12552,
+                        "lon": 125.646004,
+                        "elev": 96
+                    }
+                },
+                "arr": {
+                    "icao": "WAMN",
+                    "name": "Melangguane Airport",
+                    "city": "Karakelong Island",
+                    "location": {
+                        "lat": 4.010334,
+                        "lon": 126.673192,
+                        "elev": 3
+                    }
+                },
+                "actArr": {
+                    "icao": "WAMN",
+                    "name": "Melangguane Airport",
+                    "city": "Karakelong Island",
+                    "location": {
+                        "lat": 4.010334,
+                        "lon": 126.673192,
+                        "elev": 3
+                    }
+                }
             }
         ]
     }
