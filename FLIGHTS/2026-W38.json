@@ -3187,6 +3187,185 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6aa9168bef75cc3330872bcc",
+                "aircraft": {
+                    "_id": "695a3cec3dc76275bacaaa27",
+                    "name": "Boeing 737-600",
+                    "customName": "Air Onix l 737-600 based in UKFF l UR-KRD",
+                    "icao": "B736"
+                },
+                "type": "pax",
+                "flightNumber": "8805",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 128,
+                    "cargo": 15,
+                    "weights": {
+                        "cargo": 1980
+                    }
+                },
+                "depTime": "2026-09-15T10:30:00.000Z",
+                "duration": 145,
+                "arrTime": "2026-09-15T12:55:00.000Z",
+                "depTimeAct": "2026-09-15T10:26:19.456Z",
+                "delay": -56,
+                "takeoffTimeAct": "2026-09-15T10:32:37.497Z",
+                "durationAct": 86,
+                "arrTimeAct": "2026-09-15T11:58:35.672Z",
+                "open": "2026-09-15T10:04:14.267Z",
+                "close": "2026-09-15T12:07:29.365Z",
+                "rating": 9.27,
+                "simulator": "xp",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 594,
+                        "fuel": 3234,
+                        "expenses": 9651,
+                        "penalties": 1504,
+                        "revenue": 23763,
+                        "balance": 12608,
+                        "prices": {
+                            "ticketPrice": 159,
+                            "cargoUnitPrice": 185,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 128,
+                            "cargo": 15,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 4,
+                                "Y": 124
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3657,
+                        "aircraft": 4365,
+                        "handling": 1071,
+                        "landing": 558
+                    },
+                    "revenue": {
+                        "tickets": 20988,
+                        "cargo": 2775
+                    },
+                    "violations": [
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1011mb instead of 1016.33mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "weather": {
+                                        "windDir": 314.62,
+                                        "windSpd": 11.99,
+                                        "windX": -10.33
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "MLW exceeded: 207kg above maximum landing weight of 55111kg",
+                            "penalty": {
+                                "points": -23,
+                                "cash": 1504
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.22,
+                                        "rate": 143
+                                    },
+                                    "weather": {
+                                        "windDir": 310.11,
+                                        "windSpd": 16.47,
+                                        "windX": -1.89
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.22G (143 ft/min, challenging  conditions)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.22,
+                                        "rate": 143
+                                    },
+                                    "weather": {
+                                        "windDir": 310.11,
+                                        "windSpd": 16.47,
+                                        "windX": -1.89
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-15T09:57:31.961Z",
+                "updatedAt": "2026-09-15T12:07:29.444Z",
+                "dep": {
+                    "icao": "UKFF",
+                    "city": "Simferopol",
+                    "location": {
+                        "lat": 45.0522,
+                        "lon": 33.975101,
+                        "elev": 639
+                    },
+                    "name": "Simferopol International Airport"
+                },
+                "arr": {
+                    "icao": "UGTB",
+                    "name": "Tbilisi International Airport",
+                    "city": "Tbilisi",
+                    "location": {
+                        "lat": 41.669201,
+                        "lon": 44.9547,
+                        "elev": 1624
+                    }
+                },
+                "actArr": {
+                    "icao": "UGTB",
+                    "name": "Tbilisi International Airport",
+                    "city": "Tbilisi",
+                    "location": {
+                        "lat": 41.669201,
+                        "lon": 44.9547,
+                        "elev": 1624
+                    }
+                }
             }
         ]
     },
