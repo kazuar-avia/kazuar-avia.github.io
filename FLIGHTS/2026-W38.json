@@ -2882,6 +2882,156 @@
                         "elev": 1247
                     }
                 }
+            },
+            {
+                "_id": "6aa8f4c4ef75cc3330851f48",
+                "aircraft": {
+                    "_id": "695a86b43dc76275bad5a644",
+                    "name": "Embraer 190",
+                    "customName": "Ukraine Int l E190 based in UKBB UKHH UKOO UKDD l UR-EMA",
+                    "icao": "E190"
+                },
+                "type": "pax",
+                "flightNumber": "209",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 112,
+                    "cargo": 22,
+                    "weights": {
+                        "cargo": 1672
+                    }
+                },
+                "depTime": "2026-09-15T08:00:00.000Z",
+                "duration": 80,
+                "arrTime": "2026-09-15T09:20:00.000Z",
+                "depTimeAct": "2026-09-15T07:52:32.102Z",
+                "delay": -34,
+                "takeoffTimeAct": "2026-09-15T07:58:37.124Z",
+                "durationAct": 47,
+                "arrTimeAct": "2026-09-15T08:45:31.229Z",
+                "open": "2026-09-15T07:37:11.273Z",
+                "close": "2026-09-15T08:51:32.180Z",
+                "rating": 8.94,
+                "simulator": "xp",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 244,
+                        "fuel": 1926,
+                        "expenses": 4242,
+                        "penalties": 0,
+                        "revenue": 19334,
+                        "balance": 15092,
+                        "prices": {
+                            "ticketPrice": 135,
+                            "cargoUnitPrice": 167,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.7,
+                                "fuel": 0.8,
+                                "ground": 0.7
+                            }
+                        },
+                        "payload": {
+                            "pax": 112,
+                            "cargo": 22,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 4,
+                                "Y": 108
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1742,
+                        "aircraft": 1567,
+                        "handling": 478,
+                        "landing": 455
+                    },
+                    "revenue": {
+                        "tickets": 15660,
+                        "cargo": 3674
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 14.02m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -106,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.35G (303 ft/min, challenging  conditions)<br/>Distance from threshold: 356m (accepted range: 209-839m)<br/>Average centerline deviation: 1.67m<br/>Max centerline deviation: 1.94m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.35,
+                                        "rate": 303
+                                    },
+                                    "weather": {
+                                        "windDir": 1.57,
+                                        "windSpd": 10.61,
+                                        "windX": -0.21
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-15T07:33:24.921Z",
+                "updatedAt": "2026-09-15T08:51:32.256Z",
+                "dep": {
+                    "icao": "UKHH",
+                    "name": "Kharkiv International Airport",
+                    "city": "Kharkiv",
+                    "location": {
+                        "lat": 49.926943,
+                        "lon": 36.290814,
+                        "elev": 508
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
             }
         ]
     },
