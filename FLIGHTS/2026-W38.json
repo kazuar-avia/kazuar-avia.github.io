@@ -571,6 +571,180 @@
                         "elev": 481
                     }
                 }
+            },
+            {
+                "_id": "6aa95f8fef75cc33308d5f29",
+                "aircraft": {
+                    "_id": "6a7c58fbef75cc33302d7fee",
+                    "name": "ATR 72-600 Freighter",
+                    "customName": "Dry Lease l ATR 72-600 Freighter",
+                    "icao": "AT76"
+                },
+                "type": "cargo",
+                "flightNumber": "2951",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 0,
+                    "cargo": 71,
+                    "weights": {
+                        "cargo": 8662
+                    }
+                },
+                "depTime": "2026-09-15T15:30:00.000Z",
+                "duration": 55,
+                "arrTime": "2026-09-15T16:25:00.000Z",
+                "depTimeAct": "2026-09-15T15:30:50.626Z",
+                "delay": 5,
+                "takeoffTimeAct": "2026-09-15T15:34:10.054Z",
+                "durationAct": 56,
+                "arrTimeAct": "2026-09-15T16:30:10.434Z",
+                "open": "2026-09-15T15:25:58.910Z",
+                "close": "2026-09-15T16:33:10.078Z",
+                "rating": 9.5,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 230,
+                        "fuel": 609,
+                        "expenses": 2925,
+                        "penalties": 0,
+                        "revenue": 11005,
+                        "balance": 8080,
+                        "prices": {
+                            "ticketPrice": 126,
+                            "cargoUnitPrice": 155,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 0,
+                            "cargo": 71,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 689,
+                        "aircraft": 1780,
+                        "handling": 96,
+                        "landing": 360
+                    },
+                    "revenue": {
+                        "tickets": 0,
+                        "cargo": 11005
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 4.00m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 39
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.33G (253 ft/min, normal  conditions)<br/>Distance from threshold: 579m (accepted range: 199-800m)<br/>Average centerline deviation: 2.21m<br/>Max centerline deviation: 4.00m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 41
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.33,
+                                        "rate": 253
+                                    },
+                                    "weather": {
+                                        "windDir": 266.42,
+                                        "windSpd": 2.72,
+                                        "windX": 0.08
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on landing: 1013mb instead of 1019mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 41
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.33,
+                                        "rate": 253
+                                    },
+                                    "weather": {
+                                        "windDir": 266.42,
+                                        "windSpd": 2.72,
+                                        "windX": 0.08
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-15T15:09:03.060Z",
+                "updatedAt": "2026-09-15T16:33:10.158Z",
+                "dep": {
+                    "icao": "LUKK",
+                    "name": "Chişinău International Airport",
+                    "city": "Chişinău",
+                    "location": {
+                        "lat": 46.92774,
+                        "lon": 28.931704,
+                        "elev": 399
+                    }
+                },
+                "arr": {
+                    "icao": "LROP",
+                    "name": "Bucharest Henri Coandă International Airport",
+                    "city": "Otopeni",
+                    "location": {
+                        "lat": 44.571792,
+                        "lon": 26.103285,
+                        "elev": 314
+                    }
+                },
+                "actArr": {
+                    "icao": "LROP",
+                    "name": "Bucharest Henri Coandă International Airport",
+                    "city": "Otopeni",
+                    "location": {
+                        "lat": 44.571792,
+                        "lon": 26.103285,
+                        "elev": 314
+                    }
+                }
             }
         ]
     },
