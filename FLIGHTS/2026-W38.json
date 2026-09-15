@@ -1172,6 +1172,171 @@
                         "elev": 755
                     }
                 }
+            },
+            {
+                "_id": "6aa98072ef75cc3330908ea1",
+                "aircraft": {
+                    "_id": "6a4fa15e5760ec7cdb627803",
+                    "name": "Boeing 737-800",
+                    "customName": "Dry Lease l BOEING 737-800",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "217D",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 172,
+                    "cargo": 19,
+                    "weights": {
+                        "cargo": 2128
+                    }
+                },
+                "depTime": "2026-09-15T17:50:00.000Z",
+                "duration": 70,
+                "arrTime": "2026-09-15T19:00:00.000Z",
+                "depTimeAct": "2026-09-15T17:49:26.873Z",
+                "delay": -8,
+                "takeoffTimeAct": "2026-09-15T17:56:32.930Z",
+                "durationAct": 56,
+                "arrTimeAct": "2026-09-15T18:52:06.032Z",
+                "open": "2026-09-15T17:49:17.238Z",
+                "close": "2026-09-15T18:58:05.075Z",
+                "rating": 9.25,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 357,
+                        "fuel": 2684,
+                        "expenses": 9559,
+                        "penalties": 0,
+                        "revenue": 22230,
+                        "balance": 12671,
+                        "prices": {
+                            "ticketPrice": 114,
+                            "cargoUnitPrice": 138,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 172,
+                            "cargo": 19,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 172
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3035,
+                        "aircraft": 4575,
+                        "handling": 1247,
+                        "landing": 702
+                    },
+                    "revenue": {
+                        "tickets": 19608,
+                        "cargo": 2622
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 4.55m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -9,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.29G (286 ft/min, normal  conditions)<br/>Distance from threshold: 688m (accepted range: 171-688m)<br/>Average centerline deviation: 0.90m<br/>Max centerline deviation: 1.45m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.29,
+                                        "rate": 286
+                                    },
+                                    "weather": {
+                                        "windDir": 230,
+                                        "windSpd": 4.48,
+                                        "windX": -4.02
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Max G exceeded: 2.33G (max allowed: 2G)",
+                            "penalty": {
+                                "points": -66,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-15T17:29:22.749Z",
+                "updatedAt": "2026-09-15T18:58:05.156Z",
+                "dep": {
+                    "icao": "LYBE",
+                    "name": "Belgrade Nikola Tesla Airport",
+                    "city": "Belgrade",
+                    "location": {
+                        "lat": 44.818401,
+                        "lon": 20.309099,
+                        "elev": 335
+                    }
+                },
+                "arr": {
+                    "icao": "LGKR",
+                    "name": "Corfu Ioannis Kapodistrias International Airport",
+                    "city": "Kerkyra (Corfu)",
+                    "location": {
+                        "lat": 39.60145,
+                        "lon": 19.912179,
+                        "elev": 6
+                    }
+                },
+                "actArr": {
+                    "icao": "LGKR",
+                    "name": "Corfu Ioannis Kapodistrias International Airport",
+                    "city": "Kerkyra (Corfu)",
+                    "location": {
+                        "lat": 39.60145,
+                        "lon": 19.912179,
+                        "elev": 6
+                    }
+                }
             }
         ]
     },
