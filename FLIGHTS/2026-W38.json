@@ -7957,6 +7957,199 @@
                         "elev": 1742
                     }
                 }
+            },
+            {
+                "_id": "6aaaa603ef75cc3330a5afe2",
+                "aircraft": {
+                    "_id": "6a4f90ec5760ec7cdb612ec3",
+                    "name": "Airbus A320",
+                    "customName": "Aerosvit vs DonbassAero l A320 CFM based in UKBB l UR-DAH",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "953",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 160,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-09-16T14:50:00.000Z",
+                "duration": 130,
+                "arrTime": "2026-09-16T17:00:00.000Z",
+                "depTimeAct": "2026-09-16T14:44:28.238Z",
+                "delay": 2,
+                "takeoffTimeAct": "2026-09-16T14:55:21.370Z",
+                "durationAct": 126,
+                "arrTimeAct": "2026-09-16T17:01:34.427Z",
+                "open": "2026-09-16T14:43:10.221Z",
+                "close": "2026-09-16T17:06:26.424Z",
+                "rating": 1.97,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 737,
+                        "fuel": 5235,
+                        "expenses": 12458,
+                        "penalties": 0,
+                        "revenue": 27200,
+                        "balance": 14742,
+                        "prices": {
+                            "ticketPrice": 170,
+                            "cargoUnitPrice": 194,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 160,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 160
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4735,
+                        "aircraft": 5550,
+                        "handling": 1120,
+                        "landing": 1053
+                    },
+                    "revenue": {
+                        "tickets": 27200,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 12.93m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -145,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 38
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.51G (433 ft/min, normal  conditions)<br/>Distance from threshold: 262m (accepted range: 204-817m)<br/>Average centerline deviation: 8.49m<br/>Max centerline deviation: 12.93m",
+                            "penalty": {
+                                "points": -28,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.51,
+                                        "rate": 433
+                                    },
+                                    "weather": {
+                                        "windDir": 300.13,
+                                        "windSpd": 5.26,
+                                        "windX": 4.19
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Overspeed for 94 seconds",
+                            "penalty": {
+                                "points": -470,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        },
+                        {
+                            "title": "Max G exceeded: 2.76G (max allowed: 2G)",
+                            "penalty": {
+                                "points": -152,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 49
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Min G exceeded: -0.04G (min allowed: 0G)",
+                            "penalty": {
+                                "points": -8,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 51
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-16T14:21:55.406Z",
+                "updatedAt": "2026-09-16T17:06:26.523Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "LKPR",
+                    "name": "Václav Havel Airport Prague",
+                    "city": "Prague",
+                    "location": {
+                        "lat": 50.100874,
+                        "lon": 14.259911,
+                        "elev": 1247
+                    }
+                },
+                "actArr": {
+                    "icao": "LKPR",
+                    "name": "Václav Havel Airport Prague",
+                    "city": "Prague",
+                    "location": {
+                        "lat": 50.100874,
+                        "lon": 14.259911,
+                        "elev": 1247
+                    }
+                }
             }
         ]
     },
