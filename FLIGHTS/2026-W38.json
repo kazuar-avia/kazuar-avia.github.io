@@ -6694,6 +6694,156 @@
                         "elev": 399
                     }
                 }
+            },
+            {
+                "_id": "6aad3b02ef75cc3330df66d1",
+                "aircraft": {
+                    "_id": "6aad2a65ef75cc3330dd13a6",
+                    "name": "Boeing 747-200 Freighter",
+                    "customName": "Boeing 747-200 Freighter",
+                    "icao": "B742"
+                },
+                "type": "cargo",
+                "flightNumber": "52G",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 0,
+                    "cargo": 662,
+                    "weights": {
+                        "cargo": 88708
+                    }
+                },
+                "depTime": "2026-09-18T14:00:00.000Z",
+                "duration": 55,
+                "arrTime": "2026-09-18T14:55:00.000Z",
+                "depTimeAct": "2026-09-18T13:52:39.039Z",
+                "delay": -3,
+                "takeoffTimeAct": "2026-09-18T13:59:53.060Z",
+                "durationAct": 52,
+                "arrTimeAct": "2026-09-18T14:51:47.560Z",
+                "open": "2026-09-18T13:26:16.757Z",
+                "close": "2026-09-18T15:03:42.219Z",
+                "rating": 9.02,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 299,
+                        "fuel": 10427,
+                        "expenses": 35052,
+                        "penalties": 0,
+                        "revenue": 88708,
+                        "balance": 53656,
+                        "prices": {
+                            "ticketPrice": 108,
+                            "cargoUnitPrice": 134,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 0,
+                            "cargo": 662,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 11788,
+                        "aircraft": 18730,
+                        "handling": 894,
+                        "landing": 3640
+                    },
+                    "revenue": {
+                        "tickets": 0,
+                        "cargo": 88708
+                    },
+                    "violations": [
+                        {
+                            "title": "Great touchdown: 1.12G (85 ft/min, challenging  conditions)<br/>Distance from threshold: 671m (accepted range: 209-839m)<br/>Average centerline deviation: 3.55m<br/>Max centerline deviation: 7.50m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.12,
+                                        "rate": 85
+                                    },
+                                    "weather": {
+                                        "windDir": 82.11,
+                                        "windSpd": 3.81,
+                                        "windX": -3.75
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 934ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -98,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-18T13:22:10.016Z",
+                "updatedAt": "2026-09-18T15:03:42.297Z",
+                "dep": {
+                    "icao": "LUKK",
+                    "name": "Chişinău International Airport",
+                    "city": "Chişinău",
+                    "location": {
+                        "lat": 46.92774,
+                        "lon": 28.931704,
+                        "elev": 399
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
             }
         ]
     },
