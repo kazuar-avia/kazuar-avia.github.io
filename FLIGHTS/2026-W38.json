@@ -12961,6 +12961,161 @@
                         "elev": 294
                     }
                 }
+            },
+            {
+                "_id": "6aad7cf7ef75cc3330e9cbf1",
+                "aircraft": {
+                    "_id": "695a82b73dc76275bad4f381",
+                    "name": "ATR 72-600",
+                    "customName": "Windrose l ATR-72 based in UKBB l UR-RWC",
+                    "icao": "AT76"
+                },
+                "type": "pax",
+                "flightNumber": "0115",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 72,
+                    "cargo": 3,
+                    "weights": {
+                        "cargo": 288
+                    }
+                },
+                "depTime": "2026-09-18T18:40:00.000Z",
+                "duration": 135,
+                "arrTime": "2026-09-18T20:55:00.000Z",
+                "depTimeAct": "2026-09-18T18:35:56.500Z",
+                "delay": -17,
+                "takeoffTimeAct": "2026-09-18T18:40:48.513Z",
+                "durationAct": 117,
+                "arrTimeAct": "2026-09-18T20:38:05.681Z",
+                "open": "2026-09-18T18:19:38.295Z",
+                "close": "2026-09-18T20:49:20.854Z",
+                "rating": 6,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 513,
+                        "fuel": 1240,
+                        "expenses": 4837,
+                        "penalties": 150000,
+                        "revenue": 9291,
+                        "balance": -145546,
+                        "prices": {
+                            "ticketPrice": 123,
+                            "cargoUnitPrice": 145,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 72,
+                            "cargo": 3,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 72
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1334,
+                        "aircraft": 2753,
+                        "handling": 390,
+                        "landing": 360
+                    },
+                    "revenue": {
+                        "tickets": 8856,
+                        "cargo": 435
+                    },
+                    "violations": [
+                        {
+                            "title": "Tail strike on takeoff (pitch: 8.7, allowed: 7.5)",
+                            "penalty": {
+                                "points": -400,
+                                "cash": 150000
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    },
+                                    "weather": {
+                                        "windDir": 137.21,
+                                        "windSpd": 0,
+                                        "windX": 0
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.30G (219 ft/min, normal  conditions)<br/>Distance from threshold: 359m (accepted range: 177-710m)<br/>Average centerline deviation: 1.97m<br/>Max centerline deviation: 3.63m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 43
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.3,
+                                        "rate": 219
+                                    },
+                                    "weather": {
+                                        "windDir": 44.77,
+                                        "windSpd": 1.15,
+                                        "windX": 0.64
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-18T18:03:35.633Z",
+                "updatedAt": "2026-09-18T20:49:20.950Z",
+                "dep": {
+                    "icao": "LYPG",
+                    "city": "Podgorica",
+                    "location": {
+                        "lat": 42.359402,
+                        "lon": 19.2519,
+                        "elev": 141
+                    },
+                    "name": "Podgorica Airport / Podgorica Golubovci Airbase"
+                },
+                "arr": {
+                    "icao": "EPKK",
+                    "name": "Kraków John Paul II International Airport",
+                    "city": "Balice",
+                    "location": {
+                        "lat": 50.077702,
+                        "lon": 19.7848,
+                        "elev": 791
+                    }
+                },
+                "actArr": {
+                    "icao": "EPKK",
+                    "name": "Kraków John Paul II International Airport",
+                    "city": "Balice",
+                    "location": {
+                        "lat": 50.077702,
+                        "lon": 19.7848,
+                        "elev": 791
+                    }
+                }
             }
         ]
     },
