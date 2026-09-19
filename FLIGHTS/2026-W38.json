@@ -13197,6 +13197,189 @@
                         "elev": 1487
                     }
                 }
+            },
+            {
+                "_id": "6aae4697ef75cc33300268e5",
+                "aircraft": {
+                    "_id": "6a0b23a267cd7e249842bd81",
+                    "name": "Airbus A380",
+                    "customName": "Dry lease l FBW A380-800 l 446 pax elite",
+                    "icao": "A388"
+                },
+                "type": "pax",
+                "flightNumber": "414",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 446,
+                    "cargo": 127,
+                    "weights": {
+                        "cargo": 10033
+                    }
+                },
+                "depTime": "2026-09-19T10:00:00.000Z",
+                "duration": 535,
+                "arrTime": "2026-09-19T18:55:00.000Z",
+                "depTimeAct": "2026-09-19T10:10:18.714Z",
+                "delay": 22,
+                "takeoffTimeAct": "2026-09-19T10:25:27.693Z",
+                "durationAct": 532,
+                "arrTimeAct": "2026-09-19T19:17:27.805Z",
+                "open": "2026-09-19T09:19:58.505Z",
+                "close": "2026-09-19T19:28:53.825Z",
+                "rating": 8.87,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 3888,
+                        "fuel": 106725,
+                        "expenses": 196380,
+                        "penalties": 0,
+                        "revenue": 540544,
+                        "balance": 344164,
+                        "prices": {
+                            "ticketPrice": 478,
+                            "cargoUnitPrice": 500,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 446,
+                            "cargo": 127,
+                            "paxByClass": {
+                                "F": 85,
+                                "C": 297,
+                                "Y": 64
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 120653,
+                        "aircraft": 64850,
+                        "handling": 5677,
+                        "landing": 5200
+                    },
+                    "revenue": {
+                        "tickets": 477044,
+                        "cargo": 63500
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 4.12m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -2,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 1
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.18,
+                                        "rate": 255
+                                    },
+                                    "weather": {
+                                        "windDir": 137,
+                                        "windSpd": 0.75,
+                                        "windX": 0.36
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (1118m from threshold beyond 801m max accepted)",
+                            "penalty": {
+                                "points": -111,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 1
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.18,
+                                        "rate": 255
+                                    },
+                                    "weather": {
+                                        "windDir": 137,
+                                        "windSpd": 0.75,
+                                        "windX": 0.36
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.18G (255 ft/min, normal  conditions)<br/>Distance from threshold: 1118m (accepted range: 200-801m)<br/>Average centerline deviation: 1.15m<br/>Max centerline deviation: 4.12m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 1
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.18,
+                                        "rate": 255
+                                    },
+                                    "weather": {
+                                        "windDir": 137,
+                                        "windSpd": 0.75,
+                                        "windX": 0.36
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-19T08:23:51.802Z",
+                "updatedAt": "2026-09-19T19:28:53.971Z",
+                "dep": {
+                    "icao": "EDDM",
+                    "name": "Munich Airport",
+                    "city": "Munich",
+                    "location": {
+                        "lat": 48.353802,
+                        "lon": 11.7861,
+                        "elev": 1487
+                    }
+                },
+                "arr": {
+                    "icao": "KIAD",
+                    "name": "Washington Dulles International Airport",
+                    "city": "Dulles",
+                    "location": {
+                        "lat": 38.9445,
+                        "lon": -77.455803,
+                        "elev": 312
+                    }
+                },
+                "actArr": {
+                    "icao": "KIAD",
+                    "name": "Washington Dulles International Airport",
+                    "city": "Dulles",
+                    "location": {
+                        "lat": 38.9445,
+                        "lon": -77.455803,
+                        "elev": 312
+                    }
+                }
             }
         ]
     },
