@@ -11555,6 +11555,249 @@
                         "elev": 7364
                     }
                 }
+            },
+            {
+                "_id": "6aaea95fef75cc3330121b1c",
+                "aircraft": {
+                    "_id": "6a93e543ef75cc33306d774a",
+                    "name": "Airbus A400M Atlas",
+                    "customName": "Airbus A400M Atlas",
+                    "icao": "A400"
+                },
+                "type": "cargo",
+                "flightNumber": "20Z",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 0,
+                    "cargo": 183,
+                    "weights": {
+                        "cargo": 19581
+                    }
+                },
+                "depTime": "2026-09-19T15:40:00.000Z",
+                "duration": 70,
+                "arrTime": "2026-09-19T16:50:00.000Z",
+                "depTimeAct": "2026-09-19T15:29:47.885Z",
+                "delay": -23,
+                "takeoffTimeAct": "2026-09-19T15:29:47.885Z",
+                "durationAct": 57,
+                "arrTimeAct": "2026-09-19T16:26:32.870Z",
+                "open": "2026-09-19T15:29:35.897Z",
+                "close": "2026-09-19T16:28:30.700Z",
+                "rating": 0,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 312,
+                        "fuel": 4964,
+                        "expenses": 11529,
+                        "penalties": 178000,
+                        "revenue": 24339,
+                        "balance": -165190,
+                        "prices": {
+                            "ticketPrice": 111,
+                            "cargoUnitPrice": 133,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 0,
+                            "cargo": 183,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 5612,
+                        "aircraft": 4875,
+                        "handling": 82,
+                        "landing": 960
+                    },
+                    "revenue": {
+                        "tickets": 0,
+                        "cargo": 24339
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 16.05m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -172,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "radios",
+                                "payload": {
+                                    "system": {
+                                        "fps": 19
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Wing/engine strike on landing (bank: 14.6, max: 12.5)",
+                            "penalty": {
+                                "points": -400,
+                                "cash": 150000
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 21
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Unstable approach below 400ft: vertical speed above 0 ft/min (actual 506 ft/min)",
+                            "penalty": {
+                                "points": -253,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 19
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 33.64m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -300,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 17
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (1720m from threshold beyond 838m max accepted)",
+                            "penalty": {
+                                "points": -309,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 18
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.52,
+                                        "rate": 811
+                                    },
+                                    "weather": {
+                                        "windDir": 239.93,
+                                        "windSpd": 16.53,
+                                        "windX": 7.38
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Terrible touchdown: 2.52G (811 ft/min, normal  conditions)<br/>Distance from threshold: 1720m (accepted range: 209-838m)<br/>Average centerline deviation: 23.27m<br/>Max centerline deviation: 33.64m",
+                            "penalty": {
+                                "points": -255,
+                                "cash": 28000
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 18
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.52,
+                                        "rate": 811
+                                    },
+                                    "weather": {
+                                        "windDir": 239.93,
+                                        "windSpd": 16.53,
+                                        "windX": 7.38
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Fuel used 723 kg is lower than estimated minimum 4964 kg.",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 18
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.52,
+                                        "rate": 811
+                                    },
+                                    "weather": {
+                                        "windDir": 239.93,
+                                        "windSpd": 16.53,
+                                        "windX": 7.38
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-19T15:25:19.865Z",
+                "updatedAt": "2026-09-19T16:28:30.768Z",
+                "dep": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                },
+                "arr": {
+                    "icao": "EDDB",
+                    "name": "Berlin Brandenburg Airport",
+                    "city": "Berlin",
+                    "location": {
+                        "lat": 52.361738,
+                        "lon": 13.502341,
+                        "elev": 157
+                    }
+                },
+                "actArr": {
+                    "icao": "EDDB",
+                    "name": "Berlin Brandenburg Airport",
+                    "city": "Berlin",
+                    "location": {
+                        "lat": 52.361738,
+                        "lon": 13.502341,
+                        "elev": 157
+                    }
+                }
             }
         ]
     },
