@@ -11032,6 +11032,176 @@
                         "elev": 495
                     }
                 }
+            },
+            {
+                "_id": "6aae6417ef75cc3330069d2d",
+                "aircraft": {
+                    "_id": "695a82f03dc76275bad4fcbd",
+                    "name": "Airbus A320",
+                    "customName": "DonbassAero l A320 IAE based in UKCC UKOO l UR-DAB",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "326K",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 180,
+                    "cargo": 9,
+                    "weights": {
+                        "cargo": 1089
+                    }
+                },
+                "depTime": "2026-09-19T10:45:00.000Z",
+                "duration": 135,
+                "arrTime": "2026-09-19T13:00:00.000Z",
+                "depTimeAct": "2026-09-19T10:38:06.006Z",
+                "delay": -28,
+                "takeoffTimeAct": "2026-09-19T10:43:24.012Z",
+                "durationAct": 109,
+                "arrTimeAct": "2026-09-19T12:32:08.974Z",
+                "open": "2026-09-19T10:37:55.033Z",
+                "close": "2026-09-19T12:33:45.797Z",
+                "rating": 9.36,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 760,
+                        "fuel": 4367,
+                        "expenses": 14386,
+                        "penalties": 0,
+                        "revenue": 27531,
+                        "balance": 13145,
+                        "prices": {
+                            "ticketPrice": 145,
+                            "cargoUnitPrice": 159,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 180,
+                            "cargo": 9,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 180
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 5096,
+                        "aircraft": 6225,
+                        "handling": 1625,
+                        "landing": 1440
+                    },
+                    "revenue": {
+                        "tickets": 26100,
+                        "cargo": 1431
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 5.01m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -16,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "weather": {
+                                        "windDir": 345.98,
+                                        "windSpd": 4.81,
+                                        "windX": -4.6
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 4.85m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -13,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.54G (401 ft/min, normal  conditions)<br/>Distance from threshold: 347m (accepted range: 165-661m)<br/>Average centerline deviation: 3.75m<br/>Max centerline deviation: 4.85m",
+                            "penalty": {
+                                "points": -35,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.54,
+                                        "rate": 401
+                                    },
+                                    "weather": {
+                                        "windDir": 30,
+                                        "windSpd": 9.68,
+                                        "windX": 4.53
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-19T10:29:43.353Z",
+                "updatedAt": "2026-09-19T12:33:45.884Z",
+                "dep": {
+                    "icao": "KDJT",
+                    "city": "West Palm Beach",
+                    "location": {
+                        "lat": 26.683201,
+                        "lon": -80.095596,
+                        "elev": 19
+                    },
+                    "name": "President Donald J. Trump International Airport"
+                },
+                "arr": {
+                    "icao": "KDCA",
+                    "name": "Ronald Reagan Washington National Airport",
+                    "city": "Washington",
+                    "location": {
+                        "lat": 38.8521,
+                        "lon": -77.037697,
+                        "elev": 15
+                    }
+                },
+                "actArr": {
+                    "icao": "KDCA",
+                    "name": "Ronald Reagan Washington National Airport",
+                    "city": "Washington",
+                    "location": {
+                        "lat": 38.8521,
+                        "lon": -77.037697,
+                        "elev": 15
+                    }
+                }
             }
         ]
     },
