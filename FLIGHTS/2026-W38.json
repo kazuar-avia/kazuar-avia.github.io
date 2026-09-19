@@ -14151,5 +14151,186 @@
                 }
             }
         ]
+    },
+    {
+        "pilot_id": "697926b59da57b990a364d04",
+        "fullname": "Bond Matvii",
+        "avatar": "default",
+        "flights": [
+            {
+                "_id": "6aae4ec2ef75cc333003723e",
+                "aircraft": {
+                    "_id": "6980e9459da57b990a02e1bd",
+                    "name": "Boeing 737 MAX 8",
+                    "customName": "Ukraine Int l 737-MAX8 189 pax iFly l UR-MXA",
+                    "icao": "B38M"
+                },
+                "type": "pax",
+                "flightNumber": "888",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 189,
+                    "cargo": 31,
+                    "weights": {
+                        "cargo": 2449
+                    }
+                },
+                "depTime": "2026-09-19T09:25:00.000Z",
+                "duration": 90,
+                "arrTime": "2026-09-19T10:55:00.000Z",
+                "depTimeAct": "2026-09-19T09:26:57.978Z",
+                "delay": 2,
+                "takeoffTimeAct": "2026-09-19T09:32:36.684Z",
+                "durationAct": 85,
+                "arrTimeAct": "2026-09-19T10:57:20.920Z",
+                "open": "2026-09-19T08:58:47.421Z",
+                "close": "2026-09-19T11:08:06.035Z",
+                "rating": 9.87,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 500,
+                        "fuel": 3230,
+                        "expenses": 10554,
+                        "penalties": 0,
+                        "revenue": 28661,
+                        "balance": 18107,
+                        "prices": {
+                            "ticketPrice": 121,
+                            "cargoUnitPrice": 140,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 1,
+                                "fuel": 0.8,
+                                "ground": 0.85
+                            }
+                        },
+                        "payload": {
+                            "pax": 189,
+                            "cargo": 31,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 12,
+                                "Y": 177
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2922,
+                        "aircraft": 5175,
+                        "handling": 1377,
+                        "landing": 1080
+                    },
+                    "revenue": {
+                        "tickets": 24321,
+                        "cargo": 4340
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 4.00m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 23
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.45G (347 ft/min, normal  conditions)<br/>Distance from threshold: 218m (accepted range: 177-711m)<br/>Average centerline deviation: 1.65m<br/>Max centerline deviation: 4.00m",
+                            "penalty": {
+                                "points": -13,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.45,
+                                        "rate": 347
+                                    },
+                                    "weather": {
+                                        "windDir": 240.36,
+                                        "windSpd": 12.66,
+                                        "windX": -3.49
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Fuel used 2549 kg is lower than estimated minimum 3230 kg.",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.45,
+                                        "rate": 347
+                                    },
+                                    "weather": {
+                                        "windDir": 240.36,
+                                        "windSpd": 12.66,
+                                        "windX": -3.49
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-19T08:58:42.188Z",
+                "updatedAt": "2026-09-19T11:08:06.108Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "EPKK",
+                    "name": "Kraków John Paul II International Airport",
+                    "city": "Balice",
+                    "location": {
+                        "lat": 50.077702,
+                        "lon": 19.7848,
+                        "elev": 791
+                    }
+                },
+                "actArr": {
+                    "icao": "EPKK",
+                    "name": "Kraków John Paul II International Airport",
+                    "city": "Balice",
+                    "location": {
+                        "lat": 50.077702,
+                        "lon": 19.7848,
+                        "elev": 791
+                    }
+                }
+            }
+        ]
     }
 ]
