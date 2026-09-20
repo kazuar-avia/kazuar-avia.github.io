@@ -4405,6 +4405,180 @@
                         "elev": 508
                     }
                 }
+            },
+            {
+                "_id": "6aaf7df8ef75cc33302e2ea1",
+                "aircraft": {
+                    "_id": "6a93e576ef75cc33306d7b4f",
+                    "name": "Bombardier CRJ-700",
+                    "customName": "Crj 700 70 pax",
+                    "icao": "CRJ7"
+                },
+                "type": "pax",
+                "flightNumber": "700J",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 59,
+                    "cargo": 8,
+                    "weights": {
+                        "cargo": 808
+                    }
+                },
+                "depTime": "2026-09-20T07:05:00.000Z",
+                "duration": 70,
+                "arrTime": "2026-09-20T08:15:00.000Z",
+                "depTimeAct": "2026-09-20T06:56:04.278Z",
+                "delay": 5,
+                "takeoffTimeAct": "2026-09-20T07:04:59.285Z",
+                "durationAct": 75,
+                "arrTimeAct": "2026-09-20T08:19:47.365Z",
+                "open": "2026-09-20T06:35:19.030Z",
+                "close": "2026-09-20T08:48:39.895Z",
+                "rating": 4.44,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 394,
+                        "fuel": 1909,
+                        "expenses": 4296,
+                        "penalties": 19550,
+                        "revenue": 7747,
+                        "balance": -16099,
+                        "prices": {
+                            "ticketPrice": 113,
+                            "cargoUnitPrice": 135,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.7,
+                                "fuel": 0.8,
+                                "ground": 0.7
+                            }
+                        },
+                        "payload": {
+                            "pax": 59,
+                            "cargo": 8,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 59
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1727,
+                        "aircraft": 1863,
+                        "handling": 251,
+                        "landing": 455
+                    },
+                    "revenue": {
+                        "tickets": 6667,
+                        "cargo": 1080
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 15.73m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -160,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 11
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Landing before runway threshold, short by 108m",
+                            "penalty": {
+                                "points": -244,
+                                "cash": 14050
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.11,
+                                        "rate": 725
+                                    },
+                                    "weather": {
+                                        "windDir": 357.14,
+                                        "windSpd": 4.99,
+                                        "windX": 0.02
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Hard touchdown: 2.11G (725 ft/min, challenging  conditions)<br/>Distance from threshold: 57m (accepted range: 185-741m)<br/>Average centerline deviation: 7.66m<br/>Max centerline deviation: 15.73m",
+                            "penalty": {
+                                "points": -152,
+                                "cash": 5500
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.11,
+                                        "rate": 725
+                                    },
+                                    "weather": {
+                                        "windDir": 357.14,
+                                        "windSpd": 4.99,
+                                        "windX": 0.02
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-20T06:32:24.499Z",
+                "updatedAt": "2026-09-20T08:48:39.971Z",
+                "dep": {
+                    "icao": "UKHH",
+                    "name": "Kharkiv International Airport",
+                    "city": "Kharkiv",
+                    "location": {
+                        "lat": 49.926943,
+                        "lon": 36.290814,
+                        "elev": 508
+                    }
+                },
+                "arr": {
+                    "icao": "UKOO",
+                    "name": "Odesa International Airport",
+                    "city": "Odesa",
+                    "location": {
+                        "lat": 46.427196,
+                        "lon": 30.672649,
+                        "elev": 172
+                    }
+                },
+                "actArr": {
+                    "icao": "UKOO",
+                    "name": "Odesa International Airport",
+                    "city": "Odesa",
+                    "location": {
+                        "lat": 46.427196,
+                        "lon": 30.672649,
+                        "elev": 172
+                    }
+                }
             }
         ]
     },
