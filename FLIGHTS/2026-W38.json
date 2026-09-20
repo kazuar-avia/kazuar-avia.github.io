@@ -2580,6 +2580,161 @@
                         "elev": 172
                     }
                 }
+            },
+            {
+                "_id": "6aaf9ec2ef75cc3330324363",
+                "aircraft": {
+                    "_id": "6a4fa15e5760ec7cdb627803",
+                    "name": "Boeing 737-800",
+                    "customName": "Dry Lease l BOEING 737-800",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "217D",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 155,
+                    "cargo": 25,
+                    "weights": {
+                        "cargo": 2675
+                    }
+                },
+                "depTime": "2026-09-20T09:15:00.000Z",
+                "duration": 70,
+                "arrTime": "2026-09-20T10:25:00.000Z",
+                "depTimeAct": "2026-09-20T09:14:31.195Z",
+                "delay": -4,
+                "takeoffTimeAct": "2026-09-20T09:16:08.297Z",
+                "durationAct": 65,
+                "arrTimeAct": "2026-09-20T10:20:51.409Z",
+                "open": "2026-09-20T09:14:23.103Z",
+                "close": "2026-09-20T10:23:15.444Z",
+                "rating": 9.5,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 399,
+                        "fuel": 2606,
+                        "expenses": 12114,
+                        "penalties": 0,
+                        "revenue": 21045,
+                        "balance": 8931,
+                        "prices": {
+                            "ticketPrice": 114,
+                            "cargoUnitPrice": 135,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 155,
+                            "cargo": 25,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 155
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2357,
+                        "aircraft": 4525,
+                        "handling": 1020,
+                        "landing": 4212
+                    },
+                    "revenue": {
+                        "tickets": 17670,
+                        "cargo": 3375
+                    },
+                    "violations": [
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1020mb instead of 1023.1mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "weather": {
+                                        "windDir": 359.99,
+                                        "windSpd": 5.18,
+                                        "windX": 1.48
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.21G (185 ft/min, challenging  conditions)<br/>Distance from threshold: 654m (accepted range: 204-819m)<br/>Average centerline deviation: 3.55m<br/>Max centerline deviation: 6.15m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.21,
+                                        "rate": 185
+                                    },
+                                    "weather": {
+                                        "windDir": 50.01,
+                                        "windSpd": 17.02,
+                                        "windX": 12.19
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-20T08:52:18.981Z",
+                "updatedAt": "2026-09-20T10:23:15.533Z",
+                "dep": {
+                    "icao": "UKOO",
+                    "name": "Odesa International Airport",
+                    "city": "Odesa",
+                    "location": {
+                        "lat": 46.427196,
+                        "lon": 30.672649,
+                        "elev": 172
+                    }
+                },
+                "arr": {
+                    "icao": "LTFM",
+                    "name": "İstanbul Airport",
+                    "city": "Istanbul",
+                    "location": {
+                        "lat": 41.274874,
+                        "lon": 28.732136,
+                        "elev": 325
+                    }
+                },
+                "actArr": {
+                    "icao": "LTFM",
+                    "name": "İstanbul Airport",
+                    "city": "Istanbul",
+                    "location": {
+                        "lat": 41.274874,
+                        "lon": 28.732136,
+                        "elev": 325
+                    }
+                }
             }
         ]
     },
