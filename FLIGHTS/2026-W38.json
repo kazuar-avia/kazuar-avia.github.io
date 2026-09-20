@@ -9311,6 +9311,156 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6aafd64cef75cc33303b7187",
+                "aircraft": {
+                    "_id": "695a86b43dc76275bad5a644",
+                    "name": "Embraer 190",
+                    "customName": "Ukraine Int l E190 based in UKBB UKHH UKOO UKDD l UR-EMA",
+                    "icao": "E190"
+                },
+                "type": "pax",
+                "flightNumber": "282",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 112,
+                    "cargo": 19,
+                    "weights": {
+                        "cargo": 2337
+                    }
+                },
+                "depTime": "2026-09-20T13:20:00.000Z",
+                "duration": 90,
+                "arrTime": "2026-09-20T14:50:00.000Z",
+                "depTimeAct": "2026-09-20T13:13:02.739Z",
+                "delay": 6,
+                "takeoffTimeAct": "2026-09-20T13:19:18.763Z",
+                "durationAct": 97,
+                "arrTimeAct": "2026-09-20T14:56:09.975Z",
+                "open": "2026-09-20T12:50:43.432Z",
+                "close": "2026-09-20T15:02:38.019Z",
+                "rating": 8.5,
+                "simulator": "xp",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 605,
+                        "fuel": 3297,
+                        "expenses": 8198,
+                        "penalties": 0,
+                        "revenue": 19839,
+                        "balance": 11641,
+                        "prices": {
+                            "ticketPrice": 144,
+                            "cargoUnitPrice": 165,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 112,
+                            "cargo": 19,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 4,
+                                "Y": 108
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3728,
+                        "aircraft": 2334,
+                        "handling": 732,
+                        "landing": 1404
+                    },
+                    "revenue": {
+                        "tickets": 16704,
+                        "cargo": 3135
+                    },
+                    "violations": [
+                        {
+                            "title": "Great touchdown: 1.29G (279 ft/min, challenging  conditions)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.29,
+                                        "rate": 279
+                                    },
+                                    "weather": {
+                                        "windDir": 44.49,
+                                        "windSpd": 13.31,
+                                        "windX": 9.46
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 802ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-20T12:49:16.911Z",
+                "updatedAt": "2026-09-20T15:02:38.101Z",
+                "dep": {
+                    "icao": "LUKK",
+                    "name": "Chişinău International Airport",
+                    "city": "Chişinău",
+                    "location": {
+                        "lat": 46.92774,
+                        "lon": 28.931704,
+                        "elev": 399
+                    }
+                },
+                "arr": {
+                    "icao": "LTFM",
+                    "name": "İstanbul Airport",
+                    "city": "Istanbul",
+                    "location": {
+                        "lat": 41.274874,
+                        "lon": 28.732136,
+                        "elev": 325
+                    }
+                },
+                "actArr": {
+                    "icao": "LTFM",
+                    "name": "İstanbul Airport",
+                    "city": "Istanbul",
+                    "location": {
+                        "lat": 41.274874,
+                        "lon": 28.732136,
+                        "elev": 325
+                    }
+                }
             }
         ]
     },
