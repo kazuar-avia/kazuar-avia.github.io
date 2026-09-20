@@ -2956,7 +2956,7 @@ async function loadDatabases() {
       window.UCAAFlightData.loadWeeklyFlights(message => { status.textContent = message; }),
       fetch('COMPANY/company-data.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
       fetch('COMPANY/ucaa-livery-database.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
-      fetch('COMPANY/livery-matching.json', {cache:'no-cache'}).then(response => response.ok ? response.json() : null).catch(() => null),
+      fetch('COMPANY/livery-matching.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
       fetch(`COMPANY/top-pool-current.json?v=${Date.now()}`, {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
       loadCompanyCharterDemand('default'),
       fetch('COMPANY/route-missions.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
@@ -4494,7 +4494,7 @@ function liveryAircraftCurrentIcao(aircraft) {
   const latest = (app.flights || [])
     .filter(flight => flight.status === 'completed' && String(flight?.aircraft?.id || '').trim() === id)
     .sort((a,b) => flightEndDateForDisplay(b) - flightEndDateForDisplay(a))[0];
-  return String(companyLiveryMatchingIcao(aircraft) || (latest?.actualArrival || latest?.arrival || {})?.icao || aircraft?.locationIcao || '').trim().toUpperCase();
+  return String((latest?.actualArrival || latest?.arrival || {})?.icao || companyLiveryMatchingIcao(aircraft) || aircraft?.locationIcao || '').trim().toUpperCase();
 }
 
 function liveryFreeUcaaBaseIcao(currentIcao) {
@@ -4682,7 +4682,7 @@ function liverySuggestedRouteText(card, title, flights, latest, headline) {
 function liverySuggestedRouteData(card, title, flights, latest, headline) {
   if (String(title || '').includes('UR-SFS')) return 'борт віддано в SUB-LEASE';
   const aircraft = companyLiveryAircraftForCard(card, flights, latest, headline);
-  const currentIcao = String(companyLiveryMatchingIcao(aircraft) || (latest?.actualArrival || latest?.arrival || liveryCardFallbackAirport(card) || {})?.icao || '').trim().toUpperCase();
+  const currentIcao = String((latest?.actualArrival || latest?.arrival || liveryCardFallbackAirport(card) || {})?.icao || companyLiveryMatchingIcao(aircraft) || '').trim().toUpperCase();
   const routes = liveryScheduleRoutesForAircraft(aircraft);
   const scheduleIcao = liveryLatestScheduleAirportIcao(flights, aircraft);
   const scheduleCandidates = liveryScheduleCandidateRoutes(routes);
@@ -5128,8 +5128,7 @@ function openCompanyLiveryGroupDialog(card) {
       .filter(flight => String(flight?.aircraft?.id || '').trim() === item.id)
       .sort((a,b) => flightEndDateForDisplay(b) - flightEndDateForDisplay(a));
     const latest = flights[0];
-    const matchingCurrentIcao = companyLiveryMatchingIcao({id:item.id});
-    const airport = liveryAirportObjectByIcao(matchingCurrentIcao) || (latest ? (latest.actualArrival || latest.arrival || liveryCardFallbackAirport(card)) : liveryCardFallbackAirport(card));
+    const airport = latest ? (latest.actualArrival || latest.arrival || liveryCardFallbackAirport(card)) : liveryCardFallbackAirport(card);
     const latestDate = latest ? flightEndDateForDisplay(latest) : null;
     const latestDateText = latestDate && Number.isFinite(latestDate.getTime())
       ? latestDate.toLocaleDateString('uk-UA', {timeZone:'UTC', day:'2-digit', month:'2-digit'})
@@ -6495,8 +6494,8 @@ function updateCompanyLiveryStatus() {
       const fallbackAircraft = companyLiveryAircraftForCard(card, flights, null, headline);
       const matchingCurrentIcao = companyLiveryMatchingIcao(fallbackAircraft);
       const matchingAirport = matchingCurrentIcao ? liveryAirportObjectByIcao(matchingCurrentIcao) : null;
-      const currentLine = (matchingAirport || fallbackAirport)
-        ? `${headlinePrefix}в ${liveryAirportStatusText(matchingAirport || fallbackAirport)}`
+      const currentLine = (fallbackAirport || matchingAirport)
+        ? `${headlinePrefix}в ${liveryAirportStatusText(fallbackAirport || matchingAirport)}`
         : 'локація уточнюється';
       const suggestedProposal = liverySuggestedRouteData(card, title, flights, null, headline);
       const suggestedText = typeof suggestedProposal === 'string' ? suggestedProposal : suggestedProposal?.html || '&mdash;';
@@ -6518,9 +6517,7 @@ function updateCompanyLiveryStatus() {
       card.appendChild(status);
       return;
     }
-    const currentAircraft = companyLiveryAircraftForCard(card, flights, latest, headline);
-    const matchingCurrentIcao = companyLiveryMatchingIcao(currentAircraft);
-    const airport = liveryAirportObjectByIcao(matchingCurrentIcao) || latest.actualArrival || latest.arrival || {};
+    const airport = latest.actualArrival || latest.arrival || {};
     const latestDate = flightEndDateForDisplay(latest);
     const latestDateText = Number.isFinite(latestDate.getTime())
       ? latestDate.toLocaleDateString('uk-UA', {timeZone:'UTC', day:'2-digit', month:'2-digit'})
@@ -6601,9 +6598,9 @@ function liveryRouteMapContext(card) {
   const aircraft = companyLiveryAircraftForCard(card, flights, latest, headline);
   const fullTitle = newskyAircraftName(aircraft?.id) || companyLiveryMatchingNameByAircraftId(aircraft?.id) || title;
   const matchingCurrentIcao = companyLiveryMatchingIcao(aircraft);
-  const currentAirport = liveryAirportObjectByIcao(matchingCurrentIcao)
-    || (latest ? (latest.actualArrival || latest.arrival || liveryCardFallbackAirport(card)) : liveryCardFallbackAirport(card))
-    || liveryAirportObjectByIcao(aircraft?.locationIcao);
+  const currentAirport = latest
+    ? (latest.actualArrival || latest.arrival || liveryCardFallbackAirport(card) || liveryAirportObjectByIcao(matchingCurrentIcao))
+    : liveryCardFallbackAirport(card) || liveryAirportObjectByIcao(matchingCurrentIcao || aircraft?.locationIcao);
   const proposal = liverySuggestedRouteData(card, title, flights, latest, headline);
   const proposalHtml = typeof proposal === 'string'
     ? proposal
