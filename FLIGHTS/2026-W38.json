@@ -16961,6 +16961,184 @@
                         "elev": 399
                     }
                 }
+            },
+            {
+                "_id": "6aaf9829ef75cc3330315bb4",
+                "aircraft": {
+                    "_id": "69ac6222c739a30ec84c1abb",
+                    "name": "Airbus A300-600F",
+                    "customName": "UCAA l A300-600 (cargo) based in UKKM l UR-LDC",
+                    "icao": "A306"
+                },
+                "type": "cargo",
+                "flightNumber": "1204",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 0,
+                    "cargo": 442,
+                    "weights": {
+                        "cargo": 47294
+                    }
+                },
+                "depTime": "2026-09-20T08:45:00.000Z",
+                "duration": 60,
+                "arrTime": "2026-09-20T09:45:00.000Z",
+                "depTimeAct": "2026-09-20T08:51:18.045Z",
+                "delay": -5,
+                "takeoffTimeAct": "2026-09-20T08:57:46.053Z",
+                "durationAct": 42,
+                "arrTimeAct": "2026-09-20T09:39:43.209Z",
+                "open": "2026-09-20T08:27:58.734Z",
+                "close": "2026-09-20T09:43:33.111Z",
+                "rating": 8.61,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 253,
+                        "fuel": 4118,
+                        "expenses": 12647,
+                        "penalties": 0,
+                        "revenue": 58344,
+                        "balance": 45697,
+                        "prices": {
+                            "ticketPrice": 109,
+                            "cargoUnitPrice": 132,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 0,
+                            "cargo": 442,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4656,
+                        "aircraft": 6665,
+                        "handling": 597,
+                        "landing": 729
+                    },
+                    "revenue": {
+                        "tickets": 0,
+                        "cargo": 58344
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 7.59m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -51,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Unstable approach below 400ft: vertical speed above 0 ft/min (actual 57 ft/min)",
+                            "penalty": {
+                                "points": -28,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 43
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.21G (193 ft/min, challenging  conditions)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 38
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.21,
+                                        "rate": 193
+                                    },
+                                    "weather": {
+                                        "windDir": 221.98,
+                                        "windSpd": 9.07,
+                                        "windX": 4.96
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Stall warning for 4 seconds",
+                            "penalty": {
+                                "points": -60,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-20T08:24:09.281Z",
+                "updatedAt": "2026-09-20T09:43:33.190Z",
+                "dep": {
+                    "icao": "LUKK",
+                    "name": "Chişinău International Airport",
+                    "city": "Chişinău",
+                    "location": {
+                        "lat": 46.92774,
+                        "lon": 28.931704,
+                        "elev": 399
+                    }
+                },
+                "arr": {
+                    "icao": "UKKM",
+                    "name": "Hostomel Airport",
+                    "city": "Kiev",
+                    "location": {
+                        "lat": 50.6035,
+                        "lon": 30.1919,
+                        "elev": 517
+                    }
+                },
+                "actArr": {
+                    "icao": "UKKM",
+                    "name": "Hostomel Airport",
+                    "city": "Kiev",
+                    "location": {
+                        "lat": 50.6035,
+                        "lon": 30.1919,
+                        "elev": 517
+                    }
+                }
             }
         ]
     },
