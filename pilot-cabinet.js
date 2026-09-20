@@ -6076,8 +6076,7 @@ function companyFixedTopPoolConsumedFlight(item, mode = '') {
       const ended = flightEndDateForDisplay(flight);
       return Number.isFinite(started.getTime())
         && Number.isFinite(ended.getTime())
-        // Flights already in progress when the pool refreshes can complete its offers.
-        && ended >= started
+        && started > poolDate
         && ended > poolDate
         && companyFixedTopPoolCompletedMatchesItem(flight, item, mode);
     })
@@ -6101,8 +6100,7 @@ function companyFixedTopPoolLatestPostPoolFlight(item) {
       const ended = flightEndDateForDisplay(flight);
       return Number.isFinite(started.getTime())
         && Number.isFinite(ended.getTime())
-        // Flights already in progress when the pool refreshes can complete its offers.
-        && ended >= started
+        && started > poolDate
         && ended > poolDate;
     })
     .sort((a, b) => flightEndDateForDisplay(b) - flightEndDateForDisplay(a))[0] || null;
