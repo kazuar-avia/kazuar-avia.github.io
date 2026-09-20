@@ -13546,6 +13546,185 @@
                         "elev": 1247
                     }
                 }
+            },
+            {
+                "_id": "6aafa54def75cc3330332a09",
+                "aircraft": {
+                    "_id": "695a82f03dc76275bad4fcbd",
+                    "name": "Airbus A320",
+                    "customName": "DonbassAero l A320 IAE based in UKCC UKOO l UR-DAB",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "679W",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 45,
+                    "cargo": 20,
+                    "weights": {
+                        "cargo": 1660
+                    }
+                },
+                "depTime": "2026-09-20T09:35:00.000Z",
+                "duration": 70,
+                "arrTime": "2026-09-20T10:45:00.000Z",
+                "depTimeAct": "2026-09-20T09:30:40.736Z",
+                "delay": -18,
+                "takeoffTimeAct": "2026-09-20T09:34:45.760Z",
+                "durationAct": 53,
+                "arrTimeAct": "2026-09-20T10:27:29.730Z",
+                "open": "2026-09-20T09:28:31.753Z",
+                "close": "2026-09-20T10:30:00.939Z",
+                "rating": 9.67,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 340,
+                        "fuel": 2172,
+                        "expenses": 8419,
+                        "penalties": 0,
+                        "revenue": 7765,
+                        "balance": -654,
+                        "prices": {
+                            "ticketPrice": 113,
+                            "cargoUnitPrice": 134,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 45,
+                            "cargo": 20,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 45
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2456,
+                        "aircraft": 4675,
+                        "handling": 235,
+                        "landing": 1053
+                    },
+                    "revenue": {
+                        "tickets": 5085,
+                        "cargo": 2680
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 5.13m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -18,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 1
+                                    },
+                                    "weather": {
+                                        "windDir": 14.12,
+                                        "windSpd": 2.55,
+                                        "windX": -0.27
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (801m from threshold beyond 757m max accepted)",
+                            "penalty": {
+                                "points": -15,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.16,
+                                        "rate": 144
+                                    },
+                                    "weather": {
+                                        "windDir": 79.99,
+                                        "windSpd": 10.09,
+                                        "windX": -2.61
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.16G (144 ft/min, normal  conditions)<br/>Distance from threshold: 801m (accepted range: 189-757m)<br/>Average centerline deviation: 0.78m<br/>Max centerline deviation: 1.58m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.16,
+                                        "rate": 144
+                                    },
+                                    "weather": {
+                                        "windDir": 79.99,
+                                        "windSpd": 10.09,
+                                        "windX": -2.61
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-20T09:20:13.510Z",
+                "updatedAt": "2026-09-20T10:30:01.012Z",
+                "dep": {
+                    "icao": "LFBT",
+                    "name": "Tarbes-Lourdes-Pyrénées Airport",
+                    "city": "Tarbes/Lourdes/Pyrénées",
+                    "location": {
+                        "lat": 43.178699,
+                        "lon": -0.006439,
+                        "elev": 1260
+                    }
+                },
+                "arr": {
+                    "icao": "LEAL",
+                    "name": "Alicante-Elche Miguel Hernández Airport",
+                    "city": "Alicante",
+                    "location": {
+                        "lat": 38.2822,
+                        "lon": -0.558156,
+                        "elev": 142
+                    }
+                },
+                "actArr": {
+                    "icao": "LEAL",
+                    "name": "Alicante-Elche Miguel Hernández Airport",
+                    "city": "Alicante",
+                    "location": {
+                        "lat": 38.2822,
+                        "lon": -0.558156,
+                        "elev": 142
+                    }
+                }
             }
         ]
     },
