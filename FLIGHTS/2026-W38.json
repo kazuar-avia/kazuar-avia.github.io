@@ -17993,6 +17993,171 @@
                         "elev": 481
                     }
                 }
+            },
+            {
+                "_id": "6ab0119fef75cc3330468f31",
+                "aircraft": {
+                    "_id": "6963db883dc76275baca3967",
+                    "name": "Airbus A321",
+                    "customName": "Windrose l A321 based in UKBB UKLL l UR-WRX",
+                    "icao": "A321"
+                },
+                "type": "pax",
+                "flightNumber": "2366",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 212,
+                    "cargo": 31,
+                    "weights": {
+                        "cargo": 2356
+                    }
+                },
+                "depTime": "2026-09-20T17:25:00.000Z",
+                "duration": 110,
+                "arrTime": "2026-09-20T19:15:00.000Z",
+                "depTimeAct": "2026-09-20T17:33:20.159Z",
+                "delay": 8,
+                "takeoffTimeAct": "2026-09-20T17:41:41.145Z",
+                "durationAct": 102,
+                "arrTimeAct": "2026-09-20T19:23:18.201Z",
+                "open": "2026-09-20T17:15:59.953Z",
+                "close": "2026-09-20T19:26:46.566Z",
+                "rating": 9.32,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 671,
+                        "fuel": 5658,
+                        "expenses": 18532,
+                        "penalties": 0,
+                        "revenue": 32691,
+                        "balance": 14159,
+                        "prices": {
+                            "ticketPrice": 133,
+                            "cargoUnitPrice": 145,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 212,
+                            "cargo": 31,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 212
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 6602,
+                        "aircraft": 6755,
+                        "handling": 3015,
+                        "landing": 2160
+                    },
+                    "revenue": {
+                        "tickets": 28196,
+                        "cargo": 4495
+                    },
+                    "violations": [
+                        {
+                            "title": "Delayed gear retraction after takeoff more than 30s, actual: 35s)",
+                            "penalty": {
+                                "points": -25,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gear",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 6.05m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -23,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "spoilers",
+                                "payload": {
+                                    "system": {
+                                        "fps": 35
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.48G (379 ft/min, normal  conditions)<br/>Distance from threshold: 666m (accepted range: 202-809m)<br/>Average centerline deviation: 3.82m<br/>Max centerline deviation: 6.05m",
+                            "penalty": {
+                                "points": -20,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 38
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.48,
+                                        "rate": 379
+                                    },
+                                    "weather": {
+                                        "windDir": 229.57,
+                                        "windSpd": 10.12,
+                                        "windX": -8.67
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-20T17:02:23.083Z",
+                "updatedAt": "2026-09-20T19:26:46.654Z",
+                "dep": {
+                    "icao": "KSEA",
+                    "name": "Seattle–Tacoma International Airport",
+                    "city": "Seattle",
+                    "location": {
+                        "lat": 47.447943,
+                        "lon": -122.310276,
+                        "elev": 433
+                    }
+                },
+                "arr": {
+                    "icao": "KSFO",
+                    "name": "San Francisco International Airport",
+                    "city": "San Francisco",
+                    "location": {
+                        "lat": 37.619806,
+                        "lon": -122.374821,
+                        "elev": 13
+                    }
+                },
+                "actArr": {
+                    "icao": "KSFO",
+                    "name": "San Francisco International Airport",
+                    "city": "San Francisco",
+                    "location": {
+                        "lat": 37.619806,
+                        "lon": -122.374821,
+                        "elev": 13
+                    }
+                }
             }
         ]
     },
