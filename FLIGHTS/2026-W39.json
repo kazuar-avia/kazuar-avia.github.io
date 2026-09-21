@@ -490,6 +490,243 @@
                         "elev": 1907
                     }
                 }
+            },
+            {
+                "_id": "6ab0eebfef75cc3330613beb",
+                "aircraft": {
+                    "_id": "695a66383dc76275bad0826f",
+                    "name": "Airbus A320",
+                    "customName": "Dry Lease l A320 CFM FENIX msfs2024",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "24DA",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 160,
+                    "cargo": 3,
+                    "weights": {
+                        "cargo": 231
+                    }
+                },
+                "depTime": "2026-09-21T09:00:00.000Z",
+                "duration": 65,
+                "arrTime": "2026-09-21T10:05:00.000Z",
+                "depTimeAct": "2026-09-21T08:57:43.389Z",
+                "delay": 26,
+                "takeoffTimeAct": "2026-09-21T09:03:09.389Z",
+                "durationAct": 88,
+                "arrTimeAct": "2026-09-21T10:30:54.669Z",
+                "open": "2026-09-21T08:56:52.287Z",
+                "close": "2026-09-21T10:32:05.331Z",
+                "rating": -0.2,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": true,
+                "result": {
+                    "totals": {
+                        "distance": 406,
+                        "fuel": 5381,
+                        "expenses": 0,
+                        "penalties": 0,
+                        "revenue": 0,
+                        "balance": 0,
+                        "prices": {
+                            "ticketPrice": 112,
+                            "cargoUnitPrice": 130,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 160,
+                            "cargo": 3,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 7,
+                                "Y": 153
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 6084,
+                        "aircraft": 5700,
+                        "handling": 1122,
+                        "landing": 810
+                    },
+                    "revenue": {
+                        "tickets": 18704,
+                        "cargo": 390
+                    },
+                    "violations": [
+                        {
+                            "title": "Emergency Declared",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "emergency",
+                                "payload": {
+                                    "system": {
+                                        "fps": 2
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 9.14m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -83,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "bounce",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.53,
+                                        "rate": 528
+                                    },
+                                    "weather": {
+                                        "windDir": 280.01,
+                                        "windSpd": 8.93,
+                                        "windX": 6.49
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (1102m from threshold beyond 660m max accepted)",
+                            "penalty": {
+                                "points": -155,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.55,
+                                        "rate": 397
+                                    },
+                                    "weather": {
+                                        "windDir": 280.02,
+                                        "windSpd": 8.95,
+                                        "windX": 5.77
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.55G (397 ft/min, normal  conditions)<br/>Distance from threshold: 1102m (accepted range: 164-660m)<br/>Average centerline deviation: 4.06m<br/>Max centerline deviation: 9.14m",
+                            "penalty": {
+                                "points": -38,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.55,
+                                        "rate": 397
+                                    },
+                                    "weather": {
+                                        "windDir": 280.02,
+                                        "windSpd": 8.95,
+                                        "windX": 5.77
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No NAV lights for 657s when required",
+                            "penalty": {
+                                "points": -100,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        },
+                        {
+                            "title": "No BEACON lights for 657s when required",
+                            "penalty": {
+                                "points": -100,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        },
+                        {
+                            "title": "No STROBE lights for 657s when required",
+                            "penalty": {
+                                "points": -100,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-21T08:45:51.036Z",
+                "updatedAt": "2026-09-21T10:32:05.420Z",
+                "dep": {
+                    "icao": "LOWI",
+                    "name": "Innsbruck Airport",
+                    "city": "Innsbruck",
+                    "location": {
+                        "lat": 47.260201,
+                        "lon": 11.344,
+                        "elev": 1907
+                    }
+                },
+                "arr": {
+                    "icao": "EDLP",
+                    "name": "Paderborn Lippstadt Airport",
+                    "city": "Büren",
+                    "location": {
+                        "lat": 51.612527,
+                        "lon": 8.617459,
+                        "elev": 699
+                    }
+                },
+                "actArr": {
+                    "icao": "EDLP",
+                    "name": "Paderborn Lippstadt Airport",
+                    "city": "Büren",
+                    "location": {
+                        "lat": 51.612527,
+                        "lon": 8.617459,
+                        "elev": 699
+                    }
+                }
             }
         ]
     },
