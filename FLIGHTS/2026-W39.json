@@ -1303,5 +1303,162 @@
                 }
             }
         ]
+    },
+    {
+        "pilot_id": "6a4771715760ec7cdbbdf901",
+        "fullname": "Saint Helgi",
+        "avatar": "6a4771715760ec7cdbbdf9011786468537262",
+        "flights": [
+            {
+                "_id": "6ab0d9b8ef75cc33305f3543",
+                "aircraft": {
+                    "_id": "6a4fa2fb5760ec7cdb629836",
+                    "name": "Boeing 777-200ER",
+                    "customName": "Dry Lease l 777-200ER PW 294 pax",
+                    "icao": "B772"
+                },
+                "type": "pax",
+                "flightNumber": "0777",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 294,
+                    "cargo": 68,
+                    "weights": {
+                        "cargo": 7344
+                    }
+                },
+                "depTime": "2026-09-21T08:00:00.000Z",
+                "duration": 215,
+                "arrTime": "2026-09-21T11:35:00.000Z",
+                "depTimeAct": "2026-09-21T07:57:18.959Z",
+                "delay": 39,
+                "takeoffTimeAct": "2026-09-21T08:05:58.969Z",
+                "durationAct": 248,
+                "arrTimeAct": "2026-09-21T12:14:01.225Z",
+                "open": "2026-09-21T07:21:22.518Z",
+                "close": "2026-09-21T12:22:38.317Z",
+                "rating": 9.69,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1682,
+                        "fuel": 24676,
+                        "expenses": 50609,
+                        "penalties": 0,
+                        "revenue": 89649,
+                        "balance": 39040,
+                        "prices": {
+                            "ticketPrice": 201,
+                            "cargoUnitPrice": 204,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 294,
+                            "cargo": 68,
+                            "paxByClass": {
+                                "F": 14,
+                                "C": 41,
+                                "Y": 239
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 22317,
+                        "aircraft": 24540,
+                        "handling": 2177,
+                        "landing": 1575
+                    },
+                    "revenue": {
+                        "tickets": 75777,
+                        "cargo": 13872
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 5.88m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -31,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 35
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.24G (205 ft/min, normal  conditions)<br/>Distance from threshold: 560m (accepted range: 191-766m)<br/>Average centerline deviation: 3.89m<br/>Max centerline deviation: 5.88m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 34
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.24,
+                                        "rate": 205
+                                    },
+                                    "weather": {
+                                        "windDir": 10,
+                                        "windSpd": 11,
+                                        "windX": -0.18
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-21T07:16:08.038Z",
+                "updatedAt": "2026-09-21T12:22:38.443Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "HESH",
+                    "name": "Sharm El Sheikh International Airport",
+                    "city": "Sharm El Sheikh",
+                    "location": {
+                        "lat": 27.977272,
+                        "lon": 34.394717,
+                        "elev": 191
+                    }
+                },
+                "actArr": {
+                    "icao": "HESH",
+                    "name": "Sharm El Sheikh International Airport",
+                    "city": "Sharm El Sheikh",
+                    "location": {
+                        "lat": 27.977272,
+                        "lon": 34.394717,
+                        "elev": 191
+                    }
+                }
+            }
+        ]
     }
 ]
