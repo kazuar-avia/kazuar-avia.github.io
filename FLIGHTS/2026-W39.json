@@ -2114,5 +2114,177 @@
                 }
             }
         ]
+    },
+    {
+        "pilot_id": "69f8d773a5e61d69a79359e3",
+        "fullname": "Alex Tisar",
+        "avatar": "69f8d773a5e61d69a79359e31778008236345",
+        "flights": [
+            {
+                "_id": "6ab15adeef75cc33306f8c74",
+                "aircraft": {
+                    "_id": "6963db883dc76275baca3967",
+                    "name": "Airbus A321",
+                    "customName": "Windrose l A321 based in UKBB UKLL l UR-WRX",
+                    "icao": "A321"
+                },
+                "type": "pax",
+                "flightNumber": "2366",
+                "free": false,
+                "schedule": false,
+                "charter": true,
+                "payload": {
+                    "pax": 230,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-09-21T16:50:00.000Z",
+                "duration": 75,
+                "arrTime": "2026-09-21T18:05:00.000Z",
+                "depTimeAct": "2026-09-21T16:50:42.624Z",
+                "delay": -6,
+                "takeoffTimeAct": "2026-09-21T16:56:46.609Z",
+                "durationAct": 62,
+                "arrTimeAct": "2026-09-21T17:58:38.084Z",
+                "open": "2026-09-21T16:48:38.460Z",
+                "close": "2026-09-21T18:01:26.499Z",
+                "rating": 7.56,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 407,
+                        "fuel": 3697,
+                        "expenses": 11746,
+                        "penalties": 0,
+                        "revenue": 37720,
+                        "balance": 25974,
+                        "prices": {
+                            "ticketPrice": 164,
+                            "cargoUnitPrice": 197,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 230,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 230
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4180,
+                        "aircraft": 5325,
+                        "handling": 1242,
+                        "landing": 999
+                    },
+                    "revenue": {
+                        "tickets": 37720,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 5.23m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -18,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 38
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Uncomfortable touchdown: 1.73G (511 ft/min, normal  conditions)<br/>Distance from threshold: 740m (accepted range: 194-780m)<br/>Average centerline deviation: 4.09m<br/>Max centerline deviation: 5.23m",
+                            "penalty": {
+                                "points": -80,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.73,
+                                        "rate": 511
+                                    },
+                                    "weather": {
+                                        "windDir": 359.98,
+                                        "windSpd": 10.99,
+                                        "windX": 2.15
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Max G exceeded: 2.73G (max allowed: 2G)",
+                            "penalty": {
+                                "points": -146,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-21T16:27:10.827Z",
+                "updatedAt": "2026-09-21T18:01:26.578Z",
+                "dep": {
+                    "icao": "LGKR",
+                    "name": "Corfu Ioannis Kapodistrias International Airport",
+                    "city": "Kerkyra (Corfu)",
+                    "location": {
+                        "lat": 39.60145,
+                        "lon": 19.912179,
+                        "elev": 6
+                    }
+                },
+                "arr": {
+                    "icao": "LTBJ",
+                    "name": "Adnan Menderes International Airport",
+                    "city": "Gaziemir",
+                    "location": {
+                        "lat": 38.2924,
+                        "lon": 27.157,
+                        "elev": 412
+                    }
+                },
+                "actArr": {
+                    "icao": "LTBJ",
+                    "name": "Adnan Menderes International Airport",
+                    "city": "Gaziemir",
+                    "location": {
+                        "lat": 38.2924,
+                        "lon": 27.157,
+                        "elev": 412
+                    }
+                }
+            }
+        ]
     }
 ]
