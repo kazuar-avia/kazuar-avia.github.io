@@ -1458,6 +1458,193 @@
                         "elev": 191
                     }
                 }
+            },
+            {
+                "_id": "6ab1369def75cc33306a37ba",
+                "aircraft": {
+                    "_id": "6a93e576ef75cc33306d7b4f",
+                    "name": "Bombardier CRJ-700",
+                    "customName": "Crj 700 70 pax",
+                    "icao": "CRJ7"
+                },
+                "type": "pax",
+                "flightNumber": "700J",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 61,
+                    "cargo": 8,
+                    "weights": {
+                        "cargo": 768
+                    }
+                },
+                "depTime": "2026-09-21T14:15:00.000Z",
+                "duration": 75,
+                "arrTime": "2026-09-21T15:30:00.000Z",
+                "depTimeAct": "2026-09-21T14:14:36.478Z",
+                "delay": 28,
+                "takeoffTimeAct": "2026-09-21T14:19:02.478Z",
+                "durationAct": 99,
+                "arrTimeAct": "2026-09-21T15:58:04.590Z",
+                "open": "2026-09-21T13:54:29.315Z",
+                "close": "2026-09-21T16:04:33.986Z",
+                "rating": 2.24,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 492,
+                        "fuel": 2710,
+                        "expenses": 6045,
+                        "penalties": 0,
+                        "revenue": 8140,
+                        "balance": 2095,
+                        "prices": {
+                            "ticketPrice": 116,
+                            "cargoUnitPrice": 133,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 61,
+                            "cargo": 8,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 61
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3064,
+                        "aircraft": 2193,
+                        "handling": 333,
+                        "landing": 455
+                    },
+                    "revenue": {
+                        "tickets": 7076,
+                        "cargo": 1064
+                    },
+                    "violations": [
+                        {
+                            "title": "Incorrect flaps for landing",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.47,
+                                        "rate": 383
+                                    },
+                                    "weather": {
+                                        "windDir": 322.12,
+                                        "windSpd": 8.41,
+                                        "windX": -0.09
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Unstable approach below 200ft: vertical speed below -1500 ft/min (actual -1753 ft/min)",
+                            "penalty": {
+                                "points": -126,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.47G (383 ft/min, challenging  conditions)<br/>Distance from threshold: 672m (accepted range: 209-838m)<br/>Average centerline deviation: 1.36m<br/>Max centerline deviation: 2.03m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.47,
+                                        "rate": 383
+                                    },
+                                    "weather": {
+                                        "windDir": 322.12,
+                                        "windSpd": 8.41,
+                                        "windX": -0.09
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Stall warning for 43 seconds",
+                            "penalty": {
+                                "points": -500,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-21T13:52:29.362Z",
+                "updatedAt": "2026-09-21T16:04:34.121Z",
+                "dep": {
+                    "icao": "UKLU",
+                    "name": "Uzhhorod International Airport",
+                    "city": "Uzhhorod",
+                    "location": {
+                        "lat": 48.6343,
+                        "lon": 22.263399,
+                        "elev": 383
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
             }
         ]
     },
