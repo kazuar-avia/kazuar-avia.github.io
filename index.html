@@ -8005,12 +8005,12 @@ function initUkraineLiveMap() {
     scrollWheelZoom: true
   });
 
-  const noLabelsLayer = L.tileLayer("https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png", {
+  const noLabelsLayer = L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/light_nolabels/{z}/{x}/{y}{r}.png?key=cb1_3ru0_1_a901fffcbed84bfbb252eede", {
     maxZoom: 18,
     attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
   }).addTo(map);
 
-  const labelsLayer = L.tileLayer("https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png", {
+  const labelsLayer = L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/light_only_labels/{z}/{x}/{y}{r}.png?key=cb1_3ru0_1_a901fffcbed84bfbb252eede", {
     maxZoom: 18,
     attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
   });
