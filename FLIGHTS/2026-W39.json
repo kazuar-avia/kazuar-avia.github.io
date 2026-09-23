@@ -3920,6 +3920,193 @@
                         "elev": 495
                     }
                 }
+            },
+            {
+                "_id": "6ab3d03443d6069014a2402d",
+                "aircraft": {
+                    "_id": "695a66383dc76275bad0826f",
+                    "name": "Airbus A320",
+                    "customName": "Dry Lease l A320 CFM FENIX msfs2024",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "9149",
+                "free": false,
+                "schedule": false,
+                "charter": true,
+                "payload": {
+                    "pax": 173,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-09-23T13:30:00.000Z",
+                "duration": 175,
+                "arrTime": "2026-09-23T16:25:00.000Z",
+                "depTimeAct": "2026-09-23T13:27:17.720Z",
+                "delay": -16,
+                "takeoffTimeAct": "2026-09-23T13:34:22.383Z",
+                "durationAct": 155,
+                "arrTimeAct": "2026-09-23T16:09:01.431Z",
+                "open": "2026-09-23T13:15:09.317Z",
+                "close": "2026-09-23T17:08:10.599Z",
+                "rating": 2.93,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1131,
+                        "fuel": 6509,
+                        "expenses": 16634,
+                        "penalties": 150000,
+                        "revenue": 43621,
+                        "balance": -123013,
+                        "prices": {
+                            "ticketPrice": 241,
+                            "cargoUnitPrice": 262,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 173,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 8,
+                                "Y": 165
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 7359,
+                        "aircraft": 7200,
+                        "handling": 1211,
+                        "landing": 864
+                    },
+                    "revenue": {
+                        "tickets": 43621,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Tail strike on landing (pitch: 17.7, max: 13.0)",
+                            "penalty": {
+                                "points": -400,
+                                "cash": 150000
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 79
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (796m from threshold beyond 776m max accepted)",
+                            "penalty": {
+                                "points": -7,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 71
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.12,
+                                        "rate": 100
+                                    },
+                                    "weather": {
+                                        "windDir": 279.97,
+                                        "windSpd": 10.75,
+                                        "windX": 1.73
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.12G (100 ft/min, normal  conditions)<br/>Distance from threshold: 796m (accepted range: 193-776m)<br/>Average centerline deviation: 1.53m<br/>Max centerline deviation: 2.90m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 71
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.12,
+                                        "rate": 100
+                                    },
+                                    "weather": {
+                                        "windDir": 279.97,
+                                        "windSpd": 10.75,
+                                        "windX": 1.73
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Stall warning for 20 seconds",
+                            "penalty": {
+                                "points": -300,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-23T13:12:20.331Z",
+                "updatedAt": "2026-09-23T17:08:10.696Z",
+                "dep": {
+                    "icao": "EICK",
+                    "name": "Cork International Airport",
+                    "city": "Cork",
+                    "location": {
+                        "lat": 51.841301,
+                        "lon": -8.49111,
+                        "elev": 502
+                    }
+                },
+                "arr": {
+                    "icao": "EPKT",
+                    "name": "Katowice Wojciech Korfanty International Airport",
+                    "city": "Katowice",
+                    "location": {
+                        "lat": 50.476015,
+                        "lon": 19.080705,
+                        "elev": 995
+                    }
+                },
+                "actArr": {
+                    "icao": "EPKT",
+                    "name": "Katowice Wojciech Korfanty International Airport",
+                    "city": "Katowice",
+                    "location": {
+                        "lat": 50.476015,
+                        "lon": 19.080705,
+                        "elev": 995
+                    }
+                }
             }
         ]
     },
