@@ -5397,6 +5397,186 @@
                         "elev": 412
                     }
                 }
+            },
+            {
+                "_id": "6ab3d7d543d6069014a34210",
+                "aircraft": {
+                    "_id": "6963db883dc76275baca3967",
+                    "name": "Airbus A321",
+                    "customName": "Windrose l A321 based in UKBB UKLL l UR-WRX",
+                    "icao": "A321"
+                },
+                "type": "pax",
+                "flightNumber": "2926",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 230,
+                    "cargo": 49,
+                    "weights": {
+                        "cargo": 3479
+                    }
+                },
+                "depTime": "2026-09-23T14:05:00.000Z",
+                "duration": 80,
+                "arrTime": "2026-09-23T15:25:00.000Z",
+                "depTimeAct": "2026-09-23T14:10:38.042Z",
+                "delay": -8,
+                "takeoffTimeAct": "2026-09-23T14:20:48.104Z",
+                "durationAct": 56,
+                "arrTimeAct": "2026-09-23T15:17:13.551Z",
+                "open": "2026-09-23T14:09:35.168Z",
+                "close": "2026-09-23T15:20:14.043Z",
+                "rating": 7.56,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 313,
+                        "fuel": 3043,
+                        "expenses": 9709,
+                        "penalties": 0,
+                        "revenue": 38841,
+                        "balance": 29132,
+                        "prices": {
+                            "ticketPrice": 135,
+                            "cargoUnitPrice": 159,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 230,
+                            "cargo": 49,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 230
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2753,
+                        "aircraft": 4180,
+                        "handling": 1696,
+                        "landing": 1080
+                    },
+                    "revenue": {
+                        "tickets": 31050,
+                        "cargo": 7791
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 4.35m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -6,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "spoilers",
+                                "payload": {
+                                    "system": {
+                                        "fps": 44
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.38G (320 ft/min, normal  conditions)<br/>Distance from threshold: 596m (accepted range: 201-806m)<br/>Average centerline deviation: 3.54m<br/>Max centerline deviation: 4.35m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.38,
+                                        "rate": 320
+                                    },
+                                    "weather": {
+                                        "windDir": 340.07,
+                                        "windSpd": 7.45,
+                                        "windX": 6.99
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Max G exceeded: 3.85G (max allowed: 2G)",
+                            "penalty": {
+                                "points": -200,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 55
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Min G exceeded: -0.19G (min allowed: 0G)",
+                            "penalty": {
+                                "points": -38,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 36
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-23T13:44:53.263Z",
+                "updatedAt": "2026-09-23T15:20:14.149Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "LUKK",
+                    "name": "Chişinău International Airport",
+                    "city": "Chişinău",
+                    "location": {
+                        "lat": 46.92774,
+                        "lon": 28.931704,
+                        "elev": 399
+                    }
+                },
+                "actArr": {
+                    "icao": "LUKK",
+                    "name": "Chişinău International Airport",
+                    "city": "Chişinău",
+                    "location": {
+                        "lat": 46.92774,
+                        "lon": 28.931704,
+                        "elev": 399
+                    }
+                }
             }
         ]
     },
