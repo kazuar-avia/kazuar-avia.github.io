@@ -3643,6 +3643,156 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6ab432f343d6069014ae948b",
+                "aircraft": {
+                    "_id": "6a7b7406ef75cc33301ee083",
+                    "name": "Airbus A220-300",
+                    "customName": "Dry Lease l Synaptic A220-300 l 147 pax",
+                    "icao": "BCS3"
+                },
+                "type": "pax",
+                "flightNumber": "1LWO",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 146,
+                    "cargo": 15,
+                    "weights": {
+                        "cargo": 1515
+                    }
+                },
+                "depTime": "2026-09-23T20:40:00.000Z",
+                "duration": 65,
+                "arrTime": "2026-09-23T21:45:00.000Z",
+                "depTimeAct": "2026-09-23T20:52:15.412Z",
+                "delay": -1,
+                "takeoffTimeAct": "2026-09-23T20:52:15.412Z",
+                "durationAct": 52,
+                "arrTimeAct": "2026-09-23T21:44:12.275Z",
+                "open": "2026-09-23T20:40:42.885Z",
+                "close": "2026-09-23T21:47:35.476Z",
+                "rating": 9,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 296,
+                        "fuel": 1731,
+                        "expenses": 6094,
+                        "penalties": 0,
+                        "revenue": 19695,
+                        "balance": 13601,
+                        "prices": {
+                            "ticketPrice": 111,
+                            "cargoUnitPrice": 129,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 146,
+                            "cargo": 15,
+                            "paxByClass": {
+                                "F": 2,
+                                "C": 8,
+                                "Y": 136
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1957,
+                        "aircraft": 2770,
+                        "handling": 940,
+                        "landing": 427
+                    },
+                    "revenue": {
+                        "tickets": 17760,
+                        "cargo": 1935
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 5.94m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -28,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "spoilers",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.69G (499 ft/min, normal  conditions)<br/>Distance from threshold: 263m (accepted range: 197-790m)<br/>Average centerline deviation: 3.48m<br/>Max centerline deviation: 5.94m",
+                            "penalty": {
+                                "points": -72,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 33
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.69,
+                                        "rate": 499
+                                    },
+                                    "weather": {
+                                        "windDir": 276.29,
+                                        "windSpd": 8.13,
+                                        "windX": -2.42
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-23T20:13:39.986Z",
+                "updatedAt": "2026-09-23T21:47:35.559Z",
+                "dep": {
+                    "icao": "LUKK",
+                    "name": "Chişinău International Airport",
+                    "city": "Chişinău",
+                    "location": {
+                        "lat": 46.92774,
+                        "lon": 28.931704,
+                        "elev": 399
+                    }
+                },
+                "arr": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "actArr": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                }
             }
         ]
     },
