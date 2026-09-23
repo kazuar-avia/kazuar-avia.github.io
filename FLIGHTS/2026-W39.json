@@ -273,6 +273,171 @@
                         "elev": 587
                     }
                 }
+            },
+            {
+                "_id": "6ab37f72ef75cc3330ae9e65",
+                "aircraft": {
+                    "_id": "699ae4f09da57b990ac12987",
+                    "name": "Boeing 777 Freighter",
+                    "customName": "UCAA l 777F (cargo) based in UKBB l UR-CRG",
+                    "icao": "B77L"
+                },
+                "type": "cargo",
+                "flightNumber": "43A",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 0,
+                    "cargo": 934,
+                    "weights": {
+                        "cargo": 99004
+                    }
+                },
+                "depTime": "2026-09-23T08:20:00.000Z",
+                "duration": 130,
+                "arrTime": "2026-09-23T10:30:00.000Z",
+                "depTimeAct": "2026-09-23T08:42:20.929Z",
+                "delay": 27,
+                "takeoffTimeAct": "2026-09-23T09:04:57.899Z",
+                "durationAct": 112,
+                "arrTimeAct": "2026-09-23T10:57:05.712Z",
+                "open": "2026-09-23T08:01:51.033Z",
+                "close": "2026-09-23T11:03:48.738Z",
+                "rating": 9.75,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 805,
+                        "fuel": 16110,
+                        "expenses": 39650,
+                        "penalties": 3736,
+                        "revenue": 141968,
+                        "balance": 98582,
+                        "prices": {
+                            "ticketPrice": 142,
+                            "cargoUnitPrice": 152,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 0,
+                            "cargo": 934,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 18213,
+                        "aircraft": 17060,
+                        "handling": 2102,
+                        "landing": 2275
+                    },
+                    "revenue": {
+                        "tickets": 0,
+                        "cargo": 141968
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight delayed 8 minutes (max 15 minutes after scheduled is allowed)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 3736
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 48
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Delayed gear retraction after takeoff more than 30s, actual: 53s)",
+                            "penalty": {
+                                "points": -25,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gear",
+                                "payload": {
+                                    "system": {
+                                        "fps": 46
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.11G (136 ft/min, challenging  conditions)<br/>Distance from threshold: 576m (accepted range: 209-838m)<br/>Average centerline deviation: 0.68m<br/>Max centerline deviation: 1.37m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 50
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.11,
+                                        "rate": 136
+                                    },
+                                    "weather": {
+                                        "windDir": 333.45,
+                                        "windSpd": 7.66,
+                                        "windX": 3.88
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-23T07:27:46.100Z",
+                "updatedAt": "2026-09-23T11:03:48.834Z",
+                "dep": {
+                    "icao": "EDDP",
+                    "name": "Leipzig/Halle Airport",
+                    "city": "Schkeuditz",
+                    "location": {
+                        "lat": 51.420657,
+                        "lon": 12.232705,
+                        "elev": 465
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
             }
         ]
     },
