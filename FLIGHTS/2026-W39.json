@@ -438,6 +438,165 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6ab3c64b43d6069014a0ef7a",
+                "aircraft": {
+                    "_id": "6aa800e9ef75cc333072a8c2",
+                    "name": "Embraer ERJ-145 LR",
+                    "customName": "E145 ",
+                    "icao": "E145"
+                },
+                "type": "pax",
+                "flightNumber": "71F",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 43,
+                    "cargo": 6,
+                    "weights": {
+                        "cargo": 612
+                    }
+                },
+                "depTime": "2026-09-23T13:10:00.000Z",
+                "duration": 60,
+                "arrTime": "2026-09-23T14:10:00.000Z",
+                "depTimeAct": "2026-09-23T13:04:27.480Z",
+                "delay": 6,
+                "takeoffTimeAct": "2026-09-23T13:28:25.440Z",
+                "durationAct": 48,
+                "arrTimeAct": "2026-09-23T14:16:18.416Z",
+                "open": "2026-09-23T13:00:02.297Z",
+                "close": "2026-09-23T14:34:25.958Z",
+                "rating": 9.71,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 269,
+                        "fuel": 898,
+                        "expenses": 3603,
+                        "penalties": 0,
+                        "revenue": 5455,
+                        "balance": 1852,
+                        "prices": {
+                            "ticketPrice": 109,
+                            "cargoUnitPrice": 128,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 43,
+                            "cargo": 6,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 43
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1016,
+                        "aircraft": 1333,
+                        "handling": 390,
+                        "landing": 864
+                    },
+                    "revenue": {
+                        "tickets": 4687,
+                        "cargo": 768
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 6.23m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -26,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 61
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.41,
+                                        "rate": 282
+                                    },
+                                    "weather": {
+                                        "windDir": 282.75,
+                                        "windSpd": 6.38,
+                                        "windX": 6.29
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.41G (282 ft/min, normal  conditions)<br/>Distance from threshold: 526m (accepted range: 205-823m)<br/>Average centerline deviation: 4.21m<br/>Max centerline deviation: 6.23m",
+                            "penalty": {
+                                "points": -3,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 61
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.41,
+                                        "rate": 282
+                                    },
+                                    "weather": {
+                                        "windDir": 282.75,
+                                        "windSpd": 6.38,
+                                        "windX": 6.29
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-23T12:30:03.858Z",
+                "updatedAt": "2026-09-23T14:34:26.046Z",
+                "dep": {
+                    "icao": "EGBB",
+                    "name": "Birmingham Airport",
+                    "city": "Birmingham, West Midlands",
+                    "location": {
+                        "lat": 52.453899,
+                        "lon": -1.74803,
+                        "elev": 327
+                    }
+                },
+                "arr": {
+                    "icao": "EHAM",
+                    "name": "Amsterdam Airport Schiphol",
+                    "city": "Amsterdam",
+                    "location": {
+                        "lat": 52.308601,
+                        "lon": 4.76389,
+                        "elev": -11
+                    }
+                },
+                "actArr": {
+                    "icao": "EHAM",
+                    "name": "Amsterdam Airport Schiphol",
+                    "city": "Amsterdam",
+                    "location": {
+                        "lat": 52.308601,
+                        "lon": 4.76389,
+                        "elev": -11
+                    }
+                }
             }
         ]
     },
