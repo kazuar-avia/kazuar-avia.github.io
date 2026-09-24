@@ -6596,6 +6596,156 @@
                         "elev": 170
                     }
                 }
+            },
+            {
+                "_id": "6ab510f443d6069014bb5d42",
+                "aircraft": {
+                    "_id": "6a4fa15e5760ec7cdb627803",
+                    "name": "Boeing 737-800",
+                    "customName": "Dry Lease l BOEING 737-800",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "78",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 155,
+                    "cargo": 37,
+                    "weights": {
+                        "cargo": 4477
+                    }
+                },
+                "depTime": "2026-09-24T12:45:00.000Z",
+                "duration": 70,
+                "arrTime": "2026-09-24T13:55:00.000Z",
+                "depTimeAct": "2026-09-24T12:32:17.096Z",
+                "delay": -23,
+                "takeoffTimeAct": "2026-09-24T12:41:13.106Z",
+                "durationAct": 51,
+                "arrTimeAct": "2026-09-24T13:32:03.141Z",
+                "open": "2026-09-24T12:11:35.287Z",
+                "close": "2026-09-24T13:37:27.184Z",
+                "rating": 9.95,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 323,
+                        "fuel": 2930,
+                        "expenses": 11897,
+                        "penalties": 0,
+                        "revenue": 22325,
+                        "balance": 10428,
+                        "prices": {
+                            "ticketPrice": 113,
+                            "cargoUnitPrice": 130,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 155,
+                            "cargo": 37,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 155
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3313,
+                        "aircraft": 4775,
+                        "handling": 1259,
+                        "landing": 2550
+                    },
+                    "revenue": {
+                        "tickets": 17515,
+                        "cargo": 4810
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 4.46m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -5,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 36
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.34G (299 ft/min, normal  conditions)<br/>Distance from threshold: 410m (accepted range: 199-800m)<br/>Average centerline deviation: 2.21m<br/>Max centerline deviation: 4.46m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 36
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.34,
+                                        "rate": 299
+                                    },
+                                    "weather": {
+                                        "windDir": 179.77,
+                                        "windSpd": 6.58,
+                                        "windX": -0.08
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-24T12:00:52.802Z",
+                "updatedAt": "2026-09-24T13:37:27.310Z",
+                "dep": {
+                    "icao": "LPFR",
+                    "name": "Faro - Gago Coutinho International Airport",
+                    "city": "Faro",
+                    "location": {
+                        "lat": 37.015909,
+                        "lon": -7.970939,
+                        "elev": 24
+                    }
+                },
+                "arr": {
+                    "icao": "LEMD",
+                    "name": "Adolfo Suárez Madrid–Barajas Airport",
+                    "city": "Madrid",
+                    "location": {
+                        "lat": 40.493407,
+                        "lon": -3.572249,
+                        "elev": 1998
+                    }
+                },
+                "actArr": {
+                    "icao": "LEMD",
+                    "name": "Adolfo Suárez Madrid–Barajas Airport",
+                    "city": "Madrid",
+                    "location": {
+                        "lat": 40.493407,
+                        "lon": -3.572249,
+                        "elev": 1998
+                    }
+                }
             }
         ]
     },
