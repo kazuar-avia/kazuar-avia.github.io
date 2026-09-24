@@ -8074,6 +8074,180 @@
                         "elev": 1487
                     }
                 }
+            },
+            {
+                "_id": "6ab4d2ce43d6069014b6eb1c",
+                "aircraft": {
+                    "_id": "69ef2347a5e61d69a7a9a2b0",
+                    "name": "Airbus A320",
+                    "customName": "WizzAir Ukraine l A320 IAE SL based in UKBB l UR-WUB",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "6109",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 178,
+                    "cargo": 11,
+                    "weights": {
+                        "cargo": 1386
+                    }
+                },
+                "depTime": "2026-09-24T07:50:00.000Z",
+                "duration": 165,
+                "arrTime": "2026-09-24T10:35:00.000Z",
+                "depTimeAct": "2026-09-24T07:57:10.928Z",
+                "delay": 24,
+                "takeoffTimeAct": "2026-09-24T08:06:55.928Z",
+                "durationAct": 172,
+                "arrTimeAct": "2026-09-24T10:59:13.026Z",
+                "open": "2026-09-24T07:56:59.928Z",
+                "close": "2026-09-24T11:02:40.415Z",
+                "rating": 3.26,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1098,
+                        "fuel": 7232,
+                        "expenses": 18191,
+                        "penalties": 87500,
+                        "revenue": 30884,
+                        "balance": -74807,
+                        "prices": {
+                            "ticketPrice": 163,
+                            "cargoUnitPrice": 170,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 178,
+                            "cargo": 11,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 178
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 8176,
+                        "aircraft": 7200,
+                        "handling": 2248,
+                        "landing": 567
+                    },
+                    "revenue": {
+                        "tickets": 29014,
+                        "cargo": 1870
+                    },
+                    "violations": [
+                        {
+                            "title": "Terrible touchdown: 2.52G (960 ft/min, challenging  conditions)<br/>Distance from threshold: 203m (accepted range: 175-704m)<br/>Average centerline deviation: 2.21m<br/>Max centerline deviation: 2.21m",
+                            "penalty": {
+                                "points": -255,
+                                "cash": 28000
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 33
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.52,
+                                        "rate": 960
+                                    },
+                                    "weather": {
+                                        "windDir": 202.63,
+                                        "windSpd": 9.65,
+                                        "windX": -8.23
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 13.41m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -112,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Terrible touchdown: 2.73G (1052 ft/min, challenging  conditions)<br/>Distance from threshold: 355m (accepted range: 175-704m)<br/>Average centerline deviation: 7.22m<br/>Max centerline deviation: 13.41m",
+                            "penalty": {
+                                "points": -307,
+                                "cash": 59500
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.73,
+                                        "rate": 1052
+                                    },
+                                    "weather": {
+                                        "windDir": 202.48,
+                                        "windSpd": 15.18,
+                                        "windX": -11.99
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-24T07:35:42.394Z",
+                "updatedAt": "2026-09-24T11:02:40.534Z",
+                "dep": {
+                    "icao": "EDDM",
+                    "name": "Munich Airport",
+                    "city": "Munich",
+                    "location": {
+                        "lat": 48.353802,
+                        "lon": 11.7861,
+                        "elev": 1487
+                    }
+                },
+                "arr": {
+                    "icao": "UKHH",
+                    "name": "Kharkiv International Airport",
+                    "city": "Kharkiv",
+                    "location": {
+                        "lat": 49.926943,
+                        "lon": 36.290814,
+                        "elev": 508
+                    }
+                },
+                "actArr": {
+                    "icao": "UKHH",
+                    "name": "Kharkiv International Airport",
+                    "city": "Kharkiv",
+                    "location": {
+                        "lat": 49.926943,
+                        "lon": 36.290814,
+                        "elev": 508
+                    }
+                }
             }
         ]
     }
