@@ -2,6 +2,8 @@ name: Update guaranteed bonuses
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: "*/10 * * * *"
   push:
     branches:
       - main
