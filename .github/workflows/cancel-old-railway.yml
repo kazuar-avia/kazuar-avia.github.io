@@ -1,48 +1,78 @@
-name: Update guaranteed bonuses
+name: Cancel old Railway deployments
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - main
-    paths:
-      - "COMPANY/livery-matching.json"
-
-permissions:
-  contents: write
 
 concurrency:
-  group: update-guaranteed-bonuses
-  cancel-in-progress: false
+  group: cancel-old-railway
+  cancel-in-progress: true
 
 jobs:
-  update:
+  cancel-old:
     runs-on: ubuntu-latest
+    container: ghcr.io/railwayapp/cli:latest
 
     steps:
-      - name: Checkout site
-        uses: actions/checkout@v4
-        
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 24        
-
-      - name: Run guaranteed bonuses updater
-        run: node scripts/update-guaranteed-bonuses.js
-
-      - name: Commit updated bonus file
+      - name: Cancel old Railway deployments
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
+          CURRENT_SHA: ${{ github.sha }}
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          echo "Current GitHub commit: $CURRENT_SHA"
 
-          if git diff --quiet -- COMPANY/guaranteed-bonuses.json; then
-            echo "No guaranteed bonus changes."
-            exit 0
-          fi
+          railway deployment list \
+            --service efe286ee-8bf7-4113-8b79-4676bb804e0f \
+            --json > deployments.json
 
-          git add COMPANY/guaranteed-bonuses.json
-          git commit -m "Update guaranteed bonuses"
+          echo "Deployments received"
 
-          git pull --rebase origin main
-          git push
+          awk '
+          /"id":/ {
+              id=$0
+              gsub(/.*"id": *"/,"",id)
+              gsub(/".*/,"",id)
+          }
+
+          /"status":/ {
+              status=$0
+              gsub(/.*"status": *"/,"",status)
+              gsub(/".*/,"",status)
+          }
+
+          /"commitHash":/ {
+              commit=$0
+              gsub(/.*"commitHash": *"/,"",commit)
+              gsub(/".*/,"",commit)
+
+              if (status == "BUILDING" || status == "QUEUED") {
+                  print id "|" status "|" commit
+              }
+          }
+          ' deployments.json > active.txt
+
+          echo "Active deployments:"
+
+          cat active.txt
+
+          while IFS='|' read -r ID STATUS COMMIT; do
+
+            if [ -z "$ID" ]; then
+              continue
+            fi
+
+            echo "Found: $ID | $STATUS | $COMMIT"
+
+            if [ "$COMMIT" = "$CURRENT_SHA" ]; then
+              echo "KEEP: $ID"
+              continue
+            fi
+
+            echo "CANCEL: $ID"
+
+            railway api \
+              --variables "{\"id\":\"$ID\"}" \
+              'mutation($id: String!) { deploymentCancel(id: $id) }'
+
+          done < active.txt
