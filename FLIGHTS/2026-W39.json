@@ -11912,5 +11912,175 @@
                 }
             }
         ]
+    },
+    {
+        "pilot_id": "6a0781c2a5e61d69a7d893c0",
+        "fullname": "Valentin Petrovich",
+        "avatar": "6a0781c2a5e61d69a7d893c01778877475482",
+        "flights": [
+            {
+                "_id": "6ab689c643d6069014dbcf19",
+                "aircraft": {
+                    "_id": "696bb9e13dc76275ba8ddf8f",
+                    "name": "Airbus A330-200",
+                    "customName": "Windrose vs AUI l A330-200 based in UKBB l UR-WRQ",
+                    "icao": "A332"
+                },
+                "type": "pax",
+                "flightNumber": "755",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 321,
+                    "cargo": 67,
+                    "weights": {
+                        "cargo": 8442
+                    }
+                },
+                "depTime": "2026-09-25T15:30:00.000Z",
+                "duration": 660,
+                "arrTime": "2026-09-26T02:30:00.000Z",
+                "depTimeAct": "2026-09-25T15:41:14.437Z",
+                "delay": -25,
+                "takeoffTimeAct": "2026-09-25T15:50:45.409Z",
+                "durationAct": 614,
+                "arrTimeAct": "2026-09-26T02:04:51.360Z",
+                "open": "2026-09-25T15:10:10.436Z",
+                "close": "2026-09-26T02:11:42.407Z",
+                "rating": 8.08,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 4926,
+                        "fuel": 61780,
+                        "expenses": 102483,
+                        "penalties": 0,
+                        "revenue": 257152,
+                        "balance": 154669,
+                        "prices": {
+                            "ticketPrice": 660,
+                            "cargoUnitPrice": 676,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 321,
+                            "cargo": 67,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 321
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 55874,
+                        "aircraft": 38620,
+                        "handling": 2364,
+                        "landing": 5625
+                    },
+                    "revenue": {
+                        "tickets": 211860,
+                        "cargo": 45292
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 12.01m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -92,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.30G (329 ft/min, normal  conditions)<br/>Distance from threshold: 331m (accepted range: 205-823m)<br/>Average centerline deviation: 6.97m<br/>Max centerline deviation: 12.01m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.3,
+                                        "rate": 329
+                                    },
+                                    "weather": {
+                                        "windDir": 290.21,
+                                        "windSpd": 3.21,
+                                        "windX": 1.26
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No NAV lights for 36285s when required",
+                            "penalty": {
+                                "points": -100,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-25T14:48:38.141Z",
+                "updatedAt": "2026-09-26T02:11:42.553Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "VHHH",
+                    "name": "Hong Kong International Airport",
+                    "city": "Hong Kong",
+                    "location": {
+                        "lat": 22.31184,
+                        "lon": 113.914862,
+                        "elev": 28
+                    }
+                },
+                "actArr": {
+                    "icao": "VHHH",
+                    "name": "Hong Kong International Airport",
+                    "city": "Hong Kong",
+                    "location": {
+                        "lat": 22.31184,
+                        "lon": 113.914862,
+                        "elev": 28
+                    }
+                }
+            }
+        ]
     }
 ]
