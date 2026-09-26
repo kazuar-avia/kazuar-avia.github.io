@@ -13,66 +13,165 @@ jobs:
   cancel-old:
     runs-on: ubuntu-latest
     container: ghcr.io/railwayapp/cli:latest
+    timeout-minutes: 3
 
     steps:
+      - name: Install tools
+        run: apk add --no-cache bash jq
+
       - name: Cancel old Railway deployments
+        shell: bash
         env:
+          # У тебе GitHub secret називається RAILWAY_API_TOKEN,
+          # але передається CLI як project token.
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
+
           CURRENT_SHA: ${{ github.sha }}
+
+          SERVICE_ID: efe286ee-8bf7-4113-8b79-4676bb804e0f
+
         run: |
-          echo "Current GitHub commit: $CURRENT_SHA"
+          set -Eeuo pipefail
 
-          railway deployment list \
-            --service efe286ee-8bf7-4113-8b79-4676bb804e0f \
-            --json > deployments.json
+          echo "=================================================="
+          echo "🚂 Railway old deployment cleaner"
+          echo "=================================================="
+          echo "Current GitHub SHA: $CURRENT_SHA"
+          echo "Service: $SERVICE_ID"
+          echo
 
-          echo "Deployments received"
+          # Railway може створити deployment не миттєво після push.
+          # Тому перевіряємо до ~60 секунд.
+          for ATTEMPT in $(seq 1 12); do
 
-          awk '
-          /"id":/ {
-              id=$0
-              gsub(/.*"id": *"/,"",id)
-              gsub(/".*/,"",id)
-          }
+            echo
+            echo "=================================================="
+            echo "🔎 Перевірка $ATTEMPT/12"
+            echo "=================================================="
 
-          /"status":/ {
-              status=$0
-              gsub(/.*"status": *"/,"",status)
-              gsub(/".*/,"",status)
-          }
+            railway deployment list \
+              --service "$SERVICE_ID" \
+              --limit 50 \
+              --json > deployments.json
 
-          /"commitHash":/ {
-              commit=$0
-              gsub(/.*"commitHash": *"/,"",commit)
-              gsub(/".*/,"",commit)
-
-              if (status == "BUILDING" || status == "QUEUED") {
-                  print id "|" status "|" commit
-              }
-          }
-          ' deployments.json > active.txt
-
-          echo "Active deployments:"
-
-          cat active.txt
-
-          while IFS='|' read -r ID STATUS COMMIT; do
-
-            if [ -z "$ID" ]; then
-              continue
+            # Якщо Railway раптом повернув не JSON-масив —
+            # workflow має впасти, а не показати фальшивий SUCCESS.
+            if ! jq -e 'type == "array"' deployments.json >/dev/null; then
+              echo "❌ Railway повернув некоректний JSON:"
+              cat deployments.json
+              exit 1
             fi
 
-            echo "Found: $ID | $STATUS | $COMMIT"
+            echo
+            echo "Активні Railway deployments:"
 
-            if [ "$COMMIT" = "$CURRENT_SHA" ]; then
-              echo "KEEP: $ID"
-              continue
+            jq -r '
+              .[]
+              | select(
+                  .status == "INITIALIZING"
+                  or .status == "WAITING"
+                  or .status == "QUEUED"
+                  or .status == "BUILDING"
+                  or .status == "DEPLOYING"
+                )
+              | "  \(.status) | \(.id) | \(.meta.commitHash // "NO_COMMIT")"
+            ' deployments.json
+
+            # Спочатку переконуємось, що Railway вже створив deployment
+            # для ТОГО commit, який запустив цей GitHub Action.
+            CURRENT_DEPLOYMENT_ID="$(
+              jq -r --arg sha "$CURRENT_SHA" '
+                .[]
+                | select((.meta.commitHash // "") == $sha)
+                | .id
+              ' deployments.json | head -n 1
+            )"
+
+            if [ -z "$CURRENT_DEPLOYMENT_ID" ]; then
+              echo
+              echo "⏳ Deployment поточного commit ще не з'явився в Railway."
+              echo "   Нічого не скасовую, щоб випадково не прибрати правильний build."
+
+            else
+              echo
+              echo "✅ Поточний Railway deployment знайдено:"
+              echo "   $CURRENT_DEPLOYMENT_ID"
+              echo
+
+              FOUND_OLD=0
+
+              while IFS=$'\t' read -r ID STATUS COMMIT; do
+
+                [ -z "$ID" ] && continue
+
+                # Поточний commit залишаємо.
+                if [ "$COMMIT" = "$CURRENT_SHA" ]; then
+                  echo "✅ KEEP   $STATUS"
+                  echo "   deployment: $ID"
+                  echo "   commit:     $COMMIT"
+                  echo
+                  continue
+                fi
+
+                # Якщо Railway чомусь не дав commitHash,
+                # краще не видаляти deployment наосліп.
+                if [ -z "$COMMIT" ] || [ "$COMMIT" = "null" ]; then
+                  echo "⚠️ SKIP   $STATUS"
+                  echo "   deployment: $ID"
+                  echo "   Причина: немає commitHash"
+                  echo
+                  continue
+                fi
+
+                FOUND_OLD=1
+
+                echo "❌ CANCEL $STATUS"
+                echo "   deployment: $ID"
+                echo "   commit:     $COMMIT"
+                echo
+
+                railway api \
+                  'mutation($id: String!) { deploymentCancel(id: $id) }' \
+                  --raw-var id="$ID" \
+                  --compact
+
+                echo
+                echo "   ✅ Команду скасування відправлено"
+                echo
+
+              done < <(
+                jq -r '
+                  .[]
+                  | select(
+                      .status == "INITIALIZING"
+                      or .status == "WAITING"
+                      or .status == "QUEUED"
+                      or .status == "BUILDING"
+                      or .status == "DEPLOYING"
+                    )
+                  | [
+                      .id,
+                      .status,
+                      (.meta.commitHash // "")
+                    ]
+                  | @tsv
+                ' deployments.json
+              )
+
+              if [ "$FOUND_OLD" -eq 0 ]; then
+                echo "✅ Старих активних deployments зараз немає."
+              fi
             fi
 
-            echo "CANCEL: $ID"
+            if [ "$ATTEMPT" -lt 12 ]; then
+              echo
+              echo "⏱ Наступна перевірка через 5 секунд..."
+              sleep 5
+            fi
 
-            railway api \
-              --variables "{\"id\":\"$ID\"}" \
-              'mutation($id: String!) { deploymentCancel(id: $id) }'
+          done
 
-          done < active.txt
+          echo
+          echo "=================================================="
+          echo "✅ Перевірку завершено"
+          echo "=================================================="
