@@ -13843,6 +13843,180 @@
                         "elev": 648
                     }
                 }
+            },
+            {
+                "_id": "6ab8044d43d606901400ecc2",
+                "aircraft": {
+                    "_id": "6a5e237a50c8a562fcb2e8d7",
+                    "name": "Airbus A330-300",
+                    "customName": "Dry Lease l A330-300 RR iniBuilds l 375 pax elite",
+                    "icao": "A333"
+                },
+                "type": "pax",
+                "flightNumber": "1339",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 375,
+                    "cargo": 43,
+                    "weights": {
+                        "cargo": 5977
+                    }
+                },
+                "depTime": "2026-09-26T18:15:00.000Z",
+                "duration": 145,
+                "arrTime": "2026-09-26T20:40:00.000Z",
+                "depTimeAct": "2026-09-26T17:58:53.784Z",
+                "delay": -38,
+                "takeoffTimeAct": "2026-09-26T18:05:23.797Z",
+                "durationAct": 117,
+                "arrTimeAct": "2026-09-26T20:02:27.977Z",
+                "open": "2026-09-26T17:52:29.554Z",
+                "close": "2026-09-26T20:07:04.045Z",
+                "rating": 9.48,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 896,
+                        "fuel": 11387,
+                        "expenses": 36016,
+                        "penalties": 0,
+                        "revenue": 77303,
+                        "balance": 41287,
+                        "prices": {
+                            "ticketPrice": 153,
+                            "cargoUnitPrice": 161,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 375,
+                            "cargo": 43,
+                            "paxByClass": {
+                                "F": 15,
+                                "C": 40,
+                                "Y": 320
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 12874,
+                        "aircraft": 19410,
+                        "handling": 2382,
+                        "landing": 1350
+                    },
+                    "revenue": {
+                        "tickets": 70380,
+                        "cargo": 6923
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 4.59m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -8,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 52
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 6.74m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -44,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 33
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.36,
+                                        "rate": 378
+                                    },
+                                    "weather": {
+                                        "windDir": 170,
+                                        "windSpd": 3.79,
+                                        "windX": -3.15
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.36G (378 ft/min, normal  conditions)<br/>Distance from threshold: 405m (accepted range: 175-703m)<br/>Average centerline deviation: 2.76m<br/>Max centerline deviation: 6.74m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 33
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.36,
+                                        "rate": 378
+                                    },
+                                    "weather": {
+                                        "windDir": 170,
+                                        "windSpd": 3.79,
+                                        "windX": -3.15
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-26T17:43:41.649Z",
+                "updatedAt": "2026-09-26T20:07:04.150Z",
+                "dep": {
+                    "icao": "EYVI",
+                    "name": "Vilnius International Airport",
+                    "city": "Vilnius",
+                    "location": {
+                        "lat": 54.634102,
+                        "lon": 25.285801,
+                        "elev": 648
+                    }
+                },
+                "arr": {
+                    "icao": "EFIV",
+                    "name": "Ivalo Airport",
+                    "city": "Ivalo",
+                    "location": {
+                        "lat": 68.6073,
+                        "lon": 27.4053,
+                        "elev": 481
+                    }
+                },
+                "actArr": {
+                    "icao": "EFIV",
+                    "name": "Ivalo Airport",
+                    "city": "Ivalo",
+                    "location": {
+                        "lat": 68.6073,
+                        "lon": 27.4053,
+                        "elev": 481
+                    }
+                }
             }
         ]
     },
