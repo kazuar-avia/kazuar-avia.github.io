@@ -22,12 +22,8 @@ jobs:
       - name: Cancel old Railway deployments
         shell: bash
         env:
-          # У тебе GitHub secret називається RAILWAY_API_TOKEN,
-          # але передається CLI як project token.
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
-
           CURRENT_SHA: ${{ github.sha }}
-
           SERVICE_ID: efe286ee-8bf7-4113-8b79-4676bb804e0f
 
         run: |
@@ -38,12 +34,10 @@ jobs:
           echo "=================================================="
           echo "Current GitHub SHA: $CURRENT_SHA"
           echo "Service: $SERVICE_ID"
-          echo
 
-          # Railway може створити deployment не миттєво після push.
-          # Тому перевіряємо до ~60 секунд.
+          declare -A CANCEL_REQUESTED=()
+
           for ATTEMPT in $(seq 1 12); do
-
             echo
             echo "=================================================="
             echo "🔎 Перевірка $ATTEMPT/12"
@@ -54,17 +48,13 @@ jobs:
               --limit 50 \
               --json > deployments.json
 
-            # Якщо Railway раптом повернув не JSON-масив —
-            # workflow має впасти, а не показати фальшивий SUCCESS.
             if ! jq -e 'type == "array"' deployments.json >/dev/null; then
-              echo "❌ Railway повернув некоректний JSON:"
+              echo "❌ Railway повернув неочікувану відповідь:"
               cat deployments.json
               exit 1
             fi
 
-            echo
             echo "Активні Railway deployments:"
-
             jq -r '
               .[]
               | select(
@@ -77,67 +67,51 @@ jobs:
               | "  \(.status) | \(.id) | \(.meta.commitHash // "NO_COMMIT")"
             ' deployments.json
 
-            # Спочатку переконуємось, що Railway вже створив deployment
-            # для ТОГО commit, який запустив цей GitHub Action.
             CURRENT_DEPLOYMENT_ID="$(
               jq -r --arg sha "$CURRENT_SHA" '
-                .[]
-                | select((.meta.commitHash // "") == $sha)
-                | .id
-              ' deployments.json | head -n 1
+                first(
+                  .[]
+                  | select((.meta.commitHash // "") == $sha)
+                  | .id
+                ) // empty
+              ' deployments.json
             )"
 
             if [ -z "$CURRENT_DEPLOYMENT_ID" ]; then
               echo
-              echo "⏳ Deployment поточного commit ще не з'явився в Railway."
-              echo "   Нічого не скасовую, щоб випадково не прибрати правильний build."
-
+              echo "⏳ Railway ще не створив deployment для поточного commit."
+              echo "   Поки нічого не скасовую."
             else
               echo
-              echo "✅ Поточний Railway deployment знайдено:"
-              echo "   $CURRENT_DEPLOYMENT_ID"
-              echo
-
-              FOUND_OLD=0
+              echo "✅ Поточний deployment знайдено: $CURRENT_DEPLOYMENT_ID"
 
               while IFS=$'\t' read -r ID STATUS COMMIT; do
-
                 [ -z "$ID" ] && continue
 
-                # Поточний commit залишаємо.
                 if [ "$COMMIT" = "$CURRENT_SHA" ]; then
-                  echo "✅ KEEP   $STATUS"
-                  echo "   deployment: $ID"
-                  echo "   commit:     $COMMIT"
-                  echo
+                  echo "✅ KEEP   $STATUS | $ID | $COMMIT"
                   continue
                 fi
 
-                # Якщо Railway чомусь не дав commitHash,
-                # краще не видаляти deployment наосліп.
                 if [ -z "$COMMIT" ] || [ "$COMMIT" = "null" ]; then
-                  echo "⚠️ SKIP   $STATUS"
-                  echo "   deployment: $ID"
-                  echo "   Причина: немає commitHash"
-                  echo
+                  echo "⚠️ SKIP   $STATUS | $ID | немає commitHash"
                   continue
                 fi
 
-                FOUND_OLD=1
+                if [ -n "${CANCEL_REQUESTED[$ID]:-}" ]; then
+                  echo "⏳ WAIT   $STATUS | $ID | скасування вже відправлено"
+                  continue
+                fi
 
-                echo "❌ CANCEL $STATUS"
-                echo "   deployment: $ID"
-                echo "   commit:     $COMMIT"
-                echo
+                echo "❌ CANCEL $STATUS | $ID | $COMMIT"
 
                 railway api \
                   'mutation($id: String!) { deploymentCancel(id: $id) }' \
                   --raw-var id="$ID" \
                   --compact
 
-                echo
+                CANCEL_REQUESTED["$ID"]=1
                 echo "   ✅ Команду скасування відправлено"
-                echo
 
               done < <(
                 jq -r '
@@ -149,18 +123,10 @@ jobs:
                       or .status == "BUILDING"
                       or .status == "DEPLOYING"
                     )
-                  | [
-                      .id,
-                      .status,
-                      (.meta.commitHash // "")
-                    ]
+                  | [.id, .status, (.meta.commitHash // "")]
                   | @tsv
                 ' deployments.json
               )
-
-              if [ "$FOUND_OLD" -eq 0 ]; then
-                echo "✅ Старих активних deployments зараз немає."
-              fi
             fi
 
             if [ "$ATTEMPT" -lt 12 ]; then
@@ -168,10 +134,56 @@ jobs:
               echo "⏱ Наступна перевірка через 5 секунд..."
               sleep 5
             fi
-
           done
 
           echo
           echo "=================================================="
-          echo "✅ Перевірку завершено"
+          echo "🔎 Фінальна перевірка"
           echo "=================================================="
+
+          railway deployment list \
+            --service "$SERVICE_ID" \
+            --limit 50 \
+            --json > deployments-final.json
+
+          REMAINING_OLD="$(
+            jq -r --arg sha "$CURRENT_SHA" '
+              [
+                .[]
+                | select(
+                    (
+                      .status == "INITIALIZING"
+                      or .status == "WAITING"
+                      or .status == "QUEUED"
+                      or .status == "BUILDING"
+                      or .status == "DEPLOYING"
+                    )
+                    and (.meta.commitHash // "") != ""
+                    and (.meta.commitHash // "") != $sha
+                  )
+              ]
+              | length
+            ' deployments-final.json
+          )"
+
+          if [ "$REMAINING_OLD" -gt 0 ]; then
+            echo "❌ Залишилися старі активні deployments: $REMAINING_OLD"
+            jq -r --arg sha "$CURRENT_SHA" '
+              .[]
+              | select(
+                  (
+                    .status == "INITIALIZING"
+                    or .status == "WAITING"
+                    or .status == "QUEUED"
+                    or .status == "BUILDING"
+                    or .status == "DEPLOYING"
+                  )
+                  and (.meta.commitHash // "") != ""
+                  and (.meta.commitHash // "") != $sha
+                )
+              | "  \(.status) | \(.id) | \(.meta.commitHash)"
+            ' deployments-final.json
+            exit 1
+          fi
+
+          echo "✅ Старих активних Railway deployments немає."
