@@ -15702,6 +15702,156 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6ab8e77d43d606901414a9b5",
+                "aircraft": {
+                    "_id": "696bb9e13dc76275ba8ddf8f",
+                    "name": "Airbus A330-200",
+                    "customName": "Windrose vs AUI l A330-200 based in UKBB l UR-WRQ",
+                    "icao": "A332"
+                },
+                "type": "pax",
+                "flightNumber": "201",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 321,
+                    "cargo": 55,
+                    "weights": {
+                        "cargo": 4015
+                    }
+                },
+                "depTime": "2026-09-27T10:25:00.000Z",
+                "duration": 420,
+                "arrTime": "2026-09-27T17:25:00.000Z",
+                "depTimeAct": "2026-09-27T10:30:19.720Z",
+                "delay": -48,
+                "takeoffTimeAct": "2026-09-27T10:39:44.307Z",
+                "durationAct": 358,
+                "arrTimeAct": "2026-09-27T16:37:15.336Z",
+                "open": "2026-09-27T09:55:01.460Z",
+                "close": "2026-09-27T16:42:45.228Z",
+                "rating": 9.83,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 2820,
+                        "fuel": 33448,
+                        "expenses": 62369,
+                        "penalties": 0,
+                        "revenue": 153674,
+                        "balance": 91305,
+                        "prices": {
+                            "ticketPrice": 409,
+                            "cargoUnitPrice": 407,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 321,
+                            "cargo": 55,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 321
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 30251,
+                        "aircraft": 25770,
+                        "handling": 2343,
+                        "landing": 4005
+                    },
+                    "revenue": {
+                        "tickets": 131289,
+                        "cargo": 22385
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 5.04m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -17,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.27G (317 ft/min, normal  conditions)<br/>Distance from threshold: 393m (accepted range: 217-870m)<br/>Average centerline deviation: 3.62m<br/>Max centerline deviation: 5.04m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.27,
+                                        "rate": 317
+                                    },
+                                    "weather": {
+                                        "windDir": 49.85,
+                                        "windSpd": 8.84,
+                                        "windX": -4.37
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-27T09:53:02.000Z",
+                "updatedAt": "2026-09-27T16:42:45.326Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "VIDP",
+                    "name": "Indira Gandhi International Airport",
+                    "city": "New Delhi",
+                    "location": {
+                        "lat": 28.55563,
+                        "lon": 77.09519,
+                        "elev": 777
+                    }
+                },
+                "actArr": {
+                    "icao": "VIDP",
+                    "name": "Indira Gandhi International Airport",
+                    "city": "New Delhi",
+                    "location": {
+                        "lat": 28.55563,
+                        "lon": 77.09519,
+                        "elev": 777
+                    }
+                }
             }
         ]
     },
