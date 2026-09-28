@@ -4,6 +4,9 @@ on:
   push:
     branches: [main]
 
+permissions:
+  contents: read
+
 concurrency:
   group: cancel-old-railway
   cancel-in-progress: true
@@ -15,7 +18,7 @@ jobs:
     timeout-minutes: 2
     steps:
       - name: Install tools
-        run: apk add --no-cache bash jq
+        run: apk add --no-cache bash jq curl
 
       - name: Cancel outdated Railway builds
         shell: bash
@@ -23,12 +26,60 @@ jobs:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
           CURRENT_SHA: ${{ github.sha }}
           SERVICE_ID: efe286ee-8bf7-4113-8b79-4676bb804e0f
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           set -Eeuo pipefail
           declare -A SENT=()
 
+          github_get() {
+            curl -fsSL \
+              -H "Authorization: Bearer $GITHUB_TOKEN" \
+              -H "Accept: application/vnd.github+json" \
+              -H "X-GitHub-Api-Version: 2022-11-28" \
+              "https://api.github.com$1"
+          }
+
+          latest_main_sha() {
+            github_get "/repos/$GITHUB_REPOSITORY/git/ref/heads/main" \
+              | jq -r '.object.sha // ""'
+          }
+
+          is_older_than_current() {
+            local candidate="$1"
+            local compare_json status merge_base
+
+            [ "$candidate" = "$CURRENT_SHA" ] && return 1
+
+            if ! compare_json="$(github_get "/repos/$GITHUB_REPOSITORY/compare/$candidate...$CURRENT_SHA")"; then
+              echo "SKIP $candidate: GitHub compare failed" >&2
+              return 1
+            fi
+
+            status="$(jq -r '.status // ""' <<<"$compare_json")"
+            merge_base="$(jq -r '.merge_base_commit.sha // ""' <<<"$compare_json")"
+
+            # Cancel only when candidate is truly an ancestor of CURRENT_SHA.
+            # If candidate is newer ("behind") or from another history ("diverged"),
+            # it must NEVER be cancelled by this workflow.
+            [ "$status" = "ahead" ] && [ "$merge_base" = "$candidate" ]
+          }
+
           for ATTEMPT in $(seq 1 20); do
             echo "=== CHECK $ATTEMPT/20 ==="
+
+            LATEST_SHA="$(latest_main_sha)"
+            if [ -z "$LATEST_SHA" ]; then
+              echo "WARN: cannot determine latest main SHA; refusing to cancel anything"
+              exit 0
+            fi
+
+            if [ "$LATEST_SHA" != "$CURRENT_SHA" ]; then
+              echo "STOP: newer main commit exists: $LATEST_SHA"
+              echo "This workflow belongs to $CURRENT_SHA and is now obsolete."
+              exit 0
+            fi
+
             railway deployment list --service "$SERVICE_ID" --limit 100 --json > deployments.json
             jq -e 'type == "array"' deployments.json >/dev/null
 
@@ -36,7 +87,7 @@ jobs:
               [ -z "$ID" ] && continue
 
               if [ "$COMMIT" = "$CURRENT_SHA" ]; then
-                echo "KEEP $STATUS $ID $COMMIT"
+                echo "KEEP $STATUS $ID $COMMIT (current)"
                 continue
               fi
 
@@ -49,7 +100,20 @@ jobs:
                 continue
               fi
 
-              echo "CANCEL $STATUS $ID $COMMIT"
+              if ! is_older_than_current "$COMMIT"; then
+                echo "SKIP $STATUS $ID $COMMIT (not an older ancestor of $CURRENT_SHA)"
+                continue
+              fi
+
+              # Re-check immediately before cancellation so an older workflow
+              # cannot kill a deployment created by a commit that just arrived.
+              LATEST_SHA="$(latest_main_sha)"
+              if [ "$LATEST_SHA" != "$CURRENT_SHA" ]; then
+                echo "STOP: newer main commit appeared before cancellation: $LATEST_SHA"
+                exit 0
+              fi
+
+              echo "CANCEL OLD $STATUS $ID $COMMIT"
               railway api 'mutation($id: String!) { deploymentCancel(id: $id) }' --raw-var id="$ID" --compact
               SENT["$ID"]=1
             done < <(
@@ -71,11 +135,36 @@ jobs:
           done
 
           railway deployment list --service "$SERVICE_ID" --limit 100 --json > final.json
-          REMAINING=$(jq -r --arg sha "$CURRENT_SHA" '[.[] | select((.status == "INITIALIZING" or .status == "WAITING" or .status == "QUEUED" or .status == "BUILDING" or .status == "DEPLOYING") and (.meta.commitHash // "") != "" and (.meta.commitHash // "") != $sha)] | length' final.json)
+          REMAINING=0
+
+          while IFS=$'\t' read -r ID STATUS COMMIT; do
+            [ -z "$ID" ] && continue
+            [ -z "$COMMIT" ] && continue
+            [ "$COMMIT" = "null" ] && continue
+            [ "$COMMIT" = "$CURRENT_SHA" ] && continue
+
+            if is_older_than_current "$COMMIT"; then
+              echo "REMAINS OLD $STATUS $ID $COMMIT"
+              REMAINING=$((REMAINING + 1))
+            fi
+          done < <(
+            jq -r '
+              .[]
+              | select(
+                  .status == "INITIALIZING"
+                  or .status == "WAITING"
+                  or .status == "QUEUED"
+                  or .status == "BUILDING"
+                  or .status == "DEPLOYING"
+                )
+              | [.id, .status, (.meta.commitHash // "")]
+              | @tsv
+            ' final.json
+          )
 
           if [ "$REMAINING" -gt 0 ]; then
-            echo "ERROR: old active deployments remain: $REMAINING"
+            echo "ERROR: genuinely older active deployments remain: $REMAINING"
             exit 1
           fi
 
-          echo "OK: only current build remains"
+          echo "OK: no older Railway deployments remain"
