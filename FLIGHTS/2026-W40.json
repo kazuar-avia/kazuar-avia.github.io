@@ -2010,6 +2010,156 @@
                         "elev": 308
                     }
                 }
+            },
+            {
+                "_id": "6aba581743d606901439776f",
+                "aircraft": {
+                    "_id": "6a4fa15e5760ec7cdb627803",
+                    "name": "Boeing 737-800",
+                    "customName": "Dry Lease l BOEING 737-800",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "78",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 169,
+                    "cargo": 20,
+                    "weights": {
+                        "cargo": 2200
+                    }
+                },
+                "depTime": "2026-09-28T12:40:00.000Z",
+                "duration": 75,
+                "arrTime": "2026-09-28T13:55:00.000Z",
+                "depTimeAct": "2026-09-28T12:38:46.784Z",
+                "delay": 7,
+                "takeoffTimeAct": "2026-09-28T12:46:05.806Z",
+                "durationAct": 76,
+                "arrTimeAct": "2026-09-28T14:02:19.672Z",
+                "open": "2026-09-28T12:16:04.557Z",
+                "close": "2026-09-28T14:09:46.704Z",
+                "rating": 9.98,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 493,
+                        "fuel": 3784,
+                        "expenses": 11542,
+                        "penalties": 0,
+                        "revenue": 21946,
+                        "balance": 10404,
+                        "prices": {
+                            "ticketPrice": 114,
+                            "cargoUnitPrice": 134,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 169,
+                            "cargo": 20,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 169
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4278,
+                        "aircraft": 5400,
+                        "handling": 1024,
+                        "landing": 840
+                    },
+                    "revenue": {
+                        "tickets": 19266,
+                        "cargo": 2680
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 4.09m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -2,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "spoilers",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.07G (106 ft/min, normal  conditions)<br/>Distance from threshold: 407m (accepted range: 183-733m)<br/>Average centerline deviation: 1.87m<br/>Max centerline deviation: 4.09m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 39
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.07,
+                                        "rate": 106
+                                    },
+                                    "weather": {
+                                        "windDir": 89.91,
+                                        "windSpd": 16.46,
+                                        "windX": 0.18
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-28T12:05:43.561Z",
+                "updatedAt": "2026-09-28T14:09:46.793Z",
+                "dep": {
+                    "icao": "LIPQ",
+                    "name": "Trieste Airport",
+                    "city": "Ronchi dei Legionari/Trieste",
+                    "location": {
+                        "lat": 45.827862,
+                        "lon": 13.466672,
+                        "elev": 39
+                    }
+                },
+                "arr": {
+                    "icao": "LIEO",
+                    "name": "Olbia Costa Smeralda Airport",
+                    "city": "Olbia (SS)",
+                    "location": {
+                        "lat": 40.898953,
+                        "lon": 9.518457,
+                        "elev": 37
+                    }
+                },
+                "actArr": {
+                    "icao": "LIEO",
+                    "name": "Olbia Costa Smeralda Airport",
+                    "city": "Olbia (SS)",
+                    "location": {
+                        "lat": 40.898953,
+                        "lon": 9.518457,
+                        "elev": 37
+                    }
+                }
             }
         ]
     },
