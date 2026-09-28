@@ -3529,5 +3529,195 @@
                 }
             }
         ]
+    },
+    {
+        "pilot_id": "67af93e134cf96eb9a5b249d",
+        "fullname": "Andy Crown",
+        "avatar": "default",
+        "flights": [
+            {
+                "_id": "6abaa0eed04e42b02731934b",
+                "aircraft": {
+                    "_id": "6980e9459da57b990a02e1bd",
+                    "name": "Boeing 737 MAX 8",
+                    "customName": "Ukraine Int l 737-MAX8 189 pax iFly l UR-MXA",
+                    "icao": "B38M"
+                },
+                "type": "pax",
+                "flightNumber": "938",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 189,
+                    "cargo": 27,
+                    "weights": {
+                        "cargo": 2916
+                    }
+                },
+                "depTime": "2026-09-28T17:40:00.000Z",
+                "duration": 95,
+                "arrTime": "2026-09-28T19:15:00.000Z",
+                "depTimeAct": "2026-09-28T17:40:51.510Z",
+                "delay": -11,
+                "takeoffTimeAct": "2026-09-28T17:45:54.416Z",
+                "durationAct": 78,
+                "arrTimeAct": "2026-09-28T19:03:40.556Z",
+                "open": "2026-09-28T17:23:05.627Z",
+                "close": "2026-09-28T19:08:40.460Z",
+                "rating": 8.65,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 457,
+                        "fuel": 3476,
+                        "expenses": 10079,
+                        "penalties": 7573,
+                        "revenue": 34137,
+                        "balance": 16485,
+                        "prices": {
+                            "ticketPrice": 147,
+                            "cargoUnitPrice": 170,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 189,
+                            "cargo": 27,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 12,
+                                "Y": 177
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3144,
+                        "aircraft": 4350,
+                        "handling": 1370,
+                        "landing": 1215
+                    },
+                    "revenue": {
+                        "tickets": 29547,
+                        "cargo": 4590
+                    },
+                    "violations": [
+                        {
+                            "title": "MLW exceeded: 1312kg above maximum landing weight of 69308kg",
+                            "penalty": {
+                                "points": -114,
+                                "cash": 7573
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 20
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.12,
+                                        "rate": 190
+                                    },
+                                    "weather": {
+                                        "windDir": 99.68,
+                                        "windSpd": 3.88,
+                                        "windX": -0.99
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (797m from threshold beyond 738m max accepted)",
+                            "penalty": {
+                                "points": -21,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 20
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.12,
+                                        "rate": 190
+                                    },
+                                    "weather": {
+                                        "windDir": 99.68,
+                                        "windSpd": 3.88,
+                                        "windX": -0.99
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.12G (190 ft/min, normal  conditions)<br/>Distance from threshold: 797m (accepted range: 184-738m)<br/>Average centerline deviation: 2.12m<br/>Max centerline deviation: 3.34m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 20
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.12,
+                                        "rate": 190
+                                    },
+                                    "weather": {
+                                        "windDir": 99.68,
+                                        "windSpd": 3.88,
+                                        "windX": -0.99
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-28T17:16:30.857Z",
+                "updatedAt": "2026-09-28T19:08:40.569Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                },
+                "actArr": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                }
+            }
+        ]
     }
 ]
