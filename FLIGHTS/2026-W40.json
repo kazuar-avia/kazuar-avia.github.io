@@ -1703,6 +1703,156 @@
                         "elev": 399
                     }
                 }
+            },
+            {
+                "_id": "6aba3bfd43d60690143701b8",
+                "aircraft": {
+                    "_id": "6a7ec30def75cc333064b43f",
+                    "name": "Boeing 737-800",
+                    "customName": "Kharkiv Wings l PMDG 737-800 based in Kharkiv l UR-KHW",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "0210",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 169,
+                    "cargo": 22,
+                    "weights": {
+                        "cargo": 2200
+                    }
+                },
+                "depTime": "2026-09-28T10:40:00.000Z",
+                "duration": 140,
+                "arrTime": "2026-09-28T13:00:00.000Z",
+                "depTimeAct": "2026-09-28T10:32:58.746Z",
+                "delay": 7,
+                "takeoffTimeAct": "2026-09-28T10:41:26.757Z",
+                "durationAct": 146,
+                "arrTimeAct": "2026-09-28T13:07:03.897Z",
+                "open": "2026-09-28T10:09:34.061Z",
+                "close": "2026-09-28T13:14:13.614Z",
+                "rating": 9.28,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 914,
+                        "fuel": 6461,
+                        "expenses": 16257,
+                        "penalties": 0,
+                        "revenue": 28172,
+                        "balance": 11915,
+                        "prices": {
+                            "ticketPrice": 146,
+                            "cargoUnitPrice": 159,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 169,
+                            "cargo": 22,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 169
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 7305,
+                        "aircraft": 6550,
+                        "handling": 1835,
+                        "landing": 567
+                    },
+                    "revenue": {
+                        "tickets": 24674,
+                        "cargo": 3498
+                    },
+                    "violations": [
+                        {
+                            "title": "Unstable approach below 300ft: vertical speed below -1500 ft/min (actual -1645 ft/min)",
+                            "penalty": {
+                                "points": -72,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.47G (393 ft/min, challenging  conditions)<br/>Distance from threshold: 655m (accepted range: 175-704m)<br/>Average centerline deviation: 6.32m<br/>Max centerline deviation: 7.56m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.47,
+                                        "rate": 393
+                                    },
+                                    "weather": {
+                                        "windDir": 39.79,
+                                        "windSpd": 9.71,
+                                        "windX": -0.14
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-28T10:05:49.759Z",
+                "updatedAt": "2026-09-28T13:14:13.715Z",
+                "dep": {
+                    "icao": "LOWW",
+                    "name": "Vienna International Airport",
+                    "city": "Vienna",
+                    "location": {
+                        "lat": 48.110298,
+                        "lon": 16.5697,
+                        "elev": 600
+                    }
+                },
+                "arr": {
+                    "icao": "UKHH",
+                    "name": "Kharkiv International Airport",
+                    "city": "Kharkiv",
+                    "location": {
+                        "lat": 49.926943,
+                        "lon": 36.290814,
+                        "elev": 508
+                    }
+                },
+                "actArr": {
+                    "icao": "UKHH",
+                    "name": "Kharkiv International Airport",
+                    "city": "Kharkiv",
+                    "location": {
+                        "lat": 49.926943,
+                        "lon": 36.290814,
+                        "elev": 508
+                    }
+                }
             }
         ]
     },
