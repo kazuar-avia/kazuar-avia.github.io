@@ -3401,6 +3401,200 @@
                         "elev": 79
                     }
                 }
+            },
+            {
+                "_id": "6abbac3443d606901455431d",
+                "aircraft": {
+                    "_id": "6a4fa2fb5760ec7cdb629836",
+                    "name": "Boeing 777-200ER",
+                    "customName": "Dry Lease l 777-200ER PW 294 pax",
+                    "icao": "B772"
+                },
+                "type": "pax",
+                "flightNumber": "0777",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 294,
+                    "cargo": 40,
+                    "weights": {
+                        "cargo": 4240
+                    }
+                },
+                "depTime": "2026-09-29T13:00:00.000Z",
+                "duration": 100,
+                "arrTime": "2026-09-29T14:40:00.000Z",
+                "depTimeAct": "2026-09-29T13:03:20.538Z",
+                "delay": 22,
+                "takeoffTimeAct": "2026-09-29T13:16:18.562Z",
+                "durationAct": 106,
+                "arrTimeAct": "2026-09-29T15:01:52.683Z",
+                "open": "2026-09-29T12:22:21.130Z",
+                "close": "2026-09-29T15:13:13.498Z",
+                "rating": 7.15,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 661,
+                        "fuel": 10225,
+                        "expenses": 45553,
+                        "penalties": 0,
+                        "revenue": 53599,
+                        "balance": 8046,
+                        "prices": {
+                            "ticketPrice": 127,
+                            "cargoUnitPrice": 143,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 294,
+                            "cargo": 40,
+                            "paxByClass": {
+                                "F": 14,
+                                "C": 41,
+                                "Y": 239
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 11931,
+                        "aircraft": 18830,
+                        "handling": 8292,
+                        "landing": 6500
+                    },
+                    "revenue": {
+                        "tickets": 47879,
+                        "cargo": 5720
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 6.81m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -45,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 35
+                                    },
+                                    "weather": {
+                                        "windDir": 60,
+                                        "windSpd": 5,
+                                        "windX": -0.08
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (790m from threshold beyond 676m max accepted)",
+                            "penalty": {
+                                "points": -40,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.35,
+                                        "rate": 301
+                                    },
+                                    "weather": {
+                                        "windDir": 220,
+                                        "windSpd": 3.71,
+                                        "windX": 0.09
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.35G (301 ft/min, normal  conditions)<br/>Distance from threshold: 790m (accepted range: 168-676m)<br/>Average centerline deviation: 0.29m<br/>Max centerline deviation: 0.53m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.35,
+                                        "rate": 301
+                                    },
+                                    "weather": {
+                                        "windDir": 220,
+                                        "windSpd": 3.71,
+                                        "windX": 0.09
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Max G exceeded: 3.74G (max allowed: 2G)",
+                            "penalty": {
+                                "points": -200,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-29T12:16:52.501Z",
+                "updatedAt": "2026-09-29T15:13:13.585Z",
+                "dep": {
+                    "icao": "KATL",
+                    "name": "Hartsfield Jackson Atlanta International Airport",
+                    "city": "Atlanta",
+                    "location": {
+                        "lat": 33.6367,
+                        "lon": -84.428101,
+                        "elev": 1026
+                    }
+                },
+                "arr": {
+                    "icao": "KORD",
+                    "name": "Chicago O'Hare International Airport",
+                    "city": "Chicago",
+                    "location": {
+                        "lat": 41.9786,
+                        "lon": -87.9048,
+                        "elev": 680
+                    }
+                },
+                "actArr": {
+                    "icao": "KORD",
+                    "name": "Chicago O'Hare International Airport",
+                    "city": "Chicago",
+                    "location": {
+                        "lat": 41.9786,
+                        "lon": -87.9048,
+                        "elev": 680
+                    }
+                }
             }
         ]
     },
