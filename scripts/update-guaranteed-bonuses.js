@@ -50,6 +50,36 @@ function sameFlights(a, b) {
   return stableJson(a || {}) === stableJson(b || {});
 }
 
+function stripUpdatedAt(value) {
+  if (Array.isArray(value)) return value.map(stripUpdatedAt);
+  if (value && typeof value === 'object') {
+    const result = {};
+    for (const [key, item] of Object.entries(value)) {
+      if (key === 'updatedAt') continue;
+      result[key] = stripUpdatedAt(item);
+    }
+    return result;
+  }
+  return value;
+}
+
+function sameExceptUpdatedAt(a, b) {
+  return stableJson(stripUpdatedAt(a || {})) === stableJson(stripUpdatedAt(b || {}));
+}
+
+function preserveUnchangedRecordUpdatedAt(previousFlights, nextFlights) {
+  for (const [id, record] of Object.entries(nextFlights || {})) {
+    const previous = previousFlights?.[id];
+    if (!previous || !sameExceptUpdatedAt(previous, record)) continue;
+
+    if (Object.prototype.hasOwnProperty.call(previous, 'updatedAt')) {
+      record.updatedAt = previous.updatedAt;
+    } else {
+      delete record.updatedAt;
+    }
+  }
+}
+
 function upper(value) {
   return String(value || '').trim().toUpperCase();
 }
@@ -929,6 +959,10 @@ async function main() {
       break;
     }
   }
+
+  // Keep the previous timestamp when a bonus record changed only by updatedAt.
+  // updatedAt is refreshed only together with a real data change.
+  preserveUnchangedRecordUpdatedAt(bonuses.flights || {}, next.flights);
 
   if (args.has('--dry-run')) {
     console.log(JSON.stringify(next, null, 2));
