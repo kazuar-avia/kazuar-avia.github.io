@@ -45,6 +45,37 @@ jobs:
               | jq -r '.object.sha // ""'
           }
 
+          fetch_railway_deployments() {
+            local output_file="$1"
+            local tmp_file="${output_file}.tmp"
+            local error_file="${output_file}.error"
+            local try
+
+            for try in $(seq 1 5); do
+              rm -f "$tmp_file" "$error_file"
+
+              if railway deployment list --service "$SERVICE_ID" --limit 100 --json > "$tmp_file" 2> "$error_file" \
+                && jq -e 'type == "array"' "$tmp_file" >/dev/null 2>&1; then
+                mv "$tmp_file" "$output_file"
+                rm -f "$error_file"
+                return 0
+              fi
+
+              echo "WARN: Railway deployment list failed or returned invalid JSON (attempt $try/5)."
+              if [ -s "$error_file" ]; then
+                tail -n 10 "$error_file" || true
+              fi
+
+              rm -f "$tmp_file"
+              if [ "$try" -lt 5 ]; then
+                sleep 2
+              fi
+            done
+
+            echo "ERROR: Railway deployment list failed 5 times in a row."
+            return 1
+          }
+
           is_older_than_current() {
             local candidate="$1"
             local compare_json status merge_base
@@ -80,8 +111,7 @@ jobs:
               exit 0
             fi
 
-            railway deployment list --service "$SERVICE_ID" --limit 100 --json > deployments.json
-            jq -e 'type == "array"' deployments.json >/dev/null
+            fetch_railway_deployments deployments.json
 
             while IFS=$'\t' read -r ID STATUS COMMIT; do
               [ -z "$ID" ] && continue
@@ -134,7 +164,7 @@ jobs:
             [ "$ATTEMPT" -lt 20 ] && sleep 2
           done
 
-          railway deployment list --service "$SERVICE_ID" --limit 100 --json > final.json
+          fetch_railway_deployments final.json
           REMAINING=0
 
           while IFS=$'\t' read -r ID STATUS COMMIT; do
