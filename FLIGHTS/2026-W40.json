@@ -10423,5 +10423,177 @@
                 }
             }
         ]
+    },
+    {
+        "pilot_id": "6a8f07f5ef75cc3330ffcb1f",
+        "fullname": "Roman Storozhenko",
+        "avatar": "default",
+        "flights": [
+            {
+                "_id": "6abd10bfe2b73bbe59c48b46",
+                "aircraft": {
+                    "_id": "69847d4e9da57b990a58cf4f",
+                    "name": "Airbus A350-900",
+                    "customName": "Dry Lease l A350-900 by iniBuilds l 324 pax elite",
+                    "icao": "A359"
+                },
+                "type": "pax",
+                "flightNumber": "559",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 324,
+                    "cargo": 79,
+                    "weights": {
+                        "cargo": 9559
+                    }
+                },
+                "depTime": "2026-09-30T14:10:00.000Z",
+                "duration": 185,
+                "arrTime": "2026-09-30T17:15:00.000Z",
+                "depTimeAct": "2026-09-30T14:01:35.948Z",
+                "delay": -17,
+                "takeoffTimeAct": "2026-09-30T14:07:20.110Z",
+                "durationAct": 171,
+                "arrTimeAct": "2026-09-30T16:58:24.636Z",
+                "open": "2026-09-30T13:44:48.203Z",
+                "close": "2026-09-30T17:02:03.284Z",
+                "rating": 6.75,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1223,
+                        "fuel": 15382,
+                        "expenses": 41133,
+                        "penalties": 1000,
+                        "revenue": 93998,
+                        "balance": 51865,
+                        "prices": {
+                            "ticketPrice": 182,
+                            "cargoUnitPrice": 190,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 324,
+                            "cargo": 79,
+                            "paxByClass": {
+                                "F": 22,
+                                "C": 44,
+                                "Y": 258
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 13912,
+                        "aircraft": 20270,
+                        "handling": 2406,
+                        "landing": 4545
+                    },
+                    "revenue": {
+                        "tickets": 78988,
+                        "cargo": 15010
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 7.29m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -45,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 36
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Hard touchdown: 2.02G (819 ft/min, normal  conditions)<br/>Distance from threshold: 462m (accepted range: 203-813m)<br/>Average centerline deviation: 4.63m<br/>Max centerline deviation: 7.29m",
+                            "penalty": {
+                                "points": -130,
+                                "cash": 1000
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 35
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.02,
+                                        "rate": 819
+                                    },
+                                    "weather": {
+                                        "windDir": 270.11,
+                                        "windSpd": 1.15,
+                                        "windX": -0.03
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 357ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 48
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-30T13:38:07.607Z",
+                "updatedAt": "2026-09-30T17:02:03.380Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "EGLL",
+                    "name": "London Heathrow Airport",
+                    "city": "London",
+                    "location": {
+                        "lat": 51.470748,
+                        "lon": -0.459909,
+                        "elev": 83
+                    }
+                },
+                "actArr": {
+                    "icao": "EGLL",
+                    "name": "London Heathrow Airport",
+                    "city": "London",
+                    "location": {
+                        "lat": 51.470748,
+                        "lon": -0.459909,
+                        "elev": 83
+                    }
+                }
+            }
+        ]
     }
 ]
