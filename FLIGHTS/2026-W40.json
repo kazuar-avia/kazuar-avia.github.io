@@ -4661,6 +4661,189 @@
                         "elev": 192
                     }
                 }
+            },
+            {
+                "_id": "6abca933e2b73bbe59bc1062",
+                "aircraft": {
+                    "_id": "6a93e576ef75cc33306d7b4f",
+                    "name": "Bombardier CRJ-700",
+                    "customName": "Crj 700 70 pax",
+                    "icao": "CRJ7"
+                },
+                "type": "pax",
+                "flightNumber": "700J",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 64,
+                    "cargo": 12,
+                    "weights": {
+                        "cargo": 828
+                    }
+                },
+                "depTime": "2026-09-30T06:45:00.000Z",
+                "duration": 75,
+                "arrTime": "2026-09-30T08:00:00.000Z",
+                "depTimeAct": "2026-09-30T06:42:21.973Z",
+                "delay": 34,
+                "takeoffTimeAct": "2026-09-30T06:52:28.987Z",
+                "durationAct": 101,
+                "arrTimeAct": "2026-09-30T08:33:34.088Z",
+                "open": "2026-09-30T06:20:39.865Z",
+                "close": "2026-09-30T08:35:11.625Z",
+                "rating": 7.85,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 518,
+                        "fuel": 2680,
+                        "expenses": 7465,
+                        "penalties": 11088,
+                        "revenue": 8968,
+                        "balance": -9585,
+                        "prices": {
+                            "ticketPrice": 115,
+                            "cargoUnitPrice": 134,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 64,
+                            "cargo": 12,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 64
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3030,
+                        "aircraft": 2358,
+                        "handling": 1168,
+                        "landing": 909
+                    },
+                    "revenue": {
+                        "tickets": 7360,
+                        "cargo": 1608
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 8.45m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -8,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 36
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.43,
+                                        "rate": 308
+                                    },
+                                    "weather": {
+                                        "windDir": 190.02,
+                                        "windSpd": 17.45,
+                                        "windX": 0.29
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Landing before runway threshold, short by 29m",
+                            "penalty": {
+                                "points": -175,
+                                "cash": 11088
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 36
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.43,
+                                        "rate": 308
+                                    },
+                                    "weather": {
+                                        "windDir": 190.02,
+                                        "windSpd": 17.45,
+                                        "windX": 0.29
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.63G (529 ft/min, challenging  conditions)<br/>Distance from threshold: 233m (accepted range: 207-831m)<br/>Average centerline deviation: 3.48m<br/>Max centerline deviation: 8.45m",
+                            "penalty": {
+                                "points": -32,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "bounce",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.63,
+                                        "rate": 529
+                                    },
+                                    "weather": {
+                                        "windDir": 190,
+                                        "windSpd": 17.36,
+                                        "windX": 0.29
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-30T06:16:19.915Z",
+                "updatedAt": "2026-09-30T08:35:11.711Z",
+                "dep": {
+                    "icao": "EDDF",
+                    "name": "Frankfurt Main Airport",
+                    "city": "Frankfurt am Main",
+                    "location": {
+                        "lat": 50.026706,
+                        "lon": 8.55835,
+                        "elev": 364
+                    }
+                },
+                "arr": {
+                    "icao": "EGLL",
+                    "name": "London Heathrow Airport",
+                    "city": "London",
+                    "location": {
+                        "lat": 51.470748,
+                        "lon": -0.459909,
+                        "elev": 83
+                    }
+                },
+                "actArr": {
+                    "icao": "EGLL",
+                    "name": "London Heathrow Airport",
+                    "city": "London",
+                    "location": {
+                        "lat": 51.470748,
+                        "lon": -0.459909,
+                        "elev": 83
+                    }
+                }
             }
         ]
     },
