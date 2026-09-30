@@ -2420,6 +2420,171 @@
                         "elev": 353
                     }
                 }
+            },
+            {
+                "_id": "6abcdf1fe2b73bbe59bfd558",
+                "aircraft": {
+                    "_id": "6ab5457a43d6069014c0fbe5",
+                    "name": "Airbus A321",
+                    "customName": "Dry Lease l A321 IAE FENIX MSFS",
+                    "icao": "A321"
+                },
+                "type": "pax",
+                "flightNumber": "37MA",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 215,
+                    "cargo": 22,
+                    "weights": {
+                        "cargo": 2244
+                    }
+                },
+                "depTime": "2026-09-30T10:20:00.000Z",
+                "duration": 100,
+                "arrTime": "2026-09-30T12:00:00.000Z",
+                "depTimeAct": "2026-09-30T10:20:22.315Z",
+                "delay": -21,
+                "takeoffTimeAct": "2026-09-30T10:25:53.311Z",
+                "durationAct": 73,
+                "arrTimeAct": "2026-09-30T11:39:10.243Z",
+                "open": "2026-09-30T10:07:22.190Z",
+                "close": "2026-09-30T11:41:59.263Z",
+                "rating": 7.79,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 530,
+                        "fuel": 4235,
+                        "expenses": 13851,
+                        "penalties": 0,
+                        "revenue": 30236,
+                        "balance": 16385,
+                        "prices": {
+                            "ticketPrice": 126,
+                            "cargoUnitPrice": 143,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 215,
+                            "cargo": 22,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 215
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4788,
+                        "aircraft": 5793,
+                        "handling": 1731,
+                        "landing": 1539
+                    },
+                    "revenue": {
+                        "tickets": 27090,
+                        "cargo": 3146
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 10.26m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -101,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.15G (152 ft/min, normal  conditions)<br/>Distance from threshold: 778m (accepted range: 205-824m)<br/>Average centerline deviation: 5.15m<br/>Max centerline deviation: 10.26m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "bounce",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.15,
+                                        "rate": 152
+                                    },
+                                    "weather": {
+                                        "windDir": 327.73,
+                                        "windSpd": 3.37,
+                                        "windX": -2.63
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 920ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -120,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-09-30T10:06:23.174Z",
+                "updatedAt": "2026-09-30T11:41:59.344Z",
+                "dep": {
+                    "icao": "LPMA",
+                    "name": "Cristiano Ronaldo International Airport",
+                    "city": "Funchal",
+                    "location": {
+                        "lat": 32.697812,
+                        "lon": -16.774613,
+                        "elev": 192
+                    }
+                },
+                "arr": {
+                    "icao": "LPPT",
+                    "name": "Lisbon Humberto Delgado Airport",
+                    "city": "Lisbon",
+                    "location": {
+                        "lat": 38.7813,
+                        "lon": -9.13592,
+                        "elev": 374
+                    }
+                },
+                "actArr": {
+                    "icao": "LPPT",
+                    "name": "Lisbon Humberto Delgado Airport",
+                    "city": "Lisbon",
+                    "location": {
+                        "lat": 38.7813,
+                        "lon": -9.13592,
+                        "elev": 374
+                    }
+                }
             }
         ]
     },
