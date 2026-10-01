@@ -17,6 +17,7 @@ const app = {
   companyCharterDemand: {},
   routeMissions: {},
   guaranteedBonuses: {},
+  piesLedger: null,
   airportCoordinates: {},
   adCoordinates: {},
   flights: [],
@@ -2952,7 +2953,7 @@ async function loadCompanyCharterDemand(cacheMode = 'default') {
 async function loadDatabases() {
   const status = $('#dataStatus');
   try {
-    const [loaded, companyData, companyLiveryData, companyLiveryMatching, companyTopPool, companyCharterDemand, routeMissions, guaranteedBonuses, manualGuaranteedBonuses, adCoordinates] = await Promise.all([
+    const [loaded, companyData, companyLiveryData, companyLiveryMatching, companyTopPool, companyCharterDemand, routeMissions, guaranteedBonuses, manualGuaranteedBonuses, adCoordinates, piesLedger] = await Promise.all([
       window.UCAAFlightData.loadWeeklyFlights(message => { status.textContent = message; }),
       fetch('COMPANY/company-data.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
       fetch('COMPANY/ucaa-livery-database.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
@@ -2962,7 +2963,8 @@ async function loadDatabases() {
       fetch('COMPANY/route-missions.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
       fetch('COMPANY/guaranteed-bonuses.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
       fetch('COMPANY/guaranteed-bonuses-manual.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
-      fetch('ADcoordinates.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null)
+      fetch('ADcoordinates.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
+      fetch(`COMPANY/pies-ledger.json?v=${Date.now()}`, {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null)
     ]);
     const {archive, current} = loaded;
     app.archive = archive;
@@ -2975,6 +2977,8 @@ async function loadDatabases() {
     app.companyCharterDemand = companyCharterDemand || {};
     app.routeMissions = routeMissions || {};
     app.guaranteedBonuses = mergeGuaranteedBonuses(guaranteedBonuses || {}, manualGuaranteedBonuses || {});
+    app.piesLedger = piesLedger;
+    window.UCAAPilotProfile.setPiesLedger?.(app.piesLedger);
     app.airportCoordinates = loaded.airportLocations || {};
     app.adCoordinates = adCoordinates || {};
     app.flights = loaded.flights;
@@ -3023,7 +3027,7 @@ async function refreshDatabasesSoft() {
   const status = $('#dataStatus');
   const loader = window.UCAAFlightData?.reloadWeeklyFlights || window.UCAAFlightData?.loadWeeklyFlights;
   if (!loader) return loadDatabases();
-  const [loaded, companyData, companyLiveryData, companyLiveryMatching, companyTopPool, companyCharterDemand, routeMissions, guaranteedBonuses, manualGuaranteedBonuses, adCoordinates] = await Promise.all([
+  const [loaded, companyData, companyLiveryData, companyLiveryMatching, companyTopPool, companyCharterDemand, routeMissions, guaranteedBonuses, manualGuaranteedBonuses, adCoordinates, piesLedger] = await Promise.all([
     loader(message => { if (status) status.textContent = message; }),
     fetch('COMPANY/company-data.json', {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
     fetch('COMPANY/ucaa-livery-database.json', {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
@@ -3033,7 +3037,8 @@ async function refreshDatabasesSoft() {
     fetch(`COMPANY/route-missions.json?v=${Date.now()}`, {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
     fetch(`COMPANY/guaranteed-bonuses.json?v=${Date.now()}`, {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
     fetch(`COMPANY/guaranteed-bonuses-manual.json?v=${Date.now()}`, {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
-    fetch(`ADcoordinates.json?v=${Date.now()}`, {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null)
+    fetch(`ADcoordinates.json?v=${Date.now()}`, {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
+    fetch(`COMPANY/pies-ledger.json?v=${Date.now()}`, {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null)
   ]);
   const {archive, current} = loaded;
   app.archive = archive;
@@ -3046,6 +3051,8 @@ async function refreshDatabasesSoft() {
   app.companyCharterDemand = companyCharterDemand || {};
   app.routeMissions = routeMissions || {};
   app.guaranteedBonuses = mergeGuaranteedBonuses(guaranteedBonuses || {}, manualGuaranteedBonuses || {});
+  app.piesLedger = piesLedger || app.piesLedger;
+  window.UCAAPilotProfile.setPiesLedger?.(app.piesLedger);
   app.airportCoordinates = loaded.airportLocations || {};
   app.adCoordinates = adCoordinates || {};
   app.flights = loaded.flights;
@@ -6248,13 +6255,19 @@ function companyFixedTopPoolLiveStatus(item, mode) {
 }
 
 function companyFixedTopPoolNoteHtml(item, category, mode, index) {
+  const rank = Number(item?.rank);
+  const reward = mode === 'quick' ? window.UCAAPieRewards.rewardForRank(rank) : 0;
+  const quickLabel = mode === 'quick'
+    ? `<strong>ТОП <img class="company-pyrih-icon" src="pyrih.png" alt="пиріжок" aria-hidden="true">${Number.isInteger(rank) && rank > 0 ? ` #${rank}` : ''}</strong>${reward ? `<br><span class="company-pies-reward">Нагорода: ${reward} <img class="company-pyrih-icon" src="pyrih.png" alt="пиріжки"></span>` : ''}`
+    : '';
+  const withQuickLabel = html => quickLabel ? `${quickLabel}<br>${html}` : html;
   const consumed = companyFixedTopPoolConsumedFlight(item, mode);
-  if (consumed) return `<span class="company-top-pool-live-state company-top-pool-live-ok">✅ Бонусний рейс виконано!</span>`;
+  if (consumed) return withQuickLabel(`<span class="company-top-pool-live-state company-top-pool-live-ok">✅ Бонусний рейс виконано!</span>`);
   const intercepted = companyFixedTopPoolInterceptedFlight(item, mode);
-  if (intercepted) return `<span class="company-top-pool-live-state company-top-pool-live-warn">⚠ Літак вже недоступний для бонусів</span>`;
+  if (intercepted) return withQuickLabel(`<span class="company-top-pool-live-state company-top-pool-live-warn">⚠ Літак вже недоступний для бонусів</span>`);
   const liveStatus = companyFixedTopPoolLiveStatus(item, mode);
-  if (liveStatus) return liveStatus.html;
-  if (mode === 'quick') return `<strong>ТОП <img class="company-pyrih-icon" src="pyrih.png" alt="пиріжок" aria-hidden="true"> #${index + 1}</strong>`;
+  if (liveStatus) return withQuickLabel(liveStatus.html);
+  if (mode === 'quick') return quickLabel;
   const rawBase = item.categoryNote || `${category.label || mode} #${index + 1}`;
   let baseText = mode === 'idle' ? String(rawBase).replace(/\s*[·•]\s*останній\s+\d{1,2}\.\d{1,2}\s*$/iu, '') : String(rawBase);
   if (mode === 'earn') {

@@ -29,6 +29,16 @@
   let specialProfileAwards = [];
   let specialProfileAwardsPromise = null;
   let guaranteedProfileBonuses = {};
+  let piesLedger = null;
+
+  function profilePiesBalanceHtml(pilotId) {
+    const balance = piesLedger ? window.UCAAPieRewards.balanceForPilot(piesLedger, pilotId) : null;
+    const label = balance === null ? '—' : balance.toLocaleString('uk-UA');
+    const tooltip = balance === null
+      ? 'Баланс тимчасово недоступний. Спробуйте оновити сторінку.'
+      : 'За виконаний гарячий пиріжок: ТОП #1 — 3, ТОП #2 — 2, ТОП #3 — 1.';
+    return `<div class="profile-pies-balance profile-tip" data-tooltip="${esc(tooltip)}"><img src="pyrih.png" alt="" aria-hidden="true"><span>Пиріжки: <strong>${label}</strong></span></div>`;
+  }
   function monthlyAwardPeriods() {
     const dates = availableFlights.map(dateOf).filter(date => date instanceof Date && !Number.isNaN(date.getTime()));
     if (!dates.length) return [];
@@ -1627,6 +1637,7 @@
       const style = document.createElement('style');
       style.id = 'ucaa-profile-v2-style';
       style.textContent = `
+        .profile-v2 .profile-avatar-column{display:flex;flex-direction:column;align-items:center;width:108px;min-width:0}.profile-v2 .profile-pies-balance{display:inline-flex;align-items:center;gap:4px;margin-top:4px;padding:2px 5px;border:1px solid #d6ad64;border-radius:5px;background:#fff4d9;color:#704510;font-size:12px;line-height:18px;white-space:nowrap}.profile-v2 .profile-pies-balance img{width:18px;height:18px;object-fit:contain}.profile-v2 .profile-pies-balance strong{font-size:15px}
         .profile-v2{padding:0}.profile-v2 .profile-identity{display:grid;grid-template-columns:112px 164px minmax(0,1fr);column-gap:6px;align-items:start;min-height:108px;margin:-4px 0 -2px}
         .profile-v2 .profile-avatar-wrap{position:relative;box-sizing:border-box;width:108px;height:108px;margin-top:4px}
         .profile-v2 .profile-avatar{box-sizing:border-box;width:108px;height:108px;border:1px solid #555;background:#eef8fa;object-fit:cover}
@@ -2281,7 +2292,7 @@
     const membershipDays = profileMembershipDays(firstCompleted);
     const membershipText = membershipDays ? `${membershipDays} ${dayWord(membershipDays)}` : '—';
     page.content.innerHTML = `<div class="profile-v2">
-      <div class="profile-identity"><div class="profile-avatar-wrap"><img class="profile-avatar" src="${esc(avatar)}" alt="${esc(lifetime.name)}" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='https://newsky.app/api/pilot/avatar/default'}">${simBadge}</div><div class="profile-person"><h3><span class="profile-title-name">${pilotNameWithStreak(lifetime)}</span></h3><div class="profile-newsky-row"><a class="profile-badge profile-tip" data-tooltip="Відкрити профіль пілота у NewSky" href="https://newsky.app/pilot/${encodeURIComponent(lifetime.id)}" target="_blank" rel="noopener noreferrer">NewSky</a><button type="button" class="profile-badge profile-tip profile-awards-list-button" data-tooltip="Відкрити локальний список Awards NewSky">Список Awards</button></div><small>В авіакомпанії: ${esc(membershipText)}</small>${profileFleetRoleHtml(lifetime.id)}</div>${aircraftAwardsHtml(lifetime)}</div>
+      <div class="profile-identity"><div class="profile-avatar-column"><div class="profile-avatar-wrap"><img class="profile-avatar" src="${esc(avatar)}" alt="${esc(lifetime.name)}" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='https://newsky.app/api/pilot/avatar/default'}">${simBadge}</div>${profilePiesBalanceHtml(lifetime.id)}</div><div class="profile-person"><h3><span class="profile-title-name">${pilotNameWithStreak(lifetime)}</span></h3><div class="profile-newsky-row"><a class="profile-badge profile-tip" data-tooltip="Відкрити профіль пілота у NewSky" href="https://newsky.app/pilot/${encodeURIComponent(lifetime.id)}" target="_blank" rel="noopener noreferrer">NewSky</a><button type="button" class="profile-badge profile-tip profile-awards-list-button" data-tooltip="Відкрити локальний список Awards NewSky">Список Awards</button></div><small>В авіакомпанії: ${esc(membershipText)}</small>${profileFleetRoleHtml(lifetime.id)}</div>${aircraftAwardsHtml(lifetime)}</div>
       <div class="profile-section-title">ЗАГАЛЬНА ІНФОРМАЦІЯ ПРО ПІЛОТА</div>
       <table class="profile-overall"><colgroup><col style="width:14%"><col style="width:19%"><col style="width:16.7%"><col style="width:20%"><col style="width:calc(13.3% + 8px)"><col style="width:calc(17% - 8px)"></colgroup><tbody>
         <tr><th>Наліт за весь час</th><td class="profile-tip" data-tooltip="${esc(hoursValueTip)}">${compactTime(lifetime.minutes)}<span class="profile-divider">|</span>${rankHtml(hoursRank,hoursRanking.length)}</td><th>Прибуток для АК</th><td class="profile-tip" data-tooltip="${esc(profitValueTip)}">${money(lifetime.companyProfit,true)}<span class="profile-divider">|</span>${rankHtml(profitRank,profitRanking.length)}</td><th class="profile-tip" data-tooltip="${esc(cleanNameTip)}">Польотів без штрафів</th><td class="profile-tip" data-tooltip="${esc(cleanValueTip)}">${currentQuality.cleanPct.toFixed(0)}%<span class="profile-divider">|</span>${rankHtml(cleanRank,cleanRanking.length)}</td></tr>
@@ -2582,6 +2593,13 @@
     monthlyAwardsCache = null;
   }
 
+  function setPiesLedger(data) {
+    if (data && data.version === 1 && data.entries && !Array.isArray(data.entries) && typeof data.entries === 'object') {
+      piesLedger = data;
+    }
+    if (current) render();
+  }
+
   addEventListener('hashchange', () => {
     if (String(location.hash || '').startsWith('#profile')) {
       const page = ensureProfilePage();
@@ -2668,5 +2686,5 @@
       }).join('');
   }
 
-  window.UCAAPilotProfile = {open,setFlights,setGuaranteedBonuses,cardAwards,cardAircraftAwardsHtml,cardSpecialAwardsHtml,warmProfileCaches};
+  window.UCAAPilotProfile = {open,setFlights,setGuaranteedBonuses,setPiesLedger,cardAwards,cardAircraftAwardsHtml,cardSpecialAwardsHtml,warmProfileCaches};
 })();

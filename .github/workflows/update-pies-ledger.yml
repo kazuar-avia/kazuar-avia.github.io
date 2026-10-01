@@ -1,0 +1,50 @@
+name: Update pies balance
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/15 * * * *"
+  push:
+    branches:
+      - main
+    paths:
+      - "FLIGHTS/**"
+      - "COMPANY/guaranteed-bonuses.json"
+      - "COMPANY/pies-ledger.json"
+      - "scripts/update-pies-ledger.js"
+      - "scripts/update-guaranteed-bonuses.js"
+      - "pie-rewards.js"
+
+permissions:
+  contents: write
+
+# This workflow is the only automatic writer of the currency ledger.
+concurrency:
+  group: update-pies-ledger
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Update pies ledger
+        run: node scripts/update-pies-ledger.js
+      - name: Publish pies ledger
+        run: |
+          if git diff --quiet -- COMPANY/pies-ledger.json; then
+            echo "No pies balance changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add COMPANY/pies-ledger.json
+          git commit -m "Update pies balance"
+          git pull --rebase origin main
+          git push

@@ -4,11 +4,13 @@
 const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
+const pieRewards = require('../pie-rewards.js');
 
 const OUTPUT_ROOT = path.resolve(__dirname, '..');
 const COMPANY_DIR = path.join(OUTPUT_ROOT, 'COMPANY');
 const FLIGHTS_DIR = path.join(OUTPUT_ROOT, 'FLIGHTS');
 const BONUS_FILE = path.join(COMPANY_DIR, 'guaranteed-bonuses.json');
+const PIES_LEDGER_FILE = path.join(COMPANY_DIR, 'pies-ledger.json');
 const TOP_POOL_CURRENT_FILE = path.join(COMPANY_DIR, 'top-pool-current.json');
 const TOP_POOLS_DIR = path.join(COMPANY_DIR, 'TOP-POOLS');
 const LIVE_URL = 'https://newsky.app/api/airline-api/flights/ongoing';
@@ -674,6 +676,7 @@ function topPoolItemsFromCurrent(pool) {
         const aircraftId = cleanId(item.aircraftId);
         if (!aircraftId) return;
         result.push({
+          poolId: item.poolId || null,
           poolKey: [mode, item.rank, aircraftId, flightNumber || proposalType || 'route', upper(proposal.depIcao), upper(proposal.arrIcao)].join('|'),
           category: topPoolCategoryFromMode(mode),
           sourceMode: mode,
@@ -694,6 +697,7 @@ function topPoolItemsFromCurrent(pool) {
     return result;
   }
   return array(pool?.items).map(item => ({
+    poolId: item.poolId || null,
     poolKey: item.poolId || [item.category, item.rank, item.aircraftId, item.flightNumber || item.proposalType || 'aircraft', item.depIcao || '', item.arrIcao || ''].join('|'),
     category: topPoolCategoryFromMode(item.category),
     sourceMode: item.mode || item.category || '',
@@ -813,8 +817,66 @@ function topPoolRecordFields(match) {
     pieSourceMode: match?.sourceMode || null,
     pieRank: match?.rank || null,
     piePoolKey: match?.poolKey || null,
-    piePoolGeneratedAt: match?.pool ? (match.pool.generatedAtLocal || match.pool.generatedAt || null) : null
+    piePoolGeneratedAt: match?.pool ? (match.pool.generatedAtLocal || match.pool.generatedAt || null) : null,
+    piePoolId: match?.poolId || null,
+    piePoolActiveUntil: match?.pool?.activeUntil || null,
+    piePoolClaimableUntil: match?.pool?.claimableUntil || match?.pool?.activeUntil || null,
+    pieClaim: match ? {
+      aircraftId: match.aircraftId,
+      depIcao: match.depIcao,
+      arrIcao: match.arrIcao,
+      flightNumber: match.flightNumber,
+      proposalType: match.proposalType
+    } : null
   };
+}
+
+function preserveTopPoolClaims(previousFlights, nextFlights) {
+  for (const [id, record] of Object.entries(nextFlights || {})) {
+    const previous = previousFlights?.[id];
+    if (previous?.pie !== true || previous.pilotId !== record.pilotId || previous.aircraftId !== record.aircraftId) continue;
+    for (const [key, value] of Object.entries(previous)) {
+      if (key === 'pie' || key.startsWith('pie')) record[key] = value;
+    }
+  }
+}
+
+function updatePiesLedger(bonusRecords, completedFlights, now, dryRun) {
+  // Never reset a saved balance if its file is damaged or unsupported.
+  const previous = fs.existsSync(PIES_LEDGER_FILE)
+    ? readJson(PIES_LEDGER_FILE)
+    : {version: 1, ruleVersion: pieRewards.RULE_VERSION, activatedAt: null, updatedAt: null, entries: {}};
+  const records = {...bonusRecords};
+  const activation = parseDateMs(previous.activatedAt);
+  const completedById = completedMap(completedFlights);
+  const missingClaims = Object.entries(records).filter(([id, record]) => {
+    const flight = completedById.get(id);
+    const started = parseDateMs(flight?.times?.actualDeparture || flight?.times?.takeoff);
+    return activation && started >= activation && record?.pie === true && record.pieType === 'hot'
+      && record.state === 'DONE' && record.status === 'earned'
+      && (!record.piePoolActiveUntil || !record.piePoolClaimableUntil);
+  });
+  if (missingClaims.length) {
+    // Older external updaters may omit snapshot windows. Recover only the exact
+    // recorded pool and rank; never choose a new offer after a flight finishes.
+    const snapshots = new Map(topPoolItemsFromPools(loadTopPools())
+      .filter(item => item.category === 'hot')
+      .map(item => [`${poolGeneratedTime(item.pool)}|${item.poolKey}`, item]));
+    for (const [id, record] of missingClaims) {
+      const match = snapshots.get(`${parseDateMs(record.piePoolGeneratedAt)}|${record.piePoolKey}`);
+      if (!match || Number(match.rank) !== Number(record.pieRank)) continue;
+      const fields = topPoolRecordFields(match);
+      records[id] = {...record,
+        piePoolId: record.piePoolId || fields.piePoolId,
+        piePoolActiveUntil: record.piePoolActiveUntil || fields.piePoolActiveUntil,
+        piePoolClaimableUntil: record.piePoolClaimableUntil || fields.piePoolClaimableUntil,
+        pieClaim: record.pieClaim || fields.pieClaim
+      };
+    }
+  }
+  const next = pieRewards.syncLedger(previous, records, completedFlights, now);
+  if (!dryRun && next !== previous) writeJson(PIES_LEDGER_FILE, next);
+  return next;
 }
 
 function proposalFromTopPoolMatch(match) {
@@ -960,6 +1022,9 @@ async function main() {
     }
   }
 
+  // Keep the claimed rank when pools rotate while a flight is in progress.
+  preserveTopPoolClaims(bonuses.flights || {}, next.flights);
+
   // Keep the previous timestamp when a bonus record changed only by updatedAt.
   // updatedAt is refreshed only together with a real data change.
   preserveUnchangedRecordUpdatedAt(bonuses.flights || {}, next.flights);
@@ -977,7 +1042,15 @@ async function main() {
   console.log(`updated ${path.relative(process.cwd(), BONUS_FILE)}: ${Object.keys(next.flights).length} records`);
 }
 
-main().catch(error => {
-  console.error(error && error.stack ? error.stack : String(error));
-  process.exitCode = 1;
-});
+if (require.main === module) {
+  main().catch(error => {
+    console.error(error && error.stack ? error.stack : String(error));
+    process.exitCode = 1;
+  });
+}
+
+module.exports = {
+  loadCompletedFlights, topPoolItemsFromCurrent, topPoolItemsFromPools,
+  liveFromCompletedFlight, topPoolMatchForLive, topPoolRecordFields,
+  preserveTopPoolClaims, updatePiesLedger
+};
