@@ -2929,6 +2929,161 @@
                         "elev": 1247
                     }
                 }
+            },
+            {
+                "_id": "6abe713ee2b73bbe59e3ec30",
+                "aircraft": {
+                    "_id": "6a4fa2fb5760ec7cdb629836",
+                    "name": "Boeing 777-200ER",
+                    "customName": "Dry Lease l 777-200ER PW 294 pax",
+                    "icao": "B772"
+                },
+                "type": "pax",
+                "flightNumber": "77D",
+                "free": false,
+                "schedule": false,
+                "charter": true,
+                "payload": {
+                    "pax": 294,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-10-01T14:55:00.000Z",
+                "duration": 80,
+                "arrTime": "2026-10-01T16:15:00.000Z",
+                "depTimeAct": "2026-10-01T14:58:02.320Z",
+                "delay": -1,
+                "takeoffTimeAct": "2026-10-01T15:01:43.217Z",
+                "durationAct": 72,
+                "arrTimeAct": "2026-10-01T16:13:46.719Z",
+                "open": "2026-10-01T14:55:53.161Z",
+                "close": "2026-10-01T16:18:12.600Z",
+                "rating": 9.74,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 474,
+                        "fuel": 7731,
+                        "expenses": 29234,
+                        "penalties": 0,
+                        "revenue": 63336,
+                        "balance": 34102,
+                        "prices": {
+                            "ticketPrice": 168,
+                            "cargoUnitPrice": 200,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 294,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 14,
+                                "C": 41,
+                                "Y": 239
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 8740,
+                        "aircraft": 16435,
+                        "handling": 1764,
+                        "landing": 2295
+                    },
+                    "revenue": {
+                        "tickets": 63336,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 5.59m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -26,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    },
+                                    "weather": {
+                                        "windDir": 90.02,
+                                        "windSpd": 11.37,
+                                        "windX": 6.19
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.14G (122 ft/min, normal  conditions)<br/>Distance from threshold: 351m (accepted range: 203-816m)<br/>Average centerline deviation: 0.33m<br/>Max centerline deviation: 0.60m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.14,
+                                        "rate": 122
+                                    },
+                                    "weather": {
+                                        "windDir": 139.94,
+                                        "windSpd": 2.13,
+                                        "windX": 0.56
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-01T14:42:06.609Z",
+                "updatedAt": "2026-10-01T16:18:12.680Z",
+                "dep": {
+                    "icao": "LIEO",
+                    "name": "Olbia Costa Smeralda Airport",
+                    "city": "Olbia (SS)",
+                    "location": {
+                        "lat": 40.898953,
+                        "lon": 9.518457,
+                        "elev": 37
+                    }
+                },
+                "arr": {
+                    "icao": "LSZH",
+                    "name": "Zürich Airport",
+                    "city": "Zurich",
+                    "location": {
+                        "lat": 47.458056,
+                        "lon": 8.548056,
+                        "elev": 1417
+                    }
+                },
+                "actArr": {
+                    "icao": "LSZH",
+                    "name": "Zürich Airport",
+                    "city": "Zurich",
+                    "location": {
+                        "lat": 47.458056,
+                        "lon": 8.548056,
+                        "elev": 1417
+                    }
+                }
             }
         ]
     },
