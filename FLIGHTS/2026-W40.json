@@ -18358,6 +18358,161 @@
                         "elev": 172
                     }
                 }
+            },
+            {
+                "_id": "6ac00b83e2b73bbe590799b9",
+                "aircraft": {
+                    "_id": "695a3c883dc76275baca9e49",
+                    "name": "Airbus A320",
+                    "customName": "WizzAir Ukraine l A320 IAE WL based in UKKK l UR-WUC",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "537J",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 109,
+                    "cargo": 10,
+                    "weights": {
+                        "cargo": 1400
+                    }
+                },
+                "depTime": "2026-10-02T20:05:00.000Z",
+                "duration": 55,
+                "arrTime": "2026-10-02T21:00:00.000Z",
+                "depTimeAct": "2026-10-02T20:05:27.798Z",
+                "delay": -7,
+                "takeoffTimeAct": "2026-10-02T20:13:26.844Z",
+                "durationAct": 39,
+                "arrTimeAct": "2026-10-02T20:52:48.490Z",
+                "open": "2026-10-02T19:56:48.659Z",
+                "close": "2026-10-02T20:57:28.311Z",
+                "rating": 9.5,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 247,
+                        "fuel": 1879,
+                        "expenses": 6874,
+                        "penalties": 0,
+                        "revenue": 12953,
+                        "balance": 6079,
+                        "prices": {
+                            "ticketPrice": 107,
+                            "cargoUnitPrice": 129,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 109,
+                            "cargo": 10,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 109
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1700,
+                        "aircraft": 3875,
+                        "handling": 705,
+                        "landing": 594
+                    },
+                    "revenue": {
+                        "tickets": 11663,
+                        "cargo": 1290
+                    },
+                    "violations": [
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1035mb instead of 1032mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 38
+                                    },
+                                    "weather": {
+                                        "windDir": 23.21,
+                                        "windSpd": 6.59,
+                                        "windX": 4.18
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.35G (239 ft/min, challenging  conditions)<br/>Distance from threshold: 487m (accepted range: 166-666m)<br/>Average centerline deviation: 1.83m<br/>Max centerline deviation: 3.21m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 38
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.35,
+                                        "rate": 239
+                                    },
+                                    "weather": {
+                                        "windDir": 225.7,
+                                        "windSpd": 2.77,
+                                        "windX": -2.3
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-02T19:52:35.714Z",
+                "updatedAt": "2026-10-02T20:57:28.400Z",
+                "dep": {
+                    "icao": "UKOO",
+                    "name": "Odesa International Airport",
+                    "city": "Odesa",
+                    "location": {
+                        "lat": 46.427196,
+                        "lon": 30.672649,
+                        "elev": 172
+                    }
+                },
+                "arr": {
+                    "icao": "UKLN",
+                    "name": "Chernivtsi International Airport",
+                    "city": "Chernivtsi",
+                    "location": {
+                        "lat": 48.2593,
+                        "lon": 25.980801,
+                        "elev": 826
+                    }
+                },
+                "actArr": {
+                    "icao": "UKLN",
+                    "name": "Chernivtsi International Airport",
+                    "city": "Chernivtsi",
+                    "location": {
+                        "lat": 48.2593,
+                        "lon": 25.980801,
+                        "elev": 826
+                    }
+                }
             }
         ]
     },
