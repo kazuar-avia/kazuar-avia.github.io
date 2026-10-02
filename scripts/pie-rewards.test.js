@@ -236,8 +236,8 @@ test('ledger updater persists currency, is idempotent, and leaves dry runs untou
 
 test('top card shows saved rank and reward even after rearranging or entering LIVE', () => {
   const source = fs.readFileSync(path.join(root,'pilot-cabinet.js'),'utf8');
-  const note = source.slice(source.indexOf('function companyFixedTopPoolNoteHtml('),source.indexOf('function companyFixedTopPoolModeForPieType('));
-  const context = vm.createContext({window:{UCAAPieRewards:rewards},companyFixedTopPoolConsumedFlight:()=>null,companyFixedTopPoolInterceptedFlight:()=>null,companyFixedTopPoolLiveStatus:()=>null});
+  const note = source.slice(source.indexOf('function companyPiesRewardHtml('),source.indexOf('function companyFixedTopPoolModeForPieType('));
+  const context = vm.createContext({window:{UCAAPieRewards:rewards},companyFixedTopPoolConsumedFlight:()=>null,companyFixedTopPoolLiveMatchFlight:()=>null,companyFixedTopPoolInterceptedFlight:()=>null,companyFixedTopPoolLiveStatus:()=>null});
   vm.runInContext(note,context);
   const html = context.companyFixedTopPoolNoteHtml({rank:3},{label:'Hot'},'quick',0);
   assert.match(html,/#3/);
@@ -247,6 +247,51 @@ test('top card shows saved rank and reward even after rearranging or entering LI
   assert.match(live,/#2/);
   assert.match(live,/Нагорода: 2/);
   assert.match(live,/LIVE/);
+});
+
+test('flight markers require an actual earning for the exact completed flight and pilot', () => {
+  const {record,flight} = fixture();
+  const ledger = credit(record,flight);
+  assert.equal(rewards.earningForFlight(ledger,flight).delta,3);
+  assert.equal(rewards.earningForFlight(null,flight),null);
+  assert.equal(rewards.earningForFlight(initialLedger(),flight),null);
+  assert.equal(rewards.earningForFlight(ledger,{...flight,status:'live'}),null);
+  assert.equal(rewards.earningForFlight(ledger,{...flight,id:'different-flight'}),null);
+  assert.equal(rewards.earningForFlight(ledger,{...flight,pilot:{id:'different-pilot'}}),null);
+  const id = 'hot:'+flight.id;
+  for (const change of [{kind:'spend'},{delta:0},{delta:-1},{delta:1.5},{pilotId:'other'},{flightId:'other'},{id:'other'}]) {
+    assert.equal(rewards.earningForFlight({...ledger,entries:{[id]:{...ledger.entries[id],...change}}},flight),null);
+  }
+});
+
+test('hot rewards name the LIVE recipient, then distinguish pending from credited pies', () => {
+  const source = fs.readFileSync(path.join(root,'pilot-cabinet.js'),'utf8');
+  const {record,flight} = fixture('recipient-flight',2);
+  flight.pilot.name = 'Denys <test>';
+  const app = {piesLedger:initialLedger()};
+  const context = vm.createContext({app,window:{UCAAPieRewards:rewards},guaranteedBonusRecordForFlight:()=>record,
+    companyLiveryLivePilotName:()=>flight.pilot.name,pilotProfileUrl:id=>'#profile/'+id,
+    esc:value=>String(value).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')});
+  vm.runInContext(source.slice(source.indexOf('function companyPiesRewardHtml('),source.indexOf('function companyFixedTopPoolNoteHtml(')),context);
+  const item = {rank:2};
+  const liveRecord = {...record,state:'LIVE',status:'matched'};
+  const live = context.companyPiesRewardHtml({...item,livePieRecord:liveRecord},null,{depTimeAct:flight.times.actualDeparture});
+  assert.match(live,/2 пиріжки буде видано пілоту/);
+  assert.match(live,/Denys &lt;test&gt;/);
+  assert.doesNotMatch(live,/нараховано/);
+  const pending = context.companyPiesRewardHtml(item,flight,null);
+  assert.match(pending,/2 пиріжки буде видано пілоту/);
+  app.piesLedger = credit(record,flight);
+  assert.match(context.companyPiesRewardHtml({rank:1},flight,null),/2 пиріжки нараховано пілоту/);
+  app.piesLedger = initialLedger();
+  const oldFlight = {...flight,times:{...flight.times,actualDeparture:'2026-10-01T05:00:00Z'}};
+  assert.doesNotMatch(context.companyPiesRewardHtml(item,oldFlight,null),/буде видано|нараховано/);
+  assert.doesNotMatch(context.companyPiesRewardHtml({...item,livePieRecord:{...liveRecord,pie:false}},null,{depTimeAct:flight.times.actualDeparture}),/буде видано/);
+  context.guaranteedBonusRecordForFlight = ()=>null;
+  context.companyFixedTopPoolLivePayoutRecord = ()=>({state:'LIVE',status:'matched',pilotId:flight.pilot.id});
+  const freshItem = {...item,generatedAt:record.piePoolGeneratedAt,claimableUntil:record.piePoolClaimableUntil};
+  assert.match(context.companyPiesRewardHtml(freshItem,null,{depTimeAct:flight.times.actualDeparture}),/2 пиріжки буде видано пілоту/);
+  assert.doesNotMatch(context.companyPiesRewardHtml(freshItem,null,{depTimeAct:'2026-10-02T13:00:00Z'}),/буде видано/);
 });
 
 test('legacy external bonus records recover their exact snapshot without changing rank', t => {

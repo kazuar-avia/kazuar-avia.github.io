@@ -2049,7 +2049,7 @@
       <td><span class="payload-value" title="${esc(payload.label)}">${esc(ui.flightLoad(flight))}<span class="load-kind-icon" aria-hidden="true">${payload.icon}</span></span></td>
       <td class="rating-cell profile-rating-detail" data-flight-id="${esc(flight.id)}" role="button" tabindex="0"><span class="rating-badge ${rating.className}">${rating.label}</span><span class="landing-line">${ui.landingStats(flight)}</span></td>
       <td class="finance-click-cell profile-company-profit-detail ${profitVisual.className}" data-flight-id="${esc(flight.id)}" role="button" tabindex="0">${money(row.direct.companyProfit,true)}${profitVisual.notes.map(note => `<span class="profit-incident-note ${note.className}">${esc(note.text)}</span>`).join('')}</td>
-      <td class="finance-click-cell profile-pilot-salary-detail ${salaryVisual.className}" data-flight-id="${esc(flight.id)}" role="button" tabindex="0"><span class="salary-amount-inline">${money(row.direct.pilotSalary,true)}${ui.guaranteedBonusIconHtmlForRow ? ui.guaranteedBonusIconHtmlForRow(flight,row.direct.guaranteedBonus) : ''}</span>${salaryVisual.note?`<span class="profit-incident-note ${salaryVisual.noteClass || ''}">${esc(salaryVisual.note)}</span>`:''}</td>
+      <td class="finance-click-cell profile-pilot-salary-detail ${salaryVisual.className}" data-flight-id="${esc(flight.id)}" role="button" tabindex="0"><span class="salary-amount-inline">${money(row.direct.pilotSalary,true)}${ui.flightRewardIconsHtmlForRow ? ui.flightRewardIconsHtmlForRow(flight,row.direct.guaranteedBonus) : ''}</span>${salaryVisual.note?`<span class="profit-incident-note ${salaryVisual.noteClass || ''}">${esc(salaryVisual.note)}</span>`:''}</td>
     </tr>`;
   }
 
