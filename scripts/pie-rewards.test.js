@@ -5,6 +5,7 @@ const path = require('node:path');
 const os = require('node:os');
 const vm = require('node:vm');
 const {createRequire} = require('node:module');
+const {spawnSync} = require('node:child_process');
 const rewards = require('../pie-rewards.js');
 
 const root = path.resolve(__dirname, '..');
@@ -101,15 +102,65 @@ test('valid FREE flights receive the rank reward', () => {
   assert.equal(rewards.balanceForPilot(credit({...record,proposalType:'free',flightNumber:'FREE'},{...flight,operations:{scheduled:false,free:true}}),'pilot-1'),3);
 });
 
-test('start must be in the active window, completion may use grace hours', () => {
+test('pies and existing money bonuses share the same start window, including grace hours', () => {
   const {record,flight} = fixture();
-  const starts = ['2026-10-01T05:59:59Z','2026-10-01T12:00:01Z'];
-  for (const started of starts) {
-    assert.equal(Object.keys(credit(record,{...flight,times:{...flight.times,actualDeparture:started,closed:'2026-10-01T14:00:00Z'}},initialLedger(),new Date('2026-10-01T15:00:00Z')).entries).length,0);
+  const updater = loadUpdater();
+  const pool = {generatedAt:record.piePoolGeneratedAt,activeUntil:record.piePoolActiveUntil,claimableUntil:record.piePoolClaimableUntil,categories:{quick:{items:[{rank:1,aircraftId:'aircraft-1',proposal:{type:'schedule',flightNumber:'123',depIcao:'UKBB',arrIcao:'UKLL',premiumUsd:123}}]}}};
+  const items = updater.topPoolItemsFromPools([pool]);
+  const at = new Date('2026-10-03T12:00:00Z');
+  for (const [started,eligible] of [
+    ['2026-10-01T05:59:59Z',false],
+    ['2026-10-01T06:00:00Z',true],
+    ['2026-10-01T12:00:01Z',true],
+    ['2026-10-02T12:00:00Z',true],
+    ['2026-10-02T12:00:00.001Z',false]
+  ]) {
+    const candidate = {...flight,times:{actualDeparture:started,closed:new Date(new Date(started).getTime()+3600000).toISOString()}};
+    const moneyMatch = updater.topPoolMatchForLive(updater.liveFromCompletedFlight(candidate),'aircraft-1',items);
+    assert.equal(Boolean(moneyMatch),eligible);
+    assert.equal(rewards.balanceForPilot(credit(record,candidate,initialLedger(),at),'pilot-1'),eligible?3:0);
   }
-  const later = {...flight,times:{actualDeparture:'2026-10-01T11:00:00Z',closed:'2026-10-01T14:00:00Z'}};
-  assert.equal(rewards.balanceForPilot(credit(record,later,initialLedger(),new Date('2026-10-01T15:00:00Z')),'pilot-1'),3);
-  assert.equal(Object.keys(credit(record,{...flight,times:{...flight.times,closed:'2026-10-02T12:00:01Z'}},initialLedger(),new Date('2026-10-02T15:00:00Z')).entries).length,0);
+  const later = {...flight,times:{actualDeparture:'2026-10-02T11:00:00Z',closed:'2026-10-02T14:00:00Z'}};
+  assert.equal(rewards.balanceForPilot(credit({...record,piePoolActiveUntil:null},later,initialLedger(),at),'pilot-1'),3);
+});
+
+test('reported TOP #2 flight earns two pies after the six-hour active window, once', () => {
+  const {record,flight} = fixture('reported-top-2',2);
+  Object.assign(record,{piePoolGeneratedAt:'2026-10-01T18:00:46.653Z',piePoolActiveUntil:'2026-10-02T00:00:46.653Z',piePoolClaimableUntil:'2026-10-03T00:00:46.653Z'});
+  flight.times = {actualDeparture:'2026-10-02T14:16:24.078Z',closed:'2026-10-02T15:01:26.779Z'};
+  const existing = {...initialLedger(),activatedAt:'2026-10-01T18:32:16.018Z',entries:{previous:{id:'previous',kind:'earn',pilotId:'pilot-1',flightId:'previous-flight',delta:3}}};
+  const at = new Date('2026-10-02T17:10:00Z');
+  const awarded = credit(record,flight,existing,at);
+  assert.equal(awarded.entries['hot:reported-top-2'].delta,2);
+  assert.equal(rewards.balanceForPilot(awarded,'pilot-1'),5);
+  assert.equal(awarded.activatedAt,existing.activatedAt);
+  assert.strictEqual(credit(record,flight,awarded,at),awarded);
+});
+
+test('Railway standalone bonus script runs without the currency module and preserves its ledger', t => {
+  const fixtureRoot = fs.mkdtempSync(path.join(os.tmpdir(),'ucaa-railway-top-sync-'));
+  t.after(()=>{
+    assert.ok(path.resolve(fixtureRoot).startsWith(path.join(os.tmpdir(),'ucaa-railway-top-sync-')));
+    fs.rmSync(fixtureRoot,{recursive:true,force:true});
+  });
+  fs.mkdirSync(path.join(fixtureRoot,'scripts'));
+  fs.mkdirSync(path.join(fixtureRoot,'COMPANY'));
+  const script = path.join(fixtureRoot,'scripts','update-guaranteed-bonuses.js');
+  fs.copyFileSync(path.join(root,'scripts','update-guaranteed-bonuses.js'),script);
+  for (const name of ['aircraft-difficulty-coefficients.js','pilot-pay-policy.js']) fs.copyFileSync(path.join(root,name),path.join(fixtureRoot,name));
+  const ledgerFile = path.join(fixtureRoot,'COMPANY','pies-ledger.json');
+  const ledgerText = JSON.stringify(initialLedger());
+  fs.writeFileSync(ledgerFile,ledgerText);
+  const {record} = fixture();
+  fs.writeFileSync(path.join(fixtureRoot,'COMPANY','guaranteed-bonuses.json'),JSON.stringify({version:1,flights:{'flight-1':record}}));
+  fs.writeFileSync(path.join(fixtureRoot,'COMPANY','top-pool-current.json'),JSON.stringify({version:1,items:[]}));
+  assert.equal(fs.existsSync(path.join(fixtureRoot,'pie-rewards.js')),false);
+  const result = spawnSync(process.execPath,[script,'--skip-live','--dry-run'],{cwd:fixtureRoot,encoding:'utf8',timeout:10000});
+  assert.equal(result.status,0,result.stderr);
+  assert.equal(JSON.parse(result.stdout).flights['flight-1'].status,'earned');
+  assert.equal(fs.readFileSync(ledgerFile,'utf8'),ledgerText);
+  const standalone = require(script);
+  assert.throws(()=>standalone.updatePiesLedger({},[],now,true),error=>error.code==='MODULE_NOT_FOUND');
 });
 
 test('late data imports still earn currency for a previously valid flight', () => {
@@ -120,7 +171,7 @@ test('late data imports still earn currency for a previously valid flight', () =
 
 test('missing snapshot times, invalid chronology and future completion are rejected', () => {
   const {record,flight} = fixture();
-  for (const change of [{piePoolGeneratedAt:null},{piePoolActiveUntil:null},{piePoolClaimableUntil:null},{piePoolKey:''}]) {
+  for (const change of [{piePoolGeneratedAt:null},{piePoolClaimableUntil:null},{piePoolKey:''}]) {
     assert.equal(Object.keys(credit({...record,...change},flight).entries).length,0);
   }
   for (const closed of ['invalid','2026-10-01T06:00:00Z','2026-10-01T13:00:00Z']) {

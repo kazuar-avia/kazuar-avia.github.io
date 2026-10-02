@@ -22,10 +22,12 @@
     const started = time(flight?.times?.actualDeparture || flight?.times?.takeoff);
     const completed = time(flight?.times?.closed || flight?.times?.actualArrival);
     const generated = time(record?.piePoolGeneratedAt);
-    const activeUntil = time(record?.piePoolActiveUntil);
     const claimableUntil = time(record?.piePoolClaimableUntil);
-    if (![started, completed, generated, activeUntil, claimableUntil].every(Number.isFinite)) return false;
-    if (started < generated || started > activeUntil || completed < started || completed > claimableUntil) return false;
+    if (![started, completed, generated, claimableUntil].every(Number.isFinite)) return false;
+    // Match the existing money-bonus eligibility window, including its grace
+    // hours. Completion after that window remains valid for an earned bonus;
+    // syncLedger separately rejects unfinished and future-dated flights.
+    if (started < generated || started > claimableUntil || completed < started) return false;
     if (!text(record.piePoolKey)) return false;
     if (!text(record.pilotId) || text(record.pilotId) !== text(flight?.pilot?.id)) return false;
     if (!text(claim.aircraftId) || text(claim.aircraftId) !== text(flight?.aircraft?.id)) return false;

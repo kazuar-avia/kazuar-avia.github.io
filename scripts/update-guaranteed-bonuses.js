@@ -4,7 +4,6 @@
 const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
-const pieRewards = require('../pie-rewards.js');
 
 const OUTPUT_ROOT = path.resolve(__dirname, '..');
 const COMPANY_DIR = path.join(OUTPUT_ROOT, 'COMPANY');
@@ -842,6 +841,9 @@ function preserveTopPoolClaims(previousFlights, nextFlights) {
 }
 
 function updatePiesLedger(bonusRecords, completedFlights, now, dryRun) {
+  // Railway's temporary top/bonus workspace does not include the currency
+  // module. Only the dedicated ledger updater needs this dependency.
+  const pieRewards = require('../pie-rewards.js');
   // Never reset a saved balance if its file is damaged or unsupported.
   const previous = fs.existsSync(PIES_LEDGER_FILE)
     ? readJson(PIES_LEDGER_FILE)
