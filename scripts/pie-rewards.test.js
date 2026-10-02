@@ -264,6 +264,91 @@ test('flight markers require an actual earning for the exact completed flight an
   }
 });
 
+test('fleet and TOP cards share the matching LIVE premium before bonus data catches up', () => {
+  const source = fs.readFileSync(path.join(root,'pilot-cabinet.js'),'utf8');
+  const item = {aircraftId:'aircraft-1',proposal:{premiumUsd:319}};
+  const flight = {_id:'live-1'};
+  const liveInfo = {state:'LIVE',pilotId:'pilot-1',pilotName:'Mozhehov Denys',aircraftId:'aircraft-1'};
+  let saved = null;
+  let matched = true;
+  const context = vm.createContext({
+    companyLiveryCardAircraftIds:()=>['aircraft-1'],
+    guaranteedBonusLiveRecords:()=>saved ? [{record:saved}] : [],
+    guaranteedBonusRecordForFlight:()=>saved,
+    companyFixedTopPoolCategory:mode=>({items:mode==='quick'?[item]:[]}),
+    companyFixedTopPoolLiveMatchFlight:()=>matched?flight:null,
+    companyLiveryLiveRecordFromFlight:()=>liveInfo,
+    companyLiveryLivePilotName:()=>liveInfo.pilotName,
+    pilotProfileUrl:id=>'#profile/'+id,esc:String
+  });
+  for (const [name,next] of [
+    ['companyLiveryLiveRecordForCard','companyLiveryLiveFlightAircraftId'],
+    ['companyFixedTopPoolLivePayoutRecord','companyFixedTopPoolLiveStatus'],
+    ['companyLiveryLivePayoutText','updateCompanyLiveryLiveBadge']
+  ]) vm.runInContext(source.slice(source.indexOf('function '+name+'('),source.indexOf('function '+next+'(')),context);
+  const fleet = context.companyLiveryLiveRecordForCard({});
+  const top = context.companyFixedTopPoolLivePayoutRecord(flight,item);
+  assert.equal(fleet.amount,319);
+  assert.equal(fleet.pilotId,top.pilotId);
+  assert.equal(context.companyLiveryLivePayoutText(fleet),context.companyLiveryLivePayoutText(top));
+  assert.match(context.companyLiveryLivePayoutText(fleet),/буде виплачена.*Mozhehov Denys/u);
+  matched = false;
+  assert.equal(context.companyLiveryLiveRecordForCard({}),null);
+  matched = true;
+  saved = {...liveInfo,amount:333,status:'matched'};
+  assert.equal(context.companyLiveryLiveRecordForCard({}).amount,333);
+  assert.equal(context.companyFixedTopPoolLivePayoutRecord(flight,item).amount,333);
+  saved = {...saved,amount:0,status:'unmatched'};
+  assert.equal(context.companyLiveryLiveRecordForCard({}),null);
+  assert.equal(context.companyFixedTopPoolLivePayoutRecord(flight,item),null);
+});
+
+test('an old flight on the same route cannot turn the current LIVE reward into DONE', () => {
+  const source = fs.readFileSync(path.join(root,'pilot-cabinet.js'),'utf8');
+  const {record,flight} = fixture();
+  record.flightNumber = flight.flightNumber;
+  const liveId = '6abfee39e2b73bbe59044797';
+  const saved = {...record,state:'LIVE',status:'matched',amount:319};
+  const app = {guaranteedBonuses:{flights:{[liveId]:saved}},flights:[{...flight,id:'older-same-route'}]};
+  const context = vm.createContext({app});
+  vm.runInContext(source.slice(source.indexOf('function guaranteedBonusFlightKeys('),source.indexOf('function guaranteedBonusLiveRecords(')),context);
+  context.reconcileGuaranteedBonusStatesWithCompletedFlights();
+  assert.equal(saved.state,'LIVE');
+  assert.equal(saved.status,'matched');
+  assert.equal(saved.completedFlightId,undefined);
+  app.flights.push({...flight,id:liveId});
+  context.reconcileGuaranteedBonusStatesWithCompletedFlights();
+  assert.equal(saved.state,'DONE');
+  assert.equal(saved.status,'earned');
+  assert.equal(saved.completedFlightId,liveId);
+  const legacy = {...record,state:'LIVE',status:'matched'};
+  app.guaranteedBonuses = {flights:{'123|UKBB|UKLL':legacy}};
+  app.flights = [{...flight,times:{...flight.times,actualDeparture:'2026-10-01T05:00:00Z'}}];
+  context.reconcileGuaranteedBonusStatesWithCompletedFlights();
+  assert.equal(legacy.state,'LIVE');
+  app.flights = [flight];
+  context.reconcileGuaranteedBonusStatesWithCompletedFlights();
+  assert.equal(legacy.state,'DONE');
+});
+
+test('promised pies appear only in hot cards, using the confirmed LIVE rank', () => {
+  const source = fs.readFileSync(path.join(root,'pilot-cabinet.js'),'utf8');
+  const {record,flight} = fixture('hot-live',1);
+  const saved = {...record,state:'LIVE',status:'matched',pilotName:'Mozhehov Denys'};
+  const live = {_id:flight.id,depTimeAct:flight.times.actualDeparture};
+  const context = vm.createContext({app:{piesLedger:initialLedger()},window:{UCAAPieRewards:rewards},
+    guaranteedBonusRecordForFlight:()=>saved,companyLiveryLivePilotName:()=>saved.pilotName,
+    companyFixedTopPoolConsumedFlight:()=>null,companyFixedTopPoolLiveMatchFlight:()=>live,
+    companyFixedTopPoolInterceptedFlight:()=>null,companyFixedTopPoolLiveStatus:()=>({html:'✓ зараз виконується'}),
+    pilotProfileUrl:id=>'#profile/'+id,esc:String});
+  vm.runInContext(source.slice(source.indexOf('function companyPiesRewardHtml('),source.indexOf('function companyFixedTopPoolModeForPieType(')),context);
+  const html = context.companyFixedTopPoolNoteHtml({rank:1},{label:'Hot'},'quick',0);
+  assert.match(html,/3 пиріжки буде видано пілоту.*Mozhehov Denys/u);
+  for (const mode of ['earn','return','idle']) {
+    assert.doesNotMatch(context.companyFixedTopPoolNoteHtml({rank:1},{label:mode},mode,0),/буде видано|company-pies-reward|pyrih\.png/u);
+  }
+});
+
 test('hot rewards name the LIVE recipient, then distinguish pending from credited pies', () => {
   const source = fs.readFileSync(path.join(root,'pilot-cabinet.js'),'utf8');
   const {record,flight} = fixture('recipient-flight',2);
