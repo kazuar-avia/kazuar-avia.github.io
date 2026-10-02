@@ -970,6 +970,17 @@ function guaranteedBonusIconHtmlForRow(flight, amount) {
   ));
 }
 
+function pieRewardIconHtml(flight) {
+  const entry = window.UCAAPieRewards.earningForFlight(app.piesLedger, flight);
+  if (!entry) return '';
+  const label = `${entry.delta} ${entry.delta === 1 ? 'пиріжок' : 'пиріжки'}`;
+  return `<span class="flight-pies-icon" title="Нараховано ${esc(label)} за цей рейс"><img src="pyrih.png" alt="+${esc(label)}"></span>`;
+}
+
+function flightRewardIconsHtmlForRow(flight, amount) {
+  return guaranteedBonusIconHtmlForRow(flight, amount) + pieRewardIconHtml(flight);
+}
+
 function pilotPay(flight) {
   return window.UCAAPilotPay.pay(flight, pilotInsuranceCoverage.get(flight) || 0, app.flights)
     + guaranteedBonusAmountForFlight(flight);
@@ -2504,6 +2515,8 @@ window.UCAADashboardFlightUI = {
   aircraftTableNote,
   pilotSalaryVisual,
   guaranteedBonusIconHtmlForRow,
+  flightRewardIconsHtmlForRow,
+  pieRewardIconHtml,
   companyProfitVisual
 };
 
@@ -2560,7 +2573,7 @@ function renderDashboardFlightsOld(completed) {
       <td><span class="payload-value" title="${payloadKind.label}">${esc(flightLoad(flight))}<span class="load-kind-icon" aria-hidden="true">${payloadKind.icon}</span></span></td>
       <td class="num rating-cell rating-detail" data-flight-id="${esc(flight.id)}" role="button" tabindex="0"><span class="rating-badge ${rating.className}">${rating.label}</span><span class="landing-line">${landingStats(flight)}</span></td>
       <td class="finance-click-cell company-profit-detail ${profitVisual.className}" data-flight-id="${esc(flight.id)}" role="button" tabindex="0">${money(direct.companyProfit,true)}${profitVisual.notes.map(note=>`<span class="profit-incident-note ${note.className}">${esc(note.text)}</span>`).join('')}</td>
-      <td class="finance-click-cell pilot-salary-detail ${salaryVisual.className}" data-flight-id="${esc(flight.id)}" role="button" tabindex="0"><span class="salary-amount-inline">${money(direct.pilotSalary,true)}${guaranteedBonusIconHtmlForRow(flight, direct.guaranteedBonus)}</span>${salaryVisual.note?`<span class="profit-incident-note ${salaryVisual.noteClass||''}">${esc(salaryVisual.note)}</span>`:''}</td>
+      <td class="finance-click-cell pilot-salary-detail ${salaryVisual.className}" data-flight-id="${esc(flight.id)}" role="button" tabindex="0"><span class="salary-amount-inline">${money(direct.pilotSalary,true)}${flightRewardIconsHtmlForRow(flight, direct.guaranteedBonus)}</span>${salaryVisual.note?`<span class="profit-incident-note ${salaryVisual.noteClass||''}">${esc(salaryVisual.note)}</span>`:''}</td>
     </tr>`;
   }).join('') : '<tr><td colspan="8" class="loading">За вибраний період завершених рейсів немає</td></tr>';
   bindDashboardPilotCells();
@@ -2838,7 +2851,7 @@ function renderDashboardFlights(completed) {
         <td><span class="payload-value" title="${row.payloadKind.label}">${esc(flightLoad(flight))}<span class="load-kind-icon" aria-hidden="true">${row.payloadKind.icon}</span></span></td>
         <td class="num rating-cell rating-detail" data-flight-id="${esc(flight.id)}" role="button" tabindex="0"><span class="rating-badge ${row.rating.className}">${row.rating.label}</span><span class="landing-line">${landingStats(flight)}</span></td>
         <td class="finance-click-cell company-profit-detail ${row.profitVisual.className}" data-flight-id="${esc(flight.id)}" role="button" tabindex="0">${money(row.direct.companyProfit,true)}${row.profitVisual.notes.map(note=>`<span class="profit-incident-note ${note.className}">${esc(note.text)}</span>`).join('')}</td>
-        <td class="finance-click-cell pilot-salary-detail ${row.salaryVisual.className}" data-flight-id="${esc(flight.id)}" role="button" tabindex="0"><span class="salary-amount-inline">${money(row.direct.pilotSalary,true)}${guaranteedBonusIconHtmlForRow(flight, row.direct.guaranteedBonus)}</span>${row.salaryVisual.note?`<span class="profit-incident-note ${row.salaryVisual.noteClass||''}">${esc(row.salaryVisual.note)}</span>`:''}</td>
+        <td class="finance-click-cell pilot-salary-detail ${row.salaryVisual.className}" data-flight-id="${esc(flight.id)}" role="button" tabindex="0"><span class="salary-amount-inline">${money(row.direct.pilotSalary,true)}${flightRewardIconsHtmlForRow(flight, row.direct.guaranteedBonus)}</span>${row.salaryVisual.note?`<span class="profit-incident-note ${row.salaryVisual.noteClass||''}">${esc(row.salaryVisual.note)}</span>`:''}</td>
       </tr>`;
     }).join('') : '<tr><td colspan="8" class="loading">За вибраний період завершених рейсів немає</td></tr>';
     $('#dashboardFlights').innerHTML = `${renderLiveDashboardRows()}${completedRowsHtml}`;
@@ -2874,7 +2887,7 @@ function renderDashboardFlightsLegacy(completed) {
       <td><span class="payload-value" title="${payloadKind.label}">${esc(flightLoad(flight))}<span class="load-kind-icon" aria-hidden="true">${payloadKind.icon}</span></span></td>
       <td class="num rating-cell rating-detail" data-flight-id="${esc(flight.id)}" role="button" tabindex="0"><span class="rating-badge ${rating.className}">${rating.label}</span><span class="landing-line">${landingStats(flight)}</span></td>
       <td class="finance-click-cell company-profit-detail ${profitVisual.className}" data-flight-id="${esc(flight.id)}" role="button" tabindex="0">${money(direct.companyProfit,true)}${profitVisual.notes.map(note=>`<span class="profit-incident-note ${note.className}">${esc(note.text)}</span>`).join('')}</td>
-      <td class="finance-click-cell pilot-salary-detail ${salaryVisual.className}" data-flight-id="${esc(flight.id)}" role="button" tabindex="0"><span class="salary-amount-inline">${money(direct.pilotSalary,true)}${guaranteedBonusIconHtmlForRow(flight, direct.guaranteedBonus)}</span>${salaryVisual.note?`<span class="profit-incident-note ${salaryVisual.noteClass||''}">${esc(salaryVisual.note)}</span>`:''}</td>
+      <td class="finance-click-cell pilot-salary-detail ${salaryVisual.className}" data-flight-id="${esc(flight.id)}" role="button" tabindex="0"><span class="salary-amount-inline">${money(direct.pilotSalary,true)}${flightRewardIconsHtmlForRow(flight, direct.guaranteedBonus)}</span>${salaryVisual.note?`<span class="profit-incident-note ${salaryVisual.noteClass||''}">${esc(salaryVisual.note)}</span>`:''}</td>
     </tr>`;
   }).join('') : '<tr><td colspan="8" class="loading">За вибраний період завершених рейсів немає</td></tr>';
   bindDashboardPilotCells();
@@ -5098,7 +5111,7 @@ function liveryFlightLogRows(flights) {
   const selected = flights.slice(0, 6);
   selected.forEach((flight, index) => {
     const rating = flightRatingPresentation(flight);
-    rows.push(`<tr class="company-livery-log-row"><td>${liveryFlightDateShort(flight)}<span class="date-flight-meta">${liveryFlightNumberBadge(flight)}</span></td><td class="route"><span class="route-airports">${liveryAirportWithFlag(flight.departure)} → ${liveryAirportWithFlag(flight.actualArrival || flight.arrival)}</span><span class="route-duration">${formatMinutes(flight.times?.durationMinutes)}</span></td><td><a href="${esc(pilotProfileUrl(flight.pilot?.id || ''))}">${esc(flight.pilot?.name || 'Pilot')}</a></td><td class="company-livery-log-rating"><span class="rating-badge ${rating.className}">${rating.label}</span></td></tr>`);
+    rows.push(`<tr class="company-livery-log-row"><td>${liveryFlightDateShort(flight)}<span class="date-flight-meta">${liveryFlightNumberBadge(flight)}${pieRewardIconHtml(flight)}</span></td><td class="route"><span class="route-airports">${liveryAirportWithFlag(flight.departure)} → ${liveryAirportWithFlag(flight.actualArrival || flight.arrival)}</span><span class="route-duration">${formatMinutes(flight.times?.durationMinutes)}</span></td><td><a href="${esc(pilotProfileUrl(flight.pilot?.id || ''))}">${esc(flight.pilot?.name || 'Pilot')}</a></td><td class="company-livery-log-rating"><span class="rating-badge ${rating.className}">${rating.label}</span></td></tr>`);
     const nextOlder = selected[index + 1];
     if (nextOlder) rows.push(liveryTeleportRow(flight, nextOlder));
   });
@@ -5217,7 +5230,7 @@ function liveryFlightLogRowsCompact(flights) {
   const selected = flights.slice(0, 6);
   selected.forEach((flight, index) => {
     const rating = flightRatingPresentation(flight);
-    rows.push(`<tr class="company-livery-log-row"><td>${liveryFlightDateShort(flight)}<span class="date-flight-meta">${liveryFlightNumberBadge(flight)}</span></td><td><a href="${esc(pilotProfileUrl(flight.pilot?.id || ''))}">${esc(flight.pilot?.name || 'Pilot')}</a></td><td class="route"><span class="route-airports">${liveryAirportWithFlag(flight.departure)} → ${liveryAirportWithFlag(flight.actualArrival || flight.arrival)}</span><span class="route-duration">${formatMinutes(flight.times?.durationMinutes)}</span></td><td class="company-livery-log-rating"><span class="rating-badge ${rating.className}">${rating.label}</span></td></tr>`);
+    rows.push(`<tr class="company-livery-log-row"><td>${liveryFlightDateShort(flight)}<span class="date-flight-meta">${liveryFlightNumberBadge(flight)}${pieRewardIconHtml(flight)}</span></td><td><a href="${esc(pilotProfileUrl(flight.pilot?.id || ''))}">${esc(flight.pilot?.name || 'Pilot')}</a></td><td class="route"><span class="route-airports">${liveryAirportWithFlag(flight.departure)} → ${liveryAirportWithFlag(flight.actualArrival || flight.arrival)}</span><span class="route-duration">${formatMinutes(flight.times?.durationMinutes)}</span></td><td class="company-livery-log-rating"><span class="rating-badge ${rating.className}">${rating.label}</span></td></tr>`);
     const nextOlder = selected[index + 1];
     if (nextOlder) {
       const teleportRow = liveryTeleportRowCompact(flight, nextOlder);
@@ -5270,7 +5283,7 @@ function liveryFlightLogRowsCompactV2(flights, options = {}) {
     const direct = directFlightFinance(flight);
     const profitClass = direct.companyProfit > 0 ? 'positive' : direct.companyProfit < 0 ? 'negative' : '';
     const salaryClass = direct.pilotSalary > 0 ? 'positive' : direct.pilotSalary < 0 ? 'negative' : '';
-    rows.push(`<tr class="company-livery-log-row"><td>${liveryFlightDateShort(flight)}<span class="date-flight-meta">${liveryFlightNumberBadge(flight)}</span></td><td><a href="${esc(pilotProfileUrl(flight.pilot?.id || ''))}">${esc(flight.pilot?.name || 'Pilot')}</a></td><td class="route"><span class="route-airports">${liveryAirportWithFlag(flight.departure)} → ${liveryAirportWithFlag(flight.actualArrival || flight.arrival)}</span></td><td class="company-livery-log-duration">${formatMinutes(flight.times?.durationMinutes)}</td><td class="company-livery-log-rating"><span class="rating-badge ${rating.className}">${rating.label}</span></td><td class="company-livery-log-money ${profitClass}">${money(direct.companyProfit,true)}</td><td class="company-livery-log-money ${salaryClass}">${money(direct.pilotSalary,true)}</td></tr>`);
+    rows.push(`<tr class="company-livery-log-row"><td>${liveryFlightDateShort(flight)}<span class="date-flight-meta">${liveryFlightNumberBadge(flight)}</span></td><td><a href="${esc(pilotProfileUrl(flight.pilot?.id || ''))}">${esc(flight.pilot?.name || 'Pilot')}</a></td><td class="route"><span class="route-airports">${liveryAirportWithFlag(flight.departure)} → ${liveryAirportWithFlag(flight.actualArrival || flight.arrival)}</span></td><td class="company-livery-log-duration">${formatMinutes(flight.times?.durationMinutes)}</td><td class="company-livery-log-rating"><span class="rating-badge ${rating.className}">${rating.label}</span></td><td class="company-livery-log-money ${profitClass}">${money(direct.companyProfit,true)}</td><td class="company-livery-log-money ${salaryClass}"><span class="salary-amount-inline">${money(direct.pilotSalary,true)}${flightRewardIconsHtmlForRow(flight, direct.guaranteedBonus)}</span></td></tr>`);
     const nextOlder = selected[index + 1];
     if (nextOlder) {
       const teleportRow = liveryTeleportRowCompactV2(flight, nextOlder, options);
@@ -5336,7 +5349,7 @@ function liveryFlightLogRowsSimple(flights) {
     const direct = directFlightFinance(flight);
     const profitClass = direct.companyProfit > 0 ? 'positive' : direct.companyProfit < 0 ? 'negative' : '';
     const salaryClass = direct.pilotSalary > 0 ? 'positive' : direct.pilotSalary < 0 ? 'negative' : '';
-    return `<tr class="company-livery-log-row"><td>${liveryFlightDateShort(flight)}<span class="date-flight-meta">${liveryFlightNumberBadge(flight)}</span></td><td><a href="${esc(pilotProfileUrl(flight.pilot?.id || ''))}">${esc(flight.pilot?.name || 'Pilot')}</a></td><td class="route"><span class="route-airports">${liveryAirportWithFlag(flight.departure)} → ${liveryAirportWithFlag(flight.actualArrival || flight.arrival)}</span></td><td class="company-livery-log-duration">${formatMinutes(flight.times?.durationMinutes)}</td><td class="company-livery-log-rating"><span class="rating-badge ${rating.className}">${rating.label}</span></td><td class="company-livery-log-money ${profitClass}">${money(direct.companyProfit,true)}</td><td class="company-livery-log-money ${salaryClass}">${money(direct.pilotSalary,true)}</td></tr>`;
+    return `<tr class="company-livery-log-row"><td>${liveryFlightDateShort(flight)}<span class="date-flight-meta">${liveryFlightNumberBadge(flight)}</span></td><td><a href="${esc(pilotProfileUrl(flight.pilot?.id || ''))}">${esc(flight.pilot?.name || 'Pilot')}</a></td><td class="route"><span class="route-airports">${liveryAirportWithFlag(flight.departure)} → ${liveryAirportWithFlag(flight.actualArrival || flight.arrival)}</span></td><td class="company-livery-log-duration">${formatMinutes(flight.times?.durationMinutes)}</td><td class="company-livery-log-rating"><span class="rating-badge ${rating.className}">${rating.label}</span></td><td class="company-livery-log-money ${profitClass}">${money(direct.companyProfit,true)}</td><td class="company-livery-log-money ${salaryClass}"><span class="salary-amount-inline">${money(direct.pilotSalary,true)}${flightRewardIconsHtmlForRow(flight, direct.guaranteedBonus)}</span></td></tr>`;
   }).join('');
 }
 
@@ -6254,14 +6267,61 @@ function companyFixedTopPoolLiveStatus(item, mode) {
   return {state: 'warn', html: `<span class="company-top-pool-live-state company-top-pool-live-warn">⚠ маршрут/тип рейса не співпадає</span>`};
 }
 
+function companyPiesRewardHtml(item, consumed, live) {
+  let reward = window.UCAAPieRewards.rewardForRank(item?.rank);
+  if (!reward) return '';
+  let record = null;
+  let pilot = null;
+  let awarded = false;
+  if (consumed) {
+    const entry = window.UCAAPieRewards.earningForFlight(app.piesLedger, consumed);
+    if (entry) {
+      reward = entry.delta;
+      pilot = consumed.pilot;
+      awarded = true;
+    } else {
+      record = guaranteedBonusRecordForFlight(consumed);
+      const activated = new Date(app.piesLedger?.activatedAt || '').getTime();
+      const started = new Date(consumed.times?.actualDeparture || consumed.times?.takeoff || '').getTime();
+      if (record?.state !== 'DONE' || record?.status !== 'earned'
+          || record?.pie !== true || record?.pieType !== 'hot'
+          || !window.UCAAPieRewards.snapshotMatchesFlight(record, consumed)
+          || !Number.isFinite(activated) || started < activated) record = null;
+      if (record) pilot = consumed.pilot;
+    }
+  } else if (live) {
+    const savedRecord = item.livePieRecord || guaranteedBonusRecordForFlight(live);
+    record = savedRecord || {...companyFixedTopPoolLivePayoutRecord(live), pie:true, pieType:'hot', pieRank:item.rank};
+    const activated = new Date(app.piesLedger?.activatedAt || '').getTime();
+    const started = new Date(live.depTimeAct || '').getTime();
+    const generated = new Date(record?.piePoolGeneratedAt || item.generatedAt || app.companyTopPool?.generatedAt || '').getTime();
+    const claimableUntil = new Date(record?.piePoolClaimableUntil || item.claimableUntil || '').getTime();
+    if (record?.state !== 'LIVE' || record?.status !== 'matched'
+        || record?.pie !== true || record?.pieType !== 'hot'
+        || ![activated,started,generated,claimableUntil].every(Number.isFinite)
+        || started < activated || started < generated || started > claimableUntil) record = null;
+    if (record) pilot = {id:record.pilotId, name:companyLiveryLivePilotName(record)};
+  }
+  if (record) reward = window.UCAAPieRewards.rewardForRank(record.pieRank);
+  if (!reward) return '';
+  const icon = '<img class="company-pyrih-icon" src="pyrih.png" alt="пиріжки">';
+  const quantity = `${reward} ${reward === 1 ? 'пиріжок' : 'пиріжки'}`;
+  if (!pilot) return `<span class="company-pies-reward">Нагорода: ${reward} ${icon}</span>`;
+  const id = String(pilot?.id || '').trim();
+  const name = String(pilot?.name || 'Пілот').trim();
+  const recipient = id ? `<a href="${esc(pilotProfileUrl(id))}">${esc(name)}</a>` : esc(name);
+  const text = `${quantity} ${awarded ? 'нараховано' : 'буде видано'} пілоту ${recipient}`;
+  return `<span class="company-pies-reward">${icon} ${text}</span>`;
+}
+
 function companyFixedTopPoolNoteHtml(item, category, mode, index) {
   const rank = Number(item?.rank);
-  const reward = mode === 'quick' ? window.UCAAPieRewards.rewardForRank(rank) : 0;
+  const consumed = companyFixedTopPoolConsumedFlight(item, mode);
+  const rewardHtml = mode === 'quick' ? companyPiesRewardHtml(item, consumed, companyFixedTopPoolLiveMatchFlight(item, mode)) : '';
   const quickLabel = mode === 'quick'
-    ? `<strong>ТОП <img class="company-pyrih-icon" src="pyrih.png" alt="пиріжок" aria-hidden="true">${Number.isInteger(rank) && rank > 0 ? ` #${rank}` : ''}</strong>${reward ? `<br><span class="company-pies-reward">Нагорода: ${reward} <img class="company-pyrih-icon" src="pyrih.png" alt="пиріжки"></span>` : ''}`
+    ? `<strong>ТОП <img class="company-pyrih-icon" src="pyrih.png" alt="пиріжок" aria-hidden="true">${Number.isInteger(rank) && rank > 0 ? ` #${rank}` : ''}</strong>${rewardHtml ? `<br>${rewardHtml}` : ''}`
     : '';
   const withQuickLabel = html => quickLabel ? `${quickLabel}<br>${html}` : html;
-  const consumed = companyFixedTopPoolConsumedFlight(item, mode);
   if (consumed) return withQuickLabel(`<span class="company-top-pool-live-state company-top-pool-live-ok">✅ Бонусний рейс виконано!</span>`);
   const intercepted = companyFixedTopPoolInterceptedFlight(item, mode);
   if (intercepted) return withQuickLabel(`<span class="company-top-pool-live-state company-top-pool-live-warn">⚠ Літак вже недоступний для бонусів</span>`);

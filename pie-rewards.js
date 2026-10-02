@@ -91,6 +91,18 @@
     return changed ? {...ledger, activatedAt, updatedAt: new Date(nowMs).toISOString(), entries} : ledger;
   }
 
+  function earningForFlight(ledger, flight) {
+    const flightId = text(flight?.id || flight?._id || flight?.flightId || flight?.newskyId);
+    const pilotId = text(flight?.pilot?.id || flight?.pilot?._id || flight?.pilotId);
+    if (!flightId || !pilotId || flight?.status !== 'completed') return null;
+    const entryId = `hot:${flightId}`;
+    if (!Object.prototype.hasOwnProperty.call(ledger?.entries || {}, entryId)) return null;
+    const entry = ledger.entries[entryId];
+    return entry?.kind === 'earn' && text(entry.id) === entryId
+      && text(entry.flightId) === flightId && text(entry.pilotId) === pilotId
+      && Number.isSafeInteger(entry.delta) && entry.delta > 0 ? entry : null;
+  }
+
   function balanceForPilot(ledger, pilotId) {
     const id = text(pilotId);
     if (!id || !ledger?.entries) return 0;
@@ -106,5 +118,5 @@
     return balance;
   }
 
-  return Object.freeze({RULE_VERSION, REWARDS, rewardForRank, snapshotMatchesFlight, syncLedger, balanceForPilot});
+  return Object.freeze({RULE_VERSION, REWARDS, rewardForRank, snapshotMatchesFlight, syncLedger, earningForFlight, balanceForPilot});
 });
