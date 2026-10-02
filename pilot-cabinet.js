@@ -925,11 +925,24 @@ function reconcileGuaranteedBonusStatesWithCompletedFlights() {
   Object.entries(records || {}).forEach(([key, record]) => {
     if (!record || typeof record !== 'object') return;
     if (guaranteedBonusRecordState(record) !== 'LIVE') return;
-    const matched = completed.find(flight => guaranteedBonusFlightKeys(flight).includes(String(key || '').trim()))
-      || completed.find(flight => guaranteedBonusRecordMatchesFlight(record, flight));
+    const flightId = String(key || '').trim();
+    let matched = completed.find(flight => [flight.id,flight._id,flight.flightId,flight.newskyId]
+      .some(id => String(id || '').trim() === flightId));
+    // A previous flight on the same route is not this LIVE flight. Route-only
+    // matching is retained solely for legacy records keyed by a route alias.
+    if (!matched && flightId.includes('|')) {
+      const generated = new Date(record.piePoolGeneratedAt || '').getTime();
+      const deadline = new Date(record.piePoolClaimableUntil || '').getTime();
+      matched = completed.find(flight => {
+        if (!guaranteedBonusRecordMatchesFlight(record, flight)) return false;
+        const started = new Date(flight.times?.actualDeparture || flight.times?.takeoff || '').getTime();
+        return (!Number.isFinite(generated) || (Number.isFinite(started) && started >= generated))
+          && (!Number.isFinite(deadline) || (Number.isFinite(started) && started <= deadline));
+      });
+    }
     if (!matched) return;
     record.state = 'DONE';
-    if (!record.status || String(record.status).toLowerCase().includes('live')) record.status = 'earned';
+    if (!record.status || /^(live|matched)$/i.test(String(record.status))) record.status = 'earned';
     record.completedFlightId = String(matched.id || matched._id || key || '').trim();
   });
 }
@@ -2974,7 +2987,7 @@ async function loadDatabases() {
       fetch(`COMPANY/top-pool-current.json?v=${Date.now()}`, {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
       loadCompanyCharterDemand('default'),
       fetch('COMPANY/route-missions.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
-      fetch('COMPANY/guaranteed-bonuses.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
+      fetch(`COMPANY/guaranteed-bonuses.json?v=${Date.now()}`, {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
       fetch('COMPANY/guaranteed-bonuses-manual.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
       fetch('ADcoordinates.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
       fetch(`COMPANY/pies-ledger.json?v=${Date.now()}`, {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null)
@@ -4811,9 +4824,22 @@ function companyLiveryCardAircraftIcaos(card, headline = null) {
 function companyLiveryLiveRecordForCard(card, headline = null) {
   const ids = new Set(companyLiveryCardAircraftIds(card, headline));
   if (!ids.size) return null;
-  return guaranteedBonusLiveRecords()
+  const saved = guaranteedBonusLiveRecords()
     .map(item => item.record)
-    .find(record => ids.has(String(record.aircraftId || record.aircraft || '').trim())) || null;
+    .find(record => ids.has(String(record.aircraftId || record.aircraft || '').trim())
+      && record.status === 'matched' && Number(record.amount) > 0);
+  if (saved) return saved;
+  // Use the same matching LIVE offer in both the fleet card and its TOP clone,
+  // even while the background bonus file is still catching up with NewSky.
+  for (const mode of ['quick','earn','return','idle']) {
+    const items = companyFixedTopPoolCategory(mode)?.items || [];
+    for (const item of items) {
+      if (!ids.has(String(item.aircraftId || '').trim())) continue;
+      const flight = companyFixedTopPoolLiveMatchFlight(item, mode);
+      if (flight) return companyFixedTopPoolLivePayoutRecord(flight, item);
+    }
+  }
+  return null;
 }
 
 function companyLiveryLiveFlightAircraftId(flight) {
@@ -6236,9 +6262,15 @@ function companyFixedTopPoolLiveMatchFlight(item, mode) {
   return routeMatches && operationMatches && numberMatches ? flight : null;
 }
 
-function companyFixedTopPoolLivePayoutRecord(flight) {
-  const record = companyLiveryLiveRecordFromFlight(flight);
-  return record ? {...record, amount: 1, status: 'matched'} : null;
+function companyFixedTopPoolLivePayoutRecord(flight, item = null) {
+  const live = companyLiveryLiveRecordFromFlight(flight);
+  if (!live) return null;
+  const saved = guaranteedBonusRecordForFlight(flight);
+  if (saved) {
+    return saved.state === 'LIVE' && saved.status === 'matched' && Number(saved.amount) > 0
+      ? {...live, ...saved, pilotName:live.pilotName || saved.pilotName || ''} : null;
+  }
+  return {...live, amount:Number(item?.proposal?.premiumUsd) || 1, status:'matched'};
 }
 function companyFixedTopPoolLiveStatus(item, mode) {
   const flight = companyFixedTopPoolLiveFlightForItem(item);
@@ -6291,7 +6323,7 @@ function companyPiesRewardHtml(item, consumed, live) {
     }
   } else if (live) {
     const savedRecord = item.livePieRecord || guaranteedBonusRecordForFlight(live);
-    record = savedRecord || {...companyFixedTopPoolLivePayoutRecord(live), pie:true, pieType:'hot', pieRank:item.rank};
+    record = savedRecord || {...companyFixedTopPoolLivePayoutRecord(live, item), pie:true, pieType:'hot', pieRank:item.rank};
     const activated = new Date(app.piesLedger?.activatedAt || '').getTime();
     const started = new Date(live.depTimeAct || '').getTime();
     const generated = new Date(record?.piePoolGeneratedAt || item.generatedAt || app.companyTopPool?.generatedAt || '').getTime();
@@ -6427,7 +6459,7 @@ function renderCompanyFixedTopPoolItems(grid, mode, sourceCards, headingTitle, m
     const liveMatch = companyFixedTopPoolLiveMatchFlight(item, mode);
     if (liveMatch) {
       const offerRoute = clone.querySelector('.company-livery-offer-route');
-      const payoutRecord = companyFixedTopPoolLivePayoutRecord(liveMatch);
+      const payoutRecord = companyFixedTopPoolLivePayoutRecord(liveMatch, item);
       if (offerRoute && payoutRecord) offerRoute.innerHTML = companyLiveryLivePayoutText(payoutRecord);
     }
     const consumed = companyFixedTopPoolConsumedFlight(item, mode);
@@ -6573,7 +6605,7 @@ function updateCompanyLiveryStatus() {
       const suggestedProposal = liverySuggestedRouteData(card, title, flights, null, headline);
       const suggestedText = typeof suggestedProposal === 'string' ? suggestedProposal : suggestedProposal?.html || '&mdash;';
       const offerText = premiumLiveRecord ? companyLiveryLivePayoutText(premiumLiveRecord) : suggestedText;
-      const premiumText = isDryLeaseCard ? '&mdash;' : liveryProposalPremiumHtml(suggestedProposal);
+      const premiumText = premiumLiveRecord ? `<strong>${money(Number(premiumLiveRecord.amount))}</strong>` : isDryLeaseCard ? '&mdash;' : liveryProposalPremiumHtml(suggestedProposal);
       const offerMutedClass = anyLiveRecord && !premiumLiveRecord ? ' company-livery-status-offer-muted' : '';
       const locationLine = anyLiveRecord
         ? `<div class="company-livery-status-line company-livery-status-location company-livery-status-live">${companyLiveryLiveStatusHtml(anyLiveRecord)}</div>`
@@ -6609,7 +6641,7 @@ function updateCompanyLiveryStatus() {
     const suggestedProposal = liverySuggestedRouteData(card, title, flights, latest, headline);
     const suggestedText = typeof suggestedProposal === 'string' ? suggestedProposal : suggestedProposal?.html || '&mdash;';
     const offerText = premiumLiveRecord ? companyLiveryLivePayoutText(premiumLiveRecord) : suggestedText;
-    const premiumText = (isInactiveSubleaseOnly || isDryLeaseCard) ? '&mdash;' : liveryProposalPremiumHtml(suggestedProposal);
+    const premiumText = premiumLiveRecord ? `<strong>${money(Number(premiumLiveRecord.amount))}</strong>` : (isInactiveSubleaseOnly || isDryLeaseCard) ? '&mdash;' : liveryProposalPremiumHtml(suggestedProposal);
     const offerMutedClass = anyLiveRecord && !premiumLiveRecord ? ' company-livery-status-offer-muted' : '';
     const headlinePrefix = displayRegistration ? `${esc(displayRegistration)} ` : '';
     const locationLine = anyLiveRecord
