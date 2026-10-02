@@ -13533,6 +13533,195 @@
                         "elev": 148
                     }
                 }
+            },
+            {
+                "_id": "6abf9c1b0fd87508e1b12bbc",
+                "aircraft": {
+                    "_id": "699ae4f09da57b990ac12987",
+                    "name": "Boeing 777 Freighter",
+                    "customName": "UCAA l 777F (cargo) based in UKBB l UR-CRG",
+                    "icao": "B77L"
+                },
+                "type": "cargo",
+                "flightNumber": "705F",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 0,
+                    "cargo": 804,
+                    "weights": {
+                        "cargo": 50652
+                    }
+                },
+                "depTime": "2026-10-02T12:35:00.000Z",
+                "duration": 120,
+                "arrTime": "2026-10-02T14:35:00.000Z",
+                "depTimeAct": "2026-10-02T12:34:59.704Z",
+                "delay": -5,
+                "takeoffTimeAct": "2026-10-02T12:48:08.689Z",
+                "durationAct": 101,
+                "arrTimeAct": "2026-10-02T14:29:34.114Z",
+                "open": "2026-10-02T12:25:07.236Z",
+                "close": "2026-10-02T14:35:51.926Z",
+                "rating": 6.78,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 715,
+                        "fuel": 11302,
+                        "expenses": 33756,
+                        "penalties": 0,
+                        "revenue": 119796,
+                        "balance": 86040,
+                        "prices": {
+                            "ticketPrice": 135,
+                            "cargoUnitPrice": 149,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 0,
+                            "cargo": 804,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 12777,
+                        "aircraft": 17505,
+                        "handling": 1809,
+                        "landing": 1665
+                    },
+                    "revenue": {
+                        "tickets": 0,
+                        "cargo": 119796
+                    },
+                    "violations": [
+                        {
+                            "title": "Unstable approach below 400ft: vertical speed below -1500 ft/min (actual -1607 ft/min)",
+                            "penalty": {
+                                "points": -53,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "spoilers",
+                                "payload": {
+                                    "system": {
+                                        "fps": 19
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 7.53m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -57,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 11
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.65,
+                                        "rate": 556
+                                    },
+                                    "weather": {
+                                        "windDir": 179.87,
+                                        "windSpd": 6.13,
+                                        "windX": -5.1
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.65G (556 ft/min, normal  conditions)<br/>Distance from threshold: 595m (accepted range: 179-720m)<br/>Average centerline deviation: 1.64m<br/>Max centerline deviation: 7.53m",
+                            "penalty": {
+                                "points": -62,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 11
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.65,
+                                        "rate": 556
+                                    },
+                                    "weather": {
+                                        "windDir": 179.87,
+                                        "windSpd": 6.13,
+                                        "windX": -5.1
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 380ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 16
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-02T11:57:15.189Z",
+                "updatedAt": "2026-10-02T14:35:52.067Z",
+                "dep": {
+                    "icao": "EDDP",
+                    "name": "Leipzig/Halle Airport",
+                    "city": "Schkeuditz",
+                    "location": {
+                        "lat": 51.420657,
+                        "lon": 12.232705,
+                        "elev": 465
+                    }
+                },
+                "arr": {
+                    "icao": "LIRN",
+                    "name": "Naples International Airport",
+                    "city": "Napoli",
+                    "location": {
+                        "lat": 40.886002,
+                        "lon": 14.2908,
+                        "elev": 294
+                    }
+                },
+                "actArr": {
+                    "icao": "LIRN",
+                    "name": "Naples International Airport",
+                    "city": "Napoli",
+                    "location": {
+                        "lat": 40.886002,
+                        "lon": 14.2908,
+                        "elev": 294
+                    }
+                }
             }
         ]
     },
