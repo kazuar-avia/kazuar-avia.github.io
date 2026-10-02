@@ -3822,6 +3822,185 @@
                         "elev": 1417
                     }
                 }
+            },
+            {
+                "_id": "6ac01234e2b73bbe590860e3",
+                "aircraft": {
+                    "_id": "6a4fa2fb5760ec7cdb629836",
+                    "name": "Boeing 777-200ER",
+                    "customName": "Dry Lease l 777-200ER PW 294 pax",
+                    "icao": "B772"
+                },
+                "type": "pax",
+                "flightNumber": "99G",
+                "free": false,
+                "schedule": false,
+                "charter": true,
+                "payload": {
+                    "pax": 294,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-10-02T20:40:00.000Z",
+                "duration": 95,
+                "arrTime": "2026-10-02T22:15:00.000Z",
+                "depTimeAct": "2026-10-02T20:38:34.904Z",
+                "delay": -11,
+                "takeoffTimeAct": "2026-10-02T20:42:26.440Z",
+                "durationAct": 81,
+                "arrTimeAct": "2026-10-02T22:03:36.274Z",
+                "open": "2026-10-02T20:36:48.168Z",
+                "close": "2026-10-02T22:06:46.990Z",
+                "rating": 8.77,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 545,
+                        "fuel": 8462,
+                        "expenses": 31130,
+                        "penalties": 0,
+                        "revenue": 66729,
+                        "balance": 35599,
+                        "prices": {
+                            "ticketPrice": 177,
+                            "cargoUnitPrice": 207,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 294,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 14,
+                                "C": 41,
+                                "Y": 239
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 9567,
+                        "aircraft": 17455,
+                        "handling": 2058,
+                        "landing": 2050
+                    },
+                    "revenue": {
+                        "tickets": 66729,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 10.24m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -103,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 35
+                                    },
+                                    "weather": {
+                                        "windDir": 90.02,
+                                        "windSpd": 15.29,
+                                        "windX": 5.81
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Short landing (173m from threshold before 199m min accepted)",
+                            "penalty": {
+                                "points": -20,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 35
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.31,
+                                        "rate": 253
+                                    },
+                                    "weather": {
+                                        "windDir": 356.55,
+                                        "windSpd": 0.02,
+                                        "windX": 0
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.31G (253 ft/min, normal  conditions)<br/>Distance from threshold: 173m (accepted range: 199-799m)<br/>Average centerline deviation: 2.17m<br/>Max centerline deviation: 2.79m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 35
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.31,
+                                        "rate": 253
+                                    },
+                                    "weather": {
+                                        "windDir": 356.55,
+                                        "windSpd": 0.02,
+                                        "windX": 0
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-02T20:21:08.924Z",
+                "updatedAt": "2026-10-02T22:06:47.080Z",
+                "dep": {
+                    "icao": "LEIB",
+                    "name": "Ibiza Airport",
+                    "city": "Ibiza (Eivissa)",
+                    "location": {
+                        "lat": 38.872898,
+                        "lon": 1.37312,
+                        "elev": 24
+                    }
+                },
+                "arr": {
+                    "icao": "LPPR",
+                    "name": "Francisco de Sá Carneiro Airport",
+                    "city": "Porto",
+                    "location": {
+                        "lat": 41.2481002808,
+                        "lon": -8.68138980865,
+                        "elev": 228
+                    }
+                },
+                "actArr": {
+                    "icao": "LPPR",
+                    "name": "Francisco de Sá Carneiro Airport",
+                    "city": "Porto",
+                    "location": {
+                        "lat": 41.2481002808,
+                        "lon": -8.68138980865,
+                        "elev": 228
+                    }
+                }
             }
         ]
     },
