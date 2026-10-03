@@ -681,6 +681,7 @@ function topPoolItemsFromCurrent(pool) {
           sourceMode: mode,
           categoryLabel: category?.label || item.mode || mode,
           rank: Number(item.rank) || 0,
+          pieRewardRulesVersion: Number(item.pieRewardRulesVersion || pool.pieRewardRulesVersion) || 1,
           aircraftId,
           proposalType,
           flightNumber,
@@ -702,6 +703,7 @@ function topPoolItemsFromCurrent(pool) {
     sourceMode: item.mode || item.category || '',
     categoryLabel: item.categoryLabel || '',
     rank: Number(item.rank) || 0,
+    pieRewardRulesVersion: Number(item.pieRewardRulesVersion || pool.pieRewardRulesVersion) || 1,
     aircraftId: cleanId(item.aircraftId),
     proposalType: String(item.proposalType || item.type || '').trim().toLowerCase(),
     flightNumber: String(item.flightNumber || '').trim(),
@@ -815,6 +817,7 @@ function topPoolRecordFields(match) {
     pieType: match?.category || null,
     pieSourceMode: match?.sourceMode || null,
     pieRank: match?.rank || null,
+    pieRewardRulesVersion: match ? Number(match.pieRewardRulesVersion) || 1 : null,
     piePoolKey: match?.poolKey || null,
     piePoolGeneratedAt: match?.pool ? (match.pool.generatedAtLocal || match.pool.generatedAt || null) : null,
     piePoolId: match?.poolId || null,
@@ -856,7 +859,8 @@ function updatePiesLedger(bonusRecords, completedFlights, now, dryRun) {
     const started = parseDateMs(flight?.times?.actualDeparture || flight?.times?.takeoff);
     return activation && started >= activation && record?.pie === true && record.pieType === 'hot'
       && record.state === 'DONE' && record.status === 'earned'
-      && (!record.piePoolActiveUntil || !record.piePoolClaimableUntil);
+      && (!record.piePoolActiveUntil || !record.piePoolClaimableUntil
+        || (Number(record.pieRank) > 3 && !record.pieRewardRulesVersion));
   });
   if (missingClaims.length) {
     // Older external updaters may omit snapshot windows. Recover only the exact
@@ -872,6 +876,7 @@ function updatePiesLedger(bonusRecords, completedFlights, now, dryRun) {
         piePoolId: record.piePoolId || fields.piePoolId,
         piePoolActiveUntil: record.piePoolActiveUntil || fields.piePoolActiveUntil,
         piePoolClaimableUntil: record.piePoolClaimableUntil || fields.piePoolClaimableUntil,
+        pieRewardRulesVersion: record.pieRewardRulesVersion || fields.pieRewardRulesVersion,
         pieClaim: record.pieClaim || fields.pieClaim
       };
     }

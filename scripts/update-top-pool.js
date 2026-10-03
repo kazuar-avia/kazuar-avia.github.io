@@ -764,7 +764,8 @@ function topPoolItem(category, rank, item, now, windowHours, graceHours, extra =
   return {
     poolId: idParts.join('-'), generatedAt, activeUntil, claimableUntil,
     category,
-    categoryLabel: {hot: 'Гарячі пиріжки < 2 год', cash: 'Підняти кеш $/год', returnRoute: 'Повернути на маршрут', idle: 'Вивести з простоя'}[category] || category,
+    categoryLabel: {hot: 'Гарячі пиріжки ≤ 3 год 30 хв', cash: 'Підняти кеш $/год', returnRoute: 'Повернути на маршрут', idle: 'Вивести з простоя'}[category] || category,
+    ...(category === 'hot' ? {pieRewardRulesVersion: 2} : {}),
     rank,
     aircraftId: item.aircraftId,
     registration: item.registration,
@@ -795,14 +796,24 @@ function topPoolItem(category, rank, item, now, windowHours, graceHours, extra =
     status: 'active'
   };
 }
+function hotCandidateAllowed(item) {
+  return item && item.group !== 'dry'
+    && !/dry\s*lease/i.test(item.aircraftTitle || '')
+    && ['schedule', 'free'].includes(item.proposalKind)
+    && /^[A-Z]{4}$/.test(item.dep || '') && /^[A-Z]{4}$/.test(item.arr || '')
+    && item.dep !== item.arr && Number(item.amount) > 0
+    && Number(item.blockMinutes) > 0 && Number(item.blockMinutes) <= 210;
+}
+
 function buildTopPool({candidates, completedFlights, now, windowHours, graceHours}) {
   const schedule = candidates.filter(item => item.proposalKind === 'schedule' && item.blockMinutes > 0);
   const hotSchedule = schedule
-    .filter(item => item.blockMinutes < 120)
+    .filter(hotCandidateAllowed)
     .sort((a, b) => a.blockMinutes - b.blockMinutes || b.ratePerHour - a.ratePerHour || a.aircraftTitle.localeCompare(b.aircraftTitle, 'uk'));
   const usedHot = new Set(hotSchedule.map(item => item.aircraftId));
   const hotFallback = candidates
-    .filter(item => item.proposalKind !== 'schedule' && item.blockMinutes < 120)
+    .filter(hotCandidateAllowed)
+    .filter(item => item.proposalKind === 'free')
     .filter(item => !(item.dep.startsWith('UK') && item.arr.startsWith('UK')))
     .filter(item => !usedHot.has(item.aircraftId))
     .sort((a, b) => a.blockMinutes - b.blockMinutes || b.ratePerHour - a.ratePerHour || a.aircraftTitle.localeCompare(b.aircraftTitle, 'uk'));
@@ -829,6 +840,7 @@ function buildTopPool({candidates, completedFlights, now, windowHours, graceHour
   const items = [...hotItems, ...cashItems, ...returnRouteItems, ...idleItems];
   return {
     version: 2,
+    pieRewardRulesVersion: 2,
     generatedAt: now.toISOString(),
     activeUntil: new Date(now.getTime() + windowHours * 3600000).toISOString(),
     claimableUntil: new Date(now.getTime() + (windowHours + graceHours) * 3600000).toISOString(),
@@ -970,4 +982,8 @@ async function main() {
   console.log(JSON.stringify(summary, null, 2));
 }
 
-main().catch(error => { console.error(error && error.stack ? error.stack : error); process.exit(1); });
+if (require.main === module) {
+  main().catch(error => { console.error(error && error.stack ? error.stack : error); process.exitCode = 1; });
+}
+
+module.exports = {hotCandidateAllowed, buildTopPool, loadProposalCandidates, loadCompletedFlights, loadAirportLocations, loadHtmlAircraftMeta};
