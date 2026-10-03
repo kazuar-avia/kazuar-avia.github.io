@@ -19719,6 +19719,180 @@
                         "elev": 1039
                     }
                 }
+            },
+            {
+                "_id": "6ac095b2e2b73bbe5910ce1d",
+                "aircraft": {
+                    "_id": "69ff231aa5e61d69a71c50f5",
+                    "name": "Airbus A340-600",
+                    "customName": "Dry Lease l Toliss A340-600 msfs l 440 pax in 3 class",
+                    "icao": "A346"
+                },
+                "type": "pax",
+                "flightNumber": "84D",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 268,
+                    "cargo": 44,
+                    "weights": {
+                        "cargo": 5984
+                    }
+                },
+                "depTime": "2026-10-03T06:10:00.000Z",
+                "duration": 45,
+                "arrTime": "2026-10-03T06:55:00.000Z",
+                "depTimeAct": "2026-10-03T05:58:51.215Z",
+                "delay": -24,
+                "takeoffTimeAct": "2026-10-03T06:04:56.436Z",
+                "durationAct": 27,
+                "arrTimeAct": "2026-10-03T06:31:27.442Z",
+                "open": "2026-10-03T05:46:21.068Z",
+                "close": "2026-10-03T06:33:55.622Z",
+                "rating": 8.63,
+                "simulator": "xp",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 142,
+                        "fuel": 3760,
+                        "expenses": 24451,
+                        "penalties": 0,
+                        "revenue": 27092,
+                        "balance": 2641,
+                        "prices": {
+                            "ticketPrice": 78,
+                            "cargoUnitPrice": 91,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 268,
+                            "cargo": 44,
+                            "paxByClass": {
+                                "F": 5,
+                                "C": 13,
+                                "Y": 250
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4251,
+                        "aircraft": 15825,
+                        "handling": 1630,
+                        "landing": 2745
+                    },
+                    "revenue": {
+                        "tickets": 23088,
+                        "cargo": 4004
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 10.06m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -98,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 39
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (942m from threshold beyond 831m max accepted)",
+                            "penalty": {
+                                "points": -39,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 22
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.14,
+                                        "rate": 144
+                                    },
+                                    "weather": {
+                                        "windDir": 65.08,
+                                        "windSpd": 3.74,
+                                        "windX": -3.71
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.14G (144 ft/min, normal  conditions)<br/>Distance from threshold: 942m (accepted range: 207-831m)<br/>Average centerline deviation: 1.24m<br/>Max centerline deviation: 2.69m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 22
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.14,
+                                        "rate": 144
+                                    },
+                                    "weather": {
+                                        "windDir": 65.08,
+                                        "windSpd": 3.74,
+                                        "windX": -3.71
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-03T05:42:10.184Z",
+                "updatedAt": "2026-10-03T06:33:55.730Z",
+                "dep": {
+                    "icao": "LFKB",
+                    "name": "Bastia-Poretta International airport",
+                    "city": "Bastia",
+                    "location": {
+                        "lat": 42.5527,
+                        "lon": 9.48373,
+                        "elev": 26
+                    }
+                },
+                "arr": {
+                    "icao": "LIRF",
+                    "name": "Rome–Fiumicino Leonardo da Vinci International Airport",
+                    "city": "Rome",
+                    "location": {
+                        "lat": 41.804532,
+                        "lon": 12.251998,
+                        "elev": 13
+                    }
+                },
+                "actArr": {
+                    "icao": "LIRF",
+                    "name": "Rome–Fiumicino Leonardo da Vinci International Airport",
+                    "city": "Rome",
+                    "location": {
+                        "lat": 41.804532,
+                        "lon": 12.251998,
+                        "elev": 13
+                    }
+                }
             }
         ]
     },
