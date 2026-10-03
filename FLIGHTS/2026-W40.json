@@ -18904,6 +18904,161 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6ac140940fd87508e1b6d36b",
+                "aircraft": {
+                    "_id": "696bb9e13dc76275ba8ddf8f",
+                    "name": "Airbus A330-200",
+                    "customName": "Windrose vs AUI l A330-200 based in UKBB l UR-WRQ",
+                    "icao": "A332"
+                },
+                "type": "pax",
+                "flightNumber": "855M",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 321,
+                    "cargo": 40,
+                    "weights": {
+                        "cargo": 5520
+                    }
+                },
+                "depTime": "2026-10-03T18:20:00.000Z",
+                "duration": 90,
+                "arrTime": "2026-10-03T19:50:00.000Z",
+                "depTimeAct": "2026-10-03T18:17:22.110Z",
+                "delay": 18,
+                "takeoffTimeAct": "2026-10-03T18:29:46.617Z",
+                "durationAct": 99,
+                "arrTimeAct": "2026-10-03T20:08:22.023Z",
+                "open": "2026-10-03T18:07:48.894Z",
+                "close": "2026-10-03T20:17:21.089Z",
+                "rating": 9.5,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 677,
+                        "fuel": 9717,
+                        "expenses": 28461,
+                        "penalties": 0,
+                        "revenue": 45444,
+                        "balance": 16983,
+                        "prices": {
+                            "ticketPrice": 124,
+                            "cargoUnitPrice": 141,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 321,
+                            "cargo": 40,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 321
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 8789,
+                        "aircraft": 15870,
+                        "handling": 2317,
+                        "landing": 1485
+                    },
+                    "revenue": {
+                        "tickets": 39804,
+                        "cargo": 5640
+                    },
+                    "violations": [
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1029mb instead of 1031.8mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 51
+                                    },
+                                    "weather": {
+                                        "windDir": 298.07,
+                                        "windSpd": 4.39,
+                                        "windX": 3.99
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.08G (131 ft/min, normal  conditions)<br/>Distance from threshold: 623m (accepted range: 193-776m)<br/>Average centerline deviation: 1.58m<br/>Max centerline deviation: 2.85m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 35
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.08,
+                                        "rate": 131
+                                    },
+                                    "weather": {
+                                        "windDir": 180.04,
+                                        "windSpd": 5.81,
+                                        "windX": 0.63
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-03T17:51:16.060Z",
+                "updatedAt": "2026-10-03T20:17:21.194Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "EVRA",
+                    "name": "Riga International Airport",
+                    "city": "Riga",
+                    "location": {
+                        "lat": 56.920752,
+                        "lon": 23.970711,
+                        "elev": 36
+                    }
+                },
+                "actArr": {
+                    "icao": "EVRA",
+                    "name": "Riga International Airport",
+                    "city": "Riga",
+                    "location": {
+                        "lat": 56.920752,
+                        "lon": 23.970711,
+                        "elev": 36
+                    }
+                }
             }
         ]
     },
