@@ -15312,6 +15312,193 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6ac13bede2b73bbe5921a29f",
+                "aircraft": {
+                    "_id": "69ef3747a5e61d69a7aad0da",
+                    "name": "Airbus A320",
+                    "customName": "UCAA l A320 based in UKDE l UR-BUS",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "90L",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 172,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-10-03T17:50:00.000Z",
+                "duration": 60,
+                "arrTime": "2026-10-03T18:50:00.000Z",
+                "depTimeAct": "2026-10-03T17:46:50.020Z",
+                "delay": 6,
+                "takeoffTimeAct": "2026-10-03T17:50:09.037Z",
+                "durationAct": 66,
+                "arrTimeAct": "2026-10-03T18:56:07.068Z",
+                "open": "2026-10-03T17:34:12.515Z",
+                "close": "2026-10-03T18:59:54.107Z",
+                "rating": 2.72,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 370,
+                        "fuel": 3135,
+                        "expenses": 9591,
+                        "penalties": 170500,
+                        "revenue": 20832,
+                        "balance": -159259,
+                        "prices": {
+                            "ticketPrice": 112,
+                            "cargoUnitPrice": 133,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 172,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 2,
+                                "C": 8,
+                                "Y": 162
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3545,
+                        "aircraft": 4550,
+                        "handling": 929,
+                        "landing": 567
+                    },
+                    "revenue": {
+                        "tickets": 20832,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Tail strike on landing (pitch: 16.1, max: 13.0)",
+                            "penalty": {
+                                "points": -400,
+                                "cash": 150000
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 33
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Bad touchdown: 2.41G (966 ft/min, challenging  conditions)<br/>Distance from threshold: 750m (accepted range: 175-704m)<br/>Average centerline deviation: 4.93m<br/>Max centerline deviation: 6.28m",
+                            "penalty": {
+                                "points": -228,
+                                "cash": 20500
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 35
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.41,
+                                        "rate": 966
+                                    },
+                                    "weather": {
+                                        "windDir": 296.55,
+                                        "windSpd": 0.67,
+                                        "windX": 0.55
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.54G (341 ft/min, challenging  conditions)<br/>Distance from threshold: 545m (accepted range: 175-704m)<br/>Average centerline deviation: 0.97m<br/>Max centerline deviation: 1.89m",
+                            "penalty": {
+                                "points": -10,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.54,
+                                        "rate": 341
+                                    },
+                                    "weather": {
+                                        "windDir": 296.57,
+                                        "windSpd": 0.63,
+                                        "windX": -0.32
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Stall warning for 6 seconds",
+                            "penalty": {
+                                "points": -90,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-03T17:31:25.833Z",
+                "updatedAt": "2026-10-03T18:59:54.214Z",
+                "dep": {
+                    "icao": "UKKV",
+                    "city": "Zhytomyr",
+                    "location": {
+                        "lat": 50.270556,
+                        "lon": 28.738611,
+                        "elev": 722.5
+                    },
+                    "name": "Zhytomyr Airport"
+                },
+                "arr": {
+                    "icao": "UKHH",
+                    "name": "Kharkiv International Airport",
+                    "city": "Kharkiv",
+                    "location": {
+                        "lat": 49.926943,
+                        "lon": 36.290814,
+                        "elev": 508
+                    }
+                },
+                "actArr": {
+                    "icao": "UKHH",
+                    "name": "Kharkiv International Airport",
+                    "city": "Kharkiv",
+                    "location": {
+                        "lat": 49.926943,
+                        "lon": 36.290814,
+                        "elev": 508
+                    }
+                }
             }
         ]
     },
