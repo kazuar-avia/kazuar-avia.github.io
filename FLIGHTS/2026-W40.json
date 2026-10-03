@@ -14515,6 +14515,185 @@
                     },
                     "name": "Zhytomyr Airport"
                 }
+            },
+            {
+                "_id": "6ac0d393e2b73bbe5915bb26",
+                "aircraft": {
+                    "_id": "69f0eb2ca5e61d69a7cfbe9e",
+                    "name": "Boeing 737-900",
+                    "customName": "Ukraine Int l 737-900ER Single Class based in UKBB l UR-PSI",
+                    "icao": "B739"
+                },
+                "type": "pax",
+                "flightNumber": "1204",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 193,
+                    "cargo": 2,
+                    "weights": {
+                        "cargo": 162
+                    }
+                },
+                "depTime": "2026-10-03T10:30:00.000Z",
+                "duration": 330,
+                "arrTime": "2026-10-03T16:00:00.000Z",
+                "depTimeAct": "2026-10-03T10:36:19.324Z",
+                "delay": -9,
+                "takeoffTimeAct": "2026-10-03T10:42:05.334Z",
+                "durationAct": 308,
+                "arrTimeAct": "2026-10-03T15:50:31.477Z",
+                "open": "2026-10-03T10:09:37.562Z",
+                "close": "2026-10-03T15:54:24.527Z",
+                "rating": 9.5,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 2392,
+                        "fuel": 15484,
+                        "expenses": 32340,
+                        "penalties": 0,
+                        "revenue": 68862,
+                        "balance": 36522,
+                        "prices": {
+                            "ticketPrice": 352,
+                            "cargoUnitPrice": 463,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.85
+                            }
+                        },
+                        "payload": {
+                            "pax": 193,
+                            "cargo": 2,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 193
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 17505,
+                        "aircraft": 11925,
+                        "handling": 1545,
+                        "landing": 1365
+                    },
+                    "revenue": {
+                        "tickets": 67936,
+                        "cargo": 926
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 6.24m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -36,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 39
+                                    },
+                                    "weather": {
+                                        "windDir": 7.42,
+                                        "windSpd": 7.67,
+                                        "windX": -4.86
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (879m from threshold beyond 838m max accepted)",
+                            "penalty": {
+                                "points": -14,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.16,
+                                        "rate": 228
+                                    },
+                                    "weather": {
+                                        "windDir": 333.43,
+                                        "windSpd": 2.2,
+                                        "windX": -1.06
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.16G (228 ft/min, challenging  conditions)<br/>Distance from threshold: 879m (accepted range: 209-838m)<br/>Average centerline deviation: 1.90m<br/>Max centerline deviation: 2.60m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.16,
+                                        "rate": 228
+                                    },
+                                    "weather": {
+                                        "windDir": 333.43,
+                                        "windSpd": 2.2,
+                                        "windX": -1.06
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-03T10:06:11.662Z",
+                "updatedAt": "2026-10-03T15:54:24.616Z",
+                "dep": {
+                    "icao": "LPMA",
+                    "name": "Cristiano Ronaldo International Airport",
+                    "city": "Funchal",
+                    "location": {
+                        "lat": 32.697812,
+                        "lon": -16.774613,
+                        "elev": 192
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
             }
         ]
     },
