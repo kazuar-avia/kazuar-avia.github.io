@@ -198,6 +198,7 @@ function renderedPoolOrder(mode, liveRanks) {
     cloneCompanyLiveExtractCard:card=>({...card,querySelector:()=>null}),
     companyLiveCloneStatus:()=>({prepend:()=>{}}),applyCompanyFixedTopPoolStatus:()=>{},
     companyFixedTopPoolLiveMatchFlight:()=>null,companyFixedTopPoolConsumedFlight:()=>null,
+    companyFixedTopPoolCurrentOfferMatches:()=>true,
     companyFixedTopPoolInterceptedFlight:()=>null,companyFixedTopPoolNoteHtml:()=>'',
     document:{createElement:()=>({})}});
   vm.runInContext(source.slice(source.indexOf('function renderCompanyFixedTopPoolItems('),source.indexOf('function renderCompanyLiveFleetExtract(')),context);

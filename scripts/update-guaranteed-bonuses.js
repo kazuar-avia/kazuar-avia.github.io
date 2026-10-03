@@ -676,6 +676,9 @@ function topPoolItemsFromCurrent(pool) {
         if (!aircraftId) return;
         result.push({
           poolId: item.poolId || null,
+          generatedAt: item.generatedAt || pool.generatedAtLocal || pool.generatedAt,
+          activeUntil: item.activeUntil || pool.activeUntil,
+          claimableUntil: item.claimableUntil || pool.claimableUntil || pool.activeUntil,
           poolKey: [mode, item.rank, aircraftId, flightNumber || proposalType || 'route', upper(proposal.depIcao), upper(proposal.arrIcao)].join('|'),
           category: topPoolCategoryFromMode(mode),
           sourceMode: mode,
@@ -757,7 +760,7 @@ function topPoolFingerprint(pool) {
   const schema = pool?.schema || `legacy-v${pool?.version || 1}`;
   const sourceUrl = pool?.sourceUrl || '';
   const itemCount = topPoolItemsFromCurrent(pool).length;
-  return [schema, generatedAt, sourceUrl, itemCount].join('|');
+  return [schema, generatedAt, pool.updatedAt || '', sourceUrl, itemCount].join('|');
 }
 
 function loadTopPools() {
@@ -786,7 +789,16 @@ function loadTopPools() {
 }
 
 function topPoolItemsFromPools(pools) {
-  return array(pools).flatMap(pool => topPoolItemsFromCurrent(pool).map(item => ({...item, pool})));
+  const retired = {};
+  array(pools).forEach(pool => Object.entries(pool.retiredHotOffers || {}).forEach(([id, value]) => {
+    if (!retired[id] || parseDateMs(value) < parseDateMs(retired[id])) retired[id] = value;
+  }));
+  return array(pools).flatMap(pool => topPoolItemsFromCurrent(pool).map(item => ({...item,
+    retiredAt: retired[item.poolId] || null,
+    pool: {...pool, generatedAtLocal: item.generatedAt || pool.generatedAtLocal,
+      generatedAt: item.generatedAt || pool.generatedAt,
+      activeUntil: item.activeUntil || pool.activeUntil,
+      claimableUntil: item.claimableUntil || pool.claimableUntil}})));
 }
 
 function topPoolItemOperationMatches(item, live) {
@@ -800,14 +812,27 @@ function topPoolItemOperationMatches(item, live) {
   return true;
 }
 
-function topPoolMatchForLive(live, aircraftId, topPoolItems) {
+function topPoolOfferInterrupted(item, live, completedFlights) {
+  if (item.category !== 'hot') return false;
+  const generated = poolGeneratedTime(item.pool);
+  const started = parseDateMs(live.startedAt);
+  return array(completedFlights).some(flight => {
+    if (cleanId(flight.id || flight._id) === cleanId(live.id)) return false;
+    if (cleanId(flight.aircraft?.id || flight.aircraft?._id || flight.aircraftId) !== cleanId(item.aircraftId)) return false;
+    const ended = parseDateMs(flight.times?.closed || flight.times?.actualArrival);
+    return ended >= generated && ended <= started;
+  });
+}
+
+function topPoolMatchForLive(live, aircraftId, topPoolItems, completedFlights = []) {
   const normalizedAircraftId = cleanId(aircraftId);
   return array(topPoolItems).find(item => {
+    if (item.retiredAt && parseDateMs(live.startedAt) >= parseDateMs(item.retiredAt)) return false;
     if (item.pool && !liveIsInsidePoolWindow(live, item.pool)) return false;
     if (cleanId(item.aircraftId) !== normalizedAircraftId) return false;
     if (item.depIcao && item.depIcao !== live.depIcao) return false;
     if (item.arrIcao && item.arrIcao !== live.arrIcao) return false;
-    return topPoolItemOperationMatches(item, live);
+    return topPoolItemOperationMatches(item, live) && !topPoolOfferInterrupted(item, live, completedFlights);
   }) || null;
 }
 
@@ -879,6 +904,14 @@ function updatePiesLedger(bonusRecords, completedFlights, now, dryRun) {
         pieRewardRulesVersion: record.pieRewardRulesVersion || fields.pieRewardRulesVersion,
         pieClaim: record.pieClaim || fields.pieClaim
       };
+    }
+  }
+  for (const [id, record] of Object.entries(records)) {
+    const flight = completedById.get(id);
+    if (record?.pie !== true || record.pieType !== 'hot' || !flight) continue;
+    const item = {category:'hot', aircraftId:record.aircraftId, pool:{generatedAt:record.piePoolGeneratedAt}};
+    if (topPoolOfferInterrupted(item, liveFromCompletedFlight(flight), completedFlights)) {
+      records[id] = {...record, pie:false};
     }
   }
   const next = pieRewards.syncLedger(previous, records, completedFlights, now);
@@ -993,7 +1026,7 @@ async function main() {
     for (const aircraftId of live.aircraftIds) {
       const aircraft = aircraftMaps.byId.get(aircraftId);
       if (!aircraft) continue;
-      const topPoolMatch = topPoolMatchForLive(live, aircraftId, topPoolItems);
+      const topPoolMatch = topPoolMatchForLive(live, aircraftId, topPoolItems, completedFlights);
       const topPoolAmount = Number(topPoolMatch?.premiumUsd || 0);
       if (topPoolMatch && topPoolAmount > 0) {
         next.flights[live.id] = recordFromLive(live, aircraft, proposalFromTopPoolMatch(topPoolMatch), Math.round(topPoolAmount), topPoolMatch);
@@ -1021,7 +1054,7 @@ async function main() {
     for (const aircraftId of live.aircraftIds) {
       const aircraft = aircraftMaps.byId.get(aircraftId);
       if (!aircraft) continue;
-      const topPoolMatch = topPoolMatchForLive(live, aircraftId, topPoolItems);
+      const topPoolMatch = topPoolMatchForLive(live, aircraftId, topPoolItems, completedFlights);
       const topPoolAmount = Number(topPoolMatch?.premiumUsd || 0);
       if (!topPoolMatch || topPoolAmount <= 0) continue;
       next.flights[flightId] = recordFromCompleted(flight, aircraft, proposalFromTopPoolMatch(topPoolMatch), Math.round(topPoolAmount), topPoolMatch);
