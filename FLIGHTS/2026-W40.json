@@ -19973,6 +19973,185 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6ac08b13e2b73bbe59103757",
+                "aircraft": {
+                    "_id": "695a3bf33dc76275baca8db5",
+                    "name": "Boeing 737-800",
+                    "customName": "Ukraine Int l 737-800 based in UKBB l UR-UIA",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "991",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 164,
+                    "cargo": 10,
+                    "weights": {
+                        "cargo": 1220
+                    }
+                },
+                "depTime": "2026-10-03T05:30:00.000Z",
+                "duration": 215,
+                "arrTime": "2026-10-03T09:05:00.000Z",
+                "depTimeAct": "2026-10-03T05:31:25.181Z",
+                "delay": -11,
+                "takeoffTimeAct": "2026-10-03T05:42:23.326Z",
+                "durationAct": 192,
+                "arrTimeAct": "2026-10-03T08:54:24.809Z",
+                "open": "2026-10-03T05:23:43.314Z",
+                "close": "2026-10-03T08:58:49.562Z",
+                "rating": 8.95,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1346,
+                        "fuel": 8219,
+                        "expenses": 18082,
+                        "penalties": 3280,
+                        "revenue": 34000,
+                        "balance": 12638,
+                        "prices": {
+                            "ticketPrice": 195,
+                            "cargoUnitPrice": 202,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 164,
+                            "cargo": 10,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 164
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 7434,
+                        "aircraft": 7700,
+                        "handling": 1166,
+                        "landing": 1782
+                    },
+                    "revenue": {
+                        "tickets": 31980,
+                        "cargo": 2020
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 12.13m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -56,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    },
+                                    "weather": {
+                                        "windDir": 303.69,
+                                        "windSpd": 6.68,
+                                        "windX": -5.34
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "MLW exceeded: 544kg above maximum landing weight of 66361kg",
+                            "penalty": {
+                                "points": -49,
+                                "cash": 3280
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 22
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.3,
+                                        "rate": 282
+                                    },
+                                    "weather": {
+                                        "windDir": 331.72,
+                                        "windSpd": 9.94,
+                                        "windX": 9.84
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.30G (282 ft/min, challenging  conditions)<br/>Distance from threshold: 663m (accepted range: 201-808m)<br/>Average centerline deviation: 4.78m<br/>Max centerline deviation: 7.70m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 22
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.3,
+                                        "rate": 282
+                                    },
+                                    "weather": {
+                                        "windDir": 331.72,
+                                        "windSpd": 9.94,
+                                        "windX": 9.84
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-03T04:56:51.727Z",
+                "updatedAt": "2026-10-03T08:58:49.654Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "LEBL",
+                    "name": "Josep Tarradellas Barcelona-El Prat Airport",
+                    "city": "Barcelona",
+                    "location": {
+                        "lat": 41.2971,
+                        "lon": 2.07846,
+                        "elev": 12
+                    }
+                },
+                "actArr": {
+                    "icao": "LEBL",
+                    "name": "Josep Tarradellas Barcelona-El Prat Airport",
+                    "city": "Barcelona",
+                    "location": {
+                        "lat": 41.2971,
+                        "lon": 2.07846,
+                        "elev": 12
+                    }
+                }
             }
         ]
     },
