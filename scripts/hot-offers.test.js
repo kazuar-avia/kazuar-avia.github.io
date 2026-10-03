@@ -183,3 +183,38 @@ test('expired, pre-activation and unknown live start times never promise a hot r
     assert.doesNotMatch(html,/буде видано/);
   }
 });
+
+function renderedPoolOrder(mode, liveRanks) {
+  const items=Array.from({length:6},(_,index)=>({rank:index+1,aircraftId:'aircraft-'+(index+1)}));
+  const cards=new Map(items.map(item=>[item.aircraftId,{aircraftId:item.aircraftId}]));
+  const liveRows=liveRanks.map(rank=>({item:{...items[rank-1],livePieRecord:{pieRank:rank,pie:true}},
+    card:cards.get(items[rank-1].aircraftId),livePieCarryover:true}));
+  const savedClaims=JSON.stringify(liveRows);
+  const rendered=[];
+  const context=vm.createContext({
+    companyFixedTopPoolCategory:()=>({label:'Offers',items}),companyFixedTopPoolHotItemAllowed:()=>true,
+    companyFixedTopPoolLivePieItems:()=>liveRows,companyLiveHotCardAllowed:()=>true,
+    companyFixedTopPoolCardForItem:item=>cards.get(item.aircraftId),
+    cloneCompanyLiveExtractCard:card=>({...card,querySelector:()=>null}),
+    companyLiveCloneStatus:()=>({prepend:()=>{}}),applyCompanyFixedTopPoolStatus:()=>{},
+    companyFixedTopPoolLiveMatchFlight:()=>null,companyFixedTopPoolConsumedFlight:()=>null,
+    companyFixedTopPoolInterceptedFlight:()=>null,companyFixedTopPoolNoteHtml:()=>'',
+    document:{createElement:()=>({})}});
+  vm.runInContext(source.slice(source.indexOf('function renderCompanyFixedTopPoolItems('),source.indexOf('function renderCompanyLiveFleetExtract(')),context);
+  context.renderCompanyFixedTopPoolItems({appendChild:clone=>rendered.push(clone.aircraftId)},mode,[],null,null);
+  assert.equal(JSON.stringify(liveRows),savedClaims,'rendering must preserve the saved LIVE ranks');
+  return rendered;
+}
+
+test('hot cards keep TOP #1 through #6 order with one, several or all flights LIVE', () => {
+  const expected=Array.from({length:6},(_,index)=>'aircraft-'+(index+1));
+  for(const liveRanks of [[4],[5,2,4],[6,5,4,3,2,1],[]]) {
+    assert.deepEqual(renderedPoolOrder('quick',liveRanks),expected);
+  }
+});
+
+test('sorting hot cards does not change the LIVE-first display in the other offer tabs', () => {
+  for(const mode of ['earn','return','idle']) {
+    assert.deepEqual(renderedPoolOrder(mode,[4]),['aircraft-4','aircraft-1','aircraft-2','aircraft-3','aircraft-5','aircraft-6']);
+  }
+});
