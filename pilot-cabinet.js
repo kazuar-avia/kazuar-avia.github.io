@@ -6478,6 +6478,7 @@ function renderCompanyFixedTopPoolItems(grid, mode, sourceCards, headingTitle, m
     .map(item => ({item, card: companyFixedTopPoolCardForItem(item, sourceCards)}))
     .filter(row => row.card && (mode !== 'quick' || companyLiveHotCardAllowed(row.card)));
   const cards = [...livePieRows, ...regularRows].slice(0, 6);
+  if (mode === 'quick') cards.sort((a, b) => (Number(a.item.rank) || 99) - (Number(b.item.rank) || 99));
   const titles = {
     quick: ['Гарячі пиріжки <img class="company-pyrih-icon" src="pyrih.png" alt="пиріжок" aria-hidden="true">', '<img class="company-pyrih-icon" src="pyrih.png" alt="пиріжок" aria-hidden="true">'],
     earn: ['ТОП 💸 $/год', '💸 $/год'],
