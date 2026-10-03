@@ -411,6 +411,7 @@ test('hot rewards name the LIVE recipient, then distinguish pending from credite
   flight.pilot.name = 'Denys <test>';
   const app = {piesLedger:initialLedger()};
   const context = vm.createContext({app,window:{UCAAPieRewards:rewards},guaranteedBonusRecordForFlight:()=>record,
+    companyFixedTopPoolLivePayoutRecord:()=>({state:'LIVE',status:'matched',pilotId:flight.pilot.id}),
     companyLiveryLivePilotName:()=>flight.pilot.name,pilotProfileUrl:id=>'#profile/'+id,
     esc:value=>String(value).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')});
   vm.runInContext(source.slice(source.indexOf('function companyPiesRewardHtml('),source.indexOf('function companyFixedTopPoolNoteHtml(')),context);

@@ -131,3 +131,55 @@ test('new TOP #6 promises one pie while the background bonus record is catching 
   const item={rank:6,pieRewardRulesVersion:2,generatedAt:activatedAt,claimableUntil:'2026-10-04T12:00:00Z'};
   assert.match(context.companyPiesRewardHtml(item,null,{depTimeAct:'2026-10-03T07:00:00Z'}),/1 пиріжок буде видано пілоту.*Pilot/);
 });
+
+function liveRewardContext(record) {
+  const generatedAt='2026-10-03T07:55:42.582Z';
+  const context=vm.createContext({app:{piesLedger:{activatedAt:'2026-10-01T18:32:16.018Z'}},
+    window:{UCAAPieRewards:rewards},guaranteedBonusRecordForFlight:()=>record,
+    companyFixedTopPoolLivePayoutRecord:()=>({state:'LIVE',status:'matched',pilotId:'pilot',...record}),
+    companyLiveryLivePilotName:()=> 'Pilot',pilotProfileUrl:id=>'#profile/'+id,esc:String});
+  vm.runInContext(source.slice(source.indexOf('function companyPiesRewardHtml('),source.indexOf('function companyFixedTopPoolNoteHtml(')),context);
+  return {context,item:{rank:3,pieRewardRulesVersion:2,generatedAt,claimableUntil:'2026-10-04T13:55:42.582Z'}};
+}
+
+test('all six ranks name the eligible live pilot even when only the monetary record has arrived', () => {
+  const {context,item}=liveRewardContext({state:'LIVE',status:'matched',pie:false,pieType:null});
+  for (const [rank,quantity] of [[1,3],[2,2],[3,1],[4,1],[5,1],[6,1]]) {
+    const html=context.companyPiesRewardHtml({...item,rank},null,{depTimeAct:item.generatedAt});
+    assert.match(html,new RegExp(quantity+' пиріж(?:ок|ки) буде видано пілоту.*Pilot'));
+    assert.doesNotMatch(html,/Нагорода:/);
+  }
+});
+
+test('a live flight that started before its hot offer gets an explicit explanation, never a promise', () => {
+  const {context,item}=liveRewardContext({state:'LIVE',status:'matched',pie:false,pieType:null});
+  const html=context.companyPiesRewardHtml(item,null,{depTimeAct:'2026-10-03T07:54:00Z'});
+  assert.match(html,/Без пиріжків: рейс почався до появи пропозиції/);
+  assert.doesNotMatch(html,/буде видано|Нагорода:/);
+});
+
+test('an existing non-hot claim cannot turn into a new hot reward', () => {
+  const {context,item}=liveRewardContext({state:'LIVE',status:'matched',pie:true,pieType:'cash',
+    pieRank:3,pieRewardRulesVersion:2,piePoolGeneratedAt:'2026-10-03T06:00:00Z',
+    piePoolClaimableUntil:'2026-10-04T12:00:00Z'});
+  const html=context.companyPiesRewardHtml(item,null,{depTimeAct:'2026-10-03T07:54:00Z'});
+  assert.match(html,/інша бонусна пропозиція/);
+  assert.doesNotMatch(html,/буде видано/);
+});
+
+test('saved older hot claims retain their promised rank and validity after a pool refresh', () => {
+  const {context,item}=liveRewardContext({state:'LIVE',status:'matched',pie:true,pieType:'hot',
+    pieRank:1,pieRewardRulesVersion:1,piePoolGeneratedAt:'2026-10-03T06:00:00Z',
+    piePoolClaimableUntil:'2026-10-04T12:00:00Z',pilotId:'pilot'});
+  assert.match(context.companyPiesRewardHtml(item,null,{depTimeAct:'2026-10-03T07:54:00Z'}),/3 пиріжки буде видано пілоту.*Pilot/);
+});
+
+test('expired, pre-activation and unknown live start times never promise a hot reward', () => {
+  const {context,item}=liveRewardContext(null);
+  for (const [started,reason] of [['2026-10-04T13:55:42.583Z',/після завершення/],
+    ['2026-10-01T18:32:16.017Z',/до запуску нагород/],['',/Перевіряємо/]]) {
+    const html=context.companyPiesRewardHtml(item,null,{depTimeAct:started});
+    assert.match(html,reason);
+    assert.doesNotMatch(html,/буде видано/);
+  }
+});

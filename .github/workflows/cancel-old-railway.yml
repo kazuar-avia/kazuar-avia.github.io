@@ -3,6 +3,12 @@ name: Cancel old Railway deployments
 on:
   push:
     branches: [main]
+  workflow_dispatch:
+  # GITHUB_TOKEN pushes do not trigger another push workflow.
+  workflow_run:
+    workflows: [Update guaranteed bonuses, Update pies balance]
+    types: [completed]
+    branches: [main]
 
 permissions:
   contents: read
@@ -13,6 +19,7 @@ concurrency:
 
 jobs:
   cancel-old:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.head_repository.full_name == github.repository
     runs-on: ubuntu-latest
     container: ghcr.io/railwayapp/cli:latest
     timeout-minutes: 2
@@ -43,6 +50,19 @@ jobs:
           latest_main_sha() {
             github_get "/repos/$GITHUB_REPOSITORY/git/ref/heads/main" \
               | jq -r '.object.sha // ""'
+          }
+
+          refresh_current_sha() {
+            local latest
+            latest="$(latest_main_sha)" || return 1
+            if [ -z "$latest" ]; then
+              echo "ERROR: cannot determine latest main SHA; refusing to cancel anything" >&2
+              return 1
+            fi
+            if [ "$latest" != "$CURRENT_SHA" ]; then
+              echo "FOLLOW MAIN: $CURRENT_SHA -> $latest"
+              CURRENT_SHA="$latest"
+            fi
           }
 
           fetch_railway_deployments() {
@@ -99,17 +119,7 @@ jobs:
           for ATTEMPT in $(seq 1 20); do
             echo "=== CHECK $ATTEMPT/20 ==="
 
-            LATEST_SHA="$(latest_main_sha)"
-            if [ -z "$LATEST_SHA" ]; then
-              echo "WARN: cannot determine latest main SHA; refusing to cancel anything"
-              exit 0
-            fi
-
-            if [ "$LATEST_SHA" != "$CURRENT_SHA" ]; then
-              echo "STOP: newer main commit exists: $LATEST_SHA"
-              echo "This workflow belongs to $CURRENT_SHA and is now obsolete."
-              exit 0
-            fi
+            refresh_current_sha
 
             fetch_railway_deployments deployments.json
 
@@ -135,12 +145,13 @@ jobs:
                 continue
               fi
 
-              # Re-check immediately before cancellation so an older workflow
-              # cannot kill a deployment created by a commit that just arrived.
-              LATEST_SHA="$(latest_main_sha)"
-              if [ "$LATEST_SHA" != "$CURRENT_SHA" ]; then
-                echo "STOP: newer main commit appeared before cancellation: $LATEST_SHA"
-                exit 0
+              # Follow bot commits too, but repeat the ancestry check if main
+              # changed before cancellation. Never cancel the latest main SHA.
+              CHECKED_SHA="$CURRENT_SHA"
+              refresh_current_sha
+              if [ "$CURRENT_SHA" != "$CHECKED_SHA" ] && ! is_older_than_current "$COMMIT"; then
+                echo "SKIP $STATUS $ID $COMMIT (not an older ancestor of latest main $CURRENT_SHA)"
+                continue
               fi
 
               echo "CANCEL OLD $STATUS $ID $COMMIT"
@@ -165,6 +176,7 @@ jobs:
           done
 
           fetch_railway_deployments final.json
+          refresh_current_sha
           REMAINING=0
 
           while IFS=$'\t' read -r ID STATUS COMMIT; do

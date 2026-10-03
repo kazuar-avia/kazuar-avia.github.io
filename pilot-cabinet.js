@@ -6335,15 +6335,29 @@ function companyPiesRewardHtml(item, consumed, live) {
     }
   } else if (live) {
     const savedRecord = item.livePieRecord || guaranteedBonusRecordForFlight(live);
-    record = savedRecord || {...companyFixedTopPoolLivePayoutRecord(live, item), pie:true, pieType:'hot', pieRank:item.rank, pieRewardRulesVersion:rulesVersion};
+    // A monetary record may arrive before the updater attaches the hot offer.
+    // Preserve an existing pool claim; infer a new one only inside its window.
+    record = savedRecord?.pie === true ? savedRecord
+      : {...companyFixedTopPoolLivePayoutRecord(live, item), pie:true, pieType:'hot', pieRank:item.rank, pieRewardRulesVersion:rulesVersion};
     const activated = new Date(app.piesLedger?.activatedAt || '').getTime();
     const started = new Date(live.depTimeAct || '').getTime();
     const generated = new Date(record?.piePoolGeneratedAt || item.generatedAt || app.companyTopPool?.generatedAt || '').getTime();
     const claimableUntil = new Date(record?.piePoolClaimableUntil || item.claimableUntil || '').getTime();
-    if (record?.state !== 'LIVE' || record?.status !== 'matched'
-        || record?.pie !== true || record?.pieType !== 'hot'
-        || ![activated,started,generated,claimableUntil].every(Number.isFinite)
-        || started < activated || started < generated || started > claimableUntil) record = null;
+    let reason = '';
+    if (![activated,started,generated,claimableUntil].every(Number.isFinite)) {
+      reason = 'Перевіряємо нарахування пиріжків…';
+    } else if (started < activated) {
+      reason = 'Без пиріжків: рейс почався до запуску нагород.';
+    } else if (started < generated) {
+      reason = 'Без пиріжків: рейс почався до появи пропозиції.';
+    } else if (started > claimableUntil) {
+      reason = 'Без пиріжків: рейс почався після завершення пропозиції.';
+    } else if (record?.state !== 'LIVE' || record?.status !== 'matched') {
+      reason = 'Перевіряємо нарахування пиріжків…';
+    } else if (record?.pieType !== 'hot') {
+      reason = 'Без пиріжків: за рейсом закріплена інша бонусна пропозиція.';
+    }
+    if (reason) return `<span class="company-pies-reward">${reason}</span>`;
     if (record) pilot = {id:record.pilotId, name:companyLiveryLivePilotName(record)};
   }
   if (record) reward = window.UCAAPieRewards.rewardForRank(record.pieRank, record.pieRewardRulesVersion || 1);
