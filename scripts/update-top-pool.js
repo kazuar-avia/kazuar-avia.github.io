@@ -865,6 +865,69 @@ function isoWeekFileKey(date) {
   const week = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
   return `${d.getUTCFullYear()}-W${String(week).padStart(2, '0')}`;
 }
+function hotOfferMatchesFlight(item, flight) {
+  const proposal = item.proposal || {};
+  if (!completedByAircraft(flight, item)) return false;
+  if (upper(flight.departure?.icao) !== upper(proposal.depIcao)
+      || upper((flight.actualArrival || flight.arrival)?.icao) !== upper(proposal.arrIcao)) return false;
+  if (proposal.type === 'free') return flight.operations?.free === true;
+  const number = value => upper(value).replace(/^UKL\s*/, '').replace(/^0+(?=\d)/, '');
+  return proposal.type === 'schedule' && flight.operations?.scheduled === true
+    && number(flight.flightNumber) === number(proposal.flightNumber);
+}
+
+function refreshHotPool({currentPool, candidates, completedFlights, bonusRecords = {}, now}) {
+  const originals = array(currentPool.categories?.quick?.items);
+  if (!originals.length || now >= new Date(currentPool.activeUntil)) return currentPool;
+  const retiredHotOffers = {...currentPool.retiredHotOffers};
+  const eligible = candidates.filter(hotCandidateAllowed)
+    .filter(item => item.proposalKind === 'schedule' || !(item.dep.startsWith('UK') && item.arr.startsWith('UK')))
+    .sort((a, b) => (a.proposalKind === 'schedule' ? 0 : 1) - (b.proposalKind === 'schedule' ? 0 : 1)
+      || a.blockMinutes - b.blockMinutes || b.ratePerHour - a.ratePerHour);
+  const used = new Set(originals.map(item => item.aircraftId));
+  let changed = false;
+  const items = originals.flatMap(item => {
+    const generated = new Date(item.generatedAt || currentPool.generatedAt).getTime();
+    const claimed = Object.values(bonusRecords).some(record => record.pie === true && record.pieType === 'hot'
+      && record.aircraftId === item.aircraftId && Number(record.pieRank) === Number(item.rank)
+      && new Date(record.piePoolGeneratedAt).getTime() === generated
+      && record.state === 'LIVE' && ['matched', 'pending-completion-check'].includes(record.status));
+    const flights = completedFlights.filter(flight => completedByAircraft(flight, item));
+    const consumed = flights.some(flight => hotOfferMatchesFlight(item, flight)
+      && new Date(flight.times?.actualDeparture || flight.times?.takeoff).getTime() >= generated
+      && new Date(flight.times?.actualDeparture || flight.times?.takeoff) <= new Date(item.claimableUntil || currentPool.claimableUntil)
+      && !flights.some(other => other !== flight && completedFlightEndTime(other) >= generated
+        && completedFlightEndTime(other) <= new Date(flight.times?.actualDeparture || flight.times?.takeoff)));
+    if (claimed || consumed) return [item];
+    const moved = flights.filter(flight => completedFlightEndTime(flight) >= generated)
+      .sort((a, b) => completedFlightEndTime(b) - completedFlightEndTime(a))[0];
+    let candidate = eligible.find(candidate => candidate.aircraftId === item.aircraftId);
+    const proposal = item.proposal || {};
+    const unchanged = candidate && candidate.proposalKind === proposal.type
+      && candidate.dep === proposal.depIcao && candidate.arr === proposal.arrIcao
+      && String(candidate.flightNumber || 'FREE') === String(proposal.flightNumber)
+      && Number(candidate.amount) === Number(proposal.premiumUsd)
+      && Number(candidate.blockMinutes) === Number(item.blockMinutes);
+    if (unchanged && !moved) return [item];
+    changed = true;
+    const departed = new Date(moved?.times?.actualDeparture || moved?.times?.takeoff).getTime();
+    const retiredAt = new Date(Number.isFinite(departed) ? Math.max(generated, departed) : now.getTime()).toISOString();
+    if (item.poolId) retiredHotOffers[item.poolId] = retiredAt;
+    if (!candidate) candidate = eligible.find(candidate => !used.has(candidate.aircraftId));
+    if (!candidate) return [];
+    used.add(candidate.aircraftId);
+    const next = topPoolItem('hot', item.rank, candidate, now, currentPool.windowHours || 6, currentPool.graceHours || 24);
+    next.activeUntil = currentPool.activeUntil;
+    next.claimableUntil = currentPool.claimableUntil;
+    return [next];
+  });
+  if (!changed) return currentPool;
+  const allItems = [...array(currentPool.items).filter(item => item.category !== 'hot'), ...items];
+  return {...currentPool, updatedAt: now.toISOString(), retiredHotOffers,
+    categories: {...currentPool.categories, quick: {...currentPool.categories.quick, items}},
+    items: allItems, counts: {...currentPool.counts, hot: items.length, total: allItems.length}};
+}
+
 function loadPoolArchive(now) {
   ensureDir(TOP_POOLS_DIR);
   const file = path.join(TOP_POOLS_DIR, `${isoWeekFileKey(now)}.json`);
@@ -952,10 +1015,23 @@ async function main() {
   const currentPool = readJson(TOP_POOL_CURRENT_FILE, {version: 2, items: []});
   const archive = loadPoolArchive(now);
   const awardsLog = readJson(TOP_AWARDS_FILE, {version: 1, awards: []});
+  if (args.has('--refresh-current')) {
+    const bonuses = readJson(path.join(COMPANY_DIR, 'guaranteed-bonuses.json'), {flights: {}});
+    const refreshed = refreshHotPool({currentPool, candidates, completedFlights, bonusRecords: bonuses.flights, now});
+    if (dryRun) {
+      console.log(JSON.stringify({changed: refreshed !== currentPool, pool: refreshed}, null, 2));
+    } else if (refreshed !== currentPool) {
+      writeJson(TOP_POOL_CURRENT_FILE, refreshed);
+      writeJson(archive.file, {...archive.data, snapshots: [...array(archive.data.snapshots), refreshed]});
+      console.log('Updated hot offers from the current fleet proposals.');
+    } else console.log('Hot offers already match the current fleet.');
+    return;
+  }
   const windowStart = new Date(now.getTime() - windowHours * 3600000);
   const claimableItems = collectClaimableItems(currentPool, archive.data, now);
   const newAwards = evaluateAwards({claimableItems, completedFlights, now, windowStart, awardsLog});
   const nextPool = buildTopPool({candidates, completedFlights, now, windowHours, graceHours});
+  nextPool.retiredHotOffers = {...currentPool.retiredHotOffers};
   const nextAwardsLog = {...awardsLog, version: 1, updatedAt: now.toISOString(), awards: [...array(awardsLog.awards), ...newAwards]};
   const nextArchive = {...archive.data, version: 1, snapshots: [...array(archive.data.snapshots), nextPool]};
   const summary = {
@@ -986,4 +1062,4 @@ if (require.main === module) {
   main().catch(error => { console.error(error && error.stack ? error.stack : error); process.exitCode = 1; });
 }
 
-module.exports = {hotCandidateAllowed, buildTopPool, loadProposalCandidates, loadCompletedFlights, loadAirportLocations, loadHtmlAircraftMeta};
+module.exports = {hotCandidateAllowed, buildTopPool, refreshHotPool, loadProposalCandidates, loadCompletedFlights, loadAirportLocations, loadHtmlAircraftMeta};

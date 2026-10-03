@@ -6078,8 +6078,8 @@ function companyFixedTopPoolLiveFlightForItem(item) {
     .find(flight => companyLiveryLiveFlightAircraftId(flight) === id) || null;
 }
 
-function companyFixedTopPoolGeneratedDate() {
-  const raw = app.companyTopPool?.generatedAtLocal || app.companyTopPool?.generatedAt || '';
+function companyFixedTopPoolGeneratedDate(item = null) {
+  const raw = item?.generatedAt || app.companyTopPool?.generatedAtLocal || app.companyTopPool?.generatedAt || '';
   const date = new Date(raw);
   return Number.isFinite(date.getTime()) ? date : null;
 }
@@ -6121,7 +6121,7 @@ function companyFixedTopPoolCompletedMatchesItem(flight, item, mode) {
 
 function companyFixedTopPoolConsumedFlight(item, mode = '') {
   if (companyFixedTopPoolBuildMode()) return null;
-  const poolDate = companyFixedTopPoolGeneratedDate();
+  const poolDate = companyFixedTopPoolGeneratedDate(item);
   const id = String(item?.aircraftId || '').trim();
   if (!poolDate || !id) return null;
   return (app.flights || [])
@@ -6134,7 +6134,8 @@ function companyFixedTopPoolConsumedFlight(item, mode = '') {
         && Number.isFinite(ended.getTime())
         && started > poolDate
         && ended > poolDate
-        && companyFixedTopPoolCompletedMatchesItem(flight, item, mode);
+        && companyFixedTopPoolCompletedMatchesItem(flight, item, mode)
+        && (mode !== 'quick' || !companyFixedTopPoolOfferInterrupted(item, flight));
     })
     .sort((a, b) => flightEndDateForDisplay(b) - flightEndDateForDisplay(a))[0] || null;
 }
@@ -6145,7 +6146,7 @@ function companyFixedTopPoolItemConsumed(item, mode = '') {
 
 function companyFixedTopPoolLatestPostPoolFlight(item) {
   if (companyFixedTopPoolBuildMode()) return null;
-  const poolDate = companyFixedTopPoolGeneratedDate();
+  const poolDate = companyFixedTopPoolGeneratedDate(item);
   const id = String(item?.aircraftId || '').trim();
   if (!poolDate || !id) return null;
   return (app.flights || [])
@@ -6156,7 +6157,6 @@ function companyFixedTopPoolLatestPostPoolFlight(item) {
       const ended = flightEndDateForDisplay(flight);
       return Number.isFinite(started.getTime())
         && Number.isFinite(ended.getTime())
-        && started > poolDate
         && ended > poolDate;
     })
     .sort((a, b) => flightEndDateForDisplay(b) - flightEndDateForDisplay(a))[0] || null;
@@ -6261,9 +6261,23 @@ function companyFixedTopPoolProposalRoute(item) {
   };
 }
 
+function companyFixedTopPoolOfferInterrupted(item, flight) {
+  const generated = companyFixedTopPoolGeneratedDate(item);
+  const started = flightStartDateForDisplay(flight);
+  if (!generated || !Number.isFinite(started.getTime())) return false;
+  const id = String(flight?.id || flight?._id || '');
+  return (app.flights || []).some(other => {
+    if (other.status !== 'completed' || String(other.id || other._id || '') === id) return false;
+    if (companyFixedTopPoolFlightAircraftId(other) !== String(item.aircraftId || '')) return false;
+    const ended = flightEndDateForDisplay(other);
+    return ended >= generated && ended <= started;
+  });
+}
+
 function companyFixedTopPoolLiveMatchFlight(item, mode) {
   const flight = companyFixedTopPoolLiveFlightForItem(item);
   if (!flight) return null;
+  if (mode === 'quick' && companyFixedTopPoolOfferInterrupted(item, flight)) return null;
   const live = companyFixedTopPoolFlightRoute(flight);
   const needed = companyFixedTopPoolProposalRoute(item);
   const routeMatches = needed.dep && needed.arr && live.dep === needed.dep && live.arr === needed.arr;
@@ -6375,7 +6389,9 @@ function companyPiesRewardHtml(item, consumed, live) {
 function companyFixedTopPoolNoteHtml(item, category, mode, index) {
   const rank = Number(item?.rank);
   const consumed = companyFixedTopPoolConsumedFlight(item, mode);
-  const rewardHtml = mode === 'quick' ? companyPiesRewardHtml(item, consumed, companyFixedTopPoolLiveMatchFlight(item, mode)) : '';
+  const rewardHtml = mode === 'quick' ? (item.currentOfferUnavailable
+    ? '<span class="company-pies-reward">За цим рейсом пиріжки не передбачені</span>'
+    : companyPiesRewardHtml(item, consumed, companyFixedTopPoolLiveMatchFlight(item, mode))) : '';
   const quickLabel = mode === 'quick'
     ? `<strong>ТОП <img class="company-pyrih-icon" src="pyrih.png" alt="пиріжок" aria-hidden="true">${Number.isInteger(rank) && rank > 0 ? ` #${rank}` : ''}</strong>${rewardHtml ? `<br>${rewardHtml}` : ''}`
     : '';
@@ -6465,6 +6481,18 @@ function companyFixedTopPoolHotItemAllowed(item) {
     && minutes > 0 && minutes <= 210);
 }
 
+function companyFixedTopPoolCurrentOfferMatches(item, card) {
+  const offer = companyLiveAnyPremiumOfferForCard(card);
+  const proposal = item.proposal || {};
+  if (!offer) return false;
+  return offer.minutes > 0 && offer.minutes <= 210
+    && offer.origin === proposal.depIcao && offer.destination === proposal.arrIcao
+    && offer.proposalType === proposal.type
+    && (proposal.type !== 'schedule' || companyFixedTopPoolNormalizeFlightNumber(offer.flightNumber)
+      === companyFixedTopPoolNormalizeFlightNumber(proposal.flightNumber))
+    && Math.round(offer.premium) === Math.round(Number(proposal.premiumUsd));
+}
+
 function renderCompanyFixedTopPoolItems(grid, mode, sourceCards, headingTitle, mobileTitle) {
   const category = companyFixedTopPoolCategory(mode);
   const items = Array.isArray(category?.items) ? category.items : [];
@@ -6497,20 +6525,23 @@ function renderCompanyFixedTopPoolItems(grid, mode, sourceCards, headingTitle, m
   cards.forEach(({item, card}, index) => {
     const clone = cloneCompanyLiveExtractCard(card);
     const status = companyLiveCloneStatus(clone);
-    applyCompanyFixedTopPoolStatus(clone, item, mode);
     const liveMatch = companyFixedTopPoolLiveMatchFlight(item, mode);
+    const consumed = companyFixedTopPoolConsumedFlight(item, mode);
+    const currentOfferUnavailable = mode === 'quick' && !liveMatch && !consumed
+      && !companyFixedTopPoolCurrentOfferMatches(item, card);
+    item = {...item, currentOfferUnavailable};
+    if (!currentOfferUnavailable) applyCompanyFixedTopPoolStatus(clone, item, mode);
     if (liveMatch) {
       const offerRoute = clone.querySelector('.company-livery-offer-route');
       const payoutRecord = companyFixedTopPoolLivePayoutRecord(liveMatch, item);
       if (offerRoute && payoutRecord) offerRoute.innerHTML = companyLiveryLivePayoutText(payoutRecord);
     }
-    const consumed = companyFixedTopPoolConsumedFlight(item, mode);
     const intercepted = companyFixedTopPoolInterceptedFlight(item, mode);
     if (consumed) {
       const location = clone.querySelector('.company-livery-status-location');
       if (location) location.innerHTML = `👨‍✈️ ${companyFixedTopPoolConsumedPilotDateHtml(consumed)}`;
       companyFixedTopPoolApplyConsumedDuration(clone, consumed);
-    } else if (intercepted) {
+    } else if (intercepted && !currentOfferUnavailable) {
       const location = clone.querySelector('.company-livery-status-location');
       const pilot = intercepted?.pilot || {};
       const name = String(pilot.name || pilot.fullname || pilot.fullName || 'Пілот').trim();

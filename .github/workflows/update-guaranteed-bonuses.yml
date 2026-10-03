@@ -2,11 +2,15 @@ name: Update guaranteed bonuses
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: "*/15 * * * *"
   push:
     branches:
       - main
     paths:
+      - "FLIGHTS/**"
       - "COMPANY/livery-matching.json"
+      - "scripts/update-top-pool.js"
       - "scripts/update-guaranteed-bonuses.js"
       - "pie-rewards.js"
 
@@ -33,6 +37,9 @@ jobs:
         with:
           node-version: 24        
 
+      - name: Refresh hot offers
+        run: node scripts/update-top-pool.js --refresh-current
+
       - name: Run guaranteed bonuses updater
         run: node scripts/update-guaranteed-bonuses.js
 
@@ -41,12 +48,12 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          if git diff --quiet -- COMPANY/guaranteed-bonuses.json; then
+          if git diff --quiet -- COMPANY/top-pool-current.json COMPANY/TOP-POOLS COMPANY/guaranteed-bonuses.json; then
             echo "No guaranteed bonus changes."
             exit 0
           fi
 
-          git add COMPANY/guaranteed-bonuses.json
+          git add COMPANY/top-pool-current.json COMPANY/TOP-POOLS COMPANY/guaranteed-bonuses.json
           git commit -m "Update guaranteed bonuses"
 
           git pull --rebase origin main
