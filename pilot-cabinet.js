@@ -3665,7 +3665,7 @@ function setupCompanyLiverySortControls() {
       heading.classList.add('company-live-dashboard-heading');
       collapse.hidden = true;
       controls.classList.add('company-live-mode-controls');
-      controls.innerHTML = '<button type="button" class="company-livery-sort-button company-live-mode-button" data-company-live-mode="live" title="Показати літаки, які зараз LIVE"><span class="company-live-mode-arrow" aria-hidden="true">▶</span><span class="company-live-mode-label">LIVE NOW <span class="company-live-mode-secondary">- 0 рейсів</span></span></button><button type="button" class="company-livery-sort-button company-live-mode-button" data-company-live-mode="quick" title="Ротаційні гарячі пропозиції для швидкого вибору рейсу"><span class="company-live-mode-arrow" aria-hidden="true">▶</span><span class="company-live-mode-label">Гарячі пиріжки <img class="company-pyrih-icon" src="pyrih.png" alt="пиріжок" aria-hidden="true"></span></button><button type="button" class="company-livery-sort-button company-live-mode-button" data-company-live-mode="earn" title="Найкращі пропозиції за премією на годину"><span class="company-live-mode-arrow" aria-hidden="true">▶</span><span class="company-live-mode-label">Підняти кеш 💸 <span class="company-live-mode-secondary">$/год</span></span></button><button type="button" class="company-livery-sort-button company-live-mode-button" data-company-live-mode="return" title="FREE flight для подальшого SCHEDULE"><span class="company-live-mode-arrow" aria-hidden="true">▶</span><span class="company-live-mode-label">Повернути на маршрут 🔁</span></button><button type="button" class="company-livery-sort-button company-live-mode-button" data-company-live-mode="idle" title="Літаки, які найдовше не літали"><span class="company-live-mode-arrow" aria-hidden="true">▶</span><span class="company-live-mode-label">Вивести з простоя <span class="company-toolbox-icon">🧰</span></span></button>';
+      controls.innerHTML = '<button type="button" class="company-livery-sort-button company-live-mode-button" data-company-live-mode="live" title="Показати літаки, які зараз LIVE"><span class="company-live-mode-arrow" aria-hidden="true">▶</span><span class="company-live-mode-label">LIVE NOW <span class="company-live-mode-secondary">- 0 рейсів</span></span></button><button type="button" class="company-livery-sort-button company-live-mode-button" data-company-live-mode="quick" title="Рейси до 3 год 30 хв включно. ТОП #1 — 3 пиріжки, ТОП #2 — 2, ТОП #3–#6 — по 1"><span class="company-live-mode-arrow" aria-hidden="true">▶</span><span class="company-live-mode-label">Гарячі пиріжки <img class="company-pyrih-icon" src="pyrih.png" alt="пиріжок" aria-hidden="true"></span></button><button type="button" class="company-livery-sort-button company-live-mode-button" data-company-live-mode="earn" title="Найкращі пропозиції за премією на годину"><span class="company-live-mode-arrow" aria-hidden="true">▶</span><span class="company-live-mode-label">Підняти кеш 💸 <span class="company-live-mode-secondary">$/год</span></span></button><button type="button" class="company-livery-sort-button company-live-mode-button" data-company-live-mode="return" title="FREE flight для подальшого SCHEDULE"><span class="company-live-mode-arrow" aria-hidden="true">▶</span><span class="company-live-mode-label">Повернути на маршрут 🔁</span></button><button type="button" class="company-livery-sort-button company-live-mode-button" data-company-live-mode="idle" title="Літаки, які найдовше не літали"><span class="company-live-mode-arrow" aria-hidden="true">▶</span><span class="company-live-mode-label">Вивести з простоя <span class="company-toolbox-icon">🧰</span></span></button>';
       controls.querySelectorAll('[data-company-live-mode]').forEach(button => {
         const active = button.dataset.companyLiveMode === section.dataset.liveMode;
         button.classList.toggle('active', active && !grid.hidden);
@@ -5796,7 +5796,7 @@ function companyLiveQuickDirection(item) {
 
 function companyLiveQuickOfferPriority(item) {
   const classes = item?.badgeClasses || [];
-  const isShort = Number(item?.minutes) < 150;
+  const isShort = Number(item?.minutes) > 0 && Number(item?.minutes) <= 210;
   if (isShort && classes.includes('flight-number-schedule')) return 0;
   if (isShort && classes.includes('flight-number-free')) return 1;
   return 2;
@@ -5885,30 +5885,34 @@ function companyLiveEnsureQuickDiversity(items, candidates, blockedCards = null)
   return items;
 }
 
+function companyLiveHotCardAllowed(card) {
+  const section = card?.closest('.company-section');
+  return Boolean(section && ['wetlease-section', 'sublease-section', 'fictional-section']
+    .some(name => section.classList.contains(name)));
+}
+
+function companyLiveHotOfferAllowed(item) {
+  return Boolean(item && companyLiveHotCardAllowed(item.card)
+    && ['schedule', 'free'].includes(item.proposalType)
+    && /^[A-Z]{4}$/.test(item.origin || '') && /^[A-Z]{4}$/.test(item.destination || '')
+    && item.origin !== item.destination && Number(item.premium) > 0
+    && Number(item.minutes) > 0 && Number(item.minutes) <= 210);
+}
+
 function companyLiveQuickTopItems(sourceCards, blockedCards = null) {
-  const scheduleItems = sourceCards.map(companyLiveScheduleOfferForCard).filter(Boolean)
+  const allowedCards = sourceCards.filter(companyLiveHotCardAllowed);
+  const scheduleItems = allowedCards.map(companyLiveScheduleOfferForCard).filter(companyLiveHotOfferAllowed)
     .filter(companyLiveBuildCandidateAllowed)
-    .filter(item => item.minutes < 150)
     .sort(companyLiveQuickCompare);
-  const fallbackItems = sourceCards.map(companyLiveShortFallbackOfferForCard).filter(Boolean)
+  const fallbackItems = allowedCards.map(card => companyLiveOfferForCard(card, '.flight-number-free'))
+    .filter(companyLiveHotOfferAllowed)
     .filter(companyLiveBuildCandidateAllowed)
-    .filter(item => item.minutes < 150)
-    .sort(companyLiveQuickCompare);
-  const broadFallbackItems = sourceCards.map(companyLiveAnyFallbackOfferForCard).filter(Boolean)
-    .filter(companyLiveBuildCandidateAllowed)
-    .filter(item => item.minutes < 150)
+    .filter(item => !item.isUkraineDomestic)
     .sort(companyLiveQuickCompare);
   const items = [];
   companyLivePushUniqueOffers(items, scheduleItems, 6, blockedCards);
   companyLivePushUniqueOffers(items, fallbackItems, 6, blockedCards);
-  companyLivePushUniqueOffers(items, broadFallbackItems, 6, blockedCards);
-  const diversityScheduleItems = sourceCards.map(companyLiveScheduleOfferForCard).filter(Boolean).filter(companyLiveBuildCandidateAllowed);
-  const diversityPremiumItems = sourceCards.map(companyLiveAnyPremiumOfferForCard).filter(Boolean).filter(companyLiveBuildCandidateAllowed);
-  const diversityFallbackItems = sourceCards.map(companyLiveAnyFallbackOfferForCard).filter(Boolean).filter(companyLiveBuildCandidateAllowed);
-  const candidates = companyLiveUniqueOfferCandidates(scheduleItems, fallbackItems, broadFallbackItems, diversityScheduleItems, diversityPremiumItems, diversityFallbackItems);
-  companyLiveRotateQuickItems(items, candidates, blockedCards);
-  companyLiveEnsureQuickDiversity(items, candidates, blockedCards);
-  return items.sort(companyLiveQuickCompare).slice(0, 6);
+  return items.slice(0, 6);
 }
 
 function companyLiveReservedCardsBeforeMode(sourceCards, mode) {
@@ -6042,12 +6046,18 @@ function companyFixedTopPoolFleetRouteHtmlForClone(clone, proposal) {
   return routeEl?.innerHTML || '';
 }
 
-function applyCompanyFixedTopPoolStatus(clone, item) {
+function applyCompanyFixedTopPoolStatus(clone, item, mode = '') {
   const proposal = item?.proposal || {};
   const fleetRouteHtml = companyFixedTopPoolFleetRouteHtmlForClone(clone, proposal);
   const routeHtml = fleetRouteHtml || companyFixedTopPoolRouteHtml(item);
-  const offer = clone.querySelector('.company-livery-status-offer');
-  if (!offer || !routeHtml || routeHtml === '—') return;
+  if (!routeHtml || routeHtml === '—') return;
+  let offer = clone.querySelector('.company-livery-status-offer');
+  if (!offer && mode === 'quick') {
+    offer = document.createElement('div');
+    offer.className = 'company-livery-status-line company-livery-status-offer';
+    companyLiveCloneStatus(clone).appendChild(offer);
+  }
+  if (!offer) return;
   offer.classList.remove('company-livery-status-offer-muted');
   offer.innerHTML = `💰 Гарантована премія ${companyFixedTopPoolPremiumHtml(item)} за рейс:<div class="company-livery-offer-route">${routeHtml}</div>`;
 }
@@ -6300,7 +6310,9 @@ function companyFixedTopPoolLiveStatus(item, mode) {
 }
 
 function companyPiesRewardHtml(item, consumed, live) {
-  let reward = window.UCAAPieRewards.rewardForRank(item?.rank);
+  const rulesVersion = item?.pieRewardRulesVersion || item?.livePieRecord?.pieRewardRulesVersion
+    || (typeof app !== 'undefined' ? app.companyTopPool?.pieRewardRulesVersion : null) || 1;
+  let reward = window.UCAAPieRewards.rewardForRank(item?.rank, rulesVersion);
   if (!reward) return '';
   let record = null;
   let pilot = null;
@@ -6323,7 +6335,7 @@ function companyPiesRewardHtml(item, consumed, live) {
     }
   } else if (live) {
     const savedRecord = item.livePieRecord || guaranteedBonusRecordForFlight(live);
-    record = savedRecord || {...companyFixedTopPoolLivePayoutRecord(live, item), pie:true, pieType:'hot', pieRank:item.rank};
+    record = savedRecord || {...companyFixedTopPoolLivePayoutRecord(live, item), pie:true, pieType:'hot', pieRank:item.rank, pieRewardRulesVersion:rulesVersion};
     const activated = new Date(app.piesLedger?.activatedAt || '').getTime();
     const started = new Date(live.depTimeAct || '').getTime();
     const generated = new Date(record?.piePoolGeneratedAt || item.generatedAt || app.companyTopPool?.generatedAt || '').getTime();
@@ -6334,7 +6346,7 @@ function companyPiesRewardHtml(item, consumed, live) {
         || started < activated || started < generated || started > claimableUntil) record = null;
     if (record) pilot = {id:record.pilotId, name:companyLiveryLivePilotName(record)};
   }
-  if (record) reward = window.UCAAPieRewards.rewardForRank(record.pieRank);
+  if (record) reward = window.UCAAPieRewards.rewardForRank(record.pieRank, record.pieRewardRulesVersion || 1);
   if (!reward) return '';
   const icon = '<img class="company-pyrih-icon" src="pyrih.png" alt="пиріжки">';
   const quantity = `${reward} ${reward === 1 ? 'пиріжок' : 'пиріжки'}`;
@@ -6401,6 +6413,7 @@ function companyFixedTopPoolLivePieItems(mode, sourceCards) {
         item: {
           mode,
           rank: Number(record.pieRank) || 0,
+          pieRewardRulesVersion: Number(record.pieRewardRulesVersion) || 1,
           categoryNote: '',
           aircraftId,
           aircraftTitle: liveryCardTitle(card),
@@ -6425,17 +6438,31 @@ function companyFixedTopPoolLivePieItems(mode, sourceCards) {
     .filter(Boolean)
     .sort((a, b) => b.sortTime - a.sortTime || (a.item.rank || 99) - (b.item.rank || 99));
 }
+function companyFixedTopPoolHotItemAllowed(item) {
+  const proposal = item?.proposal || {};
+  const duration = String(proposal.durationText || '').match(/^(\d+):(\d{2})$/);
+  const minutes = Number(item?.blockMinutes || proposal.durationMinutes)
+    || (duration ? Number(duration[1]) * 60 + Number(duration[2]) : 0);
+  return Boolean(item && item.group !== 'dry'
+    && !/dry\s*lease/i.test(item.aircraftTitle || '')
+    && ['schedule', 'free'].includes(proposal.type)
+    && /^[A-Z]{4}$/.test(proposal.depIcao || '') && /^[A-Z]{4}$/.test(proposal.arrIcao || '')
+    && proposal.depIcao !== proposal.arrIcao && Number(proposal.premiumUsd) > 0
+    && minutes > 0 && minutes <= 210);
+}
+
 function renderCompanyFixedTopPoolItems(grid, mode, sourceCards, headingTitle, mobileTitle) {
   const category = companyFixedTopPoolCategory(mode);
   const items = Array.isArray(category?.items) ? category.items : [];
-  if (!category || !items.length) return false;
-  const activeItems = items;
-  const livePieRows = companyFixedTopPoolLivePieItems(mode, sourceCards);
+  if (!category || (!items.length && mode !== 'quick')) return false;
+  const activeItems = mode === 'quick' ? items.filter(companyFixedTopPoolHotItemAllowed) : items;
+  const livePieRows = companyFixedTopPoolLivePieItems(mode, sourceCards)
+    .filter(row => mode !== 'quick' || companyLiveHotCardAllowed(row.card));
   const livePieAircraft = new Set(livePieRows.map(row => String(row.item.aircraftId || '').trim()).filter(Boolean));
   const regularRows = activeItems
     .filter(item => !livePieAircraft.has(String(item?.aircraftId || '').trim()))
     .map(item => ({item, card: companyFixedTopPoolCardForItem(item, sourceCards)}))
-    .filter(row => row.card);
+    .filter(row => row.card && (mode !== 'quick' || companyLiveHotCardAllowed(row.card)));
   const cards = [...livePieRows, ...regularRows].slice(0, 6);
   const titles = {
     quick: ['Гарячі пиріжки <img class="company-pyrih-icon" src="pyrih.png" alt="пиріжок" aria-hidden="true">', '<img class="company-pyrih-icon" src="pyrih.png" alt="пиріжок" aria-hidden="true">'],
@@ -6455,7 +6482,7 @@ function renderCompanyFixedTopPoolItems(grid, mode, sourceCards, headingTitle, m
   cards.forEach(({item, card}, index) => {
     const clone = cloneCompanyLiveExtractCard(card);
     const status = companyLiveCloneStatus(clone);
-    applyCompanyFixedTopPoolStatus(clone, item);
+    applyCompanyFixedTopPoolStatus(clone, item, mode);
     const liveMatch = companyFixedTopPoolLiveMatchFlight(item, mode);
     if (liveMatch) {
       const offerRoute = clone.querySelector('.company-livery-offer-route');
@@ -6484,7 +6511,9 @@ function renderCompanyFixedTopPoolItems(grid, mode, sourceCards, headingTitle, m
     status.prepend(note);
     grid.appendChild(clone);
   });
-  if (!cards.length) renderCompanyLiveEmpty(grid, 'Зафіксований пул є, але відповідні картки не знайдені на сторінці');
+  if (!cards.length) renderCompanyLiveEmpty(grid, mode === 'quick'
+    ? 'Зараз немає доступних пропозицій до 3 год 30 хв'
+    : 'Зараз немає доступних пропозицій');
   return true;
 }
 function renderCompanyLiveFleetExtract() {

@@ -13,7 +13,7 @@ const now = new Date('2026-10-01T12:00:00Z');
 const initialLedger = () => ({version:1, ruleVersion:1, activatedAt:'2026-10-01T06:00:00Z', updatedAt:null, entries:{}});
 function fixture(id = 'flight-1', rank = 1, pilotId = 'pilot-1') {
   const record = {
-    state:'DONE', status:'earned', pie:true, pieType:'hot', pieRank:rank,
+    state:'DONE', status:'earned', pie:true, pieType:'hot', pieRank:rank, pieRewardRulesVersion:2,
     pilotId, aircraftId:'aircraft-1', depIcao:'UKBB', arrIcao:'UKLL', flightNumber:'00123', proposalType:'schedule',
     piePoolKey:'hot|1|aircraft-1|123|UKBB|UKLL', piePoolId:'pool-1',
     piePoolGeneratedAt:'2026-10-01T06:00:00Z', piePoolActiveUntil:'2026-10-01T12:00:00Z', piePoolClaimableUntil:'2026-10-02T12:00:00Z'
@@ -35,11 +35,67 @@ function loadUpdater(fixtureRoot = root) {
   return context.module.exports;
 }
 
-test('TOP #1/#2/#3 award 3/2/1 pies, other ranks award none', () => {
-  for (const [rank, expected] of [[1,3],[2,2],[3,1],[4,0],[5,0],[6,0],[0,0],[-1,0],[1.5,0],['bad',0]]) {
+test('TOP #1/#2 award 3/2 pies and TOP #3 through #6 award one each', () => {
+  for (const [rank, expected] of [[1,3],[2,2],[3,1],[4,1],[5,1],[6,1],[7,0],[0,0],[-1,0],[1.5,0],['bad',0]]) {
     const {record,flight} = fixture('flight-'+rank,rank);
     assert.equal(rewards.balanceForPilot(credit(record,flight),'pilot-1'), expected);
   }
+});
+
+test('old pools keep their original rewards without retroactive TOP #4 through #6 earnings', () => {
+  for (const [rank, expected] of [[1,3],[2,2],[3,1],[4,0],[5,0],[6,0]]) {
+    const {record,flight} = fixture('legacy-'+rank,rank);
+    delete record.pieRewardRulesVersion;
+    assert.equal(rewards.balanceForPilot(credit(record,flight),'pilot-1'),expected);
+    assert.equal(rewards.rewardForRank(rank,1),expected);
+  }
+});
+
+test('six new qualifying flights accumulate nine pies without changing saved entries', () => {
+  const old = fixture('existing',2);
+  delete old.record.pieRewardRulesVersion;
+  const previous = credit(old.record,old.flight);
+  const fixtures = [1,2,3,4,5,6].map(rank=>fixture('new-'+rank,rank));
+  const next = rewards.syncLedger(previous,Object.fromEntries(fixtures.map(({record,flight})=>[flight.id,record])),fixtures.map(x=>x.flight),now);
+  assert.equal(rewards.balanceForPilot(next,'pilot-1'),11);
+  assert.deepEqual(next.entries['hot:existing'],previous.entries['hot:existing']);
+  assert.strictEqual(rewards.syncLedger(next,Object.fromEntries(fixtures.map(({record,flight})=>[flight.id,record])),fixtures.map(x=>x.flight),now),next);
+});
+
+test('bonus claims freeze the new reward rules and rank when a later pool changes them', () => {
+  const updater=loadUpdater();
+  const pool={pieRewardRulesVersion:2,generatedAt:'2026-10-03T06:00:00Z',activeUntil:'2026-10-03T12:00:00Z',claimableUntil:'2026-10-04T12:00:00Z',
+    categories:{quick:{items:[{rank:6,aircraftId:'aircraft-1',proposal:{type:'schedule',flightNumber:'123',depIcao:'UKBB',arrIcao:'UKLL',premiumUsd:300}}]}}};
+  const match=updater.topPoolItemsFromPools([pool])[0];
+  const fields=updater.topPoolRecordFields(match);
+  assert.equal(fields.pieRewardRulesVersion,2);
+  const {record,flight}=fixture('frozen-six',6);
+  const previous={...record,...fields};
+  const next={...previous,pieRank:1,pieRewardRulesVersion:1};
+  updater.preserveTopPoolClaims({[flight.id]:previous},{[flight.id]:next});
+  assert.equal(next.pieRank,6);
+  assert.equal(next.pieRewardRulesVersion,2);
+  assert.equal(rewards.rewardForRank(next.pieRank,next.pieRewardRulesVersion),1);
+});
+
+test('external updater records recover new reward rules from the exact saved snapshot', t => {
+  const fixtureRoot=fs.mkdtempSync(path.join(os.tmpdir(),'ucaa-pies-expanded-'));
+  t.after(()=>{assert.ok(path.resolve(fixtureRoot).startsWith(path.join(os.tmpdir(),'ucaa-pies-expanded-')));fs.rmSync(fixtureRoot,{recursive:true,force:true});});
+  fs.mkdirSync(path.join(fixtureRoot,'COMPANY'));
+  fs.writeFileSync(path.join(fixtureRoot,'COMPANY','pies-ledger.json'),JSON.stringify(initialLedger()));
+  const {record,flight}=fixture('external-six',6);
+  delete record.pieRewardRulesVersion;
+  const pool={pieRewardRulesVersion:2,generatedAt:record.piePoolGeneratedAt,activeUntil:record.piePoolActiveUntil,claimableUntil:record.piePoolClaimableUntil,
+    categories:{quick:{items:[{rank:6,aircraftId:'aircraft-1',proposal:{type:'schedule',flightNumber:'123',depIcao:'UKBB',arrIcao:'UKLL',premiumUsd:300}}]}}};
+  record.piePoolKey='quick|6|aircraft-1|123|UKBB|UKLL';
+  fs.writeFileSync(path.join(fixtureRoot,'COMPANY','top-pool-current.json'),JSON.stringify(pool));
+  const updater=loadUpdater(fixtureRoot);
+  const next=updater.updatePiesLedger({[flight.id]:record},[flight],now,true);
+  assert.equal(rewards.balanceForPilot(next,'pilot-1'),1);
+  assert.equal(next.entries['hot:'+flight.id].rewardRulesVersion,2);
+  pool.pieRewardRulesVersion=1;
+  fs.writeFileSync(path.join(fixtureRoot,'COMPANY','top-pool-current.json'),JSON.stringify(pool));
+  assert.equal(rewards.balanceForPilot(updater.updatePiesLedger({[flight.id]:record},[flight],now,true),'pilot-1'),0);
 });
 
 test('three different qualifying flights accumulate six pies', () => {

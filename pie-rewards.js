@@ -6,14 +6,17 @@
   'use strict';
 
   const RULE_VERSION = 1;
-  const REWARDS = Object.freeze({1: 3, 2: 2, 3: 1});
+  const REWARD_RULES_VERSION = 2;
+  const REWARDS = Object.freeze({1: 3, 2: 2, 3: 1, 4: 1, 5: 1, 6: 1});
   const text = value => String(value || '').trim();
   const upper = value => text(value).toUpperCase();
   const time = value => value ? new Date(value).getTime() : NaN;
   const flightNumber = value => upper(value).replace(/^UKL\s*/, '').replace(/\s+/g, '').replace(/^0+(?=\d)/, '');
 
-  function rewardForRank(rank) {
+  function rewardForRank(rank, rulesVersion = REWARD_RULES_VERSION) {
     const value = Number(rank);
+    // Keep the original promise for flights claimed from an older pool.
+    if (!(Number(rulesVersion) >= 2) && value > 3) return 0;
     return Number.isInteger(value) ? (REWARDS[value] || 0) : 0;
   }
 
@@ -64,7 +67,7 @@
       const flight = flights.get(flightId);
       if (!flight || flight.status !== 'completed' || record?.state !== 'DONE' || record?.status !== 'earned') continue;
       if (record.pie !== true || record.pieType !== 'hot') continue;
-      const amount = rewardForRank(record.pieRank);
+      const amount = rewardForRank(record.pieRank, record.pieRewardRulesVersion || 1);
       if (!amount || !snapshotMatchesFlight(record, flight)) continue;
       const started = time(flight.times?.actualDeparture || flight.times?.takeoff);
       const completed = time(flight.times?.closed || flight.times?.actualArrival);
@@ -73,6 +76,7 @@
         id: entryId,
         kind: 'earn',
         ruleVersion: RULE_VERSION,
+        rewardRulesVersion: Number(record.pieRewardRulesVersion) || 1,
         pilotId: text(record.pilotId),
         flightId,
         category: 'hot',
@@ -118,5 +122,5 @@
     return balance;
   }
 
-  return Object.freeze({RULE_VERSION, REWARDS, rewardForRank, snapshotMatchesFlight, syncLedger, earningForFlight, balanceForPilot});
+  return Object.freeze({RULE_VERSION, REWARD_RULES_VERSION, REWARDS, rewardForRank, snapshotMatchesFlight, syncLedger, earningForFlight, balanceForPilot});
 });

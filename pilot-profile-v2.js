@@ -36,7 +36,7 @@
     const label = balance === null ? '—' : balance.toLocaleString('uk-UA');
     const tooltip = balance === null
       ? 'Баланс тимчасово недоступний. Спробуйте оновити сторінку.'
-      : 'За виконаний гарячий пиріжок: ТОП #1 — 3, ТОП #2 — 2, ТОП #3 — 1.';
+      : 'За виконаний гарячий пиріжок: ТОП #1 — 3, ТОП #2 — 2, ТОП #3–#6 — по 1.';
     return `<div class="profile-pies-balance profile-tip" data-tooltip="${esc(tooltip)}"><img src="pyrih.png" alt="" aria-hidden="true"><span>Пиріжки: <strong>${label}</strong></span></div>`;
   }
   function monthlyAwardPeriods() {
