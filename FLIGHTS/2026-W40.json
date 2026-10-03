@@ -4001,6 +4001,156 @@
                         "elev": 228
                     }
                 }
+            },
+            {
+                "_id": "6ac09e17e2b73bbe59115680",
+                "aircraft": {
+                    "_id": "6a4fa2fb5760ec7cdb629836",
+                    "name": "Boeing 777-200ER",
+                    "customName": "Dry Lease l 777-200ER PW 294 pax",
+                    "icao": "B772"
+                },
+                "type": "pax",
+                "flightNumber": "88R",
+                "free": false,
+                "schedule": false,
+                "charter": true,
+                "payload": {
+                    "pax": 294,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-10-03T06:40:00.000Z",
+                "duration": 100,
+                "arrTime": "2026-10-03T08:20:00.000Z",
+                "depTimeAct": "2026-10-03T06:37:52.912Z",
+                "delay": 8,
+                "takeoffTimeAct": "2026-10-03T06:41:25.078Z",
+                "durationAct": 106,
+                "arrTimeAct": "2026-10-03T08:27:40.757Z",
+                "open": "2026-10-03T06:34:46.713Z",
+                "close": "2026-10-03T08:30:25.894Z",
+                "rating": 9.95,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 674,
+                        "fuel": 9617,
+                        "expenses": 35712,
+                        "penalties": 0,
+                        "revenue": 68991,
+                        "balance": 33279,
+                        "prices": {
+                            "ticketPrice": 183,
+                            "cargoUnitPrice": 212,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 294,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 14,
+                                "C": 41,
+                                "Y": 239
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 10873,
+                        "aircraft": 18305,
+                        "handling": 1764,
+                        "landing": 4770
+                    },
+                    "revenue": {
+                        "tickets": 68991,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 4.29m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -5,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.34G (325 ft/min, normal  conditions)<br/>Distance from threshold: 428m (accepted range: 209-838m)<br/>Average centerline deviation: 1.79m<br/>Max centerline deviation: 4.29m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.34,
+                                        "rate": 325
+                                    },
+                                    "weather": {
+                                        "windDir": 59.99,
+                                        "windSpd": 8,
+                                        "windX": -1.17
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-03T06:17:59.272Z",
+                "updatedAt": "2026-10-03T08:30:25.978Z",
+                "dep": {
+                    "icao": "LIEO",
+                    "name": "Olbia Costa Smeralda Airport",
+                    "city": "Olbia (SS)",
+                    "location": {
+                        "lat": 40.898953,
+                        "lon": 9.518457,
+                        "elev": 37
+                    }
+                },
+                "arr": {
+                    "icao": "EDDF",
+                    "name": "Frankfurt Main Airport",
+                    "city": "Frankfurt am Main",
+                    "location": {
+                        "lat": 50.026706,
+                        "lon": 8.55835,
+                        "elev": 364
+                    }
+                },
+                "actArr": {
+                    "icao": "EDDF",
+                    "name": "Frankfurt Main Airport",
+                    "city": "Frankfurt am Main",
+                    "location": {
+                        "lat": 50.026706,
+                        "lon": 8.55835,
+                        "elev": 364
+                    }
+                }
             }
         ]
     },
