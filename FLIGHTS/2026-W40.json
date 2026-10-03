@@ -9850,6 +9850,200 @@
                         "elev": 1071
                     }
                 }
+            },
+            {
+                "_id": "6ac0ef8ce2b73bbe59189e58",
+                "aircraft": {
+                    "_id": "696285163dc76275ba9ef60c",
+                    "name": "Boeing 737-800",
+                    "customName": "UCAA l 737-800 (pax) based in UKKK l UR-UCA",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "5016",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 113,
+                    "cargo": 17,
+                    "weights": {
+                        "cargo": 2261
+                    }
+                },
+                "depTime": "2026-10-03T14:45:00.000Z",
+                "duration": 85,
+                "arrTime": "2026-10-03T16:10:00.000Z",
+                "depTimeAct": "2026-10-03T14:41:59.884Z",
+                "delay": -32,
+                "takeoffTimeAct": "2026-10-03T14:42:17.105Z",
+                "durationAct": 56,
+                "arrTimeAct": "2026-10-03T15:37:48.662Z",
+                "open": "2026-10-03T14:41:20.383Z",
+                "close": "2026-10-03T15:40:43.701Z",
+                "rating": -0.2,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": true,
+                "result": {
+                    "totals": {
+                        "distance": 372,
+                        "fuel": 2944,
+                        "expenses": 0,
+                        "penalties": 0,
+                        "revenue": 0,
+                        "balance": 0,
+                        "prices": {
+                            "ticketPrice": 145,
+                            "cargoUnitPrice": 169,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 113,
+                            "cargo": 17,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 113
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2663,
+                        "aircraft": 3775,
+                        "handling": 481,
+                        "landing": 1917
+                    },
+                    "revenue": {
+                        "tickets": 16385,
+                        "cargo": 2873
+                    },
+                    "violations": [
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1013mb instead of 1029mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 34
+                                    },
+                                    "weather": {
+                                        "windDir": 342.86,
+                                        "windSpd": 5.04,
+                                        "windX": 4.87
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Emergency Declared",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "emergency",
+                                "payload": {
+                                    "system": {
+                                        "fps": 38
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "MLW exceeded: 3409kg above maximum landing weight of 66361kg",
+                            "penalty": {
+                                "points": -300,
+                                "cash": 20000
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.26,
+                                        "rate": 249
+                                    },
+                                    "weather": {
+                                        "windDir": 324.88,
+                                        "windSpd": 3.79,
+                                        "windX": 2.83
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.26G (249 ft/min, challenging  conditions)<br/>Distance from threshold: 533m (accepted range: 203-815m)<br/>Average centerline deviation: 2.88m<br/>Max centerline deviation: 6.64m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.26,
+                                        "rate": 249
+                                    },
+                                    "weather": {
+                                        "windDir": 324.88,
+                                        "windSpd": 3.79,
+                                        "windX": 2.83
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-03T12:05:32.734Z",
+                "updatedAt": "2026-10-03T15:40:43.786Z",
+                "dep": {
+                    "icao": "UKKK",
+                    "name": "Igor Sikorsky Kyiv International Airport (Zhuliany)",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.40194,
+                        "lon": 30.45194,
+                        "elev": 587
+                    }
+                },
+                "arr": {
+                    "icao": "UKFF",
+                    "city": "Simferopol",
+                    "location": {
+                        "lat": 45.0522,
+                        "lon": 33.975101,
+                        "elev": 639
+                    },
+                    "name": "Simferopol International Airport"
+                },
+                "actArr": {
+                    "icao": "UKFF",
+                    "city": "Simferopol",
+                    "location": {
+                        "lat": 45.0522,
+                        "lon": 33.975101,
+                        "elev": 639
+                    },
+                    "name": "Simferopol International Airport"
+                }
             }
         ]
     },
