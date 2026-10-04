@@ -23943,6 +23943,171 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6ac24ad9e2b73bbe593a0e4c",
+                "aircraft": {
+                    "_id": "6980e9459da57b990a02e1bd",
+                    "name": "Boeing 737 MAX 8",
+                    "customName": "Ukraine Int l 737-MAX8 189 pax iFly l UR-MXA",
+                    "icao": "B38M"
+                },
+                "type": "pax",
+                "flightNumber": "187",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 189,
+                    "cargo": 13,
+                    "weights": {
+                        "cargo": 1820
+                    }
+                },
+                "depTime": "2026-10-04T13:00:00.000Z",
+                "duration": 125,
+                "arrTime": "2026-10-04T15:05:00.000Z",
+                "depTimeAct": "2026-10-04T13:12:17.445Z",
+                "delay": -4,
+                "takeoffTimeAct": "2026-10-04T13:20:02.125Z",
+                "durationAct": 101,
+                "arrTimeAct": "2026-10-04T15:01:29.588Z",
+                "open": "2026-10-04T12:50:38.156Z",
+                "close": "2026-10-04T15:10:13.431Z",
+                "rating": 5,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 662,
+                        "fuel": 4269,
+                        "expenses": 14344,
+                        "penalties": 0,
+                        "revenue": 34928,
+                        "balance": 20584,
+                        "prices": {
+                            "ticketPrice": 162,
+                            "cargoUnitPrice": 182,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 189,
+                            "cargo": 13,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 12,
+                                "Y": 177
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3861,
+                        "aircraft": 4925,
+                        "handling": 1346,
+                        "landing": 4212
+                    },
+                    "revenue": {
+                        "tickets": 32562,
+                        "cargo": 2366
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 31.31m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -300,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 49
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Speeding when vacating runway (going 85KT, accepted max 50KT)",
+                            "penalty": {
+                                "points": -200,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 51
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.09G (75 ft/min, challenging  conditions)<br/>Distance from threshold: 374m (accepted range: 211-846m)<br/>Average centerline deviation: 13.12m<br/>Max centerline deviation: 31.31m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 49
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.09,
+                                        "rate": 75
+                                    },
+                                    "weather": {
+                                        "windDir": 49.99,
+                                        "windSpd": 22.3,
+                                        "windX": 15.8
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-04T12:47:21.791Z",
+                "updatedAt": "2026-10-04T15:10:13.642Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "LTFM",
+                    "name": "İstanbul Airport",
+                    "city": "Istanbul",
+                    "location": {
+                        "lat": 41.274874,
+                        "lon": 28.732136,
+                        "elev": 325
+                    }
+                },
+                "actArr": {
+                    "icao": "LTFM",
+                    "name": "İstanbul Airport",
+                    "city": "Istanbul",
+                    "location": {
+                        "lat": 41.274874,
+                        "lon": 28.732136,
+                        "elev": 325
+                    }
+                }
             }
         ]
     },
