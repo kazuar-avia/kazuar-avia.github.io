@@ -13755,6 +13755,161 @@
                         "elev": 6451
                     }
                 }
+            },
+            {
+                "_id": "6ac25fe1e2b73bbe593cb7c8",
+                "aircraft": {
+                    "_id": "69ff231aa5e61d69a71c50f5",
+                    "name": "Airbus A340-600",
+                    "customName": "Dry Lease l Toliss A340-600 msfs l 440 pax in 3 class",
+                    "icao": "A346"
+                },
+                "type": "pax",
+                "flightNumber": "77D",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 302,
+                    "cargo": 59,
+                    "weights": {
+                        "cargo": 4307
+                    }
+                },
+                "depTime": "2026-10-04T14:40:00.000Z",
+                "duration": 155,
+                "arrTime": "2026-10-04T17:15:00.000Z",
+                "depTimeAct": "2026-10-04T14:44:39.339Z",
+                "delay": -2,
+                "takeoffTimeAct": "2026-10-04T14:44:39.339Z",
+                "durationAct": 149,
+                "arrTimeAct": "2026-10-04T17:13:22.293Z",
+                "open": "2026-10-04T14:37:52.442Z",
+                "close": "2026-10-04T17:18:34.432Z",
+                "rating": 9.5,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 960,
+                        "fuel": 16625,
+                        "expenses": 40704,
+                        "penalties": 0,
+                        "revenue": 62659,
+                        "balance": 21955,
+                        "prices": {
+                            "ticketPrice": 159,
+                            "cargoUnitPrice": 170,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 1,
+                                "fuel": 0.8,
+                                "ground": 0.85
+                            }
+                        },
+                        "payload": {
+                            "pax": 301,
+                            "cargo": 59,
+                            "paxByClass": {
+                                "F": 5,
+                                "C": 15,
+                                "Y": 281
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 15036,
+                        "aircraft": 21758,
+                        "handling": 2210,
+                        "landing": 1700
+                    },
+                    "revenue": {
+                        "tickets": 52629,
+                        "cargo": 10030
+                    },
+                    "violations": [
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1024mb instead of 948mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 33
+                                    },
+                                    "weather": {
+                                        "windDir": 277.01,
+                                        "windSpd": 3.66,
+                                        "windX": 3.66
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.26G (294 ft/min, normal  conditions)<br/>Distance from threshold: 195m (accepted range: 174-697m)<br/>Average centerline deviation: 0.44m<br/>Max centerline deviation: 0.84m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.26,
+                                        "rate": 294
+                                    },
+                                    "weather": {
+                                        "windDir": 213.98,
+                                        "windSpd": 1.27,
+                                        "windX": -0.79
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-04T14:17:05.927Z",
+                "updatedAt": "2026-10-04T17:18:34.518Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "LIML",
+                    "name": "Milano Linate Airport",
+                    "city": "Segrate (MI)",
+                    "location": {
+                        "lat": 45.445099,
+                        "lon": 9.27674,
+                        "elev": 353
+                    }
+                },
+                "actArr": {
+                    "icao": "LIML",
+                    "name": "Milano Linate Airport",
+                    "city": "Segrate (MI)",
+                    "location": {
+                        "lat": 45.445099,
+                        "lon": 9.27674,
+                        "elev": 353
+                    }
+                }
             }
         ]
     },
