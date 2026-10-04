@@ -28191,6 +28191,209 @@
                         "elev": 157
                     }
                 }
+            },
+            {
+                "_id": "6ac278ede2b73bbe59402aec",
+                "aircraft": {
+                    "_id": "6a4fd7e55760ec7cdb6783b0",
+                    "name": "Fokker F28-1000 Fellowship",
+                    "customName": "Air Ukraine l Fokker 28 (Yak-40) based in UKKK l UR-40393",
+                    "icao": "F28"
+                },
+                "type": "pax",
+                "flightNumber": "888",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 50,
+                    "cargo": 5,
+                    "weights": {
+                        "cargo": 325
+                    }
+                },
+                "depTime": "2026-10-04T16:20:00.000Z",
+                "duration": 80,
+                "arrTime": "2026-10-04T17:40:00.000Z",
+                "depTimeAct": "2026-10-04T16:17:33.153Z",
+                "delay": -8,
+                "takeoffTimeAct": "2026-10-04T16:21:02.146Z",
+                "durationAct": 71,
+                "arrTimeAct": "2026-10-04T17:31:56.070Z",
+                "open": "2026-10-04T16:04:01.405Z",
+                "close": "2026-10-04T17:37:56.859Z",
+                "rating": 7.67,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 368,
+                        "fuel": 2416,
+                        "expenses": 4624,
+                        "penalties": 0,
+                        "revenue": 8035,
+                        "balance": 3411,
+                        "prices": {
+                            "ticketPrice": 115,
+                            "cargoUnitPrice": 135,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 50,
+                            "cargo": 5,
+                            "paxByClass": {
+                                "F": 2,
+                                "C": 8,
+                                "Y": 40
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2186,
+                        "aircraft": 1983,
+                        "handling": 212,
+                        "landing": 243
+                    },
+                    "revenue": {
+                        "tickets": 7360,
+                        "cargo": 675
+                    },
+                    "violations": [
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1025mb instead of 1007.76mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 65
+                                    },
+                                    "weather": {
+                                        "windDir": 270,
+                                        "windSpd": 2,
+                                        "windX": -0.13
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Short landing (18m from threshold before 159m min accepted)",
+                            "penalty": {
+                                "points": -133,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 74
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.38,
+                                        "rate": 339
+                                    },
+                                    "weather": {
+                                        "windDir": 270.01,
+                                        "windSpd": 2.04,
+                                        "windX": -0.46
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.38G (339 ft/min, challenging  conditions)<br/>Distance from threshold: 18m (accepted range: 159-638m)<br/>Average centerline deviation: 0.82m<br/>Max centerline deviation: 1.51m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 74
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.38,
+                                        "rate": 339
+                                    },
+                                    "weather": {
+                                        "windDir": 270.01,
+                                        "windSpd": 2.04,
+                                        "windX": -0.46
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on landing: 1027mb instead of 1007.76mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 74
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.38,
+                                        "rate": 339
+                                    },
+                                    "weather": {
+                                        "windDir": 270.01,
+                                        "windSpd": 2.04,
+                                        "windX": -0.46
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-04T16:03:57.684Z",
+                "updatedAt": "2026-10-04T17:37:56.930Z",
+                "dep": {
+                    "icao": "UKKK",
+                    "name": "Igor Sikorsky Kyiv International Airport (Zhuliany)",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.40194,
+                        "lon": 30.45194,
+                        "elev": 587
+                    }
+                },
+                "arr": {
+                    "icao": "UKLU",
+                    "name": "Uzhhorod International Airport",
+                    "city": "Uzhhorod",
+                    "location": {
+                        "lat": 48.6343,
+                        "lon": 22.263399,
+                        "elev": 383
+                    }
+                },
+                "actArr": {
+                    "icao": "UKLU",
+                    "name": "Uzhhorod International Airport",
+                    "city": "Uzhhorod",
+                    "location": {
+                        "lat": 48.6343,
+                        "lon": 22.263399,
+                        "elev": 383
+                    }
+                }
             }
         ]
     },
