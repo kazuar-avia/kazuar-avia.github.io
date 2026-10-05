@@ -196,6 +196,12 @@
     .management-bonus-row th,.management-bonus-row td{background:#e4f6fb!important;border-top:2px solid #86b9c5!important;border-bottom:2px solid #86b9c5!important}
     .guaranteed-bonus-row th,.guaranteed-bonus-row td{background:#f2e8fb!important;border-top:2px solid #b99ad1!important;border-bottom:2px solid #b99ad1!important}
     .salary-amount-inline{display:inline-block;white-space:nowrap}
+    #dashboardView .salary-amount-inline{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;white-space:nowrap;line-height:1.1}
+    #dashboardView .salary-value{display:block}
+    #dashboardView .flight-reward-icons{display:flex;align-items:center;justify-content:center;gap:3px;margin-top:2px;line-height:1}
+    #dashboardView .flight-reward-icons .guaranteed-bonus-icon,#dashboardView .flight-reward-icons .flight-pies-icon{margin-left:0}
+    #dashboardView .flight-reward-icons .flight-pies-icon img{width:17px;height:17px}
+    #dashboardView .live-flight-reward-icons{display:inline-flex;margin-top:0;vertical-align:middle}
     .guaranteed-bonus-icon{display:inline-block;margin-left:4px;vertical-align:1px;white-space:nowrap}
     .flight-pies-icon{display:inline-flex;align-items:center;margin-left:4px;vertical-align:middle}
     .flight-pies-icon img{display:block;width:18px;height:18px;object-fit:contain}
@@ -874,7 +880,7 @@ document.querySelector('.close').onclick=()=>document.querySelector('#pilotDialo
 <script src="pilot-profile-v2.js?v=20261003-pies-5"></script>
 <script src="app-navigation.js?v=20260628-1"></script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script type="module" src="pilot-cabinet.js?v=20261005-status-flags-9"></script>
+<script type="module" src="pilot-cabinet.js?v=20261005-live-pies-10"></script>
 <!-- legacy pilots table disabled: pilot-cabinet.js renders #pilotsView cards -->
 <script type="module" src="company.js?v=20260627-17"></script>
 </body>
