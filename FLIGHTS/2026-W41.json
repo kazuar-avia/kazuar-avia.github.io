@@ -1002,5 +1002,162 @@
                 }
             }
         ]
+    },
+    {
+        "pilot_id": "69581efe3dc76275ba8e9df6",
+        "fullname": "Andrii Moskalenko",
+        "avatar": "69581efe3dc76275ba8e9df61782830286148",
+        "flights": [
+            {
+                "_id": "6ac37666e2b73bbe5953b358",
+                "aircraft": {
+                    "_id": "6a0b23a267cd7e249842bd81",
+                    "name": "Airbus A380",
+                    "customName": "Dry lease l FBW A380-800 l 446 pax elite",
+                    "icao": "A388"
+                },
+                "type": "pax",
+                "flightNumber": "30P",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 446,
+                    "cargo": 90,
+                    "weights": {
+                        "cargo": 10980
+                    }
+                },
+                "depTime": "2026-10-05T11:05:00.000Z",
+                "duration": 95,
+                "arrTime": "2026-10-05T12:40:00.000Z",
+                "depTimeAct": "2026-10-05T11:16:45.172Z",
+                "delay": 9,
+                "takeoffTimeAct": "2026-10-05T11:20:44.168Z",
+                "durationAct": 89,
+                "arrTimeAct": "2026-10-05T12:49:21.977Z",
+                "open": "2026-10-05T11:16:34.493Z",
+                "close": "2026-10-05T12:57:20.992Z",
+                "rating": 9.75,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 602,
+                        "fuel": 20029,
+                        "expenses": 66138,
+                        "penalties": 0,
+                        "revenue": 139706,
+                        "balance": 73568,
+                        "prices": {
+                            "ticketPrice": 127,
+                            "cargoUnitPrice": 144,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 446,
+                            "cargo": 90,
+                            "paxByClass": {
+                                "F": 85,
+                                "C": 297,
+                                "Y": 64
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 22643,
+                        "aircraft": 30575,
+                        "handling": 8150,
+                        "landing": 4770
+                    },
+                    "revenue": {
+                        "tickets": 126746,
+                        "cargo": 12960
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 5.55m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -25,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 19
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.30G (326 ft/min, normal  conditions)<br/>Distance from threshold: 516m (accepted range: 201-808m)<br/>Average centerline deviation: 3.05m<br/>Max centerline deviation: 5.55m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 12
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.3,
+                                        "rate": 326
+                                    },
+                                    "weather": {
+                                        "windDir": 7.42,
+                                        "windSpd": 1.93,
+                                        "windX": 0.52
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-05T10:05:26.944Z",
+                "updatedAt": "2026-10-05T12:57:21.072Z",
+                "dep": {
+                    "icao": "EHAM",
+                    "name": "Amsterdam Airport Schiphol",
+                    "city": "Amsterdam",
+                    "location": {
+                        "lat": 52.308601,
+                        "lon": 4.76389,
+                        "elev": -11
+                    }
+                },
+                "arr": {
+                    "icao": "LOWW",
+                    "name": "Vienna International Airport",
+                    "city": "Vienna",
+                    "location": {
+                        "lat": 48.110298,
+                        "lon": 16.5697,
+                        "elev": 600
+                    }
+                },
+                "actArr": {
+                    "icao": "LOWW",
+                    "name": "Vienna International Airport",
+                    "city": "Vienna",
+                    "location": {
+                        "lat": 48.110298,
+                        "lon": 16.5697,
+                        "elev": 600
+                    }
+                }
+            }
+        ]
     }
 ]
