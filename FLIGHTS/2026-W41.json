@@ -1692,6 +1692,161 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6ac405aee2b73bbe59611988",
+                "aircraft": {
+                    "_id": "695a66383dc76275bad0826f",
+                    "name": "Airbus A320",
+                    "customName": "Dry Lease l A320 CFM FENIX msfs2024",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "123F",
+                "free": false,
+                "schedule": false,
+                "charter": true,
+                "payload": {
+                    "pax": 176,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-10-05T20:30:00.000Z",
+                "duration": 55,
+                "arrTime": "2026-10-05T21:25:00.000Z",
+                "depTimeAct": "2026-10-05T20:25:19.837Z",
+                "delay": 1,
+                "takeoffTimeAct": "2026-10-05T20:33:24.860Z",
+                "durationAct": 52,
+                "arrTimeAct": "2026-10-05T21:25:40.947Z",
+                "open": "2026-10-05T20:25:08.860Z",
+                "close": "2026-10-05T21:29:20.960Z",
+                "rating": 9.61,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 296,
+                        "fuel": 2402,
+                        "expenses": 11460,
+                        "penalties": 0,
+                        "revenue": 27784,
+                        "balance": 16324,
+                        "prices": {
+                            "ticketPrice": 151,
+                            "cargoUnitPrice": 188,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 176,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 8,
+                                "Y": 168
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2716,
+                        "aircraft": 4650,
+                        "handling": 1232,
+                        "landing": 2862
+                    },
+                    "revenue": {
+                        "tickets": 27784,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 6.38m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -39,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 33
+                                    },
+                                    "weather": {
+                                        "windDir": 290,
+                                        "windSpd": 3,
+                                        "windX": 1.39
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.10G (86 ft/min, normal  conditions)<br/>Distance from threshold: 540m (accepted range: 209-838m)<br/>Average centerline deviation: 0.71m<br/>Max centerline deviation: 1.72m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 34
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.1,
+                                        "rate": 86
+                                    },
+                                    "weather": {
+                                        "windDir": 0.06,
+                                        "windSpd": 1.8,
+                                        "windX": -1.68
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-05T20:16:46.618Z",
+                "updatedAt": "2026-10-05T21:29:21.039Z",
+                "dep": {
+                    "icao": "LOWI",
+                    "name": "Innsbruck Airport",
+                    "city": "Innsbruck",
+                    "location": {
+                        "lat": 47.260201,
+                        "lon": 11.344,
+                        "elev": 1907
+                    }
+                },
+                "arr": {
+                    "icao": "EDDF",
+                    "name": "Frankfurt Main Airport",
+                    "city": "Frankfurt am Main",
+                    "location": {
+                        "lat": 50.026706,
+                        "lon": 8.55835,
+                        "elev": 364
+                    }
+                },
+                "actArr": {
+                    "icao": "EDDF",
+                    "name": "Frankfurt Main Airport",
+                    "city": "Frankfurt am Main",
+                    "location": {
+                        "lat": 50.026706,
+                        "lon": 8.55835,
+                        "elev": 364
+                    }
+                }
             }
         ]
     },
