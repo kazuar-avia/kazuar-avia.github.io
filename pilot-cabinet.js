@@ -6029,7 +6029,7 @@ function companyFixedTopPoolRouteHtml(item) {
       : `${liveryProposalBadge(type === 'schedule' ? 'schedule' : 'free', number)} `)
     : '';
   const duration = proposal.durationText ? ` (~${esc(proposal.durationText)})` : '';
-  return `${badge}<strong>${esc(dep)}</strong> - <strong>${esc(arr)}</strong>${duration}`;
+  return `${badge}${liveryAirportWithFlag({icao:dep})} - ${liveryAirportWithFlag({icao:arr})}${duration}`;
 }
 function companyFixedTopPoolPremiumHtml(item) {
   const value = Number(item?.proposal?.premiumUsd);
@@ -6328,6 +6328,12 @@ function companyPiesRewardHtml(item, consumed, live) {
     || (typeof app !== 'undefined' ? app.companyTopPool?.pieRewardRulesVersion : null) || 1;
   let reward = window.UCAAPieRewards.rewardForRank(item?.rank, rulesVersion);
   if (!reward) return '';
+  const confirmedLive = companyFixedTopPoolConfirmedLivePieRecord(item);
+  if (!consumed && !confirmedLive && item.currentOfferUnavailable) {
+    return `<span class="company-pies-reward">${item.currentOfferPending
+      ? 'Перевіряємо нарахування пиріжків…'
+      : 'За цим рейсом пиріжки не передбачені'}</span>`;
+  }
   let record = null;
   let pilot = null;
   let awarded = false;
@@ -6346,7 +6352,11 @@ function companyPiesRewardHtml(item, consumed, live) {
           || !window.UCAAPieRewards.snapshotMatchesFlight(record, consumed)
           || !Number.isFinite(activated) || started < activated) record = null;
       if (record) pilot = consumed.pilot;
+      else return '<span class="company-pies-reward">Перевіряємо нарахування пиріжків…</span>';
     }
+  } else if (confirmedLive) {
+    record = confirmedLive;
+    pilot = {id:record.pilotId, name:companyLiveryLivePilotName(record)};
   } else if (live) {
     const savedRecord = item.livePieRecord || guaranteedBonusRecordForFlight(live);
     // A monetary record may arrive before the updater attaches the hot offer.
@@ -6386,12 +6396,25 @@ function companyPiesRewardHtml(item, consumed, live) {
   return `<span class="company-pies-reward">${icon} ${text}</span>`;
 }
 
+function companyFixedTopPoolConfirmedLivePieRecord(item) {
+  const record = item?.livePieRecord;
+  const proposal = item?.proposal || {};
+  if (record?.state !== 'LIVE' || record?.status !== 'matched'
+      || record?.pie !== true || record?.pieType !== 'hot' || !record.pilotId
+      || !item.aircraftId || String(record.aircraftId || '') !== String(item.aircraftId)
+      || Number(record.pieRank) !== Number(item.rank)
+      || !proposal.depIcao || !proposal.arrIcao
+      || record.depIcao !== proposal.depIcao || record.arrIcao !== proposal.arrIcao
+      || record.proposalType !== proposal.type
+      || (proposal.type === 'schedule' && String(record.flightNumber || '') !== String(proposal.flightNumber || ''))) return null;
+  return record;
+}
+
 function companyFixedTopPoolNoteHtml(item, category, mode, index) {
   const rank = Number(item?.rank);
   const consumed = companyFixedTopPoolConsumedFlight(item, mode);
-  const rewardHtml = mode === 'quick' ? (item.currentOfferUnavailable
-    ? '<span class="company-pies-reward">За цим рейсом пиріжки не передбачені</span>'
-    : companyPiesRewardHtml(item, consumed, companyFixedTopPoolLiveMatchFlight(item, mode))) : '';
+  const rewardHtml = mode === 'quick'
+    ? companyPiesRewardHtml(item, consumed, companyFixedTopPoolLiveMatchFlight(item, mode)) : '';
   const quickLabel = mode === 'quick'
     ? `<strong>ТОП <img class="company-pyrih-icon" src="pyrih.png" alt="пиріжок" aria-hidden="true">${Number.isInteger(rank) && rank > 0 ? ` #${rank}` : ''}</strong>${rewardHtml ? `<br>${rewardHtml}` : ''}`
     : '';
@@ -6444,6 +6467,9 @@ function companyFixedTopPoolLivePieItems(mode, sourceCards) {
           mode,
           rank: Number(record.pieRank) || 0,
           pieRewardRulesVersion: Number(record.pieRewardRulesVersion) || 1,
+          generatedAt: record.piePoolGeneratedAt,
+          activeUntil: record.piePoolActiveUntil,
+          claimableUntil: record.piePoolClaimableUntil,
           categoryNote: '',
           aircraftId,
           aircraftTitle: liveryCardTitle(card),
@@ -6484,13 +6510,22 @@ function companyFixedTopPoolHotItemAllowed(item) {
 function companyFixedTopPoolCurrentOfferMatches(item, card) {
   const offer = companyLiveAnyPremiumOfferForCard(card);
   const proposal = item.proposal || {};
-  if (!offer) return false;
+  if (!offer) return null;
   return offer.minutes > 0 && offer.minutes <= 210
     && offer.origin === proposal.depIcao && offer.destination === proposal.arrIcao
     && offer.proposalType === proposal.type
     && (proposal.type !== 'schedule' || companyFixedTopPoolNormalizeFlightNumber(offer.flightNumber)
       === companyFixedTopPoolNormalizeFlightNumber(proposal.flightNumber))
     && Math.round(offer.premium) === Math.round(Number(proposal.premiumUsd));
+}
+
+function companyFixedTopPoolLiveOfferKnown(item) {
+  const flight = companyFixedTopPoolLiveFlightForItem(item);
+  if (!flight) return false;
+  const route = companyFixedTopPoolFlightRoute(flight);
+  return Boolean(route.dep && route.arr
+    && [flight.schedule, flight.free, flight.charter].some(value => typeof value === 'boolean')
+    && (item.proposal?.type !== 'schedule' || route.number));
 }
 
 function renderCompanyFixedTopPoolItems(grid, mode, sourceCards, headingTitle, mobileTitle) {
@@ -6527,16 +6562,20 @@ function renderCompanyFixedTopPoolItems(grid, mode, sourceCards, headingTitle, m
     const status = companyLiveCloneStatus(clone);
     const liveMatch = companyFixedTopPoolLiveMatchFlight(item, mode);
     const consumed = companyFixedTopPoolConsumedFlight(item, mode);
-    const currentOfferUnavailable = mode === 'quick' && !liveMatch && !consumed
-      && !companyFixedTopPoolCurrentOfferMatches(item, card);
-    item = {...item, currentOfferUnavailable};
+    const confirmedLive = companyFixedTopPoolConfirmedLivePieRecord(item);
+    const intercepted = companyFixedTopPoolInterceptedFlight(item, mode);
+    const currentOfferMatches = mode === 'quick' ? companyFixedTopPoolCurrentOfferMatches(item, card) : true;
+    const currentOfferUnavailable = mode === 'quick' && !confirmedLive && !liveMatch && !consumed
+      && !currentOfferMatches;
+    const currentOfferPending = currentOfferUnavailable && currentOfferMatches === null
+      && !intercepted && !companyFixedTopPoolLiveOfferKnown(item);
+    item = {...item, currentOfferUnavailable, currentOfferPending};
     if (!currentOfferUnavailable) applyCompanyFixedTopPoolStatus(clone, item, mode);
-    if (liveMatch) {
+    if (liveMatch || confirmedLive) {
       const offerRoute = clone.querySelector('.company-livery-offer-route');
-      const payoutRecord = companyFixedTopPoolLivePayoutRecord(liveMatch, item);
+      const payoutRecord = confirmedLive || companyFixedTopPoolLivePayoutRecord(liveMatch, item);
       if (offerRoute && payoutRecord) offerRoute.innerHTML = companyLiveryLivePayoutText(payoutRecord);
     }
-    const intercepted = companyFixedTopPoolInterceptedFlight(item, mode);
     if (consumed) {
       const location = clone.querySelector('.company-livery-status-location');
       if (location) location.innerHTML = `👨‍✈️ ${companyFixedTopPoolConsumedPilotDateHtml(consumed)}`;

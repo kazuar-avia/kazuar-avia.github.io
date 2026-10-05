@@ -128,9 +128,9 @@ test('a stale hot card keeps the current fleet money offer and suppresses the ol
     applyCompanyFixedTopPoolStatus:()=>{overwritten++;},companyFixedTopPoolLiveMatchFlight:()=>null,
     companyFixedTopPoolConsumedFlight:()=>null,companyFixedTopPoolCurrentOfferMatches:()=>false,
     companyFixedTopPoolInterceptedFlight:()=>completed(),companyFixedTopPoolLiveStatus:()=>null,
-    companyPiesRewardHtml:()=>{throw new Error('A stale offer must not promise a reward');},document:{createElement:()=>({})},
+    window:{UCAAPieRewards:rewards},document:{createElement:()=>({})},
     companyFixedTopPoolNormalizeFlightNumber:x=>String(x||''),esc:x=>String(x||'')});
-  vm.runInContext(source.slice(source.indexOf('function companyFixedTopPoolNoteHtml('),source.indexOf('function companyFixedTopPoolModeForPieType(')),context);
+  vm.runInContext(source.slice(source.indexOf('function companyPiesRewardHtml('),source.indexOf('function companyFixedTopPoolModeForPieType(')),context);
   vm.runInContext(source.slice(source.indexOf('function renderCompanyFixedTopPoolItems('),source.indexOf('function renderCompanyLiveFleetExtract(')),context);
   context.renderCompanyFixedTopPoolItems({appendChild:()=>{}},'quick',[],null,null);
   assert.equal(overwritten,0);

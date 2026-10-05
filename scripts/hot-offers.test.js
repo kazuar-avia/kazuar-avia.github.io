@@ -201,6 +201,7 @@ function renderedPoolOrder(mode, liveRanks) {
     companyFixedTopPoolCurrentOfferMatches:()=>true,
     companyFixedTopPoolInterceptedFlight:()=>null,companyFixedTopPoolNoteHtml:()=>'',
     document:{createElement:()=>({})}});
+  vm.runInContext(source.slice(source.indexOf('function companyFixedTopPoolConfirmedLivePieRecord('),source.indexOf('function companyFixedTopPoolNoteHtml(')),context);
   vm.runInContext(source.slice(source.indexOf('function renderCompanyFixedTopPoolItems('),source.indexOf('function renderCompanyLiveFleetExtract(')),context);
   context.renderCompanyFixedTopPoolItems({appendChild:clone=>rendered.push(clone.aircraftId)},mode,[],null,null);
   assert.equal(JSON.stringify(liveRows),savedClaims,'rendering must preserve the saved LIVE ranks');
