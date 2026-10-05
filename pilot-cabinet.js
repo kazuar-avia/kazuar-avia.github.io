@@ -325,7 +325,7 @@ function renderLiveDashboardRows() {
       <td><span class="payload-value" title="${payload.label}">${esc(liveFlightPayload(flight))}<span class="load-kind-icon" aria-hidden="true">${payload.icon}</span></span></td>
       <td class="num rating-cell"><span class="dashboard-live-badge">LIVE</span><span class="landing-line">ще в польоті</span></td>
       <td class="finance-click-cell live-finance-dash">—</td>
-      <td class="finance-click-cell live-finance-dash">${guaranteedBonusAmountForFlight(flight) ? '\u{1F4B0}' : '—'}</td>
+      <td class="finance-click-cell live-finance-dash">${liveFlightRewardIconsHtml(flight)}</td>
     </tr>`;
   }).join('');
 }
@@ -992,6 +992,28 @@ function pieRewardIconHtml(flight) {
 
 function flightRewardIconsHtmlForRow(flight, amount) {
   return guaranteedBonusIconHtmlForRow(flight, amount) + pieRewardIconHtml(flight);
+}
+
+function salaryAmountWithRewardsHtml(flight, amount, salary) {
+  const rewards = flightRewardIconsHtmlForRow(flight, amount);
+  return `<span class="salary-amount-inline"><span class="salary-value">${money(salary,true)}</span>${rewards ? `<span class="flight-reward-icons">${rewards}</span>` : ''}</span>`;
+}
+
+function livePieRewardIconHtml(flight) {
+  const record = guaranteedBonusRecordForFlight(flight);
+  if (!record || record.pie !== true || record.pieType !== 'hot') return '';
+  if (guaranteedBonusRecordState(record) !== 'LIVE' || String(record.status || '').trim().toLowerCase() !== 'matched') return '';
+  const reward = window.UCAAPieRewards?.rewardForRank?.(record.pieRank, record.pieRewardRulesVersion || 1) || 0;
+  if (!reward) return '';
+  const label = `${reward} ${reward === 1 ? 'пиріжок' : 'пиріжки'}`;
+  return `<span class="flight-pies-icon" title="Буде нараховано ${esc(label)} за цей рейс"><img src="pyrih.png" alt="+${esc(label)}"></span>`;
+}
+
+function liveFlightRewardIconsHtml(flight) {
+  const moneyIcon = guaranteedBonusIconHtml(flight);
+  const pieIcon = livePieRewardIconHtml(flight);
+  const rewards = moneyIcon + pieIcon;
+  return rewards ? `<span class="flight-reward-icons live-flight-reward-icons">${rewards}</span>` : '—';
 }
 
 function pilotPay(flight) {
@@ -2586,7 +2608,7 @@ function renderDashboardFlightsOld(completed) {
       <td><span class="payload-value" title="${payloadKind.label}">${esc(flightLoad(flight))}<span class="load-kind-icon" aria-hidden="true">${payloadKind.icon}</span></span></td>
       <td class="num rating-cell rating-detail" data-flight-id="${esc(flight.id)}" role="button" tabindex="0"><span class="rating-badge ${rating.className}">${rating.label}</span><span class="landing-line">${landingStats(flight)}</span></td>
       <td class="finance-click-cell company-profit-detail ${profitVisual.className}" data-flight-id="${esc(flight.id)}" role="button" tabindex="0">${money(direct.companyProfit,true)}${profitVisual.notes.map(note=>`<span class="profit-incident-note ${note.className}">${esc(note.text)}</span>`).join('')}</td>
-      <td class="finance-click-cell pilot-salary-detail ${salaryVisual.className}" data-flight-id="${esc(flight.id)}" role="button" tabindex="0"><span class="salary-amount-inline">${money(direct.pilotSalary,true)}${flightRewardIconsHtmlForRow(flight, direct.guaranteedBonus)}</span>${salaryVisual.note?`<span class="profit-incident-note ${salaryVisual.noteClass||''}">${esc(salaryVisual.note)}</span>`:''}</td>
+      <td class="finance-click-cell pilot-salary-detail ${salaryVisual.className}" data-flight-id="${esc(flight.id)}" role="button" tabindex="0">${salaryAmountWithRewardsHtml(flight, direct.guaranteedBonus, direct.pilotSalary)}${salaryVisual.note?`<span class="profit-incident-note ${salaryVisual.noteClass||''}">${esc(salaryVisual.note)}</span>`:''}</td>
     </tr>`;
   }).join('') : '<tr><td colspan="8" class="loading">За вибраний період завершених рейсів немає</td></tr>';
   bindDashboardPilotCells();
@@ -2864,7 +2886,7 @@ function renderDashboardFlights(completed) {
         <td><span class="payload-value" title="${row.payloadKind.label}">${esc(flightLoad(flight))}<span class="load-kind-icon" aria-hidden="true">${row.payloadKind.icon}</span></span></td>
         <td class="num rating-cell rating-detail" data-flight-id="${esc(flight.id)}" role="button" tabindex="0"><span class="rating-badge ${row.rating.className}">${row.rating.label}</span><span class="landing-line">${landingStats(flight)}</span></td>
         <td class="finance-click-cell company-profit-detail ${row.profitVisual.className}" data-flight-id="${esc(flight.id)}" role="button" tabindex="0">${money(row.direct.companyProfit,true)}${row.profitVisual.notes.map(note=>`<span class="profit-incident-note ${note.className}">${esc(note.text)}</span>`).join('')}</td>
-        <td class="finance-click-cell pilot-salary-detail ${row.salaryVisual.className}" data-flight-id="${esc(flight.id)}" role="button" tabindex="0"><span class="salary-amount-inline">${money(row.direct.pilotSalary,true)}${flightRewardIconsHtmlForRow(flight, row.direct.guaranteedBonus)}</span>${row.salaryVisual.note?`<span class="profit-incident-note ${row.salaryVisual.noteClass||''}">${esc(row.salaryVisual.note)}</span>`:''}</td>
+        <td class="finance-click-cell pilot-salary-detail ${row.salaryVisual.className}" data-flight-id="${esc(flight.id)}" role="button" tabindex="0">${salaryAmountWithRewardsHtml(flight, row.direct.guaranteedBonus, row.direct.pilotSalary)}${row.salaryVisual.note?`<span class="profit-incident-note ${row.salaryVisual.noteClass||''}">${esc(row.salaryVisual.note)}</span>`:''}</td>
       </tr>`;
     }).join('') : '<tr><td colspan="8" class="loading">За вибраний період завершених рейсів немає</td></tr>';
     $('#dashboardFlights').innerHTML = `${renderLiveDashboardRows()}${completedRowsHtml}`;
