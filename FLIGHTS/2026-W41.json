@@ -3125,6 +3125,180 @@
                         "elev": 364
                     }
                 }
+            },
+            {
+                "_id": "6ac51684e2b73bbe5974f56f",
+                "aircraft": {
+                    "_id": "6a4fa1d65760ec7cdb62803f",
+                    "name": "Boeing 777-300ER",
+                    "customName": "Dry Lease l 777-300ER GE 370 pax",
+                    "icao": "B77W"
+                },
+                "type": "pax",
+                "flightNumber": "123I",
+                "free": false,
+                "schedule": false,
+                "charter": true,
+                "payload": {
+                    "pax": 370,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-10-06T16:00:00.000Z",
+                "duration": 170,
+                "arrTime": "2026-10-06T18:50:00.000Z",
+                "depTimeAct": "2026-10-06T15:55:56.480Z",
+                "delay": -21,
+                "takeoffTimeAct": "2026-10-06T15:58:30.137Z",
+                "durationAct": 151,
+                "arrTimeAct": "2026-10-06T18:29:18.157Z",
+                "open": "2026-10-06T15:53:47.807Z",
+                "close": "2026-10-06T18:32:06.188Z",
+                "rating": 8.32,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1086,
+                        "fuel": 16952,
+                        "expenses": 47428,
+                        "penalties": 0,
+                        "revenue": 123085,
+                        "balance": 75657,
+                        "prices": {
+                            "ticketPrice": 239,
+                            "cargoUnitPrice": 260,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 370,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 25,
+                                "C": 70,
+                                "Y": 275
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 19365,
+                        "aircraft": 23683,
+                        "handling": 2220,
+                        "landing": 2160
+                    },
+                    "revenue": {
+                        "tickets": 123085,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Unstable approach below 400ft: vertical speed below -1500 ft/min (actual -1554 ft/min)",
+                            "penalty": {
+                                "points": -27,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Short landing (17m from threshold before 180m min accepted)",
+                            "penalty": {
+                                "points": -136,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 23
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.42,
+                                        "rate": 229
+                                    },
+                                    "weather": {
+                                        "windDir": 269.57,
+                                        "windSpd": 4.75,
+                                        "windX": 0.5
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.42G (229 ft/min, normal  conditions)<br/>Distance from threshold: 17m (accepted range: 180-724m)<br/>Average centerline deviation: 1.48m<br/>Max centerline deviation: 3.49m",
+                            "penalty": {
+                                "points": -5,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 23
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.42,
+                                        "rate": 229
+                                    },
+                                    "weather": {
+                                        "windDir": 269.57,
+                                        "windSpd": 4.75,
+                                        "windX": 0.5
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-06T15:40:52.394Z",
+                "updatedAt": "2026-10-06T18:32:06.278Z",
+                "dep": {
+                    "icao": "LTFH",
+                    "name": "Samsun-Çarşamba Airport",
+                    "city": "Samsun",
+                    "location": {
+                        "lat": 41.253988,
+                        "lon": 36.567546,
+                        "elev": 18
+                    }
+                },
+                "arr": {
+                    "icao": "LICC",
+                    "name": "Catania-Fontanarossa Airport",
+                    "city": "Catania",
+                    "location": {
+                        "lat": 37.466801,
+                        "lon": 15.0664,
+                        "elev": 39
+                    }
+                },
+                "actArr": {
+                    "icao": "LICC",
+                    "name": "Catania-Fontanarossa Airport",
+                    "city": "Catania",
+                    "location": {
+                        "lat": 37.466801,
+                        "lon": 15.0664,
+                        "elev": 39
+                    }
+                }
             }
         ]
     },
