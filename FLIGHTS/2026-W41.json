@@ -3449,6 +3449,156 @@
                         "elev": 39
                     }
                 }
+            },
+            {
+                "_id": "6ac54232e2b73bbe59795e19",
+                "aircraft": {
+                    "_id": "6a5e237a50c8a562fcb2e8d7",
+                    "name": "Airbus A330-300",
+                    "customName": "Dry Lease l A330-300 RR iniBuilds l 375 pax elite",
+                    "icao": "A333"
+                },
+                "type": "pax",
+                "flightNumber": "123J",
+                "free": false,
+                "schedule": false,
+                "charter": true,
+                "payload": {
+                    "pax": 375,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-10-06T19:00:00.000Z",
+                "duration": 165,
+                "arrTime": "2026-10-06T21:45:00.000Z",
+                "depTimeAct": "2026-10-06T19:05:33.103Z",
+                "delay": -4,
+                "takeoffTimeAct": "2026-10-06T19:12:00.398Z",
+                "durationAct": 149,
+                "arrTimeAct": "2026-10-06T21:40:55.054Z",
+                "open": "2026-10-06T19:03:44.321Z",
+                "close": "2026-10-06T21:43:53.455Z",
+                "rating": 9.78,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1040,
+                        "fuel": 13740,
+                        "expenses": 40094,
+                        "penalties": 0,
+                        "revenue": 108560,
+                        "balance": 68466,
+                        "prices": {
+                            "ticketPrice": 236,
+                            "cargoUnitPrice": 257,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 375,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 15,
+                                "C": 40,
+                                "Y": 320
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 15534,
+                        "aircraft": 20645,
+                        "handling": 2025,
+                        "landing": 1890
+                    },
+                    "revenue": {
+                        "tickets": 108560,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 4.25m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -4,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 38
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.47G (451 ft/min, normal  conditions)<br/>Distance from threshold: 314m (accepted range: 186-746m)<br/>Average centerline deviation: 2.17m<br/>Max centerline deviation: 4.25m",
+                            "penalty": {
+                                "points": -18,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.47,
+                                        "rate": 451
+                                    },
+                                    "weather": {
+                                        "windDir": 0.02,
+                                        "windSpd": 6.39,
+                                        "windX": 3.94
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-06T18:47:14.070Z",
+                "updatedAt": "2026-10-06T21:43:53.542Z",
+                "dep": {
+                    "icao": "LGRP",
+                    "name": "Rhodes International Airport \"Diagoras\"",
+                    "city": "Rhodes",
+                    "location": {
+                        "lat": 36.405399,
+                        "lon": 28.086201,
+                        "elev": 17
+                    }
+                },
+                "arr": {
+                    "icao": "LIME",
+                    "name": "Il Caravaggio International Airport",
+                    "city": "Orio al Serio (BG)",
+                    "location": {
+                        "lat": 45.669362,
+                        "lon": 9.708851,
+                        "elev": 782
+                    }
+                },
+                "actArr": {
+                    "icao": "LIME",
+                    "name": "Il Caravaggio International Airport",
+                    "city": "Orio al Serio (BG)",
+                    "location": {
+                        "lat": 45.669362,
+                        "lon": 9.708851,
+                        "elev": 782
+                    }
+                }
             }
         ]
     },
