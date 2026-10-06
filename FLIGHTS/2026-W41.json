@@ -3296,6 +3296,161 @@
                         "elev": 777
                     }
                 }
+            },
+            {
+                "_id": "6ac4debae2b73bbe596fabdc",
+                "aircraft": {
+                    "_id": "6a7ec109ef75cc333064885a",
+                    "name": "McDonnell Douglas MD-83",
+                    "customName": "Windrose l MD-83 l UR-WRB",
+                    "icao": "MD83"
+                },
+                "type": "pax",
+                "flightNumber": "551Y",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 146,
+                    "cargo": 16,
+                    "weights": {
+                        "cargo": 1744
+                    }
+                },
+                "depTime": "2026-10-06T12:35:00.000Z",
+                "duration": 150,
+                "arrTime": "2026-10-06T15:05:00.000Z",
+                "depTimeAct": "2026-10-06T12:34:44.527Z",
+                "delay": -1,
+                "takeoffTimeAct": "2026-10-06T12:49:07.512Z",
+                "durationAct": 135,
+                "arrTimeAct": "2026-10-06T15:03:38.299Z",
+                "open": "2026-10-06T12:32:04.362Z",
+                "close": "2026-10-06T15:11:20.316Z",
+                "rating": 9.73,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 903,
+                        "fuel": 7008,
+                        "expenses": 15131,
+                        "penalties": 0,
+                        "revenue": 24978,
+                        "balance": 9847,
+                        "prices": {
+                            "ticketPrice": 153,
+                            "cargoUnitPrice": 165,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 146,
+                            "cargo": 16,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 146
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 7561,
+                        "aircraft": 5880,
+                        "handling": 1030,
+                        "landing": 660
+                    },
+                    "revenue": {
+                        "tickets": 22338,
+                        "cargo": 2640
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 4.85m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -14,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 53
+                                    },
+                                    "weather": {
+                                        "windDir": 100,
+                                        "windSpd": 9.44,
+                                        "windX": 3.02
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.45G (318 ft/min, normal  conditions)<br/>Distance from threshold: 264m (accepted range: 190-764m)<br/>Average centerline deviation: 1.50m<br/>Max centerline deviation: 3.92m",
+                            "penalty": {
+                                "points": -13,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 47
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.45,
+                                        "rate": 318
+                                    },
+                                    "weather": {
+                                        "windDir": 30,
+                                        "windSpd": 7.49,
+                                        "windX": -4.16
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-06T11:42:50.571Z",
+                "updatedAt": "2026-10-06T15:11:20.403Z",
+                "dep": {
+                    "icao": "TNCM",
+                    "name": "Princess Juliana International Airport",
+                    "city": "Sint Maarten",
+                    "location": {
+                        "lat": 18.041,
+                        "lon": -63.108898,
+                        "elev": 13
+                    }
+                },
+                "arr": {
+                    "icao": "MKJS",
+                    "name": "Sangster International Airport",
+                    "city": "Montego Bay",
+                    "location": {
+                        "lat": 18.50342,
+                        "lon": -77.91323,
+                        "elev": 4
+                    }
+                },
+                "actArr": {
+                    "icao": "MKJS",
+                    "name": "Sangster International Airport",
+                    "city": "Montego Bay",
+                    "location": {
+                        "lat": 18.50342,
+                        "lon": -77.91323,
+                        "elev": 4
+                    }
+                }
             }
         ]
     }
