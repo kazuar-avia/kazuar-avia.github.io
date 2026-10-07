@@ -1,11 +1,18 @@
 name: Update guaranteed bonuses
 
 on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/15 * * * *"
   push:
     branches:
       - main
     paths:
-      - "COMPANY/guaranteed-bonuses.json"
+      - "FLIGHTS/**"
+      - "COMPANY/livery-matching.json"
+      - "scripts/update-top-pool.js"
+      - "scripts/update-guaranteed-bonuses.js"
+      - "pie-rewards.js"
 
 permissions:
   contents: write
