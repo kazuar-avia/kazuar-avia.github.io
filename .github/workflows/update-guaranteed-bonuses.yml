@@ -24,6 +24,8 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
+    outputs:
+      guaranteed_changed: ${{ steps.check_guaranteed_change.outputs.changed }}
 
     steps:
       - name: Checkout latest main
@@ -43,6 +45,18 @@ jobs:
       - name: Run guaranteed bonuses updater
         run: node scripts/update-guaranteed-bonuses.js
 
+      - name: Check whether guaranteed bonuses actually changed
+        id: check_guaranteed_change
+        shell: bash
+        run: |
+          if git diff --quiet -- COMPANY/guaranteed-bonuses.json; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "guaranteed-bonuses.json is unchanged."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "guaranteed-bonuses.json changed."
+          fi
+
       - name: Commit updated bonus file
         run: |
           git config user.name "github-actions[bot]"
@@ -58,3 +72,8 @@ jobs:
 
           git pull --rebase origin main
           git push
+
+  update-pies-ledger:
+    needs: update
+    if: needs.update.outputs.guaranteed_changed == 'true'
+    uses: ./.github/workflows/update-pies-ledger.yml
