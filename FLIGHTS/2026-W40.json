@@ -8604,6 +8604,156 @@
                         "elev": 648
                     }
                 }
+            },
+            {
+                "_id": "6ac12babe2b73bbe591f7583",
+                "aircraft": {
+                    "_id": "6ab5457a43d6069014c0fbe5",
+                    "name": "Airbus A321",
+                    "customName": "Dry Lease l A321 IAE FENIX MSFS",
+                    "icao": "A321"
+                },
+                "type": "pax",
+                "flightNumber": "40C",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 210,
+                    "cargo": 20,
+                    "weights": {
+                        "cargo": 1800
+                    }
+                },
+                "depTime": "2026-10-03T16:40:00.000Z",
+                "duration": 75,
+                "arrTime": "2026-10-03T17:55:00.000Z",
+                "depTimeAct": "2026-10-03T16:38:27.337Z",
+                "delay": -10,
+                "takeoffTimeAct": "2026-10-03T16:43:45.334Z",
+                "durationAct": 61,
+                "arrTimeAct": "2026-10-03T17:44:39.237Z",
+                "open": "2026-10-03T16:38:16.377Z",
+                "close": "2026-10-03T17:46:07.284Z",
+                "rating": 9.91,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 394,
+                        "fuel": 3789,
+                        "expenses": 11929,
+                        "penalties": 0,
+                        "revenue": 27060,
+                        "balance": 15131,
+                        "prices": {
+                            "ticketPrice": 116,
+                            "cargoUnitPrice": 135,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 210,
+                            "cargo": 20,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 210
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4284,
+                        "aircraft": 5463,
+                        "handling": 1480,
+                        "landing": 702
+                    },
+                    "revenue": {
+                        "tickets": 24360,
+                        "cargo": 2700
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 4.66m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -9,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.13G (37 ft/min, normal  conditions)<br/>Distance from threshold: 441m (accepted range: 196-785m)<br/>Average centerline deviation: 2.83m<br/>Max centerline deviation: 4.66m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.13,
+                                        "rate": 37
+                                    },
+                                    "weather": {
+                                        "windDir": 289.95,
+                                        "windSpd": 6.08,
+                                        "windX": -0.87
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-03T16:22:03.045Z",
+                "updatedAt": "2026-10-03T17:46:07.371Z",
+                "dep": {
+                    "icao": "LIRP",
+                    "name": "Pisa International Airport",
+                    "city": "Pisa (PI)",
+                    "location": {
+                        "lat": 43.683899,
+                        "lon": 10.3927,
+                        "elev": 6
+                    }
+                },
+                "arr": {
+                    "icao": "LDDU",
+                    "name": "Dubrovnik Ruđer Bošković Airport",
+                    "city": "Dubrovnik",
+                    "location": {
+                        "lat": 42.562247,
+                        "lon": 18.265543,
+                        "elev": 527
+                    }
+                },
+                "actArr": {
+                    "icao": "LDDU",
+                    "name": "Dubrovnik Ruđer Bošković Airport",
+                    "city": "Dubrovnik",
+                    "location": {
+                        "lat": 42.562247,
+                        "lon": 18.265543,
+                        "elev": 527
+                    }
+                }
             }
         ]
     },
