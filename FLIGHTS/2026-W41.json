@@ -4624,6 +4624,156 @@
                         "elev": 4
                     }
                 }
+            },
+            {
+                "_id": "6ac584b8e2b73bbe597f10c1",
+                "aircraft": {
+                    "_id": "695a63363dc76275bacff63f",
+                    "name": "Boeing 777-200ER",
+                    "customName": "Ukraine Int l 777-200ER based in UKBB l UR-GOA",
+                    "icao": "B772"
+                },
+                "type": "pax",
+                "flightNumber": "0231",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 323,
+                    "cargo": 39,
+                    "weights": {
+                        "cargo": 3510
+                    }
+                },
+                "depTime": "2026-10-07T00:45:00.000Z",
+                "duration": 490,
+                "arrTime": "2026-10-07T08:55:00.000Z",
+                "depTimeAct": "2026-10-07T00:24:15.085Z",
+                "delay": -165,
+                "takeoffTimeAct": "2026-10-07T00:37:07.070Z",
+                "durationAct": 333,
+                "arrTimeAct": "2026-10-07T06:10:06.543Z",
+                "open": "2026-10-07T00:24:04.095Z",
+                "close": "2026-10-07T06:23:00.579Z",
+                "rating": 9.75,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 2790,
+                        "fuel": 32422,
+                        "expenses": 64872,
+                        "penalties": 807,
+                        "revenue": 154539,
+                        "balance": 88860,
+                        "prices": {
+                            "ticketPrice": 327,
+                            "cargoUnitPrice": 332,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 323,
+                            "cargo": 39,
+                            "paxByClass": {
+                                "F": 22,
+                                "C": 44,
+                                "Y": 257
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 29323,
+                        "aircraft": 29215,
+                        "handling": 2329,
+                        "landing": 4005
+                    },
+                    "revenue": {
+                        "tickets": 141591,
+                        "cargo": 12948
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight departed 5 minutes too early (max 15 minutes before scheduled is allowed)",
+                            "penalty": {
+                                "points": -25,
+                                "cash": 807
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 53
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.33G (294 ft/min, normal  conditions)<br/>Distance from threshold: 603m (accepted range: 218-873m)<br/>Average centerline deviation: 1.53m<br/>Max centerline deviation: 1.80m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 42
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.33,
+                                        "rate": 294
+                                    },
+                                    "weather": {
+                                        "windDir": 110.04,
+                                        "windSpd": 6.07,
+                                        "windX": 0.66
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-06T23:31:04.671Z",
+                "updatedAt": "2026-10-07T06:23:00.698Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "VIDP",
+                    "name": "Indira Gandhi International Airport",
+                    "city": "New Delhi",
+                    "location": {
+                        "lat": 28.55563,
+                        "lon": 77.09519,
+                        "elev": 777
+                    }
+                },
+                "actArr": {
+                    "icao": "VIDP",
+                    "name": "Indira Gandhi International Airport",
+                    "city": "New Delhi",
+                    "location": {
+                        "lat": 28.55563,
+                        "lon": 77.09519,
+                        "elev": 777
+                    }
+                }
             }
         ]
     },
