@@ -4163,6 +4163,165 @@
                         "elev": 782
                     }
                 }
+            },
+            {
+                "_id": "6ac611b7e2b73bbe5985ed2e",
+                "aircraft": {
+                    "_id": "6a0b23a267cd7e249842bd81",
+                    "name": "Airbus A380",
+                    "customName": "Dry lease l FBW A380-800 l 446 pax elite",
+                    "icao": "A388"
+                },
+                "type": "pax",
+                "flightNumber": "123Y",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 446,
+                    "cargo": 110,
+                    "weights": {
+                        "cargo": 9790
+                    }
+                },
+                "depTime": "2026-10-07T09:50:00.000Z",
+                "duration": 155,
+                "arrTime": "2026-10-07T12:25:00.000Z",
+                "depTimeAct": "2026-10-07T09:47:13.000Z",
+                "delay": 13,
+                "takeoffTimeAct": "2026-10-07T09:58:34.436Z",
+                "durationAct": 159,
+                "arrTimeAct": "2026-10-07T12:37:56.477Z",
+                "open": "2026-10-07T09:45:02.052Z",
+                "close": "2026-10-07T12:40:33.314Z",
+                "rating": 8.28,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1009,
+                        "fuel": 30099,
+                        "expenses": 81304,
+                        "penalties": 7000,
+                        "revenue": 178490,
+                        "balance": 90186,
+                        "prices": {
+                            "ticketPrice": 160,
+                            "cargoUnitPrice": 171,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 446,
+                            "cargo": 110,
+                            "paxByClass": {
+                                "F": 85,
+                                "C": 297,
+                                "Y": 64
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 34027,
+                        "aircraft": 33725,
+                        "handling": 9282,
+                        "landing": 4270
+                    },
+                    "revenue": {
+                        "tickets": 159680,
+                        "cargo": 18810
+                    },
+                    "violations": [
+                        {
+                            "title": "Short landing (181m from threshold before 197m min accepted)",
+                            "penalty": {
+                                "points": -12,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 36
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.14,
+                                        "rate": 746
+                                    },
+                                    "weather": {
+                                        "windDir": 177.24,
+                                        "windSpd": 5.63,
+                                        "windX": -3.75
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Hard touchdown: 2.14G (746 ft/min, challenging  conditions)<br/>Distance from threshold: 181m (accepted range: 197-790m)<br/>Average centerline deviation: 3.23m<br/>Max centerline deviation: 7.87m",
+                            "penalty": {
+                                "points": -160,
+                                "cash": 7000
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 36
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.14,
+                                        "rate": 746
+                                    },
+                                    "weather": {
+                                        "windDir": 177.24,
+                                        "windSpd": 5.63,
+                                        "windX": -3.75
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-07T09:32:39.579Z",
+                "updatedAt": "2026-10-07T12:40:33.400Z",
+                "dep": {
+                    "icao": "EGLL",
+                    "name": "London Heathrow Airport",
+                    "city": "London",
+                    "location": {
+                        "lat": 51.470748,
+                        "lon": -0.459909,
+                        "elev": 83
+                    }
+                },
+                "arr": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "actArr": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                }
             }
         ]
     },
