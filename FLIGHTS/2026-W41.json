@@ -6480,5 +6480,236 @@
                 }
             }
         ]
+    },
+    {
+        "pilot_id": "67267eeeeac32c34bb94afed",
+        "fullname": "Jeka Korzun",
+        "avatar": "67267eeeeac32c34bb94afed1730645334705",
+        "flights": [
+            {
+                "_id": "6ac61a0be2b73bbe5986700a",
+                "aircraft": {
+                    "_id": "699ae4f09da57b990ac12987",
+                    "name": "Boeing 777 Freighter",
+                    "customName": "UCAA l 777F (cargo) based in UKBB l UR-CRG",
+                    "icao": "B77L"
+                },
+                "type": "cargo",
+                "flightNumber": "703J",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 0,
+                    "cargo": 615,
+                    "weights": {
+                        "cargo": 49200
+                    }
+                },
+                "depTime": "2026-10-07T10:30:00.000Z",
+                "duration": 215,
+                "arrTime": "2026-10-07T14:05:00.000Z",
+                "depTimeAct": "2026-10-07T10:33:15.568Z",
+                "delay": 42,
+                "takeoffTimeAct": "2026-10-07T10:35:27.582Z",
+                "durationAct": 251,
+                "arrTimeAct": "2026-10-07T14:46:38.466Z",
+                "open": "2026-10-07T10:33:05.030Z",
+                "close": "2026-10-07T14:49:03.499Z",
+                "rating": 7.33,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1334,
+                        "fuel": 25037,
+                        "expenses": 51395,
+                        "penalties": 0,
+                        "revenue": 125460,
+                        "balance": 74065,
+                        "prices": {
+                            "ticketPrice": 197,
+                            "cargoUnitPrice": 204,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 0,
+                            "cargo": 615,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 22644,
+                        "aircraft": 24705,
+                        "handling": 1076,
+                        "landing": 2970
+                    },
+                    "revenue": {
+                        "tickets": 0,
+                        "cargo": 125460
+                    },
+                    "violations": [
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1020mb instead of 948mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    },
+                                    "weather": {
+                                        "windDir": 284.01,
+                                        "windSpd": 2.81,
+                                        "windX": 2.75
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Unstable approach below 400ft: vertical speed below -1500 ft/min (actual -1626 ft/min)",
+                            "penalty": {
+                                "points": -63,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "spoilers",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 4.32m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -4,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.32G (290 ft/min, normal  conditions)<br/>Distance from threshold: 796m (accepted range: 199-799m)<br/>Average centerline deviation: 2.10m<br/>Max centerline deviation: 4.32m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.32,
+                                        "rate": 290
+                                    },
+                                    "weather": {
+                                        "windDir": 39.01,
+                                        "windSpd": 2.25,
+                                        "windX": 0.99
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 4ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gear",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Fuel used 23676 kg is lower than estimated minimum 25037 kg.",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.32,
+                                        "rate": 290
+                                    },
+                                    "weather": {
+                                        "windDir": 39.01,
+                                        "windSpd": 2.25,
+                                        "windX": 0.99
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-07T10:08:11.808Z",
+                "updatedAt": "2026-10-07T14:49:03.571Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "LEBL",
+                    "name": "Josep Tarradellas Barcelona-El Prat Airport",
+                    "city": "Barcelona",
+                    "location": {
+                        "lat": 41.2971,
+                        "lon": 2.07846,
+                        "elev": 12
+                    }
+                },
+                "actArr": {
+                    "icao": "LEBL",
+                    "name": "Josep Tarradellas Barcelona-El Prat Airport",
+                    "city": "Barcelona",
+                    "location": {
+                        "lat": 41.2971,
+                        "lon": 2.07846,
+                        "elev": 12
+                    }
+                }
+            }
+        ]
     }
 ]
