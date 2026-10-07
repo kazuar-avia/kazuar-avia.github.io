@@ -1,22 +1,13 @@
 name: Update pies balance
 
 on:
-  workflow_dispatch:
-  push:
-    branches:
-      - main
-    paths:
-      - "FLIGHTS/**"
-      - "COMPANY/guaranteed-bonuses.json"
-      - "COMPANY/pies-ledger.json"
-      - "scripts/update-pies-ledger.js"
-      - "scripts/update-guaranteed-bonuses.js"
-      - "pie-rewards.js"
+  workflow_call:
 
 permissions:
   contents: write
 
-# This workflow is the only automatic writer of the currency ledger.
+# Runs only when update-guaranteed-bonuses.yml confirms that
+# COMPANY/guaranteed-bonuses.json actually changed.
 concurrency:
   group: update-pies-ledger
   cancel-in-progress: false
