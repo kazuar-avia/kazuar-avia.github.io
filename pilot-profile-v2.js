@@ -78,70 +78,199 @@
     return Boolean(range && date.getTime() >= range[0] && date.getTime() < range[1]);
   }
 
+  function pilotPiesLogControls(activePeriod, customDate = '', customEndDate = '', calendarOpen = false, calendarMode = 'date') {
+    const formatDate = iso => {
+      const [year,month,day] = String(iso || '').split('-');
+      return year && month && day ? `${day}.${month}.${year.slice(2)}` : '';
+    };
+    const dateLabelHtml = customDate && customEndDate && customDate !== customEndDate
+      ? `<span>${esc(formatDate(customDate))}</span><span>${esc(formatDate(customEndDate))}</span>`
+      : esc(formatDate(customDate));
+    const buttons = PERIODS.filter(([key]) => ['today','weekToDate','previousWeek','monthToDate','previousMonth','all'].includes(key));
+    const panel = calendarOpen ? `<div class="company-livery-log-calendar-panel">
+      <div class="company-livery-log-calendar-modes"><button type="button" data-pies-log-calendar-mode="date" class="${calendarMode==='date'?'active':''}">За дату</button><button type="button" data-pies-log-calendar-mode="range" class="${calendarMode==='range'?'active':''}">За період</button></div>
+      <div class="company-livery-log-calendar-fields ${calendarMode==='range'?'range':''}">
+        ${calendarMode==='range'
+          ? `<input type="date" data-pies-log-date value="${esc(customDate)}" title="Вибрати початкову дату"><input type="text" data-pies-log-end-display value="${esc(formatDate(customEndDate))}" readonly title="Вибрати кінцеву дату">`
+          : `<input type="date" data-pies-log-date value="${esc(customDate)}" title="Вибрати дату">`}
+      </div>
+    </div>` : '';
+    return `<section class="bar company-livery-log-period-bar"><div class="periods">${buttons.map(([key,label]) => `<button type="button" data-pies-log-period="${esc(key)}" class="${activePeriod===key?'active':''}">${esc(label)}</button>`).join('')}<span class="company-livery-log-calendar-wrap"><button type="button" class="company-livery-log-date-pick ${calendarOpen?'active':''}" data-pies-log-calendar title="Вибрати дату або період">📅${dateLabelHtml && !calendarOpen ? `<span class="company-livery-log-date-label">${dateLabelHtml}</span>` : ''}</button>${panel}</span></div></section>`;
+  }
+
+  function pilotPiesLogFilterEntries(entries, period, customDate = '', customEndDate = '') {
+    if (period === 'custom' || period === 'customRange') {
+      if (!customDate) return [];
+      const first = new Date(`${customDate}T00:00:00Z`).getTime();
+      const second = period === 'customRange' && customEndDate
+        ? new Date(`${customEndDate}T00:00:00Z`).getTime() : first;
+      if (!Number.isFinite(first) || !Number.isFinite(second)) return [];
+      const start = Math.min(first,second);
+      const end = Math.max(first,second) + 86400000;
+      return entries.filter(item => {
+        const time = item.completedAt.getTime();
+        return Number.isFinite(time) && time>=start && time<end;
+      });
+    }
+    return entries.filter(item => pilotPiesLogPeriodMatches(item, period));
+  }
+
+  function pilotPiesLogTableHtml(entries, aircraftFilter = '') {
+    const aircraftKey = item => String(item.flight?.aircraft?.id || String(item.entry.poolKey || '').split('|')[2] || '');
+    const options = new Map();
+    for (const item of entries) {
+      const id = aircraftKey(item);
+      if (!id) continue;
+      const name = String(item.flight?.aircraft?.name || item.flight?.aircraft?.icao || 'Літак').trim();
+      const code = String(item.flight?.aircraft?.icao || '').trim();
+      if (!options.has(id)) options.set(id, {id, name, code});
+    }
+    const sorted = [...options.values()].sort((a,b) => (a.code||a.name).localeCompare(b.code||b.name,'uk'));
+    const aircraftSelect = `<select class="company-livery-log-pilot-filter" data-pies-log-aircraft aria-label="Фільтрувати за літаком"><option value="">Усі літаки</option>${sorted.map(item => `<option value="${esc(item.id)}" ${item.id===aircraftFilter?'selected':''}>${esc(item.code || item.name)}${item.code && item.name!==item.code?` · ${esc(item.name)}`:''}</option>`).join('')}</select>`;
+    const selected = aircraftFilter ? entries.filter(item => aircraftKey(item)===aircraftFilter) : entries;
+    const ratingPresentation = flight => window.UCAADashboardFlightUI?.flightRatingPresentation?.(flight) || {className:'rating-none',label:'—'};
+    const airportLabel = (airport, icao) => {
+      const value = airport?.icao ? airport : {icao:icao||'—'};
+      const shared = window.UCAADashboardFlightUI?.airportWithFlag;
+      return typeof shared === 'function' ? shared(value) : `<strong>${esc(value.icao)}</strong>`;
+    };
+    const rows = selected.length ? selected.map(item => {
+      const flight = item.flight;
+      const entry = item.entry;
+      const date = Number.isFinite(item.completedAt.getTime())
+        ? item.completedAt.toLocaleDateString('uk-UA',{timeZone:'UTC',day:'2-digit',month:'2-digit',year:'2-digit'}) : '—';
+      const operation = flight?.operations?.charter ? 'charter' : flight?.operations?.free ? 'free' : 'schedule';
+      const id = String(entry.flightId || '');
+      const flightBadge = id
+        ? `<a class="flight-number-link flight-number-${operation}" href="https://newsky.app/flight/${encodeURIComponent(id)}" target="_blank" rel="noopener" title="Відкрити рейс у NewSky">${esc(item.flightNumber || '—')}</a>`
+        : `<span class="flight-number-link flight-number-${operation}">${esc(item.flightNumber || '—')}</span>`;
+      const aircraftName = String(flight?.aircraft?.name || '—').trim();
+      const aircraftCode = String(flight?.aircraft?.icao || '').trim();
+      const rating = flight ? ratingPresentation(flight) : {className:'rating-none',label:'—'};
+      const ratingHtml = flight ? `<button type="button" class="pilot-pies-log-rating-button" data-pies-log-rating="${esc(flight.id)}" title="Переглянути рейтинг рейсу"><span class="rating-badge ${esc(rating.className)}">${esc(rating.label)}</span></button>` : '—';
+      return `<tr class="company-livery-log-row">
+        <td>${esc(date)}<span class="date-flight-meta">${flightBadge}</span></td>
+        <td class="pilot-pies-log-aircraft" title="${esc(aircraftName)}">${esc(aircraftCode || aircraftName)}</td>
+        <td class="route"><span class="route-airports">${airportLabel(flight?.departure,item.dep)} → ${airportLabel(flight?.actualArrival || flight?.arrival,item.arr)}</span></td>
+        <td class="company-livery-log-duration">${flight ? formatMinutes(flight.times?.durationMinutes) : '—'}</td>
+        <td class="company-livery-log-rating">${ratingHtml}</td>
+        <td class="company-livery-log-rating">${Number.isInteger(Number(entry.rank)) && Number(entry.rank)>0 ? `#${Number(entry.rank)}` : '—'}</td>
+        <td class="company-livery-log-money pilot-pies-log-earned">+${Number(entry.delta)} <img src="pyrih.png" alt="пиріжків"></td>
+      </tr>`;
+    }).join('') : '<tr><td colspan="7" class="loading">За вибраний період нарахувань пиріжків немає</td></tr>';
+    return `<div class="company-livery-log-scroll"><table class="company-livery-log-table"><colgroup><col class="company-livery-log-date"><col class="company-livery-log-pilot"><col class="company-livery-log-route-col"><col class="company-livery-log-duration-col"><col class="company-livery-log-rating-col"><col class="company-livery-log-profit-col"><col class="company-livery-log-salary-col"></colgroup><thead><tr><th>Дата / Рейс</th><th>${aircraftSelect}</th><th>Маршрут</th><th>Тривалість</th><th>Рейтинг</th><th>ТОП</th><th>Пиріжки</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  }
+
   function openPilotPiesLog(pilotId) {
     document.getElementById('pilotPiesLogDialog')?.remove();
-    const rows = pilotPiesLogEntries(pilotId);
-    const totalEarned = rows.reduce((sum, item) => sum + Number(item.entry.delta), 0);
-    const balance = piesLedger && window.UCAAPieRewards
-      ? window.UCAAPieRewards.balanceForPilot(piesLedger, pilotId)
-      : null;
-    const dateText = value => {
-      const date = new Date(value || '');
-      return Number.isFinite(date.getTime())
-        ? date.toLocaleDateString('uk-UA', {timeZone:'UTC', day:'2-digit', month:'2-digit', year:'2-digit'})
-        : '—';
-    };
-    const awardedText = value => {
-      const date = new Date(value || '');
-      return Number.isFinite(date.getTime())
-        ? date.toLocaleString('uk-UA', {timeZone:'UTC', day:'2-digit', month:'2-digit', year:'2-digit', hour:'2-digit', minute:'2-digit'})
-        : '—';
-    };
+    const entries = pilotPiesLogEntries(pilotId);
     const dialog = document.createElement('dialog');
     dialog.id = 'pilotPiesLogDialog';
-    dialog.className = 'pilot-pies-log-dialog';
-    const periods = PERIODS.filter(([key]) => ['today','weekToDate','previousWeek','monthToDate','previousMonth','all'].includes(key));
-    dialog.innerHTML = `<div class="pilot-pies-log-head"><h2>Журнал пиріжків — ${esc(profilePilotPlainName(pilotId))}</h2><button type="button" class="close" data-pies-log-close aria-label="Закрити">×</button></div>
-      <div class="pilot-pies-log-body">
-        <div class="pilot-pies-log-periods">${periods.map(([key,label]) => `<button type="button" data-pies-log-period="${esc(key)}" class="${key==='all'?'active':''}">${esc(label)}</button>`).join('')}</div>
-        <div class="pilot-pies-log-summary"><span>Баланс: <strong>${balance===null?'—':esc(balance.toLocaleString('uk-UA'))} <img src="pyrih.png" alt="пиріжків"></strong></span><span>Усього нараховано: <strong>+${totalEarned.toLocaleString('uk-UA')}</strong></span><span data-pies-log-count></span></div>
-        <div class="pilot-pies-log-window"><table class="pilot-pies-log-table"><thead><tr><th>Дата / Рейс</th><th>Маршрут</th><th>Літак</th><th>ТОП</th><th>Пиріжки</th><th>Нараховано (UTC)</th></tr></thead><tbody data-pies-log-rows></tbody></table></div>
-      </div>`;
-    const renderPeriod = period => {
-      dialog.querySelectorAll('[data-pies-log-period]').forEach(button => {
-        const active = button.dataset.piesLogPeriod === period;
-        button.classList.toggle('active', active);
-        button.setAttribute('aria-pressed', String(active));
+    dialog.className = 'flight-info-dialog company-livery-modal pilot-pies-log-dialog';
+    dialog.innerHTML = `<div class="modal-head"><h2>Logbook пиріжків — ${esc(profilePilotPlainName(pilotId))}</h2><button type="button" class="close" data-pies-log-close aria-label="Закрити">×</button></div><div class="flight-info-body" data-pies-log-body></div>`;
+    document.body.appendChild(dialog);
+    const body = dialog.querySelector('[data-pies-log-body]');
+    const preference = ['weekToDate','previousWeek','monthToDate','previousMonth','today','all'];
+    let logPeriod = preference.find(period => pilotPiesLogFilterEntries(entries,period).length) || 'weekToDate';
+    let logCustomDate = '';
+    let logCustomEndDate = '';
+    let calendarOpen = false;
+    let calendarMode = 'date';
+    let rangePickingEnd = false;
+    let pickerValue = '';
+    let autoPick = '';
+    let aircraftFilter = '';
+    const renderLog = () => {
+      const periodEntries = pilotPiesLogFilterEntries(entries,logPeriod,logCustomDate,logCustomEndDate);
+      const allKeys = new Set(periodEntries.map(item => String(item.flight?.aircraft?.id || String(item.entry.poolKey || '').split('|')[2] || '')));
+      if (aircraftFilter && !allKeys.has(aircraftFilter)) aircraftFilter = '';
+      const inputDate = calendarMode==='range' && rangePickingEnd ? (pickerValue || logCustomDate) : logCustomDate;
+      body.innerHTML = pilotPiesLogControls(logPeriod,inputDate,logCustomEndDate,calendarOpen,calendarMode)
+        + pilotPiesLogTableHtml(periodEntries,aircraftFilter);
+      if (autoPick) {
+        autoPick = '';
+        setTimeout(() => {
+          const input = body.querySelector('[data-pies-log-date]');
+          if (!input) return;
+          input.focus({preventScroll:true});
+          try { if (typeof input.showPicker==='function') input.showPicker(); } catch {}
+        },0);
+      }
+      body.querySelectorAll('[data-pies-log-period]').forEach(button => button.addEventListener('click', () => {
+        logPeriod = button.dataset.piesLogPeriod || 'weekToDate';
+        rangePickingEnd = false;
+        pickerValue = '';
+        if (logPeriod!=='custom' && logPeriod!=='customRange') {
+          logCustomDate = '';
+          logCustomEndDate = '';
+          calendarOpen = false;
+        }
+        renderLog();
+      }));
+      body.querySelector('[data-pies-log-calendar]')?.addEventListener('click', event => {
+        event.preventDefault();
+        calendarOpen = !calendarOpen;
+        if (calendarOpen) {rangePickingEnd=false;pickerValue='';autoPick='start';}
+        renderLog();
       });
-      const selected = rows.filter(item => pilotPiesLogPeriodMatches(item, period));
-      const selectedAmount = selected.reduce((sum, item) => sum + Number(item.entry.delta), 0);
-      dialog.querySelector('[data-pies-log-count]').innerHTML =
-        `Рейсів: <strong>${selected.length}</strong> · За період: <strong>+${selectedAmount.toLocaleString('uk-UA')}</strong>`;
-      dialog.querySelector('[data-pies-log-rows]').innerHTML = selected.length ? selected.map(item => {
-        const flight = item.flight;
-        const entry = item.entry;
-        const code = String(flight?.aircraft?.icao || '').trim();
-        const aircraft = String(flight?.aircraft?.name || code || '—').trim();
-        const rank = Number(entry.rank);
-        return `<tr><td><strong>${esc(dateText(item.completedAt))}</strong><span class="pilot-pies-log-flight-no">${esc(item.flightNumber || '—')}</span></td>
-          <td class="pilot-pies-log-route">${esc(item.dep || '—')} <span>→</span> ${esc(item.arr || '—')}</td>
-          <td>${esc(aircraft)}${code && code!==aircraft ? `<small>${esc(code)}</small>` : ''}</td>
-          <td>${Number.isInteger(rank) && rank > 0 ? `#${rank}` : '—'}</td>
-          <td class="pilot-pies-log-earned">+${Number(entry.delta)} <img src="pyrih.png" alt="пиріжків"></td>
-          <td class="pilot-pies-log-awarded">${esc(awardedText(entry.awardedAt))}</td></tr>`;
-      }).join('') : `<tr><td colspan="6" class="pilot-pies-log-empty">${piesLedger ? 'За цей період нарахувань пиріжків немає.' : 'Баланс пиріжків тимчасово недоступний.'}</td></tr>`;
+      body.querySelectorAll('[data-pies-log-calendar-mode]').forEach(button => button.addEventListener('click', event => {
+        event.preventDefault();
+        calendarMode = button.dataset.piesLogCalendarMode || 'date';
+        rangePickingEnd = false;
+        pickerValue = '';
+        autoPick = 'start';
+        renderLog();
+      }));
+      const dateInput = body.querySelector('[data-pies-log-date]');
+      dateInput?.addEventListener('click', () => {if (calendarMode==='range') rangePickingEnd=false;});
+      dateInput?.addEventListener('change', event => {
+        if (!event.target.value) return;
+        if (calendarMode==='range' && rangePickingEnd) {
+          logCustomEndDate = event.target.value;
+          logPeriod = logCustomDate===logCustomEndDate ? 'custom' : 'customRange';
+          calendarOpen=false;
+          rangePickingEnd=false;
+          pickerValue='';
+          renderLog();
+          return;
+        }
+        logCustomDate = event.target.value;
+        if (calendarMode==='date') {
+          logPeriod='custom';
+          logCustomEndDate='';
+          calendarOpen=false;
+        } else if (logCustomEndDate) {
+          logPeriod=logCustomDate===logCustomEndDate?'custom':'customRange';
+        } else {
+          calendarOpen=true;
+          rangePickingEnd=true;
+          pickerValue='';
+        }
+        renderLog();
+      });
+      body.querySelector('[data-pies-log-end-display]')?.addEventListener('click', event => {
+        event.preventDefault();
+        if (!dateInput) return;
+        rangePickingEnd=true;
+        pickerValue=logCustomEndDate || logCustomDate || '';
+        dateInput.focus({preventScroll:true});
+        try {if (typeof dateInput.showPicker==='function') dateInput.showPicker();}catch{}
+      });
+      body.querySelector('[data-pies-log-aircraft]')?.addEventListener('change', event => {
+        aircraftFilter=event.target.value || '';
+        renderLog();
+      });
+      body.querySelectorAll('[data-pies-log-rating]').forEach(button => button.addEventListener('click', () => {
+        const flight=entries.find(item => String(item.flight?.id || '')===button.dataset.piesLogRating)?.flight;
+        if (flight) window.UCAADashboardFlightUI?.openFlightInfo?.(flight,'rating');
+      }));
     };
     dialog.addEventListener('click', event => {
-      if (event.target.closest('[data-pies-log-close]')) dialog.close();
-      const filter = event.target.closest('[data-pies-log-period]');
-      if (filter) renderPeriod(filter.dataset.piesLogPeriod);
-      if (event.target === dialog) dialog.close();
+      if (event.target.closest('[data-pies-log-close]') || event.target===dialog) dialog.close();
     });
     dialog.addEventListener('close', () => dialog.remove(), {once:true});
-    document.body.appendChild(dialog);
-    renderPeriod('all');
-    if (typeof dialog.showModal === 'function') dialog.showModal();
-    else dialog.setAttribute('open','open');
+    renderLog();
+    try { dialog.showModal(); } catch {dialog.setAttribute('open','');}
   }
 
   function monthlyAwardPeriods() {
@@ -1798,12 +1927,13 @@
         .profile-v2 .aircraft-award + .newsky-achievement-award{margin-left:16px}
         .profile-v2 .newsky-achievement-award img{box-sizing:border-box;display:block;width:auto;height:35px;max-width:none;border:1px solid #708999;border-radius:5px;box-shadow:0 1px 3px #0002;object-fit:contain}
         .profile-v2 .profile-pies-balance{font-family:inherit;cursor:pointer}.profile-v2 .profile-pies-balance:hover,.profile-v2 .profile-pies-balance:focus-visible{background:#ffe9aa;border-color:#b68023;outline:1px solid #c58e37}
-        .pilot-pies-log-dialog{box-sizing:border-box;width:min(1060px,calc(100vw - 20px));max-width:calc(100vw - 20px);max-height:calc(100vh - 40px);padding:0;border:1px solid #444;box-shadow:0 8px 30px #0005;background:#fff;color:#111;font:14px/1.35 Arial,sans-serif}.pilot-pies-log-dialog::backdrop{background:#0007}
-        .pilot-pies-log-head{display:flex;align-items:center;gap:12px;padding:10px 14px;border-bottom:1px solid #777;background:#c7eef2}.pilot-pies-log-head h2{flex:1;min-width:0;margin:0;font-size:21px;line-height:1.25}.pilot-pies-log-head .close{font-size:24px;line-height:1;cursor:pointer}
-        .pilot-pies-log-body{padding:10px 12px}.pilot-pies-log-periods{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:9px;padding:8px;border:1px solid #888;background:#f7e8f8}.pilot-pies-log-periods button{padding:6px 9px;border:1px solid #888;background:#fff;color:#111;font:inherit;cursor:pointer}.pilot-pies-log-periods button:hover{background:#fff9e8}.pilot-pies-log-periods button.active{background:#bdeccc;border-color:#438857;font-weight:bold}
-        .pilot-pies-log-summary{display:flex;flex-wrap:wrap;gap:10px 20px;margin-bottom:9px;padding:8px;border:1px solid #a4a4a4;background:#eef8fa}.pilot-pies-log-summary strong{color:#08783f}.pilot-pies-log-summary img{width:16px;height:16px;object-fit:contain;vertical-align:-3px}
-        .pilot-pies-log-window{max-height:min(550px,calc(100vh - 260px));overflow:auto;border:1px solid #888}.pilot-pies-log-table{width:100%;min-width:680px;border-collapse:collapse;font:13px/1.3 Arial,sans-serif}.pilot-pies-log-table th,.pilot-pies-log-table td{border:1px solid #aaa;padding:9px 8px;vertical-align:middle}.pilot-pies-log-table th{position:sticky;top:0;background:#eee;text-align:center;z-index:1}.pilot-pies-log-table td:nth-child(4),.pilot-pies-log-table td:nth-child(5),.pilot-pies-log-table td:nth-child(6){text-align:center}.pilot-pies-log-table tbody tr:nth-child(even){background:#fafafa}.pilot-pies-log-flight-no{display:inline-block;margin-left:6px;padding:2px 7px;border-radius:5px;background:#888;color:#fff;font-weight:bold;font-size:12px}.pilot-pies-log-route{font-weight:bold;white-space:nowrap}.pilot-pies-log-route span{color:#666;margin:0 5px}.pilot-pies-log-table td small{display:block;color:#777}.pilot-pies-log-earned{color:#08783f;font-weight:bold;font-size:16px;white-space:nowrap}.pilot-pies-log-earned img{width:19px;height:19px;vertical-align:-4px}.pilot-pies-log-awarded{white-space:nowrap;color:#555}.pilot-pies-log-table td.pilot-pies-log-empty{padding:24px 10px;text-align:center;color:#666}
-        @media(max-width:700px){.pilot-pies-log-dialog{max-height:calc(100vh - 15px)}.pilot-pies-log-head{padding:8px}.pilot-pies-log-head h2{font-size:16px}.pilot-pies-log-body{padding:7px}.pilot-pies-log-periods{padding:5px}.pilot-pies-log-periods button{font-size:11px;padding:5px}.pilot-pies-log-summary{font-size:12px}.pilot-pies-log-window{max-height:calc(100vh - 220px)}}
+        .pilot-pies-log-dialog{box-sizing:border-box;width:min(96vw,900px);max-width:calc(100vw - 22px);background:#fff;color:#111}
+        .pilot-pies-log-dialog .company-livery-log-table .pilot-pies-log-aircraft{text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+        .pilot-pies-log-dialog .pilot-pies-log-rating-button{border:0;background:transparent;padding:0;cursor:pointer;font:inherit}
+        .pilot-pies-log-dialog .pilot-pies-log-rating-button:hover,.pilot-pies-log-dialog .pilot-pies-log-rating-button:focus-visible{filter:brightness(1.06);outline:1px solid #777}
+        .pilot-pies-log-dialog .pilot-pies-log-earned{color:#08783f;text-align:center!important;white-space:nowrap;font-weight:bold}
+        .pilot-pies-log-dialog .pilot-pies-log-earned img{width:17px;height:17px;object-fit:contain;vertical-align:-4px}
+        .pilot-pies-log-dialog .company-livery-log-table th:nth-child(1),.pilot-pies-log-dialog .company-livery-log-table td:nth-child(1){white-space:nowrap}
         .newsky-awards-dialog{box-sizing:border-box;width:min(900px,calc(100vw - 24px));max-height:min(800px,calc(100vh - 124px));margin-top:100px;padding:0;border:1px solid #333;box-shadow:0 8px 30px #0005;background:#f7f7f7;color:#111}.newsky-awards-dialog::backdrop{background:#0006}
         .newsky-awards-head{display:flex;align-items:center;gap:8px;background:#c7eef2;border-bottom:1px solid #555;padding:8px 10px}.newsky-awards-head h2{flex:1;margin:0;font-size:18px;line-height:1.2}.newsky-awards-head .close{font-weight:bold}
         .newsky-awards-body{box-sizing:border-box;max-height:calc(min(800px,100vh - 124px) - 45px);overflow:auto;padding:8px;font:13px/1.35 Arial,sans-serif}.newsky-awards-counts{border:1px solid #aaa;background:#eef8fa;padding:5px 7px;margin-bottom:6px;text-align:center}.newsky-awards-counts span{color:#666;font-size:12px}
