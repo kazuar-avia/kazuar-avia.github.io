@@ -65,6 +65,12 @@ jobs:
           git push
           echo "pushed=true" >> "$GITHUB_OUTPUT"
 
+      - name: Start pies balance update after bonus changes
+        if: steps.publish.outputs.pushed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run update-pies-ledger.yml --ref main
+
       - name: Start Railway cleanup after new commit
         if: steps.publish.outputs.pushed == 'true'
         env:
