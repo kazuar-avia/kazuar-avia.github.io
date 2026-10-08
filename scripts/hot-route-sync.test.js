@@ -94,7 +94,7 @@ test('a new SCHEDULE takes precedence over an unclaimed demand FREE on refresh',
   const schedule=candidate({aircraftId:'schedule',aircraft:{id:'schedule',lastflightlocationICAO:'UKLL'},
     proposalKind:'schedule',proposalReason:'schedule',flightNumber:'456',blockMinutes:180});
   const next=refresh(initial,[candidate({proposalKind:'free',proposalReason:'charter-demand',flightNumber:'',blockMinutes:90}),schedule]);
-  assert.deepEqual(next.categories.quick.items.map(row=>[row.aircraftId,row.proposalKind]),[['schedule','schedule'],['plane','free']]);
+  assert.deepEqual(next.categories.quick.items.map(row=>[row.aircraftId,row.proposalKind]),[['schedule','schedule']]);
 });
 
 test('an existing LIVE reward keeps its original rank, route and premium', () => {

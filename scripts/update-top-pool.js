@@ -933,21 +933,7 @@ function refreshHotPool({currentPool, candidates, completedFlights, bonusRecords
     next.claimableUntil = currentPool.claimableUntil;
     return [next];
   });
-  const occupied = new Set(items.map(item => item.aircraftId));
-  for (const candidate of eligible) {
-    if (items.length >= 6) break;
-    if (occupied.has(candidate.aircraftId)) continue;
-    const rank = [1, 2, 3, 4, 5, 6].find(value => !items.some(item => item.rank === value));
-    if (!rank) break;
-    const next = topPoolItem('hot', rank, candidate, now, currentPool.windowHours || 6, currentPool.graceHours || 24);
-    next.activeUntil = currentPool.activeUntil;
-    next.claimableUntil = currentPool.claimableUntil;
-    items.push(next);
-    occupied.add(candidate.aircraftId);
-    changed = true;
-  }
   if (!changed) return currentPool;
-  items.sort((a, b) => a.rank - b.rank);
   const allItems = [...array(currentPool.items).filter(item => item.category !== 'hot'), ...items];
   return {...currentPool, updatedAt: now.toISOString(), retiredHotOffers,
     categories: {...currentPool.categories, quick: {...currentPool.categories.quick, items}},

@@ -83,7 +83,8 @@ test('six eligible SCHEDULE offers do not get replaced by a shorter FREE offer',
 test('browser fallback uses the same 210-minute boundary and validates route, premium and fleet', () => {
   const context = frontend();
   for (const type of ['schedule','free']) {
-    const item={card:card(),proposalType:type,origin:'UKBB',destination:'EPWA',premium:300,minutes:210};
+    const item={card:card(),proposalType:type,origin:'UKBB',destination:'EPWA',premium:300,minutes:210,
+      ...(type === 'free' ? {badgeClasses:['flight-number-free','company-livery-free-demand']} : {})};
     assert.equal(context.companyLiveHotOfferAllowed(item),true);
     for (const change of [{minutes:211},{minutes:0},{premium:0},{destination:''},{card:card('drylease-section')},{card:card('waiting-section')}]) {
       assert.equal(context.companyLiveHotOfferAllowed({...item,...change}),false);
