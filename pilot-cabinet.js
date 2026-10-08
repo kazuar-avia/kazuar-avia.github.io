@@ -5915,7 +5915,8 @@ function companyLiveHotCardAllowed(card) {
 
 function companyLiveHotOfferAllowed(item) {
   return Boolean(item && companyLiveHotCardAllowed(item.card)
-    && ['schedule', 'free'].includes(item.proposalType)
+    && (item.proposalType === 'schedule'
+      || (item.proposalType === 'free' && item.badgeClasses?.includes('company-livery-free-demand')))
     && /^[A-Z]{4}$/.test(item.origin || '') && /^[A-Z]{4}$/.test(item.destination || '')
     && item.origin !== item.destination && Number(item.premium) > 0
     && Number(item.minutes) > 0 && Number(item.minutes) <= 210);
@@ -6030,6 +6031,7 @@ function companyFixedTopPoolFreeBadgeMeta(proposal) {
   const raw = `${proposal?.flightNumber || ''} ${proposal?.routeText || ''} ${proposal?.offerText || ''}`;
   const text = raw.toLowerCase();
   const nearest = companyFixedTopPoolNearestScheduleTooltip(proposal);
+  if (['charter-demand', 'inbound-demand'].includes(proposal?.reason)) return {badgeClass: 'company-livery-free-demand', title: 'FREE flight by NewSky demand'};
   if (text.includes('подальшого schedule')) return {badgeClass: 'company-livery-free-schedule', title: ['FREE flight для подальшого SCHEDULE.', nearest].filter(Boolean).join('\n')};
   if (text.includes('тех.обслугов') || text.includes('maintenance')) return {badgeClass: 'company-livery-free-maintenance', title: ['FREE flight to maintenance / base', nearest].filter(Boolean).join('\n')};
   if (text.includes('попитом newsky') || text.includes('demand')) return {badgeClass: 'company-livery-free-demand', title: 'FREE flight by NewSky demand'};
@@ -6523,7 +6525,8 @@ function companyFixedTopPoolHotItemAllowed(item) {
     || (duration ? Number(duration[1]) * 60 + Number(duration[2]) : 0);
   return Boolean(item && item.group !== 'dry'
     && !/dry\s*lease/i.test(item.aircraftTitle || '')
-    && ['schedule', 'free'].includes(proposal.type)
+    && (proposal.type === 'schedule'
+      || (proposal.type === 'free' && ['charter-demand', 'inbound-demand'].includes(item.proposalReason || proposal.reason)))
     && /^[A-Z]{4}$/.test(proposal.depIcao || '') && /^[A-Z]{4}$/.test(proposal.arrIcao || '')
     && proposal.depIcao !== proposal.arrIcao && Number(proposal.premiumUsd) > 0
     && minutes > 0 && minutes <= 210);

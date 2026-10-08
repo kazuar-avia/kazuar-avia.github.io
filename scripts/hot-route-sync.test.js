@@ -71,6 +71,32 @@ test('a later matching completion cannot revive an offer interrupted by another 
   assert.equal(next.categories.quick.items[0].proposal.flightNumber,'124');
 });
 
+test('refresh removes old repositioning offers and only replaces them with demand', () => {
+  const legacy=pool();
+  const item=legacy.categories.quick.items[0];
+  item.proposalKind='free';
+  item.proposalReason='schedule-positioning';
+  item.flightNumber='';
+  item.proposal={...item.proposal,type:'free',flightNumber:'FREE',reason:'schedule-positioning'};
+  const demand=candidate({aircraftId:'demand',aircraft:{id:'demand',lastflightlocationICAO:'UKLL'},
+    proposalKind:'free',proposalReason:'charter-demand',flightNumber:'',blockMinutes:90});
+  const next=refresh(legacy,[demand],[]);
+  assert.deepEqual(next.categories.quick.items.map(row=>[row.aircraftId,row.proposalReason]),[['demand','charter-demand']]);
+  assert.ok(next.retiredHotOffers[item.poolId]);
+  assert.equal(refresh(legacy,[candidate({proposalKind:'free',proposalReason:'maintenance-positioning',flightNumber:''})],[]).counts.hot,0);
+  const claim={pie:true,pieType:'hot',aircraftId:'plane',pieRank:1,piePoolGeneratedAt:generated,state:'LIVE',status:'matched'};
+  assert.strictEqual(refresh(legacy,[demand],[],{claim}),legacy);
+});
+
+test('a new SCHEDULE takes precedence over an unclaimed demand FREE on refresh', () => {
+  const initial=buildTopPool({candidates:[candidate({proposalKind:'free',proposalReason:'charter-demand',flightNumber:'',blockMinutes:90})],
+    completedFlights:[],now:new Date(generated),windowHours:6,graceHours:24});
+  const schedule=candidate({aircraftId:'schedule',aircraft:{id:'schedule',lastflightlocationICAO:'UKLL'},
+    proposalKind:'schedule',proposalReason:'schedule',flightNumber:'456',blockMinutes:180});
+  const next=refresh(initial,[candidate({proposalKind:'free',proposalReason:'charter-demand',flightNumber:'',blockMinutes:90}),schedule]);
+  assert.deepEqual(next.categories.quick.items.map(row=>[row.aircraftId,row.proposalKind]),[['schedule','schedule'],['plane','free']]);
+});
+
 test('an existing LIVE reward keeps its original rank, route and premium', () => {
   const original=pool();
   const record={pie:true,pieType:'hot',aircraftId:'plane',pieRank:1,piePoolGeneratedAt:generated,state:'LIVE',status:'matched'};

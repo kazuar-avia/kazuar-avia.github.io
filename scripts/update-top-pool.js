@@ -796,10 +796,18 @@ function topPoolItem(category, rank, item, now, windowHours, graceHours, extra =
     status: 'active'
   };
 }
+function hotIsNewSkyDemandFree(item) {
+  const aircraft = item?.aircraft || {};
+  const current = upper(aircraft.lastflightlocationICAO || aircraft.lastFlightLocationIcao
+    || aircraft.lastFlightLocationICAO || aircraft.locationIcao);
+  return item?.proposalKind === 'free'
+    && ['charter-demand', 'inbound-demand'].includes(item.proposalReason)
+    && current === item.dep;
+}
 function hotCandidateAllowed(item) {
   return item && item.group !== 'dry'
     && !/dry\s*lease/i.test(item.aircraftTitle || '')
-    && ['schedule', 'free'].includes(item.proposalKind)
+    && (item.proposalKind === 'schedule' || hotIsNewSkyDemandFree(item))
     && /^[A-Z]{4}$/.test(item.dep || '') && /^[A-Z]{4}$/.test(item.arr || '')
     && item.dep !== item.arr && Number(item.amount) > 0
     && Number(item.blockMinutes) > 0 && Number(item.blockMinutes) <= 210;
@@ -878,7 +886,7 @@ function hotOfferMatchesFlight(item, flight) {
 
 function refreshHotPool({currentPool, candidates, completedFlights, bonusRecords = {}, now}) {
   const originals = array(currentPool.categories?.quick?.items);
-  if (!originals.length || now >= new Date(currentPool.activeUntil)) return currentPool;
+  if (!currentPool.categories?.quick || now >= new Date(currentPool.activeUntil)) return currentPool;
   const retiredHotOffers = {...currentPool.retiredHotOffers};
   const eligible = candidates.filter(hotCandidateAllowed)
     .filter(item => item.proposalKind === 'schedule' || !(item.dep.startsWith('UK') && item.arr.startsWith('UK')))
@@ -903,7 +911,11 @@ function refreshHotPool({currentPool, candidates, completedFlights, bonusRecords
       .sort((a, b) => completedFlightEndTime(b) - completedFlightEndTime(a))[0];
     let candidate = eligible.find(candidate => candidate.aircraftId === item.aircraftId);
     const proposal = item.proposal || {};
+    if (proposal.type === 'free') {
+      candidate = eligible.find(entry => entry.proposalKind === 'schedule' && !used.has(entry.aircraftId)) || candidate;
+    }
     const unchanged = candidate && candidate.proposalKind === proposal.type
+      && candidate.proposalReason === (item.proposalReason || proposal.reason)
       && candidate.dep === proposal.depIcao && candidate.arr === proposal.arrIcao
       && String(candidate.flightNumber || 'FREE') === String(proposal.flightNumber)
       && Number(candidate.amount) === Number(proposal.premiumUsd)
@@ -921,7 +933,21 @@ function refreshHotPool({currentPool, candidates, completedFlights, bonusRecords
     next.claimableUntil = currentPool.claimableUntil;
     return [next];
   });
+  const occupied = new Set(items.map(item => item.aircraftId));
+  for (const candidate of eligible) {
+    if (items.length >= 6) break;
+    if (occupied.has(candidate.aircraftId)) continue;
+    const rank = [1, 2, 3, 4, 5, 6].find(value => !items.some(item => item.rank === value));
+    if (!rank) break;
+    const next = topPoolItem('hot', rank, candidate, now, currentPool.windowHours || 6, currentPool.graceHours || 24);
+    next.activeUntil = currentPool.activeUntil;
+    next.claimableUntil = currentPool.claimableUntil;
+    items.push(next);
+    occupied.add(candidate.aircraftId);
+    changed = true;
+  }
   if (!changed) return currentPool;
+  items.sort((a, b) => a.rank - b.rank);
   const allItems = [...array(currentPool.items).filter(item => item.category !== 'hot'), ...items];
   return {...currentPool, updatedAt: now.toISOString(), retiredHotOffers,
     categories: {...currentPool.categories, quick: {...currentPool.categories.quick, items}},

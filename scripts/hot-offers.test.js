@@ -9,8 +9,8 @@ const root = path.resolve(__dirname, '..');
 const source = fs.readFileSync(path.join(root, 'pilot-cabinet.js'), 'utf8');
 
 function candidate(id, minutes = 210, type = 'schedule', group = 'wet') {
-  return {aircraftId:id, aircraft:{id}, aircraftTitle:id, group, registration:id,
-    dep:'UKBB', arr:'EPWA', proposalKind:type, proposalReason:'schedule', flightNumber:'123',
+  return {aircraftId:id, aircraft:{id,lastflightlocationICAO:'UKBB'}, aircraftTitle:id, group, registration:id,
+    dep:'UKBB', arr:'EPWA', proposalKind:type, proposalReason:type === 'free' ? 'charter-demand' : 'schedule', flightNumber:'123',
     blockMinutes:minutes, amount:300, ratePerHour:300/(minutes/60)};
 }
 function pool(candidates) {
@@ -43,6 +43,22 @@ test('hot selection excludes Dry Lease, missing routes, premiums and unsupported
     assert.equal(hotCandidateAllowed({...valid,...change}),false);
   }
   assert.equal(pool([valid,candidate('dry',90,'free','dry')]).counts.hot,1);
+});
+
+test('only NewSky-demand FREE flights can fill the hot pool', () => {
+  for (const reason of ['schedule-positioning','maintenance-positioning','base-return','base','schedule','']) {
+    const item={...candidate('invalid-'+reason,90,'free'),proposalReason:reason};
+    assert.equal(hotCandidateAllowed(item),false);
+  }
+  for (const reason of ['charter-demand','inbound-demand']) {
+    assert.equal(hotCandidateAllowed({...candidate(reason,90,'free'),proposalReason:reason}),true);
+  }
+  const misplaced=candidate('elsewhere',90,'free');
+  assert.equal(hotCandidateAllowed({...misplaced,dep:'EPWA'}),false);
+  const options=[candidate('scheduled',180),candidate('newsky',120,'free'),
+    {...candidate('reposition',30,'free'),proposalReason:'schedule-positioning'},
+    {...candidate('maintenance',40,'free'),proposalReason:'maintenance-positioning'}];
+  assert.deepEqual(pool(options).categories.quick.items.map(item=>item.aircraftId),['scheduled','newsky']);
 });
 
 test('shortest SCHEDULE offers come first; FREE only fills remaining places', () => {
@@ -82,13 +98,32 @@ test('browser fallback preserves SCHEDULE priority and never fills the list with
   const offers=new Map(scheduleCards.map((current,index)=>[current,{card:current,aircraftId:'s'+index,
     proposalType:'schedule',origin:'UKBB',destination:'EPWA',premium:300,rate:100,title:'s'+index,minutes:scheduleMinutes[index]}]));
   const free={card:freeCard,aircraftId:'free',proposalType:'free',origin:'EPWA',destination:'UKBB',
-    premium:300,rate:100,title:'free',minutes:60,isUkraineDomestic:false};
+    premium:300,rate:100,title:'free',minutes:60,isUkraineDomestic:false,
+    badgeClasses:['flight-number-free','company-livery-free-demand']};
   const context=frontend({companyLiveScheduleOfferForCard:current=>offers.get(current),
     companyLiveOfferForCard:current=>current===freeCard?free:null,companyLiveBuildCandidateAllowed:()=>true,
     companyLiveQuickCompare:(a,b)=>a.minutes-b.minutes||b.rate-a.rate});
   vm.runInContext(source.slice(source.indexOf('function companyLivePushUniqueOffers('),source.indexOf('function companyLiveShortFallbackOfferForCard(')),context);
   const selected=context.companyLiveQuickTopItems([...scheduleCards,freeCard]);
   assert.deepEqual(Array.from(selected,item=>item.aircraftId),['s1','s0','free']);
+});
+
+test('browser and saved pool reject repositioning FREE and keep NewSky demand', () => {
+  const context=frontend();
+  const allowed={card:card(),proposalType:'free',badgeClasses:['flight-number-free','company-livery-free-demand'],
+    origin:'UKBB',destination:'EPWA',premium:300,minutes:90};
+  assert.equal(context.companyLiveHotOfferAllowed(allowed),true);
+  for (const cls of ['company-livery-free-schedule','company-livery-free-maintenance','company-livery-free-base']) {
+    assert.equal(context.companyLiveHotOfferAllowed({...allowed,badgeClasses:['flight-number-free',cls]}),false);
+  }
+  const saved={group:'wet',aircraftTitle:'normal',proposalKind:'free',proposal:{type:'free',
+    flightNumber:'FREE',depIcao:'UKBB',arrIcao:'EPWA',premiumUsd:300,durationText:'01:30'}};
+  for (const reason of ['charter-demand','inbound-demand']) {
+    assert.equal(context.companyFixedTopPoolHotItemAllowed({...saved,proposalReason:reason}),true);
+  }
+  for (const reason of ['schedule-positioning','maintenance-positioning','base-return',undefined]) {
+    assert.equal(context.companyFixedTopPoolHotItemAllowed({...saved,proposalReason:reason}),false);
+  }
 });
 
 test('saved hot cards reject Dry Lease and invalid offers while including 03:30', () => {
