@@ -9956,6 +9956,185 @@
                         "elev": 508
                     }
                 }
+            },
+            {
+                "_id": "6ac7b6b3e2b73bbe59a60d5f",
+                "aircraft": {
+                    "_id": "695a7b183dc76275bad3a123",
+                    "name": "Boeing 737-800",
+                    "customName": "Ukraine Int l 737-800 based in UKOO UKDE UKOH l UR-PSO",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "467Y",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 184,
+                    "cargo": 6,
+                    "weights": {
+                        "cargo": 756
+                    }
+                },
+                "depTime": "2026-10-08T15:40:00.000Z",
+                "duration": 300,
+                "arrTime": "2026-10-08T20:40:00.000Z",
+                "depTimeAct": "2026-10-08T15:39:44.838Z",
+                "delay": 9,
+                "takeoffTimeAct": "2026-10-08T15:44:58.842Z",
+                "durationAct": 304,
+                "arrTimeAct": "2026-10-08T20:48:37.344Z",
+                "open": "2026-10-08T15:30:29.047Z",
+                "close": "2026-10-08T20:59:41.357Z",
+                "rating": 9.5,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 2148,
+                        "fuel": 13243,
+                        "expenses": 26640,
+                        "penalties": 168,
+                        "revenue": 49240,
+                        "balance": 22432,
+                        "prices": {
+                            "ticketPrice": 259,
+                            "cargoUnitPrice": 264,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 184,
+                            "cargo": 6,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 184
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 11977,
+                        "aircraft": 10475,
+                        "handling": 1299,
+                        "landing": 2889
+                    },
+                    "revenue": {
+                        "tickets": 47656,
+                        "cargo": 1584
+                    },
+                    "violations": [
+                        {
+                            "title": "MTOW exceeded: 33kg above maximum takeoff weight of 79333kg",
+                            "penalty": {
+                                "points": -3,
+                                "cash": 168
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 35
+                                    },
+                                    "weather": {
+                                        "windDir": 152.35,
+                                        "windSpd": 8.32,
+                                        "windX": -3.9
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 8.03m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -47,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.18,
+                                        "rate": 128
+                                    },
+                                    "weather": {
+                                        "windDir": 100,
+                                        "windSpd": 6,
+                                        "windX": 2.29
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.18G (128 ft/min, normal  conditions)<br/>Distance from threshold: 404m (accepted range: 218-874m)<br/>Average centerline deviation: 3.73m<br/>Max centerline deviation: 8.03m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.18,
+                                        "rate": 128
+                                    },
+                                    "weather": {
+                                        "windDir": 100,
+                                        "windSpd": 6,
+                                        "windX": 2.29
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-08T15:28:51.598Z",
+                "updatedAt": "2026-10-08T20:59:41.463Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "OMDB",
+                    "name": "Dubai International Airport",
+                    "city": "Dubai",
+                    "location": {
+                        "lat": 25.24979,
+                        "lon": 55.370992,
+                        "elev": 62
+                    }
+                },
+                "actArr": {
+                    "icao": "OMDB",
+                    "name": "Dubai International Airport",
+                    "city": "Dubai",
+                    "location": {
+                        "lat": 25.24979,
+                        "lon": 55.370992,
+                        "elev": 62
+                    }
+                }
             }
         ]
     }
