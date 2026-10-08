@@ -1,0 +1,25 @@
+name: Validate NewSky demand sectors
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "newsky_charter_with_tops_v4.py"
+      - "tests/test_newsky_charter_sectors.py"
+      - ".github/workflows/test-newsky-demand.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Verify geographic NewSky sectors and demand recommendations
+        run: python -m unittest discover -s tests -p 'test_newsky_charter_sectors.py' -v

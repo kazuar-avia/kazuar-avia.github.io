@@ -31,22 +31,6 @@ INBOUND_DESTINATION_CAP_DIVISOR = 2
 
 DIRECTIONS = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330]
 
-# Твоя таблиця зворотних напрямків:
-REVERSE_DIRECTION = {
-    0: 150,
-    30: 180,
-    60: 210,
-    90: 240,
-    120: 270,
-    150: 300,
-    180: 330,
-    210: 0,
-    240: 30,
-    270: 60,
-    300: 90,
-    330: 120,
-}
-
 # Фільтри для outbound-логіки:
 REQUIRE_ORIGIN_NON_NEGATIVE = True
 REQUIRE_TARGET_NON_POSITIVE = True
@@ -298,6 +282,14 @@ def parse_report(text: str) -> Dict[str, dict]:
     return airports
 
 
+def sector_for_route(airports: Dict[str, dict], origin: str, destination: str) -> Optional[int]:
+    """Use geographic sector membership calculated by newsky_report.py."""
+    for direction, members in airports.get(origin, {}).get("sectors", {}).items():
+        if any(code == destination for code, _distance in members):
+            return direction
+    return None
+
+
 # =========================
 # СОРТУВАННЯ НАПРЯМКІВ
 # =========================
@@ -348,13 +340,12 @@ def choose_outbound_destination(
         if not candidates:
             continue
 
-        reverse_dir = REVERSE_DIRECTION.get(direction)
-        if reverse_dir is None:
-            continue
-
         scored = []
 
         for code, dist in candidates:
+            reverse_dir = sector_for_route(airports, code, origin)
+            if reverse_dir is None:
+                continue
             reverse_info = airports.get(code, {}).get(mode, {}).get(reverse_dir)
 
             if not reverse_info:
@@ -423,13 +414,12 @@ def choose_inbound_source(
         if not candidates:
             continue
 
-        reverse_dir = REVERSE_DIRECTION.get(direction)
-        if reverse_dir is None:
-            continue
-
         scored = []
 
         for code, dist in candidates:
+            reverse_dir = sector_for_route(airports, code, destination)
+            if reverse_dir is None:
+                continue
             source_info = airports.get(code, {}).get(mode, {}).get(reverse_dir)
 
             if not source_info:
