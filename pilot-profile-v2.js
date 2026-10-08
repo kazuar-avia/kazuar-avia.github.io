@@ -37,8 +37,113 @@
     const tooltip = balance === null
       ? 'Баланс тимчасово недоступний. Спробуйте оновити сторінку.'
       : 'За виконаний гарячий пиріжок: ТОП #1 — 3, ТОП #2 — 2, ТОП #3–#6 — по 1.';
-    return `<div class="profile-pies-balance profile-tip" data-tooltip="${esc(tooltip)}"><img src="pyrih.png" alt="" aria-hidden="true"><span>Пиріжки: <strong>${label}</strong></span></div>`;
+    return `<button type="button" class="profile-pies-balance profile-tip" data-tooltip="${esc(tooltip)}" title="Відкрити журнал нарахувань пиріжків" aria-label="Відкрити журнал нарахувань пиріжків"><img src="pyrih.png" alt="" aria-hidden="true"><span>Пиріжки: <strong>${label}</strong></span></button>`;
   }
+  function pilotPiesLogEntries(pilotId) {
+    const id = String(pilotId || '').trim();
+    const flightsById = new Map(availableFlights.map(flight => [String(flight.id || ''), flight]));
+    return Object.values(piesLedger?.entries || {})
+      .filter(entry => entry && entry.kind === 'earn' && String(entry.pilotId || '').trim() === id
+        && Number.isSafeInteger(Number(entry.delta)) && Number(entry.delta) > 0)
+      .map(entry => {
+        const flight = flightsById.get(String(entry.flightId || '')) || null;
+        const key = String(entry.poolKey || '').split('|');
+        const completedAt = new Date(entry.completedAt || flight?.times?.closed || flight?.times?.actualArrival || entry.awardedAt || '');
+        return {
+          entry, flight, completedAt,
+          flightNumber: String(flight?.flightNumber || (key.length >= 6 ? key[3] : '') || '').trim(),
+          dep: String(flight?.departure?.icao || (key.length >= 6 ? key[4] : '') || '').trim(),
+          arr: String(flight?.actualArrival?.icao || flight?.arrival?.icao || (key.length >= 6 ? key[5] : '') || '').trim()
+        };
+      })
+      .sort((a, b) => (Number(b.completedAt) || 0) - (Number(a.completedAt) || 0)
+        || String(b.entry.id || '').localeCompare(String(a.entry.id || '')));
+  }
+
+  function pilotPiesLogPeriodMatches(item, period, now = new Date()) {
+    if (period === 'all') return true;
+    const date = item.completedAt;
+    if (!Number.isFinite(date.getTime())) return false;
+    const midnight = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+    const monday = midnight - ((now.getUTCDay() + 6) % 7) * 86400000;
+    const monthStart = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1);
+    const bounds = {
+      today: [midnight, midnight + 86400000],
+      weekToDate: [monday, midnight + 86400000],
+      previousWeek: [monday - 7 * 86400000, monday],
+      monthToDate: [monthStart, midnight + 86400000],
+      previousMonth: [Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - 1, 1), monthStart]
+    };
+    const range = bounds[period];
+    return Boolean(range && date.getTime() >= range[0] && date.getTime() < range[1]);
+  }
+
+  function openPilotPiesLog(pilotId) {
+    document.getElementById('pilotPiesLogDialog')?.remove();
+    const rows = pilotPiesLogEntries(pilotId);
+    const totalEarned = rows.reduce((sum, item) => sum + Number(item.entry.delta), 0);
+    const balance = piesLedger && window.UCAAPieRewards
+      ? window.UCAAPieRewards.balanceForPilot(piesLedger, pilotId)
+      : null;
+    const dateText = value => {
+      const date = new Date(value || '');
+      return Number.isFinite(date.getTime())
+        ? date.toLocaleDateString('uk-UA', {timeZone:'UTC', day:'2-digit', month:'2-digit', year:'2-digit'})
+        : '—';
+    };
+    const awardedText = value => {
+      const date = new Date(value || '');
+      return Number.isFinite(date.getTime())
+        ? date.toLocaleString('uk-UA', {timeZone:'UTC', day:'2-digit', month:'2-digit', year:'2-digit', hour:'2-digit', minute:'2-digit'})
+        : '—';
+    };
+    const dialog = document.createElement('dialog');
+    dialog.id = 'pilotPiesLogDialog';
+    dialog.className = 'pilot-pies-log-dialog';
+    const periods = PERIODS.filter(([key]) => ['today','weekToDate','previousWeek','monthToDate','previousMonth','all'].includes(key));
+    dialog.innerHTML = `<div class="pilot-pies-log-head"><h2>Журнал пиріжків — ${esc(profilePilotPlainName(pilotId))}</h2><button type="button" class="close" data-pies-log-close aria-label="Закрити">×</button></div>
+      <div class="pilot-pies-log-body">
+        <div class="pilot-pies-log-periods">${periods.map(([key,label]) => `<button type="button" data-pies-log-period="${esc(key)}" class="${key==='all'?'active':''}">${esc(label)}</button>`).join('')}</div>
+        <div class="pilot-pies-log-summary"><span>Баланс: <strong>${balance===null?'—':esc(balance.toLocaleString('uk-UA'))} <img src="pyrih.png" alt="пиріжків"></strong></span><span>Усього нараховано: <strong>+${totalEarned.toLocaleString('uk-UA')}</strong></span><span data-pies-log-count></span></div>
+        <div class="pilot-pies-log-window"><table class="pilot-pies-log-table"><thead><tr><th>Дата / Рейс</th><th>Маршрут</th><th>Літак</th><th>ТОП</th><th>Пиріжки</th><th>Нараховано (UTC)</th></tr></thead><tbody data-pies-log-rows></tbody></table></div>
+      </div>`;
+    const renderPeriod = period => {
+      dialog.querySelectorAll('[data-pies-log-period]').forEach(button => {
+        const active = button.dataset.piesLogPeriod === period;
+        button.classList.toggle('active', active);
+        button.setAttribute('aria-pressed', String(active));
+      });
+      const selected = rows.filter(item => pilotPiesLogPeriodMatches(item, period));
+      const selectedAmount = selected.reduce((sum, item) => sum + Number(item.entry.delta), 0);
+      dialog.querySelector('[data-pies-log-count]').innerHTML =
+        `Рейсів: <strong>${selected.length}</strong> · За період: <strong>+${selectedAmount.toLocaleString('uk-UA')}</strong>`;
+      dialog.querySelector('[data-pies-log-rows]').innerHTML = selected.length ? selected.map(item => {
+        const flight = item.flight;
+        const entry = item.entry;
+        const code = String(flight?.aircraft?.icao || '').trim();
+        const aircraft = String(flight?.aircraft?.name || code || '—').trim();
+        const rank = Number(entry.rank);
+        return `<tr><td><strong>${esc(dateText(item.completedAt))}</strong><span class="pilot-pies-log-flight-no">${esc(item.flightNumber || '—')}</span></td>
+          <td class="pilot-pies-log-route">${esc(item.dep || '—')} <span>→</span> ${esc(item.arr || '—')}</td>
+          <td>${esc(aircraft)}${code && code!==aircraft ? `<small>${esc(code)}</small>` : ''}</td>
+          <td>${Number.isInteger(rank) && rank > 0 ? `#${rank}` : '—'}</td>
+          <td class="pilot-pies-log-earned">+${Number(entry.delta)} <img src="pyrih.png" alt="пиріжків"></td>
+          <td class="pilot-pies-log-awarded">${esc(awardedText(entry.awardedAt))}</td></tr>`;
+      }).join('') : `<tr><td colspan="6" class="pilot-pies-log-empty">${piesLedger ? 'За цей період нарахувань пиріжків немає.' : 'Баланс пиріжків тимчасово недоступний.'}</td></tr>`;
+    };
+    dialog.addEventListener('click', event => {
+      if (event.target.closest('[data-pies-log-close]')) dialog.close();
+      const filter = event.target.closest('[data-pies-log-period]');
+      if (filter) renderPeriod(filter.dataset.piesLogPeriod);
+      if (event.target === dialog) dialog.close();
+    });
+    dialog.addEventListener('close', () => dialog.remove(), {once:true});
+    document.body.appendChild(dialog);
+    renderPeriod('all');
+    if (typeof dialog.showModal === 'function') dialog.showModal();
+    else dialog.setAttribute('open','open');
+  }
+
   function monthlyAwardPeriods() {
     const dates = availableFlights.map(dateOf).filter(date => date instanceof Date && !Number.isNaN(date.getTime()));
     if (!dates.length) return [];
@@ -1692,6 +1797,13 @@
         .profile-v2 .newsky-achievement-award{box-sizing:border-box;display:inline-flex;flex:0 0 auto;width:auto;height:35px;margin:17px 6px 0 1px;align-items:center;justify-content:center;padding:0;background:transparent;cursor:pointer;text-decoration:none}
         .profile-v2 .aircraft-award + .newsky-achievement-award{margin-left:16px}
         .profile-v2 .newsky-achievement-award img{box-sizing:border-box;display:block;width:auto;height:35px;max-width:none;border:1px solid #708999;border-radius:5px;box-shadow:0 1px 3px #0002;object-fit:contain}
+        .profile-v2 .profile-pies-balance{font-family:inherit;cursor:pointer}.profile-v2 .profile-pies-balance:hover,.profile-v2 .profile-pies-balance:focus-visible{background:#ffe9aa;border-color:#b68023;outline:1px solid #c58e37}
+        .pilot-pies-log-dialog{box-sizing:border-box;width:min(1060px,calc(100vw - 20px));max-width:calc(100vw - 20px);max-height:calc(100vh - 40px);padding:0;border:1px solid #444;box-shadow:0 8px 30px #0005;background:#fff;color:#111;font:14px/1.35 Arial,sans-serif}.pilot-pies-log-dialog::backdrop{background:#0007}
+        .pilot-pies-log-head{display:flex;align-items:center;gap:12px;padding:10px 14px;border-bottom:1px solid #777;background:#c7eef2}.pilot-pies-log-head h2{flex:1;min-width:0;margin:0;font-size:21px;line-height:1.25}.pilot-pies-log-head .close{font-size:24px;line-height:1;cursor:pointer}
+        .pilot-pies-log-body{padding:10px 12px}.pilot-pies-log-periods{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:9px;padding:8px;border:1px solid #888;background:#f7e8f8}.pilot-pies-log-periods button{padding:6px 9px;border:1px solid #888;background:#fff;color:#111;font:inherit;cursor:pointer}.pilot-pies-log-periods button:hover{background:#fff9e8}.pilot-pies-log-periods button.active{background:#bdeccc;border-color:#438857;font-weight:bold}
+        .pilot-pies-log-summary{display:flex;flex-wrap:wrap;gap:10px 20px;margin-bottom:9px;padding:8px;border:1px solid #a4a4a4;background:#eef8fa}.pilot-pies-log-summary strong{color:#08783f}.pilot-pies-log-summary img{width:16px;height:16px;object-fit:contain;vertical-align:-3px}
+        .pilot-pies-log-window{max-height:min(550px,calc(100vh - 260px));overflow:auto;border:1px solid #888}.pilot-pies-log-table{width:100%;min-width:680px;border-collapse:collapse;font:13px/1.3 Arial,sans-serif}.pilot-pies-log-table th,.pilot-pies-log-table td{border:1px solid #aaa;padding:9px 8px;vertical-align:middle}.pilot-pies-log-table th{position:sticky;top:0;background:#eee;text-align:center;z-index:1}.pilot-pies-log-table td:nth-child(4),.pilot-pies-log-table td:nth-child(5),.pilot-pies-log-table td:nth-child(6){text-align:center}.pilot-pies-log-table tbody tr:nth-child(even){background:#fafafa}.pilot-pies-log-flight-no{display:inline-block;margin-left:6px;padding:2px 7px;border-radius:5px;background:#888;color:#fff;font-weight:bold;font-size:12px}.pilot-pies-log-route{font-weight:bold;white-space:nowrap}.pilot-pies-log-route span{color:#666;margin:0 5px}.pilot-pies-log-table td small{display:block;color:#777}.pilot-pies-log-earned{color:#08783f;font-weight:bold;font-size:16px;white-space:nowrap}.pilot-pies-log-earned img{width:19px;height:19px;vertical-align:-4px}.pilot-pies-log-awarded{white-space:nowrap;color:#555}.pilot-pies-log-table td.pilot-pies-log-empty{padding:24px 10px;text-align:center;color:#666}
+        @media(max-width:700px){.pilot-pies-log-dialog{max-height:calc(100vh - 15px)}.pilot-pies-log-head{padding:8px}.pilot-pies-log-head h2{font-size:16px}.pilot-pies-log-body{padding:7px}.pilot-pies-log-periods{padding:5px}.pilot-pies-log-periods button{font-size:11px;padding:5px}.pilot-pies-log-summary{font-size:12px}.pilot-pies-log-window{max-height:calc(100vh - 220px)}}
         .newsky-awards-dialog{box-sizing:border-box;width:min(900px,calc(100vw - 24px));max-height:min(800px,calc(100vh - 124px));margin-top:100px;padding:0;border:1px solid #333;box-shadow:0 8px 30px #0005;background:#f7f7f7;color:#111}.newsky-awards-dialog::backdrop{background:#0006}
         .newsky-awards-head{display:flex;align-items:center;gap:8px;background:#c7eef2;border-bottom:1px solid #555;padding:8px 10px}.newsky-awards-head h2{flex:1;margin:0;font-size:18px;line-height:1.2}.newsky-awards-head .close{font-weight:bold}
         .newsky-awards-body{box-sizing:border-box;max-height:calc(min(800px,100vh - 124px) - 45px);overflow:auto;padding:8px;font:13px/1.35 Arial,sans-serif}.newsky-awards-counts{border:1px solid #aaa;background:#eef8fa;padding:5px 7px;margin-bottom:6px;text-align:center}.newsky-awards-counts span{color:#666;font-size:12px}
@@ -2310,6 +2422,7 @@
     </div>`;
 
     wireAircraftAwardTooltips(page.content);
+    page.content.querySelector('.profile-pies-balance')?.addEventListener('click', () => openPilotPiesLog(lifetime.id));
     page.content.querySelector('.profile-awards-list-button')?.addEventListener('click', event => {
       event.preventDefault();
       openNewskyAwardsBrowser(lifetime.id);
