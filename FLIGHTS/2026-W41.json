@@ -3208,6 +3208,186 @@
                         "elev": 517
                     }
                 }
+            },
+            {
+                "_id": "6ac7abfde2b73bbe59a50c0e",
+                "aircraft": {
+                    "_id": "695a66383dc76275bad0826f",
+                    "name": "Airbus A320",
+                    "customName": "Dry Lease l A320 CFM FENIX msfs2024",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "217D",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 169,
+                    "cargo": 16,
+                    "weights": {
+                        "cargo": 1472
+                    }
+                },
+                "depTime": "2026-10-08T14:57:00.000Z",
+                "duration": 75,
+                "arrTime": "2026-10-08T16:12:00.000Z",
+                "depTimeAct": "2026-10-08T14:53:07.269Z",
+                "delay": 7,
+                "takeoffTimeAct": "2026-10-08T14:53:25.124Z",
+                "durationAct": 85,
+                "arrTimeAct": "2026-10-08T16:18:31.056Z",
+                "open": "2026-10-08T14:52:34.592Z",
+                "close": "2026-10-08T16:19:04.141Z",
+                "rating": 1.58,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 501,
+                        "fuel": 3593,
+                        "expenses": 10995,
+                        "penalties": 150000,
+                        "revenue": 22692,
+                        "balance": -138303,
+                        "prices": {
+                            "ticketPrice": 116,
+                            "cargoUnitPrice": 135,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.85
+                            }
+                        },
+                        "payload": {
+                            "pax": 169,
+                            "cargo": 16,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 8,
+                                "Y": 161
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4062,
+                        "aircraft": 5175,
+                        "handling": 1191,
+                        "landing": 567
+                    },
+                    "revenue": {
+                        "tickets": 20532,
+                        "cargo": 2160
+                    },
+                    "violations": [
+                        {
+                            "title": "Tail strike on landing (pitch: 16.4, max: 13.0)",
+                            "penalty": {
+                                "points": -400,
+                                "cash": 150000
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 20.61m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -222,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "spoilers",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Speeding when vacating runway (going 117KT, accepted max 50KT)",
+                            "penalty": {
+                                "points": -200,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.58G (347 ft/min, challenging  conditions)<br/>Distance from threshold: 524m (accepted range: 169-679m)<br/>Average centerline deviation: 11.73m<br/>Max centerline deviation: 20.61m",
+                            "penalty": {
+                                "points": -20,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.58,
+                                        "rate": 347
+                                    },
+                                    "weather": {
+                                        "windDir": 167.51,
+                                        "windSpd": 6.71,
+                                        "windX": 6.61
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-08T14:43:09.458Z",
+                "updatedAt": "2026-10-08T16:19:04.231Z",
+                "dep": {
+                    "icao": "LRCL",
+                    "name": "Avram Iancu Cluj International Airport",
+                    "city": "Cluj-Napoca",
+                    "location": {
+                        "lat": 46.786042,
+                        "lon": 23.685733,
+                        "elev": 1039
+                    }
+                },
+                "arr": {
+                    "icao": "UKKK",
+                    "name": "Igor Sikorsky Kyiv International Airport (Zhuliany)",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.40194,
+                        "lon": 30.45194,
+                        "elev": 587
+                    }
+                },
+                "actArr": {
+                    "icao": "UKKK",
+                    "name": "Igor Sikorsky Kyiv International Airport (Zhuliany)",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.40194,
+                        "lon": 30.45194,
+                        "elev": 587
+                    }
+                }
             }
         ]
     },
