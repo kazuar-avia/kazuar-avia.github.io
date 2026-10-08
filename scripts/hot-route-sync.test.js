@@ -12,7 +12,7 @@ const source = fs.readFileSync(path.join(root, 'pilot-cabinet.js'), 'utf8');
 const generated = '2026-10-03T12:00:00Z';
 const now = new Date('2026-10-03T12:05:00Z');
 function candidate(change = {}) {
-  return {aircraftId:'plane',aircraft:{id:'plane'},registration:'UR-TEST',aircraftTitle:'Plane',
+  return {aircraftId:'plane',aircraft:{id:'plane',lastflightlocationICAO:'UKLL'},registration:'UR-TEST',aircraftTitle:'Plane',
     group:'wet',dep:'UKLL',arr:'EPWA',proposalKind:'schedule',proposalReason:'schedule',
     flightNumber:'123',blockMinutes:150,amount:300,ratePerHour:120,...change};
 }
