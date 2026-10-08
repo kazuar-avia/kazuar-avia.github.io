@@ -34,10 +34,10 @@
   function profilePiesBalanceHtml(pilotId) {
     const balance = piesLedger ? window.UCAAPieRewards.balanceForPilot(piesLedger, pilotId) : null;
     const label = balance === null ? '—' : balance.toLocaleString('uk-UA');
-    const tooltip = balance === null
-      ? 'Баланс тимчасово недоступний. Спробуйте оновити сторінку.'
-      : 'За виконаний гарячий пиріжок: ТОП #1 — 3, ТОП #2 — 2, ТОП #3–#6 — по 1.';
-    return `<button type="button" class="profile-pies-balance profile-tip" data-tooltip="${esc(tooltip)}" title="Відкрити журнал нарахувань пиріжків" aria-label="Відкрити журнал нарахувань пиріжків"><img src="pyrih.png" alt="" aria-hidden="true"><span>Пиріжки: <strong>${label}</strong></span></button>`;
+    const hint = balance === null
+      ? 'Баланс тимчасово недоступний. Відкрити журнал нарахувань.'
+      : 'Натисніть, щоб переглянути рейси з нарахованими пиріжками.';
+    return `<button type="button" class="profile-pies-balance" title="${esc(hint)}" aria-label="Переглянути рейси з нарахованими пиріжками"><img src="pyrih.png" alt="" aria-hidden="true"><span>Пиріжки: <strong>${label}</strong></span></button>`;
   }
   function pilotPiesLogEntries(pilotId) {
     const id = String(pilotId || '').trim();
