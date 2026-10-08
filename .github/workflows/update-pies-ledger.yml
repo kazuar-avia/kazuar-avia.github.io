@@ -11,6 +11,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 # This workflow is the only automatic writer of the currency ledger.
 concurrency:
@@ -31,6 +32,7 @@ jobs:
       - name: Update pies ledger
         run: node scripts/update-pies-ledger.js
       - name: Publish pies ledger
+        id: publish
         run: |
           if git diff --quiet -- COMPANY/pies-ledger.json; then
             echo "No pies balance changes."
@@ -42,3 +44,10 @@ jobs:
           git commit -m "Update pies balance"
           git pull --rebase origin main
           git push
+          echo "pushed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Start Railway cleanup after new commit
+        if: steps.publish.outputs.pushed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run cancel-old-railway.yml --ref main
