@@ -145,12 +145,12 @@
         ? `<a class="flight-number-link flight-number-${operation}" href="https://newsky.app/flight/${encodeURIComponent(id)}" target="_blank" rel="noopener" title="Відкрити рейс у NewSky">${esc(item.flightNumber || '—')}</a>`
         : `<span class="flight-number-link flight-number-${operation}">${esc(item.flightNumber || '—')}</span>`;
       const aircraftName = String(flight?.aircraft?.name || '—').trim();
-      const aircraftCode = String(flight?.aircraft?.icao || '').trim();
+      const aircraftNote = flight ? String(window.UCAADashboardFlightUI?.aircraftTableNote?.(flight) || '').trim() : '';
       const rating = flight ? ratingPresentation(flight) : {className:'rating-none',label:'—'};
       const ratingHtml = flight ? `<button type="button" class="pilot-pies-log-rating-button" data-pies-log-rating="${esc(flight.id)}" title="Переглянути рейтинг рейсу"><span class="rating-badge ${esc(rating.className)}">${esc(rating.label)}</span></button>` : '—';
       return `<tr class="company-livery-log-row">
         <td>${esc(date)}<span class="date-flight-meta">${flightBadge}</span></td>
-        <td class="pilot-pies-log-aircraft" title="${esc(aircraftName)}">${esc(aircraftCode || aircraftName)}</td>
+        <td class="pilot-pies-log-aircraft" title="${esc(aircraftName)}${aircraftNote ? ` · ${esc(aircraftNote)}` : ''}"><span class="pilot-pies-log-aircraft-name">${esc(aircraftName)}</span><span class="flight-note">${esc(aircraftNote)}</span></td>
         <td class="route"><span class="route-airports">${airportLabel(flight?.departure,item.dep)} → ${airportLabel(flight?.actualArrival || flight?.arrival,item.arr)}</span></td>
         <td class="company-livery-log-duration">${flight ? formatMinutes(flight.times?.durationMinutes) : '—'}</td>
         <td class="company-livery-log-rating">${ratingHtml}</td>
@@ -1926,11 +1926,26 @@
         .profile-v2 .newsky-achievement-award{box-sizing:border-box;display:inline-flex;flex:0 0 auto;width:auto;height:35px;margin:17px 6px 0 1px;align-items:center;justify-content:center;padding:0;background:transparent;cursor:pointer;text-decoration:none}
         .profile-v2 .aircraft-award + .newsky-achievement-award{margin-left:16px}
         .profile-v2 .newsky-achievement-award img{box-sizing:border-box;display:block;width:auto;height:35px;max-width:none;border:1px solid #708999;border-radius:5px;box-shadow:0 1px 3px #0002;object-fit:contain}
-        .profile-v2 .profile-pies-balance{font-family:inherit;cursor:pointer}.profile-v2 .profile-pies-balance:hover,.profile-v2 .profile-pies-balance:focus-visible{background:#ffe9aa;border-color:#b68023;outline:1px solid #c58e37}
+        .profile-v2 .profile-avatar-column{position:relative;z-index:3}
+        .profile-v2 .profile-pies-balance{position:relative;z-index:4;box-sizing:border-box;display:flex;width:140px;min-height:36px;flex:0 0 auto;align-items:center;justify-content:center;padding:6px 8px;font-family:inherit;line-height:20px;cursor:pointer;touch-action:manipulation;pointer-events:auto}
+        .profile-v2 .profile-pies-balance>*{pointer-events:none}
+        .profile-v2 .profile-pies-balance:hover{background:#ffe9aa;border-color:#b68023}
+        .profile-v2 .profile-pies-balance:focus-visible{background:#ffe9aa;border-color:#b68023;outline:2px solid #c58e37;outline-offset:2px}
         .pilot-pies-log-dialog{box-sizing:border-box;width:min(96vw,900px);max-width:calc(100vw - 22px);background:#fff;color:#111}
-        .pilot-pies-log-dialog .company-livery-log-table .pilot-pies-log-aircraft{text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+        .pilot-pies-log-dialog .company-livery-log-pilot{width:190px!important}
+        .pilot-pies-log-dialog .company-livery-log-date{width:112px!important}
+        .pilot-pies-log-dialog .company-livery-log-route-col{width:140px!important}
+        .pilot-pies-log-dialog .company-livery-log-duration-col{width:75px!important}
+        .pilot-pies-log-dialog .company-livery-log-rating-col{width:70px!important}
+        .pilot-pies-log-dialog .company-livery-log-profit-col{width:55px!important}
+        .pilot-pies-log-dialog .company-livery-log-salary-col{width:77px!important}
+        .pilot-pies-log-dialog .company-livery-log-table .pilot-pies-log-aircraft{text-align:center;white-space:normal;overflow-wrap:normal;line-height:1.2}
+        .pilot-pies-log-dialog .pilot-pies-log-aircraft-name{display:block;font-size:12px;color:#111}
+        .pilot-pies-log-dialog .pilot-pies-log-aircraft .flight-note{display:block;margin-top:2px;font-size:11px;font-weight:normal;color:#666;line-height:1.2;white-space:normal}
         .pilot-pies-log-dialog .pilot-pies-log-rating-button{border:0;background:transparent;padding:0;cursor:pointer;font:inherit}
-        .pilot-pies-log-dialog .pilot-pies-log-rating-button:hover,.pilot-pies-log-dialog .pilot-pies-log-rating-button:focus-visible{filter:brightness(1.06);outline:1px solid #777}
+        .pilot-pies-log-dialog .pilot-pies-log-rating-button:hover{filter:brightness(1.06);outline:none}
+        .pilot-pies-log-dialog .pilot-pies-log-rating-button:focus-visible{outline:none}
+        .pilot-pies-log-dialog .pilot-pies-log-rating-button:focus-visible .rating-badge{outline:2px solid #3986ac;outline-offset:3px}
         .pilot-pies-log-dialog .pilot-pies-log-earned{color:#08783f;text-align:center!important;white-space:nowrap;font-weight:bold}
         .pilot-pies-log-dialog .pilot-pies-log-earned img{width:17px;height:17px;object-fit:contain;vertical-align:-4px}
         .pilot-pies-log-dialog .company-livery-log-table th:nth-child(1),.pilot-pies-log-dialog .company-livery-log-table td:nth-child(1){white-space:nowrap}
