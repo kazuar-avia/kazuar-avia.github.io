@@ -4692,12 +4692,29 @@ function liveryInboundDemandProposal(targetIcao, aircraft, title = '', routes = 
   });
 }
 
+function liveryFerryAirspaceRoute(fromIcao, toIcao) {
+  const from = liveryAirportLatLon(liveryAirportWithKnownLocation(liveryAirportObjectByIcao(fromIcao)));
+  const to = liveryAirportLatLon(liveryAirportWithKnownLocation(liveryAirportObjectByIcao(toIcao)));
+  return window.UCAAFerryAirspace?.route(from, to) || null;
+}
+
 function liveryRangeSafeFreeProposal(currentIcao, targetIcao, aircraft, title, meta = {}) {
   const current = String(currentIcao || '').trim().toUpperCase();
   const target = String(targetIcao || '').trim().toUpperCase();
   if (!current || !target || current === target) return null;
-  if (liveryRouteFitsAircraftRange(aircraft, current, target)) {
-    return liveryRouteProposalData('free', 'FREE', current, target, {...meta, aircraft, aircraftTitle: title});
+  const airspace = liveryFerryAirspaceRoute(current, target);
+  const range = liveryAircraftMaxRangeNm(aircraft);
+  const directDistance = liveryRouteDistanceNm(current, target);
+  const routeDistance = airspace?.distanceNm || directDistance;
+  if (!airspace?.unavailable && (!range || (routeDistance && routeDistance <= range) || (!routeDistance && !airspace))) {
+    const proposal = liveryRouteProposalData('free', 'FREE', current, target, {...meta, aircraft, aircraftTitle: title});
+    if (!proposal || !airspace?.detour) return proposal;
+    const speed = liveryBlockSpeedNmPerHour(aircraft, title);
+    const minutes = Math.max(10, Math.round((30 + routeDistance / speed * 60) / 10) * 10);
+    const time = `${String(Math.floor(minutes / 60)).padStart(2, '0')}:${String(minutes % 60).padStart(2, '0')}`;
+    return {...proposal, ferryAirspacePoints: airspace.points,
+      html: proposal.html.replace(/<span class="company-route-block-time"[^>]*>[^<]*<\/span>/,
+        `<span class="company-route-block-time" title="Орієнтовно ${routeDistance.toLocaleString('uk-UA')} NM, обліт РФ і Білорусі">(~${time}, обліт)</span>`)};
   }
   const inboundProposal = liveryInboundDemandProposal(target, aircraft, title, meta.scheduleRoutes || []);
   if (inboundProposal) return inboundProposal;
@@ -7135,7 +7152,8 @@ function initCompanyLiveryRouteMap(container, context) {
         const dep = addAirport(proposal.origin);
         const arr = addAirport(proposal.destination);
         if (dep && arr) {
-          addLayer(L.polyline([[dep.lat, dep.lon], [arr.lat, arr.lon]], {
+          const ferryLine = context.proposal?.ferryAirspacePoints;
+          addLayer(L.polyline(Array.isArray(ferryLine) && ferryLine.length > 1 ? ferryLine : [[dep.lat, dep.lon], [arr.lat, arr.lon]], {
             color: '#ff4fa3',
             weight: 5,
             opacity: 0.9
