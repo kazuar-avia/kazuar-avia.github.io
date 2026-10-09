@@ -186,7 +186,6 @@ function msUntilNextSixHourBoundary() {
 
 async function runLoop() {
   console.log('🚀 UCAA Railway top/bonus sync loop started.');
-  await runOnce();
   while (true) {
     const wait = msUntilNextSixHourBoundary();
     console.log(`⏳ next top/bonus sync in ${Math.round(wait / 60000)} min`);
