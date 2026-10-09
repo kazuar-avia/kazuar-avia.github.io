@@ -886,10 +886,7 @@ document.querySelector('.close').onclick=()=>document.querySelector('#pilotDialo
 <script src="pilot-profile-v2.js?v=20261009-pies-logbook-5"></script>
 <script src="app-navigation.js?v=20260628-1"></script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script type="module">
-  const refreshVersion = new URLSearchParams(location.search).get('_refresh') || '20261009-hard-refresh-1';
-  import(`./pilot-cabinet.js?v=${encodeURIComponent(refreshVersion)}`);
-</script>
+<script type="module" src="pilot-cabinet.js?v=20261009-r722-id-logbook-rating"></script>
 <!-- legacy pilots table disabled: pilot-cabinet.js renders #pilotsView cards -->
 <script type="module" src="company.js?v=20260627-17"></script>
 </body>

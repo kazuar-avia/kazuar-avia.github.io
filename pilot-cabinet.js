@@ -3000,19 +3000,18 @@ async function loadCompanyCharterDemand(cacheMode = 'default') {
 
 async function loadDatabases() {
   const status = $('#dataStatus');
-  const cacheMode = new URLSearchParams(location.search).has('_refresh') ? 'no-store' : 'default';
   try {
     const [loaded, companyData, companyLiveryData, companyLiveryMatching, companyTopPool, companyCharterDemand, routeMissions, guaranteedBonuses, manualGuaranteedBonuses, adCoordinates, piesLedger] = await Promise.all([
       window.UCAAFlightData.loadWeeklyFlights(message => { status.textContent = message; }),
-      fetch('COMPANY/company-data.json', {cache:cacheMode}).then(response => response.ok ? response.json() : null).catch(() => null),
-      fetch('COMPANY/ucaa-livery-database.json', {cache:cacheMode}).then(response => response.ok ? response.json() : null).catch(() => null),
-      fetch('COMPANY/livery-matching.json', {cache:cacheMode}).then(response => response.ok ? response.json() : null).catch(() => null),
+      fetch('COMPANY/company-data.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
+      fetch('COMPANY/ucaa-livery-database.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
+      fetch('COMPANY/livery-matching.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
       fetch(`COMPANY/top-pool-current.json?v=${Date.now()}`, {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
-      loadCompanyCharterDemand(cacheMode),
-      fetch('COMPANY/route-missions.json', {cache:cacheMode}).then(response => response.ok ? response.json() : null).catch(() => null),
+      loadCompanyCharterDemand('default'),
+      fetch('COMPANY/route-missions.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
       fetch(`COMPANY/guaranteed-bonuses.json?v=${Date.now()}`, {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
-      fetch('COMPANY/guaranteed-bonuses-manual.json', {cache:cacheMode}).then(response => response.ok ? response.json() : null).catch(() => null),
-      fetch('ADcoordinates.json', {cache:cacheMode}).then(response => response.ok ? response.json() : null).catch(() => null),
+      fetch('COMPANY/guaranteed-bonuses-manual.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
+      fetch('ADcoordinates.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
       fetch(`COMPANY/pies-ledger.json?v=${Date.now()}`, {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null)
     ]);
     const {archive, current} = loaded;
@@ -3136,14 +3135,22 @@ function bindManualRefreshButtonClean() {
   const button = document.querySelector('#manualRefreshButton');
   if (!button || button.dataset.refreshBound) return;
   button.dataset.refreshBound = '1';
-  button.addEventListener('click', event => {
+  button.addEventListener('click', async event => {
     event.preventDefault();
     if (button.disabled) return;
+    const originalText = button.textContent;
     button.disabled = true;
     button.textContent = '\u23f3';
-    const url = new URL(location.href);
-    url.searchParams.set('_refresh', String(Date.now()));
-    location.replace(url.href);
+    try {
+      await refreshDatabasesSoft();
+    } catch (error) {
+      console.error(error);
+      const status = $('#dataStatus');
+      if (status) status.textContent = 'Не вдалося оновити дані';
+    } finally {
+      button.disabled = false;
+      button.textContent = originalText || '🔄';
+    }
   });
 }
 
@@ -4616,23 +4623,6 @@ function liveryNearestScheduleFromIcao(routes, depIcao, aircraft = null) {
   return match || null;
 }
 
-function liveryUpcomingScheduleProposal(nearest, aircraft, title) {
-  if (!nearest?.route || nearest.offset <= 0) return null;
-  const date = app.referenceNow instanceof Date && Number.isFinite(app.referenceNow.getTime())
-    ? new Date(app.referenceNow.getTime()) : new Date();
-  date.setUTCDate(date.getUTCDate() + nearest.offset);
-  const dateText = date.toLocaleDateString('uk-UA', {timeZone:'UTC', day:'2-digit', month:'2-digit'});
-  const timing = liveryScheduleTimingLabelFromOffset(nearest.offset);
-  const route = nearest.route;
-  const proposal = liveryRouteProposalData('schedule', route.number, route.dep, route.arr, {
-    aircraft, aircraftTitle: title, reason: 'upcoming-schedule',
-    title: `Найближчий SCHEDULE ${timing} (${dateText})`
-  });
-  if (!proposal) return null;
-  return {...proposal, guaranteedPremium: 0,
-    html: `${proposal.html} <span class="company-route-block-time">${esc(timing)} · ${esc(dateText)}</span>`};
-}
-
 function liveryNearestScheduleTooltip(routes, depIcao, aircraft = null) {
   const nearest = liveryNearestScheduleFromIcao(routes, depIcao, aircraft);
   if (!nearest?.route) return '';
@@ -4775,15 +4765,13 @@ function liverySuggestedRouteData(card, title, flights, latest, headline) {
       if (proposal) return proposal;
     }
     if (scheduleIcao && currentIcao && currentIcao === scheduleIcao) {
-      const nearestSchedule = liveryNearestScheduleFromIcao(routes, currentIcao, aircraft);
-      if (nearestSchedule?.offset === 1) return liveryUpcomingScheduleProposal(nearestSchedule, aircraft, title);
+      const tomorrowFromSchedule = activeScheduleRoutes.find(route => route.dep === scheduleIcao && liveryRouteRunsTomorrow(route));
+      if (tomorrowFromSchedule) return 'Очікує на SCHEDULE завтра';
       const demandProposal = liveryCharterDemandProposal(currentIcao, aircraft, title, routes);
       if (demandProposal) return demandProposal;
       if (liveryIsScheduleStuck(aircraft, routes, currentIcao)) {
         return `<span class="company-livery-stuck-text">${liveryScheduleStuckCardMessage()}</span>`;
       }
-      const upcomingProposal = liveryUpcomingScheduleProposal(nearestSchedule, aircraft, title);
-      if (upcomingProposal) return upcomingProposal;
     }
     return null;
   }
