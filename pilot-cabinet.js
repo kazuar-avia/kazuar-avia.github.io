@@ -6560,12 +6560,21 @@ function renderCompanyFixedTopPoolItems(grid, mode, sourceCards, headingTitle, m
   const activeItems = mode === 'quick' ? items.filter(companyFixedTopPoolHotItemAllowed) : items;
   const livePieRows = companyFixedTopPoolLivePieItems(mode, sourceCards)
     .filter(row => mode !== 'quick' || companyLiveHotCardAllowed(row.card));
-  const livePieAircraft = new Set(livePieRows.map(row => String(row.item.aircraftId || '').trim()).filter(Boolean));
+  // A claim may have several NewSky flight IDs; the TOP shows one card per aircraft.
+  const uniqueLivePieRows = [];
+  const seenLiveAircraft = new Set();
+  for (const row of livePieRows) {
+    const aircraftId = String(row.item?.aircraftId || '').trim();
+    if (!aircraftId || seenLiveAircraft.has(aircraftId)) continue;
+    seenLiveAircraft.add(aircraftId);
+    uniqueLivePieRows.push(row);
+  }
+  const livePieAircraft = new Set(uniqueLivePieRows.map(row => String(row.item.aircraftId || '').trim()).filter(Boolean));
   const regularRows = activeItems
     .filter(item => !livePieAircraft.has(String(item?.aircraftId || '').trim()))
     .map(item => ({item, card: companyFixedTopPoolCardForItem(item, sourceCards)}))
     .filter(row => row.card && (mode !== 'quick' || companyLiveHotCardAllowed(row.card)));
-  const cards = [...livePieRows, ...regularRows].slice(0, 6);
+  const cards = [...uniqueLivePieRows, ...regularRows].slice(0, 6);
   if (mode === 'quick') cards.sort((a, b) => (Number(a.item.rank) || 99) - (Number(b.item.rank) || 99));
   const titles = {
     quick: ['Гарячі пиріжки <img class="company-pyrih-icon" src="pyrih.png" alt="пиріжок" aria-hidden="true">', '<img class="company-pyrih-icon" src="pyrih.png" alt="пиріжок" aria-hidden="true">'],
