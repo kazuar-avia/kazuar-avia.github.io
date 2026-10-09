@@ -4623,6 +4623,23 @@ function liveryNearestScheduleFromIcao(routes, depIcao, aircraft = null) {
   return match || null;
 }
 
+function liveryUpcomingScheduleProposal(nearest, aircraft, title) {
+  if (!nearest?.route || nearest.offset <= 0) return null;
+  const date = app.referenceNow instanceof Date && Number.isFinite(app.referenceNow.getTime())
+    ? new Date(app.referenceNow.getTime()) : new Date();
+  date.setUTCDate(date.getUTCDate() + nearest.offset);
+  const dateText = date.toLocaleDateString('uk-UA', {timeZone:'UTC', day:'2-digit', month:'2-digit'});
+  const timing = liveryScheduleTimingLabelFromOffset(nearest.offset);
+  const route = nearest.route;
+  const proposal = liveryRouteProposalData('schedule', route.number, route.dep, route.arr, {
+    aircraft, aircraftTitle: title, reason: 'upcoming-schedule',
+    title: `Найближчий SCHEDULE ${timing} (${dateText})`
+  });
+  if (!proposal) return null;
+  return {...proposal, guaranteedPremium: 0,
+    html: `${proposal.html} <span class="company-route-block-time">${esc(timing)} · ${esc(dateText)}</span>`};
+}
+
 function liveryNearestScheduleTooltip(routes, depIcao, aircraft = null) {
   const nearest = liveryNearestScheduleFromIcao(routes, depIcao, aircraft);
   if (!nearest?.route) return '';
@@ -4765,13 +4782,15 @@ function liverySuggestedRouteData(card, title, flights, latest, headline) {
       if (proposal) return proposal;
     }
     if (scheduleIcao && currentIcao && currentIcao === scheduleIcao) {
-      const tomorrowFromSchedule = activeScheduleRoutes.find(route => route.dep === scheduleIcao && liveryRouteRunsTomorrow(route));
-      if (tomorrowFromSchedule) return 'Очікує на SCHEDULE завтра';
+      const nearestSchedule = liveryNearestScheduleFromIcao(routes, currentIcao, aircraft);
+      if (nearestSchedule?.offset === 1) return liveryUpcomingScheduleProposal(nearestSchedule, aircraft, title);
       const demandProposal = liveryCharterDemandProposal(currentIcao, aircraft, title, routes);
       if (demandProposal) return demandProposal;
       if (liveryIsScheduleStuck(aircraft, routes, currentIcao)) {
         return `<span class="company-livery-stuck-text">${liveryScheduleStuckCardMessage()}</span>`;
       }
+      const upcomingProposal = liveryUpcomingScheduleProposal(nearestSchedule, aircraft, title);
+      if (upcomingProposal) return upcomingProposal;
     }
     return null;
   }
