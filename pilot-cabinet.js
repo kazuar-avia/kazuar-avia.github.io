@@ -5397,7 +5397,7 @@ function liveryFlightLogRowsSimple(flights) {
     const direct = directFlightFinance(flight);
     const profitClass = direct.companyProfit > 0 ? 'positive' : direct.companyProfit < 0 ? 'negative' : '';
     const salaryClass = direct.pilotSalary > 0 ? 'positive' : direct.pilotSalary < 0 ? 'negative' : '';
-    return `<tr class="company-livery-log-row"><td>${liveryFlightDateShort(flight)}<span class="date-flight-meta">${liveryFlightNumberBadge(flight)}</span></td><td><a href="${esc(pilotProfileUrl(flight.pilot?.id || ''))}">${esc(flight.pilot?.name || 'Pilot')}</a></td><td class="route"><span class="route-airports">${liveryAirportWithFlag(flight.departure)} → ${liveryAirportWithFlag(flight.actualArrival || flight.arrival)}</span></td><td class="company-livery-log-duration">${formatMinutes(flight.times?.durationMinutes)}</td><td class="company-livery-log-rating"><span class="rating-badge ${rating.className}">${rating.label}</span></td><td class="company-livery-log-money ${profitClass}">${money(direct.companyProfit,true)}</td><td class="company-livery-log-money ${salaryClass}"><span class="salary-amount-inline">${money(direct.pilotSalary,true)}${flightRewardIconsHtmlForRow(flight, direct.guaranteedBonus)}</span></td></tr>`;
+    return `<tr class="company-livery-log-row"><td>${liveryFlightDateShort(flight)}<span class="date-flight-meta">${liveryFlightNumberBadge(flight)}</span></td><td><a href="${esc(pilotProfileUrl(flight.pilot?.id || ''))}">${esc(flight.pilot?.name || 'Pilot')}</a></td><td class="route"><span class="route-airports">${liveryAirportWithFlag(flight.departure)} → ${liveryAirportWithFlag(flight.actualArrival || flight.arrival)}</span></td><td class="company-livery-log-duration">${formatMinutes(flight.times?.durationMinutes)}</td><td class="company-livery-log-rating"><button type="button" class="company-livery-log-rating-button" data-livery-log-rating="${esc(flight.id)}" aria-label="Рейтинг рейсу ${esc(flight.flightNumber || '')}: ${esc(rating.label)}. Переглянути порушення і штрафні бали" title="Переглянути порушення і штрафні бали"><span class="rating-badge ${rating.className}">${rating.label}</span></button></td><td class="company-livery-log-money ${profitClass}">${money(direct.companyProfit,true)}</td><td class="company-livery-log-money ${salaryClass}"><span class="salary-amount-inline">${money(direct.pilotSalary,true)}${flightRewardIconsHtmlForRow(flight, direct.guaranteedBonus)}</span></td></tr>`;
   }).join('');
 }
 
@@ -5502,6 +5502,12 @@ function openCompanyLiveryFlightLog(card, titleText, flights) {
       body.querySelectorAll('a[href^="pilot-cabinet.html#profile/"]').forEach(link => {
         link.addEventListener('click', () => {
           if (dialog.open) dialog.close();
+        });
+      });
+      body.querySelectorAll('[data-livery-log-rating]').forEach(button => {
+        button.addEventListener('click', () => {
+          const flight = flights.find(item => String(item.id || '') === button.dataset.liveryLogRating);
+          if (flight) openFlightInfo(flight, 'rating');
         });
       });
       body.querySelectorAll('[data-livery-log-period]').forEach(button => {

@@ -1927,7 +1927,8 @@
         .profile-v2 .aircraft-award + .newsky-achievement-award{margin-left:16px}
         .profile-v2 .newsky-achievement-award img{box-sizing:border-box;display:block;width:auto;height:35px;max-width:none;border:1px solid #708999;border-radius:5px;box-shadow:0 1px 3px #0002;object-fit:contain}
         .profile-v2 .profile-avatar-column{position:relative;z-index:3}
-        .profile-v2 .profile-pies-balance{position:relative;z-index:4;box-sizing:border-box;display:flex;width:140px;min-height:36px;flex:0 0 auto;align-items:center;justify-content:center;padding:6px 8px;font-family:inherit;line-height:20px;cursor:pointer;touch-action:manipulation;pointer-events:auto}
+        .profile-v2 .profile-pies-balance{position:relative;z-index:4;box-sizing:border-box;display:inline-flex;width:auto;min-height:0;flex:0 0 auto;align-items:center;justify-content:center;padding:2px 5px;font-family:inherit;line-height:18px;cursor:pointer;touch-action:manipulation;pointer-events:auto}
+        .profile-v2 .profile-pies-balance::before{content:"";position:absolute;inset:-3px}
         .profile-v2 .profile-pies-balance>*{pointer-events:none}
         .profile-v2 .profile-pies-balance:hover{background:#ffe9aa;border-color:#b68023}
         .profile-v2 .profile-pies-balance:focus-visible{background:#ffe9aa;border-color:#b68023;outline:2px solid #c58e37;outline-offset:2px}
