@@ -1062,9 +1062,7 @@ async function main() {
       if (Number(record?.amount) > 0) next.flights[id] = {...record, state: 'DONE', status: 'earned', updatedAt: now.toISOString()};
       return;
     }
-    if (state === 'LIVE' && Number(record?.amount) > 0 && !liveById.has(id)
-      && (record.status !== 'pending-completion-check'
-        || (record.pie === true && parseDateMs(record.piePoolClaimableUntil) > now.getTime()))) {
+    if (state === 'LIVE' && Number(record?.amount) > 0 && !liveById.has(id)) {
       next.flights[id] = {...record, state: 'LIVE', status: 'pending-completion-check', updatedAt: now.toISOString()};
     }
   });
