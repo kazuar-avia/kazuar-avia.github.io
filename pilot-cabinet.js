@@ -6976,7 +6976,7 @@ function initCompanyLiveryRouteMap(container, context) {
   map.on('movestart zoomstart', () => {
     if (!map._companyRouteFitting) map._companyRouteAtHome = false;
   });
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/light_nolabels/{z}/{x}/{y}{r}.png?key=cb1_3ru0_1_a901fffcbed84bfbb252eede', {
     attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
   }).addTo(map);
   let visibleBounds = [];
