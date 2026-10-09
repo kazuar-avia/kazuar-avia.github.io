@@ -11277,6 +11277,249 @@
                         "elev": 54
                     }
                 }
+            },
+            {
+                "_id": "6ac8bda9e2b73bbe59b8e7e5",
+                "aircraft": {
+                    "_id": "699ae4f09da57b990ac12987",
+                    "name": "Boeing 777 Freighter",
+                    "customName": "UCAA l 777F (cargo) based in UKBB l UR-CRG",
+                    "icao": "B77L"
+                },
+                "type": "cargo",
+                "flightNumber": "326N",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 0,
+                    "cargo": 779,
+                    "weights": {
+                        "cargo": 103607
+                    }
+                },
+                "depTime": "2026-10-09T10:30:00.000Z",
+                "duration": 340,
+                "arrTime": "2026-10-09T16:10:00.000Z",
+                "depTimeAct": "2026-10-09T10:36:40.594Z",
+                "delay": -40,
+                "takeoffTimeAct": "2026-10-09T10:37:22.605Z",
+                "durationAct": 293,
+                "arrTimeAct": "2026-10-09T15:29:59.505Z",
+                "open": "2026-10-09T10:36:29.814Z",
+                "close": "2026-10-09T15:31:10.544Z",
+                "rating": 5.07,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 3354,
+                        "fuel": 57904,
+                        "expenses": 73095,
+                        "penalties": 0,
+                        "revenue": 144973,
+                        "balance": 71878,
+                        "prices": {
+                            "ticketPrice": 290,
+                            "cargoUnitPrice": 294,
+                            "costScalars": {
+                                "timeAcceleration": 0.633,
+                                "dep": 0.9,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 0,
+                            "cargo": 779,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 42767,
+                        "aircraft": 22676,
+                        "handling": 1052,
+                        "landing": 6600
+                    },
+                    "revenue": {
+                        "tickets": 0,
+                        "cargo": 144973
+                    },
+                    "violations": [
+                        {
+                            "title": "Unstable approach below 400ft: vertical speed below -1500 ft/min (actual -1946 ft/min)",
+                            "penalty": {
+                                "points": -223,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 5.83m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -29,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 21
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.43G (364 ft/min, normal  conditions)<br/>Distance from threshold: 370m (accepted range: 196-785m)<br/>Average centerline deviation: 1.86m<br/>Max centerline deviation: 5.83m",
+                            "penalty": {
+                                "points": -8,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 21
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.43,
+                                        "rate": 364
+                                    },
+                                    "weather": {
+                                        "windDir": 269.99,
+                                        "windSpd": 9.52,
+                                        "windX": -1.28
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 111ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 23
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No NAV lights for 159s when required",
+                            "penalty": {
+                                "points": -33,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        },
+                        {
+                            "title": "No BEACON lights for 172s when required",
+                            "penalty": {
+                                "points": -36,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        },
+                        {
+                            "title": "No STROBE lights for 172s when required",
+                            "penalty": {
+                                "points": -14,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        },
+                        {
+                            "title": "Time acceleration used (1.58x) - reduced revenue",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 21
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.43,
+                                        "rate": 364
+                                    },
+                                    "weather": {
+                                        "windDir": 269.99,
+                                        "windSpd": 9.52,
+                                        "windX": -1.28
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-09T10:10:49.332Z",
+                "updatedAt": "2026-10-09T15:31:10.628Z",
+                "dep": {
+                    "icao": "KJFK",
+                    "name": "John F. Kennedy International Airport",
+                    "city": "New York",
+                    "location": {
+                        "lat": 40.639447,
+                        "lon": -73.779317,
+                        "elev": 13
+                    }
+                },
+                "arr": {
+                    "icao": "KLAX",
+                    "name": "Los Angeles International Airport",
+                    "city": "Los Angeles",
+                    "location": {
+                        "lat": 33.942501,
+                        "lon": -118.407997,
+                        "elev": 125
+                    }
+                },
+                "actArr": {
+                    "icao": "KLAX",
+                    "name": "Los Angeles International Airport",
+                    "city": "Los Angeles",
+                    "location": {
+                        "lat": 33.942501,
+                        "lon": -118.407997,
+                        "elev": 125
+                    }
+                }
             }
         ]
     },
