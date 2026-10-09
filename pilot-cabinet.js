@@ -3936,12 +3936,12 @@ function liveryTrackerForTitle(title) {
   if (includes('UR-NPA') || includes('737-800F')) return flight => liveryAircraftCode(flight) === 'B738' && liveryIsCargo(flight);
   if (includes('UR-DSA')) return flight => ['E190','E195'].includes(liveryAircraftCode(flight)) && !liveryIsCargo(flight);
   if (includes('UR-MXA') || includes('737-MAX8')) return flight => ['B38M','B738'].includes(liveryAircraftCode(flight));
-  if (includes('UR-85499') || includes('727-200')) return flight => ['B722','B721','B727'].includes(liveryAircraftCode(flight));
+  if (includes('UR-85499') || (includes('727-200') && !includes('Supernova') && !includes('UR-NPB'))) return flight => ['R722','B722','B721','B727'].includes(liveryAircraftCode(flight)) && !liveryIsCargo(flight);
   if (includes('UR-40393') || includes('Fokker F28')) return flight => ['F28','F27'].includes(liveryAircraftCode(flight));
   if (includes('UR-UTZ') || includes('CRJ-550')) return flight => ['CRJ5','CRJ7','CRJ9','CRJ'].includes(liveryAircraftCode(flight));
   if (includes('UR-40308') || includes('Ан-2')) return flight => ['AN2','AN-2'].includes(liveryAircraftCode(flight));
   if (includes('UR-KZR') || includes('Fokker F27')) return flight => ['F27'].includes(liveryAircraftCode(flight));
-  if (includes('UR-NPB') || includes('Supernova')) return flight => ['B722','B721','B727'].includes(liveryAircraftCode(flight)) && liveryIsCargo(flight);
+  if (includes('UR-NPB') || (includes('Supernova') && includes('727-200'))) return flight => ['B722F','B722','B721','B727'].includes(liveryAircraftCode(flight)) && liveryIsCargo(flight);
   if (includes('BAe146') || includes('Avro RJ')) return flight => ['B461','B462','B463','B464','RJ70','RJ85','RJ1H'].includes(liveryAircraftCode(flight));
   if (includes('UR-ATR') || includes('ATR 42')) return flight => ['AT42','AT45'].includes(liveryAircraftCode(flight));
   return null;
