@@ -4772,6 +4772,13 @@ function liverySuggestedRouteData(card, title, flights, latest, headline) {
       if (liveryIsScheduleStuck(aircraft, routes, currentIcao)) {
         return `<span class="company-livery-stuck-text">${liveryScheduleStuckCardMessage()}</span>`;
       }
+      const nearest = liveryNearestScheduleFromIcao(routes, currentIcao, aircraft);
+      if (nearest && nearest.offset > 1) {
+        const date = app.referenceNow instanceof Date && Number.isFinite(app.referenceNow.getTime())
+          ? new Date(app.referenceNow.getTime()) : new Date();
+        date.setUTCDate(date.getUTCDate() + nearest.offset);
+        return `Очікує на SCHEDULE ${liveryScheduleTimingLabelFromOffset(nearest.offset)} (${date.toLocaleDateString('uk-UA', {timeZone:'UTC', day:'2-digit', month:'2-digit'})})`;
+      }
     }
     return null;
   }
