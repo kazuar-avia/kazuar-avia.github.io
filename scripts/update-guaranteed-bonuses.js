@@ -723,6 +723,48 @@ function parseDateMs(value) {
   return Number.isFinite(time) ? time : 0;
 }
 
+// A TOP offer can be claimed once per published pool snapshot, not once per flight ID.
+function topPoolClaimIdentity(poolKey, generatedAt) {
+  const key = String(poolKey || '').trim();
+  const publishedAt = parseDateMs(generatedAt);
+  return key && publishedAt ? `${publishedAt}|${key}` : '';
+}
+
+function topPoolClaimIdentityForMatch(match) {
+  return topPoolClaimIdentity(match?.poolKey, match?.pool?.generatedAtLocal || match?.pool?.generatedAt);
+}
+
+function topPoolClaimOwners(records, completedById, liveById) {
+  const selected = new Map();
+  for (const [id, record] of Object.entries(records || {})) {
+    const state = String(record?.state || '').toUpperCase();
+    if (record?.pie !== true || Number(record.amount) <= 0 || (state !== 'LIVE' && state !== 'DONE')) continue;
+    const claim = topPoolClaimIdentity(record.piePoolKey, record.piePoolGeneratedAt);
+    if (!claim) continue;
+    const completed = state === 'DONE' || completedById.has(id);
+    const timestamp = parseDateMs(
+      liveById.get(id)?.startedAt || completedById.get(id)?.times?.actualDeparture || record.updatedAt
+    ) || Number.MAX_SAFE_INTEGER;
+    const candidate = {id, priority: completed ? 0 : 1, timestamp};
+    const previous = selected.get(claim);
+    if (!previous || candidate.priority < previous.priority
+      || (candidate.priority === previous.priority && (candidate.timestamp < previous.timestamp
+        || (candidate.timestamp === previous.timestamp && id < previous.id)))) {
+      selected.set(claim, candidate);
+    }
+  }
+  return new Map([...selected].map(([key, owner]) => [key, owner.id]));
+}
+
+function reserveTopPoolClaim(owners, match, flightId) {
+  const claim = topPoolClaimIdentityForMatch(match);
+  if (!claim) return true;
+  const owner = owners.get(claim);
+  if (owner && owner !== flightId) return false;
+  owners.set(claim, flightId);
+  return true;
+}
+
 function poolGeneratedTime(pool) {
   return parseDateMs(pool?.generatedAtLocal || pool?.generatedAt || pool?.createdAt);
 }
@@ -1001,6 +1043,7 @@ async function main() {
 
   const liveFlights = await loadLiveFlights();
   const liveById = new Map(liveFlights.map(flight => [flight.id, flight]));
+  const claimOwners = topPoolClaimOwners(bonuses.flights || {}, completedById, liveById);
   if (args.has('--debug-live')) {
     console.error(JSON.stringify({liveFlights}, null, 2));
   }
@@ -1013,22 +1056,29 @@ async function main() {
       next.flights[id] = record;
       return;
     }
+    const claim = topPoolClaimIdentity(record?.piePoolKey, record?.piePoolGeneratedAt);
+    if (claim && claimOwners.get(claim) !== id) return;
     if (completedById.has(id)) {
       if (Number(record?.amount) > 0) next.flights[id] = {...record, state: 'DONE', status: 'earned', updatedAt: now.toISOString()};
       return;
     }
-    if (state === 'LIVE' && Number(record?.amount) > 0 && !liveById.has(id)) {
+    if (state === 'LIVE' && Number(record?.amount) > 0 && !liveById.has(id)
+      && (record.status !== 'pending-completion-check'
+        || (record.pie === true && parseDateMs(record.piePoolClaimableUntil) > now.getTime()))) {
       next.flights[id] = {...record, state: 'LIVE', status: 'pending-completion-check', updatedAt: now.toISOString()};
     }
   });
 
-  for (const live of liveFlights) {
+  for (const live of [...liveFlights].sort((a, b) =>
+    (parseDateMs(a.startedAt) || Number.MAX_SAFE_INTEGER) - (parseDateMs(b.startedAt) || Number.MAX_SAFE_INTEGER)
+    || a.id.localeCompare(b.id))) {
     for (const aircraftId of live.aircraftIds) {
       const aircraft = aircraftMaps.byId.get(aircraftId);
       if (!aircraft) continue;
       const topPoolMatch = topPoolMatchForLive(live, aircraftId, topPoolItems, completedFlights);
       const topPoolAmount = Number(topPoolMatch?.premiumUsd || 0);
       if (topPoolMatch && topPoolAmount > 0) {
+        if (!reserveTopPoolClaim(claimOwners, topPoolMatch, live.id)) break;
         next.flights[live.id] = recordFromLive(live, aircraft, proposalFromTopPoolMatch(topPoolMatch), Math.round(topPoolAmount), topPoolMatch);
         break;
       }
@@ -1046,7 +1096,10 @@ async function main() {
     }
   }
 
-  for (const flight of completedFlights) {
+  for (const flight of [...completedFlights].sort((a, b) =>
+    (parseDateMs(a.times?.actualDeparture || a.times?.takeoff) || Number.MAX_SAFE_INTEGER)
+    - (parseDateMs(b.times?.actualDeparture || b.times?.takeoff) || Number.MAX_SAFE_INTEGER)
+    || String(a.id || '').localeCompare(String(b.id || '')))) {
     const flightId = cleanId(flight.id || flight._id);
     if (!flightId || next.flights[flightId]) continue;
     const live = liveFromCompletedFlight(flight);
@@ -1057,6 +1110,7 @@ async function main() {
       const topPoolMatch = topPoolMatchForLive(live, aircraftId, topPoolItems, completedFlights);
       const topPoolAmount = Number(topPoolMatch?.premiumUsd || 0);
       if (!topPoolMatch || topPoolAmount <= 0) continue;
+      if (!reserveTopPoolClaim(claimOwners, topPoolMatch, flightId)) break;
       next.flights[flightId] = recordFromCompleted(flight, aircraft, proposalFromTopPoolMatch(topPoolMatch), Math.round(topPoolAmount), topPoolMatch);
       break;
     }
@@ -1092,5 +1146,6 @@ if (require.main === module) {
 module.exports = {
   loadCompletedFlights, topPoolItemsFromCurrent, topPoolItemsFromPools,
   liveFromCompletedFlight, topPoolMatchForLive, topPoolRecordFields,
-  preserveTopPoolClaims, updatePiesLedger
+  preserveTopPoolClaims, updatePiesLedger,
+  topPoolClaimIdentity, topPoolClaimOwners, reserveTopPoolClaim
 };
