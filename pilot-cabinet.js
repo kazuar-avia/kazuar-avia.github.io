@@ -5421,7 +5421,7 @@ function liveryFlightLogRowsSimple(flights) {
     const direct = directFlightFinance(flight);
     const profitClass = direct.companyProfit > 0 ? 'positive' : direct.companyProfit < 0 ? 'negative' : '';
     const salaryClass = direct.pilotSalary > 0 ? 'positive' : direct.pilotSalary < 0 ? 'negative' : '';
-    return `<tr class="company-livery-log-row"><td>${liveryFlightDateShort(flight)}<span class="date-flight-meta">${liveryFlightNumberBadge(flight)}</span></td><td><a href="${esc(pilotProfileUrl(flight.pilot?.id || ''))}">${esc(flight.pilot?.name || 'Pilot')}</a></td><td class="route"><span class="route-airports">${liveryAirportWithFlag(flight.departure)} → ${liveryAirportWithFlag(flight.actualArrival || flight.arrival)}</span></td><td class="company-livery-log-duration">${formatMinutes(flight.times?.durationMinutes)}</td><td class="company-livery-log-rating"><button type="button" class="company-livery-log-rating-button" data-livery-log-rating="${esc(flight.id)}" aria-label="Рейтинг рейсу ${esc(flight.flightNumber || '')}: ${esc(rating.label)}. Переглянути порушення і штрафні бали" title="Переглянути порушення і штрафні бали"><span class="rating-badge ${rating.className}">${rating.label}</span></button></td><td class="company-livery-log-money ${profitClass}">${money(direct.companyProfit,true)}</td><td class="company-livery-log-money ${salaryClass}"><span class="salary-amount-inline">${money(direct.pilotSalary,true)}${flightRewardIconsHtmlForRow(flight, direct.guaranteedBonus)}</span></td></tr>`;
+    return `<tr class="company-livery-log-row"><td>${liveryFlightDateShort(flight)}<span class="date-flight-meta">${liveryFlightNumberBadge(flight)}</span></td><td><a href="${esc(pilotProfileUrl(flight.pilot?.id || ''))}">${esc(flight.pilot?.name || 'Pilot')}</a></td><td class="route"><span class="route-airports">${liveryAirportWithFlag(flight.departure)} → ${liveryAirportWithFlag(flight.actualArrival || flight.arrival)}</span></td><td class="company-livery-log-duration">${formatMinutes(flight.times?.durationMinutes)}</td><td class="company-livery-log-rating"><button type="button" class="company-livery-log-rating-button" data-livery-log-rating="${esc(flight.id)}" aria-label="Рейтинг рейсу ${esc(flight.flightNumber || '')}: ${esc(rating.label)}. Переглянути порушення і штрафні бали" title="Переглянути порушення і штрафні бали"><span class="rating-badge ${rating.className}">${rating.label}</span></button></td><td class="company-livery-log-money ${profitClass} company-livery-log-finance-detail" data-livery-log-finance="finance" data-flight-id="${esc(flight.id)}" role="button" tabindex="0" title="Детальний розрахунок прибутку авіакомпанії">${money(direct.companyProfit,true)}</td><td class="company-livery-log-money ${salaryClass} company-livery-log-finance-detail" data-livery-log-finance="salary" data-flight-id="${esc(flight.id)}" role="button" tabindex="0" title="Детальний розрахунок зарплати пілота"><span class="salary-amount-inline">${money(direct.pilotSalary,true)}${flightRewardIconsHtmlForRow(flight, direct.guaranteedBonus)}</span></td></tr>`;
   }).join('');
 }
 
@@ -5532,6 +5532,18 @@ function openCompanyLiveryFlightLog(card, titleText, flights) {
         button.addEventListener('click', () => {
           const flight = flights.find(item => String(item.id || '') === button.dataset.liveryLogRating);
           if (flight) openFlightInfo(flight, 'rating');
+        });
+      });
+      body.querySelectorAll('[data-livery-log-finance]').forEach(cell => {
+        cell.addEventListener('click', () => {
+          const flight = flights.find(item => String(item.id || '') === cell.dataset.flightId);
+          if (flight) openFlightInfo(flight, cell.dataset.liveryLogFinance);
+        });
+        cell.addEventListener('keydown', event => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            cell.click();
+          }
         });
       });
       body.querySelectorAll('[data-livery-log-period]').forEach(button => {
