@@ -16301,5 +16301,191 @@
                 }
             }
         ]
+    },
+    {
+        "pilot_id": "6a7236f3ef75cc33305b8677",
+        "fullname": "Pavlo Pavlo",
+        "avatar": "default",
+        "flights": [
+            {
+                "_id": "6aca75a7e2b73bbe59e39d0d",
+                "aircraft": {
+                    "_id": "6a4f95025760ec7cdb6176e7",
+                    "name": "Airbus A320",
+                    "customName": "DART l A320 CFM based in UKKK l UR-CII",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "0913",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 176,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-10-10T18:00:00.000Z",
+                "duration": 150,
+                "arrTime": "2026-10-10T20:30:00.000Z",
+                "depTimeAct": "2026-10-10T18:08:02.065Z",
+                "delay": 4,
+                "takeoffTimeAct": "2026-10-10T18:14:37.078Z",
+                "durationAct": 139,
+                "arrTimeAct": "2026-10-10T20:33:41.269Z",
+                "open": "2026-10-10T17:55:04.830Z",
+                "close": "2026-10-10T20:34:29.327Z",
+                "rating": 5.34,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 924,
+                        "fuel": 5838,
+                        "expenses": 15197,
+                        "penalties": 3000,
+                        "revenue": 27280,
+                        "balance": 9083,
+                        "prices": {
+                            "ticketPrice": 155,
+                            "cargoUnitPrice": 167,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 176,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 176
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 6600,
+                        "aircraft": 6675,
+                        "handling": 950,
+                        "landing": 972
+                    },
+                    "revenue": {
+                        "tickets": 27280,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 7.66m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -52,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 1
+                                    },
+                                    "weather": {
+                                        "windDir": 90.01,
+                                        "windSpd": 15.25,
+                                        "windX": -6.81
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 20.92m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -274,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 15
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.06,
+                                        "rate": 981
+                                    },
+                                    "weather": {
+                                        "windDir": 330.08,
+                                        "windSpd": 6.99,
+                                        "windX": -3.98
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Hard touchdown: 2.06G (981 ft/min, normal  conditions)<br/>Distance from threshold: 665m (accepted range: 181-728m)<br/>Average centerline deviation: 10.95m<br/>Max centerline deviation: 20.92m",
+                            "penalty": {
+                                "points": -140,
+                                "cash": 3000
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 15
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.06,
+                                        "rate": 981
+                                    },
+                                    "weather": {
+                                        "windDir": 330.08,
+                                        "windSpd": 6.99,
+                                        "windX": -3.98
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-10T17:28:07.118Z",
+                "updatedAt": "2026-10-10T20:34:29.411Z",
+                "dep": {
+                    "icao": "LDDU",
+                    "name": "Dubrovnik Ruđer Bošković Airport",
+                    "city": "Dubrovnik",
+                    "location": {
+                        "lat": 42.562247,
+                        "lon": 18.265543,
+                        "elev": 527
+                    }
+                },
+                "arr": {
+                    "icao": "LEVC",
+                    "name": "Valencia Airport",
+                    "city": "Valencia",
+                    "location": {
+                        "lat": 39.489162,
+                        "lon": -0.480961,
+                        "elev": 240
+                    }
+                },
+                "actArr": {
+                    "icao": "LEVC",
+                    "name": "Valencia Airport",
+                    "city": "Valencia",
+                    "location": {
+                        "lat": 39.489162,
+                        "lon": -0.480961,
+                        "elev": 240
+                    }
+                }
+            }
+        ]
     }
 ]
