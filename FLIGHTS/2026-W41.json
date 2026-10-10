@@ -14291,6 +14291,209 @@
                         "elev": 508
                     }
                 }
+            },
+            {
+                "_id": "6ac9fa1f0fd87508e1ce2cb5",
+                "aircraft": {
+                    "_id": "6a4f69f85760ec7cdb5e7cef",
+                    "name": "Boeing 737-800",
+                    "customName": "SkyUp l 737-800 based in UKOO UKBB l UR-SQC",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "340",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 176,
+                    "cargo": 8,
+                    "weights": {
+                        "cargo": 800
+                    }
+                },
+                "depTime": "2026-10-10T09:15:00.000Z",
+                "duration": 135,
+                "arrTime": "2026-10-10T11:30:00.000Z",
+                "depTimeAct": "2026-10-10T09:13:16.556Z",
+                "delay": 33,
+                "takeoffTimeAct": "2026-10-10T09:22:09.576Z",
+                "durationAct": 161,
+                "arrTimeAct": "2026-10-10T12:02:58.816Z",
+                "open": "2026-10-10T08:48:54.374Z",
+                "close": "2026-10-10T12:10:55.470Z",
+                "rating": 5.63,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 960,
+                        "fuel": 7548,
+                        "expenses": 15227,
+                        "penalties": 29500,
+                        "revenue": 32888,
+                        "balance": -11839,
+                        "prices": {
+                            "ticketPrice": 178,
+                            "cargoUnitPrice": 195,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 176,
+                            "cargo": 8,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 176
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 6827,
+                        "aircraft": 6425,
+                        "handling": 1246,
+                        "landing": 729
+                    },
+                    "revenue": {
+                        "tickets": 31328,
+                        "cargo": 1560
+                    },
+                    "violations": [
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1013mb instead of 1016.6mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    },
+                                    "weather": {
+                                        "windDir": 221.42,
+                                        "windSpd": 8.19,
+                                        "windX": 4.69
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Terrible touchdown: 2.53G (856 ft/min, challenging  conditions)<br/>Distance from threshold: 155m (accepted range: 177-711m)<br/>Average centerline deviation: 13.53m<br/>Max centerline deviation: 13.53m",
+                            "penalty": {
+                                "points": -257,
+                                "cash": 29500
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 33
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.53,
+                                        "rate": 856
+                                    },
+                                    "weather": {
+                                        "windDir": 109.94,
+                                        "windSpd": 19.53,
+                                        "windX": 15.88
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 14.26m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -130,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 34
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.31,
+                                        "rate": 283
+                                    },
+                                    "weather": {
+                                        "windDir": 110.61,
+                                        "windSpd": 11.6,
+                                        "windX": 9.27
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.31G (283 ft/min, challenging  conditions)<br/>Distance from threshold: 181m (accepted range: 177-711m)<br/>Average centerline deviation: 4.22m<br/>Max centerline deviation: 14.26m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 34
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.31,
+                                        "rate": 283
+                                    },
+                                    "weather": {
+                                        "windDir": 110.61,
+                                        "windSpd": 11.6,
+                                        "windX": 9.27
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-10T08:41:03.746Z",
+                "updatedAt": "2026-10-10T12:10:55.960Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "LDSP",
+                    "name": "Split Saint Jerome Airport",
+                    "city": "Split",
+                    "location": {
+                        "lat": 43.538898,
+                        "lon": 16.298,
+                        "elev": 79
+                    }
+                },
+                "actArr": {
+                    "icao": "LDSP",
+                    "name": "Split Saint Jerome Airport",
+                    "city": "Split",
+                    "location": {
+                        "lat": 43.538898,
+                        "lon": 16.298,
+                        "elev": 79
+                    }
+                }
             }
         ]
     }
