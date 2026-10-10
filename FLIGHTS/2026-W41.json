@@ -8421,6 +8421,200 @@
                         "elev": 1115
                     }
                 }
+            },
+            {
+                "_id": "6aca6fb6e2b73bbe59e2efce",
+                "aircraft": {
+                    "_id": "6a5e237a50c8a562fcb2e8d7",
+                    "name": "Airbus A330-300",
+                    "customName": "Dry Lease l A330-300 RR iniBuilds l 375 pax elite",
+                    "icao": "A333"
+                },
+                "type": "pax",
+                "flightNumber": "123Y",
+                "free": false,
+                "schedule": false,
+                "charter": true,
+                "payload": {
+                    "pax": 375,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-10-10T17:20:00.000Z",
+                "duration": 80,
+                "arrTime": "2026-10-10T18:40:00.000Z",
+                "depTimeAct": "2026-10-10T17:20:59.857Z",
+                "delay": 28,
+                "takeoffTimeAct": "2026-10-10T17:36:34.895Z",
+                "durationAct": 91,
+                "arrTimeAct": "2026-10-10T19:08:00.131Z",
+                "open": "2026-10-10T17:17:12.567Z",
+                "close": "2026-10-10T19:11:26.830Z",
+                "rating": 9.53,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 596,
+                        "fuel": 9629,
+                        "expenses": 37011,
+                        "penalties": 0,
+                        "revenue": 76820,
+                        "balance": 39809,
+                        "prices": {
+                            "ticketPrice": 167,
+                            "cargoUnitPrice": 200,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 375,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 15,
+                                "C": 40,
+                                "Y": 320
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 10886,
+                        "aircraft": 17980,
+                        "handling": 3375,
+                        "landing": 4770
+                    },
+                    "revenue": {
+                        "tickets": 76820,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 5.82m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -30,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    },
+                                    "weather": {
+                                        "windDir": 340,
+                                        "windSpd": 9,
+                                        "windX": 6.6
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 4.78m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -13,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 22
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Short landing (204m from threshold before 209m min accepted)",
+                            "penalty": {
+                                "points": -4,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 23
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.28,
+                                        "rate": 291
+                                    },
+                                    "weather": {
+                                        "windDir": 190.21,
+                                        "windSpd": 5.48,
+                                        "windX": -4.7
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.28G (291 ft/min, normal  conditions)<br/>Distance from threshold: 204m (accepted range: 209-838m)<br/>Average centerline deviation: 2.55m<br/>Max centerline deviation: 4.78m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 23
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.28,
+                                        "rate": 291
+                                    },
+                                    "weather": {
+                                        "windDir": 190.21,
+                                        "windSpd": 5.48,
+                                        "windX": -4.7
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-10T17:02:46.626Z",
+                "updatedAt": "2026-10-10T19:11:26.912Z",
+                "dep": {
+                    "icao": "LFMN",
+                    "name": "Nice-Côte d'Azur Airport",
+                    "city": "Nice, Alpes-Maritimes",
+                    "location": {
+                        "lat": 43.658401,
+                        "lon": 7.21587,
+                        "elev": 12
+                    }
+                },
+                "arr": {
+                    "icao": "EDDF",
+                    "name": "Frankfurt Main Airport",
+                    "city": "Frankfurt am Main",
+                    "location": {
+                        "lat": 50.026706,
+                        "lon": 8.55835,
+                        "elev": 364
+                    }
+                },
+                "actArr": {
+                    "icao": "EDDF",
+                    "name": "Frankfurt Main Airport",
+                    "city": "Frankfurt am Main",
+                    "location": {
+                        "lat": 50.026706,
+                        "lon": 8.55835,
+                        "elev": 364
+                    }
+                }
             }
         ]
     },
