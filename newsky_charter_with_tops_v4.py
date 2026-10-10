@@ -1,4 +1,6 @@
 import os
+import json
+import math
 from pathlib import Path
 import re
 from typing import Dict, List, Tuple, Optional
@@ -11,10 +13,17 @@ BASE_DIR = Path(os.path.dirname(os.path.abspath(__file__)))
 
 INPUT_FILE = BASE_DIR / "newsky-airports-report.txt"
 OUTPUT_FILE = BASE_DIR / "newsky-charter-results.txt"
+RAW_INPUT_FILE = BASE_DIR / "newsky-airports.txt"
 
 MAX_DISTANCE_NM = 1500
+MIN_ROUTE_DISTANCE_NM = 50
+RADIUS_STEP_NM = 50
 
-MIN_PAX_AMOUNT = 50
+# RU and BY are excluded from EVERY automatically recommended route.
+BLOCKED_COUNTRIES = {"RU", "BY"}
+BLOCKED_ICAO_PREFIXES = {"UE", "UH", "UI", "UL", "UM", "UN", "UO", "UR", "US", "UU", "UW"}
+
+MIN_PAX_AMOUNT = 100
 MIN_CARGO_AMOUNT = 10
 
 MAX_DISPLAY_PAX = 450
@@ -133,7 +142,8 @@ def is_uk(code: str) -> bool:
 
 ICAO_PREFIX_FLAGS = {
     "UK": "🇺🇦",
-    "UR": "🇺🇦",
+    "UR": "🇷🇺",
+    "UZ": "🇺🇿",
 
     "EP": "🇵🇱",
     "ED": "🇩🇪",
@@ -282,6 +292,174 @@ def parse_report(text: str) -> Dict[str, dict]:
     return airports
 
 
+
+def enrich_with_raw_airports(airports: Dict[str, dict], path: Path) -> None:
+    """Attach exact NewSky traffic and coordinates without changing report format.
+
+    The bot refreshes raw airport objects before running the report and charter
+    generators. In standalone runs, the report still works without this file.
+    Minimal {"icao":"XXXX"} placeholders are skipped.
+    """
+    if not path.is_file():
+        return
+
+    for line in path.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not (line.startswith("{") and line.endswith("}")):
+            continue
+        try:
+            raw = json.loads(line)
+        except (ValueError, TypeError):
+            continue
+
+        icao = raw.get("icao")
+        if icao not in airports:
+            continue
+        airport = airports[icao]
+        airport["country_code"] = raw.get("countryCode", "")
+
+        location = raw.get("location") or {}
+        if isinstance(location, dict):
+            lat, lon = location.get("lat"), location.get("lon")
+            if isinstance(lat, (int, float)) and isinstance(lon, (int, float)):
+                if math.isfinite(lat) and math.isfinite(lon):
+                    airport["coords"] = (float(lat), float(lon))
+
+        traffic_b = (raw.get("traffic") or {}).get("B") or {}
+        for mode in ("pax", "cargo"):
+            directions = (traffic_b.get(mode) or {}).get("directions") or []
+            for index, bearing in enumerate(DIRECTIONS):
+                if index >= len(directions):
+                    break
+                info = airport.get(mode, {}).get(bearing)
+                item = directions[index]
+                if info is None or not isinstance(item, dict):
+                    continue
+                current, normal = item.get("current"), item.get("normal")
+                if not isinstance(current, (int, float)) or not isinstance(normal, (int, float)):
+                    continue
+                # Reject stale raw sector values when the two inputs differ.
+                display_current = round(current * 0.082) if mode == "cargo" else current
+                if display_current == info["value"]:
+                    info["raw_current"] = current
+                    info["normal"] = normal
+
+
+def is_blocked_airport(airports: Dict[str, dict], icao: str) -> bool:
+    country = airports.get(icao, {}).get("country_code", "").upper()
+    return country in BLOCKED_COUNTRIES or icao[:2] in BLOCKED_ICAO_PREFIXES
+
+
+def has_sector_surplus(info: dict) -> bool:
+    """Use unrounded demand where possible; +0% in the report is ambiguous."""
+    if "normal" in info and "raw_current" in info:
+        return info["raw_current"] > info["normal"]
+    return info["percent"] > 0
+
+
+def largest_deficit_sector(airport: dict, mode: str) -> Optional[dict]:
+    """Arrival deficit may be in ANY sector, independent of the departure bearing."""
+    shortages = []
+    for bearing, info in airport.get(mode, {}).items():
+        if "normal" in info and "raw_current" in info:
+            missing = max(0.0, info["normal"] - info["raw_current"])
+        elif info["percent"] < 0:
+            # Ranking fallback for older report-only runs (not an exact deficit).
+            missing = info["value"] * (-info["percent"]) / 100.0
+        else:
+            missing = 0.0
+        if missing > 0:
+            shortages.append({
+                "direction": bearing,
+                "value": info["value"],
+                "percent": info["percent"],
+                "missing": missing,
+            })
+    if not shortages:
+        return None
+    return max(shortages, key=lambda x: (x["missing"], -x["direction"]))
+
+
+def route_distance_nm(airports: Dict[str, dict], origin: str, dest: str,
+                      reported_distance: int) -> float:
+    """Exact radius limits use coordinates; displayed distance stays unchanged."""
+    a = airports.get(origin, {}).get("coords")
+    b = airports.get(dest, {}).get("coords")
+    if not a or not b:
+        return float(reported_distance)
+    lat1, lon1 = map(math.radians, a)
+    lat2, lon2 = map(math.radians, b)
+    dlat, dlon = lat2 - lat1, lon2 - lon1
+    h = math.sin(dlat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(dlon / 2) ** 2
+    return 6371.0 * 2 * math.asin(min(1.0, math.sqrt(h))) / 1.852
+
+
+def choose_inbound_source_radial(
+    destination: str,
+    airports: Dict[str, dict],
+    max_distance_nm: int,
+) -> Optional[dict]:
+    """50 NM circles around the destination, from nearest eligible ring outwards.
+
+    Arrival: a shortage in ANY direction.
+    Departure: a real surplus in the bearing TOWARDS the destination.
+    First ring containing >=100 pax candidates wins; highest amount wins within it.
+    """
+    dest_data = airports.get(destination)
+    if not dest_data or is_blocked_airport(airports, destination):
+        return None
+    deficit = largest_deficit_sector(dest_data, "pax")
+    if deficit is None:
+        return None
+
+    # Collect each airport once, then scan rings. The report already excludes
+    # flights under 50 NM, but exact coordinates enforce the boundary again.
+    by_ring: Dict[int, List[dict]] = {}
+    processed = set()
+    for sector in dest_data.get("sectors", {}).values():
+        for code, report_dist in sector:
+            if code in processed:
+                continue
+            processed.add(code)
+            if code == destination or code not in airports or is_blocked_airport(airports, code):
+                continue
+            distance = route_distance_nm(airports, code, destination, report_dist)
+            if not (MIN_ROUTE_DISTANCE_NM <= distance <= max_distance_nm):
+                continue
+
+            source_dir = sector_for_route(airports, code, destination)
+            if source_dir is None:
+                continue
+            source_info = airports[code].get("pax", {}).get(source_dir)
+            if not source_info or not has_sector_surplus(source_info):
+                continue
+
+            amount = inbound_source_amount(source_info["value"])
+            if amount < MIN_PAX_AMOUNT:
+                continue
+
+            ring = int(math.ceil(distance / RADIUS_STEP_NM))
+            by_ring.setdefault(ring, []).append({
+                "code": code,
+                "distance": report_dist,
+                "exact_distance": distance,
+                "dest_dir": deficit["direction"],
+                "dest_percent": deficit["percent"],
+                "dest_value": deficit["value"],
+                "source_dir": source_dir,
+                "source_percent": source_info["percent"],
+                "source_value": source_info["value"],
+                "amount": amount,
+            })
+
+    for ring in sorted(by_ring):
+        candidates = by_ring[ring]
+        candidates.sort(
+            key=lambda x: (-x["amount"], -x["source_percent"], x["exact_distance"], x["code"])
+        )
+        return candidates[0]
+    return None
+
 def sector_for_route(airports: Dict[str, dict], origin: str, destination: str) -> Optional[int]:
     """Use geographic sector membership calculated by newsky_report.py."""
     for direction, members in airports.get(origin, {}).get("sectors", {}).items():
@@ -320,45 +498,53 @@ def choose_outbound_destination(
     mode: str,
     max_distance_nm: int = MAX_DISTANCE_NM
 ) -> Optional[dict]:
-
     origin_data = airports.get(origin)
-    if not origin_data:
+    if not origin_data or is_blocked_airport(airports, origin):
         return None
 
     for direction, origin_percent, origin_value in sorted_high_demand_directions(origin_data, mode):
-
-        if REQUIRE_ORIGIN_NON_NEGATIVE and origin_percent < 0:
+        origin_info = origin_data.get(mode, {}).get(direction)
+        if mode == "pax":
+            # A positive GLOBAL airport balance does not imply a surplus here.
+            if not origin_info or not has_sector_surplus(origin_info):
+                continue
+        elif REQUIRE_ORIGIN_NON_NEGATIVE and origin_percent < 0:
             continue
 
         sector = origin_data.get("sectors", {}).get(direction, [])
         candidates = [
-            (code, dist)
-            for code, dist in sector
+            (code, dist) for code, dist in sector
             if dist <= max_distance_nm and code in airports
+            and not is_blocked_airport(airports, code)
         ]
-
-        if not candidates:
-            continue
-
         scored = []
-
         for code, dist in candidates:
-            reverse_dir = sector_for_route(airports, code, origin)
-            if reverse_dir is None:
-                continue
-            reverse_info = airports.get(code, {}).get(mode, {}).get(reverse_dir)
+            if mode == "pax":
+                # No geographical direction requirement at the ARRIVAL airport.
+                deficit = largest_deficit_sector(airports[code], mode)
+                if deficit is None:
+                    continue
+                reverse_dir = deficit["direction"]
+            else:
+                # Cargo selection stays on its previous directional logic.
+                reverse_dir = sector_for_route(airports, code, origin)
+                if reverse_dir is None:
+                    continue
 
+            reverse_info = airports[code].get(mode, {}).get(reverse_dir)
             if not reverse_info:
                 continue
-
             reverse_percent = reverse_info["percent"]
             reverse_value = reverse_info["value"]
 
-            if REQUIRE_TARGET_NON_POSITIVE and reverse_percent > 0:
+            if mode == "cargo" and REQUIRE_TARGET_NON_POSITIVE and reverse_percent > 0:
                 continue
+            if mode == "pax":
+                real_distance = route_distance_nm(airports, origin, code, dist)
+                if not (MIN_ROUTE_DISTANCE_NM <= real_distance <= max_distance_nm):
+                    continue
 
             amount = recommended_amount(origin_value, origin_percent)
-
             if amount < min_amount_for_mode(mode):
                 continue
 
@@ -374,12 +560,9 @@ def choose_outbound_destination(
                 "amount": amount,
             })
 
-        if not scored:
-            continue
-
-        scored.sort(key=lambda x: (x["reverse_percent"], x["reverse_value"], x["distance"]))
-        return scored[0]
-
+        if scored:
+            scored.sort(key=lambda x: (x["reverse_percent"], x["reverse_value"], x["distance"]))
+            return scored[0]
     return None
 
 
@@ -393,46 +576,38 @@ def choose_inbound_source(
     mode: str,
     max_distance_nm: int = MAX_DISTANCE_NM
 ) -> Optional[dict]:
+    if mode == "pax":
+        return choose_inbound_source_radial(destination, airports, max_distance_nm)
 
+    # Retain existing cargo scoring and source/destination capacity formula.
     dest_data = airports.get(destination)
-    if not dest_data:
+    if not dest_data or is_blocked_airport(airports, destination):
         return None
 
     for direction, dest_percent, dest_value in sorted_low_demand_directions(dest_data, mode):
-
         if dest_percent >= 0:
             continue
 
         sector = dest_data.get("sectors", {}).get(direction, [])
-
         candidates = [
-            (code, dist)
-            for code, dist in sector
+            (code, dist) for code, dist in sector
             if dist <= max_distance_nm and code in airports
+            and not is_blocked_airport(airports, code)
         ]
-
-        if not candidates:
-            continue
-
         scored = []
-
         for code, dist in candidates:
             reverse_dir = sector_for_route(airports, code, destination)
             if reverse_dir is None:
                 continue
-            source_info = airports.get(code, {}).get(mode, {}).get(reverse_dir)
-
+            source_info = airports[code].get(mode, {}).get(reverse_dir)
             if not source_info:
                 continue
 
             source_percent = source_info["percent"]
             source_value = source_info["value"]
-
             amount = inbound_amount(source_value, dest_value)
-
             if amount < min_amount_for_mode(mode):
                 continue
-
             scored.append({
                 "code": code,
                 "distance": dist,
@@ -444,13 +619,12 @@ def choose_inbound_source(
                 "source_value": source_value,
                 "amount": amount,
             })
-
-        if not scored:
-            continue
-
-        scored.sort(key=lambda x: (x["source_percent"], x["source_value"], -x["distance"]), reverse=True)
-        return scored[0]
-
+        if scored:
+            scored.sort(
+                key=lambda x: (x["source_percent"], x["source_value"], -x["distance"]),
+                reverse=True
+            )
+            return scored[0]
     return None
 
 
@@ -791,9 +965,9 @@ def build_output(airports: Dict[str, dict]) -> str:
     lines.append(f"- shown amount = round(origin value / {AMOUNT_DIVISOR} * (1 + origin percent / 100))")
     lines.append("")
     lines.append("Inbound logic:")
-    lines.append("- find weakest negative outbound direction from UK airport")
-    lines.append("- find airport in that sector with strongest outbound demand back to UK airport")
-    lines.append(f"- inbound shown amount = min(round(source value / {INBOUND_AMOUNT_DIVISOR}), round(destination value / {INBOUND_DESTINATION_CAP_DIVISOR}))")
+    lines.append("- pax: arrival airport has a deficit in ANY sector; source must have a surplus towards arrival")
+    lines.append(f"- pax: search radii in {RADIUS_STEP_NM}nm steps, minimum route {MIN_ROUTE_DISTANCE_NM}nm")
+    lines.append(f"- pax amount = round(source value / {INBOUND_AMOUNT_DIVISOR}), minimum {MIN_PAX_AMOUNT} pax; cargo uses previous formula")
     lines.append("")
     lines.extend(build_top_sections(outbound_records, inbound_records))
     lines.append("------------------------------------------------------------")
@@ -824,6 +998,7 @@ def main():
 
     text = INPUT_FILE.read_text(encoding="utf-8")
     airports = parse_report(text)
+    enrich_with_raw_airports(airports, RAW_INPUT_FILE)
 
     output = build_output(airports)
     OUTPUT_FILE.write_text(output, encoding="utf-8")
