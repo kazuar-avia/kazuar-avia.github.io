@@ -17896,6 +17896,209 @@
                         "elev": 38
                     }
                 }
+            },
+            {
+                "_id": "6acbb970e2b73bbe59034d8c",
+                "aircraft": {
+                    "_id": "6a4f90ec5760ec7cdb612ec3",
+                    "name": "Airbus A320",
+                    "customName": "Aerosvit vs DonbassAero l A320 CFM based in UKBB l UR-DAH",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "201N",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 171,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-10-11T16:45:00.000Z",
+                "duration": 100,
+                "arrTime": "2026-10-11T18:25:00.000Z",
+                "depTimeAct": "2026-10-11T16:51:27.414Z",
+                "delay": -10,
+                "takeoffTimeAct": "2026-10-11T16:54:48.424Z",
+                "durationAct": 80,
+                "arrTimeAct": "2026-10-11T18:14:36.399Z",
+                "open": "2026-10-11T16:51:12.421Z",
+                "close": "2026-10-11T18:18:29.419Z",
+                "rating": 4.97,
+                "simulator": "msfs",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 549,
+                        "fuel": 3724,
+                        "expenses": 11024,
+                        "penalties": 20000,
+                        "revenue": 21546,
+                        "balance": -9478,
+                        "prices": {
+                            "ticketPrice": 126,
+                            "cargoUnitPrice": 143,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.85
+                            }
+                        },
+                        "payload": {
+                            "pax": 171,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 171
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4210,
+                        "aircraft": 5050,
+                        "handling": 1197,
+                        "landing": 567
+                    },
+                    "revenue": {
+                        "tickets": 21546,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 10.68m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -108,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "weather": {
+                                        "windDir": 201.02,
+                                        "windSpd": 7.57,
+                                        "windX": 7.54
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "MLW exceeded: 3672kg above maximum landing weight of 64500kg",
+                            "penalty": {
+                                "points": -300,
+                                "cash": 20000
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.68,
+                                        "rate": 514
+                                    },
+                                    "weather": {
+                                        "windDir": 199.83,
+                                        "windSpd": 4.39,
+                                        "windX": 4.02
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.68G (514 ft/min, challenging  conditions)<br/>Distance from threshold: 324m (accepted range: 171-686m)<br/>Average centerline deviation: 0.74m<br/>Max centerline deviation: 1.23m",
+                            "penalty": {
+                                "points": -45,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.68,
+                                        "rate": 514
+                                    },
+                                    "weather": {
+                                        "windDir": 199.83,
+                                        "windSpd": 4.39,
+                                        "windX": 4.02
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on landing: 1011mb instead of 1008.9mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.68,
+                                        "rate": 514
+                                    },
+                                    "weather": {
+                                        "windDir": 199.83,
+                                        "windSpd": 4.39,
+                                        "windX": 4.02
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-11T16:29:36.046Z",
+                "updatedAt": "2026-10-11T18:18:29.492Z",
+                "dep": {
+                    "icao": "EPGD",
+                    "name": "Gdańsk Lech Wałęsa Airport",
+                    "city": "Gdańsk",
+                    "location": {
+                        "lat": 54.377602,
+                        "lon": 18.4662,
+                        "elev": 489
+                    }
+                },
+                "arr": {
+                    "icao": "UKKK",
+                    "name": "Igor Sikorsky Kyiv International Airport (Zhuliany)",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.40194,
+                        "lon": 30.45194,
+                        "elev": 587
+                    }
+                },
+                "actArr": {
+                    "icao": "UKKK",
+                    "name": "Igor Sikorsky Kyiv International Airport (Zhuliany)",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.40194,
+                        "lon": 30.45194,
+                        "elev": 587
+                    }
+                }
             }
         ]
     },
