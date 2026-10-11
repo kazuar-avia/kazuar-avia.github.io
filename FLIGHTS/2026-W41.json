@@ -20661,6 +20661,156 @@
                         "elev": 172
                     }
                 }
+            },
+            {
+                "_id": "6acbb78ae2b73bbe59030167",
+                "aircraft": {
+                    "_id": "695a86b43dc76275bad5a644",
+                    "name": "Embraer 190",
+                    "customName": "Ukraine Int l E190 based in UKBB UKHH UKOO UKDD l UR-EMA",
+                    "icao": "E190"
+                },
+                "type": "pax",
+                "flightNumber": "888",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 102,
+                    "cargo": 10,
+                    "weights": {
+                        "cargo": 1280
+                    }
+                },
+                "depTime": "2026-10-11T16:45:00.000Z",
+                "duration": 160,
+                "arrTime": "2026-10-11T19:25:00.000Z",
+                "depTimeAct": "2026-10-11T16:44:07.616Z",
+                "delay": 2,
+                "takeoffTimeAct": "2026-10-11T16:53:07.610Z",
+                "durationAct": 154,
+                "arrTimeAct": "2026-10-11T19:27:08.413Z",
+                "open": "2026-10-11T16:25:16.435Z",
+                "close": "2026-10-11T19:36:12.439Z",
+                "rating": 9.99,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1078,
+                        "fuel": 4885,
+                        "expenses": 8488,
+                        "penalties": 0,
+                        "revenue": 17918,
+                        "balance": 9430,
+                        "prices": {
+                            "ticketPrice": 159,
+                            "cargoUnitPrice": 170,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 102,
+                            "cargo": 10,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 102
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4418,
+                        "aircraft": 2968,
+                        "handling": 661,
+                        "landing": 441
+                    },
+                    "revenue": {
+                        "tickets": 16218,
+                        "cargo": 1700
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 4.09m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -1,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 69
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.34G (290 ft/min, normal  conditions)<br/>Distance from threshold: 219m (accepted range: 193-776m)<br/>Average centerline deviation: 1.53m<br/>Max centerline deviation: 4.09m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 53
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.34,
+                                        "rate": 290
+                                    },
+                                    "weather": {
+                                        "windDir": 149.96,
+                                        "windSpd": 7.07,
+                                        "windX": -3.32
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-11T16:21:30.222Z",
+                "updatedAt": "2026-10-11T19:36:12.520Z",
+                "dep": {
+                    "icao": "UKOO",
+                    "name": "Odesa International Airport",
+                    "city": "Odesa",
+                    "location": {
+                        "lat": 46.427196,
+                        "lon": 30.672649,
+                        "elev": 172
+                    }
+                },
+                "arr": {
+                    "icao": "UBBB",
+                    "name": "Heydar Aliyev International Airport",
+                    "city": "Baku",
+                    "location": {
+                        "lat": 40.47278,
+                        "lon": 50.050931,
+                        "elev": 10
+                    }
+                },
+                "actArr": {
+                    "icao": "UBBB",
+                    "name": "Heydar Aliyev International Airport",
+                    "city": "Baku",
+                    "location": {
+                        "lat": 40.47278,
+                        "lon": 50.050931,
+                        "elev": 10
+                    }
+                }
             }
         ]
     }
