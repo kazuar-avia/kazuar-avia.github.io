@@ -19118,6 +19118,200 @@
                         "elev": 325
                     }
                 }
+            },
+            {
+                "_id": "6acbbb3f0fd87508e1d56672",
+                "aircraft": {
+                    "_id": "695ebf3c3dc76275ba3e31f1",
+                    "name": "Boeing 777-300ER",
+                    "customName": "SkyLine Express l 777-300ER based in UKBB l UR-AZR",
+                    "icao": "B77W"
+                },
+                "type": "pax",
+                "flightNumber": "800",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 531,
+                    "cargo": 53,
+                    "weights": {
+                        "cargo": 6784
+                    }
+                },
+                "depTime": "2026-10-11T17:15:00.000Z",
+                "duration": 210,
+                "arrTime": "2026-10-11T20:45:00.000Z",
+                "depTimeAct": "2026-10-11T17:18:32.060Z",
+                "delay": -22,
+                "takeoffTimeAct": "2026-10-11T17:23:11.678Z",
+                "durationAct": 180,
+                "arrTimeAct": "2026-10-11T20:23:08.259Z",
+                "open": "2026-10-11T17:09:32.066Z",
+                "close": "2026-10-11T20:35:09.807Z",
+                "rating": 8,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1384,
+                        "fuel": 22690,
+                        "expenses": 54513,
+                        "penalties": 0,
+                        "revenue": 148174,
+                        "balance": 93661,
+                        "prices": {
+                            "ticketPrice": 250,
+                            "cargoUnitPrice": 258,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 531,
+                            "cargo": 53,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 7,
+                                "Y": 524
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 25652,
+                        "aircraft": 21150,
+                        "handling": 5281,
+                        "landing": 2430
+                    },
+                    "revenue": {
+                        "tickets": 134500,
+                        "cargo": 13674
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 5.51m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -24,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    },
+                                    "weather": {
+                                        "windDir": 262.81,
+                                        "windSpd": 9.38,
+                                        "windX": -5.18
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (867m from threshold beyond 793m max accepted)",
+                            "penalty": {
+                                "points": -26,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 34
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.29,
+                                        "rate": 275
+                                    },
+                                    "weather": {
+                                        "windDir": 159.85,
+                                        "windSpd": 5.4,
+                                        "windX": 2.49
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.29G (275 ft/min, normal  conditions)<br/>Distance from threshold: 867m (accepted range: 198-793m)<br/>Average centerline deviation: 1.44m<br/>Max centerline deviation: 2.34m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 34
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.29,
+                                        "rate": 275
+                                    },
+                                    "weather": {
+                                        "windDir": 159.85,
+                                        "windSpd": 5.4,
+                                        "windX": 2.49
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 885ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 41
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-11T16:37:19.658Z",
+                "updatedAt": "2026-10-11T20:35:09.920Z",
+                "dep": {
+                    "icao": "EDDL",
+                    "name": "Düsseldorf Airport",
+                    "city": "Düsseldorf",
+                    "location": {
+                        "lat": 51.289501,
+                        "lon": 6.76678,
+                        "elev": 147
+                    }
+                },
+                "arr": {
+                    "icao": "LTAI",
+                    "name": "Antalya International Airport",
+                    "city": "Antalya",
+                    "location": {
+                        "lat": 36.898701,
+                        "lon": 30.800501,
+                        "elev": 177
+                    }
+                },
+                "actArr": {
+                    "icao": "LTAI",
+                    "name": "Antalya International Airport",
+                    "city": "Antalya",
+                    "location": {
+                        "lat": 36.898701,
+                        "lon": 30.800501,
+                        "elev": 177
+                    }
+                }
             }
         ]
     },
