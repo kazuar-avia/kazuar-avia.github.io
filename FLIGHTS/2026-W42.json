@@ -138,6 +138,180 @@
                         "elev": 527
                     }
                 }
+            },
+            {
+                "_id": "6accaffde2b73bbe591717a9",
+                "aircraft": {
+                    "_id": "695a66383dc76275bad0826f",
+                    "name": "Airbus A320",
+                    "customName": "Dry Lease l A320 CFM FENIX msfs2024",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "74M",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 160,
+                    "cargo": 18,
+                    "weights": {
+                        "cargo": 1728
+                    }
+                },
+                "depTime": "2026-10-12T10:12:00.000Z",
+                "duration": 95,
+                "arrTime": "2026-10-12T11:47:00.000Z",
+                "depTimeAct": "2026-10-12T10:11:00.561Z",
+                "delay": 7,
+                "takeoffTimeAct": "2026-10-12T10:16:22.565Z",
+                "durationAct": 98,
+                "arrTimeAct": "2026-10-12T11:54:12.459Z",
+                "open": "2026-10-12T10:05:20.630Z",
+                "close": "2026-10-12T11:57:29.493Z",
+                "rating": 5.73,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 630,
+                        "fuel": 4556,
+                        "expenses": 12453,
+                        "penalties": 150000,
+                        "revenue": 23431,
+                        "balance": -139022,
+                        "prices": {
+                            "ticketPrice": 125,
+                            "cargoUnitPrice": 142,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 160,
+                            "cargo": 18,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 7,
+                                "Y": 153
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 5151,
+                        "aircraft": 5800,
+                        "handling": 872,
+                        "landing": 630
+                    },
+                    "revenue": {
+                        "tickets": 20875,
+                        "cargo": 2556
+                    },
+                    "violations": [
+                        {
+                            "title": "Tail strike on landing (pitch: 13.2, max: 13.0)",
+                            "penalty": {
+                                "points": -400,
+                                "cash": 150000
+                            },
+                            "entry": {
+                                "type": "stall_start",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 5.65m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -27,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.22,
+                                        "rate": 184
+                                    },
+                                    "weather": {
+                                        "windDir": 189.99,
+                                        "windSpd": 7.66,
+                                        "windX": -6.38
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.22G (184 ft/min, normal  conditions)<br/>Distance from threshold: 607m (accepted range: 156-627m)<br/>Average centerline deviation: 1.67m<br/>Max centerline deviation: 5.65m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.22,
+                                        "rate": 184
+                                    },
+                                    "weather": {
+                                        "windDir": 189.99,
+                                        "windSpd": 7.66,
+                                        "windX": -6.38
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-12T10:01:33.014Z",
+                "updatedAt": "2026-10-12T11:57:29.608Z",
+                "dep": {
+                    "icao": "LDDU",
+                    "name": "Dubrovnik Ruđer Bošković Airport",
+                    "city": "Dubrovnik",
+                    "location": {
+                        "lat": 42.562247,
+                        "lon": 18.265543,
+                        "elev": 527
+                    }
+                },
+                "arr": {
+                    "icao": "LGSM",
+                    "name": "Samos Airport",
+                    "city": "Samos Island",
+                    "location": {
+                        "lat": 37.689999,
+                        "lon": 26.911699,
+                        "elev": 19
+                    }
+                },
+                "actArr": {
+                    "icao": "LGSM",
+                    "name": "Samos Airport",
+                    "city": "Samos Island",
+                    "location": {
+                        "lat": 37.689999,
+                        "lon": 26.911699,
+                        "elev": 19
+                    }
+                }
             }
         ]
     },
