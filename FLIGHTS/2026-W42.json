@@ -2073,6 +2073,200 @@
                         "elev": 152
                     }
                 }
+            },
+            {
+                "_id": "6accb773e2b73bbe5917c4e2",
+                "aircraft": {
+                    "_id": "69ff231aa5e61d69a71c50f5",
+                    "name": "Airbus A340-600",
+                    "customName": "Dry Lease l Toliss A340-600 msfs l 440 pax in 3 class",
+                    "icao": "A346"
+                },
+                "type": "pax",
+                "flightNumber": "78F",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 415,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-10-12T10:45:00.000Z",
+                "duration": 1020,
+                "arrTime": "2026-10-13T03:45:00.000Z",
+                "depTimeAct": "2026-10-12T10:45:34.508Z",
+                "delay": -783,
+                "takeoffTimeAct": "2026-10-12T10:45:34.508Z",
+                "durationAct": 237,
+                "arrTimeAct": "2026-10-12T14:42:15.450Z",
+                "open": "2026-10-12T10:44:33.495Z",
+                "close": "2026-10-12T14:48:54.203Z",
+                "rating": 8.75,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 7359,
+                        "fuel": 139448,
+                        "expenses": 78645,
+                        "penalties": 0,
+                        "revenue": 105171,
+                        "balance": 26526,
+                        "prices": {
+                            "ticketPrice": 763,
+                            "cargoUnitPrice": 859,
+                            "costScalars": {
+                                "timeAcceleration": 0.299,
+                                "dep": 0.9,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 416,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 8,
+                                "C": 21,
+                                "Y": 387
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 47629,
+                        "aircraft": 18405,
+                        "handling": 8611,
+                        "landing": 4000
+                    },
+                    "revenue": {
+                        "tickets": 105171,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 7.00m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -35,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 21
+                                    },
+                                    "weather": {
+                                        "windDir": 330.04,
+                                        "windSpd": 12.01,
+                                        "windX": 5.69
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late gear retraction after takeoff more than 90s, actual: 123s",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gear",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.56G (280 ft/min, normal  conditions)<br/>Distance from threshold: 246m (accepted range: 190-762m)<br/>Average centerline deviation: 2.40m<br/>Max centerline deviation: 3.02m",
+                            "penalty": {
+                                "points": -40,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.56,
+                                        "rate": 280
+                                    },
+                                    "weather": {
+                                        "windDir": 110,
+                                        "windSpd": 3.18,
+                                        "windX": 1.09
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Time acceleration used (3.35x) - reduced revenue",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.56,
+                                        "rate": 280
+                                    },
+                                    "weather": {
+                                        "windDir": 110,
+                                        "windSpd": 3.18,
+                                        "windX": 1.09
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-12T10:33:23.110Z",
+                "updatedAt": "2026-10-12T14:48:54.372Z",
+                "dep": {
+                    "icao": "OMDB",
+                    "name": "Dubai International Airport",
+                    "city": "Dubai",
+                    "location": {
+                        "lat": 25.24979,
+                        "lon": 55.370992,
+                        "elev": 62
+                    }
+                },
+                "arr": {
+                    "icao": "KIAH",
+                    "name": "George Bush Intercontinental Airport",
+                    "city": "Houston",
+                    "location": {
+                        "lat": 29.9844,
+                        "lon": -95.3414,
+                        "elev": 97
+                    }
+                },
+                "actArr": {
+                    "icao": "KIAH",
+                    "name": "George Bush Intercontinental Airport",
+                    "city": "Houston",
+                    "location": {
+                        "lat": 29.9844,
+                        "lon": -95.3414,
+                        "elev": 97
+                    }
+                }
             }
         ]
     },
