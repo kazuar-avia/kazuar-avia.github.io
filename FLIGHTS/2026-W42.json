@@ -630,6 +630,171 @@
                         "elev": 308
                     }
                 }
+            },
+            {
+                "_id": "6acded55e2b73bbe593208a7",
+                "aircraft": {
+                    "_id": "695a66383dc76275bad0826f",
+                    "name": "Airbus A320",
+                    "customName": "Dry Lease l A320 CFM FENIX msfs2024",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "65E",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 160,
+                    "cargo": 3,
+                    "weights": {
+                        "cargo": 402
+                    }
+                },
+                "depTime": "2026-10-13T08:47:00.000Z",
+                "duration": 45,
+                "arrTime": "2026-10-13T09:32:00.000Z",
+                "depTimeAct": "2026-10-13T08:45:15.386Z",
+                "delay": 0,
+                "takeoffTimeAct": "2026-10-13T08:50:38.383Z",
+                "durationAct": 41,
+                "arrTimeAct": "2026-10-13T09:32:08.357Z",
+                "open": "2026-10-13T08:37:27.524Z",
+                "close": "2026-10-13T09:52:57.892Z",
+                "rating": 6.84,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 222,
+                        "fuel": 2047,
+                        "expenses": 8905,
+                        "penalties": 30000,
+                        "revenue": 14155,
+                        "balance": -24750,
+                        "prices": {
+                            "ticketPrice": 83,
+                            "cargoUnitPrice": 98,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 160,
+                            "cargo": 3,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 7,
+                                "Y": 153
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2315,
+                        "aircraft": 4375,
+                        "handling": 1585,
+                        "landing": 630
+                    },
+                    "revenue": {
+                        "tickets": 13861,
+                        "cargo": 294
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 4.98m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -16,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Runway excursion on landing (45m from runway edge)",
+                            "penalty": {
+                                "points": -300,
+                                "cash": 30000
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.34G (278 ft/min, normal  conditions)<br/>Distance from threshold: 434m (accepted range: 156-627m)<br/>Average centerline deviation: 21.85m<br/>Max centerline deviation: 67.06m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.34,
+                                        "rate": 278
+                                    },
+                                    "weather": {
+                                        "windDir": 150.07,
+                                        "windSpd": 8.31,
+                                        "windX": 5.75
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-13T08:35:33.216Z",
+                "updatedAt": "2026-10-13T09:52:57.967Z",
+                "dep": {
+                    "icao": "LGAV",
+                    "name": "Athens Eleftherios Venizelos International Airport",
+                    "city": "Spata-Artemida",
+                    "location": {
+                        "lat": 37.936401,
+                        "lon": 23.9445,
+                        "elev": 308
+                    }
+                },
+                "arr": {
+                    "icao": "LGSM",
+                    "name": "Samos Airport",
+                    "city": "Samos Island",
+                    "location": {
+                        "lat": 37.689999,
+                        "lon": 26.911699,
+                        "elev": 19
+                    }
+                },
+                "actArr": {
+                    "icao": "LGSM",
+                    "name": "Samos Airport",
+                    "city": "Samos Island",
+                    "location": {
+                        "lat": 37.689999,
+                        "lon": 26.911699,
+                        "elev": 19
+                    }
+                }
             }
         ]
     },
