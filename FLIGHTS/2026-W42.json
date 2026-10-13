@@ -4169,6 +4169,161 @@
                         "elev": 1071
                     }
                 }
+            },
+            {
+                "_id": "6ace329ce2b73bbe59382619",
+                "aircraft": {
+                    "_id": "695a66383dc76275bad0826f",
+                    "name": "Airbus A320",
+                    "customName": "Dry Lease l A320 CFM FENIX msfs2024",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "123P",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 180,
+                    "cargo": 19,
+                    "weights": {
+                        "cargo": 1976
+                    }
+                },
+                "depTime": "2026-10-13T13:50:00.000Z",
+                "duration": 60,
+                "arrTime": "2026-10-13T14:50:00.000Z",
+                "depTimeAct": "2026-10-13T13:43:11.830Z",
+                "delay": -14,
+                "takeoffTimeAct": "2026-10-13T13:50:38.522Z",
+                "durationAct": 45,
+                "arrTimeAct": "2026-10-13T14:35:38.271Z",
+                "open": "2026-10-13T13:41:59.621Z",
+                "close": "2026-10-13T14:41:18.073Z",
+                "rating": 9.96,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 281,
+                        "fuel": 2390,
+                        "expenses": 8083,
+                        "penalties": 0,
+                        "revenue": 22289,
+                        "balance": 14206,
+                        "prices": {
+                            "ticketPrice": 110,
+                            "cargoUnitPrice": 131,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 180,
+                            "cargo": 19,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 180
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2162,
+                        "aircraft": 4025,
+                        "handling": 1167,
+                        "landing": 729
+                    },
+                    "revenue": {
+                        "tickets": 19800,
+                        "cargo": 2489
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 4.27m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -4,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 42
+                                    },
+                                    "weather": {
+                                        "windDir": 340.64,
+                                        "windSpd": 5.19,
+                                        "windX": 2.07
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.22G (188 ft/min, challenging  conditions)<br/>Distance from threshold: 540m (accepted range: 199-800m)<br/>Average centerline deviation: 1.15m<br/>Max centerline deviation: 2.44m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 46
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.22,
+                                        "rate": 188
+                                    },
+                                    "weather": {
+                                        "windDir": 350.01,
+                                        "windSpd": 5.87,
+                                        "windX": 1.55
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-13T13:31:08.739Z",
+                "updatedAt": "2026-10-13T14:41:18.164Z",
+                "dep": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "arr": {
+                    "icao": "UKKM",
+                    "name": "Hostomel Airport",
+                    "city": "Kiev",
+                    "location": {
+                        "lat": 50.6035,
+                        "lon": 30.1919,
+                        "elev": 517
+                    }
+                },
+                "actArr": {
+                    "icao": "UKKM",
+                    "name": "Hostomel Airport",
+                    "city": "Kiev",
+                    "location": {
+                        "lat": 50.6035,
+                        "lon": 30.1919,
+                        "elev": 517
+                    }
+                }
             }
         ]
     },
