@@ -1003,6 +1003,32 @@ function recordFromCompleted(flight, aircraft, proposal, amount, topPoolMatch = 
   };
 }
 
+function retainGuaranteedRecords(previous, completedById, liveById, claimOwners, now) {
+  const retained = {};
+  for (const [id, record] of Object.entries(previous || {})) {
+    const state = String(record?.state || '').toUpperCase();
+    if (state === 'DONE') {
+      retained[id] = record;
+      continue;
+    }
+    const claim = topPoolClaimIdentity(record?.piePoolKey, record?.piePoolGeneratedAt);
+    if (claim && claimOwners.get(claim) !== id) continue;
+    if (completedById.has(id)) {
+      if (Number(record?.amount) > 0) {
+        retained[id] = {...record, state: 'DONE', status: 'earned', updatedAt: now.toISOString()};
+      }
+      continue;
+    }
+    if (state !== 'LIVE' || Number(record?.amount) <= 0) continue;
+    retained[id] = liveById.has(id)
+      ? (record.status === 'pending-completion-check'
+          ? {...record, status: 'matched', updatedAt: now.toISOString()}
+          : record)
+      : {...record, state: 'LIVE', status: 'pending-completion-check', updatedAt: now.toISOString()};
+  }
+  return retained;
+}
+
 async function main() {
   const now = new Date();
   const matching = readJson(path.join(COMPANY_DIR, 'livery-matching.json'), {liveries: []});
@@ -1048,28 +1074,13 @@ async function main() {
     console.error(JSON.stringify({liveFlights}, null, 2));
   }
 
-  const next = {version: Number(bonuses.version) || 1, updatedAt: bonuses.updatedAt || '', flights: {}};
-
-  Object.entries(bonuses.flights || {}).forEach(([id, record]) => {
-    const state = String(record?.state || '').toUpperCase();
-    if (state === 'DONE') {
-      next.flights[id] = record;
-      return;
-    }
-    const claim = topPoolClaimIdentity(record?.piePoolKey, record?.piePoolGeneratedAt);
-    if (claim && claimOwners.get(claim) !== id) return;
-    if (completedById.has(id)) {
-      if (Number(record?.amount) > 0) next.flights[id] = {...record, state: 'DONE', status: 'earned', updatedAt: now.toISOString()};
-      return;
-    }
-    if (state === 'LIVE' && Number(record?.amount) > 0 && !liveById.has(id)) {
-      next.flights[id] = {...record, state: 'LIVE', status: 'pending-completion-check', updatedAt: now.toISOString()};
-    }
-  });
+  const next = {version: Number(bonuses.version) || 1, updatedAt: bonuses.updatedAt || '',
+    flights: retainGuaranteedRecords(bonuses.flights || {}, completedById, liveById, claimOwners, now)};
 
   for (const live of [...liveFlights].sort((a, b) =>
     (parseDateMs(a.startedAt) || Number.MAX_SAFE_INTEGER) - (parseDateMs(b.startedAt) || Number.MAX_SAFE_INTEGER)
     || a.id.localeCompare(b.id))) {
+    if (next.flights[live.id]) continue;
     for (const aircraftId of live.aircraftIds) {
       const aircraft = aircraftMaps.byId.get(aircraftId);
       if (!aircraft) continue;
@@ -1145,5 +1156,5 @@ module.exports = {
   loadCompletedFlights, topPoolItemsFromCurrent, topPoolItemsFromPools,
   liveFromCompletedFlight, topPoolMatchForLive, topPoolRecordFields,
   preserveTopPoolClaims, updatePiesLedger,
-  topPoolClaimIdentity, topPoolClaimOwners, reserveTopPoolClaim
+  topPoolClaimIdentity, topPoolClaimOwners, reserveTopPoolClaim, retainGuaranteedRecords
 };

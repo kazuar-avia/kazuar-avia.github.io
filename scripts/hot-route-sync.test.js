@@ -97,6 +97,35 @@ test('a new SCHEDULE takes precedence over an unclaimed demand FREE on refresh',
   assert.deepEqual(next.categories.quick.items.map(row=>[row.aircraftId,row.proposalKind]),[['schedule','schedule']]);
 });
 
+
+test('a confirmed LIVE money bonus keeps its original amount when demand changes', () => {
+  const api = updater();
+  const id = '6ace64180fd87508e1dc2fe9';
+  const record = {amount:265, pilotId:'pilot', aircraftId:'plane', depIcao:'UKLR', arrIcao:'UKKK',
+    route:'UKLR-UKKK', state:'LIVE', status:'matched', proposalType:'free', proposalReason:'inbound-demand'};
+  const retained = api.retainGuaranteedRecords({[id]:record},new Map(),
+    new Map([[id,{id,depIcao:'UKLR',arrIcao:'UKKK'}]]),new Map(),now);
+  assert.strictEqual(retained[id],record);
+});
+
+test('a temporarily missing LIVE bonus recovers and retains its amount after completion', () => {
+  const api = updater();
+  const id = 'flight-in-progress';
+  const record = {amount:265, depIcao:'UKLR', arrIcao:'UKKK',route:'UKLR-UKKK',state:'LIVE',status:'matched'};
+  const pending = api.retainGuaranteedRecords({[id]:record},new Map(),new Map(),new Map(),now);
+  assert.equal(pending[id].status,'pending-completion-check');
+  assert.equal(pending[id].amount,265);
+  const resumed = api.retainGuaranteedRecords(pending,new Map(),new Map([[id,{id}]]),new Map(),now);
+  assert.equal(resumed[id].status,'matched');
+  assert.equal(resumed[id].amount,265);
+  const completed = api.retainGuaranteedRecords(resumed,new Map([[id,{id}]]),new Map(),new Map(),now);
+  assert.equal(completed[id].state,'DONE');
+  assert.equal(completed[id].status,'earned');
+  assert.equal(completed[id].amount,265);
+  assert.equal(completed[id].route,'UKLR-UKKK');
+  assert.equal(completed[id].arrIcao,'UKKK');
+});
+
 test('an existing LIVE reward keeps its original rank, route and premium', () => {
   const original=pool();
   const record={pie:true,pieType:'hot',aircraftId:'plane',pieRank:1,piePoolGeneratedAt:generated,state:'LIVE',status:'matched'};
