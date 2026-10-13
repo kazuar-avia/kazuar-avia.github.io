@@ -1512,6 +1512,165 @@
                         "elev": 392
                     }
                 }
+            },
+            {
+                "_id": "6ace150de2b73bbe59355274",
+                "aircraft": {
+                    "_id": "6a4fa2fb5760ec7cdb629836",
+                    "name": "Boeing 777-200ER",
+                    "customName": "Dry Lease l 777-200ER PW 294 pax",
+                    "icao": "B772"
+                },
+                "type": "pax",
+                "flightNumber": "0777",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 294,
+                    "cargo": 73,
+                    "weights": {
+                        "cargo": 8760
+                    }
+                },
+                "depTime": "2026-10-13T12:05:00.000Z",
+                "duration": 170,
+                "arrTime": "2026-10-13T14:55:00.000Z",
+                "depTimeAct": "2026-10-13T12:05:40.537Z",
+                "delay": -6,
+                "takeoffTimeAct": "2026-10-13T12:19:35.551Z",
+                "durationAct": 150,
+                "arrTimeAct": "2026-10-13T14:49:20.703Z",
+                "open": "2026-10-13T11:31:03.501Z",
+                "close": "2026-10-13T14:51:37.838Z",
+                "rating": 7.32,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1113,
+                        "fuel": 14286,
+                        "expenses": 44032,
+                        "penalties": 6000,
+                        "revenue": 76780,
+                        "balance": 26748,
+                        "prices": {
+                            "ticketPrice": 169,
+                            "cargoUnitPrice": 179,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 294,
+                            "cargo": 73,
+                            "paxByClass": {
+                                "F": 14,
+                                "C": 41,
+                                "Y": 239
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 16151,
+                        "aircraft": 20200,
+                        "handling": 5656,
+                        "landing": 2025
+                    },
+                    "revenue": {
+                        "tickets": 63713,
+                        "cargo": 13067
+                    },
+                    "violations": [
+                        {
+                            "title": "Long landing (1092m from threshold beyond 769m max accepted)",
+                            "penalty": {
+                                "points": -113,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 11
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.83,
+                                        "rate": 537
+                                    },
+                                    "weather": {
+                                        "windDir": 249.42,
+                                        "windSpd": 3.9,
+                                        "windX": 0.05
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Hard touchdown: 2.12G (930 ft/min, normal  conditions)<br/>Distance from threshold: 1092m (accepted range: 192-769m)<br/>Average centerline deviation: 3.49m<br/>Max centerline deviation: 3.75m",
+                            "penalty": {
+                                "points": -155,
+                                "cash": 6000
+                            },
+                            "entry": {
+                                "type": "bounce",
+                                "payload": {
+                                    "system": {
+                                        "fps": 8
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.12,
+                                        "rate": 930
+                                    },
+                                    "weather": {
+                                        "windDir": 249.46,
+                                        "windSpd": 3.91,
+                                        "windX": 0.04
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-13T11:25:01.457Z",
+                "updatedAt": "2026-10-13T14:51:37.930Z",
+                "dep": {
+                    "icao": "LFPG",
+                    "name": "Charles de Gaulle International Airport",
+                    "city": "Paris (Roissy-en-France, Val-d'Oise)",
+                    "location": {
+                        "lat": 49.00896,
+                        "lon": 2.554117,
+                        "elev": 392
+                    }
+                },
+                "arr": {
+                    "icao": "EFHK",
+                    "name": "Helsinki Vantaa Airport",
+                    "city": "Helsinki (Vantaa)",
+                    "location": {
+                        "lat": 60.318363,
+                        "lon": 24.963341,
+                        "elev": 179
+                    }
+                },
+                "actArr": {
+                    "icao": "EFHK",
+                    "name": "Helsinki Vantaa Airport",
+                    "city": "Helsinki (Vantaa)",
+                    "location": {
+                        "lat": 60.318363,
+                        "lon": 24.963341,
+                        "elev": 179
+                    }
+                }
             }
         ]
     },
