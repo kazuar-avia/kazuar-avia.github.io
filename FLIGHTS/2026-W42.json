@@ -5182,6 +5182,195 @@
                         "elev": 16
                     }
                 }
+            },
+            {
+                "_id": "6ace04e1e2b73bbe5933e07a",
+                "aircraft": {
+                    "_id": "695a7ab13dc76275bad3933a",
+                    "name": "Boeing 737-800",
+                    "customName": "SkyLine Express l 737-800 based in UKDE UKLL l UR-SLG",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "647A",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 169,
+                    "cargo": 21,
+                    "weights": {
+                        "cargo": 1281
+                    }
+                },
+                "depTime": "2026-10-13T10:30:00.000Z",
+                "duration": 390,
+                "arrTime": "2026-10-13T17:00:00.000Z",
+                "depTimeAct": "2026-10-13T10:31:12.621Z",
+                "delay": -23,
+                "takeoffTimeAct": "2026-10-13T10:35:06.630Z",
+                "durationAct": 362,
+                "arrTimeAct": "2026-10-13T16:36:42.507Z",
+                "open": "2026-10-13T10:30:12.647Z",
+                "close": "2026-10-13T16:37:58.178Z",
+                "rating": 8.76,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 2574,
+                        "fuel": 15138,
+                        "expenses": 32994,
+                        "penalties": 0,
+                        "revenue": 63375,
+                        "balance": 30381,
+                        "prices": {
+                            "ticketPrice": 333,
+                            "cargoUnitPrice": 338,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 169,
+                            "cargo": 21,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 169
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 17760,
+                        "aircraft": 12550,
+                        "handling": 1574,
+                        "landing": 1110
+                    },
+                    "revenue": {
+                        "tickets": 56277,
+                        "cargo": 7098
+                    },
+                    "violations": [
+                        {
+                            "title": "Long landing (808m from threshold beyond 761m max accepted)",
+                            "penalty": {
+                                "points": -16,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.3,
+                                        "rate": 354
+                                    },
+                                    "weather": {
+                                        "windDir": 209.99,
+                                        "windSpd": 13.51,
+                                        "windX": -3.97
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.30G (354 ft/min, challenging  conditions)<br/>Distance from threshold: 808m (accepted range: 190-761m)<br/>Average centerline deviation: 1.22m<br/>Max centerline deviation: 2.37m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.3,
+                                        "rate": 354
+                                    },
+                                    "weather": {
+                                        "windDir": 209.99,
+                                        "windSpd": 13.51,
+                                        "windX": -3.97
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Max G exceeded: 2.3G (max allowed: 2G)",
+                            "penalty": {
+                                "points": -60,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Min G exceeded: -0.24G (min allowed: 0G)",
+                            "penalty": {
+                                "points": -48,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-13T10:16:01.621Z",
+                "updatedAt": "2026-10-13T16:37:58.295Z",
+                "dep": {
+                    "icao": "SEQM",
+                    "name": "Mariscal Sucre International Airport",
+                    "city": "Quito",
+                    "location": {
+                        "lat": -0.125399,
+                        "lon": -78.354306,
+                        "elev": 7841
+                    }
+                },
+                "arr": {
+                    "icao": "KCLE",
+                    "name": "Cleveland Hopkins International Airport",
+                    "city": "Cleveland",
+                    "location": {
+                        "lat": 41.411701,
+                        "lon": -81.8498,
+                        "elev": 791
+                    }
+                },
+                "actArr": {
+                    "icao": "KCLE",
+                    "name": "Cleveland Hopkins International Airport",
+                    "city": "Cleveland",
+                    "location": {
+                        "lat": 41.411701,
+                        "lon": -81.8498,
+                        "elev": 791
+                    }
+                }
             }
         ]
     },
