@@ -10042,6 +10042,156 @@
                         "elev": 373
                     }
                 }
+            },
+            {
+                "_id": "6acf8e8f0fd87508e1dee940",
+                "aircraft": {
+                    "_id": "6963db883dc76275baca3967",
+                    "name": "Airbus A321",
+                    "customName": "Windrose l A321 based in UKBB UKLL l UR-WRX",
+                    "icao": "A321"
+                },
+                "type": "pax",
+                "flightNumber": "734",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 222,
+                    "cargo": 21,
+                    "weights": {
+                        "cargo": 1428
+                    }
+                },
+                "depTime": "2026-10-14T14:40:00.000Z",
+                "duration": 150,
+                "arrTime": "2026-10-14T17:10:00.000Z",
+                "depTimeAct": "2026-10-14T14:40:05.195Z",
+                "delay": 5,
+                "takeoffTimeAct": "2026-10-14T14:50:33.212Z",
+                "durationAct": 145,
+                "arrTimeAct": "2026-10-14T17:15:24.073Z",
+                "open": "2026-10-14T14:39:04.513Z",
+                "close": "2026-10-14T17:24:23.590Z",
+                "rating": 9.6,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 967,
+                        "fuel": 7729,
+                        "expenses": 15939,
+                        "penalties": 0,
+                        "revenue": 43611,
+                        "balance": 27672,
+                        "prices": {
+                            "ticketPrice": 178,
+                            "cargoUnitPrice": 195,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 222,
+                            "cargo": 21,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 222
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 6991,
+                        "aircraft": 6628,
+                        "handling": 1591,
+                        "landing": 729
+                    },
+                    "revenue": {
+                        "tickets": 39516,
+                        "cargo": 4095
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 6.45m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -40,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 21
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.25G (215 ft/min, normal  conditions)<br/>Distance from threshold: 307m (accepted range: 177-711m)<br/>Average centerline deviation: 2.81m<br/>Max centerline deviation: 6.45m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 22
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.25,
+                                        "rate": 215
+                                    },
+                                    "weather": {
+                                        "windDir": 320.35,
+                                        "windSpd": 9.05,
+                                        "windX": -8.5
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-14T14:15:43.871Z",
+                "updatedAt": "2026-10-14T17:24:23.705Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "LDSP",
+                    "name": "Split Saint Jerome Airport",
+                    "city": "Split",
+                    "location": {
+                        "lat": 43.538898,
+                        "lon": 16.298,
+                        "elev": 79
+                    }
+                },
+                "actArr": {
+                    "icao": "LDSP",
+                    "name": "Split Saint Jerome Airport",
+                    "city": "Split",
+                    "location": {
+                        "lat": 43.538898,
+                        "lon": 16.298,
+                        "elev": 79
+                    }
+                }
             }
         ]
     },
