@@ -3211,6 +3211,161 @@
                         "elev": 177
                     }
                 }
+            },
+            {
+                "_id": "6acf3844e2b73bbe594c72c4",
+                "aircraft": {
+                    "_id": "696285163dc76275ba9ef60c",
+                    "name": "Boeing 737-800",
+                    "customName": "UCAA l 737-800 (pax) based in UKKK l UR-UCA",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "5009",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 183,
+                    "cargo": 30,
+                    "weights": {
+                        "cargo": 3090
+                    }
+                },
+                "depTime": "2026-10-14T08:22:00.000Z",
+                "duration": 85,
+                "arrTime": "2026-10-14T09:47:00.000Z",
+                "depTimeAct": "2026-10-14T08:17:26.224Z",
+                "delay": -29,
+                "takeoffTimeAct": "2026-10-14T08:17:35.763Z",
+                "durationAct": 60,
+                "arrTimeAct": "2026-10-14T09:17:57.255Z",
+                "open": "2026-10-14T08:16:48.740Z",
+                "close": "2026-10-14T09:21:29.289Z",
+                "rating": 9.5,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 403,
+                        "fuel": 2640,
+                        "expenses": 9002,
+                        "penalties": 0,
+                        "revenue": 31605,
+                        "balance": 22603,
+                        "prices": {
+                            "ticketPrice": 145,
+                            "cargoUnitPrice": 169,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 183,
+                            "cargo": 30,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 183
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2985,
+                        "aircraft": 3900,
+                        "handling": 1550,
+                        "landing": 567
+                    },
+                    "revenue": {
+                        "tickets": 26535,
+                        "cargo": 5070
+                    },
+                    "violations": [
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1013mb instead of 1016.9mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    },
+                                    "weather": {
+                                        "windDir": 47.73,
+                                        "windSpd": 12.78,
+                                        "windX": 6.88
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.28G (257 ft/min, challenging  conditions)<br/>Distance from threshold: 497m (accepted range: 171-686m)<br/>Average centerline deviation: 2.10m<br/>Max centerline deviation: 2.92m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 34
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.28,
+                                        "rate": 257
+                                    },
+                                    "weather": {
+                                        "windDir": 344.91,
+                                        "windSpd": 10.45,
+                                        "windX": 10.09
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-14T08:07:32.019Z",
+                "updatedAt": "2026-10-14T09:21:29.943Z",
+                "dep": {
+                    "icao": "UKFF",
+                    "city": "Simferopol",
+                    "location": {
+                        "lat": 45.0522,
+                        "lon": 33.975101,
+                        "elev": 639
+                    },
+                    "name": "Simferopol International Airport"
+                },
+                "arr": {
+                    "icao": "UKKK",
+                    "name": "Igor Sikorsky Kyiv International Airport (Zhuliany)",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.40194,
+                        "lon": 30.45194,
+                        "elev": 587
+                    }
+                },
+                "actArr": {
+                    "icao": "UKKK",
+                    "name": "Igor Sikorsky Kyiv International Airport (Zhuliany)",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.40194,
+                        "lon": 30.45194,
+                        "elev": 587
+                    }
+                }
             }
         ]
     },
