@@ -5317,6 +5317,161 @@
                         "elev": 1071
                     }
                 }
+            },
+            {
+                "_id": "6acec24ce2b73bbe59463ef5",
+                "aircraft": {
+                    "_id": "695a82b73dc76275bad4f381",
+                    "name": "ATR 72-600",
+                    "customName": "Windrose l ATR-72 based in UKBB l UR-RWC",
+                    "icao": "AT76"
+                },
+                "type": "pax",
+                "flightNumber": "123Y",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 72,
+                    "cargo": 16,
+                    "weights": {
+                        "cargo": 976
+                    }
+                },
+                "depTime": "2026-10-14T00:00:00.000Z",
+                "duration": 30,
+                "arrTime": "2026-10-14T00:30:00.000Z",
+                "depTimeAct": "2026-10-13T23:55:50.841Z",
+                "delay": -16,
+                "takeoffTimeAct": "2026-10-13T23:59:11.450Z",
+                "durationAct": 14,
+                "arrTimeAct": "2026-10-14T00:13:35.410Z",
+                "open": "2026-10-13T23:52:06.708Z",
+                "close": "2026-10-14T00:15:24.951Z",
+                "rating": 6,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 45,
+                        "fuel": 195,
+                        "expenses": 2361,
+                        "penalties": 150000,
+                        "revenue": 3520,
+                        "balance": -148841,
+                        "prices": {
+                            "ticketPrice": 40,
+                            "cargoUnitPrice": 40,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.85
+                            }
+                        },
+                        "payload": {
+                            "pax": 72,
+                            "cargo": 16,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 72
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 221,
+                        "aircraft": 1345,
+                        "handling": 368,
+                        "landing": 427
+                    },
+                    "revenue": {
+                        "tickets": 2880,
+                        "cargo": 640
+                    },
+                    "violations": [
+                        {
+                            "title": "Tail strike on takeoff (pitch: 7.8, allowed: 7.5)",
+                            "penalty": {
+                                "points": -400,
+                                "cash": 150000
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 39
+                                    },
+                                    "weather": {
+                                        "windDir": 346.79,
+                                        "windSpd": 9.72,
+                                        "windX": 7.31
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.24G (261 ft/min, normal  conditions)<br/>Distance from threshold: 438m (accepted range: 197-790m)<br/>Average centerline deviation: 0.94m<br/>Max centerline deviation: 1.96m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 41
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.24,
+                                        "rate": 261
+                                    },
+                                    "weather": {
+                                        "windDir": 336.45,
+                                        "windSpd": 3.68,
+                                        "windX": 1.3
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-13T23:44:12.187Z",
+                "updatedAt": "2026-10-14T00:15:25.018Z",
+                "dep": {
+                    "icao": "UKLD",
+                    "city": "Drohobych",
+                    "location": {
+                        "lat": 49.367235,
+                        "lon": 23.568403,
+                        "elev": 902
+                    },
+                    "name": "Drohobych Airfield"
+                },
+                "arr": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "actArr": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                }
             }
         ]
     },
