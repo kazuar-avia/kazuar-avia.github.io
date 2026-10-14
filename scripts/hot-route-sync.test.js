@@ -126,6 +126,39 @@ test('a temporarily missing LIVE bonus recovers and retains its amount after com
   assert.equal(completed[id].arrIcao,'UKKK');
 });
 
+test('a pending bonus expires after two hours without a LIVE or completed flight', () => {
+  const api = updater();
+  const id = '6aceb8cae2b73bbe5945b33c';
+  const started = new Date('2026-10-14T02:50:20.210Z');
+  const record = {state:'LIVE',status:'matched',amount:2811,route:'VIDP-UKBB'};
+  const first = api.retainGuaranteedRecords({[id]:record},new Map(),new Map(),new Map(),started);
+  assert.equal(first[id].pendingSince,started.toISOString());
+  assert.equal(first[id].amount,2811);
+  const before = new Date(started.getTime()+7200000-1);
+  const repeated = api.retainGuaranteedRecords(first,new Map(),new Map(),new Map(),before);
+  assert.strictEqual(repeated[id],first[id]);
+  assert.equal(repeated[id].pendingSince,started.toISOString());
+  const deadline = new Date(started.getTime()+7200000);
+  assert.equal(api.retainGuaranteedRecords(repeated,new Map(),new Map(),new Map(),deadline)[id],undefined);
+  assert.equal(api.pendingBonusExpired(id,repeated[id],new Map(),new Map(),deadline),true);
+  assert.equal(api.retainGuaranteedRecords(repeated,new Map([[id,{id}]]),new Map(),new Map(),deadline)[id].state,'DONE');
+  const returned = api.retainGuaranteedRecords(repeated,new Map(),new Map([[id,{id}]]),new Map(),deadline)[id];
+  assert.equal(returned.status,'matched');
+  assert.equal(returned.pendingSince,undefined);
+  assert.equal(returned.amount,2811);
+});
+
+test('older pending records use their last status update as the expiration timestamp', () => {
+  const api = updater();
+  const id = 'previous-pending';
+  const record = {state:'LIVE',status:'pending-completion-check',amount:622,
+    updatedAt:'2026-10-10T09:10:20.905Z'};
+  const deadline = new Date('2026-10-10T11:10:20.905Z');
+  assert.ok(api.retainGuaranteedRecords({[id]:record},new Map(),new Map(),new Map(),
+    new Date(deadline.getTime()-1))[id]);
+  assert.equal(api.retainGuaranteedRecords({[id]:record},new Map(),new Map(),new Map(),deadline)[id],undefined);
+});
+
 test('an existing LIVE reward keeps its original rank, route and premium', () => {
   const original=pool();
   const record={pie:true,pieType:'hot',aircraftId:'plane',pieRank:1,piePoolGeneratedAt:generated,state:'LIVE',status:'matched'};
