@@ -7508,6 +7508,156 @@
                         "elev": 6
                     }
                 }
+            },
+            {
+                "_id": "6acf4e40e2b73bbe594e2199",
+                "aircraft": {
+                    "_id": "699ae4f09da57b990ac12987",
+                    "name": "Boeing 777 Freighter",
+                    "customName": "UCAA l 777F (cargo) based in UKBB l UR-CRG",
+                    "icao": "B77L"
+                },
+                "type": "cargo",
+                "flightNumber": "68S",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 0,
+                    "cargo": 525,
+                    "weights": {
+                        "cargo": 35175
+                    }
+                },
+                "depTime": "2026-10-14T10:20:00.000Z",
+                "duration": 250,
+                "arrTime": "2026-10-14T14:30:00.000Z",
+                "depTimeAct": "2026-10-14T10:15:46.217Z",
+                "delay": 45,
+                "takeoffTimeAct": "2026-10-14T10:19:24.232Z",
+                "durationAct": 296,
+                "arrTimeAct": "2026-10-14T15:15:23.135Z",
+                "open": "2026-10-14T10:14:35.233Z",
+                "close": "2026-10-14T15:17:32.172Z",
+                "rating": 9.57,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 2325,
+                        "fuel": 29375,
+                        "expenses": 56791,
+                        "penalties": 0,
+                        "revenue": 118125,
+                        "balance": 61334,
+                        "prices": {
+                            "ticketPrice": 219,
+                            "cargoUnitPrice": 225,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 1,
+                                "fuel": 0.8,
+                                "ground": 0.85
+                            }
+                        },
+                        "payload": {
+                            "pax": 0,
+                            "cargo": 525,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 26567,
+                        "aircraft": 27705,
+                        "handling": 919,
+                        "landing": 1600
+                    },
+                    "revenue": {
+                        "tickets": 0,
+                        "cargo": 118125
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 6.57m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -43,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.26G (215 ft/min, normal  conditions)<br/>Distance from threshold: 746m (accepted range: 200-801m)<br/>Average centerline deviation: 2.76m<br/>Max centerline deviation: 6.57m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.26,
+                                        "rate": 215
+                                    },
+                                    "weather": {
+                                        "windDir": 59.98,
+                                        "windSpd": 11.85,
+                                        "windX": 3.01
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-14T09:41:20.751Z",
+                "updatedAt": "2026-10-14T15:17:32.262Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "UACC",
+                    "name": "Nursultan Nazarbayev International Airport",
+                    "city": "Astana",
+                    "location": {
+                        "lat": 51.027035,
+                        "lon": 71.467094,
+                        "elev": 1165
+                    }
+                },
+                "actArr": {
+                    "icao": "UACC",
+                    "name": "Nursultan Nazarbayev International Airport",
+                    "city": "Astana",
+                    "location": {
+                        "lat": 51.027035,
+                        "lon": 71.467094,
+                        "elev": 1165
+                    }
+                }
             }
         ]
     },
