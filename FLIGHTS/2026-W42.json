@@ -7953,6 +7953,161 @@
                     },
                     "name": "Zhytomyr Airport"
                 }
+            },
+            {
+                "_id": "6ad0aa0de2b73bbe59677691",
+                "aircraft": {
+                    "_id": "695a3cec3dc76275bacaaa27",
+                    "name": "Boeing 737-600",
+                    "customName": "Air Onix l 737-600 based in UKFF l UR-KRD",
+                    "icao": "B736"
+                },
+                "type": "pax",
+                "flightNumber": "123P",
+                "free": false,
+                "schedule": false,
+                "charter": true,
+                "payload": {
+                    "pax": 120,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-10-15T10:40:00.000Z",
+                "duration": 70,
+                "arrTime": "2026-10-15T11:50:00.000Z",
+                "depTimeAct": "2026-10-15T10:46:06.380Z",
+                "delay": -7,
+                "takeoffTimeAct": "2026-10-15T10:47:30.018Z",
+                "durationAct": 56,
+                "arrTimeAct": "2026-10-15T11:43:22.751Z",
+                "open": "2026-10-15T10:44:51.761Z",
+                "close": "2026-10-15T11:46:21.582Z",
+                "rating": 8.49,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 339,
+                        "fuel": 2242,
+                        "expenses": 7964,
+                        "penalties": 500,
+                        "revenue": 19716,
+                        "balance": 11252,
+                        "prices": {
+                            "ticketPrice": 159,
+                            "cargoUnitPrice": 194,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 120,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 4,
+                                "Y": 116
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2535,
+                        "aircraft": 4325,
+                        "handling": 600,
+                        "landing": 504
+                    },
+                    "revenue": {
+                        "tickets": 19716,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 9.18m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -24,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "weather": {
+                                        "windDir": 310.01,
+                                        "windSpd": 13.26,
+                                        "windX": 9.82
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Hard touchdown: 2.01G (678 ft/min, challenging  conditions)<br/>Distance from threshold: 173m (accepted range: 140-564m)<br/>Average centerline deviation: 1.50m<br/>Max centerline deviation: 3.62m",
+                            "penalty": {
+                                "points": -127,
+                                "cash": 500
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 36
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.01,
+                                        "rate": 678
+                                    },
+                                    "weather": {
+                                        "windDir": 355.15,
+                                        "windSpd": 3.66,
+                                        "windX": 2.27
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-15T10:25:17.724Z",
+                "updatedAt": "2026-10-15T11:46:21.656Z",
+                "dep": {
+                    "icao": "EPRA",
+                    "name": "Warsaw Radom Airport",
+                    "city": "Radom",
+                    "location": {
+                        "lat": 51.38937,
+                        "lon": 21.214742,
+                        "elev": 610
+                    }
+                },
+                "arr": {
+                    "icao": "UKKV",
+                    "city": "Zhytomyr",
+                    "location": {
+                        "lat": 50.270556,
+                        "lon": 28.738611,
+                        "elev": 722.5
+                    },
+                    "name": "Zhytomyr Airport"
+                },
+                "actArr": {
+                    "icao": "UKKV",
+                    "city": "Zhytomyr",
+                    "location": {
+                        "lat": 50.270556,
+                        "lon": 28.738611,
+                        "elev": 722.5
+                    },
+                    "name": "Zhytomyr Airport"
+                }
             }
         ]
     },
