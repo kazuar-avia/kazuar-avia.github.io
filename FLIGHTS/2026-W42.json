@@ -12572,6 +12572,161 @@
                     },
                     "name": "Zhytomyr Airport"
                 }
+            },
+            {
+                "_id": "6ad0a3e6e2b73bbe5966fe21",
+                "aircraft": {
+                    "_id": "6a4f68e35760ec7cdb5e6c2d",
+                    "name": "Boeing 737-800",
+                    "customName": "SkyUp l 737-800 based in UKLL UKHH UKDE l UR-SQB",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "399Q",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 164,
+                    "cargo": 28,
+                    "weights": {
+                        "cargo": 1708
+                    }
+                },
+                "depTime": "2026-10-15T10:25:00.000Z",
+                "duration": 130,
+                "arrTime": "2026-10-15T12:35:00.000Z",
+                "depTimeAct": "2026-10-15T10:21:10.066Z",
+                "delay": 1,
+                "takeoffTimeAct": "2026-10-15T10:27:09.065Z",
+                "durationAct": 129,
+                "arrTimeAct": "2026-10-15T12:36:02.912Z",
+                "open": "2026-10-15T10:11:41.908Z",
+                "close": "2026-10-15T12:40:19.196Z",
+                "rating": 9.5,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 806,
+                        "fuel": 5632,
+                        "expenses": 13138,
+                        "penalties": 0,
+                        "revenue": 27628,
+                        "balance": 14490,
+                        "prices": {
+                            "ticketPrice": 142,
+                            "cargoUnitPrice": 155,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 164,
+                            "cargo": 28,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 164
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 5094,
+                        "aircraft": 6125,
+                        "handling": 1082,
+                        "landing": 837
+                    },
+                    "revenue": {
+                        "tickets": 23288,
+                        "cargo": 4340
+                    },
+                    "violations": [
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1019mb instead of 1013.25mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 41
+                                    },
+                                    "weather": {
+                                        "windDir": 225,
+                                        "windSpd": 2.75,
+                                        "windX": -2.45
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.26G (272 ft/min, normal  conditions)<br/>Distance from threshold: 507m (accepted range: 208-835m)<br/>Average centerline deviation: 0.96m<br/>Max centerline deviation: 1.52m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 44
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.26,
+                                        "rate": 272
+                                    },
+                                    "weather": {
+                                        "windDir": 224.96,
+                                        "windSpd": 2.75,
+                                        "windX": 1.97
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-15T09:59:02.633Z",
+                "updatedAt": "2026-10-15T12:40:19.278Z",
+                "dep": {
+                    "icao": "UKOO",
+                    "name": "Odesa International Airport",
+                    "city": "Odesa",
+                    "location": {
+                        "lat": 46.427196,
+                        "lon": 30.672649,
+                        "elev": 172
+                    }
+                },
+                "arr": {
+                    "icao": "UDYZ",
+                    "name": "Zvartnots International Airport",
+                    "city": "Yerevan",
+                    "location": {
+                        "lat": 40.148941,
+                        "lon": 44.397887,
+                        "elev": 2838
+                    }
+                },
+                "actArr": {
+                    "icao": "UDYZ",
+                    "name": "Zvartnots International Airport",
+                    "city": "Yerevan",
+                    "location": {
+                        "lat": 40.148941,
+                        "lon": 44.397887,
+                        "elev": 2838
+                    }
+                }
             }
         ]
     },
