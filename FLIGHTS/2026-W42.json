@@ -9551,6 +9551,263 @@
                         "elev": 1165
                     }
                 }
+            },
+            {
+                "_id": "6ad0b006e2b73bbe5967e4c7",
+                "aircraft": {
+                    "_id": "695ebf3c3dc76275ba3e31f1",
+                    "name": "Boeing 777-300ER",
+                    "customName": "SkyLine Express l 777-300ER based in UKBB l UR-AZR",
+                    "icao": "B77W"
+                },
+                "type": "pax",
+                "flightNumber": "563T",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 506,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-10-15T11:05:00.000Z",
+                "duration": 1010,
+                "arrTime": "2026-10-16T03:55:00.000Z",
+                "depTimeAct": "2026-10-15T10:54:14.389Z",
+                "delay": -694,
+                "takeoffTimeAct": "2026-10-15T10:55:56.387Z",
+                "durationAct": 325,
+                "arrTimeAct": "2026-10-15T16:21:08.311Z",
+                "open": "2026-10-15T10:53:15.400Z",
+                "close": "2026-10-15T16:23:47.330Z",
+                "rating": 2.42,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 7537,
+                        "fuel": 124052,
+                        "expenses": 85149,
+                        "penalties": 150000,
+                        "revenue": 135678,
+                        "balance": -99471,
+                        "prices": {
+                            "ticketPrice": 760,
+                            "cargoUnitPrice": 855,
+                            "costScalars": {
+                                "timeAcceleration": 0.348,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 506,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 7,
+                                "Y": 499
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 50371,
+                        "aircraft": 20904,
+                        "handling": 8096,
+                        "landing": 5778
+                    },
+                    "revenue": {
+                        "tickets": 135678,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Tail strike on takeoff (pitch: 9.6, allowed: 9.5)",
+                            "penalty": {
+                                "points": -400,
+                                "cash": 150000
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "weather": {
+                                        "windDir": 280.03,
+                                        "windSpd": 3,
+                                        "windX": 0.95
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline takeoff (deviation 12.05m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -91,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Incorrect flaps for landing",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.16,
+                                        "rate": 126
+                                    },
+                                    "weather": {
+                                        "windDir": 320.01,
+                                        "windSpd": 6.43,
+                                        "windX": -2.05
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Unstable approach below 400ft: vertical speed below -1500 ft/min (actual -1732 ft/min)",
+                            "penalty": {
+                                "points": -116,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (878m from threshold beyond 874m max accepted)",
+                            "penalty": {
+                                "points": -1,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.16,
+                                        "rate": 126
+                                    },
+                                    "weather": {
+                                        "windDir": 320.01,
+                                        "windSpd": 6.43,
+                                        "windX": -2.05
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.16G (126 ft/min, normal  conditions)<br/>Distance from threshold: 878m (accepted range: 218-874m)<br/>Average centerline deviation: 1.93m<br/>Max centerline deviation: 3.89m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.16,
+                                        "rate": 126
+                                    },
+                                    "weather": {
+                                        "windDir": 320.01,
+                                        "windSpd": 6.43,
+                                        "windX": -2.05
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Time acceleration used (2.87x) - reduced revenue",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.16,
+                                        "rate": 126
+                                    },
+                                    "weather": {
+                                        "windDir": 320.01,
+                                        "windSpd": 6.43,
+                                        "windX": -2.05
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-15T10:50:46.382Z",
+                "updatedAt": "2026-10-15T16:23:47.451Z",
+                "dep": {
+                    "icao": "KSFO",
+                    "name": "San Francisco International Airport",
+                    "city": "San Francisco",
+                    "location": {
+                        "lat": 37.619806,
+                        "lon": -122.374821,
+                        "elev": 13
+                    }
+                },
+                "arr": {
+                    "icao": "OMDB",
+                    "name": "Dubai International Airport",
+                    "city": "Dubai",
+                    "location": {
+                        "lat": 25.24979,
+                        "lon": 55.370992,
+                        "elev": 62
+                    }
+                },
+                "actArr": {
+                    "icao": "OMDB",
+                    "name": "Dubai International Airport",
+                    "city": "Dubai",
+                    "location": {
+                        "lat": 25.24979,
+                        "lon": 55.370992,
+                        "elev": 62
+                    }
+                }
             }
         ]
     },
