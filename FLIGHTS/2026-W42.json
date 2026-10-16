@@ -10105,6 +10105,156 @@
                         "elev": 755
                     }
                 }
+            },
+            {
+                "_id": "6ad1e85ce2b73bbe597f8fa8",
+                "aircraft": {
+                    "_id": "695a82b73dc76275bad4f381",
+                    "name": "ATR 72-600",
+                    "customName": "Windrose l ATR-72 based in UKBB l UR-RWC",
+                    "icao": "AT76"
+                },
+                "type": "pax",
+                "flightNumber": "123P",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 72,
+                    "cargo": 9,
+                    "weights": {
+                        "cargo": 963
+                    }
+                },
+                "depTime": "2026-10-16T09:20:00.000Z",
+                "duration": 40,
+                "arrTime": "2026-10-16T10:00:00.000Z",
+                "depTimeAct": "2026-10-16T09:06:38.393Z",
+                "delay": -22,
+                "takeoffTimeAct": "2026-10-16T09:07:40.945Z",
+                "durationAct": 30,
+                "arrTimeAct": "2026-10-16T09:38:01.104Z",
+                "open": "2026-10-16T09:03:47.635Z",
+                "close": "2026-10-16T09:45:57.446Z",
+                "rating": 9.56,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 102,
+                        "fuel": 335,
+                        "expenses": 2584,
+                        "penalties": 0,
+                        "revenue": 4419,
+                        "balance": 1835,
+                        "prices": {
+                            "ticketPrice": 54,
+                            "cargoUnitPrice": 59,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 72,
+                            "cargo": 9,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 72
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 379,
+                        "aircraft": 1605,
+                        "handling": 393,
+                        "landing": 207
+                    },
+                    "revenue": {
+                        "tickets": 3888,
+                        "cargo": 531
+                    },
+                    "violations": [
+                        {
+                            "title": "Great touchdown: 1.24G (237 ft/min, challenging  conditions)<br/>Distance from threshold: 553m (accepted range: 157-630m)<br/>Average centerline deviation: 2.06m<br/>Max centerline deviation: 3.74m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.24,
+                                        "rate": 237
+                                    },
+                                    "weather": {
+                                        "windDir": 339.52,
+                                        "windSpd": 9.86,
+                                        "windX": 7.65
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Max G exceeded: 2.22G (max allowed: 2G)",
+                            "penalty": {
+                                "points": -44,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-16T09:03:24.980Z",
+                "updatedAt": "2026-10-16T09:45:57.514Z",
+                "dep": {
+                    "icao": "UKLR",
+                    "name": "Rivne International Airport",
+                    "city": "Rivne",
+                    "location": {
+                        "lat": 50.607101,
+                        "lon": 26.1416,
+                        "elev": 755
+                    }
+                },
+                "arr": {
+                    "icao": "UKLT",
+                    "city": "Ternopil",
+                    "location": {
+                        "lat": 49.5242,
+                        "lon": 25.7001,
+                        "elev": 1072
+                    },
+                    "name": "Ternopil International Airport"
+                },
+                "actArr": {
+                    "icao": "UKLT",
+                    "city": "Ternopil",
+                    "location": {
+                        "lat": 49.5242,
+                        "lon": 25.7001,
+                        "elev": 1072
+                    },
+                    "name": "Ternopil International Airport"
+                }
             }
         ]
     },
