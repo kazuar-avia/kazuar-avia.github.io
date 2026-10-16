@@ -353,8 +353,8 @@ def is_blocked_airport(airports: Dict[str, dict], icao: str) -> bool:
 def has_sector_surplus(info: dict) -> bool:
     """Use unrounded demand where possible; +0% in the report is ambiguous."""
     if "normal" in info and "raw_current" in info:
-        return info["raw_current"] >= info["normal"] * 0.92
-    return info["percent"] >= -8
+        return info["raw_current"] >= info["normal"] * 0.95
+    return info["percent"] >= -5
 
 
 def largest_deficit_sector(airport: dict, mode: str) -> Optional[dict]:
@@ -958,14 +958,14 @@ def build_output(airports: Dict[str, dict]) -> str:
     lines.append(f"Display cap cargo: >{MAX_DISPLAY_CARGO}t")
     lines.append("")
     lines.append("Outbound filters:")
-    lines.append("- pax origin demand percent must be >= -8%; cargo stays >= 0%")
+    lines.append("- pax origin demand percent must be >= -5%; cargo stays >= 0%")
     lines.append("- target reverse demand percent must be <= 0%")
     lines.append("")
     lines.append("Outbound formula:")
     lines.append(f"- shown amount = round(origin value / {AMOUNT_DIVISOR} * (1 + origin percent / 100))")
     lines.append("")
     lines.append("Inbound logic:")
-    lines.append("- pax: arrival airport has a deficit in ANY sector; source balance must be >= -8% towards arrival")
+    lines.append("- pax: arrival airport has a deficit in ANY sector; source balance must be >= -5% towards arrival")
     lines.append(f"- pax: search radii in {RADIUS_STEP_NM}nm steps, minimum route {MIN_ROUTE_DISTANCE_NM}nm")
     lines.append(f"- pax amount = round(source value / {INBOUND_AMOUNT_DIVISOR}), minimum {MIN_PAX_AMOUNT} pax; cargo uses previous formula")
     lines.append("")
