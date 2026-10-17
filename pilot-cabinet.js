@@ -4349,21 +4349,11 @@ function liveryAirportObjectByIcao(icao, fallbackName = '') {
   return {icao: code, name: fallbackName || aircraft?.locationName || code, city: aircraft?.locationCity || ''};
 }
 
-function liveryBlockSpeedNmPerHour(aircraft, title = '') {
-  const text = `${aircraft?.registration || ''} ${aircraft?.airframeIdent || ''} ${aircraft?.airframeType || ''} ${aircraft?.name || ''} ${newskyAircraftName(aircraft?.id) || ''} ${title}`.toUpperCase();
-  if (/\bAN-?2\b/.test(text) || text.includes('UR-40308')) return 60;
-  if (text.includes('C208') || text.includes('UR-PAX') || text.includes('UR-VAN')) return 150;
-  if (text.includes('F27') || text.includes('F271') || text.includes('UR-KZR')) return 180;
-  if (text.includes('AT42') || text.includes('AT72') || text.includes('AT75') || text.includes('AT76') || text.includes('ATR') || text.includes('UR-RWC') || text.includes('UR-ATR')) return 200;
-  return 400;
-}
-
 function liveryRouteDistanceNmText(from, to, aircraft = null, title = '') {
   const km = liveryAirportDistanceKm(from, to);
   if (!km) return '';
   const nm = Math.max(1, Math.round(km / 1.852));
-  const speed = liveryBlockSpeedNmPerHour(aircraft, title);
-  const blockMinutes = Math.max(10, Math.round((30 + nm / speed * 60) / 10) * 10);
+  const blockMinutes = window.UCAAFlightBlockTime.blockMinutes(nm, aircraft, `${newskyAircraftName(aircraft?.id) || ''} ${title}`);
   const timeText = `${String(Math.floor(blockMinutes / 60)).padStart(2, '0')}:${String(blockMinutes % 60).padStart(2, '0')}`;
   return ` <span class="company-route-block-time" title="BLOCK TIME, ~${nm.toLocaleString('uk-UA')} nm">(~${timeText})</span>`;
 }
@@ -4709,8 +4699,7 @@ function liveryRangeSafeFreeProposal(currentIcao, targetIcao, aircraft, title, m
   if (!airspace?.unavailable && (!range || (routeDistance && routeDistance <= range) || (!routeDistance && !airspace))) {
     const proposal = liveryRouteProposalData('free', 'FREE', current, target, {...meta, aircraft, aircraftTitle: title});
     if (!proposal || !airspace?.detour) return proposal;
-    const speed = liveryBlockSpeedNmPerHour(aircraft, title);
-    const minutes = Math.max(10, Math.round((30 + routeDistance / speed * 60) / 10) * 10);
+    const minutes = window.UCAAFlightBlockTime.blockMinutes(routeDistance, aircraft, `${newskyAircraftName(aircraft?.id) || ''} ${title}`);
     const time = `${String(Math.floor(minutes / 60)).padStart(2, '0')}:${String(minutes % 60).padStart(2, '0')}`;
     return {...proposal, ferryAirspacePoints: airspace.points,
       html: proposal.html.replace(/<span class="company-route-block-time"[^>]*>[^<]*<\/span>/,
@@ -6115,7 +6104,10 @@ function companyFixedTopPoolFleetRouteHtmlForClone(clone, proposal) {
 function applyCompanyFixedTopPoolStatus(clone, item, mode = '') {
   const proposal = item?.proposal || {};
   const fleetRouteHtml = companyFixedTopPoolFleetRouteHtmlForClone(clone, proposal);
-  const routeHtml = fleetRouteHtml || companyFixedTopPoolRouteHtml(item);
+  const fleetTime = /(<span class="company-route-block-time"[^>]*>)[^<]*(<\/span>)/;
+  const routeHtml = fleetRouteHtml && proposal.durationText && fleetTime.test(fleetRouteHtml)
+    ? fleetRouteHtml.replace(fleetTime, `$1(~${esc(proposal.durationText)})$2`)
+    : companyFixedTopPoolRouteHtml(item);
   if (!routeHtml || routeHtml === '—') return;
   let offer = clone.querySelector('.company-livery-status-offer');
   if (!offer && mode === 'quick') {

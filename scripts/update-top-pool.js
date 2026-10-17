@@ -8,6 +8,7 @@ const vm = require('vm');
 const OUTPUT_ROOT = path.resolve(__dirname, '..');
 const COMPANY_DIR = path.join(OUTPUT_ROOT, 'COMPANY');
 const FLIGHTS_DIR = path.join(OUTPUT_ROOT, 'FLIGHTS');
+const flightBlockTime = require(path.join(OUTPUT_ROOT, 'flight-block-time.js'));
 const BONUS_FILE = path.join(COMPANY_DIR, 'guaranteed-bonuses.json');
 const LIVE_URL = 'https://newsky.app/api/airline-api/flights/ongoing';
 const LIVE_DETAIL_URL = 'https://newsky.app/api/airline-api/flight/';
@@ -627,18 +628,8 @@ function parseNowArg() {
   const date = value ? new Date(value) : new Date();
   return Number.isFinite(date.getTime()) ? date : new Date();
 }
-function flightBlockSpeedNmPerHour(aircraft, title = '') {
-  const text = upper(`${aircraft?.airframeIdent || ''} ${aircraft?.airframeType || ''} ${aircraft?.name || ''} ${title}`);
-  if (/\bAN-?2\b/.test(text) || text.includes('UR-40308')) return 60;
-  if (/\bC208\b/.test(text) || text.includes('CESSNA')) return 135;
-  if (/\bAT4|AT42|AT7|AT72|AT76\b/.test(text)) return 240;
-  return 300;
-}
-function blockMinutesForRoute(airports, aircraft, dep, arr) {
-  const nm = distanceNm(airports, dep, arr);
-  const speed = flightBlockSpeedNmPerHour(aircraft);
-  if (!nm || !speed) return 0;
-  return Math.max(10, Math.round((40 + nm / speed * 60) / 10) * 10);
+function blockMinutesForRoute(airports, aircraft, dep, arr, title = '') {
+  return flightBlockTime.blockMinutes(distanceNm(airports, dep, arr), aircraft, title);
 }
 function displayTitle(aircraft = {}) {
   return String(aircraft.displayName || aircraft.title || aircraft.name || aircraft.customName || aircraft.registration || aircraft.id || '').trim();
@@ -691,9 +682,9 @@ function loadHtmlAircraftMeta() {
 function proposalCandidateFromAircraft({aircraft, proposal, amount, airports, htmlMeta}) {
   const dep = upper(proposal?.dep);
   const arr = upper(proposal?.arr);
-  const blockMinutes = blockMinutesForRoute(airports, aircraft, dep, arr);
   const html = htmlMeta || {};
   const title = html.title || displayTitle(aircraft);
+  const blockMinutes = blockMinutesForRoute(airports, aircraft, dep, arr, title);
   const group = html.group || aircraftGroup(aircraft);
   return {
     aircraft,
@@ -827,6 +818,7 @@ function buildTopPool({candidates, completedFlights, now, windowHours, graceHour
     .sort((a, b) => a.blockMinutes - b.blockMinutes || b.ratePerHour - a.ratePerHour || a.aircraftTitle.localeCompare(b.aircraftTitle, 'uk'));
   const hot = hotSchedule.slice(0, 6);
   if (hot.length < 6) hot.push(...hotFallback.slice(0, 6 - hot.length));
+  hot.sort((a, b) => a.blockMinutes - b.blockMinutes || b.ratePerHour - a.ratePerHour || a.aircraftTitle.localeCompare(b.aircraftTitle, 'uk'));
   const cash = [...schedule]
     .sort((a, b) => b.ratePerHour - a.ratePerHour || a.blockMinutes - b.blockMinutes || a.aircraftTitle.localeCompare(b.aircraftTitle, 'uk'))
     .slice(0, 6);
