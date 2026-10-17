@@ -58,13 +58,13 @@ test('only NewSky-demand FREE flights can fill the hot pool', () => {
   const options=[candidate('scheduled',180),candidate('newsky',120,'free'),
     {...candidate('reposition',30,'free'),proposalReason:'schedule-positioning'},
     {...candidate('maintenance',40,'free'),proposalReason:'maintenance-positioning'}];
-  assert.deepEqual(pool(options).categories.quick.items.map(item=>item.aircraftId),['scheduled','newsky']);
+  assert.deepEqual(pool(options).categories.quick.items.map(item=>item.aircraftId),['newsky','scheduled']);
 });
 
-test('shortest SCHEDULE offers come first; FREE only fills remaining places', () => {
+test('selected hot offers are ordered by block time while SCHEDULE keeps selection priority', () => {
   const result = pool([candidate('free-short',60,'free'),candidate('schedule-long',210),
     candidate('schedule-short',90),candidate('too-long',211),candidate('dry',80,'free','dry')]);
-  assert.deepEqual(result.categories.quick.items.map(item=>item.aircraftId),['schedule-short','schedule-long','free-short']);
+  assert.deepEqual(result.categories.quick.items.map(item=>item.aircraftId),['free-short','schedule-short','schedule-long']);
   assert.deepEqual(result.categories.quick.items.map(item=>item.rank),[1,2,3]);
   assert.equal(result.pieRewardRulesVersion,2);
   assert.ok(result.categories.quick.items.every(item=>item.pieRewardRulesVersion===2));
