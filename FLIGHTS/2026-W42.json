@@ -12121,6 +12121,180 @@
                         "elev": 228
                     }
                 }
+            },
+            {
+                "_id": "6ad35ee6e2b73bbe59a0c217",
+                "aircraft": {
+                    "_id": "695a82b73dc76275bad4f381",
+                    "name": "ATR 72-600",
+                    "customName": "Windrose l ATR-72 based in UKBB l UR-RWC",
+                    "icao": "AT76"
+                },
+                "type": "pax",
+                "flightNumber": "123P",
+                "free": false,
+                "schedule": false,
+                "charter": true,
+                "payload": {
+                    "pax": 72,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-10-17T12:00:00.000Z",
+                "duration": 115,
+                "arrTime": "2026-10-17T13:55:00.000Z",
+                "depTimeAct": "2026-10-17T12:03:33.667Z",
+                "delay": -5,
+                "takeoffTimeAct": "2026-10-17T12:06:32.820Z",
+                "durationAct": 103,
+                "arrTimeAct": "2026-10-17T13:49:53.315Z",
+                "open": "2026-10-17T11:50:24.032Z",
+                "close": "2026-10-17T13:52:03.977Z",
+                "rating": 8.3,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 470,
+                        "fuel": 926,
+                        "expenses": 4535,
+                        "penalties": 0,
+                        "revenue": 12024,
+                        "balance": 7489,
+                        "prices": {
+                            "ticketPrice": 167,
+                            "cargoUnitPrice": 199,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 72,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 72
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1087,
+                        "aircraft": 2638,
+                        "handling": 360,
+                        "landing": 450
+                    },
+                    "revenue": {
+                        "tickets": 12024,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Average touchdown: 1.48G (385 ft/min, normal  conditions)<br/>Distance from threshold: 521m (accepted range: 152-612m)<br/>Average centerline deviation: 1.78m<br/>Max centerline deviation: 3.93m",
+                            "penalty": {
+                                "points": -20,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.48,
+                                        "rate": 385
+                                    },
+                                    "weather": {
+                                        "windDir": 140,
+                                        "windSpd": 8.1,
+                                        "windX": -1.14
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 210ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Fuel used 921 kg is lower than estimated minimum 926 kg.",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.48,
+                                        "rate": 385
+                                    },
+                                    "weather": {
+                                        "windDir": 140,
+                                        "windSpd": 8.1,
+                                        "windX": -1.14
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-17T11:41:26.217Z",
+                "updatedAt": "2026-10-17T13:52:04.060Z",
+                "dep": {
+                    "icao": "SBCA",
+                    "name": "Coronel Adalberto Mendes da Silva Airport",
+                    "city": "Cascavel",
+                    "location": {
+                        "lat": -25.000323,
+                        "lon": -53.501208,
+                        "elev": 2481
+                    }
+                },
+                "arr": {
+                    "icao": "SBSP",
+                    "name": "Congonhas–Deputado Freitas Nobre Airport",
+                    "city": "São Paulo",
+                    "location": {
+                        "lat": -23.627657,
+                        "lon": -46.654601,
+                        "elev": 2631
+                    }
+                },
+                "actArr": {
+                    "icao": "SBSP",
+                    "name": "Congonhas–Deputado Freitas Nobre Airport",
+                    "city": "São Paulo",
+                    "location": {
+                        "lat": -23.627657,
+                        "lon": -46.654601,
+                        "elev": 2631
+                    }
+                }
             }
         ]
     },
