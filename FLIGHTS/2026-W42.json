@@ -17480,6 +17480,171 @@
                         "elev": 362
                     }
                 }
+            },
+            {
+                "_id": "6ad3a4000fd87508e1e8976c",
+                "aircraft": {
+                    "_id": "695a3bf33dc76275baca8db5",
+                    "name": "Boeing 737-800",
+                    "customName": "Ukraine Int l 737-800 based in UKBB l UR-UIA",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "97A",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 184,
+                    "cargo": 24,
+                    "weights": {
+                        "cargo": 3336
+                    }
+                },
+                "depTime": "2026-10-17T17:00:00.000Z",
+                "duration": 115,
+                "arrTime": "2026-10-17T18:55:00.000Z",
+                "depTimeAct": "2026-10-17T17:04:33.006Z",
+                "delay": 16,
+                "takeoffTimeAct": "2026-10-17T17:10:00.007Z",
+                "durationAct": 121,
+                "arrTimeAct": "2026-10-17T19:10:47.781Z",
+                "open": "2026-10-17T16:50:23.135Z",
+                "close": "2026-10-17T19:16:30.462Z",
+                "rating": 8.13,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 671,
+                        "fuel": 5807,
+                        "expenses": 16347,
+                        "penalties": 0,
+                        "revenue": 28440,
+                        "balance": 12093,
+                        "prices": {
+                            "ticketPrice": 135,
+                            "cargoUnitPrice": 150,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 184,
+                            "cargo": 24,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 184
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 6565,
+                        "aircraft": 6375,
+                        "handling": 1667,
+                        "landing": 1740
+                    },
+                    "revenue": {
+                        "tickets": 24840,
+                        "cargo": 3600
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 6.46m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -35,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 13.38m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -152,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 23
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.29G (408 ft/min, normal  conditions)<br/>Distance from threshold: 509m (accepted range: 202-811m)<br/>Average centerline deviation: 5.89m<br/>Max centerline deviation: 13.38m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 23
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.29,
+                                        "rate": 408
+                                    },
+                                    "weather": {
+                                        "windDir": 349.36,
+                                        "windSpd": 5.49,
+                                        "windX": -5.32
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-17T16:36:16.423Z",
+                "updatedAt": "2026-10-17T19:16:30.555Z",
+                "dep": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                },
+                "arr": {
+                    "icao": "EBBR",
+                    "name": "Brussels Airport",
+                    "city": "Zaventem",
+                    "location": {
+                        "lat": 50.901402,
+                        "lon": 4.48444,
+                        "elev": 175
+                    }
+                },
+                "actArr": {
+                    "icao": "EBBR",
+                    "name": "Brussels Airport",
+                    "city": "Zaventem",
+                    "location": {
+                        "lat": 50.901402,
+                        "lon": 4.48444,
+                        "elev": 175
+                    }
+                }
             }
         ]
     },
