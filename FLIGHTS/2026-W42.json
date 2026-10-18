@@ -16850,6 +16850,189 @@
                         "elev": 8
                     }
                 }
+            },
+            {
+                "_id": "6ad4e316e2b73bbe59c7ed1b",
+                "aircraft": {
+                    "_id": "69ff231aa5e61d69a71c50f5",
+                    "name": "Airbus A340-600",
+                    "customName": "Dry Lease l Toliss A340-600 msfs l 440 pax in 3 class",
+                    "icao": "A346"
+                },
+                "type": "pax",
+                "flightNumber": "288K",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 440,
+                    "cargo": 96,
+                    "weights": {
+                        "cargo": 12864
+                    }
+                },
+                "depTime": "2026-10-18T15:30:00.000Z",
+                "duration": 105,
+                "arrTime": "2026-10-18T17:15:00.000Z",
+                "depTimeAct": "2026-10-18T15:44:00.513Z",
+                "delay": 6,
+                "takeoffTimeAct": "2026-10-18T15:44:00.513Z",
+                "durationAct": 97,
+                "arrTimeAct": "2026-10-18T17:20:46.497Z",
+                "open": "2026-10-18T15:36:53.526Z",
+                "close": "2026-10-18T17:23:06.389Z",
+                "rating": 8.21,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 654,
+                        "fuel": 13195,
+                        "expenses": 42618,
+                        "penalties": 0,
+                        "revenue": 78264,
+                        "balance": 35646,
+                        "prices": {
+                            "ticketPrice": 132,
+                            "cargoUnitPrice": 147,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 440,
+                            "cargo": 96,
+                            "paxByClass": {
+                                "F": 8,
+                                "C": 22,
+                                "Y": 410
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 14917,
+                        "aircraft": 19908,
+                        "handling": 5768,
+                        "landing": 2025
+                    },
+                    "revenue": {
+                        "tickets": 64152,
+                        "cargo": 14112
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 5.65m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -27,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "weather": {
+                                        "windDir": 190.01,
+                                        "windSpd": 6,
+                                        "windX": -0.61
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 4.95m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -11,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 22
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Uncomfortable touchdown: 1.84G (205 ft/min, normal  conditions)<br/>Distance from threshold: 472m (accepted range: 203-815m)<br/>Average centerline deviation: 2.46m<br/>Max centerline deviation: 4.95m",
+                            "penalty": {
+                                "points": -98,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 21
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.84,
+                                        "rate": 205
+                                    },
+                                    "weather": {
+                                        "windDir": 300,
+                                        "windSpd": 5.25,
+                                        "windX": -2.74
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No NAV lights for 198s when required",
+                            "penalty": {
+                                "points": -43,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-18T15:17:42.886Z",
+                "updatedAt": "2026-10-18T17:23:06.465Z",
+                "dep": {
+                    "icao": "ENGM",
+                    "name": "Oslo-Gardermoen International Airport",
+                    "city": "Oslo (Gardermoen)",
+                    "location": {
+                        "lat": 60.193901,
+                        "lon": 11.1004,
+                        "elev": 681
+                    }
+                },
+                "arr": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                },
+                "actArr": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                }
             }
         ]
     },
