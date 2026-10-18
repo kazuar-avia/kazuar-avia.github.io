@@ -26318,6 +26318,180 @@
                     },
                     "name": "Simferopol International Airport"
                 }
+            },
+            {
+                "_id": "6ad4bf62e2b73bbe59c30350",
+                "aircraft": {
+                    "_id": "6a4f8c7c5760ec7cdb60d2ea",
+                    "name": "Boeing 737-800",
+                    "customName": "Aerosvit l 737-800 based in UKBB l UR-AAN",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "082M",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 159,
+                    "cargo": 1,
+                    "weights": {
+                        "cargo": 82
+                    }
+                },
+                "depTime": "2026-10-18T13:00:00.000Z",
+                "duration": 305,
+                "arrTime": "2026-10-18T18:05:00.000Z",
+                "depTimeAct": "2026-10-18T12:58:15.958Z",
+                "delay": 60,
+                "takeoffTimeAct": "2026-10-18T13:07:27.719Z",
+                "durationAct": 358,
+                "arrTimeAct": "2026-10-18T19:05:04.743Z",
+                "open": "2026-10-18T12:55:53.095Z",
+                "close": "2026-10-18T19:13:29.126Z",
+                "rating": 7.07,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 2637,
+                        "fuel": 15781,
+                        "expenses": 28345,
+                        "penalties": 17000,
+                        "revenue": 47689,
+                        "balance": 2344,
+                        "prices": {
+                            "ticketPrice": 262,
+                            "cargoUnitPrice": 267,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 159,
+                            "cargo": 1,
+                            "paxByClass": {
+                                "F": 2,
+                                "C": 16,
+                                "Y": 141
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 14273,
+                        "aircraft": 11850,
+                        "handling": 1115,
+                        "landing": 1107
+                    },
+                    "revenue": {
+                        "tickets": 47422,
+                        "cargo": 267
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 5.42m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -23,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "spoilers",
+                                "payload": {
+                                    "system": {
+                                        "fps": 39
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Short landing (130m from threshold before 217m min accepted)",
+                            "penalty": {
+                                "points": -60,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 39
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.34,
+                                        "rate": 866
+                                    },
+                                    "weather": {
+                                        "windDir": 200,
+                                        "windSpd": 1.05,
+                                        "windX": 0.62
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Bad touchdown: 2.34G (866 ft/min, normal  conditions)<br/>Distance from threshold: 130m (accepted range: 217-870m)<br/>Average centerline deviation: 4.05m<br/>Max centerline deviation: 5.42m",
+                            "penalty": {
+                                "points": -210,
+                                "cash": 17000
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 39
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.34,
+                                        "rate": 866
+                                    },
+                                    "weather": {
+                                        "windDir": 200,
+                                        "windSpd": 1.05,
+                                        "windX": 0.62
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-18T12:45:22.374Z",
+                "updatedAt": "2026-10-18T19:13:29.253Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "UAAA",
+                    "name": "Almaty International Airport",
+                    "city": "Almaty",
+                    "location": {
+                        "lat": 43.354267,
+                        "lon": 77.042828,
+                        "elev": 2234
+                    }
+                },
+                "actArr": {
+                    "icao": "UAAA",
+                    "name": "Almaty International Airport",
+                    "city": "Almaty",
+                    "location": {
+                        "lat": 43.354267,
+                        "lon": 77.042828,
+                        "elev": 2234
+                    }
+                }
             }
         ]
     },
