@@ -3092,6 +3092,171 @@
                         "elev": 1071
                     }
                 }
+            },
+            {
+                "_id": "6ad63dfb7ea2608c2a14238a",
+                "aircraft": {
+                    "_id": "695a63363dc76275bacff63f",
+                    "name": "Boeing 777-200ER",
+                    "customName": "Ukraine Int l 777-200ER based in UKBB l UR-GOA",
+                    "icao": "B772"
+                },
+                "type": "pax",
+                "flightNumber": "20W",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 349,
+                    "cargo": 41,
+                    "weights": {
+                        "cargo": 2952
+                    }
+                },
+                "depTime": "2026-10-19T16:25:00.000Z",
+                "duration": 155,
+                "arrTime": "2026-10-19T19:00:00.000Z",
+                "depTimeAct": "2026-10-19T16:20:29.822Z",
+                "delay": -26,
+                "takeoffTimeAct": "2026-10-19T16:26:57.886Z",
+                "durationAct": 127,
+                "arrTimeAct": "2026-10-19T18:34:26.704Z",
+                "open": "2026-10-19T16:08:04.832Z",
+                "close": "2026-10-19T18:41:14.310Z",
+                "rating": 9.42,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 948,
+                        "fuel": 13241,
+                        "expenses": 33861,
+                        "penalties": 0,
+                        "revenue": 81917,
+                        "balance": 48056,
+                        "prices": {
+                            "ticketPrice": 161,
+                            "cargoUnitPrice": 172,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 349,
+                            "cargo": 41,
+                            "paxByClass": {
+                                "F": 22,
+                                "C": 50,
+                                "Y": 277
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 11976,
+                        "aircraft": 17885,
+                        "handling": 2515,
+                        "landing": 1485
+                    },
+                    "revenue": {
+                        "tickets": 74865,
+                        "cargo": 7052
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 4.85m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -14,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 44
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.33G (299 ft/min, normal  conditions)<br/>Distance from threshold: 529m (accepted range: 189-758m)<br/>Average centerline deviation: 2.58m<br/>Max centerline deviation: 4.85m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 33
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.33,
+                                        "rate": 299
+                                    },
+                                    "weather": {
+                                        "windDir": 279.5,
+                                        "windSpd": 4.43,
+                                        "windX": 3.51
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Max G exceeded: 2.22G (max allowed: 2G)",
+                            "penalty": {
+                                "points": -44,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 49
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-19T15:57:47.939Z",
+                "updatedAt": "2026-10-19T18:41:15.004Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "LCLK",
+                    "name": "Larnaca International Airport",
+                    "city": "Larnaca",
+                    "location": {
+                        "lat": 34.875099,
+                        "lon": 33.624901,
+                        "elev": 8
+                    }
+                },
+                "actArr": {
+                    "icao": "LCLK",
+                    "name": "Larnaca International Airport",
+                    "city": "Larnaca",
+                    "location": {
+                        "lat": 34.875099,
+                        "lon": 33.624901,
+                        "elev": 8
+                    }
+                }
             }
         ]
     },
