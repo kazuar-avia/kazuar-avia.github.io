@@ -153,6 +153,156 @@
                         "elev": 82
                     }
                 }
+            },
+            {
+                "_id": "6ad5bdd2e2b73bbe59d9a57c",
+                "aircraft": {
+                    "_id": "6ad5282fe2b73bbe59d145e1",
+                    "name": "Boeing 737-200",
+                    "customName": "737-200",
+                    "icao": "B732"
+                },
+                "type": "pax",
+                "flightNumber": "4025",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 123,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-10-19T07:30:00.000Z",
+                "duration": 90,
+                "arrTime": "2026-10-19T09:00:00.000Z",
+                "depTimeAct": "2026-10-19T07:24:48.091Z",
+                "delay": -9,
+                "takeoffTimeAct": "2026-10-19T07:42:10.775Z",
+                "durationAct": 68,
+                "arrTimeAct": "2026-10-19T08:50:34.407Z",
+                "open": "2026-10-19T07:23:35.345Z",
+                "close": "2026-10-19T09:02:12.576Z",
+                "rating": 8.5,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 391,
+                        "fuel": 3002,
+                        "expenses": 9045,
+                        "penalties": 0,
+                        "revenue": 14145,
+                        "balance": 5100,
+                        "prices": {
+                            "ticketPrice": 115,
+                            "cargoUnitPrice": 135,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 123,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 123
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2716,
+                        "aircraft": 4190,
+                        "handling": 861,
+                        "landing": 1278
+                    },
+                    "revenue": {
+                        "tickets": 14145,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Great touchdown: 1.23G (246 ft/min, challenging  conditions)<br/>Distance from threshold: 491m (accepted range: 203-816m)<br/>Average centerline deviation: 1.94m<br/>Max centerline deviation: 3.05m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 69
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.23,
+                                        "rate": 246
+                                    },
+                                    "weather": {
+                                        "windDir": 174.43,
+                                        "windSpd": 8.33,
+                                        "windX": -2.75
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 524ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 72
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-19T06:50:58.716Z",
+                "updatedAt": "2026-10-19T09:02:12.652Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "UKFF",
+                    "city": "Simferopol",
+                    "location": {
+                        "lat": 45.0522,
+                        "lon": 33.975101,
+                        "elev": 639
+                    },
+                    "name": "Simferopol International Airport"
+                },
+                "actArr": {
+                    "icao": "UKFF",
+                    "city": "Simferopol",
+                    "location": {
+                        "lat": 45.0522,
+                        "lon": 33.975101,
+                        "elev": 639
+                    },
+                    "name": "Simferopol International Airport"
+                }
             }
         ]
     },
