@@ -3119,6 +3119,180 @@
                         "elev": 1417
                     }
                 }
+            },
+            {
+                "_id": "6ad63bfdf7e01a7089cbd5d3",
+                "aircraft": {
+                    "_id": "6a4f8c7c5760ec7cdb60d2ea",
+                    "name": "Boeing 737-800",
+                    "customName": "Aerosvit l 737-800 based in UKBB l UR-AAN",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "177N",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 174,
+                    "cargo": 18,
+                    "weights": {
+                        "cargo": 1296
+                    }
+                },
+                "depTime": "2026-10-19T16:05:00.000Z",
+                "duration": 70,
+                "arrTime": "2026-10-19T17:15:00.000Z",
+                "depTimeAct": "2026-10-19T16:09:54.111Z",
+                "delay": 2,
+                "takeoffTimeAct": "2026-10-19T16:14:28.306Z",
+                "durationAct": 62,
+                "arrTimeAct": "2026-10-19T17:16:33.655Z",
+                "open": "2026-10-19T16:02:32.906Z",
+                "close": "2026-10-19T17:20:52.628Z",
+                "rating": 8.14,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 347,
+                        "fuel": 3061,
+                        "expenses": 9004,
+                        "penalties": 0,
+                        "revenue": 24768,
+                        "balance": 15764,
+                        "prices": {
+                            "ticketPrice": 113,
+                            "cargoUnitPrice": 133,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.7,
+                                "fuel": 0.8,
+                                "ground": 0.7
+                            }
+                        },
+                        "payload": {
+                            "pax": 174,
+                            "cargo": 18,
+                            "paxByClass": {
+                                "F": 2,
+                                "C": 18,
+                                "Y": 154
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2769,
+                        "aircraft": 4125,
+                        "handling": 1249,
+                        "landing": 861
+                    },
+                    "revenue": {
+                        "tickets": 22374,
+                        "cargo": 2394
+                    },
+                    "violations": [
+                        {
+                            "title": "Long landing (940m from threshold beyond 838m max accepted)",
+                            "penalty": {
+                                "points": -36,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 41
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.26,
+                                        "rate": 269
+                                    },
+                                    "weather": {
+                                        "windDir": 113.22,
+                                        "windSpd": 2.66,
+                                        "windX": 1.07
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.26G (269 ft/min, challenging  conditions)<br/>Distance from threshold: 940m (accepted range: 209-838m)<br/>Average centerline deviation: 1.07m<br/>Max centerline deviation: 3.35m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 41
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.26,
+                                        "rate": 269
+                                    },
+                                    "weather": {
+                                        "windDir": 113.22,
+                                        "windSpd": 2.66,
+                                        "windX": 1.07
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 617ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 35
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-19T15:49:17.435Z",
+                "updatedAt": "2026-10-19T17:20:52.709Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "UKCC",
+                    "city": "Donetsk",
+                    "location": {
+                        "lat": 48.075072,
+                        "lon": 37.72527,
+                        "elev": 791
+                    },
+                    "name": "Donetsk Sergei Prokofiev International Airport"
+                },
+                "actArr": {
+                    "icao": "UKCC",
+                    "city": "Donetsk",
+                    "location": {
+                        "lat": 48.075072,
+                        "lon": 37.72527,
+                        "elev": 791
+                    },
+                    "name": "Donetsk Sergei Prokofiev International Airport"
+                }
             }
         ]
     },
