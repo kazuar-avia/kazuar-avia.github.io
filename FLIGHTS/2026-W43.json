@@ -3261,6 +3261,147 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6ad6322af7e01a7089cac3d6",
+                "aircraft": {
+                    "_id": "6a4fa15e5760ec7cdb627803",
+                    "name": "Boeing 737-800",
+                    "customName": "Dry Lease l BOEING 737-800",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "0210",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 178,
+                    "cargo": 18,
+                    "weights": {
+                        "cargo": 1296
+                    }
+                },
+                "depTime": "2026-10-19T15:40:00.000Z",
+                "duration": 60,
+                "arrTime": "2026-10-19T16:40:00.000Z",
+                "depTimeAct": "2026-10-19T15:33:32.755Z",
+                "delay": -3,
+                "takeoffTimeAct": "2026-10-19T15:41:37.772Z",
+                "durationAct": 55,
+                "arrTimeAct": "2026-10-19T16:36:43.825Z",
+                "open": "2026-10-19T15:11:38.606Z",
+                "close": "2026-10-19T16:37:58.411Z",
+                "rating": 0,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 284,
+                        "fuel": 2544,
+                        "expenses": 9906,
+                        "penalties": 1000000,
+                        "revenue": 21938,
+                        "balance": -987968,
+                        "prices": {
+                            "ticketPrice": 110,
+                            "cargoUnitPrice": 131,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 178,
+                            "cargo": 18,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 178
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2876,
+                        "aircraft": 4875,
+                        "handling": 1255,
+                        "landing": 900
+                    },
+                    "revenue": {
+                        "tickets": 19580,
+                        "cargo": 2358
+                    },
+                    "violations": [
+                        {
+                            "title": "Crashed on landing: Landing not on the runway",
+                            "penalty": {
+                                "points": -1000,
+                                "cash": 1000000
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    },
+                                    "touchDown": {
+                                        "gForce": 18.81,
+                                        "rate": 16421
+                                    },
+                                    "weather": {
+                                        "windDir": 251.22,
+                                        "windSpd": 55.94,
+                                        "windX": -2.2
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Max G exceeded: 2.63G (max allowed: 2G)",
+                            "penalty": {
+                                "points": -126,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-19T15:07:22.981Z",
+                "updatedAt": "2026-10-19T16:37:58.496Z",
+                "dep": {
+                    "icao": "EFRO",
+                    "name": "Rovaniemi Airport",
+                    "city": "Rovaniemi",
+                    "location": {
+                        "lat": 66.563327,
+                        "lon": 25.829751,
+                        "elev": 642
+                    }
+                },
+                "arr": {
+                    "icao": "ENTC",
+                    "name": "Tromsø Airport",
+                    "city": "Tromsø",
+                    "location": {
+                        "lat": 69.683296,
+                        "lon": 18.9189,
+                        "elev": 31
+                    }
+                },
+                "actArr": null
             }
         ]
     },
