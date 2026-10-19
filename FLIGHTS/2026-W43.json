@@ -1743,6 +1743,165 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6ad6360e7ea2608c2a140897",
+                "aircraft": {
+                    "_id": "695a3bf33dc76275baca8db5",
+                    "name": "Boeing 737-800",
+                    "customName": "Ukraine Int l 737-800 based in UKBB l UR-UIA",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "192",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 184,
+                    "cargo": 18,
+                    "weights": {
+                        "cargo": 1296
+                    }
+                },
+                "depTime": "2026-10-19T15:45:00.000Z",
+                "duration": 160,
+                "arrTime": "2026-10-19T18:25:00.000Z",
+                "depTimeAct": "2026-10-19T15:48:13.573Z",
+                "delay": 2,
+                "takeoffTimeAct": "2026-10-19T15:53:35.990Z",
+                "durationAct": 154,
+                "arrTimeAct": "2026-10-19T18:27:16.802Z",
+                "open": "2026-10-19T15:43:03.170Z",
+                "close": "2026-10-19T18:30:16.253Z",
+                "rating": 9.26,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1084,
+                        "fuel": 7231,
+                        "expenses": 14921,
+                        "penalties": 0,
+                        "revenue": 38650,
+                        "balance": 23729,
+                        "prices": {
+                            "ticketPrice": 190,
+                            "cargoUnitPrice": 205,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 184,
+                            "cargo": 18,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 184
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 6540,
+                        "aircraft": 6225,
+                        "handling": 1319,
+                        "landing": 837
+                    },
+                    "revenue": {
+                        "tickets": 34960,
+                        "cargo": 3690
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 7.51m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -44,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.52,
+                                        "rate": 447
+                                    },
+                                    "weather": {
+                                        "windDir": 13.14,
+                                        "windSpd": 3.43,
+                                        "windX": -3.33
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.52G (447 ft/min, normal  conditions)<br/>Distance from threshold: 578m (accepted range: 206-827m)<br/>Average centerline deviation: 3.78m<br/>Max centerline deviation: 7.51m",
+                            "penalty": {
+                                "points": -30,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.52,
+                                        "rate": 447
+                                    },
+                                    "weather": {
+                                        "windDir": 13.14,
+                                        "windSpd": 3.43,
+                                        "windX": -3.33
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-19T15:23:58.049Z",
+                "updatedAt": "2026-10-19T18:30:16.355Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "UDYZ",
+                    "name": "Zvartnots International Airport",
+                    "city": "Yerevan",
+                    "location": {
+                        "lat": 40.148941,
+                        "lon": 44.397887,
+                        "elev": 2838
+                    }
+                },
+                "actArr": {
+                    "icao": "UDYZ",
+                    "name": "Zvartnots International Airport",
+                    "city": "Yerevan",
+                    "location": {
+                        "lat": 40.148941,
+                        "lon": 44.397887,
+                        "elev": 2838
+                    }
+                }
             }
         ]
     },
