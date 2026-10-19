@@ -1,0 +1,159 @@
+[
+    {
+        "pilot_id": "69ea36d0a5e61d69a7350b79",
+        "fullname": "Volodymyr Kotliarskyi",
+        "avatar": "default",
+        "flights": [
+            {
+                "_id": "6ad5486ee2b73bbe59d3e4b2",
+                "aircraft": {
+                    "_id": "6a4fa2fb5760ec7cdb629836",
+                    "name": "Boeing 777-200ER",
+                    "customName": "Dry Lease l 777-200ER PW 294 pax",
+                    "icao": "B772"
+                },
+                "type": "pax",
+                "flightNumber": "1841",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 294,
+                    "cargo": 41,
+                    "weights": {
+                        "cargo": 5576
+                    }
+                },
+                "depTime": "2026-10-18T23:30:00.000Z",
+                "duration": 425,
+                "arrTime": "2026-10-19T06:35:00.000Z",
+                "depTimeAct": "2026-10-18T23:36:32.958Z",
+                "delay": -78,
+                "takeoffTimeAct": "2026-10-18T23:54:45.937Z",
+                "durationAct": 322,
+                "arrTimeAct": "2026-10-19T05:16:32.394Z",
+                "open": "2026-10-18T23:01:18.047Z",
+                "close": "2026-10-19T05:25:00.924Z",
+                "rating": 9.78,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 2923,
+                        "fuel": 37993,
+                        "expenses": 81368,
+                        "penalties": 0,
+                        "revenue": 157873,
+                        "balance": 76505,
+                        "prices": {
+                            "ticketPrice": 377,
+                            "cargoUnitPrice": 384,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 294,
+                            "cargo": 41,
+                            "paxByClass": {
+                                "F": 14,
+                                "C": 41,
+                                "Y": 239
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 43400,
+                        "aircraft": 30655,
+                        "handling": 5313,
+                        "landing": 2000
+                    },
+                    "revenue": {
+                        "tickets": 142129,
+                        "cargo": 15744
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 5.34m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -22,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 78
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.35G (238 ft/min, normal  conditions)<br/>Distance from threshold: 283m (accepted range: 191-767m)<br/>Average centerline deviation: 1.42m<br/>Max centerline deviation: 5.34m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 72
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.35,
+                                        "rate": 238
+                                    },
+                                    "weather": {
+                                        "windDir": 271.75,
+                                        "windSpd": 6.36,
+                                        "windX": -0.79
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-18T22:30:06.861Z",
+                "updatedAt": "2026-10-19T05:25:01.079Z",
+                "dep": {
+                    "icao": "OTHH",
+                    "name": "Hamad International Airport",
+                    "city": "Doha",
+                    "location": {
+                        "lat": 25.273056,
+                        "lon": 51.608056,
+                        "elev": 13
+                    }
+                },
+                "arr": {
+                    "icao": "VTSP",
+                    "name": "Phuket International Airport",
+                    "city": "Phuket",
+                    "location": {
+                        "lat": 8.113257,
+                        "lon": 98.3174,
+                        "elev": 82
+                    }
+                },
+                "actArr": {
+                    "icao": "VTSP",
+                    "name": "Phuket International Airport",
+                    "city": "Phuket",
+                    "location": {
+                        "lat": 8.113257,
+                        "lon": 98.3174,
+                        "elev": 82
+                    }
+                }
+            }
+        ]
+    }
+]
