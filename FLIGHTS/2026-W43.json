@@ -5494,6 +5494,161 @@
                         "elev": 399
                     }
                 }
+            },
+            {
+                "_id": "6ad742eff7e01a7089dcaee8",
+                "aircraft": {
+                    "_id": "6963db883dc76275baca3967",
+                    "name": "Airbus A321",
+                    "customName": "Windrose l A321 based in UKBB UKLL l UR-WRX",
+                    "icao": "A321"
+                },
+                "type": "pax",
+                "flightNumber": "896Q",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 210,
+                    "cargo": 23,
+                    "weights": {
+                        "cargo": 2668
+                    }
+                },
+                "depTime": "2026-10-20T10:45:00.000Z",
+                "duration": 120,
+                "arrTime": "2026-10-20T12:45:00.000Z",
+                "depTimeAct": "2026-10-20T10:41:07.306Z",
+                "delay": -1,
+                "takeoffTimeAct": "2026-10-20T10:50:37.210Z",
+                "durationAct": 113,
+                "arrTimeAct": "2026-10-20T12:43:47.502Z",
+                "open": "2026-10-20T10:31:15.628Z",
+                "close": "2026-10-20T12:50:39.606Z",
+                "rating": 9.92,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 733,
+                        "fuel": 5647,
+                        "expenses": 16634,
+                        "penalties": 0,
+                        "revenue": 32476,
+                        "balance": 15842,
+                        "prices": {
+                            "ticketPrice": 138,
+                            "cargoUnitPrice": 152,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.85
+                            }
+                        },
+                        "payload": {
+                            "pax": 210,
+                            "cargo": 23,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 210
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 6384,
+                        "aircraft": 6563,
+                        "handling": 2322,
+                        "landing": 1365
+                    },
+                    "revenue": {
+                        "tickets": 28980,
+                        "cargo": 3496
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 4.65m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -8,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 48
+                                    },
+                                    "weather": {
+                                        "windDir": 90.01,
+                                        "windSpd": 9.62,
+                                        "windX": -3.54
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.50G (366 ft/min, challenging  conditions)<br/>Distance from threshold: 441m (accepted range: 209-838m)<br/>Average centerline deviation: 2.25m<br/>Max centerline deviation: 4.88m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 21
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.5,
+                                        "rate": 366
+                                    },
+                                    "weather": {
+                                        "windDir": 97.39,
+                                        "windSpd": 13.74,
+                                        "windX": -12.65
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-20T10:31:11.527Z",
+                "updatedAt": "2026-10-20T12:50:39.685Z",
+                "dep": {
+                    "icao": "EDDB",
+                    "name": "Berlin Brandenburg Airport",
+                    "city": "Berlin",
+                    "location": {
+                        "lat": 52.361738,
+                        "lon": 13.502341,
+                        "elev": 157
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
             }
         ]
     },
