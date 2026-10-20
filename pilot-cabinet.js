@@ -6596,7 +6596,7 @@ function renderCompanyFixedTopPoolItems(grid, mode, sourceCards, headingTitle, m
   const items = Array.isArray(category?.items) ? category.items : [];
   if (!category || (!items.length && mode !== 'quick')) return false;
   const activeItems = mode === 'quick' ? items.filter(companyFixedTopPoolHotItemAllowed) : items;
-  const livePieRows = companyFixedTopPoolLivePieItems(mode, sourceCards)
+  const livePieRows = mode === 'idle' ? [] : companyFixedTopPoolLivePieItems(mode, sourceCards)
     .filter(row => mode !== 'quick' || companyLiveHotCardAllowed(row.card));
   // A claim may have several NewSky flight IDs; the TOP shows one card per aircraft.
   const uniqueLivePieRows = [];
