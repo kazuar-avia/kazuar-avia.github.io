@@ -2998,14 +2998,38 @@ async function loadCompanyCharterDemand(cacheMode = 'default') {
   }
 }
 
+
+function applyCompanyAircraftReroutes(matching, data, flights) {
+  const entries = data?.aircraft;
+  const liveries = Array.isArray(matching?.liveries) ? matching.liveries : [];
+  if (!entries || typeof entries !== 'object' || Array.isArray(entries)) return;
+  for (const livery of liveries) {
+    const aircraftId = String(livery?._id || livery?.aircraftId || '').trim();
+    const override = entries[aircraftId];
+    const icao = String(override?.icao || '').trim().toUpperCase();
+    const updatedAt = Date.parse(override?.updatedAt || '');
+    if (!/^[A-Z0-9]{4}$/.test(icao) || !Number.isFinite(updatedAt)) continue;
+    const newerFlight = (flights || []).some(flight => {
+      if (String(flight?.aircraft?.id || flight?.aircraft?._id || '').trim() !== aircraftId) return false;
+      if (flight?.status !== 'completed') return false;
+      const ended = Date.parse(flight?.times?.closed || flight?.times?.actualArrival || '');
+      return Number.isFinite(ended) && ended > updatedAt;
+    });
+    if (newerFlight) continue;
+    livery.lastflightlocationICAO = icao;
+    livery.lastFlightLocationIcao = icao;
+  }
+}
+
 async function loadDatabases() {
   const status = $('#dataStatus');
   try {
-    const [loaded, companyData, companyLiveryData, companyLiveryMatching, companyTopPool, companyCharterDemand, routeMissions, guaranteedBonuses, manualGuaranteedBonuses, adCoordinates, piesLedger] = await Promise.all([
+    const [loaded, companyData, companyLiveryData, companyLiveryMatching, companyReroutes, companyTopPool, companyCharterDemand, routeMissions, guaranteedBonuses, manualGuaranteedBonuses, adCoordinates, piesLedger] = await Promise.all([
       window.UCAAFlightData.loadWeeklyFlights(message => { status.textContent = message; }),
       fetch('COMPANY/company-data.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
       fetch('COMPANY/ucaa-livery-database.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
       fetch('COMPANY/livery-matching.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
+      fetch(`COMPANY/aircraft-reroutes.json?v=${Date.now()}`, {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
       fetch(`COMPANY/top-pool-current.json?v=${Date.now()}`, {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
       loadCompanyCharterDemand('default'),
       fetch('COMPANY/route-missions.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
@@ -3030,6 +3054,7 @@ async function loadDatabases() {
     app.airportCoordinates = loaded.airportLocations || {};
     app.adCoordinates = adCoordinates || {};
     app.flights = loaded.flights;
+    applyCompanyAircraftReroutes(app.companyLiveryMatching, companyReroutes, app.flights);
     reconcileGuaranteedBonusStatesWithCompletedFlights();
     pilotCardsMonthlyCache = null;
     pilotInsuranceCoverage = window.UCAAInsurance.coverageMap(app.flights);
@@ -3075,11 +3100,12 @@ async function refreshDatabasesSoft() {
   const status = $('#dataStatus');
   const loader = window.UCAAFlightData?.reloadWeeklyFlights || window.UCAAFlightData?.loadWeeklyFlights;
   if (!loader) return loadDatabases();
-  const [loaded, companyData, companyLiveryData, companyLiveryMatching, companyTopPool, companyCharterDemand, routeMissions, guaranteedBonuses, manualGuaranteedBonuses, adCoordinates, piesLedger] = await Promise.all([
+  const [loaded, companyData, companyLiveryData, companyLiveryMatching, companyReroutes, companyTopPool, companyCharterDemand, routeMissions, guaranteedBonuses, manualGuaranteedBonuses, adCoordinates, piesLedger] = await Promise.all([
     loader(message => { if (status) status.textContent = message; }),
     fetch('COMPANY/company-data.json', {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
     fetch('COMPANY/ucaa-livery-database.json', {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
     fetch('COMPANY/livery-matching.json', {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
+    fetch(`COMPANY/aircraft-reroutes.json?v=${Date.now()}`, {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
     fetch(`COMPANY/top-pool-current.json?v=${Date.now()}`, {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
     loadCompanyCharterDemand('no-store'),
     fetch(`COMPANY/route-missions.json?v=${Date.now()}`, {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
@@ -3104,6 +3130,7 @@ async function refreshDatabasesSoft() {
   app.airportCoordinates = loaded.airportLocations || {};
   app.adCoordinates = adCoordinates || {};
   app.flights = loaded.flights;
+    applyCompanyAircraftReroutes(app.companyLiveryMatching, companyReroutes, app.flights);
   reconcileGuaranteedBonusStatesWithCompletedFlights();
   app.liveNewSkyLoaded = false;
   app.liveNewSkyFlights = [];
