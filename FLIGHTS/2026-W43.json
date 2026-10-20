@@ -4756,6 +4756,176 @@
                         "elev": 312
                     }
                 }
+            },
+            {
+                "_id": "6ad75744f7e01a7089de3b36",
+                "aircraft": {
+                    "_id": "6a4fa1d65760ec7cdb62803f",
+                    "name": "Boeing 777-300ER",
+                    "customName": "Dry Lease l 777-300ER GE 370 pax",
+                    "icao": "B77W"
+                },
+                "type": "pax",
+                "flightNumber": "123P",
+                "free": false,
+                "schedule": false,
+                "charter": true,
+                "payload": {
+                    "pax": 370,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-10-20T12:20:00.000Z",
+                "duration": 120,
+                "arrTime": "2026-10-20T14:20:00.000Z",
+                "depTimeAct": "2026-10-20T12:23:34.301Z",
+                "delay": -8,
+                "takeoffTimeAct": "2026-10-20T12:29:18.797Z",
+                "durationAct": 102,
+                "arrTimeAct": "2026-10-20T14:11:30.342Z",
+                "open": "2026-10-20T12:20:44.926Z",
+                "close": "2026-10-20T14:15:17.244Z",
+                "rating": 9.36,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 700,
+                        "fuel": 11796,
+                        "expenses": 37588,
+                        "penalties": 0,
+                        "revenue": 100425,
+                        "balance": 62837,
+                        "prices": {
+                            "ticketPrice": 195,
+                            "cargoUnitPrice": 222,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 370,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 25,
+                                "C": 70,
+                                "Y": 275
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 13475,
+                        "aircraft": 20265,
+                        "handling": 1850,
+                        "landing": 1998
+                    },
+                    "revenue": {
+                        "tickets": 100425,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 6.25m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -61,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 41
+                                    },
+                                    "weather": {
+                                        "windDir": 3.78,
+                                        "windSpd": 5.77,
+                                        "windX": 5.75
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Unstable approach below 400ft: vertical speed below -1500 ft/min (actual -1507 ft/min)",
+                            "penalty": {
+                                "points": -3,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 34
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.40G (360 ft/min, normal  conditions)<br/>Distance from threshold: 555m (accepted range: 194-779m)<br/>Average centerline deviation: 1.11m<br/>Max centerline deviation: 2.43m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 35
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.4,
+                                        "rate": 360
+                                    },
+                                    "weather": {
+                                        "windDir": 350.09,
+                                        "windSpd": 9.88,
+                                        "windX": 0.53
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-20T11:57:56.340Z",
+                "updatedAt": "2026-10-20T14:15:17.335Z",
+                "dep": {
+                    "icao": "LTCE",
+                    "name": "Erzurum International Airport",
+                    "city": "Erzurum",
+                    "location": {
+                        "lat": 39.956501,
+                        "lon": 41.1702,
+                        "elev": 5763
+                    }
+                },
+                "arr": {
+                    "icao": "LTBJ",
+                    "name": "Adnan Menderes International Airport",
+                    "city": "Gaziemir",
+                    "location": {
+                        "lat": 38.2924,
+                        "lon": 27.157,
+                        "elev": 412
+                    }
+                },
+                "actArr": {
+                    "icao": "LTBJ",
+                    "name": "Adnan Menderes International Airport",
+                    "city": "Gaziemir",
+                    "location": {
+                        "lat": 38.2924,
+                        "lon": 27.157,
+                        "elev": 412
+                    }
+                }
             }
         ]
     },
