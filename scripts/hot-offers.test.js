@@ -251,8 +251,15 @@ test('hot cards keep TOP #1 through #6 order with one, several or all flights LI
   }
 });
 
-test('sorting hot cards does not change the LIVE-first display in the other offer tabs', () => {
-  for(const mode of ['earn','return','idle']) {
+test('cash and return tabs keep their LIVE-first display', () => {
+  for(const mode of ['earn','return']) {
     assert.deepEqual(renderedPoolOrder(mode,[4]),['aircraft-4','aircraft-1','aircraft-2','aircraft-3','aircraft-5','aircraft-6']);
+  }
+});
+
+test('idle tab keeps server TOP rank order even when aircraft are LIVE', () => {
+  const expected=['aircraft-1','aircraft-2','aircraft-3','aircraft-4','aircraft-5','aircraft-6'];
+  for(const liveRanks of [[],[4],[5,2,4]]) {
+    assert.deepEqual(renderedPoolOrder('idle',liveRanks),expected);
   }
 });
