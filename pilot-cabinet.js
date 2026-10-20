@@ -6841,7 +6841,7 @@ function updateCompanyLiveryStatus() {
       const activeReroute = companyLiveryActiveReroute(fallbackAircraft);
       const shownAirport = activeReroute ? matchingAirport : fallbackAirport || matchingAirport;
       const currentLine = shownAirport
-        ? `${headlinePrefix}в ${liveryAirportStatusText(shownAirport)}${activeReroute ? ' (ручний reroute)' : ''}`
+        ? `${headlinePrefix}в ${liveryAirportStatusText(shownAirport)}`
         : 'локація уточнюється';
       const suggestedProposal = liverySuggestedRouteData(card, title, flights, null, headline);
       const suggestedText = typeof suggestedProposal === 'string' ? suggestedProposal : suggestedProposal?.html || '&mdash;';
@@ -6888,10 +6888,9 @@ function updateCompanyLiveryStatus() {
     const premiumText = premiumLiveRecord ? `<strong>${money(Number(premiumLiveRecord.amount))}</strong>` : (isInactiveSubleaseOnly || isDryLeaseCard) ? '&mdash;' : liveryProposalPremiumHtml(suggestedProposal);
     const offerMutedClass = anyLiveRecord && !premiumLiveRecord ? ' company-livery-status-offer-muted' : '';
     const headlinePrefix = displayRegistration ? `${esc(displayRegistration)} ` : '';
-    const locationTimeText = activeReroute ? `за рейсом ${latestDateText} (ручний reroute)` : `з ${latestDateText}`;
     const locationLine = anyLiveRecord
       ? `<div class="company-livery-status-line company-livery-status-location company-livery-status-live">${companyLiveryLiveStatusHtml(anyLiveRecord)}</div>`
-      : `<div class="company-livery-status-line company-livery-status-location">\u{1F4CC} ${headlinePrefix}\u0432 ${liveryAirportStatusText(airport)} ${locationTimeText}</div>`;
+      : `<div class="company-livery-status-line company-livery-status-location">\u{1F4CC} ${headlinePrefix}\u0432 ${liveryAirportStatusText(airport)} з ${latestDateText}</div>`;
     status.innerHTML = `${locationLine}<div class="company-livery-status-rule"></div><div class="company-livery-status-line company-livery-status-offer${offerMutedClass}">\u{1F4B0} \u0413\u0430\u0440\u0430\u043D\u0442\u043E\u0432\u0430\u043D\u0430 \u043F\u0440\u0435\u043C\u0456\u044F ${premiumText} \u0437\u0430 \u0440\u0435\u0439\u0441:<div class="company-livery-offer-route">${offerText}</div></div><div class="company-livery-status-top">\u0422\u041E\u041F \u043D\u0430\u043B\u0456\u0442: ${topPilotText}</div>`;
     const logButton = status.querySelector('[data-livery-log-index]');
     if (logButton) {
