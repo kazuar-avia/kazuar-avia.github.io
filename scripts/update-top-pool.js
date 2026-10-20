@@ -2,6 +2,7 @@
 'use strict';
 
 const fs = require('fs');
+const {applyAircraftReroutes} = require('./aircraft-reroute.js');
 const path = require('path');
 const vm = require('vm');
 
@@ -246,6 +247,8 @@ function applyLatestCompletedLocations(flights, aircraftMaps) {
     aircraft.lastflightlocationICAO = item.arrival;
     aircraft.lastFlightLocationIcao = item.arrival;
   });
+  applyAircraftReroutes(latest, aircraftMaps,
+    readJson(path.join(COMPANY_DIR, 'aircraft-reroutes.json'), {aircraft:{}}));
 }
 
 function distanceNm(airports, from, to) {
