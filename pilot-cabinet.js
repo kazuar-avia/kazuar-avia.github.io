@@ -6491,7 +6491,11 @@ function companyFixedTopPoolNoteHtml(item, category, mode, index) {
     if (rate > 0 && !/\$\s*\d+[\s\u00A0]*\/\s*год/u.test(baseText)) baseText += ` · $${rate}/год`;
   }
   if (mode === 'return') baseText = baseText.replace(/^На маршрут(?!\s*🔁)/u, 'На маршрут 🔁');
-  if (mode === 'idle') baseText = baseText.replace(/^Простій(?!\s*🧰)/u, 'Простій 🧰');
+  if (mode === 'idle') {
+    baseText = baseText.replace(/^Простій(?!\s*🧰)/u, 'Простій 🧰');
+    const idleText = Number.isFinite(item?.idleDays) ? `${item.idleDays} дн. без рейсів` : 'ще не літав';
+    baseText += ` · ${idleText}`;
+  }
   const base = esc(baseText).replace(/🧰/g, '<span class="company-toolbox-icon">🧰</span>');
   return `<strong>${base}</strong>`;
 }
