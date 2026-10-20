@@ -4972,7 +4972,7 @@ function companyLiveryLiveNumberBadge(record, number) {
     const title = esc(String(record?.operationLabel || key).trim());
     return `<span class="flight-number-link flight-number-${key}" title="${title}">${esc(label)}</span> `;
   }
-  const kind = String(record?.proposalType || record?.kind || record?.operationKey || record?.operation || '').trim().toLowerCase();
+  const kind = String(record?.proposalType || record?.kind || '').toLowerCase() === 'schedule' ? 'schedule' : 'free';
   const reason = String(record?.proposalReason || record?.reason || '').toLowerCase();
   let badgeClass = '';
   let title = '';
@@ -6352,13 +6352,7 @@ function companyFixedTopPoolLivePayoutRecord(flight, item = null) {
     return saved.state === 'LIVE' && saved.status === 'matched' && Number(saved.amount) > 0
       ? {...live, ...saved, pilotName:live.pilotName || saved.pilotName || ''} : null;
   }
-  return {
-    ...live,
-    amount:Number(item?.proposal?.premiumUsd) || 1,
-    status:'matched',
-    proposalType:String(item?.proposal?.type || item?.proposalKind || live.operationKey || 'free').trim().toLowerCase(),
-    proposalReason:String(item?.proposalReason || item?.proposal?.reason || '').trim().toLowerCase()
-  };
+  return {...live, amount:Number(item?.proposal?.premiumUsd) || 1, status:'matched'};
 }
 function companyFixedTopPoolLiveStatus(item, mode) {
   const flight = companyFixedTopPoolLiveFlightForItem(item);
