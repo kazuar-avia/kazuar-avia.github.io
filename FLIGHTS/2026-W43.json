@@ -5934,6 +5934,209 @@
                         "elev": 362
                     }
                 }
+            },
+            {
+                "_id": "6ad7c707f7e01a7089e8a7c3",
+                "aircraft": {
+                    "_id": "695a82b73dc76275bad4f381",
+                    "name": "ATR 72-600",
+                    "customName": "Windrose l ATR-72 based in UKBB l UR-RWC",
+                    "icao": "AT76"
+                },
+                "type": "pax",
+                "flightNumber": "123B",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 72,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-10-20T20:20:00.000Z",
+                "duration": 130,
+                "arrTime": "2026-10-20T22:30:00.000Z",
+                "depTimeAct": "2026-10-20T20:12:12.291Z",
+                "delay": -33,
+                "takeoffTimeAct": "2026-10-20T20:15:24.373Z",
+                "durationAct": 102,
+                "arrTimeAct": "2026-10-20T21:57:18.651Z",
+                "open": "2026-10-20T20:07:25.726Z",
+                "close": "2026-10-20T22:00:13.893Z",
+                "rating": 9.34,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 450,
+                        "fuel": 1034,
+                        "expenses": 4018,
+                        "penalties": 237,
+                        "revenue": 8784,
+                        "balance": 4529,
+                        "prices": {
+                            "ticketPrice": 122,
+                            "cargoUnitPrice": 140,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 72,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 72
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 936,
+                        "aircraft": 2385,
+                        "handling": 454,
+                        "landing": 243
+                    },
+                    "revenue": {
+                        "tickets": 8784,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "MTOW exceeded: 14kg above maximum takeoff weight of 22999kg",
+                            "penalty": {
+                                "points": -4,
+                                "cash": 237
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    },
+                                    "weather": {
+                                        "windDir": 107.11,
+                                        "windSpd": 3.15,
+                                        "windX": -1.5
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (920m from threshold beyond 743m max accepted)",
+                            "penalty": {
+                                "points": -62,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.21,
+                                        "rate": 182
+                                    },
+                                    "weather": {
+                                        "windDir": 90.02,
+                                        "windSpd": 4.44,
+                                        "windX": 0.03
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.21G (182 ft/min, challenging  conditions)<br/>Distance from threshold: 920m (accepted range: 185-743m)<br/>Average centerline deviation: 3.53m<br/>Max centerline deviation: 4.39m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.21,
+                                        "rate": 182
+                                    },
+                                    "weather": {
+                                        "windDir": 90.02,
+                                        "windSpd": 4.44,
+                                        "windX": 0.03
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Fuel used 995 kg is lower than estimated minimum 1034 kg.",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.21,
+                                        "rate": 182
+                                    },
+                                    "weather": {
+                                        "windDir": 90.02,
+                                        "windSpd": 4.44,
+                                        "windX": 0.03
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-20T19:54:47.437Z",
+                "updatedAt": "2026-10-20T22:00:13.970Z",
+                "dep": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "arr": {
+                    "icao": "UKDD",
+                    "name": "Dnipro International Airport",
+                    "city": "Dnipro",
+                    "location": {
+                        "lat": 48.357201,
+                        "lon": 35.100601,
+                        "elev": 481
+                    }
+                },
+                "actArr": {
+                    "icao": "UKDD",
+                    "name": "Dnipro International Airport",
+                    "city": "Dnipro",
+                    "location": {
+                        "lat": 48.357201,
+                        "lon": 35.100601,
+                        "elev": 481
+                    }
+                }
             }
         ]
     },
