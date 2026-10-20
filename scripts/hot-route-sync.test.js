@@ -13,7 +13,7 @@ const generated = '2026-10-03T12:00:00Z';
 const now = new Date('2026-10-03T12:05:00Z');
 function candidate(change = {}) {
   return {aircraftId:'plane',aircraft:{id:'plane',lastflightlocationICAO:'UKLL'},registration:'UR-TEST',aircraftTitle:'Plane',
-    group:'wet',dep:'UKLL',arr:'EPWA',proposalKind:'schedule',proposalReason:'schedule',
+    group:'unknown',dep:'UKLL',arr:'EPWA',proposalKind:'schedule',proposalReason:'schedule',
     flightNumber:'123',blockMinutes:150,amount:300,ratePerHour:120,...change};
 }
 function pool() {
@@ -280,4 +280,17 @@ test('the ledger rejects a stale external claim and preserves currency already c
   const preserved=api.updatePiesLedger({target:record},[completed(),flight],now,true);
   assert.equal(rewards.balanceForPilot(preserved,'pilot'),3);
   assert.deepEqual(JSON.parse(JSON.stringify(preserved)),JSON.parse(JSON.stringify(valid)));
+});
+
+test('hot refresh never fills a vacant rank with an aircraft reserved for idle', () => {
+  const original=pool();
+  original.categories.idle.items=[{aircraftId:'idle-plane'}];
+  const reserved=candidate({aircraftId:'idle-plane',aircraft:{id:'idle-plane',lastflightlocationICAO:'UKLL'},flightNumber:'456'});
+  const available=candidate({aircraftId:'replacement',aircraft:{id:'replacement',lastflightlocationICAO:'UKLL'},flightNumber:'789'});
+  const next=refresh(original,[reserved,available],[]);
+  assert.deepEqual(next.categories.quick.items.map(item=>item.aircraftId),['replacement']);
+  const claim={pie:true,pieType:'hot',aircraftId:'plane',pieRank:1,
+    piePoolGeneratedAt:generated,state:'LIVE',status:'matched'};
+  assert.strictEqual(refresh(original,[reserved,available],[],{claim}),original,
+    'an existing LIVE hot promise remains reserved even if the pool rotates');
 });

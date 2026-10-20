@@ -805,12 +805,23 @@ function hotCandidateAllowed(item) {
 }
 
 function buildTopPool({candidates, completedFlights, now, windowHours, graceHours}) {
-  const schedule = candidates.filter(item => item.proposalKind === 'schedule' && item.blockMinutes > 0);
+  // Reserve the six longest-idle aircraft before selecting any other TOP.
+  const idle = idleCandidates(candidates, completedFlights, now)
+    .sort((a, b) => {
+      if (!Number.isFinite(a.idleDays) && Number.isFinite(b.idleDays)) return -1;
+      if (Number.isFinite(a.idleDays) && !Number.isFinite(b.idleDays)) return 1;
+      return b.idleDays - a.idleDays || a.aircraftTitle.localeCompare(b.aircraftTitle, 'uk');
+    })
+    .slice(0, 6);
+  const idleAircraft = new Set(idle.map(item => item.aircraftId));
+  // Hot and cash may overlap each other, but never the idle TOP.
+  const available = candidates.filter(item => !idleAircraft.has(item.aircraftId));
+  const schedule = available.filter(item => item.proposalKind === 'schedule' && item.blockMinutes > 0);
   const hotSchedule = schedule
     .filter(hotCandidateAllowed)
     .sort((a, b) => a.blockMinutes - b.blockMinutes || b.ratePerHour - a.ratePerHour || a.aircraftTitle.localeCompare(b.aircraftTitle, 'uk'));
   const usedHot = new Set(hotSchedule.map(item => item.aircraftId));
-  const hotFallback = candidates
+  const hotFallback = available
     .filter(hotCandidateAllowed)
     .filter(item => item.proposalKind === 'free')
     .filter(item => !(item.dep.startsWith('UK') && item.arr.startsWith('UK')))
@@ -822,16 +833,12 @@ function buildTopPool({candidates, completedFlights, now, windowHours, graceHour
   const cash = [...schedule]
     .sort((a, b) => b.ratePerHour - a.ratePerHour || a.blockMinutes - b.blockMinutes || a.aircraftTitle.localeCompare(b.aircraftTitle, 'uk'))
     .slice(0, 6);
-  const returnRoute = candidates
+  // Return-to-route uses only aircraft not already selected for idle, hot or cash.
+  const reservedAircraft = new Set([...idle, ...hot, ...cash].map(item => item.aircraftId));
+  const returnRoute = available
+    .filter(item => !reservedAircraft.has(item.aircraftId))
     .filter(item => item.proposalKind === 'free' && item.proposalReason === 'schedule-positioning' && item.blockMinutes > 0)
     .sort((a, b) => a.blockMinutes - b.blockMinutes || a.aircraftTitle.localeCompare(b.aircraftTitle, 'uk'))
-    .slice(0, 6);
-  const idle = idleCandidates(candidates, completedFlights, now)
-    .sort((a, b) => {
-      if (!Number.isFinite(a.idleDays) && Number.isFinite(b.idleDays)) return -1;
-      if (Number.isFinite(a.idleDays) && !Number.isFinite(b.idleDays)) return 1;
-      return b.idleDays - a.idleDays || a.aircraftTitle.localeCompare(b.aircraftTitle, 'uk');
-    })
     .slice(0, 6);
   const hotItems = hot.map((item, index) => topPoolItem('hot', index + 1, item, now, windowHours, graceHours));
   const cashItems = cash.map((item, index) => topPoolItem('cash', index + 1, item, now, windowHours, graceHours));
@@ -880,7 +887,10 @@ function refreshHotPool({currentPool, candidates, completedFlights, bonusRecords
   const originals = array(currentPool.categories?.quick?.items);
   if (!currentPool.categories?.quick || now >= new Date(currentPool.activeUntil)) return currentPool;
   const retiredHotOffers = {...currentPool.retiredHotOffers};
-  const eligible = candidates.filter(hotCandidateAllowed)
+  // A mid-cycle hot refresh must not reintroduce an aircraft reserved for idle.
+  const idleAircraft = new Set(array(currentPool.categories?.idle?.items).map(item => item.aircraftId));
+  const eligible = candidates.filter(item => !idleAircraft.has(item.aircraftId))
+    .filter(hotCandidateAllowed)
     .filter(item => item.proposalKind === 'schedule' || !(item.dep.startsWith('UK') && item.arr.startsWith('UK')))
     .sort((a, b) => (a.proposalKind === 'schedule' ? 0 : 1) - (b.proposalKind === 'schedule' ? 0 : 1)
       || a.blockMinutes - b.blockMinutes || b.ratePerHour - a.ratePerHour);

@@ -8,7 +8,7 @@ const rewards = require('../pie-rewards.js');
 const root = path.resolve(__dirname, '..');
 const source = fs.readFileSync(path.join(root, 'pilot-cabinet.js'), 'utf8');
 
-function candidate(id, minutes = 210, type = 'schedule', group = 'wet') {
+function candidate(id, minutes = 210, type = 'schedule', group = 'unknown') {
   return {aircraftId:id, aircraft:{id,lastflightlocationICAO:'UKBB'}, aircraftTitle:id, group, registration:id,
     dep:'UKBB', arr:'EPWA', proposalKind:type, proposalReason:type === 'free' ? 'charter-demand' : 'schedule', flightNumber:'123',
     blockMinutes:minutes, amount:300, ratePerHour:300/(minutes/60)};
@@ -262,4 +262,42 @@ test('idle tab keeps server TOP rank order even when aircraft are LIVE', () => {
   for(const liveRanks of [[],[4],[5,2,4]]) {
     assert.deepEqual(renderedPoolOrder('idle',liveRanks),expected);
   }
+});
+
+test('idle aircraft have absolute priority; hot and cash can overlap while return stays separate', () => {
+  const idleAircraft = Array.from({length:6},(_,i)=>candidate('idle-'+(i+1),120,'schedule','sub'));
+  const schedules = Array.from({length:8},(_,i)=>candidate('shared-'+(i+1),90+i*10,'schedule','wet'));
+  const positioning = Array.from({length:3},(_,i)=>({
+    ...candidate('return-'+(i+1),60+i*10,'free','wet'),proposalReason:'schedule-positioning'
+  }));
+  const recentFlights = [...schedules,...positioning].map(item=>({
+    status:'completed',aircraft:{id:item.aircraftId},times:{closed:'2026-10-03T11:55:00Z'}
+  }));
+  const result=buildTopPool({
+    candidates:[...idleAircraft,...schedules,...positioning],completedFlights:recentFlights,
+    now:new Date('2026-10-03T12:00:00Z'),windowHours:6,graceHours:24
+  });
+  const ids=mode=>result.categories[mode].items.map(item=>item.aircraftId);
+  assert.deepEqual(ids('idle'),idleAircraft.map(item=>item.aircraftId));
+  assert.deepEqual(ids('quick'),schedules.slice(0,6).map(item=>item.aircraftId));
+  assert.deepEqual(ids('earn'),schedules.slice(0,6).map(item=>item.aircraftId));
+  assert.deepEqual(ids('return'),positioning.map(item=>item.aircraftId));
+  assert.deepEqual(result.counts,{hot:6,cash:6,returnRoute:3,idle:6,total:21});
+  for(const mode of ['quick','earn','return','idle']) {
+    assert.deepEqual(result.categories[mode].items.map(item=>item.rank),
+      result.categories[mode].items.map((_,i)=>i+1));
+  }
+  assert.ok(ids('quick').every(id=>!ids('idle').includes(id)));
+  assert.ok(ids('return').every(id=>!['quick','earn','idle'].some(mode=>ids(mode).includes(id))));
+});
+
+test('a small fleet leaves lower-priority TOPs empty instead of reusing idle aircraft', () => {
+  const options=[
+    candidate('long-idle',90,'schedule','fictional'),
+    {...candidate('positioning',80,'free','wet'),proposalReason:'schedule-positioning'}
+  ];
+  const result=buildTopPool({candidates:options,completedFlights:[],
+    now:new Date('2026-10-03T12:00:00Z'),windowHours:6,graceHours:24});
+  assert.deepEqual(result.categories.idle.items.map(item=>item.aircraftId),['long-idle','positioning']);
+  assert.deepEqual([result.counts.hot,result.counts.cash,result.counts.returnRoute],[0,0,0]);
 });
