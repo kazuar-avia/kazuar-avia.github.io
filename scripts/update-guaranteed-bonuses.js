@@ -739,19 +739,18 @@ function topPoolClaimOwners(records, completedById, liveById) {
   for (const [id, record] of Object.entries(records || {})) {
     const state = String(record?.state || '').toUpperCase();
     if (record?.pie !== true || Number(record.amount) <= 0 || (state !== 'LIVE' && state !== 'DONE')) continue;
-    const claims = [record, ...array(record.currencyClaims)];
+    const claim = topPoolClaimIdentity(record.piePoolKey, record.piePoolGeneratedAt);
+    if (!claim) continue;
     const completed = state === 'DONE' || completedById.has(id);
     const timestamp = parseDateMs(
       liveById.get(id)?.startedAt || completedById.get(id)?.times?.actualDeparture || record.updatedAt
     ) || Number.MAX_SAFE_INTEGER;
     const candidate = {id, priority: completed ? 0 : 1, timestamp};
-    for (const entry of claims) {
-      const claim = topPoolClaimIdentity(entry.piePoolKey, entry.piePoolGeneratedAt);
-      if (!claim) continue;
-      const previous = selected.get(claim);
-      if (!previous || candidate.priority < previous.priority
-        || (candidate.priority === previous.priority && (candidate.timestamp < previous.timestamp
-          || (candidate.timestamp === previous.timestamp && id < previous.id)))) selected.set(claim, candidate);
+    const previous = selected.get(claim);
+    if (!previous || candidate.priority < previous.priority
+      || (candidate.priority === previous.priority && (candidate.timestamp < previous.timestamp
+        || (candidate.timestamp === previous.timestamp && id < previous.id)))) {
+      selected.set(claim, candidate);
     }
   }
   return new Map([...selected].map(([key, owner]) => [key, owner.id]));
@@ -867,24 +866,18 @@ function topPoolOfferInterrupted(item, live, completedFlights) {
   });
 }
 
-function topPoolMatchesForLive(live, aircraftId, topPoolItems, completedFlights = []) {
+function topPoolMatchForLive(live, aircraftId, topPoolItems, completedFlights = []) {
   const normalizedAircraftId = cleanId(aircraftId);
-  return array(topPoolItems).filter(item => {
+  return array(topPoolItems).find(item => {
     if (item.retiredAt && parseDateMs(live.startedAt) >= parseDateMs(item.retiredAt)) return false;
     if (item.pool && !liveIsInsidePoolWindow(live, item.pool)) return false;
     if (cleanId(item.aircraftId) !== normalizedAircraftId) return false;
     if (item.depIcao && item.depIcao !== live.depIcao) return false;
     if (item.arrIcao && item.arrIcao !== live.arrIcao) return false;
     return topPoolItemOperationMatches(item, live) && !topPoolOfferInterrupted(item, live, completedFlights);
-  }).filter((item, index, matches) => matches.findIndex(other => other.category === item.category) === index);
+  }) || null;
 }
-function topPoolMatchForLive(live, aircraftId, topPoolItems, completedFlights = []) {
-  return topPoolMatchesForLive(live, aircraftId, topPoolItems, completedFlights)[0] || null;
-}
-function topPoolCurrencyClaimsForLive(live, aircraftId, topPoolItems, completedFlights, owners) {
-  return topPoolMatchesForLive(live, aircraftId, topPoolItems, completedFlights)
-    .filter(item => reserveTopPoolClaim(owners, item, live.id)).map(topPoolRecordFields);
-}
+
 function topPoolRecordFields(match) {
   return {
     pie: Boolean(match),
@@ -912,7 +905,7 @@ function preserveTopPoolClaims(previousFlights, nextFlights) {
     const previous = previousFlights?.[id];
     if (previous?.pie !== true || previous.pilotId !== record.pilotId || previous.aircraftId !== record.aircraftId) continue;
     for (const [key, value] of Object.entries(previous)) {
-      if (key === 'pie' || key.startsWith('pie') || key === 'currencyClaims') record[key] = value;
+      if (key === 'pie' || key.startsWith('pie')) record[key] = value;
     }
   }
 }
@@ -963,15 +956,6 @@ function updatePiesLedger(bonusRecords, completedFlights, now, dryRun) {
       records[id] = {...record, pie:false};
     }
   }
-  for (const [id, record] of Object.entries(records)) {
-    const flight = completedById.get(id);
-    if (!flight || !Array.isArray(record.currencyClaims)) continue;
-    const live = liveFromCompletedFlight(flight);
-    const claims = record.currencyClaims.filter(claim => claim.pieType !== 'hot'
-      || !topPoolOfferInterrupted({category:'hot', aircraftId:record.aircraftId,
-        pool:{generatedAt:claim.piePoolGeneratedAt}}, live, completedFlights));
-    if (claims.length !== record.currencyClaims.length) records[id] = {...record, currencyClaims:claims};
-  }
   const next = pieRewards.syncLedger(previous, records, completedFlights, now);
   if (!dryRun && next !== previous) writeJson(PIES_LEDGER_FILE, next);
   return next;
@@ -991,7 +975,7 @@ function proposalFromTopPoolMatch(match) {
 }
 
 
-function recordFromLive(live, aircraft, proposal, amount, topPoolMatch = null, currencyClaims = []) {
+function recordFromLive(live, aircraft, proposal, amount, topPoolMatch = null) {
   return {
     amount,
     pilotId: live.pilotId,
@@ -1005,15 +989,14 @@ function recordFromLive(live, aircraft, proposal, amount, topPoolMatch = null, c
     proposalType: proposal.kind,
     proposalReason: proposal.reason,
     ...topPoolRecordFields(topPoolMatch),
-    ...(topPoolMatch ? {currencyClaims} : {}),
     updatedAt: new Date().toISOString()
   };
 }
 
-function recordFromCompleted(flight, aircraft, proposal, amount, topPoolMatch = null, currencyClaims = []) {
+function recordFromCompleted(flight, aircraft, proposal, amount, topPoolMatch = null) {
   const live = liveFromCompletedFlight(flight);
   return {
-    ...recordFromLive(live, aircraft, proposal, amount, topPoolMatch, currencyClaims),
+    ...recordFromLive(live, aircraft, proposal, amount, topPoolMatch),
     state: 'DONE',
     status: 'earned',
     updatedAt: new Date().toISOString()
@@ -1129,8 +1112,7 @@ async function main() {
       const topPoolAmount = Number(topPoolMatch?.premiumUsd || 0);
       if (topPoolMatch && topPoolAmount > 0) {
         if (!reserveTopPoolClaim(claimOwners, topPoolMatch, live.id)) break;
-        const currencyClaims = topPoolCurrencyClaimsForLive(live, aircraftId, topPoolItems, completedFlights, claimOwners);
-        next.flights[live.id] = recordFromLive(live, aircraft, proposalFromTopPoolMatch(topPoolMatch), Math.round(topPoolAmount), topPoolMatch, currencyClaims);
+        next.flights[live.id] = recordFromLive(live, aircraft, proposalFromTopPoolMatch(topPoolMatch), Math.round(topPoolAmount), topPoolMatch);
         break;
       }
       const proposal = proposedRouteForAircraft({db, aircraft, airports, demand, now, completedFlights});
@@ -1162,8 +1144,7 @@ async function main() {
       const topPoolAmount = Number(topPoolMatch?.premiumUsd || 0);
       if (!topPoolMatch || topPoolAmount <= 0) continue;
       if (!reserveTopPoolClaim(claimOwners, topPoolMatch, flightId)) break;
-      const currencyClaims = topPoolCurrencyClaimsForLive(live, aircraftId, topPoolItems, completedFlights, claimOwners);
-      next.flights[flightId] = recordFromCompleted(flight, aircraft, proposalFromTopPoolMatch(topPoolMatch), Math.round(topPoolAmount), topPoolMatch, currencyClaims);
+      next.flights[flightId] = recordFromCompleted(flight, aircraft, proposalFromTopPoolMatch(topPoolMatch), Math.round(topPoolAmount), topPoolMatch);
       break;
     }
   }
@@ -1197,7 +1178,7 @@ if (require.main === module) {
 
 module.exports = {
   loadCompletedFlights, topPoolItemsFromCurrent, topPoolItemsFromPools,
-  liveFromCompletedFlight, topPoolMatchForLive, topPoolMatchesForLive, topPoolCurrencyClaimsForLive, topPoolRecordFields,
+  liveFromCompletedFlight, topPoolMatchForLive, topPoolRecordFields,
   preserveTopPoolClaims, updatePiesLedger,
   topPoolClaimIdentity, topPoolClaimOwners, reserveTopPoolClaim, retainGuaranteedRecords, pendingBonusExpired
 };

@@ -979,14 +979,12 @@ function awardPriority(category) { return {returnRoute: 1, idle: 2, cash: 3, hot
 function awardIdFor(item, flight) { return [item.poolId, flight.id, item.category].filter(Boolean).join('::'); }
 function evaluateAwards({claimableItems, completedFlights, now, windowStart, awardsLog}) {
   const existing = new Set(array(awardsLog.awards).map(item => item.awardId));
-  const awarded = new Set(array(awardsLog.awards).map(item => item.flightId).filter(Boolean));
   const recentCompleted = completedFlights.filter(flight => {
     const done = completedFlightEndTime(flight);
     return done >= windowStart && done <= now;
   });
   const awards = [];
   for (const flight of recentCompleted) {
-    if (awarded.has(flight.id)) continue;
     const matches = claimableItems
       .filter(item => completedMatchesPoolItem(flight, item))
       .sort((a, b) => awardPriority(a.category) - awardPriority(b.category) || a.rank - b.rank);
@@ -1015,7 +1013,6 @@ function evaluateAwards({claimableItems, completedFlights, now, windowStart, awa
       ratePerHour: chosen.ratePerHour
     });
     existing.add(awardId);
-    awarded.add(flight.id);
   }
   return awards;
 }
@@ -1079,4 +1076,4 @@ if (require.main === module) {
   main().catch(error => { console.error(error && error.stack ? error.stack : error); process.exitCode = 1; });
 }
 
-module.exports = {hotCandidateAllowed, buildTopPool, refreshHotPool, evaluateAwards, loadProposalCandidates, loadCompletedFlights, loadAirportLocations, loadHtmlAircraftMeta};
+module.exports = {hotCandidateAllowed, buildTopPool, refreshHotPool, loadProposalCandidates, loadCompletedFlights, loadAirportLocations, loadHtmlAircraftMeta};

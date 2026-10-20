@@ -57,50 +57,49 @@
     const activation = time(activatedAt);
     if (!Number.isFinite(activation)) throw new Error('Invalid pies ledger activation time');
     const entries = {...ledger.entries};
-    const extraActivation = time(ledger.currenciesActivatedAt);
+    const creditedFlights = new Set(Object.values(entries).filter(entry => entry?.kind === 'earn').map(entry => text(entry.flightId)));
     const flights = new Map((completedFlights || []).map(flight => [text(flight.id), flight]));
     let changed = !ledger.activatedAt;
     for (const [id, record] of Object.entries(bonusRecords || {})) {
       const flightId = text(id);
+      const entryId = `hot:${flightId}`;
+      if (!flightId || Object.prototype.hasOwnProperty.call(entries, entryId) || creditedFlights.has(flightId)) continue;
       const flight = flights.get(flightId);
-      if (!flightId || !flight || flight.status !== 'completed'
-          || record?.state !== 'DONE' || record?.status !== 'earned') continue;
+      if (!flight || flight.status !== 'completed' || record?.state !== 'DONE' || record?.status !== 'earned') continue;
+      if (record.pie !== true || record.pieType !== 'hot') continue;
+      const amount = rewardForRank(record.pieRank, record.pieRewardRulesVersion || 1);
+      if (!amount || !snapshotMatchesFlight(record, flight)) continue;
       const started = time(flight.times?.actualDeparture || flight.times?.takeoff);
       const completed = time(flight.times?.closed || flight.times?.actualArrival);
-      if (!Number.isFinite(started) || !Number.isFinite(completed) || completed > nowMs || completed < started) continue;
-      const claims = Array.isArray(record.currencyClaims) ? record.currencyClaims
-        : record.pie === true && record.pieType === 'hot' ? [record] : [];
-      for (const claim of claims) {
-        const category = text(claim.pieType);
-        if (!['hot','cash','returnRoute','idle'].includes(category)) continue;
-        const active = category === 'hot' ? activation : extraActivation;
-        if (!Number.isFinite(active) || started < active) continue;
-        const entryId = `${category}:${flightId}`;
-        if (Object.prototype.hasOwnProperty.call(entries,entryId)) continue;
-        const amount = rewardForRank(claim.pieRank,claim.pieRewardRulesVersion || 1);
-        if (!amount || !snapshotMatchesFlight({...record,...claim,pilotId:record.pilotId},flight)) continue;
-        entries[entryId] = {
-          id:entryId,kind:'earn',ruleVersion:RULE_VERSION,
-          rewardRulesVersion:Number(claim.pieRewardRulesVersion)||1,
-          pilotId:text(record.pilotId),flightId,category,rank:Number(claim.pieRank),delta:amount,
-          poolId:claim.piePoolId||null,poolKey:claim.piePoolKey,
-          poolGeneratedAt:claim.piePoolGeneratedAt,
-          startedAt:new Date(started).toISOString(),
-          completedAt:new Date(completed).toISOString(),
-          awardedAt:new Date(nowMs).toISOString()
-        };
-        changed = true;
-      }
+      if (started < activation || completed > nowMs) continue;
+      entries[entryId] = {
+        id: entryId,
+        kind: 'earn',
+        ruleVersion: RULE_VERSION,
+        rewardRulesVersion: Number(record.pieRewardRulesVersion) || 1,
+        pilotId: text(record.pilotId),
+        flightId,
+        category: 'hot',
+        rank: Number(record.pieRank),
+        delta: amount,
+        poolId: record.piePoolId || null,
+        poolKey: record.piePoolKey,
+        poolGeneratedAt: record.piePoolGeneratedAt,
+        startedAt: new Date(started).toISOString(),
+        completedAt: new Date(completed).toISOString(),
+        awardedAt: new Date(nowMs).toISOString()
+      };
+      creditedFlights.add(flightId);
+      changed = true;
     }
     return changed ? {...ledger, activatedAt, updatedAt: new Date(nowMs).toISOString(), entries} : ledger;
   }
 
-  function earningForFlight(ledger, flight, category = 'hot') {
+  function earningForFlight(ledger, flight) {
     const flightId = text(flight?.id || flight?._id || flight?.flightId || flight?.newskyId);
     const pilotId = text(flight?.pilot?.id || flight?.pilot?._id || flight?.pilotId);
     if (!flightId || !pilotId || flight?.status !== 'completed') return null;
-    if (!['hot','cash','returnRoute','idle'].includes(category)) return null;
-    const entryId = `${category}:${flightId}`;
+    const entryId = `hot:${flightId}`;
     if (!Object.prototype.hasOwnProperty.call(ledger?.entries || {}, entryId)) return null;
     const entry = ledger.entries[entryId];
     return entry?.kind === 'earn' && text(entry.id) === entryId
@@ -108,13 +107,13 @@
       && Number.isSafeInteger(entry.delta) && entry.delta > 0 ? entry : null;
   }
 
-  function balanceForPilot(ledger, pilotId, category = 'hot') {
+  function balanceForPilot(ledger, pilotId) {
     const id = text(pilotId);
     if (!id || !ledger?.entries) return 0;
     const seen = new Set();
     let balance = 0;
     for (const entry of Object.values(ledger.entries)) {
-      if (!entry || text(entry.pilotId) !== id || entry.category !== category || !text(entry.id) || seen.has(entry.id)) continue;
+      if (!entry || text(entry.pilotId) !== id || !text(entry.id) || seen.has(entry.id)) continue;
       const delta = Number(entry.delta);
       if (!Number.isSafeInteger(delta)) continue;
       seen.add(entry.id);
@@ -123,8 +122,5 @@
     return balance;
   }
 
-  function earningsForFlight(ledger, flight) {
-    return ['hot','cash','returnRoute','idle'].map(category => earningForFlight(ledger,flight,category)).filter(Boolean);
-  }
-  return Object.freeze({RULE_VERSION, REWARD_RULES_VERSION, REWARDS, rewardForRank, snapshotMatchesFlight, syncLedger, earningForFlight, earningsForFlight, balanceForPilot});
+  return Object.freeze({RULE_VERSION, REWARD_RULES_VERSION, REWARDS, rewardForRank, snapshotMatchesFlight, syncLedger, earningForFlight, balanceForPilot});
 });
