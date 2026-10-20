@@ -8367,6 +8367,180 @@
                         "elev": 995
                     }
                 }
+            },
+            {
+                "_id": "6ad7903bf7e01a7089e36942",
+                "aircraft": {
+                    "_id": "695a3c883dc76275baca9e49",
+                    "name": "Airbus A320",
+                    "customName": "WizzAir Ukraine l A320 IAE WL based in UKKK l UR-WUC",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "2018",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 171,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-10-20T16:25:00.000Z",
+                "duration": 70,
+                "arrTime": "2026-10-20T17:35:00.000Z",
+                "depTimeAct": "2026-10-20T16:19:37.454Z",
+                "delay": -20,
+                "takeoffTimeAct": "2026-10-20T16:28:40.573Z",
+                "durationAct": 47,
+                "arrTimeAct": "2026-10-20T17:15:11.618Z",
+                "open": "2026-10-20T16:17:53.412Z",
+                "close": "2026-10-20T17:31:43.213Z",
+                "rating": 9.4,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 288,
+                        "fuel": 2142,
+                        "expenses": 7187,
+                        "penalties": 3122,
+                        "revenue": 23598,
+                        "balance": 13289,
+                        "prices": {
+                            "ticketPrice": 138,
+                            "cargoUnitPrice": 164,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.7,
+                                "fuel": 0.8,
+                                "ground": 0.7
+                            }
+                        },
+                        "payload": {
+                            "pax": 171,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 171
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1938,
+                        "aircraft": 3250,
+                        "handling": 718,
+                        "landing": 1281
+                    },
+                    "revenue": {
+                        "tickets": 23598,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "MLW exceeded: 503kg above maximum landing weight of 64500kg",
+                            "penalty": {
+                                "points": -47,
+                                "cash": 3122
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.31,
+                                        "rate": 247
+                                    },
+                                    "weather": {
+                                        "windDir": 93.36,
+                                        "windSpd": 3.63,
+                                        "windX": -2.16
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 4.89m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -13,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "spoilers",
+                                "payload": {
+                                    "system": {
+                                        "fps": 42
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.31G (247 ft/min, normal  conditions)<br/>Distance from threshold: 371m (accepted range: 197-790m)<br/>Average centerline deviation: 3.04m<br/>Max centerline deviation: 4.89m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.31,
+                                        "rate": 247
+                                    },
+                                    "weather": {
+                                        "windDir": 93.36,
+                                        "windSpd": 3.63,
+                                        "windX": -2.16
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-20T16:00:59.941Z",
+                "updatedAt": "2026-10-20T17:31:43.332Z",
+                "dep": {
+                    "icao": "UKKK",
+                    "name": "Igor Sikorsky Kyiv International Airport (Zhuliany)",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.40194,
+                        "lon": 30.45194,
+                        "elev": 587
+                    }
+                },
+                "arr": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "actArr": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                }
             }
         ]
     },
