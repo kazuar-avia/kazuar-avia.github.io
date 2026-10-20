@@ -1,0 +1,1203 @@
+#!/usr/bin/env node
+'use strict';
+
+const fs = require('fs');
+const path = require('path');
+const vm = require('vm');
+
+const OUTPUT_ROOT = path.resolve(__dirname, '..');
+const COMPANY_DIR = path.join(OUTPUT_ROOT, 'COMPANY');
+const FLIGHTS_DIR = path.join(OUTPUT_ROOT, 'FLIGHTS');
+const BONUS_FILE = path.join(COMPANY_DIR, 'guaranteed-bonuses-v2.json');
+const PIES_LEDGER_FILE = path.join(COMPANY_DIR, 'pies-ledger-v2.json');
+const TOP_POOL_CURRENT_FILE = path.join(COMPANY_DIR, 'top-pool-current.json');
+const TOP_POOLS_DIR = path.join(COMPANY_DIR, 'TOP-POOLS');
+const LIVE_URL = 'https://newsky.app/api/airline-api/flights/ongoing';
+const LIVE_DETAIL_URL = 'https://newsky.app/api/airline-api/flight/';
+const DEFAULT_TOKEN = 'UKR_uSTNynarbU8B8A61nvDLqmSl7Ji8xK';
+
+const args = new Set(process.argv.slice(2));
+const argValue = name => {
+  const prefix = `${name}=`;
+  const items = process.argv.slice(2);
+  const found = items.find(item => item.startsWith(prefix));
+  if (found) return found.slice(prefix.length);
+  const index = items.indexOf(name);
+  return index >= 0 && items[index + 1] && !String(items[index + 1]).startsWith('--') ? items[index + 1] : '';
+};
+
+function readJson(file, fallback = null) {
+  try {
+    return JSON.parse(fs.readFileSync(file, 'utf8').replace(/^\uFEFF/, ''));
+  } catch (error) {
+    if (fallback !== null) return fallback;
+    throw error;
+  }
+}
+
+function writeJson(file, data) {
+  fs.writeFileSync(file, `${JSON.stringify(data, null, 2)}\n`, 'utf8');
+}
+
+function stableJson(value) {
+  if (Array.isArray(value)) return `[${value.map(stableJson).join(',')}]`;
+  if (value && typeof value === 'object') {
+    return `{${Object.keys(value).sort().map(key => `${JSON.stringify(key)}:${stableJson(value[key])}`).join(',')}}`;
+  }
+  return JSON.stringify(value);
+}
+
+function sameFlights(a, b) {
+  return stableJson(a || {}) === stableJson(b || {});
+}
+
+function stripUpdatedAt(value) {
+  if (Array.isArray(value)) return value.map(stripUpdatedAt);
+  if (value && typeof value === 'object') {
+    const result = {};
+    for (const [key, item] of Object.entries(value)) {
+      if (key === 'updatedAt') continue;
+      result[key] = stripUpdatedAt(item);
+    }
+    return result;
+  }
+  return value;
+}
+
+function sameExceptUpdatedAt(a, b) {
+  return stableJson(stripUpdatedAt(a || {})) === stableJson(stripUpdatedAt(b || {}));
+}
+
+function preserveUnchangedRecordUpdatedAt(previousFlights, nextFlights) {
+  for (const [id, record] of Object.entries(nextFlights || {})) {
+    const previous = previousFlights?.[id];
+    if (!previous || !sameExceptUpdatedAt(previous, record)) continue;
+
+    if (Object.prototype.hasOwnProperty.call(previous, 'updatedAt')) {
+      record.updatedAt = previous.updatedAt;
+    } else {
+      delete record.updatedAt;
+    }
+  }
+}
+
+function upper(value) {
+  return String(value || '').trim().toUpperCase();
+}
+
+function cleanId(value) {
+  return String(value || '').trim();
+}
+
+function array(value) {
+  return Array.isArray(value) ? value : [];
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function parseDate(value) {
+  const date = new Date(value || 0);
+  return Number.isFinite(date.getTime()) ? date : null;
+}
+
+function dayKey(date = new Date()) {
+  const keys = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+  return keys[date.getUTCDay()];
+}
+
+function routeRunsTodayOrTomorrow(route, now = new Date()) {
+  const days = new Set(array(route?.days).map(day => String(day).trim().toLowerCase()));
+  if (!days.size) return true;
+  const tomorrow = new Date(now.getTime() + 86400000);
+  return days.has(dayKey(now)) || days.has(dayKey(tomorrow));
+}
+
+function routeRunsToday(route, now = new Date()) {
+  const days = new Set(array(route?.days).map(day => String(day).trim().toLowerCase()));
+  if (!days.size) return true;
+  return days.has(dayKey(now));
+}
+
+function pick(obj, paths) {
+  for (const pathText of paths) {
+    const parts = pathText.split('.');
+    let current = obj;
+    for (const part of parts) current = current?.[part];
+    if (current !== undefined && current !== null && String(current).trim() !== '') return current;
+  }
+  return '';
+}
+
+function airportFromRaw(value) {
+  if (!value) return {};
+  if (typeof value === 'string') return {icao: upper(value)};
+  return {
+    icao: upper(value.icao || value.ident || value.code),
+    name: String(value.name || value.fullname || ''),
+    city: String(value.city || ''),
+    location: value.location || value.loc || (value.lat && value.lon ? {lat: value.lat, lon: value.lon} : null)
+  };
+}
+
+function normalizeCompletedRawFlight(raw, pilot = {}, week = null) {
+  const dep = airportFromRaw(raw.dep || raw.departure);
+  const arr = airportFromRaw(raw.arr || raw.arrival);
+  const actualArr = airportFromRaw(raw.actArr || raw.actualArrival || raw.arrival || raw.arr);
+  const closed = raw.close || raw.closed || raw.arrTimeAct || raw.actualArrivalTime;
+  const hasClosed = Boolean(closed || raw.durationAct || raw.rating);
+  if (!hasClosed) return null;
+  return {
+    id: cleanId(raw._id || raw.id),
+    sourceWeek: week,
+    status: 'completed',
+    pilot: {
+      id: cleanId(pilot.pilot_id || pilot.id || raw.pilotId || raw.pilot?.id),
+      name: String(pilot.fullname || pilot.name || raw.pilot?.name || '')
+    },
+    flightNumber: String(raw.flightNumber || raw.number || '').trim(),
+    flightType: String(raw.type || raw.flightType || (raw.payload?.cargo ? 'cargo' : 'pax')).trim(),
+    aircraft: {
+      id: cleanId(raw.aircraft?._id || raw.aircraft?.id || raw.aircraftId),
+      icao: upper(raw.aircraft?.icao || raw.aircraft?.ident || raw.aircraft?.airframe?.icao),
+      name: String(raw.aircraft?.name || raw.aircraft?.customName || raw.aircraft?.icao || '')
+    },
+    departure: dep,
+    arrival: arr,
+    actualArrival: actualArr.icao ? actualArr : arr,
+    times: {
+      scheduledDeparture: raw.depTime || raw.scheduledDeparture,
+      scheduledArrival: raw.arrTime || raw.scheduledArrival,
+      actualDeparture: raw.depTimeAct || raw.actualDeparture,
+      takeoff: raw.takeoffTimeAct || raw.takeoff,
+      actualArrival: raw.arrTimeAct || raw.actualArrival,
+      closed,
+      durationMinutes: Number(raw.durationAct || raw.duration || 0) || 0
+    },
+    operations: {
+      scheduled: Boolean(raw.schedule || raw.scheduled),
+      free: Boolean(raw.free),
+      charter: Boolean(raw.charter),
+      distance: Number(raw.result?.totals?.distance || raw.operations?.distance || 0) || 0
+    }
+  };
+}
+
+function loadCompletedFlights() {
+  const flights = [];
+  const byId = new Map();
+  const addFlight = flight => {
+    if (!flight?.id) return;
+    byId.set(String(flight.id), flight);
+  };
+  const archive = readJson(path.join(FLIGHTS_DIR, 'archive.json'), {flights: []});
+  array(archive.flights).forEach(addFlight);
+
+  const manifest = readJson(path.join(FLIGHTS_DIR, 'manifest.json'), {});
+  const year = Number(manifest.year) || new Date().getUTCFullYear();
+  const nowWeek = currentIsoWeek();
+  const liveWeek = nowWeek.year === year ? nowWeek.week : Number(manifest.liveWeek || manifest.archiveThroughWeek + 1);
+  const firstWeek = Number(manifest.archiveThroughWeek || archive.throughWeek || 0) + 1;
+  for (let week = firstWeek; week <= liveWeek; week += 1) {
+    const weekFile = path.join(FLIGHTS_DIR, `${year}-W${String(week).padStart(2, '0')}.json`);
+    if (!fs.existsSync(weekFile)) continue;
+    const raw = readJson(weekFile, []);
+    const pilots = Array.isArray(raw) ? raw : array(raw.results || raw.pilots);
+    pilots.forEach(pilot => {
+      array(pilot.flights || pilot.reports).forEach(item => {
+        const normalized = normalizeCompletedRawFlight(item, pilot, week);
+        addFlight(normalized);
+      });
+    });
+  }
+  return [...byId.values()];
+}
+
+function loadAirportLocations(flights) {
+  const map = new Map();
+  const add = airport => {
+    const icao = upper(airport?.icao);
+    const lat = Number(airport?.location?.lat ?? airport?.lat);
+    const lon = Number(airport?.location?.lon ?? airport?.lon);
+    if (!icao || !Number.isFinite(lat) || !Number.isFinite(lon)) return;
+    if (!map.has(icao)) map.set(icao, {icao, lat, lon, name: airport.name || '', city: airport.city || ''});
+  };
+  flights.forEach(flight => {
+    add(flight.departure);
+    add(flight.arrival);
+    add(flight.actualArrival);
+  });
+  const ad = readJson(path.join(OUTPUT_ROOT, 'ADcoordinates.json'), {});
+  Object.entries(ad || {}).forEach(([icao, item]) => {
+    const code = upper(icao);
+    const lat = Number(item?.lat);
+    const lon = Number(item?.lon);
+    if (code && Number.isFinite(lat) && Number.isFinite(lon) && !map.has(code)) {
+      map.set(code, {icao: code, lat, lon, name: item.name || code, city: item.city || ''});
+    }
+  });
+  return map;
+}
+
+function currentIsoWeek(date = new Date()) {
+  const value = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));
+  const day = value.getUTCDay() || 7;
+  value.setUTCDate(value.getUTCDate() + 4 - day);
+  const year = value.getUTCFullYear();
+  const yearStart = new Date(Date.UTC(year, 0, 1));
+  const week = Math.ceil((((value - yearStart) / 86400000) + 1) / 7);
+  return {year, week};
+}
+
+function completedFlightTimestamp(flight) {
+  return new Date(
+    flight?.times?.closed
+    || flight?.times?.actualArrival
+    || flight?.times?.takeoff
+    || flight?.times?.actualDeparture
+    || flight?.times?.scheduledDeparture
+    || 0
+  ).getTime() || 0;
+}
+
+function applyLatestCompletedLocations(flights, aircraftMaps) {
+  const latest = new Map();
+  flights.forEach(flight => {
+    if (flight?.status && flight.status !== 'completed') return;
+    const aircraftId = cleanId(flight?.aircraft?.id || flight?.aircraft?._id || flight?.aircraftId);
+    const arrival = upper(flight?.actualArrival?.icao || flight?.arrival?.icao);
+    if (!aircraftId || !arrival) return;
+    const timestamp = completedFlightTimestamp(flight);
+    const previous = latest.get(aircraftId);
+    if (!previous || timestamp >= previous.timestamp) latest.set(aircraftId, {arrival, timestamp});
+  });
+  latest.forEach((item, aircraftId) => {
+    const aircraft = aircraftMaps.byId.get(aircraftId);
+    if (!aircraft) return;
+    aircraft.lastflightlocationICAO = item.arrival;
+    aircraft.lastFlightLocationIcao = item.arrival;
+  });
+}
+
+function distanceNm(airports, from, to) {
+  const a = airports.get(upper(from));
+  const b = airports.get(upper(to));
+  if (!a || !b) return 0;
+  const rad = value => value * Math.PI / 180;
+  const dLat = rad(b.lat - a.lat);
+  const dLon = rad(b.lon - a.lon);
+  const lat1 = rad(a.lat);
+  const lat2 = rad(b.lat);
+  const h = Math.sin(dLat / 2) ** 2 + Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon / 2) ** 2;
+  return Math.round(3440.065 * 2 * Math.atan2(Math.sqrt(h), Math.sqrt(1 - h)));
+}
+
+function loadAircraftCoefficient() {
+  const sandbox = {window: {}};
+  vm.runInNewContext(fs.readFileSync(path.join(OUTPUT_ROOT, 'aircraft-difficulty-coefficients.js'), 'utf8'), sandbox);
+  vm.runInNewContext(fs.readFileSync(path.join(OUTPUT_ROOT, 'pilot-pay-policy.js'), 'utf8'), sandbox);
+  return (icao, flightType) => {
+    const fn = sandbox.window?.UCAAPilotPay?.aircraftCoefficient;
+    return Number(fn ? fn(icao, flightType) : 1) || 1;
+  };
+}
+
+function isCargoAircraft(aircraft = {}, matching = {}) {
+  const text = `${aircraft.purpose || ''} ${aircraft.name || ''} ${matching.name || ''} ${aircraft.airframeIdent || ''}`.toLowerCase();
+  return /cargo|freighter|bcf|\bf\b/.test(text);
+}
+
+function aircraftKeyData(fleetData, matchingData) {
+  const byId = new Map();
+  const byReg = new Map();
+  array(fleetData.aircraft).forEach(aircraft => {
+    const id = cleanId(aircraft.id || aircraft._id);
+    const reg = upper(aircraft.registration);
+    if (id) byId.set(id, aircraft);
+    if (reg) byReg.set(reg, aircraft);
+  });
+  array(matchingData.liveries || matchingData).forEach(match => {
+    const id = cleanId(match._id || match.aircraftId || match.id);
+    const reg = upper(match.registration);
+    const fleet = (id && byId.get(id)) || (reg && byReg.get(reg)) || {};
+    const merged = {...fleet, ...match, id: id || cleanId(fleet.id), registration: reg || upper(fleet.registration)};
+    if (merged.id) byId.set(merged.id, merged);
+    if (merged.registration) byReg.set(merged.registration, merged);
+  });
+  return {byId, byReg};
+}
+
+function baseIcaosForAircraft(aircraft = {}) {
+  const bases = new Set(array(aircraft.basesFromName).map(upper).filter(Boolean));
+  const match = String(aircraft.name || '').match(/based in\s+([A-Z0-9 ]+)/i);
+  if (match) match[1].split(/\s+/).map(upper).filter(code => /^[A-Z0-9]{4}$/.test(code)).forEach(code => bases.add(code));
+  const loc = upper(aircraft.locationIcao);
+  if (!bases.size && loc) bases.add(loc);
+  return [...bases];
+}
+
+function scheduleRoutesForAircraft(db, aircraft = {}) {
+  const id = cleanId(aircraft.id || aircraft._id);
+  const reg = upper(aircraft.registration);
+  const code = upper(aircraft.airframeIdent || aircraft.airframeType || aircraft.icao);
+  return array(db.scheduleAssignments)
+    .filter(route => route?.active !== false)
+    .filter(route => {
+      const ids = new Set(array(route.assignedAircraftIds).map(cleanId).filter(Boolean));
+      const regs = new Set(array(route.assignedRegistrations).map(upper).filter(Boolean));
+      const airframes = new Set(array(route.airframes).map(upper).filter(Boolean));
+      return (id && ids.has(id)) || (reg && regs.has(reg)) || (!ids.size && !regs.size && code && airframes.has(code));
+    })
+    .map(route => ({...route, dep: upper(route.dep), arr: upper(route.arr), number: String(route.number || '').trim()}))
+    .filter(route => route.dep && route.arr);
+}
+
+function scheduleRotationStart(now = new Date()) {
+  return new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1));
+}
+
+function scheduleRotationHash(value) {
+  let hash = 0;
+  String(value || '').split('').forEach(char => {
+    hash = ((hash * 31) + char.charCodeAt(0)) >>> 0;
+  });
+  return hash;
+}
+
+function completedFlightMatchesAircraft(flight, aircraft = {}) {
+  const aircraftId = cleanId(aircraft.id || aircraft._id);
+  const registration = upper(aircraft.registration);
+  const flightAircraftId = cleanId(flight?.aircraft?.id || flight?.aircraft?._id || flight?.aircraftId);
+  if (aircraftId && flightAircraftId === aircraftId) return true;
+  if (!registration) return false;
+  const text = upper(`${flight?.aircraft?.name || ''} ${flight?.aircraft?.customName || ''}`);
+  return text.includes(registration);
+}
+
+function completedFlightEndTime(flight) {
+  const value = flight?.times?.closed || flight?.times?.actualArrival || flight?.times?.scheduledArrival || flight?.updatedAt || flight?.createdAt;
+  const date = new Date(value || 0);
+  return Number.isFinite(date.getTime()) ? date : new Date(0);
+}
+
+function scheduleRouteUsage(route, aircraft, completedFlights, since) {
+  const number = String(route?.number || '').trim();
+  if (!number) return 0;
+  return array(completedFlights).filter(flight => {
+    if (String(flight?.flightNumber || '').trim() !== number) return false;
+    if (since && completedFlightEndTime(flight) < since) return false;
+    return completedFlightMatchesAircraft(flight, aircraft);
+  }).length;
+}
+
+function pickScheduleRoute(routes, aircraft, completedFlights, now = new Date()) {
+  const pool = array(routes)
+    .filter(Boolean)
+    .sort((a, b) => (Number(a.number) || 0) - (Number(b.number) || 0) || String(a.number || '').localeCompare(String(b.number || '')));
+  if (pool.length <= 1) return pool[0] || null;
+  const since = scheduleRotationStart(now);
+  const scored = pool.map(route => ({route, usage: scheduleRouteUsage(route, aircraft, completedFlights, since)}));
+  const minUsage = Math.min(...scored.map(item => item.usage));
+  const tied = scored.filter(item => item.usage === minUsage).map(item => item.route);
+  if (tied.length <= 1) return tied[0] || null;
+  const seed = now.getUTCDate() + scheduleRotationHash(aircraft.registration || aircraft.id || aircraft._id || '');
+  return tied[seed % tied.length] || tied[0] || null;
+}
+
+function parseDemandFile(file) {
+  const byOrigin = new Map();
+  const byInbound = new Map();
+  if (!fs.existsSync(file)) return {byOrigin, byInbound};
+  const lines = fs.readFileSync(file, 'utf8').split(/\r?\n/);
+  for (const line of lines) {
+    const match = line.match(/^(out|in)\s+(pax|cargo)\s+([A-Z0-9]{4}|NONE)-([A-Z0-9]{4}|NONE)\b.*?\((\d+)nm\)/i);
+    if (!match) continue;
+    const [, dir, mode, fromRaw, toRaw, distRaw] = match;
+    const from = upper(fromRaw);
+    const to = upper(toRaw);
+    if (from === 'NONE' || to === 'NONE') continue;
+    const item = {mode: mode.toLowerCase(), from, to, distanceNm: Number(distRaw) || 0, raw: line.trim()};
+    if (dir.toLowerCase() === 'out') {
+      if (!byOrigin.has(from)) byOrigin.set(from, []);
+      byOrigin.get(from).push(item);
+    } else {
+      if (!byInbound.has(to)) byInbound.set(to, []);
+      byInbound.get(to).push(item);
+    }
+  }
+  return {byOrigin, byInbound};
+}
+
+function routeFits(airports, aircraft, from, to) {
+  const maxRange = Number(aircraft.maxRange || aircraft.maxRangeNm || 0) || 0;
+  if (!maxRange) return true;
+  const dist = distanceNm(airports, from, to);
+  return dist > 0 && dist <= maxRange;
+}
+
+function demandProposalFromOrigin(demand, current, aircraft, mode, airports) {
+  const candidates = array(demand.byOrigin.get(upper(current)))
+    .filter(item => item.mode === mode)
+    .filter(item => routeFits(airports, aircraft, item.from, item.to));
+  return candidates[0] ? {kind: 'free', reason: 'charter-demand', dep: candidates[0].from, arr: candidates[0].to} : null;
+}
+
+function inboundDemandProposal(demand, target, aircraft, mode, airports) {
+  const candidates = array(demand.byInbound.get(upper(target)))
+    .filter(item => item.mode === mode)
+    .filter(item => routeFits(airports, aircraft, item.from, item.to));
+  return candidates[0] ? {kind: 'free', reason: 'inbound-demand', dep: candidates[0].from, arr: candidates[0].to} : null;
+}
+
+function freeProposalWithRange(demand, airports, current, target, aircraft, mode, reason) {
+  if (!current || !target || current === target) return null;
+  if (routeFits(airports, aircraft, current, target)) return {kind: 'free', reason, dep: current, arr: target};
+  return inboundDemandProposal(demand, target, aircraft, mode, airports);
+}
+
+function proposedRouteForAircraft({db, aircraft, airports, demand, now, completedFlights = []}) {
+  if (!aircraft?.id) return null;
+  const current = upper(aircraft.lastflightlocationICAO || aircraft.lastFlightLocationIcao || aircraft.locationIcao);
+  const scheduleIcao = upper(aircraft.locationIcao);
+  const mode = isCargoAircraft(aircraft, aircraft) ? 'cargo' : 'pax';
+  const activeRoutes = scheduleRoutesForAircraft(db, aircraft).filter(route => route?.active !== false);
+  const todayRoutes = activeRoutes.filter(route => routeRunsToday(route, now));
+  const routeFromCurrent = pickScheduleRoute(todayRoutes.filter(route => route.dep === current), aircraft, completedFlights, now);
+  if (todayRoutes.length && current === scheduleIcao && routeFromCurrent) {
+    return {kind: 'schedule', reason: 'schedule', number: routeFromCurrent.number, dep: routeFromCurrent.dep, arr: routeFromCurrent.arr};
+  }
+  const routeFromScheduleToday = pickScheduleRoute(todayRoutes.filter(route => route.dep === scheduleIcao), aircraft, completedFlights, now);
+  if (activeRoutes.length && scheduleIcao && current !== scheduleIcao) {
+    return freeProposalWithRange(
+      demand,
+      airports,
+      current,
+      scheduleIcao,
+      aircraft,
+      mode,
+      routeFromScheduleToday ? 'schedule-positioning' : 'maintenance-positioning'
+    );
+  }
+  if (activeRoutes.length && current === scheduleIcao) {
+    const demandRoute = demandProposalFromOrigin(demand, current, aircraft, mode, airports);
+    if (demandRoute) return demandRoute;
+    return null;
+  }
+  const bases = baseIcaosForAircraft(aircraft);
+  if (bases.includes(current)) {
+    const demandRoute = demandProposalFromOrigin(demand, current, aircraft, mode, airports);
+    if (demandRoute) return demandRoute;
+  }
+  const targetBase = bases.find(base => base !== current) || bases[0] || scheduleIcao;
+  return freeProposalWithRange(demand, airports, current, targetBase, aircraft, mode, 'base-return');
+}
+
+function premiumAmount(airports, coefficient, aircraft, dep, arr) {
+  const dist = distanceNm(airports, dep, arr);
+  const code = upper(aircraft.airframeIdent || aircraft.airframeType || aircraft.icao);
+  const flightType = isCargoAircraft(aircraft, aircraft) ? 'cargo' : 'pax';
+  return Math.round((100 + dist) * coefficient(code, flightType));
+}
+
+function liveAircraftIds(flight) {
+  const ids = new Set();
+  const scan = (value, depth = 0) => {
+    if (!value || depth > 5) return;
+    if (typeof value === 'string') {
+      if (/^[0-9a-f]{20,}$/i.test(value.trim())) ids.add(value.trim());
+      return;
+    }
+    if (Array.isArray(value)) return value.forEach(item => scan(item, depth + 1));
+    if (typeof value !== 'object') return;
+    ['id', '_id', 'aircraftId', 'aircraftID'].forEach(key => {
+      if (value[key]) scan(value[key], depth + 1);
+    });
+    Object.entries(value).forEach(([key, child]) => {
+      if (/aircraft|livery|fleet/i.test(key)) scan(child, depth + 1);
+    });
+  };
+  scan(flight.aircraft);
+  scan(flight.aircraftId);
+  scan(flight.aircraftID);
+  return [...ids];
+}
+
+function normalizeLiveFlight(raw) {
+  const dep = upper(pick(raw, ['dep.icao', 'departure.icao', 'dep', 'departure']));
+  const arr = upper(pick(raw, ['arr.icao', 'arrival.icao', 'arr', 'arrival']));
+  const scheduleRaw = raw.schedule ?? raw.isSchedule ?? raw.operation?.schedule ?? raw.operations?.scheduled;
+  const freeRaw = raw.free ?? raw.isFree ?? raw.operation?.free;
+  const charterRaw = raw.charter ?? raw.isCharter ?? raw.operation?.charter ?? raw.operations?.charter;
+  const typeText = String(raw.type || raw.flightType || raw.operation?.type || raw.category || '').trim().toLowerCase();
+  const isSchedule = scheduleRaw === true || typeText === 'schedule' || typeText === 'scheduled';
+  const isCharter = charterRaw === true || typeText === 'charter';
+  const isFree = freeRaw === true || typeText === 'free' || (!isSchedule && !isCharter);
+  return {
+    id: cleanId(raw._id || raw.id),
+    pilotId: cleanId(pick(raw, ['pilot.id', 'pilot._id', 'pilotId', 'pilotID'])),
+    flightNumber: String(raw.flightNumber || raw.number || raw.callsign || '').trim(),
+    depIcao: dep,
+    arrIcao: arr,
+    aircraftIds: liveAircraftIds(raw),
+    airlineIcao: upper(pick(raw, ['airline.icao', 'airlineIcao'])) || 'UKL',
+    schedule: isSchedule,
+    free: isFree,
+    charter: isCharter,
+    startedAt: raw.depTimeAct || raw.takeoffTimeAct || raw.takeoff || raw.depTime || raw.open || raw.createdAt || null,
+    airborne: Boolean(raw.depTimeAct || raw.takeoffTimeAct || raw.takeoff || raw.status === 'enroute' || raw.status === 'ENROUTE')
+  };
+}
+
+function liveFromCompletedFlight(flight) {
+  const aircraftIds = [cleanId(flight?.aircraft?.id || flight?.aircraft?._id || flight?.aircraftId)].filter(Boolean);
+  const typeText = String(flight?.flightType || '').trim().toLowerCase();
+  return {
+    id: cleanId(flight?.id || flight?._id),
+    pilotId: cleanId(flight?.pilot?.id || flight?.pilotId),
+    flightNumber: String(flight?.flightNumber || '').trim(),
+    depIcao: upper(flight?.departure?.icao),
+    arrIcao: upper(flight?.actualArrival?.icao || flight?.arrival?.icao),
+    aircraftIds,
+    airlineIcao: 'UKL',
+    schedule: Boolean(flight?.operations?.scheduled) || typeText === 'schedule' || typeText === 'scheduled',
+    free: Boolean(flight?.operations?.free) || typeText === 'free',
+    charter: Boolean(flight?.operations?.charter) || typeText === 'charter',
+    startedAt: flight?.times?.actualDeparture || flight?.times?.takeoff || flight?.times?.scheduledDeparture || flight?.times?.opened || flight?.createdAt || null,
+    airborne: false
+  };
+}
+
+function liveMatchesProposalOperation(live, proposal) {
+  const kind = String(proposal?.kind || '').toLowerCase();
+  if (kind === 'schedule') {
+    const proposalNumber = String(proposal?.number || proposal?.label || '').trim();
+    const liveNumber = String(live.flightNumber || '').trim();
+    return live.schedule === true && (!proposalNumber || proposalNumber === liveNumber);
+  }
+  if (kind === 'free') return live.free === true;
+  return true;
+}
+
+function mergeLiveFlightDetail(raw, detail) {
+  const source = detail?.flight || detail || {};
+  if (!source || typeof source !== 'object') return raw;
+  const sourceAircraft = source.aircraft;
+  if (!sourceAircraft || typeof sourceAircraft !== 'object') return raw;
+  return {
+    ...raw,
+    aircraft: {
+      ...(raw?.aircraft && typeof raw.aircraft === 'object' ? raw.aircraft : {}),
+      ...sourceAircraft,
+      airframe: {
+        ...(raw?.aircraft?.airframe || {}),
+        ...(sourceAircraft.airframe || {})
+      }
+    },
+    aircraftId: sourceAircraft._id || sourceAircraft.id || source.aircraftId || raw?.aircraftId || ''
+  };
+}
+
+async function loadLiveFlightDetail(raw, token) {
+  const id = cleanId(raw?._id || raw?.id);
+  if (!id) return raw;
+  const response = await fetch(`${LIVE_DETAIL_URL}${encodeURIComponent(id)}`, {headers: {Authorization: `Bearer ${token}`}});
+  if (!response.ok) {
+    console.warn(`Live flight detail skipped ${id}: ${response.status} ${response.statusText}`);
+    return raw;
+  }
+  return mergeLiveFlightDetail(raw, await response.json());
+}
+
+async function loadLiveFlightDetailsLimited(list, token) {
+  const result = [];
+  const batchSize = 5;
+  for (let index = 0; index < list.length; index += batchSize) {
+    const batch = list.slice(index, index + batchSize);
+    result.push(...await Promise.all(batch.map(item => loadLiveFlightDetail(item, token))));
+    if (index + batchSize < list.length) await sleep(10500);
+  }
+  return result;
+}
+
+async function loadLiveFlights() {
+  const liveFile = argValue('--live-json');
+  if (liveFile) {
+    const raw = readJson(path.resolve(liveFile), []);
+    const list = Array.isArray(raw) ? raw : array(raw.results || raw.flights);
+    return list.map(normalizeLiveFlight).filter(item => item.id);
+  }
+  if (args.has('--skip-live')) return [];
+  const token = process.env.NEWSKY_AIRLINE_TOKEN || DEFAULT_TOKEN;
+  const response = await fetch(LIVE_URL, {headers: {Authorization: `Bearer ${token}`}});
+  if (!response.ok) throw new Error(`Live API failed: ${response.status} ${response.statusText}`);
+  const raw = await response.json();
+  const list = Array.isArray(raw) ? raw : array(raw.results || raw.flights);
+  const filtered = list.filter(item => {
+    const live = normalizeLiveFlight(item);
+    return live.id && live.airborne && live.airlineIcao === 'UKL';
+  });
+  const detailed = await loadLiveFlightDetailsLimited(filtered, token);
+  return detailed.map(normalizeLiveFlight)
+    .filter(item => item.id && item.airborne && item.airlineIcao === 'UKL');
+}
+
+function completedMap(flights) {
+  const map = new Map();
+  flights.forEach(flight => {
+    const id = cleanId(flight.id || flight._id);
+    if (id) map.set(id, flight);
+  });
+  return map;
+}
+function topPoolCategoryFromMode(value) {
+  const key = String(value || '').trim();
+  return {
+    quick: 'hot',
+    hot: 'hot',
+    earn: 'cash',
+    cash: 'cash',
+    return: 'returnRoute',
+    returnRoute: 'returnRoute',
+    idle: 'idle'
+  }[key] || key || '';
+}
+
+function topPoolItemsFromCurrent(pool) {
+  const result = [];
+  if (pool?.categories) {
+    Object.entries(pool.categories).forEach(([mode, category]) => {
+      array(category?.items).forEach(item => {
+        const proposal = item.proposal || {};
+        const proposalType = String(proposal.type || '').trim().toLowerCase();
+        const flightNumberRaw = String(proposal.flightNumber || '').trim();
+        const flightNumber = proposalType === 'free' || /^FREE/i.test(flightNumberRaw) ? 'FREE' : flightNumberRaw;
+        const aircraftId = cleanId(item.aircraftId);
+        if (!aircraftId) return;
+        result.push({
+          poolId: item.poolId || null,
+          generatedAt: item.generatedAt || pool.generatedAtLocal || pool.generatedAt,
+          activeUntil: item.activeUntil || pool.activeUntil,
+          claimableUntil: item.claimableUntil || pool.claimableUntil || pool.activeUntil,
+          poolKey: [mode, item.rank, aircraftId, flightNumber || proposalType || 'route', upper(proposal.depIcao), upper(proposal.arrIcao)].join('|'),
+          category: topPoolCategoryFromMode(mode),
+          sourceMode: mode,
+          categoryLabel: category?.label || item.mode || mode,
+          rank: Number(item.rank) || 0,
+          pieRewardRulesVersion: Number(item.pieRewardRulesVersion || pool.pieRewardRulesVersion) || 1,
+          aircraftId,
+          proposalType,
+          flightNumber,
+          depIcao: upper(proposal.depIcao),
+          arrIcao: upper(proposal.arrIcao)
+          ,
+          premiumUsd: proposal.premiumUsd ?? null,
+          durationMinutes: proposal.durationMinutes ?? null,
+          durationText: proposal.durationText || null
+        });
+      });
+    });
+    return result;
+  }
+  return array(pool?.items).map(item => ({
+    poolId: item.poolId || null,
+    poolKey: item.poolId || [item.category, item.rank, item.aircraftId, item.flightNumber || item.proposalType || 'aircraft', item.depIcao || '', item.arrIcao || ''].join('|'),
+    category: topPoolCategoryFromMode(item.category),
+    sourceMode: item.mode || item.category || '',
+    categoryLabel: item.categoryLabel || '',
+    rank: Number(item.rank) || 0,
+    pieRewardRulesVersion: Number(item.pieRewardRulesVersion || pool.pieRewardRulesVersion) || 1,
+    aircraftId: cleanId(item.aircraftId),
+    proposalType: String(item.proposalType || item.type || '').trim().toLowerCase(),
+    flightNumber: String(item.flightNumber || '').trim(),
+    depIcao: upper(item.depIcao),
+    arrIcao: upper(item.arrIcao),
+    premiumUsd: item.premiumUsd ?? null,
+    durationMinutes: item.durationMinutes ?? null,
+    durationText: item.durationText || null
+  })).filter(item => item.aircraftId);
+}
+
+function parseDateMs(value) {
+  const time = new Date(value || 0).getTime();
+  return Number.isFinite(time) ? time : 0;
+}
+
+// A TOP offer can be claimed once per published pool snapshot, not once per flight ID.
+function topPoolClaimIdentity(poolKey, generatedAt) {
+  const key = String(poolKey || '').trim();
+  const publishedAt = parseDateMs(generatedAt);
+  return key && publishedAt ? `${publishedAt}|${key}` : '';
+}
+
+function topPoolClaimIdentityForMatch(match) {
+  return topPoolClaimIdentity(match?.poolKey, match?.pool?.generatedAtLocal || match?.pool?.generatedAt);
+}
+
+function topPoolClaimOwners(records, completedById, liveById) {
+  const selected = new Map();
+  for (const [id, record] of Object.entries(records || {})) {
+    const state = String(record?.state || '').toUpperCase();
+    if (record?.pie !== true || Number(record.amount) <= 0 || (state !== 'LIVE' && state !== 'DONE')) continue;
+    const claims = [record, ...array(record.currencyClaims)];
+    const completed = state === 'DONE' || completedById.has(id);
+    const timestamp = parseDateMs(
+      liveById.get(id)?.startedAt || completedById.get(id)?.times?.actualDeparture || record.updatedAt
+    ) || Number.MAX_SAFE_INTEGER;
+    const candidate = {id, priority: completed ? 0 : 1, timestamp};
+    for (const entry of claims) {
+      const claim = topPoolClaimIdentity(entry.piePoolKey, entry.piePoolGeneratedAt);
+      if (!claim) continue;
+      const previous = selected.get(claim);
+      if (!previous || candidate.priority < previous.priority
+        || (candidate.priority === previous.priority && (candidate.timestamp < previous.timestamp
+          || (candidate.timestamp === previous.timestamp && id < previous.id)))) selected.set(claim, candidate);
+    }
+  }
+  return new Map([...selected].map(([key, owner]) => [key, owner.id]));
+}
+
+function reserveTopPoolClaim(owners, match, flightId) {
+  const claim = topPoolClaimIdentityForMatch(match);
+  if (!claim) return true;
+  const owner = owners.get(claim);
+  if (owner && owner !== flightId) return false;
+  owners.set(claim, flightId);
+  return true;
+}
+
+function poolGeneratedTime(pool) {
+  return parseDateMs(pool?.generatedAtLocal || pool?.generatedAt || pool?.createdAt);
+}
+
+function claimableUntilTime(pool) {
+  const explicit = parseDateMs(pool?.claimableUntil || pool?.activeUntil);
+  if (explicit) return explicit;
+  const generated = poolGeneratedTime(pool);
+  return generated ? generated + 24 * 3600000 : 0;
+}
+
+function liveIsInsidePoolWindow(live, pool) {
+  const generated = poolGeneratedTime(pool);
+  if (!generated) return true;
+  const started = parseDateMs(live.startedAt) || Date.now();
+  if (started < generated) return false;
+  const claimableUntil = claimableUntilTime(pool);
+  if (claimableUntil && started > claimableUntil) return false;
+  return true;
+}
+
+function walkJsonFiles(dir) {
+  if (!fs.existsSync(dir)) return [];
+  const result = [];
+  for (const entry of fs.readdirSync(dir, {withFileTypes: true})) {
+    const file = path.join(dir, entry.name);
+    if (entry.isDirectory()) result.push(...walkJsonFiles(file));
+    else if (entry.isFile() && /\.json$/i.test(entry.name)) result.push(file);
+  }
+  return result;
+}
+
+function topPoolFingerprint(pool) {
+  const generatedAt = pool?.generatedAtLocal || pool?.generatedAt || pool?.createdAt || '';
+  const schema = pool?.schema || `legacy-v${pool?.version || 1}`;
+  const sourceUrl = pool?.sourceUrl || '';
+  const itemCount = topPoolItemsFromCurrent(pool).length;
+  return [schema, generatedAt, pool.updatedAt || '', sourceUrl, itemCount].join('|');
+}
+
+function loadTopPools() {
+  const pools = [];
+  const current = readJson(TOP_POOL_CURRENT_FILE, null);
+  if (current) pools.push({...current, _sourceFile: path.relative(OUTPUT_ROOT, TOP_POOL_CURRENT_FILE).replace(/\\/g, '/')});
+  for (const file of walkJsonFiles(TOP_POOLS_DIR)) {
+    const data = readJson(file, null);
+    if (!data) continue;
+    const sourceFile = path.relative(OUTPUT_ROOT, file).replace(/\\/g, '/');
+    if (Array.isArray(data.snapshots)) {
+      data.snapshots.forEach(snapshot => {
+        if (snapshot && typeof snapshot === 'object') pools.push({...snapshot, _sourceFile: sourceFile});
+      });
+    } else if (data.categories || data.items) {
+      pools.push({...data, _sourceFile: sourceFile});
+    }
+  }
+  const seen = new Set();
+  return pools.filter(pool => {
+    const key = topPoolFingerprint(pool);
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  }).sort((a, b) => poolGeneratedTime(b) - poolGeneratedTime(a));
+}
+
+function topPoolItemsFromPools(pools) {
+  const retired = {};
+  array(pools).forEach(pool => Object.entries(pool.retiredHotOffers || {}).forEach(([id, value]) => {
+    if (!retired[id] || parseDateMs(value) < parseDateMs(retired[id])) retired[id] = value;
+  }));
+  return array(pools).flatMap(pool => topPoolItemsFromCurrent(pool).map(item => ({...item,
+    retiredAt: retired[item.poolId] || null,
+    pool: {...pool, generatedAtLocal: item.generatedAt || pool.generatedAtLocal,
+      generatedAt: item.generatedAt || pool.generatedAt,
+      activeUntil: item.activeUntil || pool.activeUntil,
+      claimableUntil: item.claimableUntil || pool.claimableUntil}})));
+}
+
+function topPoolItemOperationMatches(item, live) {
+  if (item.proposalType === 'free' || upper(item.flightNumber) === 'FREE') return live.free === true;
+  if (item.proposalType === 'schedule') {
+    const expected = String(item.flightNumber || '').trim().replace(/^0+(?=\d)/, '');
+    const actual = String(live.flightNumber || '').trim().replace(/^0+(?=\d)/, '');
+    return live.schedule === true && (!expected || expected === actual);
+  }
+  if (item.proposalType === 'charter') return live.charter === true;
+  return true;
+}
+
+function topPoolOfferInterrupted(item, live, completedFlights) {
+  if (item.category !== 'hot') return false;
+  const generated = poolGeneratedTime(item.pool);
+  const started = parseDateMs(live.startedAt);
+  return array(completedFlights).some(flight => {
+    if (cleanId(flight.id || flight._id) === cleanId(live.id)) return false;
+    if (cleanId(flight.aircraft?.id || flight.aircraft?._id || flight.aircraftId) !== cleanId(item.aircraftId)) return false;
+    const ended = parseDateMs(flight.times?.closed || flight.times?.actualArrival);
+    return ended >= generated && ended <= started;
+  });
+}
+
+function topPoolMatchesForLive(live, aircraftId, topPoolItems, completedFlights = []) {
+  const normalizedAircraftId = cleanId(aircraftId);
+  return array(topPoolItems).filter(item => {
+    if (item.retiredAt && parseDateMs(live.startedAt) >= parseDateMs(item.retiredAt)) return false;
+    if (item.pool && !liveIsInsidePoolWindow(live, item.pool)) return false;
+    if (cleanId(item.aircraftId) !== normalizedAircraftId) return false;
+    if (item.depIcao && item.depIcao !== live.depIcao) return false;
+    if (item.arrIcao && item.arrIcao !== live.arrIcao) return false;
+    return topPoolItemOperationMatches(item, live) && !topPoolOfferInterrupted(item, live, completedFlights);
+  }).filter((item, index, matches) => matches.findIndex(other => other.category === item.category) === index);
+}
+function topPoolMatchForLive(live, aircraftId, topPoolItems, completedFlights = []) {
+  return topPoolMatchesForLive(live, aircraftId, topPoolItems, completedFlights)[0] || null;
+}
+function topPoolCurrencyClaimsForLive(live, aircraftId, topPoolItems, completedFlights, owners) {
+  return topPoolMatchesForLive(live, aircraftId, topPoolItems, completedFlights)
+    .filter(item => reserveTopPoolClaim(owners, item, live.id)).map(topPoolRecordFields);
+}
+function topPoolRecordFields(match) {
+  return {
+    pie: Boolean(match),
+    pieType: match?.category || null,
+    pieSourceMode: match?.sourceMode || null,
+    pieRank: match?.rank || null,
+    pieRewardRulesVersion: match ? (match.category === 'hot' ? (Number(match.pieRewardRulesVersion) || 1) : 2) : null,
+    piePoolKey: match?.poolKey || null,
+    piePoolGeneratedAt: match?.pool ? (match.pool.generatedAtLocal || match.pool.generatedAt || null) : null,
+    piePoolId: match?.poolId || null,
+    piePoolActiveUntil: match?.pool?.activeUntil || null,
+    piePoolClaimableUntil: match?.pool?.claimableUntil || match?.pool?.activeUntil || null,
+    pieClaim: match ? {
+      aircraftId: match.aircraftId,
+      depIcao: match.depIcao,
+      arrIcao: match.arrIcao,
+      flightNumber: match.flightNumber,
+      proposalType: match.proposalType
+    } : null
+  };
+}
+
+function preserveTopPoolClaims(previousFlights, nextFlights) {
+  for (const [id, record] of Object.entries(nextFlights || {})) {
+    const previous = previousFlights?.[id];
+    if (previous?.pie !== true || previous.pilotId !== record.pilotId || previous.aircraftId !== record.aircraftId) continue;
+    for (const [key, value] of Object.entries(previous)) {
+      if (key === 'pie' || key.startsWith('pie') || key === 'currencyClaims') record[key] = value;
+    }
+  }
+}
+
+function updatePiesLedger(bonusRecords, completedFlights, now, dryRun) {
+  // Railway's temporary top/bonus workspace does not include the currency
+  // module. Only the dedicated ledger updater needs this dependency.
+  const pieRewards = require('../pie-rewards-v2.js');
+  // Never reset a saved balance if its file is damaged or unsupported.
+  const previous = fs.existsSync(PIES_LEDGER_FILE)
+    ? readJson(PIES_LEDGER_FILE)
+    : {version: 1, ruleVersion: pieRewards.RULE_VERSION, activatedAt: null, updatedAt: null, entries: {}};
+  const records = {...bonusRecords};
+  const activation = parseDateMs(previous.activatedAt);
+  const completedById = completedMap(completedFlights);
+  const missingClaims = Object.entries(records).filter(([id, record]) => {
+    const flight = completedById.get(id);
+    const started = parseDateMs(flight?.times?.actualDeparture || flight?.times?.takeoff);
+    return activation && started >= activation && record?.pie === true && record.pieType === 'hot'
+      && record.state === 'DONE' && record.status === 'earned'
+      && (!record.piePoolActiveUntil || !record.piePoolClaimableUntil
+        || (Number(record.pieRank) > 3 && !record.pieRewardRulesVersion));
+  });
+  if (missingClaims.length) {
+    // Older external updaters may omit snapshot windows. Recover only the exact
+    // recorded pool and rank; never choose a new offer after a flight finishes.
+    const snapshots = new Map(topPoolItemsFromPools(loadTopPools())
+      .filter(item => item.category === 'hot')
+      .map(item => [`${poolGeneratedTime(item.pool)}|${item.poolKey}`, item]));
+    for (const [id, record] of missingClaims) {
+      const match = snapshots.get(`${parseDateMs(record.piePoolGeneratedAt)}|${record.piePoolKey}`);
+      if (!match || Number(match.rank) !== Number(record.pieRank)) continue;
+      const fields = topPoolRecordFields(match);
+      records[id] = {...record,
+        piePoolId: record.piePoolId || fields.piePoolId,
+        piePoolActiveUntil: record.piePoolActiveUntil || fields.piePoolActiveUntil,
+        piePoolClaimableUntil: record.piePoolClaimableUntil || fields.piePoolClaimableUntil,
+        pieRewardRulesVersion: record.pieRewardRulesVersion || fields.pieRewardRulesVersion,
+        pieClaim: record.pieClaim || fields.pieClaim
+      };
+    }
+  }
+  for (const [id, record] of Object.entries(records)) {
+    const flight = completedById.get(id);
+    if (record?.pie !== true || record.pieType !== 'hot' || !flight) continue;
+    const item = {category:'hot', aircraftId:record.aircraftId, pool:{generatedAt:record.piePoolGeneratedAt}};
+    if (topPoolOfferInterrupted(item, liveFromCompletedFlight(flight), completedFlights)) {
+      records[id] = {...record, pie:false};
+    }
+  }
+  for (const [id, record] of Object.entries(records)) {
+    const flight = completedById.get(id);
+    if (!flight || !Array.isArray(record.currencyClaims)) continue;
+    const live = liveFromCompletedFlight(flight);
+    const claims = record.currencyClaims.filter(claim => claim.pieType !== 'hot'
+      || !topPoolOfferInterrupted({category:'hot', aircraftId:record.aircraftId,
+        pool:{generatedAt:claim.piePoolGeneratedAt}}, live, completedFlights));
+    if (claims.length !== record.currencyClaims.length) records[id] = {...record, currencyClaims:claims};
+  }
+  const next = pieRewards.syncLedger(previous, records, completedFlights, now);
+  if (!dryRun && next !== previous) writeJson(PIES_LEDGER_FILE, next);
+  return next;
+}
+
+function proposalFromTopPoolMatch(match) {
+  if (!match) return null;
+  return {
+    kind: match.proposalType || (upper(match.flightNumber) === 'FREE' ? 'free' : 'schedule'),
+    reason: 'top-pool',
+    flightNumber: match.flightNumber || null,
+    dep: {icao: match.depIcao},
+    arr: {icao: match.arrIcao},
+    durationMinutes: match.durationMinutes ?? null,
+    durationText: match.durationText || null
+  };
+}
+
+
+function recordFromLive(live, aircraft, proposal, amount, topPoolMatch = null, currencyClaims = []) {
+  return {
+    amount,
+    pilotId: live.pilotId,
+    aircraftId: cleanId(aircraft.id || aircraft._id),
+    depIcao: live.depIcao,
+    arrIcao: live.arrIcao,
+    flightNumber: live.flightNumber,
+    route: `${live.depIcao}-${live.arrIcao}`,
+    state: 'LIVE',
+    status: 'matched',
+    proposalType: proposal.kind,
+    proposalReason: proposal.reason,
+    ...topPoolRecordFields(topPoolMatch),
+    ...(topPoolMatch ? {currencyClaims} : {}),
+    updatedAt: new Date().toISOString()
+  };
+}
+
+function recordFromCompleted(flight, aircraft, proposal, amount, topPoolMatch = null, currencyClaims = []) {
+  const live = liveFromCompletedFlight(flight);
+  return {
+    ...recordFromLive(live, aircraft, proposal, amount, topPoolMatch, currencyClaims),
+    state: 'DONE',
+    status: 'earned',
+    updatedAt: new Date().toISOString()
+  };
+}
+
+function pendingBonusExpired(id, record, completedById, liveById, now) {
+  if (String(record?.state || '').toUpperCase() !== 'LIVE'
+    || record?.status !== 'pending-completion-check'
+    || completedById.has(id) || liveById.has(id)) return false;
+  const since = parseDateMs(record.pendingSince || record.updatedAt);
+  return Boolean(since && now.getTime() - since >= 7200000);
+}
+
+function retainGuaranteedRecords(previous, completedById, liveById, claimOwners, now) {
+  const retained = {};
+  for (const [id, record] of Object.entries(previous || {})) {
+    if (pendingBonusExpired(id, record, completedById, liveById, now)) continue;
+    const state = String(record?.state || '').toUpperCase();
+    if (state === 'DONE') {
+      retained[id] = record;
+      continue;
+    }
+    const claim = topPoolClaimIdentity(record?.piePoolKey, record?.piePoolGeneratedAt);
+    if (claim && claimOwners.get(claim) !== id) continue;
+    if (completedById.has(id)) {
+      if (Number(record?.amount) > 0) {
+        const {pendingSince, ...saved} = record;
+        retained[id] = {...saved, state: 'DONE', status: 'earned', updatedAt: now.toISOString()};
+      }
+      continue;
+    }
+    if (state !== 'LIVE' || Number(record?.amount) <= 0) continue;
+    if (liveById.has(id)) {
+      if (record.status === 'pending-completion-check') {
+        const {pendingSince, ...saved} = record;
+        retained[id] = {...saved, status: 'matched', updatedAt: now.toISOString()};
+      } else {
+        retained[id] = record;
+      }
+    } else if (record.status === 'pending-completion-check') {
+      retained[id] = record.pendingSince ? record : {
+        ...record, pendingSince: parseDateMs(record.updatedAt) ? record.updatedAt : now.toISOString()
+      };
+    } else {
+      retained[id] = {
+        ...record, state: 'LIVE', status: 'pending-completion-check',
+        pendingSince: now.toISOString(), updatedAt: now.toISOString()
+      };
+    }
+  }
+  return retained;
+}
+
+async function main() {
+  const now = new Date();
+  const matching = readJson(path.join(COMPANY_DIR, 'livery-matching.json'), {liveries: []});
+  const db = readJson(path.join(COMPANY_DIR, 'ucaa-livery-database.json'), {aircraft: [], scheduleAssignments: []});
+  const bonuses = readJson(BONUS_FILE, {version: 1, flights: {}});
+  const topPoolItems = topPoolItemsFromPools(loadTopPools());
+  const completedFlights = loadCompletedFlights();
+  const completedById = completedMap(completedFlights);
+  if (args.has('--debug-completed')) {
+    console.error(JSON.stringify({
+      completedFlights: completedFlights.length,
+      hasTestUrfkr: completedById.has('test-live-match-urfkr'),
+      testUrfkr: completedById.get('test-live-match-urfkr') || null
+    }, null, 2));
+  }
+  const airports = loadAirportLocations(completedFlights);
+  const aircraftMaps = aircraftKeyData(db, matching);
+  applyLatestCompletedLocations(completedFlights, aircraftMaps);
+  const coefficient = loadAircraftCoefficient();
+  const demand = parseDemandFile(path.join(OUTPUT_ROOT, 'newsky-charter-results.txt'));
+
+  const probeAircraftId = cleanId(argValue('--probe-aircraft'));
+  if (probeAircraftId) {
+    const aircraft = aircraftMaps.byId.get(probeAircraftId);
+    const proposal = aircraft ? proposedRouteForAircraft({db, aircraft, airports, demand, now, completedFlights}) : null;
+    const amount = proposal ? premiumAmount(airports, coefficient, aircraft, proposal.dep, proposal.arr) : 0;
+    console.log(JSON.stringify({
+      aircraftId: probeAircraftId,
+      registration: aircraft?.registration || '',
+      name: aircraft?.name || '',
+      currentIcao: upper(aircraft?.lastflightlocationICAO || aircraft?.lastFlightLocationIcao || aircraft?.locationIcao),
+      scheduleIcao: upper(aircraft?.locationIcao),
+      proposal,
+      amount
+    }, null, 2));
+    return;
+  }
+
+  const liveFlights = await loadLiveFlights();
+  const liveById = new Map(liveFlights.map(flight => [flight.id, flight]));
+  const eligibleRecords = Object.fromEntries(Object.entries(bonuses.flights || {})
+    .filter(([id, record]) => !pendingBonusExpired(id, record, completedById, liveById, now)));
+  const claimOwners = topPoolClaimOwners(eligibleRecords, completedById, liveById);
+  if (args.has('--debug-live')) {
+    console.error(JSON.stringify({liveFlights}, null, 2));
+  }
+
+  const next = {version: Number(bonuses.version) || 1, updatedAt: bonuses.updatedAt || '',
+    flights: retainGuaranteedRecords(eligibleRecords, completedById, liveById, claimOwners, now)};
+
+  for (const live of [...liveFlights].sort((a, b) =>
+    (parseDateMs(a.startedAt) || Number.MAX_SAFE_INTEGER) - (parseDateMs(b.startedAt) || Number.MAX_SAFE_INTEGER)
+    || a.id.localeCompare(b.id))) {
+    if (next.flights[live.id]) continue;
+    for (const aircraftId of live.aircraftIds) {
+      const aircraft = aircraftMaps.byId.get(aircraftId);
+      if (!aircraft) continue;
+      const topPoolMatch = topPoolMatchForLive(live, aircraftId, topPoolItems, completedFlights);
+      const topPoolAmount = Number(topPoolMatch?.premiumUsd || 0);
+      if (topPoolMatch && topPoolAmount > 0) {
+        if (!reserveTopPoolClaim(claimOwners, topPoolMatch, live.id)) break;
+        const currencyClaims = topPoolCurrencyClaimsForLive(live, aircraftId, topPoolItems, completedFlights, claimOwners);
+        next.flights[live.id] = recordFromLive(live, aircraft, proposalFromTopPoolMatch(topPoolMatch), Math.round(topPoolAmount), topPoolMatch, currencyClaims);
+        break;
+      }
+      const proposal = proposedRouteForAircraft({db, aircraft, airports, demand, now, completedFlights});
+      if (args.has('--debug-live')) {
+        console.error(JSON.stringify({liveId: live.id, aircraftId, depIcao: live.depIcao, arrIcao: live.arrIcao, proposal}, null, 2));
+      }
+      if (!proposal) continue;
+      if (proposal.dep !== live.depIcao || proposal.arr !== live.arrIcao) continue;
+      if (!liveMatchesProposalOperation(live, proposal)) continue;
+      const amount = premiumAmount(airports, coefficient, aircraft, proposal.dep, proposal.arr);
+      if (amount <= 0) continue;
+      next.flights[live.id] = recordFromLive(live, aircraft, proposal, amount, topPoolMatch);
+      break;
+    }
+  }
+
+  for (const flight of [...completedFlights].sort((a, b) =>
+    (parseDateMs(a.times?.actualDeparture || a.times?.takeoff) || Number.MAX_SAFE_INTEGER)
+    - (parseDateMs(b.times?.actualDeparture || b.times?.takeoff) || Number.MAX_SAFE_INTEGER)
+    || String(a.id || '').localeCompare(String(b.id || '')))) {
+    const flightId = cleanId(flight.id || flight._id);
+    if (!flightId || next.flights[flightId]) continue;
+    const live = liveFromCompletedFlight(flight);
+    if (!live.depIcao || !live.arrIcao || !live.aircraftIds.length) continue;
+    for (const aircraftId of live.aircraftIds) {
+      const aircraft = aircraftMaps.byId.get(aircraftId);
+      if (!aircraft) continue;
+      const topPoolMatch = topPoolMatchForLive(live, aircraftId, topPoolItems, completedFlights);
+      const topPoolAmount = Number(topPoolMatch?.premiumUsd || 0);
+      if (!topPoolMatch || topPoolAmount <= 0) continue;
+      if (!reserveTopPoolClaim(claimOwners, topPoolMatch, flightId)) break;
+      const currencyClaims = topPoolCurrencyClaimsForLive(live, aircraftId, topPoolItems, completedFlights, claimOwners);
+      next.flights[flightId] = recordFromCompleted(flight, aircraft, proposalFromTopPoolMatch(topPoolMatch), Math.round(topPoolAmount), topPoolMatch, currencyClaims);
+      break;
+    }
+  }
+
+  // Keep the claimed rank when pools rotate while a flight is in progress.
+  preserveTopPoolClaims(bonuses.flights || {}, next.flights);
+
+  // Keep the previous timestamp when a bonus record changed only by updatedAt.
+  // updatedAt is refreshed only together with a real data change.
+  preserveUnchangedRecordUpdatedAt(bonuses.flights || {}, next.flights);
+
+  if (args.has('--dry-run')) {
+    console.log(JSON.stringify(next, null, 2));
+    return;
+  }
+  if (sameFlights(bonuses.flights || {}, next.flights)) {
+    console.log(`no changes for ${path.relative(process.cwd(), BONUS_FILE)}: ${Object.keys(next.flights).length} records`);
+    return;
+  }
+  next.updatedAt = now.toISOString();
+  writeJson(BONUS_FILE, next);
+  console.log(`updated ${path.relative(process.cwd(), BONUS_FILE)}: ${Object.keys(next.flights).length} records`);
+}
+
+if (require.main === module) {
+  main().catch(error => {
+    console.error(error && error.stack ? error.stack : String(error));
+    process.exitCode = 1;
+  });
+}
+
+module.exports = {
+  loadCompletedFlights, topPoolItemsFromCurrent, topPoolItemsFromPools,
+  liveFromCompletedFlight, topPoolMatchForLive, topPoolMatchesForLive, topPoolCurrencyClaimsForLive, topPoolRecordFields,
+  preserveTopPoolClaims, updatePiesLedger,
+  topPoolClaimIdentity, topPoolClaimOwners, reserveTopPoolClaim, retainGuaranteedRecords, pendingBonusExpired
+};

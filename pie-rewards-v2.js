@@ -1,0 +1,130 @@
+(function (root, factory) {
+  const api = factory();
+  if (typeof module === 'object' && module.exports) module.exports = api;
+  else root.UCAAPieRewards = api;
+})(typeof globalThis !== 'undefined' ? globalThis : this, function () {
+  'use strict';
+
+  const RULE_VERSION = 1;
+  const REWARD_RULES_VERSION = 2;
+  const REWARDS = Object.freeze({1: 3, 2: 2, 3: 1, 4: 1, 5: 1, 6: 1});
+  const text = value => String(value || '').trim();
+  const upper = value => text(value).toUpperCase();
+  const time = value => value ? new Date(value).getTime() : NaN;
+  const flightNumber = value => upper(value).replace(/^UKL\s*/, '').replace(/\s+/g, '').replace(/^0+(?=\d)/, '');
+
+  function rewardForRank(rank, rulesVersion = REWARD_RULES_VERSION) {
+    const value = Number(rank);
+    // Keep the original promise for flights claimed from an older pool.
+    if (!(Number(rulesVersion) >= 2) && value > 3) return 0;
+    return Number.isInteger(value) ? (REWARDS[value] || 0) : 0;
+  }
+
+  function snapshotMatchesFlight(record, flight) {
+    const claim = record?.pieClaim || record;
+    const started = time(flight?.times?.actualDeparture || flight?.times?.takeoff);
+    const completed = time(flight?.times?.closed || flight?.times?.actualArrival);
+    const generated = time(record?.piePoolGeneratedAt);
+    const claimableUntil = time(record?.piePoolClaimableUntil);
+    if (![started, completed, generated, claimableUntil].every(Number.isFinite)) return false;
+    // Match the existing money-bonus eligibility window, including its grace
+    // hours. Completion after that window remains valid for an earned bonus;
+    // syncLedger separately rejects unfinished and future-dated flights.
+    if (started < generated || started > claimableUntil || completed < started) return false;
+    if (!text(record.piePoolKey)) return false;
+    if (!text(record.pilotId) || text(record.pilotId) !== text(flight?.pilot?.id)) return false;
+    if (!text(claim.aircraftId) || text(claim.aircraftId) !== text(flight?.aircraft?.id)) return false;
+    if (!upper(claim.depIcao) || upper(claim.depIcao) !== upper(flight?.departure?.icao)) return false;
+    if (!upper(claim.arrIcao) || upper(claim.arrIcao) !== upper(flight?.actualArrival?.icao || flight?.arrival?.icao)) return false;
+    const operation = text(claim.proposalType).toLowerCase();
+    if (operation === 'free') return flight?.operations?.free === true;
+    if (operation === 'schedule') {
+      return flight?.operations?.scheduled === true
+        && Boolean(flightNumber(claim.flightNumber))
+        && flightNumber(claim.flightNumber) === flightNumber(flight.flightNumber);
+    }
+    if (operation === 'charter') return flight?.operations?.charter === true;
+    return false;
+  }
+
+  function syncLedger(ledger, bonusRecords, completedFlights, now = new Date()) {
+    if (ledger?.version !== 1 || ledger?.ruleVersion !== RULE_VERSION || !ledger.entries || Array.isArray(ledger.entries) || typeof ledger.entries !== 'object') {
+      throw new Error('Unsupported or invalid pies ledger');
+    }
+    const nowMs = time(now);
+    if (!Number.isFinite(nowMs)) throw new Error('Invalid pies ledger update time');
+    const activatedAt = ledger.activatedAt || new Date(nowMs).toISOString();
+    const activation = time(activatedAt);
+    if (!Number.isFinite(activation)) throw new Error('Invalid pies ledger activation time');
+    const entries = {...ledger.entries};
+    const extraActivation = time(ledger.currenciesActivatedAt);
+    const flights = new Map((completedFlights || []).map(flight => [text(flight.id), flight]));
+    let changed = !ledger.activatedAt;
+    for (const [id, record] of Object.entries(bonusRecords || {})) {
+      const flightId = text(id);
+      const flight = flights.get(flightId);
+      if (!flightId || !flight || flight.status !== 'completed'
+          || record?.state !== 'DONE' || record?.status !== 'earned') continue;
+      const started = time(flight.times?.actualDeparture || flight.times?.takeoff);
+      const completed = time(flight.times?.closed || flight.times?.actualArrival);
+      if (!Number.isFinite(started) || !Number.isFinite(completed) || completed > nowMs || completed < started) continue;
+      const claims = Array.isArray(record.currencyClaims) ? record.currencyClaims
+        : record.pie === true && record.pieType === 'hot' ? [record] : [];
+      for (const claim of claims) {
+        const category = text(claim.pieType);
+        if (!['hot','cash','returnRoute','idle'].includes(category)) continue;
+        const active = category === 'hot' ? activation : extraActivation;
+        if (!Number.isFinite(active) || started < active) continue;
+        const entryId = `${category}:${flightId}`;
+        if (Object.prototype.hasOwnProperty.call(entries,entryId)) continue;
+        const amount = rewardForRank(claim.pieRank,claim.pieRewardRulesVersion || 1);
+        if (!amount || !snapshotMatchesFlight({...record,...claim,pilotId:record.pilotId},flight)) continue;
+        entries[entryId] = {
+          id:entryId,kind:'earn',ruleVersion:RULE_VERSION,
+          rewardRulesVersion:Number(claim.pieRewardRulesVersion)||1,
+          pilotId:text(record.pilotId),flightId,category,rank:Number(claim.pieRank),delta:amount,
+          poolId:claim.piePoolId||null,poolKey:claim.piePoolKey,
+          poolGeneratedAt:claim.piePoolGeneratedAt,
+          startedAt:new Date(started).toISOString(),
+          completedAt:new Date(completed).toISOString(),
+          awardedAt:new Date(nowMs).toISOString()
+        };
+        changed = true;
+      }
+    }
+    return changed ? {...ledger, activatedAt, updatedAt: new Date(nowMs).toISOString(), entries} : ledger;
+  }
+
+  function earningForFlight(ledger, flight, category = 'hot') {
+    const flightId = text(flight?.id || flight?._id || flight?.flightId || flight?.newskyId);
+    const pilotId = text(flight?.pilot?.id || flight?.pilot?._id || flight?.pilotId);
+    if (!flightId || !pilotId || flight?.status !== 'completed') return null;
+    if (!['hot','cash','returnRoute','idle'].includes(category)) return null;
+    const entryId = `${category}:${flightId}`;
+    if (!Object.prototype.hasOwnProperty.call(ledger?.entries || {}, entryId)) return null;
+    const entry = ledger.entries[entryId];
+    return entry?.kind === 'earn' && text(entry.id) === entryId
+      && text(entry.flightId) === flightId && text(entry.pilotId) === pilotId
+      && Number.isSafeInteger(entry.delta) && entry.delta > 0 ? entry : null;
+  }
+
+  function balanceForPilot(ledger, pilotId, category = 'hot') {
+    const id = text(pilotId);
+    if (!id || !ledger?.entries) return 0;
+    const seen = new Set();
+    let balance = 0;
+    for (const entry of Object.values(ledger.entries)) {
+      if (!entry || text(entry.pilotId) !== id || entry.category !== category || !text(entry.id) || seen.has(entry.id)) continue;
+      const delta = Number(entry.delta);
+      if (!Number.isSafeInteger(delta)) continue;
+      seen.add(entry.id);
+      balance += delta;
+    }
+    return balance;
+  }
+
+  function earningsForFlight(ledger, flight) {
+    return ['hot','cash','returnRoute','idle'].map(category => earningForFlight(ledger,flight,category)).filter(Boolean);
+  }
+  return Object.freeze({RULE_VERSION, REWARD_RULES_VERSION, REWARDS, rewardForRank, snapshotMatchesFlight, syncLedger, earningForFlight, earningsForFlight, balanceForPilot});
+});
