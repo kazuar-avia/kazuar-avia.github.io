@@ -301,3 +301,39 @@ test('a small fleet leaves lower-priority TOPs empty instead of reusing idle air
   assert.deepEqual(result.categories.idle.items.map(item=>item.aircraftId),['long-idle','positioning']);
   assert.deepEqual([result.counts.hot,result.counts.cash,result.counts.returnRoute],[0,0,0]);
 });
+
+
+test('LIVE TOP SCHEDULE badge stays green before the guaranteed bonus record arrives', () => {
+  const flight = {flightNumber:'7736',schedule:true};
+  const live = {aircraftId:'plane',flightNumber:'7736',operationKey:'schedule',state:'LIVE'};
+  const ctx = vm.createContext({
+    companyLiveryLiveRecordFromFlight:()=>({...live}),
+    guaranteedBonusRecordForFlight:()=>null,
+    liveryProposalBadge:(kind,label,meta={})=>`<span class="flight-number-${kind}" title="${meta.title || ''}">${label}</span>`,
+    esc:String
+  });
+  vm.runInContext(source.slice(source.indexOf('function companyLiveryLiveNumberBadge('),
+    source.indexOf('function companyLiveryLiveStatusHtml(')), ctx);
+  vm.runInContext(source.slice(source.indexOf('function companyFixedTopPoolLivePayoutRecord('),
+    source.indexOf('function companyFixedTopPoolLiveStatus(')), ctx);
+  const schedule = {proposalKind:'schedule',proposalReason:'schedule',
+    proposal:{type:'schedule',premiumUsd:622}};
+  const matching = ctx.companyFixedTopPoolLivePayoutRecord(flight,schedule);
+  assert.equal(matching.amount,622);
+  assert.equal(matching.proposalType,'schedule');
+  assert.match(ctx.companyLiveryLiveNumberBadge(matching,'7736'),/flight-number-schedule/);
+  assert.doesNotMatch(ctx.companyLiveryLiveNumberBadge(matching,'7736'),/FREE flight to base|flight-number-free/);
+  assert.match(ctx.companyLiveryLiveNumberBadge({...live,status:'matched',amount:622},'7736'),/flight-number-schedule/);
+
+  const free = ctx.companyFixedTopPoolLivePayoutRecord(flight,{
+    proposalKind:'free',proposalReason:'base-return',proposal:{type:'free',premiumUsd:300}});
+  assert.equal(free.proposalType,'free');
+  assert.match(ctx.companyLiveryLiveNumberBadge(free,'7736'),/flight-number-free/);
+  assert.match(ctx.companyLiveryLiveNumberBadge(free,'7736'),/FREE flight to base/);
+
+  ctx.guaranteedBonusRecordForFlight=()=>({
+    state:'LIVE',status:'matched',amount:622,proposalType:'schedule',proposalReason:'top-pool'});
+  const saved = ctx.companyFixedTopPoolLivePayoutRecord(flight,schedule);
+  assert.equal(saved.proposalType,'schedule');
+  assert.match(ctx.companyLiveryLiveNumberBadge(saved,'7736'),/flight-number-schedule/);
+});
