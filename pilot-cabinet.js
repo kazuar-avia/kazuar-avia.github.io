@@ -983,6 +983,84 @@ function guaranteedBonusIconHtmlForRow(flight, amount) {
   ));
 }
 
+function companyExtraCurrencyInfo(category) {
+  return {
+    cash: {icon:'icons/cashcoin.png',singular:'кешкоїн',plural:'кешкоїни',many:'кешкоїнів'},
+    returnRoute: {icon:'icons/mzheton.png',singular:'маршрутний жетон',plural:'маршрутні жетони',many:'маршрутних жетонів'},
+    idle: {icon:'icons/rem.png',singular:'ремкомплект',plural:'ремкомплекти',many:'ремкомплектів'}
+  }[category] || null;
+}
+function companyExtraCurrencyLabel(category, amount) {
+  const info=companyExtraCurrencyInfo(category);
+  const n=Math.abs(Number(amount)||0), last=n%10, last2=n%100;
+  return info ? n+' '+(last===1 && last2!==11 ? info.singular
+    : last>=2 && last<=4 && (last2<12 || last2>14) ? info.plural : info.many) : '';
+}
+function companyExtraCurrencyIcon(category) {
+  const info=companyExtraCurrencyInfo(category);
+  return info ? '<img class="company-pyrih-icon" src="'+info.icon+'" alt="" aria-hidden="true">' : '';
+}
+function companyExtraCurrencyClaims(record) {
+  return Array.isArray(record?.currencyClaims) ? record.currencyClaims : [];
+}
+function companyExtraCurrencyRewardHtml(item, consumed, live, mode) {
+  const category={earn:'cash',return:'returnRoute',idle:'idle'}[mode];
+  if (!category || !companyExtraCurrencyInfo(category)) return '';
+  const active=new Date(app.piesLedger?.currenciesActivatedAt || '').getTime();
+  if (!Number.isFinite(active)) return '';
+  const reward=window.UCAAPieRewards.rewardForRank(item?.rank,2);
+  if (!reward) return '';
+  const icon=companyExtraCurrencyIcon(category);
+  const label=companyExtraCurrencyLabel(category,reward);
+  const flight=consumed || live;
+  if (!flight) return '<span class="company-pies-reward">Нагорода: '+reward+' '+icon+'</span>';
+  const started=new Date(flight.times?.actualDeparture || flight.times?.takeoff
+    || flight.depTimeAct || flight.startedAt || '').getTime();
+  if (!Number.isFinite(started)) return '<span class="company-pies-reward">Перевіряємо нарахування '+label+'…</span>';
+  if (started < active) return '<span class="company-pies-reward">Без '+label+': рейс почався до запуску нової валюти.</span>';
+  const record=guaranteedBonusRecordForFlight(flight);
+  const claim=companyExtraCurrencyClaims(record).find(row => row.pieType===category
+    && String(row.pieClaim?.aircraftId||row.aircraftId||'')===String(item.aircraftId||'')
+    && Number(row.pieRank)>0);
+  if (!claim) return '<span class="company-pies-reward">Перевіряємо нарахування '+label+'…</span>';
+  const quantity=window.UCAAPieRewards.rewardForRank(claim.pieRank,claim.pieRewardRulesVersion||1);
+  if (!quantity) return '';
+  const saved=consumed ? window.UCAAPieRewards.earningForFlight(app.piesLedger,consumed,category) : null;
+  const earned=Boolean(saved);
+  if (consumed && !earned) return '<span class="company-pies-reward">Перевіряємо нарахування '+label+'…</span>';
+  if (!consumed && !(record?.state==='LIVE' && record?.status==='matched'))
+    return '<span class="company-pies-reward">Перевіряємо нарахування '+label+'…</span>';
+  const pilot=consumed?.pilot || {id:record?.pilotId,name:companyLiveryLivePilotName(record)};
+  const name=String(pilot?.name||'Пілот').trim();
+  const id=String(pilot?.id||'').trim();
+  const recipient=id ? '<a href="'+esc(pilotProfileUrl(id))+'">'+esc(name)+'</a>' : esc(name);
+  return '<span class="company-pies-reward">'+icon+' '+companyExtraCurrencyLabel(category,quantity)
+    +(earned?' нараховано':' буде видано')+' пілоту '+recipient+'</span>';
+}
+function companyExtraFlightIcon(category,amount,earned) {
+  const info=companyExtraCurrencyInfo(category);
+  if (!info) return '';
+  const label=companyExtraCurrencyLabel(category,amount);
+  const title=(earned?'Нараховано ':'Буде нараховано ')+label+' за цей рейс';
+  return '<span class="flight-pies-icon" title="'+esc(title)+'"><img src="'+info.icon+'" alt="+'+esc(label)+'"></span>';
+}
+function earnedExtraCurrencyIcons(flight) {
+  return ['cash','returnRoute','idle'].map(category=>{
+    const entry=window.UCAAPieRewards.earningForFlight(app.piesLedger,flight,category);
+    return entry ? companyExtraFlightIcon(category,entry.delta,true) : '';
+  }).join('');
+}
+function liveExtraCurrencyIcons(flight) {
+  const record=guaranteedBonusRecordForFlight(flight);
+  const active=new Date(app.piesLedger?.currenciesActivatedAt||'').getTime();
+  const started=new Date(flight.depTimeAct || flight.startedAt || '').getTime();
+  if (!(record?.state==='LIVE' && record?.status==='matched')
+    || !Number.isFinite(active) || !Number.isFinite(started) || started<active) return '';
+  return companyExtraCurrencyClaims(record).filter(claim=>claim.pieType!=='hot')
+    .map(claim=>companyExtraFlightIcon(claim.pieType,
+      window.UCAAPieRewards.rewardForRank(claim.pieRank,claim.pieRewardRulesVersion||1),false)).join('');
+}
+
 function pieRewardIconHtml(flight) {
   const entry = window.UCAAPieRewards.earningForFlight(app.piesLedger, flight);
   if (!entry) return '';
@@ -991,7 +1069,7 @@ function pieRewardIconHtml(flight) {
 }
 
 function flightRewardIconsHtmlForRow(flight, amount) {
-  return guaranteedBonusIconHtmlForRow(flight, amount) + pieRewardIconHtml(flight);
+  return guaranteedBonusIconHtmlForRow(flight, amount) + pieRewardIconHtml(flight) + earnedExtraCurrencyIcons(flight);
 }
 
 function salaryAmountWithRewardsHtml(flight, amount, salary) {
@@ -1012,7 +1090,7 @@ function livePieRewardIconHtml(flight) {
 function liveFlightRewardIconsHtml(flight) {
   const moneyIcon = guaranteedBonusIconHtml(flight);
   const pieIcon = livePieRewardIconHtml(flight);
-  const rewards = moneyIcon + pieIcon;
+  const rewards = moneyIcon + pieIcon + liveExtraCurrencyIcons(flight);
   return rewards ? `<span class="flight-reward-icons live-flight-reward-icons">${rewards}</span>` : '—';
 }
 
@@ -6476,7 +6554,10 @@ function companyFixedTopPoolNoteHtml(item, category, mode, index) {
   const quickLabel = mode === 'quick'
     ? `<strong>ТОП <img class="company-pyrih-icon" src="pyrih.png" alt="пиріжок" aria-hidden="true">${Number.isInteger(rank) && rank > 0 ? ` #${rank}` : ''}</strong>${rewardHtml ? `<br>${rewardHtml}` : ''}`
     : '';
-  const withQuickLabel = html => quickLabel ? `${quickLabel}<br>${html}` : html;
+  const extraReward = mode !== 'quick'
+    ? companyExtraCurrencyRewardHtml(item, consumed, companyFixedTopPoolLiveMatchFlight(item, mode), mode) : '';
+  const withQuickLabel = html => quickLabel ? `${quickLabel}<br>${html}`
+    : `${html}${extraReward ? `<br>${extraReward}` : ''}`;
   if (consumed) return withQuickLabel(`<span class="company-top-pool-live-state company-top-pool-live-ok">✅ Бонусний рейс виконано!</span>`);
   const intercepted = companyFixedTopPoolInterceptedFlight(item, mode);
   if (intercepted) return withQuickLabel(`<span class="company-top-pool-live-state company-top-pool-live-warn">⚠ Літак вже недоступний для бонусів</span>`);

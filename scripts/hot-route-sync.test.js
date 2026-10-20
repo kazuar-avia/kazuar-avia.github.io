@@ -1,4 +1,5 @@
 const test = require('node:test');
+require('./currency-rewards.test.js');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
