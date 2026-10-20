@@ -5590,6 +5590,180 @@
                     }
                 },
                 "actArr": null
+            },
+            {
+                "_id": "6ad6f97bf7e01a7089d8b2e7",
+                "aircraft": {
+                    "_id": "6a4fa2fb5760ec7cdb629836",
+                    "name": "Boeing 777-200ER",
+                    "customName": "Dry Lease l 777-200ER PW 294 pax",
+                    "icao": "B772"
+                },
+                "type": "pax",
+                "flightNumber": "0777",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 294,
+                    "cargo": 52,
+                    "weights": {
+                        "cargo": 7020
+                    }
+                },
+                "depTime": "2026-10-20T06:00:00.000Z",
+                "duration": 165,
+                "arrTime": "2026-10-20T08:45:00.000Z",
+                "depTimeAct": "2026-10-20T05:57:34.454Z",
+                "delay": 35,
+                "takeoffTimeAct": "2026-10-20T06:13:28.475Z",
+                "durationAct": 186,
+                "arrTimeAct": "2026-10-20T09:19:51.642Z",
+                "open": "2026-10-20T05:23:27.604Z",
+                "close": "2026-10-20T09:29:17.442Z",
+                "rating": 5.24,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1345,
+                        "fuel": 18390,
+                        "expenses": 42116,
+                        "penalties": 150000,
+                        "revenue": 71786,
+                        "balance": -120330,
+                        "prices": {
+                            "ticketPrice": 166,
+                            "cargoUnitPrice": 177,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 294,
+                            "cargo": 52,
+                            "paxByClass": {
+                                "F": 14,
+                                "C": 41,
+                                "Y": 239
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 16632,
+                        "aircraft": 21130,
+                        "handling": 2149,
+                        "landing": 2205
+                    },
+                    "revenue": {
+                        "tickets": 62582,
+                        "cargo": 9204
+                    },
+                    "violations": [
+                        {
+                            "title": "Wing/engine strike on landing (bank: 7.3, max: 7.0)",
+                            "penalty": {
+                                "points": -400,
+                                "cash": 150000
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 38
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.38,
+                                        "rate": 382
+                                    },
+                                    "weather": {
+                                        "windDir": 349.99,
+                                        "windSpd": 22,
+                                        "windX": 0.12
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 13.55m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -76,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 35
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.38G (382 ft/min, challenging  conditions)<br/>Distance from threshold: 660m (accepted range: 209-839m)<br/>Average centerline deviation: 6.00m<br/>Max centerline deviation: 13.55m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 38
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.38,
+                                        "rate": 382
+                                    },
+                                    "weather": {
+                                        "windDir": 349.99,
+                                        "windSpd": 22,
+                                        "windX": 0.12
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-20T05:17:47.311Z",
+                "updatedAt": "2026-10-20T09:29:17.535Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "UBBB",
+                    "name": "Heydar Aliyev International Airport",
+                    "city": "Baku",
+                    "location": {
+                        "lat": 40.47278,
+                        "lon": 50.050931,
+                        "elev": 10
+                    }
+                },
+                "actArr": {
+                    "icao": "UBBB",
+                    "name": "Heydar Aliyev International Airport",
+                    "city": "Baku",
+                    "location": {
+                        "lat": 40.47278,
+                        "lon": 50.050931,
+                        "elev": 10
+                    }
+                }
             }
         ]
     },
