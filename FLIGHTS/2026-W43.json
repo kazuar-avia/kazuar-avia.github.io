@@ -7343,6 +7343,171 @@
                         "elev": 10
                     }
                 }
+            },
+            {
+                "_id": "6ad76150f7e01a7089defcf5",
+                "aircraft": {
+                    "_id": "6a4fa2fb5760ec7cdb629836",
+                    "name": "Boeing 777-200ER",
+                    "customName": "Dry Lease l 777-200ER PW 294 pax",
+                    "icao": "B772"
+                },
+                "type": "pax",
+                "flightNumber": "0777",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 294,
+                    "cargo": 48,
+                    "weights": {
+                        "cargo": 3744
+                    }
+                },
+                "depTime": "2026-10-20T13:05:00.000Z",
+                "duration": 195,
+                "arrTime": "2026-10-20T16:20:00.000Z",
+                "depTimeAct": "2026-10-20T13:05:09.794Z",
+                "delay": -11,
+                "takeoffTimeAct": "2026-10-20T13:11:31.832Z",
+                "durationAct": 177,
+                "arrTimeAct": "2026-10-20T16:08:33.980Z",
+                "open": "2026-10-20T12:44:30.249Z",
+                "close": "2026-10-20T16:17:40.642Z",
+                "rating": 9.04,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1302,
+                        "fuel": 16466,
+                        "expenses": 45051,
+                        "penalties": 0,
+                        "revenue": 79859,
+                        "balance": 34808,
+                        "prices": {
+                            "ticketPrice": 187,
+                            "cargoUnitPrice": 195,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 294,
+                            "cargo": 48,
+                            "paxByClass": {
+                                "F": 14,
+                                "C": 41,
+                                "Y": 239
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 18810,
+                        "aircraft": 21685,
+                        "handling": 2711,
+                        "landing": 1845
+                    },
+                    "revenue": {
+                        "tickets": 70499,
+                        "cargo": 9360
+                    },
+                    "violations": [
+                        {
+                            "title": "Unstable approach below 400ft: vertical speed above 0 ft/min (actual 27 ft/min)",
+                            "penalty": {
+                                "points": -13,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 9.10m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -83,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 38
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.35G (305 ft/min, normal  conditions)<br/>Distance from threshold: 581m (accepted range: 219-879m)<br/>Average centerline deviation: 5.96m<br/>Max centerline deviation: 9.10m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.35,
+                                        "rate": 305
+                                    },
+                                    "weather": {
+                                        "windDir": 340,
+                                        "windSpd": 3.18,
+                                        "windX": 0.1
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-20T12:40:48.100Z",
+                "updatedAt": "2026-10-20T16:17:40.751Z",
+                "dep": {
+                    "icao": "UBBB",
+                    "name": "Heydar Aliyev International Airport",
+                    "city": "Baku",
+                    "location": {
+                        "lat": 40.47278,
+                        "lon": 50.050931,
+                        "elev": 10
+                    }
+                },
+                "arr": {
+                    "icao": "UAAA",
+                    "name": "Almaty International Airport",
+                    "city": "Almaty",
+                    "location": {
+                        "lat": 43.354267,
+                        "lon": 77.042828,
+                        "elev": 2234
+                    }
+                },
+                "actArr": {
+                    "icao": "UAAA",
+                    "name": "Almaty International Airport",
+                    "city": "Almaty",
+                    "location": {
+                        "lat": 43.354267,
+                        "lon": 77.042828,
+                        "elev": 2234
+                    }
+                }
             }
         ]
     },
