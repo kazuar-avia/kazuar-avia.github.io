@@ -14,6 +14,7 @@ const app = {
   companyLiveryData: null,
   companyLiveryMatching: null,
   companyTopPool: null,
+  companyReroutes: null,
   companyCharterDemand: {},
   routeMissions: {},
   guaranteedBonuses: {},
@@ -3044,6 +3045,7 @@ async function loadDatabases() {
     app.companyData = companyData;
     app.companyLiveryData = companyLiveryData;
     app.companyLiveryMatching = companyLiveryMatching;
+    app.companyReroutes = companyReroutes || null;
     app.companyTopPool = companyTopPool || null;
     window.UCAACompanyLiveryMatching = companyLiveryMatching || null;
     app.companyCharterDemand = companyCharterDemand || {};
@@ -3120,6 +3122,7 @@ async function refreshDatabasesSoft() {
   app.companyData = companyData;
   app.companyLiveryData = companyLiveryData;
   app.companyLiveryMatching = companyLiveryMatching;
+  app.companyReroutes = companyReroutes || null;
   app.companyTopPool = companyTopPool || null;
   window.UCAACompanyLiveryMatching = companyLiveryMatching || null;
   app.companyCharterDemand = companyCharterDemand || {};
@@ -4175,6 +4178,29 @@ function companyLiveryMatchingIcao(aircraft, fieldNames = ['lastflightlocationIC
   return '';
 }
 
+
+function companyLiveryActiveReroute(aircraft) {
+  const aircraftId = String(aircraft?.id || aircraft?.aircraftId || aircraft?._id || '').trim();
+  const reroute = app.companyReroutes?.aircraft?.[aircraftId];
+  const icao = String(reroute?.icao || '').trim().toUpperCase();
+  const updatedAt = Date.parse(reroute?.updatedAt || '');
+  if (!/^[A-Z0-9]{4}$/.test(icao) || !Number.isFinite(updatedAt)) return null;
+  const hasNewerFlight = (app.flights || []).some(flight => {
+    if (flight?.status !== 'completed') return false;
+    if (String(flight?.aircraft?.id || flight?.aircraft?._id || '').trim() !== aircraftId) return false;
+    const ended = Date.parse(flight?.times?.closed || flight?.times?.actualArrival || '');
+    return Number.isFinite(ended) && ended > updatedAt;
+  });
+  return hasNewerFlight ? null : {icao, flightId:String(reroute.flightId || ''), updatedAt:reroute.updatedAt};
+}
+
+function companyLiveryEffectiveCurrentIcao(aircraft, latest = null, fallbackIcao = '') {
+  const reroute = companyLiveryActiveReroute(aircraft);
+  const flightIcao = String((latest?.actualArrival || latest?.arrival || {})?.icao || '').trim().toUpperCase();
+  return reroute?.icao || flightIcao || String(fallbackIcao || '').trim().toUpperCase()
+    || companyLiveryMatchingIcao(aircraft) || String(aircraft?.locationIcao || '').trim().toUpperCase();
+}
+
 function companyLiveryAircraftForCard(card, flights = [], latest = null, headline = null) {
   const titleRegistration = liveryRegistrationFromTitle(card?.dataset?.liveryTitle || card?.querySelector?.('.company-livery-title')?.textContent || '');
   const ids = [
@@ -4566,7 +4592,7 @@ function liveryAircraftCurrentIcao(aircraft) {
   const latest = (app.flights || [])
     .filter(flight => flight.status === 'completed' && String(flight?.aircraft?.id || '').trim() === id)
     .sort((a,b) => flightEndDateForDisplay(b) - flightEndDateForDisplay(a))[0];
-  return String((latest?.actualArrival || latest?.arrival || {})?.icao || companyLiveryMatchingIcao(aircraft) || aircraft?.locationIcao || '').trim().toUpperCase();
+  return companyLiveryEffectiveCurrentIcao(aircraft, latest);
 }
 
 function liveryFreeUcaaBaseIcao(currentIcao) {
@@ -4770,7 +4796,7 @@ function liverySuggestedRouteText(card, title, flights, latest, headline) {
 function liverySuggestedRouteData(card, title, flights, latest, headline) {
   if (String(title || '').includes('UR-SFS')) return 'борт віддано в SUB-LEASE';
   const aircraft = companyLiveryAircraftForCard(card, flights, latest, headline);
-  const currentIcao = String((latest?.actualArrival || latest?.arrival || liveryCardFallbackAirport(card) || {})?.icao || companyLiveryMatchingIcao(aircraft) || '').trim().toUpperCase();
+  const currentIcao = companyLiveryEffectiveCurrentIcao(aircraft, latest, liveryCardFallbackAirport(card)?.icao);
   const routes = liveryScheduleRoutesForAircraft(aircraft);
   const scheduleIcao = liveryLatestScheduleAirportIcao(flights, aircraft);
   const scheduleCandidates = liveryScheduleCandidateRoutes(routes);
@@ -6810,10 +6836,12 @@ function updateCompanyLiveryStatus() {
       card.dataset.liveryHours = '0';
       const headlinePrefix = displayRegistration ? `${esc(displayRegistration)} ` : '';
       const fallbackAircraft = companyLiveryAircraftForCard(card, flights, null, headline);
-      const matchingCurrentIcao = companyLiveryMatchingIcao(fallbackAircraft);
+      const matchingCurrentIcao = companyLiveryEffectiveCurrentIcao(fallbackAircraft, null, fallbackAirport?.icao);
       const matchingAirport = matchingCurrentIcao ? liveryAirportObjectByIcao(matchingCurrentIcao) : null;
-      const currentLine = (fallbackAirport || matchingAirport)
-        ? `${headlinePrefix}в ${liveryAirportStatusText(fallbackAirport || matchingAirport)}`
+      const activeReroute = companyLiveryActiveReroute(fallbackAircraft);
+      const shownAirport = activeReroute ? matchingAirport : fallbackAirport || matchingAirport;
+      const currentLine = shownAirport
+        ? `${headlinePrefix}в ${liveryAirportStatusText(shownAirport)}${activeReroute ? ' (ручний reroute)' : ''}`
         : 'локація уточнюється';
       const suggestedProposal = liverySuggestedRouteData(card, title, flights, null, headline);
       const suggestedText = typeof suggestedProposal === 'string' ? suggestedProposal : suggestedProposal?.html || '&mdash;';
@@ -6835,8 +6863,11 @@ function updateCompanyLiveryStatus() {
       card.appendChild(status);
       return;
     }
-    const airport = latest.actualArrival || latest.arrival || {};
-    const latestDate = flightEndDateForDisplay(latest);
+    const aircraft = companyLiveryAircraftForCard(card, flights, latest, headline);
+    const activeReroute = companyLiveryActiveReroute(aircraft);
+    const airport = activeReroute ? liveryAirportObjectByIcao(activeReroute.icao) : latest.actualArrival || latest.arrival || {};
+    const rerouteSourceFlight = activeReroute && (app.flights || []).find(flight => flight.id === activeReroute.flightId);
+    const latestDate = rerouteSourceFlight ? flightEndDateForDisplay(rerouteSourceFlight) : flightEndDateForDisplay(latest);
     const latestDateText = Number.isFinite(latestDate.getTime())
       ? latestDate.toLocaleDateString('uk-UA', {timeZone:'UTC', day:'2-digit', month:'2-digit'})
       : '—';
@@ -6857,9 +6888,10 @@ function updateCompanyLiveryStatus() {
     const premiumText = premiumLiveRecord ? `<strong>${money(Number(premiumLiveRecord.amount))}</strong>` : (isInactiveSubleaseOnly || isDryLeaseCard) ? '&mdash;' : liveryProposalPremiumHtml(suggestedProposal);
     const offerMutedClass = anyLiveRecord && !premiumLiveRecord ? ' company-livery-status-offer-muted' : '';
     const headlinePrefix = displayRegistration ? `${esc(displayRegistration)} ` : '';
+    const locationTimeText = activeReroute ? `за рейсом ${latestDateText} (ручний reroute)` : `з ${latestDateText}`;
     const locationLine = anyLiveRecord
       ? `<div class="company-livery-status-line company-livery-status-location company-livery-status-live">${companyLiveryLiveStatusHtml(anyLiveRecord)}</div>`
-      : `<div class="company-livery-status-line company-livery-status-location">\u{1F4CC} ${headlinePrefix}\u0432 ${liveryAirportStatusText(airport)} \u0437 ${latestDateText}</div>`;
+      : `<div class="company-livery-status-line company-livery-status-location">\u{1F4CC} ${headlinePrefix}\u0432 ${liveryAirportStatusText(airport)} ${locationTimeText}</div>`;
     status.innerHTML = `${locationLine}<div class="company-livery-status-rule"></div><div class="company-livery-status-line company-livery-status-offer${offerMutedClass}">\u{1F4B0} \u0413\u0430\u0440\u0430\u043D\u0442\u043E\u0432\u0430\u043D\u0430 \u043F\u0440\u0435\u043C\u0456\u044F ${premiumText} \u0437\u0430 \u0440\u0435\u0439\u0441:<div class="company-livery-offer-route">${offerText}</div></div><div class="company-livery-status-top">\u0422\u041E\u041F \u043D\u0430\u043B\u0456\u0442: ${topPilotText}</div>`;
     const logButton = status.querySelector('[data-livery-log-index]');
     if (logButton) {
@@ -6915,10 +6947,12 @@ function liveryRouteMapContext(card) {
   const latest = flights[0] || null;
   const aircraft = companyLiveryAircraftForCard(card, flights, latest, headline);
   const fullTitle = newskyAircraftName(aircraft?.id) || companyLiveryMatchingNameByAircraftId(aircraft?.id) || title;
-  const matchingCurrentIcao = companyLiveryMatchingIcao(aircraft);
-  const currentAirport = latest
-    ? (latest.actualArrival || latest.arrival || liveryCardFallbackAirport(card) || liveryAirportObjectByIcao(matchingCurrentIcao))
-    : liveryCardFallbackAirport(card) || liveryAirportObjectByIcao(matchingCurrentIcao || aircraft?.locationIcao);
+  const matchingCurrentIcao = companyLiveryEffectiveCurrentIcao(aircraft, latest, liveryCardFallbackAirport(card)?.icao);
+  const activeReroute = companyLiveryActiveReroute(aircraft);
+  const currentAirport = activeReroute
+    ? liveryAirportObjectByIcao(activeReroute.icao)
+    : latest ? (latest.actualArrival || latest.arrival || liveryCardFallbackAirport(card) || liveryAirportObjectByIcao(matchingCurrentIcao))
+      : liveryCardFallbackAirport(card) || liveryAirportObjectByIcao(matchingCurrentIcao || aircraft?.locationIcao);
   const proposal = liverySuggestedRouteData(card, title, flights, latest, headline);
   const proposalHtml = typeof proposal === 'string'
     ? proposal
