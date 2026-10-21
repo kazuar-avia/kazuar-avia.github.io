@@ -3957,6 +3957,165 @@
                         "elev": 308
                     }
                 }
+            },
+            {
+                "_id": "6ad8da6a5516042e48222951",
+                "aircraft": {
+                    "_id": "6980e9459da57b990a02e1bd",
+                    "name": "Boeing 737 MAX 8",
+                    "customName": "Ukraine Int l 737-MAX8 189 pax iFly l UR-MXA",
+                    "icao": "B38M"
+                },
+                "type": "pax",
+                "flightNumber": "938",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 189,
+                    "cargo": 8,
+                    "weights": {
+                        "cargo": 1104
+                    }
+                },
+                "depTime": "2026-10-21T16:10:00.000Z",
+                "duration": 95,
+                "arrTime": "2026-10-21T17:45:00.000Z",
+                "depTimeAct": "2026-10-21T16:01:41.398Z",
+                "delay": -10,
+                "takeoffTimeAct": "2026-10-21T16:11:58.173Z",
+                "durationAct": 83,
+                "arrTimeAct": "2026-10-21T17:34:57.861Z",
+                "open": "2026-10-21T15:35:15.413Z",
+                "close": "2026-10-21T17:40:45.344Z",
+                "rating": 9.8,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 475,
+                        "fuel": 3909,
+                        "expenses": 10563,
+                        "penalties": 1021,
+                        "revenue": 31116,
+                        "balance": 19532,
+                        "prices": {
+                            "ticketPrice": 148,
+                            "cargoUnitPrice": 171,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 189,
+                            "cargo": 8,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 12,
+                                "Y": 177
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3536,
+                        "aircraft": 4475,
+                        "handling": 1337,
+                        "landing": 1215
+                    },
+                    "revenue": {
+                        "tickets": 29748,
+                        "cargo": 1368
+                    },
+                    "violations": [
+                        {
+                            "title": "MLW exceeded: 177kg above maximum landing weight of 69308kg",
+                            "penalty": {
+                                "points": -15,
+                                "cash": 1021
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.04,
+                                        "rate": 155
+                                    },
+                                    "weather": {
+                                        "windDir": 120,
+                                        "windSpd": 10.46,
+                                        "windX": 0.95
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Greased touchdown: 1.04G (155 ft/min, normal  conditions)<br/>Distance from threshold: 567m (accepted range: 184-738m)<br/>Average centerline deviation: 2.29m<br/>Max centerline deviation: 3.09m",
+                            "penalty": {
+                                "points": -5,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.04,
+                                        "rate": 155
+                                    },
+                                    "weather": {
+                                        "windDir": 120,
+                                        "windSpd": 10.46,
+                                        "windX": 0.95
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-21T15:29:46.592Z",
+                "updatedAt": "2026-10-21T17:40:45.451Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                },
+                "actArr": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                }
             }
         ]
     },
