@@ -12485,6 +12485,185 @@
                         "elev": 21
                     }
                 }
+            },
+            {
+                "_id": "6ad8d409f7e01a7089f8bf64",
+                "aircraft": {
+                    "_id": "6a4f69f85760ec7cdb5e7cef",
+                    "name": "Boeing 737-800",
+                    "customName": "SkyUp l 737-800 based in UKOO UKBB l UR-SQC",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "155Z",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 165,
+                    "cargo": 19,
+                    "weights": {
+                        "cargo": 2622
+                    }
+                },
+                "depTime": "2026-10-21T15:15:00.000Z",
+                "duration": 155,
+                "arrTime": "2026-10-21T17:50:00.000Z",
+                "depTimeAct": "2026-10-21T15:26:16.607Z",
+                "delay": -3,
+                "takeoffTimeAct": "2026-10-21T15:26:30.619Z",
+                "durationAct": 140,
+                "arrTimeAct": "2026-10-21T17:46:57.590Z",
+                "open": "2026-10-21T15:25:56.619Z",
+                "close": "2026-10-21T17:48:20.609Z",
+                "rating": 5.85,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 935,
+                        "fuel": 5754,
+                        "expenses": 17324,
+                        "penalties": 150000,
+                        "revenue": 28913,
+                        "balance": -138411,
+                        "prices": {
+                            "ticketPrice": 156,
+                            "cargoUnitPrice": 167,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 165,
+                            "cargo": 19,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 165
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 6714,
+                        "aircraft": 7000,
+                        "handling": 1990,
+                        "landing": 1620
+                    },
+                    "revenue": {
+                        "tickets": 25740,
+                        "cargo": 3173
+                    },
+                    "violations": [
+                        {
+                            "title": "Tail strike on takeoff (pitch: 12.1, allowed: 12.0)",
+                            "penalty": {
+                                "points": -400,
+                                "cash": 150000
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 22
+                                    },
+                                    "weather": {
+                                        "windDir": 9.41,
+                                        "windSpd": 12.25,
+                                        "windX": 1.56
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (696m from threshold beyond 653m max accepted)",
+                            "penalty": {
+                                "points": -15,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 22
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.4,
+                                        "rate": 378
+                                    },
+                                    "weather": {
+                                        "windDir": 350.01,
+                                        "windSpd": 16.63,
+                                        "windX": 11.09
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.40G (378 ft/min, challenging  conditions)<br/>Distance from threshold: 696m (accepted range: 163-653m)<br/>Average centerline deviation: 2.67m<br/>Max centerline deviation: 5.68m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 22
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.4,
+                                        "rate": 378
+                                    },
+                                    "weather": {
+                                        "windDir": 350.01,
+                                        "windSpd": 16.63,
+                                        "windX": 11.09
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-21T15:02:33.922Z",
+                "updatedAt": "2026-10-21T17:48:20.682Z",
+                "dep": {
+                    "icao": "KTPA",
+                    "name": "Tampa International Airport",
+                    "city": "Tampa",
+                    "location": {
+                        "lat": 27.9755,
+                        "lon": -82.533203,
+                        "elev": 26
+                    }
+                },
+                "arr": {
+                    "icao": "KLGA",
+                    "name": "LaGuardia Airport",
+                    "city": "New York",
+                    "location": {
+                        "lat": 40.777199,
+                        "lon": -73.872597,
+                        "elev": 21
+                    }
+                },
+                "actArr": {
+                    "icao": "KLGA",
+                    "name": "LaGuardia Airport",
+                    "city": "New York",
+                    "location": {
+                        "lat": 40.777199,
+                        "lon": -73.872597,
+                        "elev": 21
+                    }
+                }
             }
         ]
     },
