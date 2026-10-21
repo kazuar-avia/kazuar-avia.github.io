@@ -10369,6 +10369,171 @@
                         "elev": 17
                     }
                 }
+            },
+            {
+                "_id": "6ad8bea25516042e4821c4a2",
+                "aircraft": {
+                    "_id": "6a93e58eef75cc33306d7cbc",
+                    "name": "Airbus A350-1000",
+                    "customName": "Airbus A350-1000",
+                    "icao": "A35K"
+                },
+                "type": "pax",
+                "flightNumber": "406",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 384,
+                    "cargo": 44,
+                    "weights": {
+                        "cargo": 5720
+                    }
+                },
+                "depTime": "2026-10-21T14:05:00.000Z",
+                "duration": 395,
+                "arrTime": "2026-10-21T20:40:00.000Z",
+                "depTimeAct": "2026-10-21T13:59:58.637Z",
+                "delay": -41,
+                "takeoffTimeAct": "2026-10-21T14:17:37.903Z",
+                "durationAct": 341,
+                "arrTimeAct": "2026-10-21T19:58:48.390Z",
+                "open": "2026-10-21T13:55:43.241Z",
+                "close": "2026-10-21T20:07:46.021Z",
+                "rating": 9.41,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 2824,
+                        "fuel": 38854,
+                        "expenses": 71609,
+                        "penalties": 0,
+                        "revenue": 194804,
+                        "balance": 123195,
+                        "prices": {
+                            "ticketPrice": 355,
+                            "cargoUnitPrice": 361,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.7,
+                                "fuel": 0.8,
+                                "ground": 0.7
+                            }
+                        },
+                        "payload": {
+                            "pax": 384,
+                            "cargo": 44,
+                            "paxByClass": {
+                                "F": 24,
+                                "C": 48,
+                                "Y": 312
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 35507,
+                        "aircraft": 30155,
+                        "handling": 2972,
+                        "landing": 2975
+                    },
+                    "revenue": {
+                        "tickets": 178920,
+                        "cargo": 15884
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 5.38m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -16,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 10
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 7.70m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -43,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 21
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.22G (245 ft/min, normal  conditions)<br/>Distance from threshold: 701m (accepted range: 209-838m)<br/>Average centerline deviation: 2.51m<br/>Max centerline deviation: 7.70m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 19
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.22,
+                                        "rate": 245
+                                    },
+                                    "weather": {
+                                        "windDir": 230.01,
+                                        "windSpd": 1.55,
+                                        "windX": -0.77
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-21T13:31:14.274Z",
+                "updatedAt": "2026-10-21T20:07:46.124Z",
+                "dep": {
+                    "icao": "OMAA",
+                    "name": "Zayed International Airport",
+                    "city": "Abu Dhabi",
+                    "location": {
+                        "lat": 24.440966,
+                        "lon": 54.649237,
+                        "elev": 88
+                    }
+                },
+                "arr": {
+                    "icao": "VTBS",
+                    "name": "Suvarnabhumi Airport",
+                    "city": "Bangkok",
+                    "location": {
+                        "lat": 13.6811,
+                        "lon": 100.747002,
+                        "elev": 5
+                    }
+                },
+                "actArr": {
+                    "icao": "VTBS",
+                    "name": "Suvarnabhumi Airport",
+                    "city": "Bangkok",
+                    "location": {
+                        "lat": 13.6811,
+                        "lon": 100.747002,
+                        "elev": 5
+                    }
+                }
             }
         ]
     },
