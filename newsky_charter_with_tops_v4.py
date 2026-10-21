@@ -350,11 +350,11 @@ def is_blocked_airport(airports: Dict[str, dict], icao: str) -> bool:
     return country in BLOCKED_COUNTRIES or icao[:2] in BLOCKED_ICAO_PREFIXES
 
 
-def has_sector_surplus(info: dict) -> bool:
+def has_sector_surplus(info: dict, min_percent: int = -5) -> bool:
     """Use unrounded demand where possible; +0% in the report is ambiguous."""
     if "normal" in info and "raw_current" in info:
-        return info["raw_current"] >= info["normal"] * 0.95
-    return info["percent"] >= -5
+        return info["raw_current"] >= info["normal"] * (1 + min_percent / 100)
+    return info["percent"] >= min_percent
 
 
 def largest_deficit_sector(airport: dict, mode: str) -> Optional[dict]:
@@ -506,7 +506,7 @@ def choose_outbound_destination(
         origin_info = origin_data.get(mode, {}).get(direction)
         if mode == "pax":
             # A positive GLOBAL airport balance does not imply a surplus here.
-            if not origin_info or not has_sector_surplus(origin_info):
+            if not origin_info or not has_sector_surplus(origin_info, min_percent=0):
                 continue
         elif REQUIRE_ORIGIN_NON_NEGATIVE and origin_percent < 0:
             continue
@@ -958,7 +958,7 @@ def build_output(airports: Dict[str, dict]) -> str:
     lines.append(f"Display cap cargo: >{MAX_DISPLAY_CARGO}t")
     lines.append("")
     lines.append("Outbound filters:")
-    lines.append("- pax origin demand percent must be >= -5%; cargo stays >= 0%")
+    lines.append("- pax origin demand percent must be >= 0%; cargo stays >= 0%")
     lines.append("- target reverse demand percent must be <= 0%")
     lines.append("")
     lines.append("Outbound formula:")
