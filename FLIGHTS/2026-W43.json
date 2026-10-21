@@ -7200,6 +7200,180 @@
                         "elev": 508
                     }
                 }
+            },
+            {
+                "_id": "6ad8a4a5f7e01a7089f41b75",
+                "aircraft": {
+                    "_id": "6a48a7935760ec7cdbd54058",
+                    "name": "Cessna 172",
+                    "customName": "Cessna C172",
+                    "icao": "C172"
+                },
+                "type": "pax",
+                "flightNumber": "535J",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 3,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-10-21T11:55:00.000Z",
+                "duration": 15,
+                "arrTime": "2026-10-21T12:10:00.000Z",
+                "depTimeAct": "2026-10-21T11:42:09.612Z",
+                "delay": -26,
+                "takeoffTimeAct": "2026-10-21T11:42:16.954Z",
+                "durationAct": 2,
+                "arrTimeAct": "2026-10-21T11:43:59.327Z",
+                "open": "2026-10-21T11:40:44.783Z",
+                "close": "2026-10-21T11:44:04.527Z",
+                "rating": 9.95,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 4,
+                        "fuel": 2,
+                        "expenses": 131,
+                        "penalties": 0,
+                        "revenue": 51,
+                        "balance": -80,
+                        "prices": {
+                            "ticketPrice": 30,
+                            "cargoUnitPrice": 26,
+                            "costScalars": {
+                                "timeAcceleration": 0.565,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 3,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 3
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2,
+                        "aircraft": 81,
+                        "handling": 27,
+                        "landing": 21
+                    },
+                    "revenue": {
+                        "tickets": 51,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 4.32m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -5,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 41
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.30G (185 ft/min, normal  conditions)<br/>Distance from threshold: 443m (accepted range: 173-695m)<br/>Average centerline deviation: 1.03m<br/>Max centerline deviation: 1.82m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 41
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.3,
+                                        "rate": 185
+                                    },
+                                    "weather": {
+                                        "windDir": 50,
+                                        "windSpd": 4,
+                                        "windX": 3.03
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Time acceleration used (1.77x) - reduced revenue",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 41
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.3,
+                                        "rate": 185
+                                    },
+                                    "weather": {
+                                        "windDir": 50,
+                                        "windSpd": 4,
+                                        "windX": 3.03
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-21T11:40:21.176Z",
+                "updatedAt": "2026-10-21T11:44:04.585Z",
+                "dep": {
+                    "icao": "MMTJ",
+                    "name": "General Abelardo L. Rodriguez International Airport",
+                    "city": "Tijuana",
+                    "location": {
+                        "lat": 32.541043,
+                        "lon": -116.969976,
+                        "elev": 489
+                    }
+                },
+                "arr": {
+                    "icao": "KSDM",
+                    "name": "Brown Field Municipal Airport",
+                    "city": "San Diego",
+                    "location": {
+                        "lat": 32.572639,
+                        "lon": -116.980019,
+                        "elev": 526
+                    }
+                },
+                "actArr": {
+                    "icao": "KSDM",
+                    "name": "Brown Field Municipal Airport",
+                    "city": "San Diego",
+                    "location": {
+                        "lat": 32.572639,
+                        "lon": -116.980019,
+                        "elev": 526
+                    }
+                }
             }
         ]
     },
