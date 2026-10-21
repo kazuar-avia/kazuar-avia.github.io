@@ -243,6 +243,13 @@ function applyLatestCompletedLocations(flights, aircraftMaps) {
   latest.forEach((item, aircraftId) => {
     const aircraft = aircraftMaps.byId.get(aircraftId);
     if (!aircraft) return;
+    // The persisted aircraft position takes priority over historical flight arrivals.
+    const hasStoredPosition = [
+      aircraft.lastflightlocationICAO,
+      aircraft.lastFlightLocationIcao,
+      aircraft.lastFlightLocationICAO
+    ].some(value => /^[A-Z0-9]{4}$/.test(upper(value)));
+    if (hasStoredPosition) return;
     aircraft.lastflightlocationICAO = item.arrival;
     aircraft.lastFlightLocationIcao = item.arrival;
   });
