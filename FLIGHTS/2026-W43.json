@@ -11331,6 +11331,263 @@
                         "elev": 12
                     }
                 }
+            },
+            {
+                "_id": "6ad88915f7e01a7089f21d33",
+                "aircraft": {
+                    "_id": "695ebf3c3dc76275ba3e31f1",
+                    "name": "Boeing 777-300ER",
+                    "customName": "SkyLine Express l 777-300ER based in UKBB l UR-AZR",
+                    "icao": "B77W"
+                },
+                "type": "pax",
+                "flightNumber": "437H",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 520,
+                    "cargo": 54,
+                    "weights": {
+                        "cargo": 4266
+                    }
+                },
+                "depTime": "2026-10-21T10:40:00.000Z",
+                "duration": 965,
+                "arrTime": "2026-10-22T02:45:00.000Z",
+                "depTimeAct": "2026-10-21T10:20:30.723Z",
+                "delay": -739,
+                "takeoffTimeAct": "2026-10-21T10:42:55.714Z",
+                "durationAct": 223,
+                "arrTimeAct": "2026-10-21T14:26:07.659Z",
+                "open": "2026-10-21T10:20:20.175Z",
+                "close": "2026-10-21T14:27:20.835Z",
+                "rating": 4.9,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 7109,
+                        "fuel": 113945,
+                        "expenses": 66296,
+                        "penalties": 1040,
+                        "revenue": 114019,
+                        "balance": 46683,
+                        "prices": {
+                            "ticketPrice": 744,
+                            "cargoUnitPrice": 829,
+                            "costScalars": {
+                                "timeAcceleration": 0.261,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 520,
+                            "cargo": 54,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 7,
+                                "Y": 513
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 33972,
+                        "aircraft": 18677,
+                        "handling": 9387,
+                        "landing": 4260
+                    },
+                    "revenue": {
+                        "tickets": 102335,
+                        "cargo": 11684
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight departed 4 minutes too early (max 15 minutes before scheduled is allowed)",
+                            "penalty": {
+                                "points": -20,
+                                "cash": 1040
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline takeoff (deviation 4.85m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -10,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    },
+                                    "weather": {
+                                        "windDir": 60,
+                                        "windSpd": 9,
+                                        "windX": 8.88
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Unstable approach below 400ft: vertical speed below -1500 ft/min (actual -1836 ft/min)",
+                            "penalty": {
+                                "points": -168,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 17.58m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -198,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.55,
+                                        "rate": 381
+                                    },
+                                    "weather": {
+                                        "windDir": 70,
+                                        "windSpd": 14,
+                                        "windX": 13.58
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Short landing (68m from threshold before 208m min accepted)",
+                            "penalty": {
+                                "points": -101,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.55,
+                                        "rate": 381
+                                    },
+                                    "weather": {
+                                        "windDir": 70,
+                                        "windSpd": 14,
+                                        "windX": 13.58
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.55G (381 ft/min, challenging  conditions)<br/>Distance from threshold: 287m (accepted range: 208-835m)<br/>Average centerline deviation: 6.53m<br/>Max centerline deviation: 17.58m",
+                            "penalty": {
+                                "points": -13,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.55,
+                                        "rate": 381
+                                    },
+                                    "weather": {
+                                        "windDir": 70,
+                                        "windSpd": 14,
+                                        "windX": 13.58
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Time acceleration used (3.83x) - reduced revenue",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.55,
+                                        "rate": 381
+                                    },
+                                    "weather": {
+                                        "windDir": 70,
+                                        "windSpd": 14,
+                                        "windX": 13.58
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-21T09:42:45.031Z",
+                "updatedAt": "2026-10-21T14:27:20.919Z",
+                "dep": {
+                    "icao": "OTHH",
+                    "name": "Hamad International Airport",
+                    "city": "Doha",
+                    "location": {
+                        "lat": 25.273056,
+                        "lon": 51.608056,
+                        "elev": 13
+                    }
+                },
+                "arr": {
+                    "icao": "YSSY",
+                    "name": "Sydney Kingsford Smith International Airport",
+                    "city": "Sydney (Mascot)",
+                    "location": {
+                        "lat": -33.946098,
+                        "lon": 151.177002,
+                        "elev": 21
+                    }
+                },
+                "actArr": {
+                    "icao": "YSSY",
+                    "name": "Sydney Kingsford Smith International Airport",
+                    "city": "Sydney (Mascot)",
+                    "location": {
+                        "lat": -33.946098,
+                        "lon": 151.177002,
+                        "elev": 21
+                    }
+                }
             }
         ]
     },
