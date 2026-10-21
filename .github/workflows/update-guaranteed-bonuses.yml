@@ -67,9 +67,3 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh workflow run update-pies-ledger.yml --ref main
-
-      - name: Start Railway cleanup after new commit
-        if: steps.publish.outputs.pushed == 'true'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: gh workflow run cancel-old-railway.yml --ref main
