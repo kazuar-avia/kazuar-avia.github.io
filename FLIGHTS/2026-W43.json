@@ -15486,6 +15486,239 @@
                         "elev": 2181
                     }
                 }
+            },
+            {
+                "_id": "6ada3285f7e01a708913e50f",
+                "aircraft": {
+                    "_id": "6a4f69f85760ec7cdb5e7cef",
+                    "name": "Boeing 737-800",
+                    "customName": "SkyUp l 737-800 based in UKOO UKBB l UR-SQC",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "963U",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 175,
+                    "cargo": 20,
+                    "weights": {
+                        "cargo": 2440
+                    }
+                },
+                "depTime": "2026-10-22T16:10:00.000Z",
+                "duration": 50,
+                "arrTime": "2026-10-22T17:00:00.000Z",
+                "depTimeAct": "2026-10-22T16:06:16.259Z",
+                "delay": -13,
+                "takeoffTimeAct": "2026-10-22T16:09:17.262Z",
+                "durationAct": 37,
+                "arrTimeAct": "2026-10-22T16:46:46.249Z",
+                "open": "2026-10-22T16:06:06.344Z",
+                "close": "2026-10-22T16:49:43.280Z",
+                "rating": 1.86,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 199,
+                        "fuel": 1770,
+                        "expenses": 8810,
+                        "penalties": 150000,
+                        "revenue": 18495,
+                        "balance": -140315,
+                        "prices": {
+                            "ticketPrice": 93,
+                            "cargoUnitPrice": 111,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 175,
+                            "cargo": 20,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 175
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1910,
+                        "aircraft": 4425,
+                        "handling": 1605,
+                        "landing": 870
+                    },
+                    "revenue": {
+                        "tickets": 16275,
+                        "cargo": 2220
+                    },
+                    "violations": [
+                        {
+                            "title": "Tail strike on takeoff (pitch: 12.4, allowed: 12.0)",
+                            "penalty": {
+                                "points": -400,
+                                "cash": 150000
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "weather": {
+                                        "windDir": 180,
+                                        "windSpd": 10.92,
+                                        "windX": 10.9
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Incorrect flaps for landing",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 19
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.62,
+                                        "rate": 488
+                                    },
+                                    "weather": {
+                                        "windDir": 140.11,
+                                        "windSpd": 9.55,
+                                        "windX": 7.78
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Unstable approach below 300ft: vertical speed below -1500 ft/min (actual -1583 ft/min)",
+                            "penalty": {
+                                "points": -41,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 21
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 8.90m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -79,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 19
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.62,
+                                        "rate": 488
+                                    },
+                                    "weather": {
+                                        "windDir": 140.11,
+                                        "windSpd": 9.55,
+                                        "windX": 7.78
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.62G (488 ft/min, normal  conditions)<br/>Distance from threshold: 404m (accepted range: 169-678m)<br/>Average centerline deviation: 3.83m<br/>Max centerline deviation: 8.90m",
+                            "penalty": {
+                                "points": -55,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 19
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.62,
+                                        "rate": 488
+                                    },
+                                    "weather": {
+                                        "windDir": 140.11,
+                                        "windSpd": 9.55,
+                                        "windX": 7.78
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 941ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -89,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-22T15:57:57.346Z",
+                "updatedAt": "2026-10-22T16:49:43.356Z",
+                "dep": {
+                    "icao": "TJSJ",
+                    "name": "Luis Munoz Marin International Airport",
+                    "city": "San Juan",
+                    "location": {
+                        "lat": 18.4394,
+                        "lon": -66.001801,
+                        "elev": 9
+                    }
+                },
+                "arr": {
+                    "icao": "TNCM",
+                    "name": "Princess Juliana International Airport",
+                    "city": "Sint Maarten",
+                    "location": {
+                        "lat": 18.041,
+                        "lon": -63.108898,
+                        "elev": 13
+                    }
+                },
+                "actArr": {
+                    "icao": "TNCM",
+                    "name": "Princess Juliana International Airport",
+                    "city": "Sint Maarten",
+                    "location": {
+                        "lat": 18.041,
+                        "lon": -63.108898,
+                        "elev": 13
+                    }
+                }
             }
         ]
     },
