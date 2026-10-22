@@ -7136,6 +7136,161 @@
                         "elev": 844
                     }
                 }
+            },
+            {
+                "_id": "6ada3107f7e01a708913b69d",
+                "aircraft": {
+                    "_id": "695a3c883dc76275baca9e49",
+                    "name": "Airbus A320",
+                    "customName": "WizzAir Ukraine l A320 IAE WL based in UKKK l UR-WUC",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "217D",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 160,
+                    "cargo": 13,
+                    "weights": {
+                        "cargo": 1586
+                    }
+                },
+                "depTime": "2026-10-22T16:05:00.000Z",
+                "duration": 80,
+                "arrTime": "2026-10-22T17:25:00.000Z",
+                "depTimeAct": "2026-10-22T16:00:33.851Z",
+                "delay": -20,
+                "takeoffTimeAct": "2026-10-22T16:00:54.911Z",
+                "durationAct": 64,
+                "arrTimeAct": "2026-10-22T17:04:32.814Z",
+                "open": "2026-10-22T15:59:23.267Z",
+                "close": "2026-10-22T17:05:41.856Z",
+                "rating": 9.94,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 418,
+                        "fuel": 2775,
+                        "expenses": 9094,
+                        "penalties": 0,
+                        "revenue": 20648,
+                        "balance": 11554,
+                        "prices": {
+                            "ticketPrice": 118,
+                            "cargoUnitPrice": 136,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 160,
+                            "cargo": 13,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 160
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2510,
+                        "aircraft": 4500,
+                        "handling": 1031,
+                        "landing": 1053
+                    },
+                    "revenue": {
+                        "tickets": 18880,
+                        "cargo": 1768
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 4.44m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -6,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "weather": {
+                                        "windDir": 201.8,
+                                        "windSpd": 5.45,
+                                        "windX": 4.95
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.28G (207 ft/min, normal  conditions)<br/>Distance from threshold: 467m (accepted range: 204-817m)<br/>Average centerline deviation: 1.89m<br/>Max centerline deviation: 3.25m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.28,
+                                        "rate": 207
+                                    },
+                                    "weather": {
+                                        "windDir": 219.98,
+                                        "windSpd": 13.28,
+                                        "windX": -4.67
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-22T15:51:35.268Z",
+                "updatedAt": "2026-10-22T17:05:41.939Z",
+                "dep": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "arr": {
+                    "icao": "LKPR",
+                    "name": "Václav Havel Airport Prague",
+                    "city": "Prague",
+                    "location": {
+                        "lat": 50.100874,
+                        "lon": 14.259911,
+                        "elev": 1247
+                    }
+                },
+                "actArr": {
+                    "icao": "LKPR",
+                    "name": "Václav Havel Airport Prague",
+                    "city": "Prague",
+                    "location": {
+                        "lat": 50.100874,
+                        "lon": 14.259911,
+                        "elev": 1247
+                    }
+                }
             }
         ]
     },
