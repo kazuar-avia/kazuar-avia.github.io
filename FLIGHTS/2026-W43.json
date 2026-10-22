@@ -5132,6 +5132,169 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6ada36e55516042e48252a16",
+                "aircraft": {
+                    "_id": "695a3bf33dc76275baca8db5",
+                    "name": "Boeing 737-800",
+                    "customName": "Ukraine Int l 737-800 based in UKBB l UR-UIA",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "938",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 184,
+                    "cargo": 20,
+                    "weights": {
+                        "cargo": 1920
+                    }
+                },
+                "depTime": "2026-10-22T16:35:00.000Z",
+                "duration": 95,
+                "arrTime": "2026-10-22T18:10:00.000Z",
+                "depTimeAct": "2026-10-22T16:35:28.936Z",
+                "delay": -5,
+                "takeoffTimeAct": "2026-10-22T16:40:59.164Z",
+                "durationAct": 84,
+                "arrTimeAct": "2026-10-22T18:05:14.844Z",
+                "open": "2026-10-22T16:23:54.558Z",
+                "close": "2026-10-22T18:07:56.358Z",
+                "rating": 9.6,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 485,
+                        "fuel": 4104,
+                        "expenses": 10750,
+                        "penalties": 0,
+                        "revenue": 30652,
+                        "balance": 19902,
+                        "prices": {
+                            "ticketPrice": 148,
+                            "cargoUnitPrice": 171,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 184,
+                            "cargo": 20,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 184
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3712,
+                        "aircraft": 4500,
+                        "handling": 1323,
+                        "landing": 1215
+                    },
+                    "revenue": {
+                        "tickets": 27232,
+                        "cargo": 3420
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 9.76m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -24,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 20
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.10G (176 ft/min, challenging  conditions)<br/>Distance from threshold: 655m (accepted range: 203-815m)<br/>Average centerline deviation: 3.55m<br/>Max centerline deviation: 9.76m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 19
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.1,
+                                        "rate": 176
+                                    },
+                                    "weather": {
+                                        "windDir": 279.86,
+                                        "windSpd": 11.41,
+                                        "windX": -9
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No BEACON lights for 93s when required",
+                            "penalty": {
+                                "points": -16,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-22T16:16:37.391Z",
+                "updatedAt": "2026-10-22T18:07:56.468Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                },
+                "actArr": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                }
             }
         ]
     },
