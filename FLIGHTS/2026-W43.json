@@ -4401,6 +4401,160 @@
                         "elev": 362
                     }
                 }
+            },
+            {
+                "_id": "6ad99a3f5516042e4823e949",
+                "aircraft": {
+                    "_id": "695a3bf33dc76275baca8db5",
+                    "name": "Boeing 737-800",
+                    "customName": "Ukraine Int l 737-800 based in UKBB l UR-UIA",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "118",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 184,
+                    "cargo": 31,
+                    "weights": {
+                        "cargo": 3348
+                    }
+                },
+                "depTime": "2026-10-22T05:20:00.000Z",
+                "duration": 155,
+                "arrTime": "2026-10-22T07:55:00.000Z",
+                "depTimeAct": "2026-10-22T05:23:53.282Z",
+                "delay": 4,
+                "takeoffTimeAct": "2026-10-22T05:36:35.261Z",
+                "durationAct": 143,
+                "arrTimeAct": "2026-10-22T07:59:29.986Z",
+                "open": "2026-10-22T05:17:49.870Z",
+                "close": "2026-10-22T08:00:43.107Z",
+                "rating": -0.8,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 979,
+                        "fuel": 6740,
+                        "expenses": 0,
+                        "penalties": 0,
+                        "revenue": 0,
+                        "balance": 0,
+                        "prices": {
+                            "ticketPrice": 187,
+                            "cargoUnitPrice": 202,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 184,
+                            "cargo": 31,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 184
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 7620,
+                        "aircraft": 6000,
+                        "handling": 1836,
+                        "landing": 1365
+                    },
+                    "revenue": {
+                        "tickets": 34408,
+                        "cargo": 6262
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 4.43m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -7,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 23
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Incoherent data: flight closed without a landing",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 43
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No BEACON lights for 202s when required",
+                            "penalty": {
+                                "points": -44,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-22T05:08:15.095Z",
+                "updatedAt": "2026-10-22T08:00:43.214Z",
+                "dep": {
+                    "icao": "LGAV",
+                    "name": "Athens Eleftherios Venizelos International Airport",
+                    "city": "Spata-Artemida",
+                    "location": {
+                        "lat": 37.936401,
+                        "lon": 23.9445,
+                        "elev": 308
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
             }
         ]
     },
