@@ -3173,6 +3173,180 @@
                         "elev": 53
                     }
                 }
+            },
+            {
+                "_id": "6ada3d43f7e01a7089151a26",
+                "aircraft": {
+                    "_id": "695a66383dc76275bad0826f",
+                    "name": "Airbus A320",
+                    "customName": "Dry Lease l A320 CFM FENIX msfs2024",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "09Y",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 160,
+                    "cargo": 14,
+                    "weights": {
+                        "cargo": 1344
+                    }
+                },
+                "depTime": "2026-10-22T17:00:00.000Z",
+                "duration": 90,
+                "arrTime": "2026-10-22T18:30:00.000Z",
+                "depTimeAct": "2026-10-22T16:58:49.136Z",
+                "delay": -2,
+                "takeoffTimeAct": "2026-10-22T17:03:49.129Z",
+                "durationAct": 84,
+                "arrTimeAct": "2026-10-22T18:27:41.053Z",
+                "open": "2026-10-22T16:56:41.400Z",
+                "close": "2026-10-22T18:29:10.079Z",
+                "rating": 7.77,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 532,
+                        "fuel": 3760,
+                        "expenses": 12023,
+                        "penalties": 0,
+                        "revenue": 21306,
+                        "balance": 9283,
+                        "prices": {
+                            "ticketPrice": 121,
+                            "cargoUnitPrice": 139,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 160,
+                            "cargo": 14,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 160
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4251,
+                        "aircraft": 5450,
+                        "handling": 1302,
+                        "landing": 1020
+                    },
+                    "revenue": {
+                        "tickets": 19360,
+                        "cargo": 1946
+                    },
+                    "violations": [
+                        {
+                            "title": "Unstable approach below 300ft: vertical speed below -1500 ft/min (actual -1873 ft/min)",
+                            "penalty": {
+                                "points": -186,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (864m from threshold beyond 757m max accepted)",
+                            "penalty": {
+                                "points": -37,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.31,
+                                        "rate": 257
+                                    },
+                                    "weather": {
+                                        "windDir": 149.97,
+                                        "windSpd": 28.76,
+                                        "windX": -5.99
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.31G (257 ft/min, challenging  conditions)<br/>Distance from threshold: 864m (accepted range: 189-757m)<br/>Average centerline deviation: 3.11m<br/>Max centerline deviation: 6.75m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.31,
+                                        "rate": 257
+                                    },
+                                    "weather": {
+                                        "windDir": 149.97,
+                                        "windSpd": 28.76,
+                                        "windX": -5.99
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-22T16:43:47.153Z",
+                "updatedAt": "2026-10-22T18:29:10.166Z",
+                "dep": {
+                    "icao": "EDDH",
+                    "name": "Hamburg Helmut Schmidt Airport",
+                    "city": "Hamburg",
+                    "location": {
+                        "lat": 53.630402,
+                        "lon": 9.98823,
+                        "elev": 53
+                    }
+                },
+                "arr": {
+                    "icao": "ENBR",
+                    "name": "Bergen Airport, Flesland",
+                    "city": "Bergen",
+                    "location": {
+                        "lat": 60.2934,
+                        "lon": 5.21814,
+                        "elev": 170
+                    }
+                },
+                "actArr": {
+                    "icao": "ENBR",
+                    "name": "Bergen Airport, Flesland",
+                    "city": "Bergen",
+                    "location": {
+                        "lat": 60.2934,
+                        "lon": 5.21814,
+                        "elev": 170
+                    }
+                }
             }
         ]
     },
