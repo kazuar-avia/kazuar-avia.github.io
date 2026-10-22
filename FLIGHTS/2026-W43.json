@@ -18843,5 +18843,192 @@
                 }
             }
         ]
+    },
+    {
+        "pilot_id": "6a7236f3ef75cc33305b8677",
+        "fullname": "Pavlo Pavlo",
+        "avatar": "default",
+        "flights": [
+            {
+                "_id": "6ada4554f7e01a7089161850",
+                "aircraft": {
+                    "_id": "6a4f95025760ec7cdb6176e7",
+                    "name": "Airbus A320",
+                    "customName": "DART l A320 CFM based in UKKK l UR-CII",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "0513",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 165,
+                    "cargo": 4,
+                    "weights": {
+                        "cargo": 312
+                    }
+                },
+                "depTime": "2026-10-22T18:00:00.000Z",
+                "duration": 160,
+                "arrTime": "2026-10-22T20:40:00.000Z",
+                "depTimeAct": "2026-10-22T17:40:01.396Z",
+                "delay": -24,
+                "takeoffTimeAct": "2026-10-22T17:44:01.404Z",
+                "durationAct": 152,
+                "arrTimeAct": "2026-10-22T20:15:39.622Z",
+                "open": "2026-10-22T17:27:35.434Z",
+                "close": "2026-10-22T20:19:25.833Z",
+                "rating": 8.18,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1040,
+                        "fuel": 5673,
+                        "expenses": 16187,
+                        "penalties": 330,
+                        "revenue": 26915,
+                        "balance": 10398,
+                        "prices": {
+                            "ticketPrice": 159,
+                            "cargoUnitPrice": 170,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 165,
+                            "cargo": 4,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 165
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 6414,
+                        "aircraft": 7150,
+                        "handling": 1933,
+                        "landing": 690
+                    },
+                    "revenue": {
+                        "tickets": 26235,
+                        "cargo": 680
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight departed 4 minutes too early (max 15 minutes before scheduled is allowed)",
+                            "penalty": {
+                                "points": -20,
+                                "cash": 330
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 23
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline takeoff (deviation 5.84m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -30,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 10.27m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -102,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "spoilers",
+                                "payload": {
+                                    "system": {
+                                        "fps": 23
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.52G (410 ft/min, normal  conditions)<br/>Distance from threshold: 396m (accepted range: 189-758m)<br/>Average centerline deviation: 4.93m<br/>Max centerline deviation: 10.27m",
+                            "penalty": {
+                                "points": -30,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 21
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.52,
+                                        "rate": 410
+                                    },
+                                    "weather": {
+                                        "windDir": 321.36,
+                                        "windSpd": 4.65,
+                                        "windX": 3.88
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-22T17:18:12.687Z",
+                "updatedAt": "2026-10-22T20:19:25.917Z",
+                "dep": {
+                    "icao": "EKCH",
+                    "name": "Copenhagen Kastrup Airport",
+                    "city": "Copenhagen",
+                    "location": {
+                        "lat": 55.617900848389,
+                        "lon": 12.656000137329,
+                        "elev": 17
+                    }
+                },
+                "arr": {
+                    "icao": "LIEA",
+                    "name": "Alghero-Fertilia Airport",
+                    "city": "Alghero",
+                    "location": {
+                        "lat": 40.632099,
+                        "lon": 8.29077,
+                        "elev": 87
+                    }
+                },
+                "actArr": {
+                    "icao": "LIEA",
+                    "name": "Alghero-Fertilia Airport",
+                    "city": "Alghero",
+                    "location": {
+                        "lat": 40.632099,
+                        "lon": 8.29077,
+                        "elev": 87
+                    }
+                }
+            }
+        ]
     }
 ]
