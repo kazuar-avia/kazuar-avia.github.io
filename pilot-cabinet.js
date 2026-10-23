@@ -6206,6 +6206,44 @@ function companyFixedTopPoolCompletedMatchesItem(flight, item, mode) {
   return routeMatches && operationMatches && numberMatches;
 }
 
+// A flight may have started under the previous pool and landed after a refresh.
+// Only a paid bonus tied to the exact NewSky flight ID can bridge that refresh.
+// Never carry the result into a pool generated after the flight was completed.
+function companyFixedTopPoolCompletedClaimAcrossRefresh(item, mode = '') {
+  if (companyFixedTopPoolBuildMode()) return null;
+  const poolAt = companyFixedTopPoolGeneratedDate(item)?.getTime();
+  const aircraftId = String(item?.aircraftId || '').trim();
+  const expected = companyFixedTopPoolProposalRoute(item);
+  if (!Number.isFinite(poolAt) || !aircraftId) return null;
+  const source = app.guaranteedBonuses || {};
+  const records = source.flights && typeof source.flights === 'object' ? source.flights : source;
+  return (app.flights || [])
+    .filter(flight => flight?.status === 'completed'
+      && companyFixedTopPoolFlightAircraftId(flight) === aircraftId
+      && companyFixedTopPoolCompletedMatchesItem(flight, item, mode))
+    .filter(flight => {
+      const flightId = String(flight.id || flight._id || '').trim();
+      const record = flightId && records?.[flightId];
+      if (!record || record.state !== 'DONE' || record.status !== 'earned'
+          || record.pie !== true || record.aircraftId !== aircraftId
+          || companyFixedTopPoolModeForPieType(record.pieType) !== mode
+          || !record.piePoolId || record.proposalType !== expected.operation
+          || companyFixedTopPoolNormalizeIcao(record.depIcao) !== expected.dep
+          || companyFixedTopPoolNormalizeIcao(record.arrIcao) !== expected.arr
+          || (expected.operation === 'schedule'
+            && companyFixedTopPoolNormalizeFlightNumber(record.flightNumber) !== expected.number)
+          || Math.round(Number(record.amount)) !== Math.round(Number(item.proposal?.premiumUsd))) return false;
+      const started = flightStartDateForDisplay(flight).getTime();
+      const finished = flightEndDateForDisplay(flight).getTime();
+      const claimStart = new Date(record.piePoolGeneratedAt || '').getTime();
+      const claimUntil = new Date(record.piePoolClaimableUntil || '').getTime();
+      return [started, finished, claimStart, claimUntil].every(Number.isFinite)
+        && claimStart <= started && started <= claimUntil
+        && started < poolAt && poolAt <= finished;
+    })
+    .sort((a, b) => flightEndDateForDisplay(b) - flightEndDateForDisplay(a))[0] || null;
+}
+
 function companyFixedTopPoolConsumedFlight(item, mode = '') {
   if (companyFixedTopPoolBuildMode()) return null;
   const poolDate = companyFixedTopPoolGeneratedDate(item);
@@ -6224,7 +6262,8 @@ function companyFixedTopPoolConsumedFlight(item, mode = '') {
         && companyFixedTopPoolCompletedMatchesItem(flight, item, mode)
         && (mode !== 'quick' || !companyFixedTopPoolOfferInterrupted(item, flight));
     })
-    .sort((a, b) => flightEndDateForDisplay(b) - flightEndDateForDisplay(a))[0] || null;
+    .sort((a, b) => flightEndDateForDisplay(b) - flightEndDateForDisplay(a))[0]
+    || companyFixedTopPoolCompletedClaimAcrossRefresh(item, mode);
 }
 
 function companyFixedTopPoolItemConsumed(item, mode = '') {
