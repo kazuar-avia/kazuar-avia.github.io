@@ -517,6 +517,7 @@ function normalizeLiveFlight(raw) {
     schedule: isSchedule,
     free: isFree,
     charter: isCharter,
+    startedAt: raw.depTimeAct || raw.takeoffTimeAct || raw.takeoff || '',
     airborne: Boolean(raw.depTimeAct || raw.takeoffTimeAct || raw.takeoff || raw.status === 'enroute' || raw.status === 'ENROUTE')
   };
 }
@@ -871,6 +872,75 @@ function buildTopPool({candidates, completedFlights, now, windowHours, graceHour
     items
   };
 }
+
+function liveTopOfferMatch(item, live, bonusRecords = {}) {
+  const proposal = item?.proposal || {};
+  const start = Date.parse(live?.startedAt || '');
+  const created = Date.parse(item?.generatedAt || '');
+  const expiry = Date.parse(item?.claimableUntil || item?.activeUntil || '');
+  if (!item?.aircraftId || !live?.id || !live.airborne
+      || ![start, created, expiry].every(Number.isFinite)
+      || start < created || start > expiry) return false;
+  if (live.depIcao !== upper(proposal.depIcao) || live.arrIcao !== upper(proposal.arrIcao)) return false;
+  const type = String(proposal.type || '').toLowerCase();
+  const num = v => upper(v).replace(/^UKL\s*/i, '').replace(/\s+/g, '');
+  if (type === 'schedule' && (live.schedule !== true || num(live.flightNumber) !== num(proposal.flightNumber))) return false;
+  if (type === 'free' && (live.free !== true || live.schedule || live.charter)) return false;
+  if (!['schedule', 'free'].includes(type)) return false;
+  if (array(live.aircraftIds).includes(item.aircraftId)) return true;
+  // A missing aircraft ID is accepted only via a confirmed claim for this flight ID.
+  const record = bonusRecords[live.id];
+  return Boolean(!array(live.aircraftIds).length && record
+    && record.state === 'LIVE' && record.status === 'matched'
+    && record.aircraftId === item.aircraftId
+    && upper(record.depIcao) === upper(proposal.depIcao)
+    && upper(record.arrIcao) === upper(proposal.arrIcao)
+    && String(record.proposalType || '').toLowerCase() === type
+    && (type !== 'schedule' || num(record.flightNumber) === num(proposal.flightNumber))
+    && (record.piePoolId === item.poolId
+      || (record.pie === true && record.piePoolGeneratedAt === item.generatedAt
+        && Number(record.pieRank) === Number(item.rank))));
+}
+
+function liveProtectedTopOffers({currentPool, liveFlights = [], bonusRecords = {}, completedFlights = []}) {
+  const completed = new Set(array(completedFlights).map(f => cleanId(f.id || f._id)).filter(Boolean));
+  const retained = [];
+  for (const mode of ['quick', 'earn', 'return', 'idle']) {
+    for (const item of array(currentPool?.categories?.[mode]?.items)) {
+      const live = array(liveFlights).find(f => !completed.has(f.id) && liveTopOfferMatch(item, f, bonusRecords));
+      if (live) retained.push({...item, protectedFlightId: live.id});
+    }
+  }
+  return retained;
+}
+
+function buildTopPoolWithLiveProtection({currentPool, candidates, completedFlights,
+  liveFlights, bonusRecords = {}, now, windowHours, graceHours}) {
+  const preserved = liveProtectedTopOffers({currentPool, liveFlights, bonusRecords, completedFlights});
+  const occupied = new Set(preserved.map(x => x.aircraftId));
+  const next = buildTopPool({
+    candidates: candidates.filter(x => !occupied.has(x.aircraftId)),
+    completedFlights, now, windowHours, graceHours
+  });
+  if (!preserved.length) return next;
+  const categories = {...next.categories}, counts = {...next.counts}, items = [];
+  for (const [mode, cat] of [['quick','hot'], ['earn','cash'], ['return','returnRoute'], ['idle','idle']]) {
+    const keep = new Map(preserved.filter(x => x.category === cat).map(x => [Number(x.rank), x]));
+    const available = array(categories[mode].items);
+    const selected = [];
+    let k = 0;
+    for (let rank = 1; rank <= 6; rank++) {
+      if (keep.has(rank)) selected.push(keep.get(rank));
+      else if (k < available.length) selected.push({...available[k++], rank});
+    }
+    categories[mode] = {...categories[mode], items: selected};
+    counts[cat] = selected.length;
+    items.push(...selected);
+  }
+  counts.total = items.length;
+  return {...next, categories, counts, items};
+}
+
 function isoWeekFileKey(date) {
   const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
   const day = d.getUTCDay() || 7;
@@ -890,7 +960,7 @@ function hotOfferMatchesFlight(item, flight) {
     && number(flight.flightNumber) === number(proposal.flightNumber);
 }
 
-function refreshHotPool({currentPool, candidates, completedFlights, bonusRecords = {}, now}) {
+function refreshHotPool({currentPool, candidates, completedFlights, bonusRecords = {}, liveFlights = [], now}) {
   const originals = array(currentPool.categories?.quick?.items);
   if (!currentPool.categories?.quick || now >= new Date(currentPool.activeUntil)) return currentPool;
   const retiredHotOffers = {...currentPool.retiredHotOffers};
@@ -902,6 +972,7 @@ function refreshHotPool({currentPool, candidates, completedFlights, bonusRecords
     .sort((a, b) => (a.proposalKind === 'schedule' ? 0 : 1) - (b.proposalKind === 'schedule' ? 0 : 1)
       || a.blockMinutes - b.blockMinutes || b.ratePerHour - a.ratePerHour);
   const used = new Set(originals.map(item => item.aircraftId));
+  const lockedIds = new Set(liveProtectedTopOffers({currentPool, liveFlights, bonusRecords, completedFlights}).map(x => x.poolId));
   let changed = false;
   const items = originals.flatMap(item => {
     const generated = new Date(item.generatedAt || currentPool.generatedAt).getTime();
@@ -915,7 +986,7 @@ function refreshHotPool({currentPool, candidates, completedFlights, bonusRecords
       && new Date(flight.times?.actualDeparture || flight.times?.takeoff) <= new Date(item.claimableUntil || currentPool.claimableUntil)
       && !flights.some(other => other !== flight && completedFlightEndTime(other) >= generated
         && completedFlightEndTime(other) <= new Date(flight.times?.actualDeparture || flight.times?.takeoff)));
-    if (claimed || consumed) return [item];
+    if (claimed || consumed || lockedIds.has(item.poolId)) return [item];
     const moved = flights.filter(flight => completedFlightEndTime(flight) >= generated)
       .sort((a, b) => completedFlightEndTime(b) - completedFlightEndTime(a))[0];
     let candidate = eligible.find(candidate => candidate.aircraftId === item.aircraftId);
@@ -1036,9 +1107,12 @@ async function main() {
   const currentPool = readJson(TOP_POOL_CURRENT_FILE, {version: 2, items: []});
   const archive = loadPoolArchive(now);
   const awardsLog = readJson(TOP_AWARDS_FILE, {version: 1, awards: []});
+  // If the NewSky LIVE API is unavailable, do not overwrite a potentially claimed TOP.
+  const liveFlights = await loadLiveFlights();
+  const bonuses = readJson(BONUS_FILE, {flights: {}});
   if (args.has('--refresh-current')) {
-    const bonuses = readJson(path.join(COMPANY_DIR, 'guaranteed-bonuses.json'), {flights: {}});
-    const refreshed = refreshHotPool({currentPool, candidates, completedFlights, bonusRecords: bonuses.flights, now});
+    const refreshed = refreshHotPool({currentPool, candidates, completedFlights,
+      bonusRecords: bonuses.flights, liveFlights, now});
     if (dryRun) {
       console.log(JSON.stringify({changed: refreshed !== currentPool, pool: refreshed}, null, 2));
     } else if (refreshed !== currentPool) {
@@ -1051,7 +1125,8 @@ async function main() {
   const windowStart = new Date(now.getTime() - windowHours * 3600000);
   const claimableItems = collectClaimableItems(currentPool, archive.data, now);
   const newAwards = evaluateAwards({claimableItems, completedFlights, now, windowStart, awardsLog});
-  const nextPool = buildTopPool({candidates, completedFlights, now, windowHours, graceHours});
+  const nextPool = buildTopPoolWithLiveProtection({currentPool, candidates, completedFlights,
+    liveFlights, bonusRecords: bonuses.flights, now, windowHours, graceHours});
   nextPool.retiredHotOffers = {...currentPool.retiredHotOffers};
   const nextAwardsLog = {...awardsLog, version: 1, updatedAt: now.toISOString(), awards: [...array(awardsLog.awards), ...newAwards]};
   const nextArchive = {...archive.data, version: 1, snapshots: [...array(archive.data.snapshots), nextPool]};
@@ -1063,6 +1138,7 @@ async function main() {
     completedFlights: completedFlights.length,
     proposalCandidates: candidates.length,
     claimableItems: claimableItems.length,
+    protectedOffers: nextPool.items.filter(x => x.protectedFlightId).length,
     newAwards: newAwards.length,
     counts: nextPool.counts,
     dryRun
@@ -1083,4 +1159,4 @@ if (require.main === module) {
   main().catch(error => { console.error(error && error.stack ? error.stack : error); process.exitCode = 1; });
 }
 
-module.exports = {hotCandidateAllowed, buildTopPool, refreshHotPool, loadProposalCandidates, loadCompletedFlights, loadAirportLocations, loadHtmlAircraftMeta};
+module.exports = {hotCandidateAllowed, buildTopPool, buildTopPoolWithLiveProtection, liveTopOfferMatch, liveProtectedTopOffers, normalizeLiveFlight, refreshHotPool, loadProposalCandidates, loadCompletedFlights, loadAirportLocations, loadHtmlAircraftMeta};
