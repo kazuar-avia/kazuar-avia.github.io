@@ -326,6 +326,33 @@ function scheduleRoutesForAircraft(db, aircraft = {}) {
     .filter(route => route.dep && route.arr);
 }
 
+// Block already completed flight offers until the end of the current UTC day.
+function completedFlightsForUtcDay(flights, now = new Date()) {
+  const date = new Date(now), end = date.getTime();
+  const start = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
+  return array(flights).filter(f => {
+    if (f?.status && f.status !== 'completed') return false;
+    const completed = Date.parse(f?.times?.closed || f?.times?.actualArrival || '');
+    return Number.isFinite(completed) && completed >= start && completed < start + 86400000 && completed <= end;
+  });
+}
+function topProposalCompletedToday(aircraft, proposal, completedToday = []) {
+  const id = cleanId(aircraft?.id || aircraft?._id || aircraft?.aircraftId);
+  const reg = upper(aircraft?.registration);
+  const dep = upper(proposal?.dep), arr = upper(proposal?.arr);
+  const type = String(proposal?.kind || '').toLowerCase();
+  const number = v => upper(v).replace(/^UKL\s*/i, '').replace(/\s+/g, '').replace(/^0+(?=\d)/, '');
+  if (!id || !dep || !arr || !['schedule','free'].includes(type)) return false;
+  return array(completedToday).some(f => {
+    const planeId = cleanId(f?.aircraft?.id || f?.aircraft?._id || f?.aircraftId);
+    if (planeId ? planeId !== id : (!reg || !upper(f?.aircraft?.name).includes(reg))) return false;
+    if (upper(f?.departure?.icao) !== dep) return false;
+    if (upper(f?.arrival?.icao) !== arr && upper(f?.actualArrival?.icao) !== arr) return false;
+    if (type === 'schedule') return f?.operations?.scheduled === true
+      && Boolean(number(proposal.number)) && number(f.flightNumber) === number(proposal.number);
+    return f?.operations?.free === true && f?.operations?.scheduled !== true && f?.operations?.charter !== true;
+  });
+}
 function scheduleRotationStart(now = new Date()) {
   return new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1));
 }
@@ -409,33 +436,37 @@ function routeFits(airports, aircraft, from, to) {
   return dist > 0 && dist <= maxRange;
 }
 
-function demandProposalFromOrigin(demand, current, aircraft, mode, airports) {
+function demandProposalFromOrigin(demand, current, aircraft, mode, airports, allowed = () => true) {
   const candidates = array(demand.byOrigin.get(upper(current)))
     .filter(item => item.mode === mode)
-    .filter(item => routeFits(airports, aircraft, item.from, item.to));
+    .filter(item => routeFits(airports, aircraft, item.from, item.to))
+    .filter(item => allowed({kind:'free', dep:item.from, arr:item.to}));
   return candidates[0] ? {kind: 'free', reason: 'charter-demand', dep: candidates[0].from, arr: candidates[0].to} : null;
 }
 
-function inboundDemandProposal(demand, target, aircraft, mode, airports) {
+function inboundDemandProposal(demand, target, aircraft, mode, airports, allowed = () => true) {
   const candidates = array(demand.byInbound.get(upper(target)))
     .filter(item => item.mode === mode)
-    .filter(item => routeFits(airports, aircraft, item.from, item.to));
+    .filter(item => routeFits(airports, aircraft, item.from, item.to))
+    .filter(item => allowed({kind:'free', dep:item.from, arr:item.to}));
   return candidates[0] ? {kind: 'free', reason: 'inbound-demand', dep: candidates[0].from, arr: candidates[0].to} : null;
 }
 
-function freeProposalWithRange(demand, airports, current, target, aircraft, mode, reason) {
+function freeProposalWithRange(demand, airports, current, target, aircraft, mode, reason, allowed = () => true) {
   if (!current || !target || current === target) return null;
-  if (routeFits(airports, aircraft, current, target)) return {kind: 'free', reason, dep: current, arr: target};
-  return inboundDemandProposal(demand, target, aircraft, mode, airports);
+  if (routeFits(airports, aircraft, current, target) && allowed({kind:'free', dep:current, arr:target})) return {kind: 'free', reason, dep: current, arr: target};
+  return inboundDemandProposal(demand, target, aircraft, mode, airports, allowed);
 }
 
-function proposedRouteForAircraft({db, aircraft, airports, demand, now, completedFlights = []}) {
+function proposedRouteForAircraft({db, aircraft, airports, demand, now, completedFlights = [], completedToday = []}) {
   if (!aircraft?.id) return null;
   const current = upper(aircraft.lastflightlocationICAO || aircraft.lastFlightLocationIcao || aircraft.locationIcao);
   const scheduleIcao = upper(aircraft.locationIcao);
   const mode = isCargoAircraft(aircraft, aircraft) ? 'cargo' : 'pax';
+  const allowed = offer => !topProposalCompletedToday(aircraft, offer, completedToday);
   const activeRoutes = scheduleRoutesForAircraft(db, aircraft).filter(route => route?.active !== false);
-  const todayRoutes = activeRoutes.filter(route => routeRunsToday(route, now));
+  const todayRoutes = activeRoutes.filter(route => routeRunsToday(route, now))
+    .filter(route => allowed({kind:'schedule',number:route.number,dep:route.dep,arr:route.arr}));
   const routeFromCurrent = pickScheduleRoute(todayRoutes.filter(route => route.dep === current), aircraft, completedFlights, now);
   if (todayRoutes.length && current === scheduleIcao && routeFromCurrent) {
     return {kind: 'schedule', reason: 'schedule', number: routeFromCurrent.number, dep: routeFromCurrent.dep, arr: routeFromCurrent.arr};
@@ -449,21 +480,21 @@ function proposedRouteForAircraft({db, aircraft, airports, demand, now, complete
       scheduleIcao,
       aircraft,
       mode,
-      routeFromScheduleToday ? 'schedule-positioning' : 'maintenance-positioning'
+      routeFromScheduleToday ? 'schedule-positioning' : 'maintenance-positioning', allowed
     );
   }
   if (activeRoutes.length && current === scheduleIcao) {
-    const demandRoute = demandProposalFromOrigin(demand, current, aircraft, mode, airports);
+    const demandRoute = demandProposalFromOrigin(demand, current, aircraft, mode, airports, allowed);
     if (demandRoute) return demandRoute;
     return null;
   }
   const bases = baseIcaosForAircraft(aircraft);
   if (bases.includes(current)) {
-    const demandRoute = demandProposalFromOrigin(demand, current, aircraft, mode, airports);
+    const demandRoute = demandProposalFromOrigin(demand, current, aircraft, mode, airports, allowed);
     if (demandRoute) return demandRoute;
   }
   const targetBase = bases.find(base => base !== current) || bases[0] || scheduleIcao;
-  return freeProposalWithRange(demand, airports, current, targetBase, aircraft, mode, 'base-return');
+  return freeProposalWithRange(demand, airports, current, targetBase, aircraft, mode, 'base-return', allowed);
 }
 
 function premiumAmount(airports, coefficient, aircraft, dep, arr) {
@@ -711,6 +742,7 @@ function proposalCandidateFromAircraft({aircraft, proposal, amount, airports, ht
   };
 }
 function loadProposalCandidates({db, matching, airports, completedFlights, now}) {
+  const completedToday = completedFlightsForUtcDay(completedFlights, now);
   const aircraftMaps = aircraftKeyData(db, matching);
   applyLatestCompletedLocations(completedFlights, aircraftMaps);
   const coefficient = loadAircraftCoefficient();
@@ -722,8 +754,8 @@ function loadProposalCandidates({db, matching, airports, completedFlights, now})
     const id = cleanId(aircraft.id || aircraft._id);
     if (!id || seen.has(id)) continue;
     seen.add(id);
-    const proposal = proposedRouteForAircraft({db, aircraft, airports, demand, now, completedFlights});
-    if (!proposal) continue;
+    const proposal = proposedRouteForAircraft({db, aircraft, airports, demand, now, completedFlights, completedToday});
+    if (!proposal || topProposalCompletedToday(aircraft, proposal, completedToday)) continue;
     const amount = premiumAmount(airports, coefficient, aircraft, proposal.dep, proposal.arr);
     if (!(amount > 0)) continue;
     const item = proposalCandidateFromAircraft({aircraft, proposal, amount, airports, htmlMeta: htmlMetaById.get(id)});
@@ -813,8 +845,13 @@ function hotCandidateAllowed(item) {
 }
 
 function buildTopPool({candidates, completedFlights, now, windowHours, graceHours}) {
+  // Central guard covers every category, including callers with prebuilt candidates.
+  const doneToday = completedFlightsForUtcDay(completedFlights, now);
+  const freshCandidates = candidates.filter(c => !topProposalCompletedToday(
+    c.aircraft || {id:c.aircraftId, registration:c.registration},
+    {kind:c.proposalKind,number:c.flightNumber,dep:c.dep,arr:c.arr}, doneToday));
   // Reserve the six longest-idle aircraft before selecting any other TOP.
-  const idle = idleCandidates(candidates, completedFlights, now)
+  const idle = idleCandidates(freshCandidates, completedFlights, now)
     .sort((a, b) => {
       if (!Number.isFinite(a.idleDays) && Number.isFinite(b.idleDays)) return -1;
       if (Number.isFinite(a.idleDays) && !Number.isFinite(b.idleDays)) return 1;
@@ -823,7 +860,7 @@ function buildTopPool({candidates, completedFlights, now, windowHours, graceHour
     .slice(0, 6);
   const idleAircraft = new Set(idle.map(item => item.aircraftId));
   // Hot and cash may overlap each other, but never the idle TOP.
-  const available = candidates.filter(item => !idleAircraft.has(item.aircraftId));
+  const available = freshCandidates.filter(item => !idleAircraft.has(item.aircraftId));
   const schedule = available.filter(item => item.proposalKind === 'schedule' && item.blockMinutes > 0);
   const hotSchedule = schedule
     .filter(hotCandidateAllowed)
@@ -961,12 +998,15 @@ function hotOfferMatchesFlight(item, flight) {
 }
 
 function refreshHotPool({currentPool, candidates, completedFlights, bonusRecords = {}, liveFlights = [], now}) {
+  const doneToday = completedFlightsForUtcDay(completedFlights, now);
   const originals = array(currentPool.categories?.quick?.items);
   if (!currentPool.categories?.quick || now >= new Date(currentPool.activeUntil)) return currentPool;
   const retiredHotOffers = {...currentPool.retiredHotOffers};
   // A mid-cycle hot refresh must not reintroduce an aircraft reserved for idle.
   const idleAircraft = new Set(array(currentPool.categories?.idle?.items).map(item => item.aircraftId));
   const eligible = candidates.filter(item => !idleAircraft.has(item.aircraftId))
+    .filter(c => !topProposalCompletedToday(c.aircraft || {id:c.aircraftId, registration:c.registration},
+      {kind:c.proposalKind,number:c.flightNumber,dep:c.dep,arr:c.arr}, doneToday))
     .filter(hotCandidateAllowed)
     .filter(item => item.proposalKind === 'schedule' || !(item.dep.startsWith('UK') && item.arr.startsWith('UK')))
     .sort((a, b) => (a.proposalKind === 'schedule' ? 0 : 1) - (b.proposalKind === 'schedule' ? 0 : 1)
@@ -1159,4 +1199,4 @@ if (require.main === module) {
   main().catch(error => { console.error(error && error.stack ? error.stack : error); process.exitCode = 1; });
 }
 
-module.exports = {hotCandidateAllowed, buildTopPool, buildTopPoolWithLiveProtection, liveTopOfferMatch, liveProtectedTopOffers, normalizeLiveFlight, refreshHotPool, loadProposalCandidates, loadCompletedFlights, loadAirportLocations, loadHtmlAircraftMeta};
+module.exports = {hotCandidateAllowed, buildTopPool, buildTopPoolWithLiveProtection, liveTopOfferMatch, liveProtectedTopOffers, normalizeLiveFlight, refreshHotPool, loadProposalCandidates, loadCompletedFlights, loadAirportLocations, loadHtmlAircraftMeta, completedFlightsForUtcDay, topProposalCompletedToday, proposedRouteForAircraft};
