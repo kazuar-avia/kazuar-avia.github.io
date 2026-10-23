@@ -6751,6 +6751,204 @@
                         "elev": 362
                     }
                 }
+            },
+            {
+                "_id": "6adb98cd5516042e48281b8a",
+                "aircraft": {
+                    "_id": "695a3bf33dc76275baca8db5",
+                    "name": "Boeing 737-800",
+                    "customName": "Ukraine Int l 737-800 based in UKBB l UR-UIA",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "174",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 189,
+                    "cargo": 27,
+                    "weights": {
+                        "cargo": 2133
+                    }
+                },
+                "depTime": "2026-10-23T17:50:00.000Z",
+                "duration": 160,
+                "arrTime": "2026-10-23T20:30:00.000Z",
+                "depTimeAct": "2026-10-23T17:48:34.662Z",
+                "delay": -10,
+                "takeoffTimeAct": "2026-10-23T17:57:22.051Z",
+                "durationAct": 143,
+                "arrTimeAct": "2026-10-23T20:20:01.038Z",
+                "open": "2026-10-23T17:29:52.348Z",
+                "close": "2026-10-23T20:27:17.527Z",
+                "rating": 8.18,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 897,
+                        "fuel": 6377,
+                        "expenses": 13842,
+                        "penalties": 1929,
+                        "revenue": 41661,
+                        "balance": 25890,
+                        "prices": {
+                            "ticketPrice": 191,
+                            "cargoUnitPrice": 206,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 189,
+                            "cargo": 27,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 189
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 5768,
+                        "aircraft": 5975,
+                        "handling": 1370,
+                        "landing": 729
+                    },
+                    "revenue": {
+                        "tickets": 36099,
+                        "cargo": 5562
+                    },
+                    "violations": [
+                        {
+                            "title": "MLW exceeded: 320kg above maximum landing weight of 66361kg",
+                            "penalty": {
+                                "points": -29,
+                                "cash": 1929
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.15,
+                                        "rate": 76
+                                    },
+                                    "weather": {
+                                        "windDir": 359.7,
+                                        "windSpd": 0.01,
+                                        "windX": 0.01
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 4.16m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -3,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.15,
+                                        "rate": 76
+                                    },
+                                    "weather": {
+                                        "windDir": 359.7,
+                                        "windSpd": 0.01,
+                                        "windX": 0.01
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.15G (76 ft/min, normal  conditions)<br/>Distance from threshold: 709m (accepted range: 196-785m)<br/>Average centerline deviation: 1.61m<br/>Max centerline deviation: 4.16m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.15,
+                                        "rate": 76
+                                    },
+                                    "weather": {
+                                        "windDir": 359.7,
+                                        "windSpd": 0.01,
+                                        "windX": 0.01
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 550ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-23T17:26:37.154Z",
+                "updatedAt": "2026-10-23T20:27:17.633Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "LGRP",
+                    "name": "Rhodes International Airport \"Diagoras\"",
+                    "city": "Rhodes",
+                    "location": {
+                        "lat": 36.405399,
+                        "lon": 28.086201,
+                        "elev": 17
+                    }
+                },
+                "actArr": {
+                    "icao": "LGRP",
+                    "name": "Rhodes International Airport \"Diagoras\"",
+                    "city": "Rhodes",
+                    "location": {
+                        "lat": 36.405399,
+                        "lon": 28.086201,
+                        "elev": 17
+                    }
+                }
             }
         ]
     },
