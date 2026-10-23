@@ -451,6 +451,154 @@
                         "elev": 312
                     }
                 }
+            },
+            {
+                "_id": "6adb70e2f7e01a70892d5bd7",
+                "aircraft": {
+                    "_id": "6ad5282fe2b73bbe59d145e1",
+                    "name": "Boeing 737-200",
+                    "customName": "737-200",
+                    "icao": "B732"
+                },
+                "type": "pax",
+                "flightNumber": "435",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 116,
+                    "cargo": 18,
+                    "weights": {
+                        "cargo": 1152
+                    }
+                },
+                "depTime": "2026-10-23T15:00:00.000Z",
+                "duration": 115,
+                "arrTime": "2026-10-23T16:55:00.000Z",
+                "depTimeAct": "2026-10-23T15:01:54.152Z",
+                "delay": 14,
+                "takeoffTimeAct": "2026-10-23T15:12:18.236Z",
+                "durationAct": 116,
+                "arrTimeAct": "2026-10-23T17:08:41.294Z",
+                "open": "2026-10-23T14:58:02.444Z",
+                "close": "2026-10-23T17:14:08.392Z",
+                "rating": 9.9,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 703,
+                        "fuel": 4777,
+                        "expenses": 12079,
+                        "penalties": 0,
+                        "revenue": 18360,
+                        "balance": 6281,
+                        "prices": {
+                            "ticketPrice": 135,
+                            "cargoUnitPrice": 150,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 116,
+                            "cargo": 18,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 116
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 5401,
+                        "aircraft": 5540,
+                        "handling": 634,
+                        "landing": 504
+                    },
+                    "revenue": {
+                        "tickets": 15660,
+                        "cargo": 2700
+                    },
+                    "violations": [
+                        {
+                            "title": "Average touchdown: 1.43G (427 ft/min, normal  conditions)",
+                            "penalty": {
+                                "points": -8,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 64
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.43,
+                                        "rate": 427
+                                    },
+                                    "weather": {
+                                        "windDir": 276.76,
+                                        "windSpd": 6,
+                                        "windX": 3.69
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No BEACON lights for 35s when required",
+                            "penalty": {
+                                "points": -2,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-23T14:36:18.956Z",
+                "updatedAt": "2026-10-23T17:14:08.472Z",
+                "dep": {
+                    "icao": "UKHH",
+                    "name": "Kharkiv International Airport",
+                    "city": "Kharkiv",
+                    "location": {
+                        "lat": 49.926943,
+                        "lon": 36.290814,
+                        "elev": 508
+                    }
+                },
+                "arr": {
+                    "icao": "LTBA",
+                    "name": "İstanbul Atatürk Airport",
+                    "city": "Istanbul(Bakırköy)",
+                    "location": {
+                        "lat": 40.971913,
+                        "lon": 28.823714,
+                        "elev": 163
+                    }
+                },
+                "actArr": {
+                    "icao": "LTBA",
+                    "name": "İstanbul Atatürk Airport",
+                    "city": "Istanbul(Bakırköy)",
+                    "location": {
+                        "lat": 40.971913,
+                        "lon": 28.823714,
+                        "elev": 163
+                    }
+                }
             }
         ]
     },
