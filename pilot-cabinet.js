@@ -6153,9 +6153,16 @@ function companyFixedTopPoolNormalizeFlightNumber(value) {
 function companyFixedTopPoolLiveFlightForItem(item) {
   const id = String(item?.aircraftId || '').trim();
   if (!id) return null;
-  return (app.liveNewSkyFlights || [])
-    .filter(flight => flight?.depTimeAct)
-    .find(flight => companyLiveryLiveFlightAircraftId(flight) === id) || null;
+  const flights = (app.liveNewSkyFlights || [])
+    .filter(flight => flight?.depTimeAct && companyLiveryLiveFlightAircraftId(flight) === id);
+  const needed = companyFixedTopPoolProposalRoute(item);
+  return flights.find(flight => {
+    const live = companyFixedTopPoolFlightRoute(flight);
+    const routeMatches = needed.dep && needed.arr && live.dep === needed.dep && live.arr === needed.arr;
+    const operationMatches = !needed.operation || live.operation === needed.operation;
+    const numberMatches = needed.operation !== 'schedule' || !needed.number || live.number === needed.number;
+    return routeMatches && operationMatches && numberMatches;
+  }) || flights[0] || null;
 }
 
 function companyFixedTopPoolGeneratedDate(item = null) {
