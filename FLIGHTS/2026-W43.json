@@ -18414,6 +18414,195 @@
                         "elev": 13
                     }
                 }
+            },
+            {
+                "_id": "6adb34c6f7e01a708926ef02",
+                "aircraft": {
+                    "_id": "695ebf3c3dc76275ba3e31f1",
+                    "name": "Boeing 777-300ER",
+                    "customName": "SkyLine Express l 777-300ER based in UKBB l UR-AZR",
+                    "icao": "B77W"
+                },
+                "type": "pax",
+                "flightNumber": "683B",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 531,
+                    "cargo": 73,
+                    "weights": {
+                        "cargo": 6643
+                    }
+                },
+                "depTime": "2026-10-23T10:40:00.000Z",
+                "duration": 200,
+                "arrTime": "2026-10-23T14:00:00.000Z",
+                "depTimeAct": "2026-10-23T10:34:21.635Z",
+                "delay": 51,
+                "takeoffTimeAct": "2026-10-23T10:35:50.628Z",
+                "durationAct": 255,
+                "arrTimeAct": "2026-10-23T14:50:37.545Z",
+                "open": "2026-10-23T10:32:15.214Z",
+                "close": "2026-10-23T14:52:37.571Z",
+                "rating": 8.16,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1534,
+                        "fuel": 27455,
+                        "expenses": 76006,
+                        "penalties": 0,
+                        "revenue": 116063,
+                        "balance": 40057,
+                        "prices": {
+                            "ticketPrice": 189,
+                            "cargoUnitPrice": 197,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 531,
+                            "cargo": 73,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 7,
+                                "Y": 524
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 32035,
+                        "aircraft": 29663,
+                        "handling": 12688,
+                        "landing": 1620
+                    },
+                    "revenue": {
+                        "tickets": 101682,
+                        "cargo": 14381
+                    },
+                    "violations": [
+                        {
+                            "title": "Unstable approach below 400ft: vertical speed below -1500 ft/min (actual -1528 ft/min)",
+                            "penalty": {
+                                "points": -14,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 33
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.48G (409 ft/min, normal  conditions)<br/>Distance from threshold: 533m (accepted range: 202-812m)<br/>Average centerline deviation: 1.68m<br/>Max centerline deviation: 2.24m",
+                            "penalty": {
+                                "points": -20,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.48,
+                                        "rate": 409
+                                    },
+                                    "weather": {
+                                        "windDir": 50,
+                                        "windSpd": 11.19,
+                                        "windX": -1.23
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 873ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Fuel used 26850 kg is lower than estimated minimum 27455 kg.",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.48,
+                                        "rate": 409
+                                    },
+                                    "weather": {
+                                        "windDir": 50,
+                                        "windSpd": 11.19,
+                                        "windX": -1.23
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-23T10:19:50.512Z",
+                "updatedAt": "2026-10-23T14:52:37.690Z",
+                "dep": {
+                    "icao": "KMIA",
+                    "name": "Miami International Airport",
+                    "city": "Miami",
+                    "location": {
+                        "lat": 25.796011,
+                        "lon": -80.289751,
+                        "elev": 8
+                    }
+                },
+                "arr": {
+                    "icao": "CYMX",
+                    "name": "Montreal Mirabel International Airport",
+                    "city": "Montréal",
+                    "location": {
+                        "lat": 45.679501,
+                        "lon": -74.038696,
+                        "elev": 270
+                    }
+                },
+                "actArr": {
+                    "icao": "CYMX",
+                    "name": "Montreal Mirabel International Airport",
+                    "city": "Montréal",
+                    "location": {
+                        "lat": 45.679501,
+                        "lon": -74.038696,
+                        "elev": 270
+                    }
+                }
             }
         ]
     },
