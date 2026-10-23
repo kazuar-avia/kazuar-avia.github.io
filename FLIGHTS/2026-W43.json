@@ -11068,6 +11068,176 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6ada891ef7e01a70891ce3b8",
+                "aircraft": {
+                    "_id": "6a4fa1d65760ec7cdb62803f",
+                    "name": "Boeing 777-300ER",
+                    "customName": "Dry Lease l 777-300ER GE 370 pax",
+                    "icao": "B77W"
+                },
+                "type": "pax",
+                "flightNumber": "123P",
+                "free": false,
+                "schedule": false,
+                "charter": true,
+                "payload": {
+                    "pax": 370,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-10-22T22:30:00.000Z",
+                "duration": 305,
+                "arrTime": "2026-10-23T03:35:00.000Z",
+                "depTimeAct": "2026-10-22T22:23:12.795Z",
+                "delay": -44,
+                "takeoffTimeAct": "2026-10-22T22:29:56.351Z",
+                "durationAct": 261,
+                "arrTimeAct": "2026-10-23T02:50:46.991Z",
+                "open": "2026-10-22T22:23:02.814Z",
+                "close": "2026-10-23T02:53:09.247Z",
+                "rating": 9.49,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 2105,
+                        "fuel": 28622,
+                        "expenses": 67156,
+                        "penalties": 0,
+                        "revenue": 199305,
+                        "balance": 132149,
+                        "prices": {
+                            "ticketPrice": 387,
+                            "cargoUnitPrice": 405,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 370,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 25,
+                                "C": 70,
+                                "Y": 275
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 32358,
+                        "aircraft": 29408,
+                        "handling": 2960,
+                        "landing": 2430
+                    },
+                    "revenue": {
+                        "tickets": 199305,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 10.23m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -46,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 39
+                                    },
+                                    "weather": {
+                                        "windDir": 349.99,
+                                        "windSpd": 14.19,
+                                        "windX": -10.8
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 4.34m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -5,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "spoilers",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.27G (309 ft/min, normal  conditions)<br/>Distance from threshold: 231m (accepted range: 184-738m)<br/>Average centerline deviation: 3.35m<br/>Max centerline deviation: 4.34m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 41
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.27,
+                                        "rate": 309
+                                    },
+                                    "weather": {
+                                        "windDir": 259.94,
+                                        "windSpd": 8.29,
+                                        "windX": -4.48
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-22T22:07:26.828Z",
+                "updatedAt": "2026-10-23T02:53:09.339Z",
+                "dep": {
+                    "icao": "LPMA",
+                    "name": "Cristiano Ronaldo International Airport",
+                    "city": "Funchal",
+                    "location": {
+                        "lat": 32.697812,
+                        "lon": -16.774613,
+                        "elev": 192
+                    }
+                },
+                "arr": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                },
+                "actArr": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                }
             }
         ]
     },
