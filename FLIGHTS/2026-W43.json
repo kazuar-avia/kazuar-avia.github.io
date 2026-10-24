@@ -8031,6 +8031,147 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6adcc5aa5516042e482b752b",
+                "aircraft": {
+                    "_id": "695a3bf33dc76275baca8db5",
+                    "name": "Boeing 737-800",
+                    "customName": "Ukraine Int l 737-800 based in UKBB l UR-UIA",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "189",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 189,
+                    "cargo": 33,
+                    "weights": {
+                        "cargo": 2442
+                    }
+                },
+                "depTime": "2026-10-24T15:10:00.000Z",
+                "duration": 138,
+                "arrTime": "2026-10-24T17:28:00.000Z",
+                "depTimeAct": "2026-10-24T15:07:44.208Z",
+                "delay": -1,
+                "takeoffTimeAct": "2026-10-24T15:16:52.785Z",
+                "durationAct": 130,
+                "arrTimeAct": "2026-10-24T17:27:18.868Z",
+                "open": "2026-10-24T14:50:46.551Z",
+                "close": "2026-10-24T17:27:55.014Z",
+                "rating": 0,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 852,
+                        "fuel": 6069,
+                        "expenses": 13087,
+                        "penalties": 1000000,
+                        "revenue": 39444,
+                        "balance": -973643,
+                        "prices": {
+                            "ticketPrice": 175,
+                            "cargoUnitPrice": 193,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 189,
+                            "cargo": 33,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 189
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 5489,
+                        "aircraft": 5650,
+                        "handling": 1381,
+                        "landing": 567
+                    },
+                    "revenue": {
+                        "tickets": 33075,
+                        "cargo": 6369
+                    },
+                    "violations": [
+                        {
+                            "title": "Crashed on landing: Landing not on the runway",
+                            "penalty": {
+                                "points": -1000,
+                                "cash": 1000000
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 22.33,
+                                        "rate": 0
+                                    },
+                                    "weather": {
+                                        "windDir": 66.64,
+                                        "windSpd": 4.72,
+                                        "windX": -3.71
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 0ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-24T14:50:18.428Z",
+                "updatedAt": "2026-10-24T17:27:55.112Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "LYTV",
+                    "name": "Tivat Airport",
+                    "city": "Tivat",
+                    "location": {
+                        "lat": 42.404701,
+                        "lon": 18.723301,
+                        "elev": 20
+                    }
+                },
+                "actArr": null
             }
         ]
     },
