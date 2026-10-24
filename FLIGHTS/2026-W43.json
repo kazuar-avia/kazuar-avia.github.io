@@ -4359,6 +4359,176 @@
                         "elev": 10
                     }
                 }
+            },
+            {
+                "_id": "6adc0ab9f7e01a70893d7e29",
+                "aircraft": {
+                    "_id": "695a66383dc76275bad0826f",
+                    "name": "Airbus A320",
+                    "customName": "Dry Lease l A320 CFM FENIX msfs2024",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "57S",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 92,
+                    "cargo": 12,
+                    "weights": {
+                        "cargo": 720
+                    }
+                },
+                "depTime": "2026-10-24T01:45:00.000Z",
+                "duration": 50,
+                "arrTime": "2026-10-24T02:35:00.000Z",
+                "depTimeAct": "2026-10-24T01:45:20.343Z",
+                "delay": -1,
+                "takeoffTimeAct": "2026-10-24T01:49:16.340Z",
+                "durationAct": 45,
+                "arrTimeAct": "2026-10-24T02:34:25.272Z",
+                "open": "2026-10-24T01:41:53.351Z",
+                "close": "2026-10-24T02:40:04.296Z",
+                "rating": 9.34,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 235,
+                        "fuel": 1854,
+                        "expenses": 8207,
+                        "penalties": 0,
+                        "revenue": 9564,
+                        "balance": 1357,
+                        "prices": {
+                            "ticketPrice": 90,
+                            "cargoUnitPrice": 107,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 92,
+                            "cargo": 12,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 92
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2096,
+                        "aircraft": 4625,
+                        "handling": 466,
+                        "landing": 1020
+                    },
+                    "revenue": {
+                        "tickets": 8280,
+                        "cargo": 1284
+                    },
+                    "violations": [
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1008mb instead of 1005mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "weather": {
+                                        "windDir": 20,
+                                        "windSpd": 5.02,
+                                        "windX": -3.78
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 4.97m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -16,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.31G (254 ft/min, normal  conditions)<br/>Distance from threshold: 306m (accepted range: 189-757m)<br/>Average centerline deviation: 1.63m<br/>Max centerline deviation: 4.97m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.31,
+                                        "rate": 254
+                                    },
+                                    "weather": {
+                                        "windDir": 39.99,
+                                        "windSpd": 6.37,
+                                        "windX": 4.62
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-24T01:32:41.331Z",
+                "updatedAt": "2026-10-24T02:40:04.372Z",
+                "dep": {
+                    "icao": "ENML",
+                    "name": "Molde Airport, Årø",
+                    "city": "Årø",
+                    "location": {
+                        "lat": 62.744701,
+                        "lon": 7.2625,
+                        "elev": 10
+                    }
+                },
+                "arr": {
+                    "icao": "ENBR",
+                    "name": "Bergen Airport, Flesland",
+                    "city": "Bergen",
+                    "location": {
+                        "lat": 60.2934,
+                        "lon": 5.21814,
+                        "elev": 170
+                    }
+                },
+                "actArr": {
+                    "icao": "ENBR",
+                    "name": "Bergen Airport, Flesland",
+                    "city": "Bergen",
+                    "location": {
+                        "lat": 60.2934,
+                        "lon": 5.21814,
+                        "elev": 170
+                    }
+                }
             }
         ]
     },
