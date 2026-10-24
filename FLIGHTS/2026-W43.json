@@ -7254,6 +7254,176 @@
                         "elev": 17
                     }
                 }
+            },
+            {
+                "_id": "6adc41aa5516042e4829a4fc",
+                "aircraft": {
+                    "_id": "695a3bf33dc76275baca8db5",
+                    "name": "Boeing 737-800",
+                    "customName": "Ukraine Int l 737-800 based in UKBB l UR-UIA",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "121",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 189,
+                    "cargo": 20,
+                    "weights": {
+                        "cargo": 2760
+                    }
+                },
+                "depTime": "2026-10-24T05:45:00.000Z",
+                "duration": 160,
+                "arrTime": "2026-10-24T08:25:00.000Z",
+                "depTimeAct": "2026-10-24T05:50:33.019Z",
+                "delay": 9,
+                "takeoffTimeAct": "2026-10-24T05:58:39.428Z",
+                "durationAct": 155,
+                "arrTimeAct": "2026-10-24T08:33:35.176Z",
+                "open": "2026-10-24T05:37:36.901Z",
+                "close": "2026-10-24T08:37:10.681Z",
+                "rating": 9.92,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 983,
+                        "fuel": 7424,
+                        "expenses": 17063,
+                        "penalties": 0,
+                        "revenue": 40219,
+                        "balance": 23156,
+                        "prices": {
+                            "ticketPrice": 191,
+                            "cargoUnitPrice": 206,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 189,
+                            "cargo": 20,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 189
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 8393,
+                        "aircraft": 6275,
+                        "handling": 1030,
+                        "landing": 1365
+                    },
+                    "revenue": {
+                        "tickets": 36099,
+                        "cargo": 4120
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 4.17m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -3,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    },
+                                    "weather": {
+                                        "windDir": 220.02,
+                                        "windSpd": 4.54,
+                                        "windX": -2.19
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 8.35m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -5,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.16G (90 ft/min, challenging  conditions)<br/>Distance from threshold: 481m (accepted range: 209-838m)<br/>Average centerline deviation: 3.91m<br/>Max centerline deviation: 8.35m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.16,
+                                        "rate": 90
+                                    },
+                                    "weather": {
+                                        "windDir": 109.89,
+                                        "windSpd": 9.07,
+                                        "windX": -8.71
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-24T05:27:06.719Z",
+                "updatedAt": "2026-10-24T08:37:10.786Z",
+                "dep": {
+                    "icao": "LGRP",
+                    "name": "Rhodes International Airport \"Diagoras\"",
+                    "city": "Rhodes",
+                    "location": {
+                        "lat": 36.405399,
+                        "lon": 28.086201,
+                        "elev": 17
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
             }
         ]
     },
