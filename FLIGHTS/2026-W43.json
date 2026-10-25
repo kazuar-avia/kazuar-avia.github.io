@@ -6009,6 +6009,189 @@
                         "elev": 294
                     }
                 }
+            },
+            {
+                "_id": "6ade2a49f7e01a70897394f3",
+                "aircraft": {
+                    "_id": "6a4fa1d65760ec7cdb62803f",
+                    "name": "Boeing 777-300ER",
+                    "customName": "Dry Lease l 777-300ER GE 370 pax",
+                    "icao": "B77W"
+                },
+                "type": "pax",
+                "flightNumber": "011N",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 276,
+                    "cargo": 63,
+                    "weights": {
+                        "cargo": 6300
+                    }
+                },
+                "depTime": "2026-10-25T16:30:00.000Z",
+                "duration": 345,
+                "arrTime": "2026-10-25T22:15:00.000Z",
+                "depTimeAct": "2026-10-25T16:31:05.089Z",
+                "delay": -202,
+                "takeoffTimeAct": "2026-10-25T16:37:07.090Z",
+                "durationAct": 136,
+                "arrTimeAct": "2026-10-25T18:53:06.901Z",
+                "open": "2026-10-25T16:15:53.044Z",
+                "close": "2026-10-25T18:57:33.388Z",
+                "rating": 9.13,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 2462,
+                        "fuel": 44373,
+                        "expenses": 42398,
+                        "penalties": 0,
+                        "revenue": 56584,
+                        "balance": 14186,
+                        "prices": {
+                            "ticketPrice": 306,
+                            "cargoUnitPrice": 310,
+                            "costScalars": {
+                                "timeAcceleration": 0.412,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 276,
+                            "cargo": 63,
+                            "paxByClass": {
+                                "F": 19,
+                                "C": 52,
+                                "Y": 205
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 20220,
+                        "aircraft": 18222,
+                        "handling": 2516,
+                        "landing": 1440
+                    },
+                    "revenue": {
+                        "tickets": 48538,
+                        "cargo": 8046
+                    },
+                    "violations": [
+                        {
+                            "title": "Average touchdown: 1.65G (508 ft/min, challenging  conditions)",
+                            "penalty": {
+                                "points": -37,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.65,
+                                        "rate": 508
+                                    },
+                                    "weather": {
+                                        "windDir": 150.64,
+                                        "windSpd": 4.75,
+                                        "windX": -1.87
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on landing: 1013mb instead of 980.7mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.65,
+                                        "rate": 508
+                                    },
+                                    "weather": {
+                                        "windDir": 150.64,
+                                        "windSpd": 4.75,
+                                        "windX": -1.87
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Time acceleration used (2.43x) - reduced revenue",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.65,
+                                        "rate": 508
+                                    },
+                                    "weather": {
+                                        "windDir": 150.64,
+                                        "windSpd": 4.75,
+                                        "windX": -1.87
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-25T16:11:53.521Z",
+                "updatedAt": "2026-10-25T18:57:33.489Z",
+                "dep": {
+                    "icao": "FACT",
+                    "name": "Cape Town International Airport",
+                    "city": "Cape Town",
+                    "location": {
+                        "lat": -33.97403,
+                        "lon": 18.604333,
+                        "elev": 151
+                    }
+                },
+                "arr": {
+                    "icao": "AT98",
+                    "city": "",
+                    "location": {
+                        "lat": -71.517,
+                        "lon": 8.8,
+                        "elev": 3707
+                    },
+                    "name": "Wolf's Fang Runway"
+                },
+                "actArr": {
+                    "icao": "AT98",
+                    "city": "",
+                    "location": {
+                        "lat": -71.517,
+                        "lon": 8.8,
+                        "elev": 3707
+                    },
+                    "name": "Wolf's Fang Runway"
+                }
             }
         ]
     },
