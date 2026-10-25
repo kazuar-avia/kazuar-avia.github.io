@@ -9522,6 +9522,161 @@
                         "elev": 20
                     }
                 }
+            },
+            {
+                "_id": "6ade3ca5f7e01a708976867e",
+                "aircraft": {
+                    "_id": "695a3bf33dc76275baca8db5",
+                    "name": "Boeing 737-800",
+                    "customName": "Ukraine Int l 737-800 based in UKBB l UR-UIA",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "148",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 188,
+                    "cargo": 15,
+                    "weights": {
+                        "cargo": 1305
+                    }
+                },
+                "depTime": "2026-10-25T17:45:00.000Z",
+                "duration": 132,
+                "arrTime": "2026-10-25T19:57:00.000Z",
+                "depTimeAct": "2026-10-25T17:51:56.578Z",
+                "delay": -1,
+                "takeoffTimeAct": "2026-10-25T17:54:45.199Z",
+                "durationAct": 121,
+                "arrTimeAct": "2026-10-25T19:56:09.657Z",
+                "open": "2026-10-25T17:43:31.562Z",
+                "close": "2026-10-25T20:04:04.223Z",
+                "rating": 6,
+                "simulator": "msfs",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 799,
+                        "fuel": 5659,
+                        "expenses": 13731,
+                        "penalties": 150000,
+                        "revenue": 35795,
+                        "balance": -127936,
+                        "prices": {
+                            "ticketPrice": 175,
+                            "cargoUnitPrice": 193,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 188,
+                            "cargo": 15,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 188
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 6088,
+                        "aircraft": 5425,
+                        "handling": 853,
+                        "landing": 1365
+                    },
+                    "revenue": {
+                        "tickets": 32900,
+                        "cargo": 2895
+                    },
+                    "violations": [
+                        {
+                            "title": "Tail strike on takeoff (pitch: 12.4, allowed: 12.0)",
+                            "penalty": {
+                                "points": -400,
+                                "cash": 150000
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 21
+                                    },
+                                    "weather": {
+                                        "windDir": 70.02,
+                                        "windSpd": 1.52,
+                                        "windX": -1.41
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.12G (77 ft/min, challenging  conditions)<br/>Distance from threshold: 645m (accepted range: 209-838m)<br/>Average centerline deviation: 2.87m<br/>Max centerline deviation: 5.86m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 20
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.12,
+                                        "rate": 77
+                                    },
+                                    "weather": {
+                                        "windDir": 129.29,
+                                        "windSpd": 7.14,
+                                        "windX": -6.23
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-25T17:30:13.900Z",
+                "updatedAt": "2026-10-25T20:04:04.306Z",
+                "dep": {
+                    "icao": "LYTV",
+                    "name": "Tivat Airport",
+                    "city": "Tivat",
+                    "location": {
+                        "lat": 42.404701,
+                        "lon": 18.723301,
+                        "elev": 20
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
             }
         ]
     },
