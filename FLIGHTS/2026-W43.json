@@ -26965,6 +26965,175 @@
                         "elev": 27
                     }
                 }
+            },
+            {
+                "_id": "6addac64f7e01a70896356f9",
+                "aircraft": {
+                    "_id": "695a66383dc76275bad0826f",
+                    "name": "Airbus A320",
+                    "customName": "Dry Lease l A320 CFM FENIX msfs2024",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "8UC",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 163,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-10-25T07:35:00.000Z",
+                "duration": 115,
+                "arrTime": "2026-10-25T09:30:00.000Z",
+                "depTimeAct": "2026-10-25T07:38:36.567Z",
+                "delay": 10,
+                "takeoffTimeAct": "2026-10-25T07:44:54.585Z",
+                "durationAct": 115,
+                "arrTimeAct": "2026-10-25T09:39:44.636Z",
+                "open": "2026-10-25T07:35:40.573Z",
+                "close": "2026-10-25T09:49:45.688Z",
+                "rating": -0.8,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": true,
+                "result": {
+                    "totals": {
+                        "distance": 779,
+                        "fuel": 4451,
+                        "expenses": 0,
+                        "penalties": 0,
+                        "revenue": 0,
+                        "balance": 0,
+                        "prices": {
+                            "ticketPrice": 134,
+                            "cargoUnitPrice": 149,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 163,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 163
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 5032,
+                        "aircraft": 6325,
+                        "handling": 1467,
+                        "landing": 972
+                    },
+                    "revenue": {
+                        "tickets": 21842,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Emergency Declared",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "emergency",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Incoherent data: flight closed without a landing",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "emergency",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No BEACON lights for 114s when required",
+                            "penalty": {
+                                "points": -22,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        },
+                        {
+                            "title": "Max G exceeded: 2.93G (max allowed: 2G)",
+                            "penalty": {
+                                "points": -186,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-25T07:14:44.483Z",
+                "updatedAt": "2026-10-25T09:49:45.774Z",
+                "dep": {
+                    "icao": "LEPA",
+                    "name": "Palma de Mallorca Airport",
+                    "city": "Palma de Mallorca",
+                    "location": {
+                        "lat": 39.551701,
+                        "lon": 2.73881,
+                        "elev": 27
+                    }
+                },
+                "arr": {
+                    "icao": "EDDS",
+                    "name": "Stuttgart Airport",
+                    "city": "Stuttgart",
+                    "location": {
+                        "lat": 48.689899,
+                        "lon": 9.22196,
+                        "elev": 1276
+                    }
+                },
+                "actArr": {
+                    "icao": "EDDS",
+                    "name": "Stuttgart Airport",
+                    "city": "Stuttgart",
+                    "location": {
+                        "lat": 48.689899,
+                        "lon": 9.22196,
+                        "elev": 1276
+                    }
+                }
             }
         ]
     },
