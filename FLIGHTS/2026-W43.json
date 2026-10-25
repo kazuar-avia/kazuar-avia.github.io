@@ -12911,6 +12911,187 @@
                         "elev": 375
                     }
                 }
+            },
+            {
+                "_id": "6ade226ef7e01a70897249f5",
+                "aircraft": {
+                    "_id": "6ade01dff7e01a70896d7dbb",
+                    "name": "Boeing 757-200",
+                    "customName": "Boeing 757-200",
+                    "icao": "B752"
+                },
+                "type": "pax",
+                "flightNumber": "217D",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 147,
+                    "cargo": 44,
+                    "weights": {
+                        "cargo": 5720
+                    }
+                },
+                "depTime": "2026-10-25T15:59:00.000Z",
+                "duration": 35,
+                "arrTime": "2026-10-25T16:34:00.000Z",
+                "depTimeAct": "2026-10-25T15:50:45.564Z",
+                "delay": 9,
+                "takeoffTimeAct": "2026-10-25T15:51:00.840Z",
+                "durationAct": 52,
+                "arrTimeAct": "2026-10-25T16:43:10.408Z",
+                "open": "2026-10-25T15:50:08.864Z",
+                "close": "2026-10-25T16:44:04.112Z",
+                "rating": 8.7,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 133,
+                        "fuel": 2574,
+                        "expenses": 9669,
+                        "penalties": 0,
+                        "revenue": 11342,
+                        "balance": 1673,
+                        "prices": {
+                            "ticketPrice": 58,
+                            "cargoUnitPrice": 64,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 147,
+                            "cargo": 44,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 147
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2910,
+                        "aircraft": 4580,
+                        "handling": 814,
+                        "landing": 1365
+                    },
+                    "revenue": {
+                        "tickets": 8526,
+                        "cargo": 2816
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 8.55m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -12,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    },
+                                    "weather": {
+                                        "windDir": 123.69,
+                                        "windSpd": 8.52,
+                                        "windX": -8.47
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.68G (483 ft/min, challenging  conditions)<br/>Distance from threshold: 524m (accepted range: 185-741m)<br/>Average centerline deviation: 0.34m<br/>Max centerline deviation: 0.57m",
+                            "penalty": {
+                                "points": -45,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.68,
+                                        "rate": 483
+                                    },
+                                    "weather": {
+                                        "windDir": 104.59,
+                                        "windSpd": 12.19,
+                                        "windX": 10.62
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No STROBE lights for 210s when required",
+                            "penalty": {
+                                "points": -23,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter not STD (1013 mb / 29.92 inHg) on cruise",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-25T15:38:22.634Z",
+                "updatedAt": "2026-10-25T16:44:04.196Z",
+                "dep": {
+                    "icao": "UKOH",
+                    "name": "Kherson International Airport",
+                    "city": "Kherson",
+                    "location": {
+                        "lat": 46.6758,
+                        "lon": 32.506401,
+                        "elev": 148
+                    }
+                },
+                "arr": {
+                    "icao": "UKOO",
+                    "name": "Odesa International Airport",
+                    "city": "Odesa",
+                    "location": {
+                        "lat": 46.427196,
+                        "lon": 30.672649,
+                        "elev": 172
+                    }
+                },
+                "actArr": {
+                    "icao": "UKOO",
+                    "name": "Odesa International Airport",
+                    "city": "Odesa",
+                    "location": {
+                        "lat": 46.427196,
+                        "lon": 30.672649,
+                        "elev": 172
+                    }
+                }
             }
         ]
     },
