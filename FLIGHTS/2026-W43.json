@@ -31137,6 +31137,171 @@
                         "elev": 508
                     }
                 }
+            },
+            {
+                "_id": "6ade6c36f7e01a70897d718e",
+                "aircraft": {
+                    "_id": "6988b9149da57b990ad5b53e",
+                    "name": "Airbus A320 neo",
+                    "customName": "DRY LEASE l free A320neo v2 msfs2024",
+                    "icao": "A20N"
+                },
+                "type": "pax",
+                "flightNumber": "325X",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 180,
+                    "cargo": 18,
+                    "weights": {
+                        "cargo": 2484
+                    }
+                },
+                "depTime": "2026-10-25T21:10:00.000Z",
+                "duration": 50,
+                "arrTime": "2026-10-25T22:00:00.000Z",
+                "depTimeAct": "2026-10-25T21:11:48.626Z",
+                "delay": 4,
+                "takeoffTimeAct": "2026-10-25T21:23:37.633Z",
+                "durationAct": 41,
+                "arrTimeAct": "2026-10-25T22:04:09.657Z",
+                "open": "2026-10-25T20:54:15.861Z",
+                "close": "2026-10-25T22:08:42.707Z",
+                "rating": 6.47,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 234,
+                        "fuel": 1911,
+                        "expenses": 8009,
+                        "penalties": 0,
+                        "revenue": 20556,
+                        "balance": 12547,
+                        "prices": {
+                            "ticketPrice": 99,
+                            "cargoUnitPrice": 119,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 180,
+                            "cargo": 18,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 6,
+                                "Y": 174
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1729,
+                        "aircraft": 3900,
+                        "handling": 1165,
+                        "landing": 1215
+                    },
+                    "revenue": {
+                        "tickets": 18414,
+                        "cargo": 2142
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 10.16m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -100,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 38
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Uncomfortable touchdown: 1.87G (627 ft/min, normal  conditions)<br/>Distance from threshold: 214m (accepted range: 184-739m)<br/>Average centerline deviation: 0.18m<br/>Max centerline deviation: 0.37m",
+                            "penalty": {
+                                "points": -103,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 42
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.87,
+                                        "rate": 627
+                                    },
+                                    "weather": {
+                                        "windDir": 209.89,
+                                        "windSpd": 7.37,
+                                        "windX": 5.23
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 796ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 61
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-25T20:53:10.586Z",
+                "updatedAt": "2026-10-25T22:08:42.799Z",
+                "dep": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "arr": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                },
+                "actArr": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                }
             }
         ]
     },
