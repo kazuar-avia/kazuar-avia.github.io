@@ -4,7 +4,7 @@ const STATUS_URL='https://osasich-default-rtdb.europe-west1.firebasedatabase.app
 const BACKUP='https://kazuar-avia.github.io/pilot-cabinet.html';
 const hide=document.createElement('style');hide.textContent='html.ucaa-maintenance-check body{visibility:hidden!important}';document.head.append(hide);document.documentElement.classList.add('ucaa-maintenance-check');
 const reveal=()=>document.documentElement.classList.remove('ucaa-maintenance-check');
-let active=false,checking=false,redirectTimer=null,overlay=null,overlayStyle=null,originalTitle=null,hashListener=null,streamVersion=0,stream=null;
+let active=false,checking=false,redirectTimer=null,overlay=null,overlayStyle=null,originalTitle=null,hashListener=null,streamVersion=0,stream=null,countdownRefresh=null;
 function maintenance(){
 if(active)return;active=true;
 const draw=()=>{
@@ -35,13 +35,29 @@ const el=document.createElement('section');el.id='ucaa-maintenance';
 el.innerHTML=`<main class="page" aria-labelledby="ucaa-maintenance-title"><div class="bar"><span class="tool" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#176b7d" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94Z"/></svg></span><h1 id="ucaa-maintenance-title">Технічні роботи</h1></div><div class="content"><p class="message">Вас буде автоматично перенаправлено на резервну сторінку.</p><div class="countdown" role="timer" aria-label="Час до перенаправлення"><span class="spinner" aria-hidden="true"></span><span class="countdown-text">Перенаправлення через <strong class="seconds" id="ucaa-maintenance-seconds">5</strong> с</span></div><a class="backup" id="ucaa-maintenance-backup" href="https://kazuar-avia.github.io/pilot-cabinet.html">Перейти до резервного кабінету <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div></main>`;
 document.body.append(el);overlay=el;originalTitle=document.title;document.title='Технічні роботи — Кабінет пілота';
 const target=()=>BACKUP+location.hash;const link=el.querySelector('#ucaa-maintenance-backup');hashListener=()=>{link.href=target();};hashListener();window.addEventListener('hashchange',hashListener);reveal();
-const seconds=el.querySelector('#ucaa-maintenance-seconds');const end=performance.now()+5000;redirectTimer=setInterval(()=>{const ms=Math.max(0,end-performance.now());seconds.textContent=String(Math.ceil(ms/1000));if(ms===0){clearInterval(redirectTimer);redirectTimer=null;void confirmAndRedirect();}},100);
+const seconds=el.querySelector('#ucaa-maintenance-seconds');
+const deadline=performance.now()+5000;
+let finished=false;
+const tick=()=>{
+  if(!active||overlay!==el||finished)return;
+  const left=Math.max(0,Math.ceil((deadline-performance.now())/1000));
+  seconds.textContent=String(left);
+  if(left!==0)return;
+  finished=true;
+  countdownRefresh=null;
+  if(redirectTimer!==null){clearInterval(redirectTimer);redirectTimer=null;}
+  void confirmAndRedirect();
+};
+countdownRefresh=tick;
+redirectTimer=setInterval(tick,250);
+tick();
 };
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',draw,{once:true});else draw();
 }
 function stopMaintenance(){
   active=false;
   if(redirectTimer!==null){clearInterval(redirectTimer);redirectTimer=null;}
+  countdownRefresh=null;
   if(overlay){overlay.remove();overlay=null;}
   if(overlayStyle){overlayStyle.remove();overlayStyle=null;}
   if(originalTitle!==null){document.title=originalTitle;originalTitle=null;}
@@ -125,6 +141,6 @@ void check();
 setInterval(()=>{
   if(!stream||stream.readyState!==EventSource.OPEN)void check();
 },30000);
-document.addEventListener('visibilitychange',()=>{if(!document.hidden)void check();});
-window.addEventListener('focus',()=>{void check();});
+document.addEventListener('visibilitychange',()=>{if(!document.hidden){countdownRefresh?.();void check();}});
+window.addEventListener('focus',()=>{countdownRefresh?.();void check();});
 })();
