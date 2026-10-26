@@ -3,6 +3,9 @@ if(location.pathname.toLowerCase()!=='/pilot-cabinet.html')return;
 const PRIMARY_HOST=['kazuar.in.ua','www.kazuar.in.ua'].includes(location.hostname.toLowerCase());
 const STATUS_URL='https://osasich-default-rtdb.europe-west1.firebasedatabase.app/maintenance/enabled.json';
 const BACKUP='https://kazuar-avia.github.io/pilot-cabinet.html';
+// Request a fresh backup HTML after GitHub Pages updates. Only the HTML
+// gets a unique URL; its regular assets retain normal browser caching.
+const backupTarget=()=>BACKUP+'?fresh='+Date.now()+location.hash;
 if(PRIMARY_HOST){
   const hide=document.createElement('style');
   hide.textContent='html.ucaa-maintenance-check body{visibility:hidden!important}';
@@ -99,7 +102,7 @@ const styles=document.createElement('style');overlayStyle=styles;styles.textCont
 const el=document.createElement('section');el.id='ucaa-maintenance';
 el.innerHTML=`<main class="page" aria-labelledby="ucaa-maintenance-title"><div class="bar"><span class="tool" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#176b7d" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94Z"/></svg></span><h1 id="ucaa-maintenance-title">Технічні роботи</h1></div><div class="content"><p class="message">Вас буде автоматично перенаправлено на резервну сторінку.</p><div class="countdown" role="timer" aria-label="Час до перенаправлення"><span class="spinner" aria-hidden="true"></span><span class="countdown-text">Перенаправлення через <strong class="seconds" id="ucaa-maintenance-seconds">5</strong> с</span></div><a class="backup" id="ucaa-maintenance-backup" href="https://kazuar-avia.github.io/pilot-cabinet.html">Перейти до резервного кабінету <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div></main>`;
 document.body.append(el);overlay=el;originalTitle=document.title;document.title='Технічні роботи — Кабінет пілота';
-const target=()=>BACKUP+location.hash;const link=el.querySelector('#ucaa-maintenance-backup');hashListener=()=>{link.href=target();};hashListener();window.addEventListener('hashchange',hashListener);reveal();
+const link=el.querySelector('#ucaa-maintenance-backup');hashListener=()=>{link.href=backupTarget();};hashListener();window.addEventListener('hashchange',hashListener);reveal();
 const seconds=el.querySelector('#ucaa-maintenance-seconds');
 const deadline=performance.now()+5000;
 let finished=false;
@@ -164,7 +167,7 @@ async function confirmAndRedirect(){
   if(!active)return;
   try{
     const enabled=await readCurrentStatus();
-    if(active&&enabled===true){location.replace(BACKUP+location.hash);return;}
+    if(active&&enabled===true){location.replace(backupTarget());return;}
   }catch(err){
     console.warn('[UCAA maintenance] Redirect cancelled: Firebase verification failed',err);
   }
