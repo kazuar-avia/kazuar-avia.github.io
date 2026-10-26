@@ -5,6 +5,61 @@ const BACKUP='https://kazuar-avia.github.io/pilot-cabinet.html';
 const hide=document.createElement('style');hide.textContent='html.ucaa-maintenance-check body{visibility:hidden!important}';document.head.append(hide);document.documentElement.classList.add('ucaa-maintenance-check');
 const reveal=()=>document.documentElement.classList.remove('ucaa-maintenance-check');
 let active=false,checking=false,redirectTimer=null,overlay=null,overlayStyle=null,originalTitle=null,hashListener=null,streamVersion=0,stream=null,countdownRefresh=null;
+
+let cabinetBooting=false,cabinetBooted=false,cabinetBootFailed=false,cabinetBootQueued=false;
+function bootCabinet(){
+  if(active||cabinetBooting||cabinetBooted||cabinetBootFailed)return;
+  // Firebase may respond before the browser has parsed the whole page.
+  if(document.readyState==='loading'){
+    if(!cabinetBootQueued){
+      cabinetBootQueued=true;
+      document.addEventListener('DOMContentLoaded',()=>{
+        cabinetBootQueued=false;
+        if(!active)bootCabinet();
+      },{once:true});
+    }
+    return;
+  }
+  cabinetBooting=true;
+  (async()=>{
+    // The aircraft photos and Leaflet styles must not download during maintenance.
+    document.querySelectorAll('img[data-ucaa-img-src]').forEach(img=>{
+      img.setAttribute('src',img.getAttribute('data-ucaa-img-src'));
+      img.removeAttribute('data-ucaa-img-src');
+    });
+    const pendingStyle=document.querySelector('link[data-ucaa-stylesheet]');
+    if(pendingStyle){
+      const css=document.createElement('link');
+      css.rel='stylesheet';
+      css.href=pendingStyle.getAttribute('data-ucaa-stylesheet');
+      pendingStyle.replaceWith(css);
+    }
+    // Load helpers in order before executing the two application ES modules.
+    while(!active){
+      const pending=document.querySelector('script[data-ucaa-script-src]');
+      if(!pending){cabinetBooted=true;break;}
+      const src=pending.getAttribute('data-ucaa-script-src');
+      const script=document.createElement('script');
+      if(pending.getAttribute('data-ucaa-script-type')==='module')script.type='module';
+      else script.async=false;
+      script.src=src;
+      await new Promise((resolve,reject)=>{
+        script.addEventListener('load',resolve,{once:true});
+        script.addEventListener('error',()=>reject(new Error('Failed to load '+src)),{once:true});
+        pending.replaceWith(script);
+      });
+    }
+  })().catch(error=>{
+    cabinetBootFailed=true;
+    console.error('[UCAA maintenance] Failed to load pilot cabinet',error);
+    const status=document.querySelector('#dataStatus');
+    if(status)status.textContent='Не вдалося завантажити кабінет. Оновіть сторінку.';
+  }).finally(()=>{
+    cabinetBooting=false;
+    if(!active&&!cabinetBooted&&!cabinetBootFailed)bootCabinet();
+  });
+}
+
 function maintenance(){
 if(active)return;active=true;
 const draw=()=>{
@@ -63,6 +118,7 @@ function stopMaintenance(){
   if(originalTitle!==null){document.title=originalTitle;originalTitle=null;}
   if(hashListener){window.removeEventListener('hashchange',hashListener);hashListener=null;}
   reveal();
+  bootCabinet();
 }
 function updateStatus(enabled){
   if(typeof enabled!=='boolean')return;
@@ -91,8 +147,7 @@ async function check(){
   }catch(err){
     console.warn('[UCAA maintenance] Cannot read Firebase status',err);
     // Do not redirect anyone while maintenance state cannot be confirmed.
-    if(active)stopMaintenance();
-    else reveal();
+    if(!active){reveal();bootCabinet();}
   }finally{checking=false;}
 }
 async function confirmAndRedirect(){
