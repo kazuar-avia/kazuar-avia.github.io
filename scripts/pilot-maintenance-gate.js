@@ -1,8 +1,14 @@
 (()=>{'use strict';
-if(!['kazuar.in.ua','www.kazuar.in.ua'].includes(location.hostname.toLowerCase())||location.pathname.toLowerCase()!=='/pilot-cabinet.html')return;
+if(location.pathname.toLowerCase()!=='/pilot-cabinet.html')return;
+const PRIMARY_HOST=['kazuar.in.ua','www.kazuar.in.ua'].includes(location.hostname.toLowerCase());
 const STATUS_URL='https://osasich-default-rtdb.europe-west1.firebasedatabase.app/maintenance/enabled.json';
 const BACKUP='https://kazuar-avia.github.io/pilot-cabinet.html';
-const hide=document.createElement('style');hide.textContent='html.ucaa-maintenance-check body{visibility:hidden!important}';document.head.append(hide);document.documentElement.classList.add('ucaa-maintenance-check');
+if(PRIMARY_HOST){
+  const hide=document.createElement('style');
+  hide.textContent='html.ucaa-maintenance-check body{visibility:hidden!important}';
+  document.head.append(hide);
+  document.documentElement.classList.add('ucaa-maintenance-check');
+}
 const reveal=()=>document.documentElement.classList.remove('ucaa-maintenance-check');
 let active=false,checking=false,redirectTimer=null,overlay=null,overlayStyle=null,originalTitle=null,hashListener=null,streamVersion=0,stream=null,countdownRefresh=null;
 
@@ -59,6 +65,10 @@ function bootCabinet(){
     if(!active&&!cabinetBooted&&!cabinetBootFailed)bootCabinet();
   });
 }
+
+// GitHub Pages and other backup hosts should always load the cabinet.
+// Firebase maintenance mode applies only to the primary Railway site.
+if(!PRIMARY_HOST){bootCabinet();return;}
 
 function maintenance(){
 if(active)return;active=true;
