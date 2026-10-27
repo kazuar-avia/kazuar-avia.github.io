@@ -1841,6 +1841,180 @@
                         "elev": 322
                     }
                 }
+            },
+            {
+                "_id": "6adfbb60f7e01a7089987a43",
+                "aircraft": {
+                    "_id": "6a4fa2fb5760ec7cdb629836",
+                    "name": "Boeing 777-200ER",
+                    "customName": "Dry Lease l 777-200ER PW 294 pax",
+                    "icao": "B772"
+                },
+                "type": "pax",
+                "flightNumber": "94M",
+                "free": false,
+                "schedule": false,
+                "charter": true,
+                "payload": {
+                    "pax": 294,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-10-26T21:40:00.000Z",
+                "duration": 605,
+                "arrTime": "2026-10-27T07:45:00.000Z",
+                "depTimeAct": "2026-10-26T21:35:20.258Z",
+                "delay": -62,
+                "takeoffTimeAct": "2026-10-26T21:46:55.359Z",
+                "durationAct": 536,
+                "arrTimeAct": "2026-10-27T06:43:00.515Z",
+                "open": "2026-10-26T21:31:14.392Z",
+                "close": "2026-10-27T06:55:21.777Z",
+                "rating": -0.2,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": true,
+                "result": {
+                    "totals": {
+                        "distance": 3857,
+                        "fuel": 71411,
+                        "expenses": 0,
+                        "penalties": 0,
+                        "revenue": 0,
+                        "balance": 0,
+                        "prices": {
+                            "ticketPrice": 704,
+                            "cargoUnitPrice": 752,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 294,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 14,
+                                "C": 41,
+                                "Y": 239
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 81573,
+                        "aircraft": 41955,
+                        "handling": 2058,
+                        "landing": 2925
+                    },
+                    "revenue": {
+                        "tickets": 265408,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Emergency Declared",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "emergency",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "MLW exceeded: 6464kg above maximum landing weight of 208652kg",
+                            "penalty": {
+                                "points": -186,
+                                "cash": 12393
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 51
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.27,
+                                        "rate": 259
+                                    },
+                                    "weather": {
+                                        "windDir": 115.95,
+                                        "windSpd": 2.48,
+                                        "windX": 0.87
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.27G (259 ft/min, normal  conditions)<br/>Distance from threshold: 448m (accepted range: 189-758m)<br/>Average centerline deviation: 0.52m<br/>Max centerline deviation: 1.25m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 51
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.27,
+                                        "rate": 259
+                                    },
+                                    "weather": {
+                                        "windDir": 115.95,
+                                        "windSpd": 2.48,
+                                        "windX": 0.87
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-26T20:43:12.944Z",
+                "updatedAt": "2026-10-27T06:55:21.902Z",
+                "dep": {
+                    "icao": "VHHX",
+                    "city": "Kowloon City",
+                    "location": {
+                        "lat": 22.320304,
+                        "lon": 114.198074,
+                        "elev": 28
+                    },
+                    "name": "Hong Kong International Airport Kai Tak"
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UGTB",
+                    "name": "Tbilisi International Airport",
+                    "city": "Tbilisi",
+                    "location": {
+                        "lat": 41.669201,
+                        "lon": 44.9547,
+                        "elev": 1624
+                    }
+                }
             }
         ]
     },
