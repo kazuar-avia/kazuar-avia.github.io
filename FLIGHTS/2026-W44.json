@@ -7151,6 +7151,169 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6ae2627ff7e01a7089cdb3aa",
+                "aircraft": {
+                    "_id": "696bb9e13dc76275ba8ddf8f",
+                    "name": "Airbus A330-200",
+                    "customName": "Windrose vs AUI l A330-200 based in UKBB l UR-WRQ",
+                    "icao": "A332"
+                },
+                "type": "pax",
+                "flightNumber": "2926",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 321,
+                    "cargo": 42,
+                    "weights": {
+                        "cargo": 5208
+                    }
+                },
+                "depTime": "2026-10-28T21:15:00.000Z",
+                "duration": 80,
+                "arrTime": "2026-10-28T22:35:00.000Z",
+                "depTimeAct": "2026-10-28T21:20:29.831Z",
+                "delay": -20,
+                "takeoffTimeAct": "2026-10-28T21:27:03.831Z",
+                "durationAct": 48,
+                "arrTimeAct": "2026-10-28T22:14:38.858Z",
+                "open": "2026-10-28T21:03:15.858Z",
+                "close": "2026-10-28T22:17:55.887Z",
+                "rating": 8.63,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 256,
+                        "fuel": 4810,
+                        "expenses": 21482,
+                        "penalties": 0,
+                        "revenue": 50013,
+                        "balance": 28531,
+                        "prices": {
+                            "ticketPrice": 135,
+                            "cargoUnitPrice": 159,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 321,
+                            "cargo": 42,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 321
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 5438,
+                        "aircraft": 11260,
+                        "handling": 2984,
+                        "landing": 1800
+                    },
+                    "revenue": {
+                        "tickets": 43335,
+                        "cargo": 6678
+                    },
+                    "violations": [
+                        {
+                            "title": "Great touchdown: 1.32G (346 ft/min, normal  conditions)<br/>Distance from threshold: 441m (accepted range: 201-806m)<br/>Average centerline deviation: 0.58m<br/>Max centerline deviation: 1.56m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 48
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.32,
+                                        "rate": 346
+                                    },
+                                    "weather": {
+                                        "windDir": 59.92,
+                                        "windSpd": 5.42,
+                                        "windX": -1.41
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 975ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -37,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No NAV lights for 3251s when required",
+                            "penalty": {
+                                "points": -100,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-28T21:00:47.552Z",
+                "updatedAt": "2026-10-28T22:17:55.965Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "LUKK",
+                    "name": "Chişinău International Airport",
+                    "city": "Chişinău",
+                    "location": {
+                        "lat": 46.92774,
+                        "lon": 28.931704,
+                        "elev": 399
+                    }
+                },
+                "actArr": {
+                    "icao": "LUKK",
+                    "name": "Chişinău International Airport",
+                    "city": "Chişinău",
+                    "location": {
+                        "lat": 46.92774,
+                        "lon": 28.931704,
+                        "elev": 399
+                    }
+                }
             }
         ]
     },
