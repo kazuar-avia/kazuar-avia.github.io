@@ -3352,6 +3352,156 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6ae24563f7e01a7089ca1ee5",
+                "aircraft": {
+                    "_id": "695a3bf33dc76275baca8db5",
+                    "name": "Boeing 737-800",
+                    "customName": "Ukraine Int l 737-800 based in UKBB l UR-UIA",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "949",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 185,
+                    "cargo": 20,
+                    "weights": {
+                        "cargo": 1880
+                    }
+                },
+                "depTime": "2026-10-28T19:25:00.000Z",
+                "duration": 110,
+                "arrTime": "2026-10-28T21:15:00.000Z",
+                "depTimeAct": "2026-10-28T19:25:17.457Z",
+                "delay": 1,
+                "takeoffTimeAct": "2026-10-28T19:36:40.440Z",
+                "durationAct": 100,
+                "arrTimeAct": "2026-10-28T21:16:11.250Z",
+                "open": "2026-10-28T19:14:26.639Z",
+                "close": "2026-10-28T21:20:23.004Z",
+                "rating": 9.55,
+                "simulator": "msfs",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 603,
+                        "fuel": 5735,
+                        "expenses": 14530,
+                        "penalties": 0,
+                        "revenue": 32525,
+                        "balance": 17995,
+                        "prices": {
+                            "ticketPrice": 157,
+                            "cargoUnitPrice": 174,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 185,
+                            "cargo": 20,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 185
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 6484,
+                        "aircraft": 5175,
+                        "handling": 1710,
+                        "landing": 1161
+                    },
+                    "revenue": {
+                        "tickets": 29045,
+                        "cargo": 3480
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 4.28m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -5,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 17
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.56G (425 ft/min, normal  conditions)<br/>Distance from threshold: 247m (accepted range: 203-816m)<br/>Average centerline deviation: 2.15m<br/>Max centerline deviation: 4.28m",
+                            "penalty": {
+                                "points": -40,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 17
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.56,
+                                        "rate": 425
+                                    },
+                                    "weather": {
+                                        "windDir": 320.04,
+                                        "windSpd": 4.04,
+                                        "windX": 0.44
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-28T18:56:35.059Z",
+                "updatedAt": "2026-10-28T21:20:23.085Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "LHBP",
+                    "name": "Budapest Liszt Ferenc International Airport",
+                    "city": "Budapest",
+                    "location": {
+                        "lat": 47.43018,
+                        "lon": 19.262393,
+                        "elev": 495
+                    }
+                },
+                "actArr": {
+                    "icao": "LHBP",
+                    "name": "Budapest Liszt Ferenc International Airport",
+                    "city": "Budapest",
+                    "location": {
+                        "lat": 47.43018,
+                        "lon": 19.262393,
+                        "elev": 495
+                    }
+                }
             }
         ]
     },
