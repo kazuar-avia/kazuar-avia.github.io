@@ -3658,6 +3658,180 @@
                     },
                     "name": "Luhansk International Airport"
                 }
+            },
+            {
+                "_id": "6ae1a511f7e01a7089bc6239",
+                "aircraft": {
+                    "_id": "69ff1763a5e61d69a71adbb5",
+                    "name": "Cessna 208 Caravan",
+                    "customName": "UCAA l Cessna 208 (pax) based in UKLR l UR-PAX",
+                    "icao": "C208"
+                },
+                "type": "pax",
+                "flightNumber": "92J",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 11,
+                    "cargo": 2,
+                    "weights": {
+                        "cargo": 154
+                    }
+                },
+                "depTime": "2026-10-28T07:45:00.000Z",
+                "duration": 50,
+                "arrTime": "2026-10-28T08:35:00.000Z",
+                "depTimeAct": "2026-10-28T07:37:54.453Z",
+                "delay": -29,
+                "takeoffTimeAct": "2026-10-28T07:41:27.460Z",
+                "durationAct": 24,
+                "arrTimeAct": "2026-10-28T08:05:52.502Z",
+                "open": "2026-10-28T07:35:35.460Z",
+                "close": "2026-10-28T08:09:08.539Z",
+                "rating": 9.57,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 65,
+                        "fuel": 72,
+                        "expenses": 390,
+                        "penalties": 0,
+                        "revenue": 695,
+                        "balance": 305,
+                        "prices": {
+                            "ticketPrice": 53,
+                            "cargoUnitPrice": 56,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 11,
+                            "cargo": 2,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 11
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 82,
+                        "aircraft": 213,
+                        "handling": 60,
+                        "landing": 35
+                    },
+                    "revenue": {
+                        "tickets": 583,
+                        "cargo": 112
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 9.60m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -23,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 36
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.58G (303 ft/min, challenging  conditions)<br/>Distance from threshold: 389m (accepted range: 155-621m)<br/>Average centerline deviation: 4.59m<br/>Max centerline deviation: 9.60m",
+                            "penalty": {
+                                "points": -20,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.58,
+                                        "rate": 303
+                                    },
+                                    "weather": {
+                                        "windDir": 73.58,
+                                        "windSpd": 6.45,
+                                        "windX": 6.08
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Fuel used 66 kg is lower than estimated minimum 72 kg.",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.58,
+                                        "rate": 303
+                                    },
+                                    "weather": {
+                                        "windDir": 73.58,
+                                        "windSpd": 6.45,
+                                        "windX": 6.08
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-28T07:32:33.323Z",
+                "updatedAt": "2026-10-28T08:09:08.608Z",
+                "dep": {
+                    "icao": "UKLI",
+                    "name": "Ivano-Frankivsk International Airport",
+                    "city": "Ivano-Frankivsk",
+                    "location": {
+                        "lat": 48.884201,
+                        "lon": 24.6861,
+                        "elev": 919
+                    }
+                },
+                "arr": {
+                    "icao": "UKMC",
+                    "city": "Gorodok",
+                    "location": {
+                        "lat": 49.7379,
+                        "lon": 23.6689,
+                        "elev": 895
+                    },
+                    "name": "Jagellon Airfield"
+                },
+                "actArr": {
+                    "icao": "UKMC",
+                    "city": "Gorodok",
+                    "location": {
+                        "lat": 49.7379,
+                        "lon": 23.6689,
+                        "elev": 895
+                    },
+                    "name": "Jagellon Airfield"
+                }
             }
         ]
     },
