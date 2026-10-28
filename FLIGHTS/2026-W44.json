@@ -979,6 +979,180 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6ae1de3bf7e01a7089c01d49",
+                "aircraft": {
+                    "_id": "6a4fa15e5760ec7cdb627803",
+                    "name": "Boeing 737-800",
+                    "customName": "Dry Lease l BOEING 737-800",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "78",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 168,
+                    "cargo": 31,
+                    "weights": {
+                        "cargo": 3317
+                    }
+                },
+                "depTime": "2026-10-28T12:10:00.000Z",
+                "duration": 60,
+                "arrTime": "2026-10-28T13:10:00.000Z",
+                "depTimeAct": "2026-10-28T12:10:28.972Z",
+                "delay": -2,
+                "takeoffTimeAct": "2026-10-28T12:19:21.973Z",
+                "durationAct": 49,
+                "arrTimeAct": "2026-10-28T13:08:15.012Z",
+                "open": "2026-10-28T11:50:53.183Z",
+                "close": "2026-10-28T13:17:11.061Z",
+                "rating": 9.77,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 285,
+                        "fuel": 2580,
+                        "expenses": 9614,
+                        "penalties": 0,
+                        "revenue": 22448,
+                        "balance": 12834,
+                        "prices": {
+                            "ticketPrice": 110,
+                            "cargoUnitPrice": 128,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 168,
+                            "cargo": 31,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 168
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2917,
+                        "aircraft": 4725,
+                        "handling": 1192,
+                        "landing": 780
+                    },
+                    "revenue": {
+                        "tickets": 18480,
+                        "cargo": 3968
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 4.05m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -1,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (769m from threshold beyond 707m max accepted)",
+                            "penalty": {
+                                "points": -22,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.3,
+                                        "rate": 289
+                                    },
+                                    "weather": {
+                                        "windDir": 49.92,
+                                        "windSpd": 3.61,
+                                        "windX": -0.03
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.30G (289 ft/min, normal  conditions)<br/>Distance from threshold: 769m (accepted range: 176-707m)<br/>Average centerline deviation: 2.55m<br/>Max centerline deviation: 4.05m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.3,
+                                        "rate": 289
+                                    },
+                                    "weather": {
+                                        "windDir": 49.92,
+                                        "windSpd": 3.61,
+                                        "windX": -0.03
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-28T11:36:27.818Z",
+                "updatedAt": "2026-10-28T13:17:11.140Z",
+                "dep": {
+                    "icao": "EPGD",
+                    "name": "Gdańsk Lech Wałęsa Airport",
+                    "city": "Gdańsk",
+                    "location": {
+                        "lat": 54.377602,
+                        "lon": 18.4662,
+                        "elev": 489
+                    }
+                },
+                "arr": {
+                    "icao": "EPLB",
+                    "name": "Lublin Airport",
+                    "city": "Lublin",
+                    "location": {
+                        "lat": 51.240157,
+                        "lon": 22.713461,
+                        "elev": 633
+                    }
+                },
+                "actArr": {
+                    "icao": "EPLB",
+                    "name": "Lublin Airport",
+                    "city": "Lublin",
+                    "location": {
+                        "lat": 51.240157,
+                        "lon": 22.713461,
+                        "elev": 633
+                    }
+                }
             }
         ]
     },
