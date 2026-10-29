@@ -335,6 +335,25 @@ function aircraftKeyData(fleetData, matchingData) {
   return {byId, byReg};
 }
 
+function preferredBaseIcao(currentIcao, bases, scheduleRoutes = [], distance = () => 0) {
+  const current = String(currentIcao || '').trim().toUpperCase();
+  const validBases = [...new Set((bases || [])
+    .map(base => String(base || '').trim().toUpperCase())
+    .filter(base => /^[A-Z0-9]{4}$/.test(base)))];
+  const scheduledDepartures = new Set((scheduleRoutes || [])
+    .filter(route => route?.active !== false)
+    .map(route => String(route?.dep || '').trim().toUpperCase()));
+  const scheduledBases = validBases.filter(base => scheduledDepartures.has(base));
+  const candidates = scheduledBases.length ? scheduledBases : validBases;
+  // Unknown coordinates must never beat a base whose distance is known.
+  const miles = base => {
+    if (base === current) return 0;
+    const value = Number(distance(current, base));
+    return Number.isFinite(value) && value > 0 ? value : Infinity;
+  };
+  return candidates.reduce((best, base) => !best || miles(base) < miles(best) ? base : best, '');
+}
+
 function baseIcaosForAircraft(aircraft = {}) {
   const bases = new Set(array(aircraft.basesFromName).map(upper).filter(Boolean));
   const match = String(aircraft.name || '').match(/based in\s+([A-Z0-9 ]+)/i);
@@ -466,12 +485,20 @@ function freeProposalWithRange(demand, airports, current, target, aircraft, mode
 function proposedRouteForAircraft({db, aircraft, airports, demand, now, completedFlights = []}) {
   if (!aircraft?.id) return null;
   const current = upper(aircraft.lastflightlocationICAO || aircraft.lastFlightLocationIcao || aircraft.locationIcao);
-  const scheduleIcao = upper(aircraft.locationIcao);
+  const configuredScheduleIcao = upper(aircraft.locationIcao);
   const mode = isCargoAircraft(aircraft, aircraft) ? 'cargo' : 'pax';
   const activeRoutes = scheduleRoutesForAircraft(db, aircraft).filter(route => route?.active !== false);
+  const bases = baseIcaosForAircraft(aircraft);
+  const preferredScheduledBase = preferredBaseIcao(current, bases, activeRoutes,
+    (from, to) => distanceNm(airports, from, to));
+  const hasScheduledBase = activeRoutes.some(route => bases.includes(route.dep));
+  const scheduleIcao = hasScheduledBase ? preferredScheduledBase
+    : activeRoutes.find(route => route.dep === configuredScheduleIcao)?.dep
+      || activeRoutes.find(route => routeRunsTodayOrTomorrow(route, now))?.dep
+      || activeRoutes[0]?.dep || configuredScheduleIcao;
   const todayRoutes = activeRoutes.filter(route => routeRunsToday(route, now));
   const routeFromCurrent = pickScheduleRoute(todayRoutes.filter(route => route.dep === current), aircraft, completedFlights, now);
-  if (todayRoutes.length && current === scheduleIcao && routeFromCurrent) {
+  if (routeFromCurrent) {
     return {kind: 'schedule', reason: 'schedule', number: routeFromCurrent.number, dep: routeFromCurrent.dep, arr: routeFromCurrent.arr};
   }
   const routeFromScheduleToday = pickScheduleRoute(todayRoutes.filter(route => route.dep === scheduleIcao), aircraft, completedFlights, now);
@@ -491,12 +518,11 @@ function proposedRouteForAircraft({db, aircraft, airports, demand, now, complete
     if (demandRoute) return demandRoute;
     return null;
   }
-  const bases = baseIcaosForAircraft(aircraft);
   if (bases.includes(current)) {
-    const demandRoute = demandProposalFromOrigin(demand, current, aircraft, mode, airports);
-    if (demandRoute) return demandRoute;
+    return demandProposalFromOrigin(demand, current, aircraft, mode, airports) || null;
   }
-  const targetBase = bases.find(base => base !== current) || bases[0] || scheduleIcao;
+  const targetBase = preferredBaseIcao(current, bases, [],
+    (from, to) => distanceNm(airports, from, to)) || configuredScheduleIcao;
   return freeProposalWithRange(demand, airports, current, targetBase, aircraft, mode, 'base-return');
 }
 
