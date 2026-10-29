@@ -9417,6 +9417,171 @@
                         "elev": 399
                     }
                 }
+            },
+            {
+                "_id": "6ae3bef4f7e01a7089ea0030",
+                "aircraft": {
+                    "_id": "696bb9e13dc76275ba8ddf8f",
+                    "name": "Airbus A330-200",
+                    "customName": "Windrose vs AUI l A330-200 based in UKBB l UR-WRQ",
+                    "icao": "A332"
+                },
+                "type": "pax",
+                "flightNumber": "731A",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 321,
+                    "cargo": 76,
+                    "weights": {
+                        "cargo": 9880
+                    }
+                },
+                "depTime": "2026-10-29T22:00:00.000Z",
+                "duration": 80,
+                "arrTime": "2026-10-29T23:20:00.000Z",
+                "depTimeAct": "2026-10-29T22:12:34.228Z",
+                "delay": 14,
+                "takeoffTimeAct": "2026-10-29T22:19:00.846Z",
+                "durationAct": 75,
+                "arrTimeAct": "2026-10-29T23:34:01.992Z",
+                "open": "2026-10-29T21:48:39.368Z",
+                "close": "2026-10-29T23:35:06.027Z",
+                "rating": 7.35,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 481,
+                        "fuel": 7567,
+                        "expenses": 29300,
+                        "penalties": 0,
+                        "revenue": 48062,
+                        "balance": 18762,
+                        "prices": {
+                            "ticketPrice": 118,
+                            "cargoUnitPrice": 134,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 321,
+                            "cargo": 76,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 321
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 8555,
+                        "aircraft": 15660,
+                        "handling": 3060,
+                        "landing": 2025
+                    },
+                    "revenue": {
+                        "tickets": 37878,
+                        "cargo": 10184
+                    },
+                    "violations": [
+                        {
+                            "title": "Uncomfortable touchdown: 1.70G (608 ft/min, normal  conditions)<br/>Distance from threshold: 272m (accepted range: 203-815m)<br/>Average centerline deviation: 0.24m<br/>Max centerline deviation: 0.64m",
+                            "penalty": {
+                                "points": -75,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 33
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.7,
+                                        "rate": 608
+                                    },
+                                    "weather": {
+                                        "windDir": 299.96,
+                                        "windSpd": 5.06,
+                                        "windX": -1.69
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 736ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gear",
+                                "payload": {
+                                    "system": {
+                                        "fps": 52
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Min G exceeded: -0.2G (min allowed: 0G)",
+                            "penalty": {
+                                "points": -40,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 64
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-29T21:47:32.806Z",
+                "updatedAt": "2026-10-29T23:35:06.104Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                },
+                "actArr": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                }
             }
         ]
     },
