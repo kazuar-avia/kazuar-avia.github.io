@@ -488,9 +488,16 @@ function proposedRouteForAircraft({db, aircraft, airports, demand, now, complete
   const preferredScheduledBase = preferredBaseIcao(current, bases, activeRoutes,
     (from, to) => distanceNm(airports, from, to));
   const hasScheduledBase = activeRoutes.some(route => bases.includes(route.dep));
-  const scheduleIcao = hasScheduledBase ? preferredScheduledBase
-    : activeRoutes.find(route => route.dep === configuredScheduleIcao)?.dep
-      || activeRoutes.find(route => routeRunsTodayOrTomorrow(route, now))?.dep
+  // Keep an aircraft at its current airport if scheduled flights depart there.
+  // For single-base aircraft, locationIcao remains the schedule staging point even
+  // when the named home base has other flights (FREE does not change locationIcao).
+  const hasCurrentScheduleOrigin = activeRoutes.some(route => route.dep === current);
+  const hasMultipleBases = new Set(bases).size > 1;
+  const scheduleIcao = hasCurrentScheduleOrigin || (!hasMultipleBases && current === configuredScheduleIcao)
+    ? current
+    : hasMultipleBases && hasScheduledBase ? preferredScheduledBase
+    : activeRoutes.some(route => route.dep === configuredScheduleIcao) ? configuredScheduleIcao
+    : activeRoutes.find(route => routeRunsTodayOrTomorrow(route, now))?.dep
       || activeRoutes[0]?.dep || configuredScheduleIcao;
   const todayRoutes = activeRoutes.filter(route => routeRunsToday(route, now))
     .filter(route => allowed({kind:'schedule',number:route.number,dep:route.dep,arr:route.arr}));

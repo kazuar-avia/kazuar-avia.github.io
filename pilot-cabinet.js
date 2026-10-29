@@ -4791,7 +4791,14 @@ function liverySuggestedRouteData(card, title, flights, latest, headline) {
   const preferredScheduledBase = preferredBaseIcao(currentIcao, bases, activeScheduleRoutes, liveryRouteDistanceNm);
   const hasScheduledBase = activeScheduleRoutes.some(route => bases.includes(route.dep));
   const configuredScheduleIcao = liveryLatestScheduleAirportIcao(flights, aircraft);
-  const scheduleIcao = hasScheduledBase ? preferredScheduledBase
+  // Keep an aircraft at its current airport if scheduled flights depart there.
+  // For single-base aircraft, locationIcao remains the schedule staging point even
+  // when the named home base has other flights (FREE does not change locationIcao).
+  const hasCurrentScheduleOrigin = activeScheduleRoutes.some(route => route.dep === currentIcao);
+  const hasMultipleBases = new Set(bases).size > 1;
+  const scheduleIcao = hasCurrentScheduleOrigin || (!hasMultipleBases && currentIcao === configuredScheduleIcao)
+    ? currentIcao
+    : hasMultipleBases && hasScheduledBase ? preferredScheduledBase
     : activeScheduleRoutes.some(route => route.dep === configuredScheduleIcao) ? configuredScheduleIcao
     : activeScheduleRoutes.find(liveryRouteRunsTodayOrTomorrow)?.dep
       || activeScheduleRoutes[0]?.dep || configuredScheduleIcao;
