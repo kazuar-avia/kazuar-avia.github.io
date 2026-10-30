@@ -4539,25 +4539,6 @@ function liveryScheduleRouteFrom(routes, depIcao, aircraft = null) {
   return liveryPickScheduleRoute(pool.filter(route => route.dep === dep), aircraft);
 }
 
-function preferredBaseIcao(currentIcao, bases, scheduleRoutes = [], distance = () => 0) {
-  const current = String(currentIcao || '').trim().toUpperCase();
-  const validBases = [...new Set((bases || [])
-    .map(base => String(base || '').trim().toUpperCase())
-    .filter(base => /^[A-Z0-9]{4}$/.test(base)))];
-  const scheduledDepartures = new Set((scheduleRoutes || [])
-    .filter(route => route?.active !== false)
-    .map(route => String(route?.dep || '').trim().toUpperCase()));
-  const scheduledBases = validBases.filter(base => scheduledDepartures.has(base));
-  const candidates = scheduledBases.length ? scheduledBases : validBases;
-  // Unknown coordinates must never beat a base whose distance is known.
-  const miles = base => {
-    if (base === current) return 0;
-    const value = Number(distance(current, base));
-    return Number.isFinite(value) && value > 0 ? value : Infinity;
-  };
-  return candidates.reduce((best, base) => !best || miles(base) < miles(best) ? base : best, '');
-}
-
 function liveryBaseIcaosForAircraft(aircraft) {
   const bases = Array.isArray(aircraft?.basesFromName) ? aircraft.basesFromName : [];
   const matching = companyLiveryMatchingRecord(aircraft);
@@ -4786,26 +4767,12 @@ function liverySuggestedRouteData(card, title, flights, latest, headline) {
   const aircraft = companyLiveryAircraftForCard(card, flights, latest, headline);
   const currentIcao = liveryEffectiveCurrentIcao(aircraft, latest, liveryCardFallbackAirport(card));
   const routes = liveryScheduleRoutesForAircraft(aircraft);
-  const activeScheduleRoutes = (routes || []).filter(route => route?.active !== false);
-  const bases = liveryBaseIcaosForAircraft(aircraft);
-  const preferredScheduledBase = preferredBaseIcao(currentIcao, bases, activeScheduleRoutes, liveryRouteDistanceNm);
-  const hasScheduledBase = activeScheduleRoutes.some(route => bases.includes(route.dep));
-  const configuredScheduleIcao = liveryLatestScheduleAirportIcao(flights, aircraft);
-  // Keep an aircraft at its current airport if scheduled flights depart there.
-  // For single-base aircraft, locationIcao remains the schedule staging point even
-  // when the named home base has other flights (FREE does not change locationIcao).
-  const hasCurrentScheduleOrigin = activeScheduleRoutes.some(route => route.dep === currentIcao);
-  const hasMultipleBases = new Set(bases).size > 1;
-  const scheduleIcao = hasCurrentScheduleOrigin || (!hasMultipleBases && currentIcao === configuredScheduleIcao)
-    ? currentIcao
-    : hasMultipleBases && hasScheduledBase ? preferredScheduledBase
-    : activeScheduleRoutes.some(route => route.dep === configuredScheduleIcao) ? configuredScheduleIcao
-    : activeScheduleRoutes.find(liveryRouteRunsTodayOrTomorrow)?.dep
-      || activeScheduleRoutes[0]?.dep || configuredScheduleIcao;
+  const scheduleIcao = liveryLatestScheduleAirportIcao(flights, aircraft);
   const scheduleCandidates = liveryScheduleCandidateRoutes(routes);
+  const activeScheduleRoutes = (routes || []).filter(route => route?.active !== false);
   const hasScheduleRoutes = activeScheduleRoutes.length > 0;
   const routeFromCurrent = liveryChooseScheduleRoute(routes, currentIcao, aircraft);
-  if (scheduleCandidates.length && routeFromCurrent && currentIcao && routeFromCurrent.dep === currentIcao) {
+  if (scheduleCandidates.length && routeFromCurrent && currentIcao && scheduleIcao && currentIcao === scheduleIcao && routeFromCurrent.dep === currentIcao) {
     return liveryRouteProposalData('schedule', routeFromCurrent.number, currentIcao || routeFromCurrent.dep, routeFromCurrent.arr, {aircraft, aircraftTitle: title});
   }
   if (hasScheduleRoutes) {
@@ -4843,11 +4810,12 @@ function liverySuggestedRouteData(card, title, flights, latest, headline) {
     }
     return null;
   }
+  const bases = liveryBaseIcaosForAircraft(aircraft);
   if (bases.includes(currentIcao)) {
     const demandProposal = liveryCharterDemandProposal(currentIcao, aircraft, title, routes);
-    return demandProposal || null;
+    if (demandProposal) return demandProposal;
   }
-  const targetBase = preferredBaseIcao(currentIcao, bases, [], liveryRouteDistanceNm);
+  const targetBase = bases.find(icao => icao !== currentIcao) || bases[0];
   if (targetBase) {
     const proposal = liveryRangeSafeFreeProposal(currentIcao, targetBase, aircraft, title, {
       reason: 'base',
