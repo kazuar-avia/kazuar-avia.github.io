@@ -12357,6 +12357,180 @@
                         "elev": 1071
                     }
                 }
+            },
+            {
+                "_id": "6ae5fce7f7e01a708918a906",
+                "aircraft": {
+                    "_id": "69ac6222c739a30ec84c1abb",
+                    "name": "Airbus A300-600F",
+                    "customName": "UCAA l A300-600 (cargo) based in UKKM l UR-LDC",
+                    "icao": "A306"
+                },
+                "type": "cargo",
+                "flightNumber": "5149",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 0,
+                    "cargo": 317,
+                    "weights": {
+                        "cargo": 35504
+                    }
+                },
+                "depTime": "2026-10-31T15:05:00.000Z",
+                "duration": 160,
+                "arrTime": "2026-10-31T17:45:00.000Z",
+                "depTimeAct": "2026-10-31T15:27:04.072Z",
+                "delay": -10,
+                "takeoffTimeAct": "2026-10-31T15:30:41.069Z",
+                "durationAct": 124,
+                "arrTimeAct": "2026-10-31T17:34:58.136Z",
+                "open": "2026-10-31T14:45:16.330Z",
+                "close": "2026-10-31T17:39:24.177Z",
+                "rating": 9.77,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 923,
+                        "fuel": 10573,
+                        "expenses": 22322,
+                        "penalties": 1268,
+                        "revenue": 71959,
+                        "balance": 48369,
+                        "prices": {
+                            "ticketPrice": 194,
+                            "cargoUnitPrice": 227,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 0,
+                            "cargo": 317,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 11953,
+                        "aircraft": 8660,
+                        "handling": 143,
+                        "landing": 1566
+                    },
+                    "revenue": {
+                        "tickets": 0,
+                        "cargo": 71959
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight delayed 8 minutes (max 15 minutes after scheduled is allowed)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 1268
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 34
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (889m from threshold beyond 824m max accepted)",
+                            "penalty": {
+                                "points": -23,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.21,
+                                        "rate": 246
+                                    },
+                                    "weather": {
+                                        "windDir": 13.43,
+                                        "windSpd": 1.86,
+                                        "windX": -1.03
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.21G (246 ft/min, normal  conditions)<br/>Distance from threshold: 889m (accepted range: 205-824m)<br/>Average centerline deviation: 0.59m<br/>Max centerline deviation: 1.17m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.21,
+                                        "rate": 246
+                                    },
+                                    "weather": {
+                                        "windDir": 13.43,
+                                        "windSpd": 1.86,
+                                        "windX": -1.03
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-31T14:36:23.339Z",
+                "updatedAt": "2026-10-31T17:39:24.263Z",
+                "dep": {
+                    "icao": "UKKM",
+                    "name": "Hostomel Airport",
+                    "city": "Kiev",
+                    "location": {
+                        "lat": 50.6035,
+                        "lon": 30.1919,
+                        "elev": 517
+                    }
+                },
+                "arr": {
+                    "icao": "EDDK",
+                    "name": "Cologne Bonn Airport",
+                    "city": "Köln (Cologne)",
+                    "location": {
+                        "lat": 50.865898,
+                        "lon": 7.14274,
+                        "elev": 302
+                    }
+                },
+                "actArr": {
+                    "icao": "EDDK",
+                    "name": "Cologne Bonn Airport",
+                    "city": "Köln (Cologne)",
+                    "location": {
+                        "lat": 50.865898,
+                        "lon": 7.14274,
+                        "elev": 302
+                    }
+                }
             }
         ]
     },
