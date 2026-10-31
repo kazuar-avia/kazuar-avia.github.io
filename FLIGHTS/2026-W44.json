@@ -13015,6 +13015,161 @@
                         "elev": 373
                     }
                 }
+            },
+            {
+                "_id": "6ae5cbb7f7e01a708912c36d",
+                "aircraft": {
+                    "_id": "6a1c2fb3a5e61d69a78961aa",
+                    "name": "Antonov An-2",
+                    "customName": "Antonov AN-2 l UR-40308",
+                    "icao": "AN2"
+                },
+                "type": "pax",
+                "flightNumber": "60A",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 11,
+                    "cargo": 1,
+                    "weights": {
+                        "cargo": 83
+                    }
+                },
+                "depTime": "2026-10-31T11:30:00.000Z",
+                "duration": 60,
+                "arrTime": "2026-10-31T12:30:00.000Z",
+                "depTimeAct": "2026-10-31T11:36:34.627Z",
+                "delay": 10,
+                "takeoffTimeAct": "2026-10-31T11:48:22.648Z",
+                "durationAct": 52,
+                "arrTimeAct": "2026-10-31T12:40:12.725Z",
+                "open": "2026-10-31T11:13:50.831Z",
+                "close": "2026-10-31T12:47:39.903Z",
+                "rating": 9.5,
+                "simulator": "msfs",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 66,
+                        "fuel": 231,
+                        "expenses": 654,
+                        "penalties": 0,
+                        "revenue": 591,
+                        "balance": -63,
+                        "prices": {
+                            "ticketPrice": 49,
+                            "cargoUnitPrice": 52,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 11,
+                            "cargo": 1,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 11
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 262,
+                        "aircraft": 266,
+                        "handling": 70,
+                        "landing": 56
+                    },
+                    "revenue": {
+                        "tickets": 539,
+                        "cargo": 52
+                    },
+                    "violations": [
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1016mb instead of 1019mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 33
+                                    },
+                                    "weather": {
+                                        "windDir": 330.02,
+                                        "windSpd": 13.73,
+                                        "windX": 12.71
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.11G (106 ft/min, normal  conditions)<br/>Distance from threshold: 290m (accepted range: 172-691m)<br/>Average centerline deviation: 2.26m<br/>Max centerline deviation: 2.61m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 33
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.11,
+                                        "rate": 106
+                                    },
+                                    "weather": {
+                                        "windDir": 309.98,
+                                        "windSpd": 10.22,
+                                        "windX": -2.16
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-31T11:06:31.028Z",
+                "updatedAt": "2026-10-31T12:47:39.993Z",
+                "dep": {
+                    "icao": "LUKK",
+                    "name": "Chişinău International Airport",
+                    "city": "Chişinău",
+                    "location": {
+                        "lat": 46.92774,
+                        "lon": 28.931704,
+                        "elev": 399
+                    }
+                },
+                "arr": {
+                    "icao": "LRIA",
+                    "name": "Iaşi International Airport",
+                    "city": "Iaşi",
+                    "location": {
+                        "lat": 47.179633,
+                        "lon": 27.621431,
+                        "elev": 411
+                    }
+                },
+                "actArr": {
+                    "icao": "LRIA",
+                    "name": "Iaşi International Airport",
+                    "city": "Iaşi",
+                    "location": {
+                        "lat": 47.179633,
+                        "lon": 27.621431,
+                        "elev": 411
+                    }
+                }
             }
         ]
     }
