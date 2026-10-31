@@ -6643,6 +6643,176 @@
                         "elev": 10
                     }
                 }
+            },
+            {
+                "_id": "6ae6232cf7e01a70891e9bf7",
+                "aircraft": {
+                    "_id": "695a3bf33dc76275baca8db5",
+                    "name": "Boeing 737-800",
+                    "customName": "Ukraine Int l 737-800 based in UKBB l UR-UIA",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "152",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 189,
+                    "cargo": 19,
+                    "weights": {
+                        "cargo": 1729
+                    }
+                },
+                "depTime": "2026-10-31T17:55:00.000Z",
+                "duration": 210,
+                "arrTime": "2026-10-31T21:25:00.000Z",
+                "depTimeAct": "2026-10-31T17:59:15.782Z",
+                "delay": -15,
+                "takeoffTimeAct": "2026-10-31T18:10:15.780Z",
+                "durationAct": 179,
+                "arrTimeAct": "2026-10-31T21:09:39.413Z",
+                "open": "2026-10-31T17:44:23.612Z",
+                "close": "2026-10-31T21:14:12.973Z",
+                "rating": 9.2,
+                "simulator": "msfs",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1129,
+                        "fuel": 7434,
+                        "expenses": 19149,
+                        "penalties": 0,
+                        "revenue": 43416,
+                        "balance": 24267,
+                        "prices": {
+                            "ticketPrice": 208,
+                            "cargoUnitPrice": 216,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 189,
+                            "cargo": 19,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 189
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 8492,
+                        "aircraft": 7175,
+                        "handling": 1727,
+                        "landing": 1755
+                    },
+                    "revenue": {
+                        "tickets": 39312,
+                        "cargo": 4104
+                    },
+                    "violations": [
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1013mb instead of 1020mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 21
+                                    },
+                                    "weather": {
+                                        "windDir": 140,
+                                        "windSpd": 4,
+                                        "windX": -2.43
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 10.18m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -30,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 17
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.27G (241 ft/min, challenging  conditions)<br/>Distance from threshold: 362m (accepted range: 209-838m)<br/>Average centerline deviation: 4.37m<br/>Max centerline deviation: 10.18m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 19
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.27,
+                                        "rate": 241
+                                    },
+                                    "weather": {
+                                        "windDir": 338.19,
+                                        "windSpd": 4.53,
+                                        "windX": -1.43
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-31T17:19:40.092Z",
+                "updatedAt": "2026-10-31T21:14:13.059Z",
+                "dep": {
+                    "icao": "UBBB",
+                    "name": "Heydar Aliyev International Airport",
+                    "city": "Baku",
+                    "location": {
+                        "lat": 40.47278,
+                        "lon": 50.050931,
+                        "elev": 10
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
             }
         ]
     },
