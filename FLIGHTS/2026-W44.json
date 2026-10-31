@@ -13956,6 +13956,180 @@
                         "elev": 411
                     }
                 }
+            },
+            {
+                "_id": "6ae61bacf7e01a70891d7154",
+                "aircraft": {
+                    "_id": "6a1c2fb3a5e61d69a78961aa",
+                    "name": "Antonov An-2",
+                    "customName": "Antonov AN-2 l UR-40308",
+                    "icao": "AN2"
+                },
+                "type": "pax",
+                "flightNumber": "60C",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 11,
+                    "cargo": 1,
+                    "weights": {
+                        "cargo": 76
+                    }
+                },
+                "depTime": "2026-10-31T17:30:00.000Z",
+                "duration": 85,
+                "arrTime": "2026-10-31T18:55:00.000Z",
+                "depTimeAct": "2026-10-31T17:16:57.024Z",
+                "delay": 9,
+                "takeoffTimeAct": "2026-10-31T17:21:19.022Z",
+                "durationAct": 103,
+                "arrTimeAct": "2026-10-31T19:04:19.183Z",
+                "open": "2026-10-31T17:05:57.011Z",
+                "close": "2026-10-31T19:08:23.222Z",
+                "rating": 9.38,
+                "simulator": "msfs",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 116,
+                        "fuel": 435,
+                        "expenses": 927,
+                        "penalties": 0,
+                        "revenue": 774,
+                        "balance": -153,
+                        "prices": {
+                            "ticketPrice": 64,
+                            "cargoUnitPrice": 70,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 11,
+                            "cargo": 1,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 11
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 492,
+                        "aircraft": 317,
+                        "handling": 78,
+                        "landing": 40
+                    },
+                    "revenue": {
+                        "tickets": 704,
+                        "cargo": 70
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 4.75m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -12,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 33
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.13G (101 ft/min, challenging  conditions)<br/>Distance from threshold: 687m (accepted range: 166-665m)<br/>Average centerline deviation: 1.49m<br/>Max centerline deviation: 1.99m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 33
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.13,
+                                        "rate": 101
+                                    },
+                                    "weather": {
+                                        "windDir": 270,
+                                        "windSpd": 1.86,
+                                        "windX": -1.65
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on landing: 1026mb instead of 1023.2mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 33
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.13,
+                                        "rate": 101
+                                    },
+                                    "weather": {
+                                        "windDir": 270,
+                                        "windSpd": 1.86,
+                                        "windX": -1.65
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-31T16:47:40.270Z",
+                "updatedAt": "2026-10-31T19:08:23.352Z",
+                "dep": {
+                    "icao": "LRIA",
+                    "name": "Iaşi International Airport",
+                    "city": "Iaşi",
+                    "location": {
+                        "lat": 47.179633,
+                        "lon": 27.621431,
+                        "elev": 411
+                    }
+                },
+                "arr": {
+                    "icao": "UKLN",
+                    "name": "Chernivtsi International Airport",
+                    "city": "Chernivtsi",
+                    "location": {
+                        "lat": 48.2593,
+                        "lon": 25.980801,
+                        "elev": 826
+                    }
+                },
+                "actArr": {
+                    "icao": "UKLN",
+                    "name": "Chernivtsi International Airport",
+                    "city": "Chernivtsi",
+                    "location": {
+                        "lat": 48.2593,
+                        "lon": 25.980801,
+                        "elev": 826
+                    }
+                }
             }
         ]
     }
