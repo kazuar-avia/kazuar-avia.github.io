@@ -10508,6 +10508,180 @@
                         "elev": 314
                     }
                 }
+            },
+            {
+                "_id": "6ae6295bf7e01a70891f8ed1",
+                "aircraft": {
+                    "_id": "69ff231aa5e61d69a71c50f5",
+                    "name": "Airbus A340-600",
+                    "customName": "Dry Lease l Toliss A340-600 msfs l 440 pax in 3 class",
+                    "icao": "A346"
+                },
+                "type": "pax",
+                "flightNumber": "17N",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 440,
+                    "cargo": 56,
+                    "weights": {
+                        "cargo": 5096
+                    }
+                },
+                "depTime": "2026-10-31T18:30:00.000Z",
+                "duration": 50,
+                "arrTime": "2026-10-31T19:20:00.000Z",
+                "depTimeAct": "2026-10-31T18:11:04.723Z",
+                "delay": -13,
+                "takeoffTimeAct": "2026-10-31T18:21:12.246Z",
+                "durationAct": 46,
+                "arrTimeAct": "2026-10-31T19:06:57.892Z",
+                "open": "2026-10-31T17:54:58.284Z",
+                "close": "2026-10-31T19:15:09.192Z",
+                "rating": 9.77,
+                "simulator": "xp",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 253,
+                        "fuel": 6791,
+                        "expenses": 29247,
+                        "penalties": 660,
+                        "revenue": 50218,
+                        "balance": 20311,
+                        "prices": {
+                            "ticketPrice": 91,
+                            "cargoUnitPrice": 107,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 440,
+                            "cargo": 56,
+                            "paxByClass": {
+                                "F": 8,
+                                "C": 22,
+                                "Y": 410
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 7678,
+                        "aircraft": 16405,
+                        "handling": 3589,
+                        "landing": 1575
+                    },
+                    "revenue": {
+                        "tickets": 44226,
+                        "cargo": 5992
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight departed 3 minutes too early (max 15 minutes before scheduled is allowed)",
+                            "penalty": {
+                                "points": -15,
+                                "cash": 660
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 36
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (832m from threshold beyond 808m max accepted)",
+                            "penalty": {
+                                "points": -8,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.16,
+                                        "rate": 118
+                                    },
+                                    "weather": {
+                                        "windDir": 290.24,
+                                        "windSpd": 4.02,
+                                        "windX": 1.09
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.16G (118 ft/min, normal  conditions)<br/>Distance from threshold: 832m (accepted range: 201-808m)<br/>Average centerline deviation: 1.08m<br/>Max centerline deviation: 2.51m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.16,
+                                        "rate": 118
+                                    },
+                                    "weather": {
+                                        "windDir": 290.24,
+                                        "windSpd": 4.02,
+                                        "windX": 1.09
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-31T17:46:03.989Z",
+                "updatedAt": "2026-10-31T19:15:09.276Z",
+                "dep": {
+                    "icao": "LROP",
+                    "name": "Bucharest Henri Coandă International Airport",
+                    "city": "Otopeni",
+                    "location": {
+                        "lat": 44.571792,
+                        "lon": 26.103285,
+                        "elev": 314
+                    }
+                },
+                "arr": {
+                    "icao": "LBSF",
+                    "name": "Sofia Airport",
+                    "city": "Sofia",
+                    "location": {
+                        "lat": 42.696357,
+                        "lon": 23.417671,
+                        "elev": 1742
+                    }
+                },
+                "actArr": {
+                    "icao": "LBSF",
+                    "name": "Sofia Airport",
+                    "city": "Sofia",
+                    "location": {
+                        "lat": 42.696357,
+                        "lon": 23.417671,
+                        "elev": 1742
+                    }
+                }
             }
         ]
     },
