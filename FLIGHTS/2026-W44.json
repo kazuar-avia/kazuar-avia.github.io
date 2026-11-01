@@ -14090,6 +14090,180 @@
                         "elev": 362
                     }
                 }
+            },
+            {
+                "_id": "6ae66be0f7e01a708929c91d",
+                "aircraft": {
+                    "_id": "696bb9e13dc76275ba8ddf8f",
+                    "name": "Airbus A330-200",
+                    "customName": "Windrose vs AUI l A330-200 based in UKBB l UR-WRQ",
+                    "icao": "A332"
+                },
+                "type": "pax",
+                "flightNumber": "755A",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 321,
+                    "cargo": 38,
+                    "weights": {
+                        "cargo": 3496
+                    }
+                },
+                "depTime": "2026-10-31T22:40:00.000Z",
+                "duration": 110,
+                "arrTime": "2026-11-01T00:30:00.000Z",
+                "depTimeAct": "2026-10-31T22:42:06.622Z",
+                "delay": -4,
+                "takeoffTimeAct": "2026-10-31T22:50:25.362Z",
+                "durationAct": 95,
+                "arrTimeAct": "2026-11-01T00:25:54.925Z",
+                "open": "2026-10-31T22:31:09.361Z",
+                "close": "2026-11-01T00:26:40.951Z",
+                "rating": 6.85,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 623,
+                        "fuel": 8534,
+                        "expenses": 30429,
+                        "penalties": 7500,
+                        "revenue": 48203,
+                        "balance": 10274,
+                        "prices": {
+                            "ticketPrice": 133,
+                            "cargoUnitPrice": 145,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 321,
+                            "cargo": 38,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 321
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 9648,
+                        "aircraft": 16660,
+                        "handling": 2906,
+                        "landing": 1215
+                    },
+                    "revenue": {
+                        "tickets": 42693,
+                        "cargo": 5510
+                    },
+                    "violations": [
+                        {
+                            "title": "Short landing (171m from threshold before 175m min accepted)",
+                            "penalty": {
+                                "points": -3,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 39
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.15,
+                                        "rate": 870
+                                    },
+                                    "weather": {
+                                        "windDir": 102.09,
+                                        "windSpd": 3.81,
+                                        "windX": 0.93
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Hard touchdown: 2.15G (870 ft/min, challenging  conditions)<br/>Distance from threshold: 171m (accepted range: 175-704m)<br/>Average centerline deviation: 1.21m<br/>Max centerline deviation: 2.01m",
+                            "penalty": {
+                                "points": -162,
+                                "cash": 7500
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 39
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.15,
+                                        "rate": 870
+                                    },
+                                    "weather": {
+                                        "windDir": 102.09,
+                                        "windSpd": 3.81,
+                                        "windX": 0.93
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 353ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 53
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-31T22:29:52.362Z",
+                "updatedAt": "2026-11-01T00:26:41.026Z",
+                "dep": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                },
+                "arr": {
+                    "icao": "UKHH",
+                    "name": "Kharkiv International Airport",
+                    "city": "Kharkiv",
+                    "location": {
+                        "lat": 49.926943,
+                        "lon": 36.290814,
+                        "elev": 508
+                    }
+                },
+                "actArr": {
+                    "icao": "UKHH",
+                    "name": "Kharkiv International Airport",
+                    "city": "Kharkiv",
+                    "location": {
+                        "lat": 49.926943,
+                        "lon": 36.290814,
+                        "elev": 508
+                    }
+                }
             }
         ]
     },
