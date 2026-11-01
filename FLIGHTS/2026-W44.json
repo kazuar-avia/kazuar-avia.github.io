@@ -2233,6 +2233,176 @@
                     },
                     "name": "Naha International Airport"
                 }
+            },
+            {
+                "_id": "6ae67a8ff7e01a70892b40a6",
+                "aircraft": {
+                    "_id": "6a4fa15e5760ec7cdb627803",
+                    "name": "Boeing 737-800",
+                    "customName": "Dry Lease l BOEING 737-800",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "78",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 180,
+                    "cargo": 15,
+                    "weights": {
+                        "cargo": 2040
+                    }
+                },
+                "depTime": "2026-11-01T00:05:00.000Z",
+                "duration": 50,
+                "arrTime": "2026-11-01T00:55:00.000Z",
+                "depTimeAct": "2026-11-01T00:06:59.793Z",
+                "delay": -4,
+                "takeoffTimeAct": "2026-11-01T00:09:59.803Z",
+                "durationAct": 41,
+                "arrTimeAct": "2026-11-01T00:50:37.828Z",
+                "open": "2026-10-31T23:49:23.316Z",
+                "close": "2026-11-01T00:57:05.859Z",
+                "rating": 8.11,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 222,
+                        "fuel": 2854,
+                        "expenses": 11164,
+                        "penalties": 10000,
+                        "revenue": 18375,
+                        "balance": -2789,
+                        "prices": {
+                            "ticketPrice": 93,
+                            "cargoUnitPrice": 109,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 180,
+                            "cargo": 15,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 180
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3331,
+                        "aircraft": 4525,
+                        "handling": 1988,
+                        "landing": 1320
+                    },
+                    "revenue": {
+                        "tickets": 16740,
+                        "cargo": 1635
+                    },
+                    "violations": [
+                        {
+                            "title": "Takeoff beyond runway end, over by 92m",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 10000
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "weather": {
+                                        "windDir": 104.04,
+                                        "windSpd": 5.93,
+                                        "windX": -0.06
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 6.49m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -39,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.21G (180 ft/min, normal  conditions)<br/>Distance from threshold: 611m (accepted range: 178-715m)<br/>Average centerline deviation: 3.74m<br/>Max centerline deviation: 6.49m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.21,
+                                        "rate": 180
+                                    },
+                                    "weather": {
+                                        "windDir": 94.4,
+                                        "windSpd": 2.57,
+                                        "windX": -0.03
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-10-31T23:32:31.960Z",
+                "updatedAt": "2026-11-01T00:57:05.944Z",
+                "dep": {
+                    "icao": "KHOU",
+                    "name": "William P. Hobby Airport",
+                    "city": "Houston",
+                    "location": {
+                        "lat": 29.645336,
+                        "lon": -95.276812,
+                        "elev": 46
+                    }
+                },
+                "arr": {
+                    "icao": "KSAT",
+                    "name": "San Antonio International Airport",
+                    "city": "San Antonio",
+                    "location": {
+                        "lat": 29.533701,
+                        "lon": -98.469803,
+                        "elev": 809
+                    }
+                },
+                "actArr": {
+                    "icao": "KSAT",
+                    "name": "San Antonio International Airport",
+                    "city": "San Antonio",
+                    "location": {
+                        "lat": 29.533701,
+                        "lon": -98.469803,
+                        "elev": 809
+                    }
+                }
             }
         ]
     },
