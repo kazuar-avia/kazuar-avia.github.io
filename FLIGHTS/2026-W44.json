@@ -12117,6 +12117,178 @@
                         "elev": 1742
                     }
                 }
+            },
+            {
+                "_id": "6ae767b0f7e01a708942b862",
+                "aircraft": {
+                    "_id": "6a4b7caa5760ec7cdb148f25",
+                    "name": "Fokker 50",
+                    "customName": "Dry Lease l Fokker F50 l XP11",
+                    "icao": "F50"
+                },
+                "type": "pax",
+                "flightNumber": "53T",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 48,
+                    "cargo": 4,
+                    "weights": {
+                        "cargo": 268
+                    }
+                },
+                "depTime": "2026-11-01T16:50:00.000Z",
+                "duration": 60,
+                "arrTime": "2026-11-01T17:50:00.000Z",
+                "depTimeAct": "2026-11-01T16:46:27.997Z",
+                "delay": -7,
+                "takeoffTimeAct": "2026-11-01T16:53:42.182Z",
+                "durationAct": 49,
+                "arrTimeAct": "2026-11-01T17:43:00.336Z",
+                "open": "2026-11-01T16:29:13.753Z",
+                "close": "2026-11-01T17:47:10.460Z",
+                "rating": 9.4,
+                "simulator": "xp",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 171,
+                        "fuel": 747,
+                        "expenses": 3016,
+                        "penalties": 0,
+                        "revenue": 4316,
+                        "balance": 1300,
+                        "prices": {
+                            "ticketPrice": 82,
+                            "cargoUnitPrice": 95,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 48,
+                            "cargo": 4,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 48
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 845,
+                        "aircraft": 1647,
+                        "handling": 290,
+                        "landing": 234
+                    },
+                    "revenue": {
+                        "tickets": 3936,
+                        "cargo": 380
+                    },
+                    "violations": [
+                        {
+                            "title": "Average touchdown: 1.63G (260 ft/min, normal  conditions)",
+                            "penalty": {
+                                "points": -57,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 20
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.63,
+                                        "rate": 260
+                                    },
+                                    "weather": {
+                                        "windDir": 206.18,
+                                        "windSpd": 3.42,
+                                        "windX": 0.63
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No BEACON lights for 41s when required",
+                            "penalty": {
+                                "points": -3,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        },
+                        {
+                            "title": "Fuel used 468 kg is lower than estimated minimum 747 kg.",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 20
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.63,
+                                        "rate": 260
+                                    },
+                                    "weather": {
+                                        "windDir": 206.18,
+                                        "windSpd": 3.42,
+                                        "windX": 0.63
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-01T16:24:16.504Z",
+                "updatedAt": "2026-11-01T17:47:10.532Z",
+                "dep": {
+                    "icao": "LEMH",
+                    "name": "Menorca Airport",
+                    "city": "Mahón (Maó)",
+                    "location": {
+                        "lat": 39.862598,
+                        "lon": 4.21865,
+                        "elev": 302
+                    }
+                },
+                "arr": {
+                    "icao": "LEGE",
+                    "name": "Girona-Costa Brava Airport",
+                    "city": "Girona",
+                    "location": {
+                        "lat": 41.904639,
+                        "lon": 2.761774,
+                        "elev": 468
+                    }
+                },
+                "actArr": {
+                    "icao": "LEGE",
+                    "name": "Girona-Costa Brava Airport",
+                    "city": "Girona",
+                    "location": {
+                        "lat": 41.904639,
+                        "lon": 2.761774,
+                        "elev": 468
+                    }
+                }
             }
         ]
     },
