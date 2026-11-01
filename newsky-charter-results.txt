@@ -20,7 +20,7 @@ Inbound logic:
 
 ТОП-5 міжнародних на виліт
 📦 з UKCC 🇺🇦 до LTBJ 🇹🇷 >99т (750nm)
-👨‍💼 з UKLL 🇺🇦 до LIPZ 🇮🇹 >450 pax (540nm)
+👨‍💼 з UKLL 🇺🇦 до LIMC 🇮🇹 >450 pax (670nm)
 📦 з UKBB 🇺🇦 до LTFM 🇹🇷 >99т (560nm)
 📦 з UKLL 🇺🇦 до EPRZ 🇵🇱 >99т (80nm)
 👨‍💼 з UKHH 🇺🇦 до UBBB 🇦🇿 306 pax (820nm)
@@ -28,7 +28,7 @@ Inbound logic:
 ТОП-5 міжнародних на приліт
 📦 29т з EHBK 🇳🇱 до UKKM 🇺🇦 (930nm)
 👨‍💼 >450 pax з LRIA 🇷🇴 до UKLN 🇺🇦 (100nm)
-👨‍💼 305 pax з LUKK 🇲🇩 до UKOO 🇺🇦 (80nm)
+👨‍💼 309 pax з LUKK 🇲🇩 до UKOO 🇺🇦 (80nm)
 👨‍💼 221 pax з LRSV 🇷🇴 до UKLI 🇺🇦 (100nm)
 📦 17т з LSZH 🇨🇭 до UKOH 🇺🇦 (980nm)
 
@@ -51,13 +51,13 @@ Inbound logic:
 UKBB (Boryspil)
 out pax UKBB-NONE
 out cargo UKBB-LTFM (560nm) >99t | UKBB_cargo_180 1288 / +1% | LTFM_cargo_0 17 / -40%
-in pax UKKV-UKBB (90nm) ~270 pax | UKKV_pax_90 945 / -2% | UKBB_pax_300 1985 / -26%
-in cargo EPWA-UKBB (390nm) ~16 t | EPWA_cargo_90 56 / +35% | UKBB_cargo_300 634 / -1%
+in pax UKKV-UKBB (90nm) ~270 pax | UKKV_pax_90 945 / -2% | UKBB_pax_300 1998 / -26%
+in cargo EPWA-UKBB (390nm) ~15 t | EPWA_cargo_90 54 / +31% | UKBB_cargo_300 634 / -1%
 
 UKCC (Donetsk)
 out pax UKCC-NONE
-out cargo UKCC-LTBJ (750nm) >99t | UKCC_cargo_210 1373 / +0% | LTBJ_cargo_30 21 / -66%
-in pax UKDE-UKCC (100nm) ~201 pax | UKDE_pax_90 702 / +18% | UKCC_pax_0 4284 / -7%
+out cargo UKCC-LTBJ (750nm) >99t | UKCC_cargo_210 1373 / +0% | LTBJ_cargo_30 22 / -65%
+in pax UKDE-UKCC (100nm) ~201 pax | UKDE_pax_90 702 / +18% | UKCC_pax_270 1997 / -14%
 in cargo NONE-UKCC
 
 UKCM (Mariupol)
@@ -73,7 +73,7 @@ in pax UKCM-UKCW (120nm) ~207 pax | UKCM_pax_30 726 / -1% | UKCW_pax_0 866 / -3%
 in cargo EHBK-UKCW (1310nm) ~29 t | EHBK_cargo_90 103 / +56% | UKCW_cargo_300 82 / -1%
 
 UKDD (Dnipro)
-out pax UKDD-UKCC (110nm) ~384 pax | UKDD_pax_90 1138 / +25% | UKCC_pax_0 4284 / -7%
+out pax UKDD-UKCC (110nm) ~384 pax | UKDD_pax_90 1138 / +25% | UKCC_pax_270 1997 / -14%
 out cargo UKDD-UKON (160nm) ~44 t | UKDD_cargo_240 161 / +1% | UKON_cargo_60 66 / -1%
 in pax UKHP-UKDD (80nm) ~214 pax | UKHP_pax_150 749 / +0% | UKDD_pax_300 359 / -49%
 in cargo EHBK-UKDD (1150nm) ~29 t | EHBK_cargo_90 103 / +56% | UKDD_cargo_300 83 / -7%
@@ -116,12 +116,12 @@ in cargo NONE-UKHS
 
 UKKE (Cherkasy)
 out pax UKKE-UKHH (170nm) ~257 pax | UKKE_pax_90 943 / +1% | UKHH_pax_270 763 / -24%
-out cargo UKKE-LICJ (1060nm) ~53 t | UKKE_cargo_240 194 / +1% | LICJ_cargo_30 97 / -14%
+out cargo UKKE-LICJ (1060nm) ~53 t | UKKE_cargo_240 194 / +1% | LICJ_cargo_30 95 / -16%
 in pax UKKK-UKKE (90nm) ~285 pax | UKKK_pax_120 998 / +0% | UKKE_pax_270 946 / -3%
 in cargo NONE-UKKE
 
 UKKG (Kirovograd)
-out pax UKKG-LIPZ (840nm) ~136 pax | UKKG_pax_270 504 / +0% | LIPZ_pax_180 1258 / -41%
+out pax UKKG-EDDF (930nm) ~136 pax | UKKG_pax_270 504 / +0% | EDDF_pax_210 3861 / -50%
 out cargo UKKG-LTAJ (740nm) ~11 t | UKKG_cargo_150 42 / +0% | LTAJ_cargo_330 29 / -2%
 in pax NONE-UKKG
 in cargo NONE-UKKG
@@ -151,31 +151,31 @@ in pax NONE-UKLH
 in cargo NONE-UKLH
 
 UKLI (Ivano-Frankivsk)
-out pax UKLI-LOWS (480nm) ~124 pax | UKLI_pax_270 446 / +3% | LOWS_pax_270 654 / -31%
-out cargo UKLI-LTFM (490nm) ~28 t | UKLI_cargo_150 97 / +6% | LTFM_cargo_330 9 / -81%
-in pax LRSV-UKLI (100nm) ~221 pax | LRSV_pax_330 773 / +1% | UKLI_pax_240 619 / -3%
+out pax UKLI-EDDF (640nm) ~124 pax | UKLI_pax_270 446 / +3% | EDDF_pax_210 3861 / -50%
+out cargo UKLI-LTFM (490nm) ~28 t | UKLI_cargo_150 97 / +6% | LTFM_cargo_330 10 / -81%
+in pax LRSV-UKLI (100nm) ~221 pax | LRSV_pax_330 774 / +1% | UKLI_pax_240 619 / -3%
 in cargo NONE-UKLI
 
 UKLL (Lviv)
-out pax UKLL-LIPZ (540nm) >450 pax | UKLL_pax_240 3572 / +5% | LIPZ_pax_180 1258 / -41%
+out pax UKLL-LIMC (670nm) >450 pax | UKLL_pax_240 3572 / +5% | LIMC_pax_0 2787 / -44%
 out cargo UKLL-EPRZ (80nm) >99t | UKLL_cargo_270 1196 / +0% | EPRZ_cargo_90 34 / -25%
 in pax UKLI-UKLL (70nm) ~263 pax | UKLI_pax_330 920 / +1% | UKLL_pax_90 1861 / -18%
-in cargo EGPH-UKLL (1050nm) ~15 t | EGPH_cargo_90 52 / +18% | UKLL_cargo_300 619 / -3%
+in cargo EGPH-UKLL (1050nm) ~15 t | EGPH_cargo_90 53 / +19% | UKLL_cargo_300 619 / -3%
 
 UKLN (Chernivtsi)
-out pax UKLN-LGTS (490nm) ~212 pax | UKLN_pax_210 632 / +24% | LGTS_pax_0 523 / -39%
-out cargo UKLN-LEMD (1350nm) ~20 t | UKLN_cargo_270 38 / +99% | LEMD_cargo_60 422 / -30%
-in pax LRIA-UKLN (100nm) >450 pax | LRIA_pax_300 1721 / -3% | UKLN_pax_180 288 / -7%
+out pax UKLN-UKDD (370nm) ~159 pax | UKLN_pax_90 472 / +25% | UKDD_pax_300 359 / -49%
+out cargo UKLN-LEMD (1350nm) ~20 t | UKLN_cargo_270 38 / +99% | LEMD_cargo_60 423 / -29%
+in pax LRIA-UKLN (100nm) >450 pax | LRIA_pax_300 1721 / -3% | UKLN_pax_180 289 / -7%
 in cargo NONE-UKLN
 
 UKLR (Rivne)
-out pax UKLR-EPKT (270nm) ~283 pax | UKLR_pax_270 1038 / +1% | EPKT_pax_210 630 / -59%
+out pax UKLR-EPKK (250nm) ~293 pax | UKLR_pax_270 1054 / +3% | EPKK_pax_30 628 / -64%
 out cargo UKLR-LCLK (1000nm) ~19 t | UKLR_cargo_150 69 / +1% | LCLK_cargo_330 203 / -13%
-in pax UKLL-UKLR (100nm) >450 pax | UKLL_pax_60 3073 / +4% | UKLR_pax_240 349 / -6%
+in pax UKLL-UKLR (100nm) >450 pax | UKLL_pax_60 3073 / +4% | UKLR_pax_240 355 / -4%
 in cargo NONE-UKLR
 
 UKLT (Ternopil)
-out pax UKLT-LTBJ (680nm) ~127 pax | UKLT_pax_180 457 / +3% | LTBJ_pax_30 4440 / -42%
+out pax UKLT-LTBJ (680nm) ~127 pax | UKLT_pax_180 457 / +3% | LTBJ_pax_30 4533 / -41%
 out cargo UKLT-UKOO (280nm) ~13 t | UKLT_cargo_120 47 / +2% | UKOO_cargo_300 783 / -4%
 in pax UKLI-UKLT (60nm) ~284 pax | UKLI_pax_60 994 / +2% | UKLT_pax_0 273 / -2%
 in cargo EHBK-UKLT (770nm) ~20 t | EHBK_cargo_90 103 / +56% | UKLT_cargo_270 39 / -1%
@@ -187,10 +187,10 @@ in pax UKLL-UKLU (100nm) >450 pax | UKLL_pax_210 2733 / +5% | UKLU_pax_90 826 / 
 in cargo NONE-UKLU
 
 UKOH (Kherson)
-out pax UKOH-EPWA (560nm) ~267 pax | UKOH_pax_300 967 / +2% | EPWA_pax_210 1276 / -72%
+out pax UKOH-EPWA (560nm) ~267 pax | UKOH_pax_300 967 / +2% | EPWA_pax_210 984 / -78%
 out cargo UKOH-EDDH (960nm) ~27 t | UKOH_cargo_300 100 / +1% | EDDH_cargo_120 41 / -24%
 in pax UKOO-UKOH (80nm) >450 pax | UKOO_pax_90 2808 / -2% | UKOH_pax_270 573 / -11%
-in cargo LSZH-UKOH (980nm) ~17 t | LSZH_cargo_90 58 / +40% | UKOH_cargo_270 88 / -2%
+in cargo LSZH-UKOH (980nm) ~17 t | LSZH_cargo_90 58 / +41% | UKOH_cargo_270 88 / -2%
 
 UKON (Mykolaiv)
 out pax UKON-NONE
@@ -201,11 +201,11 @@ in cargo UKDD-UKON (160nm) ~33 t | UKDD_cargo_240 161 / +1% | UKON_cargo_60 66 /
 UKOO (Odesa)
 out pax UKOO-NONE
 out cargo UKOO-NONE
-in pax LUKK-UKOO (80nm) ~305 pax | LUKK_pax_120 1067 / -2% | UKOO_pax_0 1442 / -24%
+in pax LUKK-UKOO (80nm) ~309 pax | LUKK_pax_120 1080 / +0% | UKOO_pax_0 1442 / -24%
 in cargo EHBK-UKOO (1020nm) ~29 t | EHBK_cargo_90 103 / +56% | UKOO_cargo_300 783 / -4%
 
 UKWW (Vinnitsa)
-out pax UKWW-EPWA (340nm) ~133 pax | UKWW_pax_300 492 / +0% | EPWA_pax_210 1276 / -72%
+out pax UKWW-EPWA (340nm) ~133 pax | UKWW_pax_300 492 / +0% | EPWA_pax_210 984 / -78%
 out cargo UKWW-EYVI (350nm) ~22 t | UKWW_cargo_330 80 / +1% | EYVI_cargo_150 43 / -7%
 in pax UKLH-UKWW (70nm) ~204 pax | UKLH_pax_90 715 / +0% | UKWW_pax_270 752 / -5%
 in cargo NONE-UKWW
