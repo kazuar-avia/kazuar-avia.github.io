@@ -763,6 +763,222 @@
                         "elev": 362
                     }
                 }
+            },
+            {
+                "_id": "6aea23f9f7e01a7089809964",
+                "aircraft": {
+                    "_id": "695a66383dc76275bad0826f",
+                    "name": "Airbus A320",
+                    "customName": "Dry Lease l A320 CFM FENIX msfs2024",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "78",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 180,
+                    "cargo": 10,
+                    "weights": {
+                        "cargo": 1220
+                    }
+                },
+                "depTime": "2026-11-03T19:00:00.000Z",
+                "duration": 65,
+                "arrTime": "2026-11-03T20:05:00.000Z",
+                "depTimeAct": "2026-11-03T19:04:17.472Z",
+                "delay": 2,
+                "takeoffTimeAct": "2026-11-03T19:11:36.473Z",
+                "durationAct": 56,
+                "arrTimeAct": "2026-11-03T20:07:25.517Z",
+                "open": "2026-11-03T18:54:12.116Z",
+                "close": "2026-11-03T20:16:06.272Z",
+                "rating": 6.85,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 330,
+                        "fuel": 2722,
+                        "expenses": 10416,
+                        "penalties": 7000,
+                        "revenue": 21460,
+                        "balance": 4044,
+                        "prices": {
+                            "ticketPrice": 112,
+                            "cargoUnitPrice": 130,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 180,
+                            "cargo": 10,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 180
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3078,
+                        "aircraft": 4750,
+                        "handling": 1265,
+                        "landing": 1323
+                    },
+                    "revenue": {
+                        "tickets": 20160,
+                        "cargo": 1300
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 5.94m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -32,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    },
+                                    "weather": {
+                                        "windDir": 69.99,
+                                        "windSpd": 14.28,
+                                        "windX": -1.62
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 5.63m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -23,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.14,
+                                        "rate": 692
+                                    },
+                                    "weather": {
+                                        "windDir": 10.02,
+                                        "windSpd": 9.5,
+                                        "windX": -4.13
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (945m from threshold beyond 831m max accepted)",
+                            "penalty": {
+                                "points": -40,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.14,
+                                        "rate": 692
+                                    },
+                                    "weather": {
+                                        "windDir": 10.02,
+                                        "windSpd": 9.5,
+                                        "windX": -4.13
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Hard touchdown: 2.14G (692 ft/min, normal  conditions)<br/>Distance from threshold: 945m (accepted range: 207-831m)<br/>Average centerline deviation: 4.73m<br/>Max centerline deviation: 5.63m",
+                            "penalty": {
+                                "points": -160,
+                                "cash": 7000
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.14,
+                                        "rate": 692
+                                    },
+                                    "weather": {
+                                        "windDir": 10.02,
+                                        "windSpd": 9.5,
+                                        "windX": -4.13
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No BEACON lights for 268s when required",
+                            "penalty": {
+                                "points": -60,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-03T18:12:09.215Z",
+                "updatedAt": "2026-11-03T20:16:06.362Z",
+                "dep": {
+                    "icao": "LFQQ",
+                    "name": "Lille Airport",
+                    "city": "Lesquin",
+                    "location": {
+                        "lat": 50.566564,
+                        "lon": 3.102429,
+                        "elev": 157
+                    }
+                },
+                "arr": {
+                    "icao": "LSGG",
+                    "name": "Geneva International Airport",
+                    "city": "Geneva",
+                    "location": {
+                        "lat": 46.238098,
+                        "lon": 6.10895,
+                        "elev": 1411
+                    }
+                },
+                "actArr": {
+                    "icao": "LSGG",
+                    "name": "Geneva International Airport",
+                    "city": "Geneva",
+                    "location": {
+                        "lat": 46.238098,
+                        "lon": 6.10895,
+                        "elev": 1411
+                    }
+                }
             }
         ]
     },
