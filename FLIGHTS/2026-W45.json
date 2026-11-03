@@ -3139,6 +3139,180 @@
                         "elev": 587
                     }
                 }
+            },
+            {
+                "_id": "6aea019bf7e01a70897cdc2a",
+                "aircraft": {
+                    "_id": "696d16883dc76275bababd67",
+                    "name": "ATR 42-600",
+                    "customName": "UkrPost l ATR 42-600 (fake cargo) based in UKLU l UR-ATR",
+                    "icao": "AT46"
+                },
+                "type": "pax",
+                "flightNumber": "601A",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 47,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-11-03T16:10:00.000Z",
+                "duration": 150,
+                "arrTime": "2026-11-03T18:40:00.000Z",
+                "depTimeAct": "2026-11-03T16:08:12.221Z",
+                "delay": -28,
+                "takeoffTimeAct": "2026-11-03T16:12:21.279Z",
+                "durationAct": 120,
+                "arrTimeAct": "2026-11-03T18:12:10.332Z",
+                "open": "2026-11-03T16:03:37.223Z",
+                "close": "2026-11-03T18:15:57.387Z",
+                "rating": 7.55,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 552,
+                        "fuel": 1538,
+                        "expenses": 4273,
+                        "penalties": 0,
+                        "revenue": 6016,
+                        "balance": 1743,
+                        "prices": {
+                            "ticketPrice": 128,
+                            "cargoUnitPrice": 141,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 47,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 47
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1739,
+                        "aircraft": 2110,
+                        "handling": 254,
+                        "landing": 170
+                    },
+                    "revenue": {
+                        "tickets": 6016,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Unstable approach below 200ft: vertical speed below -1500 ft/min (actual -1670 ft/min)",
+                            "penalty": {
+                                "points": -85,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 34
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (1096m from threshold beyond 638m max accepted)",
+                            "penalty": {
+                                "points": -160,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 36
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.08,
+                                        "rate": 95
+                                    },
+                                    "weather": {
+                                        "windDir": 8.89,
+                                        "windSpd": 5.36,
+                                        "windX": -5.35
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.08G (95 ft/min, challenging  conditions)<br/>Distance from threshold: 1096m (accepted range: 159-638m)<br/>Average centerline deviation: 2.35m<br/>Max centerline deviation: 6.22m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 36
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.08,
+                                        "rate": 95
+                                    },
+                                    "weather": {
+                                        "windDir": 8.89,
+                                        "windSpd": 5.36,
+                                        "windX": -5.35
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-03T15:45:31.149Z",
+                "updatedAt": "2026-11-03T18:15:57.469Z",
+                "dep": {
+                    "icao": "UKDE",
+                    "name": "Zaporizhzhia International Airport",
+                    "city": "Zaporizhia",
+                    "location": {
+                        "lat": 47.866962,
+                        "lon": 35.314723,
+                        "elev": 373
+                    }
+                },
+                "arr": {
+                    "icao": "UKLU",
+                    "name": "Uzhhorod International Airport",
+                    "city": "Uzhhorod",
+                    "location": {
+                        "lat": 48.6343,
+                        "lon": 22.263399,
+                        "elev": 383
+                    }
+                },
+                "actArr": {
+                    "icao": "UKLU",
+                    "name": "Uzhhorod International Airport",
+                    "city": "Uzhhorod",
+                    "location": {
+                        "lat": 48.6343,
+                        "lon": 22.263399,
+                        "elev": 383
+                    }
+                }
             }
         ]
     },
