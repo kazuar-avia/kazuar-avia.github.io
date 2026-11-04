@@ -226,18 +226,28 @@
     const airportLocations = new Map();
     collectAirportLocationsFromFlights(baseArchiveFlights, airportLocations);
 
+    // Тижні після архіву і live-тиждень качаються одночасно,
+    // а обробляються по черзі (W40, W41, ...), як і раніше.
     const firstPostArchiveWeek = Number(manifest.archiveThroughWeek) + 1;
-    for (let week = firstPostArchiveWeek; week < liveWeek; week += 1) {
-      onProgress?.(`Завантаження W${padWeek(week)} після архіву…`);
-      const weekData = await fetchOptionalJson(`FLIGHTS/${year}-W${padWeek(week)}.json?v=${encodeURIComponent(manifest.generatedAt || '')}`, {cache:'default'});
-      if (!weekData) continue;
+    const postArchiveWeeks = [];
+    for (let week = firstPostArchiveWeek; week < liveWeek; week += 1) postArchiveWeeks.push(week);
+    onProgress?.(postArchiveWeeks.length
+      ? `Завантаження W${padWeek(postArchiveWeeks[0])}–W${padWeek(liveWeek)}…`
+      : `Перевірка live W${padWeek(liveWeek)}…`);
+    const postArchiveRequests = postArchiveWeeks.map(week =>
+      fetchOptionalJson(`FLIGHTS/${year}-W${padWeek(week)}.json?v=${encodeURIComponent(manifest.generatedAt || '')}`, {cache:'default'})
+    );
+    const liveRequest = fetchOptionalJson(`FLIGHTS/${year}-W${padWeek(liveWeek)}.json?v=${Date.now()}`, {cache:'no-store'});
+    const postArchiveData = await Promise.all(postArchiveRequests);
+    postArchiveWeeks.forEach((week, index) => {
+      const weekData = postArchiveData[index];
+      if (!weekData) return;
       collectAirportLocations(weekData, airportLocations);
       supplementalArchiveFlights.push(...normalizeWeek(weekData, week));
       knownArchiveWeeks.add(week);
-    }
+    });
 
-    onProgress?.(`Перевірка live W${padWeek(liveWeek)}…`);
-    const liveData = await fetchOptionalJson(`FLIGHTS/${year}-W${padWeek(liveWeek)}.json?v=${Date.now()}`, {cache:'no-store'});
+    const liveData = await liveRequest;
     collectAirportLocations(liveData || [], airportLocations);
     const archiveUnique = new Map();
     baseArchiveFlights.forEach(flight => archiveUnique.set(flight.id, flight));
