@@ -875,10 +875,33 @@ function guaranteedBonusRecordForFlight(flight) {
   for (const key of keys) {
     if (flights && Object.prototype.hasOwnProperty.call(flights, key)) return flights[key];
   }
-  for (const record of Object.values(flights || {})) {
+  // Запис може підійти польоту лише з тим самим маршрутом (dep|arr),
+  // тому перевіряємо тільки записи цього маршруту — результат той самий, що й при повному переборі.
+  const meta = guaranteedBonusFlightMeta(flight);
+  const bucket = guaranteedBonusRouteIndex(flights).get(`${meta.depIcao}|${meta.arrIcao}`) || [];
+  for (const record of bucket) {
     if (guaranteedBonusRecordMatchesFlight(record, flight)) return record;
   }
   return null;
+}
+
+const guaranteedBonusRouteIndexCache = new WeakMap();
+
+function guaranteedBonusRouteIndex(records) {
+  if (!records || typeof records !== 'object') return new Map();
+  if (guaranteedBonusRouteIndexCache.has(records)) return guaranteedBonusRouteIndexCache.get(records);
+  const index = new Map();
+  for (const record of Object.values(records)) {
+    if (!record || typeof record !== 'object') continue;
+    const dep = guaranteedBonusIcao(record.depIcao || record.departureIcao || record.departure || record.dep);
+    const arr = guaranteedBonusIcao(record.arrIcao || record.arrivalIcao || record.arrival || record.arr);
+    if (!dep || !arr) continue;
+    const key = `${dep}|${arr}`;
+    if (!index.has(key)) index.set(key, []);
+    index.get(key).push(record);
+  }
+  guaranteedBonusRouteIndexCache.set(records, index);
+  return index;
 }
 
 function normalizeManualGuaranteedBonusRecord(key, value) {
