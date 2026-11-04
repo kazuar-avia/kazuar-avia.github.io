@@ -158,11 +158,18 @@ html {
 }
 
 /* якщо екран вузький — меню стає звичайним зверху */
-@media (max-width: 1000px) {
-  .site-nav {
-    position: static;
+@media (max-width: 1300px) {
+	.site-nav,
+  .site-nav1,
+  .site-nav2,
+  .site-nav3,
+  .site-nav4,
+  .site-nav5 {
+	position: static;
     width: auto;
     margin: 10px;
+    display: none !important;
+  }
   }
 
   body {
