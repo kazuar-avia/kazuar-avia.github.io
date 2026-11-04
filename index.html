@@ -2655,7 +2655,29 @@ body.ukraine-map-fullscreen-active .site-nav {
     height: auto;
     object-fit: contain;
 }
-  
+
+/* Індикатор згорнутого / розгорнутого розділу */
+.livery-details > summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+.livery-details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.livery-details > summary::before {
+  content: "▼";
+  display: inline-block;
+  margin-right: 9px;
+  font-size: 13px;
+  transition: transform 0.2s;
+}
+
+.livery-details[open] > summary::before {
+  content: "▲";
+}
+	
 </style>
 </head>
 
@@ -11112,6 +11134,119 @@ function closeFullscreenImage() {
     img.src = "";
 }
 </script>
+
+	<script>
+function getLiverySection(id) {
+  const element = document.getElementById(id);
+
+  if (!element) return null;
+
+  if (element.matches('details.livery-details')) {
+    return element;
+  }
+
+  return element.closest('details.livery-details');
+}
+
+
+// Завантаження картинок відкритого розділу
+function loadLiveryImages(section) {
+  if (!section) return;
+
+  section.querySelectorAll('img[data-src]').forEach(img => {
+    img.src = img.dataset.src;
+    img.removeAttribute('data-src');
+  });
+}
+
+
+// Відкриття розділу
+function expandLiverySection(section) {
+  if (!section) return;
+
+  section.open = true;
+  loadLiveryImages(section);
+}
+
+
+// Обробка переходу за посиланням
+function openLiveryByHash(hash) {
+  if (!hash || hash === '#') return;
+
+  const id = decodeURIComponent(hash.substring(1));
+
+  let sections = [];
+  let scrollTarget = null;
+
+  // Реальні лівреї: відкриваємо два блоки
+  if (id === 'real-ukrainian-liveries-section') {
+    const real = getLiverySection('real-ukrainian-liveries-section');
+    const other = getLiverySection('other-ukrainian-liveries-section');
+
+    sections = [real, other];
+    scrollTarget = real;
+  }
+
+  // Для всіх інших розділів відкриваємо тільки потрібний
+  else {
+    const section = getLiverySection(id);
+
+    if (section) {
+      sections = [section];
+      scrollTarget = section;
+    }
+  }
+
+  // Розгортаємо потрібні блоки та завантажуємо картинки
+  sections.forEach(section => {
+    expandLiverySection(section);
+  });
+
+  // Прокручуємо сторінку до потрібного розділу
+  if (scrollTarget) {
+    requestAnimationFrame(() => {
+      scrollTarget.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    });
+  }
+
+  return sections.length > 0;
+}
+
+
+// Клік по посиланнях лівого меню
+document.querySelectorAll('.site-nav a[href^="#"]').forEach(link => {
+  link.addEventListener('click', event => {
+    const hash = link.getAttribute('href');
+
+    if (openLiveryByHash(hash)) {
+      event.preventDefault();
+
+      history.pushState(null, '', hash);
+    }
+  });
+});
+
+
+// Відкриття розділу при прямому переході за посиланням
+window.addEventListener('load', () => {
+  if (location.hash) {
+    openLiveryByHash(location.hash);
+  }
+});
+
+
+// Підтримка кнопок Назад / Вперед у браузері
+window.addEventListener('popstate', () => {
+  if (location.hash) {
+    openLiveryByHash(location.hash);
+  }
+});
+
+</script>
+	
   <script>
 document.querySelectorAll('details.livery-details').forEach(section => {
   section.addEventListener('toggle', () => {
