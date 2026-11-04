@@ -2677,6 +2677,27 @@ body.ukraine-map-fullscreen-active .site-nav {
 .livery-details[open] > summary::before {
   content: "▲";
 }
+
+/* Комірки таблиць */
+.livery-details td {
+    box-sizing: border-box;
+    overflow-wrap: anywhere;
+}
+
+/* Картинки не виходять за межі таблиць */
+.livery-details img {
+    max-width: 100%;
+    height: auto;
+    box-sizing: border-box;
+}
+
+/* Для вузьких екранів */
+@media (max-width: 950px) {
+    .livery-details {
+        width: calc(100% - 20px);
+        max-width: 930px;
+    }
+}
 	
 </style>
 </head>
