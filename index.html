@@ -2,7 +2,7 @@
 <html lang="uk">
 <head>
 <meta charset="UTF-8">
-<title> Авіасимерське комьюніті Kazuar Avia</title>
+<title> Авіасимерське ком'юніті Kazuar Avia</title>
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <link
   rel="stylesheet"
@@ -157,12 +157,7 @@ html {
   scroll-behavior: smooth;
 }
 
-.site-nav6,
-.site-nav7,
-.site-nav8,
-.site-nav9,
-.site-nav10,
-.site-nav11 {
+.mobile-top {
     display: none;
 }
 
@@ -179,16 +174,8 @@ html {
     margin: 10px;
     display: none !important;
   }
-	.site-nav6,
-    .site-nav7,
-    .site-nav8,
-    .site-nav9,
-    .site-nav10,
-    .site-nav11 {
+	.mobile-top {
         display: block;
-        position: static;
-        width: 250px;
-        margin: 6px auto;
     }
   }
 
@@ -2730,8 +2717,158 @@ body.ukraine-map-fullscreen-active .site-nav5 {
         max-width: 930px;
     }
 }
+
+/* ---------- Верхній блок для екранів до 1380px ---------- */
+.mobile-top {
+    width: 930px;
+    max-width: calc(100% - 20px);
+    margin: 10px auto 6px;
+    box-sizing: border-box;
+}
+
+/* 4 великі картинки-посилання в ряд, однакової висоти */
+.mobile-promo {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+/* ширина кожної картинки пропорційна її формі — тому висота однакова */
+.mobile-promo a {
+    flex: var(--r) 1 0;
+    min-width: 0;
+    display: block;
+    border-radius: 6px;
+    overflow: hidden;
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.mobile-promo a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+}
+
+.mobile-promo img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+/* Навігація і корисні посилання — одна сітка однакових плиток:
+   7 колонок x 2 ряди (зліва 2 кнопки меню, справа 5 іконок) */
+.mobile-top .site-nav7 {
+    margin-top: 8px;
+    background: #ffffff;
+    border: 1px solid #999;
+    box-sizing: border-box;
+}
+
+.mobile-links {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+    padding: 6px;
+    align-items: stretch;
+}
+
+.mobile-links a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;
+    padding: 3px;
+    box-sizing: border-box;
+    border: 1px solid #e2e2e2;
+    border-radius: 6px;
+    background: #ffffff;
+    text-decoration: none;
+    transition: box-shadow 0.15s;
+}
+
+.mobile-links a:hover {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.mobile-links img {
+    display: block;
+    width: 100%;
+    max-width: 210px;
+    height: auto;
+}
+
+/* кнопка меню — темна "плашка" як у іконок SimBrief / VATSIM */
+.mobile-links .nav-tile {
+    align-items: stretch;
+}
+
+.mobile-links .nav-tile span {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 4px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    background: #2b3a5c;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1.15;
+    text-align: center;
+}
+
+.mobile-links .nav-tile:hover span {
+    background: #3b5bdb;
+}
+
+/* Вузький екран / телефон: 2 колонки, спочатку меню, потім іконки */
+@media (max-width: 760px) {
+    .mobile-links {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .mobile-links .nav-tile {
+        order: -1;
+        min-height: 44px;
+    }
+
+    .mobile-links .nav-tile span {
+        font-size: 13px;
+    }
+
+    .mobile-promo {
+        flex-wrap: wrap;
+    }
+
+    .mobile-promo a {
+        flex: 1 1 calc(50% - 8px);
+    }
+}
 	
-</style>
+/* ---------- Подяка ТОП меценатам (тільки до 1380px) ---------- */
+.mobile-thanks {
+    display: none;
+    width: 930px;
+    max-width: calc(100% - 20px);
+    margin: 10px auto;
+    background: #ffffff;
+    border: 1px solid #999;
+    box-sizing: border-box;
+}
+
+.mobile-thanks-text {
+    padding: 8px 12px;
+    font-size: 14px;
+    line-height: 1.45;
+    text-align: center;
+}
+
+@media (max-width: 1380px) {
+    .mobile-thanks {
+        display: block;
+    }
+}
+	</style>
 </head>
 
 <body id="top">
@@ -2742,84 +2879,37 @@ body.ukraine-map-fullscreen-active .site-nav5 {
   <em>Нижче знайдете посилання на корисні сайти, сценарії і лівреї, долучайтесь!</em>
 </p>
 
-<div class="site-nav6">
-  <div class="site-nav-title">Навігація по сайту:</div>
-  <a href="https://kazuar.in.ua/pilot-cabinet.html#dashboard"><strong>Кабінет пілотів UCAA </strong><em style="color:red;"> new!</em></a>
-  <a href="#live-traffic">LIVE VATSIM + UCAA трафік</a>
-  <a href="#ukraine-map-section">Сценарії UK** / Погода / Схеми <br>(натисни на аеропорт на карті) -></a>	
-  <a href="#FSLTL_addon"><strong>Cкачати FSLTL_UA_ADDON</strong></a>
-  <a href="#real-ukrainian-liveries-section">Реальні лівреї українських АК</a>
-  <a href="#ucaa-liveries-section">Лівреї Ukraine Classic Air Alliance</a>
-  <a href="#fsltl-textures-section">FSLTL Traffic 1k textures (5 GB)</a>
-</div>
+<!-- ---------- Верхній блок для екранів до 1380px (замість бічних панелей) ---------- -->
+<div class="mobile-top">
 
-<div class="site-nav7">
-<div class="site-nav-title">Корисні посилання:</div>
-<div class="links-grid">
+  <div class="mobile-promo">
+    <a href="https://kazuar.in.ua/pilot-cabinet.html#dashboard" style="--r:2.81;"><img src="cabinet-pilota2.jpg" alt="Кабінет пілота"></a>
+    <a href="https://newsky.app/airline/UKL" target="_blank" style="--r:2.68;"><img src="33.png" alt="Ukraine Classic Air Alliance — долучитись"></a>
+    <a href="https://www.youtube.com/@kazuar13" target="_blank" style="--r:3.56;"><img src="11.png" alt="YouTube Kazuar Avia"></a>
+    <a href="https://discord.gg/7tSkgz2BUv" target="_blank" style="--r:3.64;"><img src="22.png" alt="Discord Kazuar Avia"></a>
+  </div>
 
-<a href="https://planner.flightsimulator.com/" target="_blank">
-  <img src="charts.png" alt="msfs2024 charts/planner">
-</a>
+  <div class="site-nav7">
+    <div class="site-nav-title">Навігація і корисні посилання:</div>
+    <!-- Порядок важливий: 2 кнопки меню + 5 іконок у кожному ряду -->
+    <div class="mobile-links site-nav6">
+      <a class="nav-tile" href="#ukraine-map-section"><span>Сценарії UK** / Погода / Схеми</span></a>
+      <a class="nav-tile" href="#real-ukrainian-liveries-section"><span>Реальні лівреї українських АК</span></a>
+      <a href="https://planner.flightsimulator.com/" target="_blank"><img src="charts.png" alt="msfs2024 charts/planner"></a>
+      <a href="https://dispatch.simbrief.com/briefing/latest" target="_blank"><img src="simbrief.png" alt="Simbrief"></a>
+      <a href="https://my.vatsim.net/home" target="_blank"><img src="vatsim.png" alt="Vatsim"></a>
+      <a href="https://vatsim-radar.com/?center=34.26150,49.23896&zoom=6.64" target="_blank"><img src="radar.png" alt="Vatsim Radar"></a>
+      <a href="https://ua.ivao.aero/en/resources/weather/airports" target="_blank"><img src="weather.png" alt="Погода по Україні"></a>
+      <a class="nav-tile" href="#ucaa-liveries-section"><span>Лівреї UCAA</span></a>
+      <a class="nav-tile" href="#fsltl-textures-section"><span>FSLTL Traffic 1k textures</span></a>
+      <a href="https://metar-taf.com/?c=490567.344421.6" target="_blank"><img src="matar.png" alt="METAR по світу"></a>
+      <a href="https://flightsim.to/" target="_blank"><img src="flightsim.png" alt="flightsim.to"></a>
+      <a href="https://www.faa.gov/air_traffic/publications/atpubs/cnt_html/chap3_section_3.html" target="_blank"><img src="3ld.png" alt="3-літерні Коди авіакомпаній"></a>
+      <a href="IFR Фразеологія_радіообміну_українською_і_англ. ПРИКЛАД.pdf" target="_blank"><img src="IFR.jpg.png" alt="IFR Фразеологія"></a>
+      <a href="https://simtam.net/" target="_blank"><img src="simtam.png" alt="SIMTAM - Брифінг + Руління"></a>
+    </div>
+  </div>
 
-<a href="https://dispatch.simbrief.com/briefing/latest" target="_blank">
-  <img src="simbrief.png" alt="Simbrief">
-</a>
-
-<a href="https://my.vatsim.net/home" target="_blank">
-  <img src="vatsim.png" alt="Vatsim">
-</a>
-
-<a href="https://vatsim-radar.com/?center=34.26150,49.23896&zoom=6.64" target="_blank">
-  <img src="radar.png" alt="Vatsim Radar">
-</a>
-
-<a href="https://ua.ivao.aero/en/resources/weather/airports" target="_blank">
-  <img src="weather.png" alt="Погода по Україні">
-</a>
-
-<a href="https://metar-taf.com/?c=490567.344421.6" target="_blank">
-  <img src="matar.png" alt="METAR по світу">
-</a>
-
-<a href="https://flightsim.to/" target="_blank">
-  <img src="flightsim.png" alt="flightsim.to">
-</a>
-
-<a href="https://www.faa.gov/air_traffic/publications/atpubs/cnt_html/chap3_section_3.html" target="_blank">
-  <img src="3ld.png" alt="3-літерні Коди авіакомпаній">
-</a>
-
-<a href="IFR Фразеологія_радіообміну_українською_і_англ. ПРИКЛАД.pdf" target="_blank">
-  <img src="IFR.jpg.png" alt="IFR Фразеологія">
-</a>
-
-<a href="https://simtam.net/" target="_blank">
-  <img src="simtam.png" alt="SIMTAM - Брифінг + Руління">
-</a>
-	
-</div>	
-</div>
-
-	<div class="site-nav8">
-    <div class="site-nav-title">UCAA</div>
-    <a href="https://example.com">Долучитись</a>
-		<br>
-	<a href="https://example.com">Кабінет пілота</a>	
-</div>
-
-	<div class="site-nav9">
-    <div class="site-nav-title">Ютуб</div>
-    <a href="https://example.com">Картинка</a>
-</div>
-
-		<div class="site-nav10">
-    <div class="site-nav-title">Діскорд</div>
-    <a href="https://example.com">Картинка</a>
-</div>
-
-			<div class="site-nav11">
-    <div class="site-nav-title">Корисні посилання</div>
-    <a href="https://example.com">Посилання</a>
 </div>
 	
 	
@@ -2828,8 +2918,8 @@ body.ukraine-map-fullscreen-active .site-nav5 {
 
   <a href="https://kazuar.in.ua/pilot-cabinet.html#dashboard"><strong>Кабінет пілотів UCAA </strong><em style="color:red;"> new!</em></a>
   <a href="#live-traffic">LIVE VATSIM + UCAA трафік</a>
-  <a href="#ukraine-map-section">Сценарії UK** / Погода / Схеми <br>(натисни на аеропорт на карті) -></a>	
-  <a href="#FSLTL_addon"><strong>Cкачати FSLTL_UA_ADDON</strong></a>
+  <a href="#ukraine-map-section">Сценарії UK** / Погода / Схеми <br>(натисни на аеропорт на карті) -></a>
+  <a href="#FSLTL_addon"><strong>Скачати FSLTL_UA_ADDON</strong></a>
   <a href="#real-ukrainian-liveries-section">Реальні лівреї українських АК</a>
   <a href="#ucaa-liveries-section">Лівреї Ukraine Classic Air Alliance</a>
   <a href="#fsltl-textures-section">FSLTL Traffic 1k textures (5 GB)</a>
@@ -2889,8 +2979,8 @@ body.ukraine-map-fullscreen-active .site-nav5 {
 <table style="width: 238px;">
 	<tr>
  <td class="supporters">
-Авіасім. комьюніті <br>
-Коcтянтин, Харків <br>
+Авіасім. ком'юніті <br>
+Костянтин, Харків <br>
 Богдан Шкіль <br>
 Оксана і Сергій М. <br>
 Дмитро Савенко <br>
@@ -2936,7 +3026,7 @@ Crackish <br>
 
 
 		<div class="site-nav5">
-		<div class="site-nav-title">Discord де ми спілкуємся:</div>
+		<div class="site-nav-title">Discord де ми спілкуємося:</div>
 <div style = "padding:5px; align:center; text-align:center;">
       <a href="https://discord.gg/7tSkgz2BUv" target="_blank"><img src="22.png" class="main-img" alt="Discord">
       discord.gg/7tSkgz2BUv
@@ -3155,11 +3245,10 @@ Crackish <br>
 
 
   
-<table>
+<table style="width:930px; max-width:calc(100% - 20px); margin:10px auto;">
 
-  <tr>
 <tr>
-  <td id="regular-flights-section" colspan="3" style="width:1000px;background-color: #f2cad7;">
+  <td id="regular-flights-section" colspan="3" style="background-color: #f2cad7;">
     <strong>Підібрати ліврею і літак для <span style="text-decoration: underline;">РЕГУЛЯРНИХ РЕЙСІВ</span> у NewSky по номеру рейсу для Ukraine Classic Air Alliance:</strong>
   </td>
 </tr>
@@ -3898,7 +3987,7 @@ Crackish <br>
       </div>
     </td>
 	<td>
-      <div class="livery-header">Kharkiv Wings | PMDG 737-800 | UR-KHW<br> <em>від SaintHelgi для комьюніті !!!</em></div>
+      <div class="livery-header">Kharkiv Wings | PMDG 737-800 | UR-KHW<br> <em>від SaintHelgi для ком'юніті !!!</em></div>
       <div class="livery-content">
         <img data-src="KHW01.jpg" alt="Kharkiv Wings | PMDG 737-800 | UR-KHW">
         <div class="livery-links">
@@ -4127,9 +4216,9 @@ Crackish <br>
     </td>
             
       <td>
-      <div class="livery-header">Укропшта | BAe146 QT/Avro RJ QT | JustFlight <br> <em>(грузовик Укрпошти для віртуальних польотів)</em></div> 
+      <div class="livery-header">Укрпошта | BAe146 QT/Avro RJ QT | JustFlight <br> <em>(грузовик Укрпошти для віртуальних польотів)</em></div> 
       <div class="livery-content">
-        <img data-src="RJukr.JPG" alt="Укропшта | BAe146 QT/Avro RJ QT | JustFlight">
+        <img data-src="RJukr.JPG" alt="Укрпошта | BAe146 QT/Avro RJ QT | JustFlight">
         <div class="livery-links">
       скачати: <a href="https://flightsim.to/addon/105323/bae146-300-qt-avro-rj-qt-ukrposhta-fictional" target="_blank">MSFS 2020 / 2024</a>
            <br> <br> <em> установка: як написано на flightsim.to </em> <br><br>
@@ -4165,6 +4254,16 @@ Crackish <br>
   </tr>
 </table>
 </details>
+
+<!-- ---------- Подяка ТОП меценатам — тільки для екранів до 1380px ---------- -->
+<div class="mobile-thanks">
+  <div class="site-nav-title">Подяка ТОП меценатам:</div>
+  <div class="mobile-thanks-text">
+    Авіасім. ком'юніті, Костянтин (Харків), Богдан Шкіль, Оксана і Сергій М., Дмитро Савенко, Андрій Москаленко, Віталій Матенчук, Crackish, Юрій Тройнов, Дмитро Кухаренко, Володимир Андронатій.<br>
+    <em>Окрема подяка Назару!</em>
+  </div>
+</div>
+
 <script>
  let currentSort = '';
 let sortDirection = 1; 
@@ -11355,7 +11454,7 @@ function openLiveryByHash(hash) {
 
 
 // Клік по посиланнях лівого меню
-document.querySelectorAll('.site-nav a[href^="#"]').forEach(link => {
+document.querySelectorAll('.site-nav a[href^="#"], .site-nav6 a[href^="#"]').forEach(link => {
   link.addEventListener('click', event => {
     const hash = link.getAttribute('href');
 
