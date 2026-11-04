@@ -273,6 +273,169 @@
                         "elev": 587
                     }
                 }
+            },
+            {
+                "_id": "6aead3b9f7e01a70898c09c7",
+                "aircraft": {
+                    "_id": "6980e9459da57b990a02e1bd",
+                    "name": "Boeing 737 MAX 8",
+                    "customName": "Ukraine Int l 737-MAX8 189 pax iFly l UR-MXA",
+                    "icao": "B38M"
+                },
+                "type": "pax",
+                "flightNumber": "105",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 189,
+                    "cargo": 25,
+                    "weights": {
+                        "cargo": 2700
+                    }
+                },
+                "depTime": "2026-11-04T07:45:00.000Z",
+                "duration": 165,
+                "arrTime": "2026-11-04T10:30:00.000Z",
+                "depTimeAct": "2026-11-04T07:47:02.407Z",
+                "delay": 14,
+                "takeoffTimeAct": "2026-11-04T08:04:33.387Z",
+                "durationAct": 160,
+                "arrTimeAct": "2026-11-04T10:44:20.162Z",
+                "open": "2026-11-04T07:42:53.944Z",
+                "close": "2026-11-04T10:51:37.200Z",
+                "rating": 8.24,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1049,
+                        "fuel": 5888,
+                        "expenses": 17858,
+                        "penalties": 0,
+                        "revenue": 46781,
+                        "balance": 28923,
+                        "prices": {
+                            "ticketPrice": 206,
+                            "cargoUnitPrice": 215,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 189,
+                            "cargo": 25,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 12,
+                                "Y": 177
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 6657,
+                        "aircraft": 6400,
+                        "handling": 3436,
+                        "landing": 1365
+                    },
+                    "revenue": {
+                        "tickets": 41406,
+                        "cargo": 5375
+                    },
+                    "violations": [
+                        {
+                            "title": "Great touchdown: 1.47G (373 ft/min, challenging  conditions)<br/>Distance from threshold: 392m (accepted range: 209-838m)<br/>Average centerline deviation: 1.43m<br/>Max centerline deviation: 2.45m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.47,
+                                        "rate": 373
+                                    },
+                                    "weather": {
+                                        "windDir": 345.32,
+                                        "windSpd": 9.48,
+                                        "windX": -2.33
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 143ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No STROBE lights for 222s when required",
+                            "penalty": {
+                                "points": -26,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-04T06:42:01.292Z",
+                "updatedAt": "2026-11-04T10:51:37.290Z",
+                "dep": {
+                    "icao": "EHAM",
+                    "name": "Amsterdam Airport Schiphol",
+                    "city": "Amsterdam",
+                    "location": {
+                        "lat": 52.308601,
+                        "lon": 4.76389,
+                        "elev": -11
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
             }
         ]
     },
