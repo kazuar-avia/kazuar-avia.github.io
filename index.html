@@ -11285,5 +11285,30 @@ document.querySelectorAll('details.livery-details').forEach(section => {
   });
 });
 </script>
+	<script>
+(function () {
+  const nav = document.querySelector('.site-nav');
+  const welcome = document.querySelector('body > h2[style*="text-align:center"]');
+
+  if (!nav || !welcome) return;
+
+  const intro = welcome.nextElementSibling;
+
+  function moveNavigation() {
+    if (window.matchMedia('(max-width: 900px)').matches) {
+      if (intro && nav.previousElementSibling !== intro) {
+        intro.after(nav);
+      }
+    } else {
+      if (nav.nextElementSibling !== welcome) {
+        welcome.before(nav);
+      }
+    }
+  }
+
+  moveNavigation();
+  window.addEventListener('resize', moveNavigation);
+})();
+</script>
 </body>
 </html>
