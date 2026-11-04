@@ -4802,6 +4802,180 @@
                         "elev": 10
                     }
                 }
+            },
+            {
+                "_id": "6aeb4730f7e01a7089946914",
+                "aircraft": {
+                    "_id": "6a325d16840ade899ebbaa5b",
+                    "name": "Fokker F27-100 Friendship",
+                    "customName": "Motor-Sich l Fokker 27 (An24) based in UKDE l UR-KZR",
+                    "icao": "F27"
+                },
+                "type": "pax",
+                "flightNumber": "2533",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 39,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-11-04T15:10:00.000Z",
+                "duration": 70,
+                "arrTime": "2026-11-04T16:20:00.000Z",
+                "depTimeAct": "2026-11-04T15:15:55.077Z",
+                "delay": 32,
+                "takeoffTimeAct": "2026-11-04T15:20:07.147Z",
+                "durationAct": 92,
+                "arrTimeAct": "2026-11-04T16:51:47.461Z",
+                "open": "2026-11-04T15:12:36.639Z",
+                "close": "2026-11-04T16:56:31.515Z",
+                "rating": 5.94,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 275,
+                        "fuel": 1208,
+                        "expenses": 3656,
+                        "penalties": 12000,
+                        "revenue": 5343,
+                        "balance": -10313,
+                        "prices": {
+                            "ticketPrice": 137,
+                            "cargoUnitPrice": 160,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 39,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 39
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1366,
+                        "aircraft": 1890,
+                        "handling": 211,
+                        "landing": 189
+                    },
+                    "revenue": {
+                        "tickets": 5343,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Short landing (81m from threshold before 171m min accepted)",
+                            "penalty": {
+                                "points": -79,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.24,
+                                        "rate": 661
+                                    },
+                                    "weather": {
+                                        "windDir": 343.26,
+                                        "windSpd": 7.88,
+                                        "windX": -7.8
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Bad touchdown: 2.24G (661 ft/min, challenging  conditions)<br/>Distance from threshold: 81m (accepted range: 171-686m)<br/>Average centerline deviation: 1.57m<br/>Max centerline deviation: 4.86m",
+                            "penalty": {
+                                "points": -185,
+                                "cash": 12000
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.24,
+                                        "rate": 661
+                                    },
+                                    "weather": {
+                                        "windDir": 343.26,
+                                        "windSpd": 7.88,
+                                        "windX": -7.8
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 905ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -142,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gear",
+                                "payload": {
+                                    "system": {
+                                        "fps": 36
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-04T14:54:40.296Z",
+                "updatedAt": "2026-11-04T16:56:31.607Z",
+                "dep": {
+                    "icao": "UKDE",
+                    "name": "Zaporizhzhia International Airport",
+                    "city": "Zaporizhia",
+                    "location": {
+                        "lat": 47.866962,
+                        "lon": 35.314723,
+                        "elev": 373
+                    }
+                },
+                "arr": {
+                    "icao": "UKKK",
+                    "name": "Igor Sikorsky Kyiv International Airport (Zhuliany)",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.40194,
+                        "lon": 30.45194,
+                        "elev": 587
+                    }
+                },
+                "actArr": {
+                    "icao": "UKKK",
+                    "name": "Igor Sikorsky Kyiv International Airport (Zhuliany)",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.40194,
+                        "lon": 30.45194,
+                        "elev": 587
+                    }
+                }
             }
         ]
     },
