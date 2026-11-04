@@ -350,10 +350,25 @@ body > h2[style*="text-align:center"] + p[style*="text-align:center"] {
   margin: auto;
   }
 
-  .livery-grid {
-  width: 960px;
+.livery-details {
+  display: block;
+  width: 100%;
+  max-width: 960px;
   margin: 10px auto;
+}
+
+.livery-details > summary {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.livery-grid {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
   border-collapse: collapse;
+  table-layout: fixed;
 }
 
 .livery-grid td {
@@ -3017,7 +3032,7 @@ Crackish <br>
     <td>
       <div class="livery-header">Ukraine International | UR-UIA | PMDG Boeing 737-800</div>
       <div class="livery-content">
-        <img src="UR-UIA.jpg" alt="Ukraine International<br>PMDG Boeing 737-800 UR-UIA (pax)">
+        <img data-src="UR-UIA.jpg" alt="Ukraine International<br>PMDG Boeing 737-800 UR-UIA (pax)">
         <div class="livery-links">
       скачати з flightsim.to: <a href="https://flightsim.to/file/102122/ukraine-international-airlines-ur-uia-pmdg-b737-800-4k" download target="_blank">MSFS 2024</a> / <a href="https://flightsim.to/file/52154/ukraine-international-airlines-pack-pmdg-737-800" download target="_blank">MSFS 2020 (OC3)</a><br><a href="https://drive.google.com/file/d/1f-MAgXZ3hUXBK-jIk92cCVSDK9X0tmr9/view" download target="_blank">MSFS 2020 (в папку community)</a>  <br>
       <br> <em>установка: як написано на flightsim.to </em>
@@ -3028,7 +3043,7 @@ Crackish <br>
     <td>
       <div class="livery-header">Ukraine International | UR-GOA | PMDG Boeing 777-200</div>
       <div class="livery-content">
-        <img src="ur-goa-772.JPG" alt="Ukraine International<br>PMDG Boeing 777-200ER UR-GOA (pax)">
+        <img data-src="ur-goa-772.JPG" alt="Ukraine International<br>PMDG Boeing 777-200ER UR-GOA (pax)">
         <div class="livery-links">
       скачати 777-200ER: <a href="https://flightsim.to/file/96413/ukraine-international-airlines-ur-goa-with-cabin" download target="_blank">MSFS 2024</a> / <a href="https://flightsim.to/file/95474/pmdg-777-200er-ukraine-international-airlines-ur-goa-2018" download target="_blank">MSFS 2020</a> <br>
       на 777-300 UR-GDK (Fictional): <a href="https://drive.google.com/file/d/1ecGot8NqB5MYKoLb-cf338OT4NOvNHR5/view?usp=sharing" download target="_blank">MSFS 2024</a> / <a href="https://flightsim.to/file/79395/pmdg-b777-300er-ukraine-international-ur-gdk" download target="_blank">MSFS 2020</a> <br>
@@ -3043,7 +3058,7 @@ Crackish <br>
     <td>
       <div class="livery-header">Ukraine International | UR-FAA (cargo) | PMDG Boeing 737-800BCF</div>
       <div class="livery-content">
-        <img src="UR-FAA.jpg" alt="Ukraine International 737-800BCF UR-FAA 2011 (cargo)">
+        <img data-src="UR-FAA.jpg" alt="Ukraine International 737-800BCF UR-FAA 2011 (cargo)">
         <div class="livery-links">
       скачати: <a href="https://drive.google.com/file/d/1GCm8r-X1IGSuF_1pxNTwJobXId6SGnM7/view?usp=sharing" target="_blank">MSFS 2024</a> / <a href="https://flightsim.to/file/50904/pmdg-737-800bcf-w-cargo-ukraine-international-airlines-cargo-uia-ur-faa" download target="_blank">MSFS 2020</a> <br>
       <br> <em> установка  MSFS 2024: розпакувати в Community <br> установка  MSFS 2020: як написано на flightsim.to </em>
@@ -3054,7 +3069,7 @@ Crackish <br>
     <td>
       <div class="livery-header">Ukraine International | UR-EMA | FSS Embraer 190</div>
       <div class="livery-content">
-        <img src="UR-EMA.JPG" alt="Ukraine International Embraer 190 UR-EMA (pax)">
+        <img data-src="UR-EMA.JPG" alt="Ukraine International Embraer 190 UR-EMA (pax)">
         <div class="livery-links">
      скачати з flightsim.to: <a href="https://flightsim.to/file/68116/ukraine-international-ur-ema-embraer-190" target="_blank">MSFS 2020/2024</a> <br>
       <br> <em>установка: як написано на flightsim.to </em>
@@ -3067,7 +3082,7 @@ Crackish <br>
     <td>
       <div class="livery-header">Wizzair Ukraine | UR-WUB | Fenix A320 IAE SL</div>
       <div class="livery-content">
-        <img src="urwub2.JPG" alt="Wizzair Ukraine - Fenix A320 UR-WUB (pax)">
+        <img data-src="urwub2.JPG" alt="Wizzair Ukraine - Fenix A320 UR-WUB (pax)">
         <div class="livery-links">
       скачати: <a href="https://flightsim.to/file/103363/wizzair-ukraine-ur-wub-for-fenix-a320-iae-msfs-2024" target="_blank">MSFS 2024 (як на скріні)</a>
       / <a href="https://flightsim.to/file/71290/fenix-a320-v2-wizz-air-ukraine-ur-wub-8k-cabin-textures" download target="_blank">MSFS 2020</a> <br>
@@ -3079,7 +3094,7 @@ Crackish <br>
     <td>
       <div class="livery-header">Wizzair Ukraine | UR-WUC | Fenix A320 IAE WL</div>
       <div class="livery-content">
-        <img src="urwuc.jpg" alt="Aerosvit vs. DonbassAero Fenix A320 UR-DAH (pax)">
+        <img data-src="urwuc.jpg" alt="Aerosvit vs. DonbassAero Fenix A320 UR-DAH (pax)">
         <div class="livery-links">
       скачати: <a href="https://flightsim.to/file/103739/wizzair-ukraine-ur-wuc-for-fenix-a320-iae-sl-msfs-2024" download target="_blank">MSFS 2024</a> <br>
       <br> <em> установка: як написано на flightsim.to </em>
@@ -3092,7 +3107,7 @@ Crackish <br>
       <td>
       <div class="livery-header">Supernova Airlines | UR-NPA | PMDG 737-800 BDSF</div>
       <div class="livery-content">
-        <img src="737nova.JPG" alt="Supernova Airlines | UR-NPA | PMDG 737-800 BDSF">
+        <img data-src="737nova.JPG" alt="Supernova Airlines | UR-NPA | PMDG 737-800 BDSF">
         <div class="livery-links">
       скачати: <a href="https://drive.google.com/file/d/1GL3O7He3P6_OJdLT7PH4kgUFtvZZB-dJ/view?usp=sharing" download target="_blank">MSFS 2020</a>
           / MSFS 2024 (вже є в PMDG OC3)<br>
@@ -3104,7 +3119,7 @@ Crackish <br>
     <td>
       <div class="livery-header">Aerosvit vs. DonbassAero | UR-DAH | Fenix A320</div>
       <div class="livery-content">
-        <img src="ur-dah.jpg" alt="Aerosvit vs. DonbassAero Fenix A320 UR-DAH (pax)">
+        <img data-src="ur-dah.jpg" alt="Aerosvit vs. DonbassAero Fenix A320 UR-DAH (pax)">
         <div class="livery-links">
       скачати: <a href="https://drive.google.com/file/d/1jzk2CkOfW_uua2fAPAnDJKQRPQWBFfZ_/view?usp=sharing" target="_blank">MSFS 2024 (конвертація)</a>
       / <a href="https://flightsim.to/file/71146/fenix-simulations-a320-v2-aerosvit-ur-dah" download target="_blank">MSFS 2020</a> <br>
@@ -3119,7 +3134,7 @@ Crackish <br>
       <td>
       <div class="livery-header">DonbassAero | UR-DAB | Fenix A320</div>
       <div class="livery-content">
-        <img src="ur-dab.jpg" alt="DonbassAero - Fenix A320 UR-DAB (pax)">
+        <img data-src="ur-dab.jpg" alt="DonbassAero - Fenix A320 UR-DAB (pax)">
         <div class="livery-links">
       скачати: <a href="https://drive.google.com/file/d/1JiwhVo5qPrzSX3MvsvCRUV1oKOUz7hgY/view?usp=sharing" target="_blank">MSFS 2024 (конвертація)</a>
       / <a href="https://flightsim.to/file/79772/donbassaero-ur-dab-fenix-a320-iae-8ke" download target="_blank">MSFS 2020</a> <br>
@@ -3130,7 +3145,7 @@ Crackish <br>
       <td>
       <div class="livery-header">Donbassaero | UR-DAB (old) | Fenix A320</div>
       <div class="livery-content">
-        <img src="urdab-old.JPG" alt="Donbassaero - Fenix A320 UR-DAB (old)">
+        <img data-src="urdab-old.JPG" alt="Donbassaero - Fenix A320 UR-DAB (old)">
         <div class="livery-links">
             скачати: <a href="https://drive.google.com/file/d/1n70ysWyy3p6jclp19aGuXu53RqfSdaS0/view?usp=drive_link" target="_blank">MSFS 2024 (конвертація)</a>
       / <a href="https://flightsim.to/file/80804/donbassaero-ur-dab-fenix-a320-v2-8k-textures-crt" download target="_blank">MSFS 2020</a> <br>
@@ -3145,7 +3160,7 @@ Crackish <br>
       <td>
       <div class="livery-header">DonbassAero | UR-DAF | Fenix A321</div>
       <div class="livery-content">
-        <img src="urdaf.JPG" alt="DonbassAero - Fenix A321 UR-DAF (pax)">
+        <img data-src="urdaf.JPG" alt="DonbassAero - Fenix A321 UR-DAF (pax)">
         <div class="livery-links">
       скачати: <a href="https://drive.google.com/file/d/1XlPLh5mnNATTI_31Z8UpaHqMRMl-cOt4/view?usp=sharing" target="_blank">MSFS 2024 (конвертація)</a>
       / <a href="https://flightsim.to/file/96650/donbassaero-ur-daf-fenix-a321-w-cabin" download target="_blank">MSFS 2020</a> <br>
@@ -3156,7 +3171,7 @@ Crackish <br>
       <td>
       <div class="livery-header">Windrose | UR-WRI | Fenix A321</div>
       <div class="livery-content">
-        <img src="ur-wri.jpg" alt="Windrose - Fenix A321 UR-WRI">
+        <img data-src="ur-wri.jpg" alt="Windrose - Fenix A321 UR-WRI">
         <div class="livery-links">
       скачати: <a href="https://drive.google.com/file/d/1Br5haSSdIxu3e1PkXkFMGnwjibzZijLA/view?usp=drive_link" download target="_blank">MSFS 2024</a>  / <a href="https://flightsim.to/file/81805/windrose-airlines-ur-wrj-fenix-a321-8k-textures" download target="_blank">MSFS 2020 (UR-WRJ)</a> <br>
       <br> <em>установка: для 2024 в папку Community<br>           для 2020 - як написано на flightsim.to </em>
@@ -3169,7 +3184,7 @@ Crackish <br>
     <td>
       <div class="livery-header">Windrose | UR-WRW | Fenix A320</div>
       <div class="livery-content">
-        <img src="ur-wrw.jpg" alt="Windrose - Fenix A320 UR-WRW (pax)">
+        <img data-src="ur-wrw.jpg" alt="Windrose - Fenix A320 UR-WRW (pax)">
         <div class="livery-links">
       скачати: <a href="https://drive.google.com/file/d/1siBJKN3Xmvl32fJxZ09ziSUS-TLJeHM2/view?usp=sharing" target="_blank">MSFS 2024 (конвертація)</a>
       / <a href="https://flightsim.to/file/70990/fenix-simulations-a320-v2-windrose" download target="_blank">MSFS 2020</a> <br>
@@ -3181,7 +3196,7 @@ Crackish <br>
     <td>
       <div class="livery-header">Windrose | UR-WRX | Fenix A321</div>
       <div class="livery-content">
-        <img src="ur-wrx.jpg" alt="Windrose - Fenix A321 UR-WRX (pax)">
+        <img data-src="ur-wrx.jpg" alt="Windrose - Fenix A321 UR-WRX (pax)">
         <div class="livery-links">
       скачати: <a href="https://flightsim.to/file/103332/fenix-a321-windrose-ur-wrx-msfs20-24" download target="_blank">MSFS 2020 / 2024</a> <br>
       <br> <em> установка  MSFS 2020/2024: як написано на flightsim.to </em>
@@ -3194,7 +3209,7 @@ Crackish <br>
     <td>
       <div class="livery-header">Windrose/UIA | UR-WRQ | iniBuilds A330-200</div>
       <div class="livery-content">
-        <img src="urwrq-AUI.PNG" alt="Windrose/UIA - iniBuilds A330-200 UR-WRQ (pax">
+        <img data-src="urwrq-AUI.PNG" alt="Windrose/UIA - iniBuilds A330-200 UR-WRQ (pax">
         <div class="livery-links">
       скачати: <a href="https://flightsim.to/file/92786/windrose-airlines-ur-wrq-inibuilds-microsoft-a330-200" target="_blank">MSFS 2024</a>
            <br> <br> <em> Версія лівреї 2016-2017 років, під час польотів за МАУ <br> установка: як написано на flightsim.to </em>
@@ -3205,7 +3220,7 @@ Crackish <br>
       <td>
       <div class="livery-header">Windrose | UR-WRQ | iniBuilds A330-200</div>
       <div class="livery-content">
-        <img src="urwrq.PNG" alt="Windrose - iniBuilds A330-200 UR-WRQ (pax)">
+        <img data-src="urwrq.PNG" alt="Windrose - iniBuilds A330-200 UR-WRQ (pax)">
         <div class="livery-links">
       скачати: <a href="https://drive.google.com/file/d/1v9ZT3AQFP93XUsddfOYkSljPCm79PJ18/view?usp=sharing" target="_blank">MSFS 2024</a>
            <br> <br> <em> Версія оригінальної лівреї 2013-2015 років, без білого носика і МАУ <br> установка: розпакувати в Community </em>
@@ -3218,7 +3233,7 @@ Crackish <br>
       <td>
       <div class="livery-header">Windrose | UR-RWC | ATR 72-600</div>
       <div class="livery-content">
-        <img src="ur-rwc.JPG" alt="Windrose - ATR 72-600 UR-RWC (pax)">
+        <img data-src="ur-rwc.JPG" alt="Windrose - ATR 72-600 UR-RWC (pax)">
         <div class="livery-links">
       скачати: <a href="https://flightsim.to/file/55136/windrose-ur-rwc-asobo-atr-72-600" download target="_blank">MSFS 2020/2024</a> <br>
       <br> <em> установка: як написано на flightsim.to </em>
@@ -3229,7 +3244,7 @@ Crackish <br>
 		        <td>
       <div class="livery-header">SkyUp | PMDG 737-800</div>
       <div class="livery-content">
-        <img src="skyup.JPG" alt="SkyUp - PMDG 737-800 (pax)">
+        <img data-src="skyup.JPG" alt="SkyUp - PMDG 737-800 (pax)">
         <div class="livery-links">
       скачати: <a href="https://flightsim.to/file/102386/skyup-collection-pmdg-737-800-msfs-2024" target="_blank">MSFS 2024</a>
       / <a href="https://flightsim.to/file/53675/skyup-pack-pmdg-737-800" download target="_blank">MSFS 2020 (OC3)</a><br><a href="https://drive.google.com/file/d/1OF1170iuBsXAoi_4iaTCcTOBqYrKCv0b/view?usp=sharing" download target="_blank">MSFS 2020 (в папку community)</a>   <br>
@@ -3244,7 +3259,7 @@ Crackish <br>
 		  <td>
       <div class="livery-header">Bravo Airways | UR-COC | Fly The Maddog X MD-82</div>
       <div class="livery-content">
-        <img src="ur-coc.JPG" alt="Bravo Airways - Fly The Maddog X MD-82 UR-COC">
+        <img data-src="ur-coc.JPG" alt="Bravo Airways - Fly The Maddog X MD-82 UR-COC">
         <div class="livery-links">
       скачати: <a href="https://flightsim.to/file/32001/bravo-airways-livery-for-maddogx-md-82-ukraine" download target="_blank">MSFS 2020</a> <br>
       <br> <em> установка: як написано на flightsim.to </em>
@@ -3255,7 +3270,7 @@ Crackish <br>
  <td>
       <div class="livery-header">Anda Air | UR-CPB | Fly The Maddog X MD-82</div>
       <div class="livery-content">
-        <img src="ur-cpb.JPG" alt="Anda Air - Fly The Maddog X MD-82 UR-CPB (pax)">
+        <img data-src="ur-cpb.JPG" alt="Anda Air - Fly The Maddog X MD-82 UR-CPB (pax)">
         <div class="livery-links">
       скачати: <a href="https://flightsim.to/file/33764/md-82-anda-air-livery-ur-cpb-ukraine" target="_blank">MSFS 2020</a> / 
 			   <a href="https://flightsim.to/addon/113757/anda-ur-cpb-md-83-with-cockpit-and-cabin-fly-the-maddog-20th-anniversary" target="_blank">>MSFS 2024 (20th Ann.)</a>
@@ -3270,7 +3285,7 @@ Crackish <br>
       <td>
       <div class="livery-header">Bravo Airways | UR-COC | MD-83 (weathered)<br> Fly the Maddog 20th Ann.</div>
       <div class="livery-content">
-        <img src="ur-coc2.JPG" alt="Bravo Airways | UR-COC Fly the Maddog 20th Ann.">
+        <img data-src="ur-coc2.JPG" alt="Bravo Airways | UR-COC Fly the Maddog 20th Ann.">
         <div class="livery-links">
       скачати: <a href="https://flightsim.to/addon/113756/bravo-airways-ur-coc-md-83-with-cockpit-and-cabin-fly-the-maddog-20th-anniversary" download target="_blank">MSFS 2024</a><br>
       <br> <em>установка: як написано на flightsim.to</em>
@@ -3282,7 +3297,7 @@ Crackish <br>
 				 		        <td>
       <div class="livery-header"> Bravo Airways | UR-CRX | MD-82 <br> Fly the Maddog 20th Ann.</div>
       <div class="livery-content">
-        <img src="urcrx.JPG" alt="Bravo Airways | UR-CRX | MD-82 (Fly the Maddog 20th Ann.)">
+        <img data-src="urcrx.JPG" alt="Bravo Airways | UR-CRX | MD-82 (Fly the Maddog 20th Ann.)">
         <div class="livery-links">
       скачати: <a href="https://flightsim.to/file/103943/bravo-airlines-ur-crx-md-82-fly-the-maddog-20th-anniversary" download target="_blank">MSFS 2020 / 2024</a><br>
       <br> <em>установка: як написано на flightsim.to</em>
@@ -3297,7 +3312,7 @@ Crackish <br>
       <td>
       <div class="livery-header"> Windrose | UR-CDA | MD-82 <br> Fly the Maddog 20th Ann.</div>
       <div class="livery-content">
-        <img src="ur-cda.JPG" alt="Windrose | UR-CDA | MD-82 (Fly the Maddog 20th Ann.)">
+        <img data-src="ur-cda.JPG" alt="Windrose | UR-CDA | MD-82 (Fly the Maddog 20th Ann.)">
         <div class="livery-links">
       скачати: <a href="https://flightsim.to/addon/113758/windrose-ur-cda-md-82-with-cockpit-and-cabin-fly-the-maddog-20th-anniversary" download target="_blank">MSFS 2024</a><br>
       <br> <em>установка: як написано на flightsim.to</em>
@@ -3308,7 +3323,7 @@ Crackish <br>
  <td>
       <div class="livery-header">Windrose | UR-WRB | MD-83 <br> Fly the Maddog 20th Ann.</div>
       <div class="livery-content">
-        <img src="ur-wrb.JPG" alt="Windrose | UR-WRB | MD-83">
+        <img data-src="ur-wrb.JPG" alt="Windrose | UR-WRB | MD-83">
         <div class="livery-links">
       скачати: <a href="https://flightsim.to/addon/113760/windrose-ur-wrb-md-83-with-cockpit-and-cabin-fly-the-maddog-20th-anniversary" download target="_blank">MSFS 2024</a><br>
       <br> <em>установка: як написано на flightsim.to</em>
@@ -3320,7 +3335,7 @@ Crackish <br>
       <td>
       <div class="livery-header">Kharkiv Airlines | UR-CLR | PMDG Boeing 737-800</div>
       <div class="livery-content">
-        <img src="ur-clr.JPG" alt="Kharkiv Airlines - PMDG Boeing 737-800 UR-CLR (pax)">
+        <img data-src="ur-clr.JPG" alt="Kharkiv Airlines - PMDG Boeing 737-800 UR-CLR (pax)">
         <div class="livery-links">
       скачати: <a href="https://drive.google.com/file/d/10V8betsaXlsiCxSycJCtkKAnB2UH9c5t/view?usp=sharing" target="_blank">MSFS 2024 (конвертація)</a>
       / <a href="https://flightsim.to/file/38809/kharkiv-airlines-i-ur-clr-4k-i-pmdg-737-800" download target="_blank">MSFS 2020</a> <br>
@@ -3332,7 +3347,7 @@ Crackish <br>
       <td>
       <div class="livery-header">Bees Airlines | PMDG Boeing 737-800 (pax)</div>
       <div class="livery-content">
-        <img src="ur-uba.JPG" alt="Bees Airlines | PMDG Boeing 737-800 (pax)">
+        <img data-src="ur-uba.JPG" alt="Bees Airlines | PMDG Boeing 737-800 (pax)">
         <div class="livery-links">
       скачати: <a href="https://flightsim.to/file/40345/pmdg-737-800-bees-airline-ur-uba" target="_blank">MSFS 2020/2024</a>
            <br> <br> <em> установка: як написано на flightsim.to </em>
@@ -3345,7 +3360,7 @@ Crackish <br>
       <td>
       <div class="livery-header">Aerosvit | UR-DSA (pax) | FSS E190</div>
       <div class="livery-content">
-        <img src="ur-dsa.JPG" alt="Aerosvit - FSS E190 UR-DSA (pax)">
+        <img data-src="ur-dsa.JPG" alt="Aerosvit - FSS E190 UR-DSA (pax)">
         <div class="livery-links">
       скачати: <a href="https://flightsim.to/file/68115/aerosvit-ur-dsa-embraer-190" target="_blank">MSFS 2020 / 2024</a>
       <br>
@@ -3358,7 +3373,7 @@ Crackish <br>
     <td>
       <div class="livery-header">AeroSvit | UR-AAN | PMDG 737-800</div>
       <div class="livery-content">
-        <img src="uraan2.JPG" alt="AeroSvit PMDG 737-800 UR-AAN">
+        <img data-src="uraan2.JPG" alt="AeroSvit PMDG 737-800 UR-AAN">
         <div class="livery-links">
       скачати: <a href="https://flightsim.to/file/40085/aerosvit-ukrainian-airlines-ur-aan" target="_blank">MSFS 2020</a> <br>
       <br> <em> установка: як написано на flightsim.to </em>
@@ -3370,7 +3385,7 @@ Crackish <br>
       <td>
       <div class="livery-header">Ukraine Air Enterprise | UR-ABA | Fenix A319</div>
       <div class="livery-content">
-        <img src="uraba.JPG" alt="Ukraine Air Enterprise | UR-ABA | Fenix A319">
+        <img data-src="uraba.JPG" alt="Ukraine Air Enterprise | UR-ABA | Fenix A319">
         <div class="livery-links">
       скачати: <a href="https://drive.google.com/file/d/1TxM-9dikMmz7YU-MuNZmlsUnXgzgm7tP/view?usp=sharing" download target="_blank">MSFS 2024</a> / <a href="https://flightsim.to/file/81892/ukraine-air-enterprise-ur-aba-fenix-a319-8k-textures" download target="_blank">MSFS 2020</a> <br>
       <br> <em> установка 2024: в папку Community <br> установка 2020: як написано на flightsim.to</em>
@@ -3381,7 +3396,7 @@ Crackish <br>
       <td>
       <div class="livery-header">DART Ukrainian Airlines | UR-CII | Fenix A320</div>
       <div class="livery-content">
-        <img src="urcii.jpg" alt="DART Ukrainian Airlines | UR-CII | Fenix A320">
+        <img data-src="urcii.jpg" alt="DART Ukrainian Airlines | UR-CII | Fenix A320">
         <div class="livery-links">
       скачати: <a href="https://drive.google.com/file/d/1mljdd2SyAoaDObsUUuaabUqD0BsJSQjw/view?usp=sharing" download target="_blank">MSFS 2024 (конвертація)</a>
           / <a href="https://flightsim.to/file/95616/dart-airlines-ur-cii-fenix-a320-w-crt" download target="_blank">MSFS 2020</a> <br>
@@ -3395,7 +3410,7 @@ Crackish <br>
       <td>
       <div class="livery-header">SkyLine Express | UR-SLG (2025) | PMDG Boeing 737-800</div>
       <div class="livery-content">
-        <img src="urslg.JPG" alt="SkyLine Express | UR-SLG (2025) | PMDG Boeing 737-800">
+        <img data-src="urslg.JPG" alt="SkyLine Express | UR-SLG (2025) | PMDG Boeing 737-800">
         <div class="livery-links">
       скачати:  <a href="https://drive.google.com/file/d/1L4GcQlARziqn9HNNayOV3y35ndRTWGV6/view?usp=sharing" download target="_blank">MSFS 2024 (з реалістичним кокпітом!)</a>
                     / <a href="https://drive.google.com/file/d/1o2FzZDWv_SDTC8pZ8__aQZWMMYJZ_Y2Y/view?usp=sharing" download target="_blank">MSFS 2020</a><br>
@@ -3407,7 +3422,7 @@ Crackish <br>
  <td>
       <div class="livery-header">SkyLine Express | UR-SLH | PMDG Boeing 737-800</div>
       <div class="livery-content">
-        <img src="urslh.JPG" alt="SkyLine Express | UR-SLH | PMDG Boeing 737-800">
+        <img data-src="urslh.JPG" alt="SkyLine Express | UR-SLH | PMDG Boeing 737-800">
         <div class="livery-links">
       скачати: <a href="https://drive.google.com/file/d/1hlMqonw9URa2yp7PZqhCC94TpY9JD2ns/view?usp=sharing" download target="_blank">MSFS 2024</a>
           / <a href="https://drive.google.com/file/d/1EdtHENQVvmRB8Mw4XlZniKY5_uXgTzFd/view?usp=sharing" download target="_blank">MSFS 2020</a><br>
@@ -3421,7 +3436,7 @@ Crackish <br>
       <td>
       <div class="livery-header">SkyLine Express | UR-AZR | PMDG 777-300ER</div>
       <div class="livery-content">
-        <img src="urazr.JPG" alt="SkyLine Express | UR-AZR | PMDG 777-300ER">
+        <img data-src="urazr.JPG" alt="SkyLine Express | UR-AZR | PMDG 777-300ER">
         <div class="livery-links">
       скачати: <a href="https://drive.google.com/file/d/1eETVKEj5a29to9HKAiHSXJhz94wSjluE/view?usp=sharing" download target="_blank">MSFS 2024</a>
           / <a href="https://flightsim.to/file/87969/pmdg-777-300er-skyline-express-ur-azr-ex-azur-air-8k" download target="_blank">MSFS 2020</a><br>
@@ -3433,7 +3448,7 @@ Crackish <br>
  <td>
       <div class="livery-header">SkyLine Express | UR-SLW | PMDG 737-900ER</div>
       <div class="livery-content">
-        <img src="urslw.JPG" alt="SkyLine Express | UR-SLW | PMDG 737-900ER">
+        <img data-src="urslw.JPG" alt="SkyLine Express | UR-SLW | PMDG 737-900ER">
         <div class="livery-links">
       скачати: <a href="https://drive.google.com/file/d/1bz8e-pe4IuwF6bz7F1UAhFIvIMFfFcNk/view?usp=sharing" download target="_blank">MSFS 2024</a>
           / <a href="https://flightsim.to/file/79656/skyline-express-i-ur-slw-w-dirty-4k-i-pmdg-737-900er" download target="_blank">MSFS 2020</a><br>
@@ -3450,7 +3465,7 @@ Crackish <br>
  <td>
       <div class="livery-header">SkyUp | UR-SQE "Shakhtar" | PMDG 737-700</div>
       <div class="livery-content">
-        <img src="737skyup.PNG" alt="SkyLine Express | UR-SLW | PMDG 737-900ER">
+        <img data-src="737skyup.PNG" alt="SkyLine Express | UR-SLW | PMDG 737-900ER">
         <div class="livery-links">
       скачати: <a href="https://drive.google.com/file/d/1PQFMn9YiCgnlZBj65NrcBya6Oi5LYExc/view?usp=sharing" download target="_blank">MSFS 2024</a> 
            / <a href="https://flightsim.to/file/32819/skyup-special-shakhtar-livery-737-700-pmdg" download target="_blank">MSFS 2020</a><br>
@@ -3464,7 +3479,7 @@ Crackish <br>
  <td>
       <div class="livery-header">UKRAINE INTERNATIONAL | UR-PSI | PMDG 737-900ER</div>
       <div class="livery-content">
-        <img src="urpsi.JPG" alt="UKRAINE INTERNATIONAL | UR-PSI | PMDG 737-900ER">
+        <img data-src="urpsi.JPG" alt="UKRAINE INTERNATIONAL | UR-PSI | PMDG 737-900ER">
         <div class="livery-links">
       скачати: <a href="https://drive.google.com/file/d/10Jy3w0cqJa3qoHkZX0BHcqTGsY3BJngR/view?usp=sharing" download target="_blank">MSFS 2024</a>
           / <a href="https://flightsim.to/file/50179/pmdg-737-900er-ukraine-international-airlines-ur-psi" download target="_blank">MSFS 2020</a><br>
@@ -3479,7 +3494,7 @@ Crackish <br>
  <td>
       <div class="livery-header">UTair Ukraine | UR-UTQ | PMDG 737-800</div>
       <div class="livery-content">
-        <img src="urutq.PNG" alt="UTair Ukraine | UR-UTQ | PMDG 737-800">
+        <img data-src="urutq.PNG" alt="UTair Ukraine | UR-UTQ | PMDG 737-800">
         <div class="livery-links">
       скачати: <a href="https://flightsim.to/addon/107450/pmdg-b737-800-utair-ukranie-ur-utq" download target="_blank">MSFS 2020/2024</a> 
       
@@ -3492,7 +3507,7 @@ Crackish <br>
 <td>
       <div class="livery-header">Bukovyna Airlines | UR-CJM <br> BAe146/Avro RJ (Just Flight)</div>
       <div class="livery-content">
-        <img src="urcjm.JPG" alt="Bukovyna Airlines | UR-CJM | BAe146/Avro RJ (Just Flight)">
+        <img data-src="urcjm.JPG" alt="Bukovyna Airlines | UR-CJM | BAe146/Avro RJ (Just Flight)">
         <div class="livery-links">
       скачати: <a href="https://flightsim.to/file/103804/bae146-avro-rj-bukovyna-airlines-mahan" download target="_blank">MSFS 2024</a><br>
       <br> <em>установка: як написано на flightsim.to</em>
@@ -3515,7 +3530,7 @@ Crackish <br>
       <td>
       <div class="livery-header">Motor Sich - Fokker F27-MK500<br> <em>(як заміна Ан-24)</em></div>
       <div class="livery-content">
-        <img src="ur-kzr.JPG" alt="Motor Sich - Fokker F27-MK500">
+        <img data-src="ur-kzr.JPG" alt="Motor Sich - Fokker F27-MK500">
         <div class="livery-links">
       скачати: <a href="https://flightsim.to/file/91632/fokker-f27-motor-sich-fictional-an-24-livery" target="_blank">MSFS 2020</a> <br>
       <br> <em>літак Fokker F27-MK500 безкоштовний - <a href="https://flightsim.to/liveries/fokker-f27-mk-500/" target="_blank">скачати тут</a>
@@ -3526,7 +3541,7 @@ Crackish <br>
       <td>
       <div class="livery-header">Air Ukraine - Fokker F28-1000 UR-40393<br> <em>(як заміна Як-40)</em></div> 
       <div class="livery-content">
-        <img src="f28ukr.JPG" alt="Air Ukraine - Fokker F28-1000 UR-40393">
+        <img data-src="f28ukr.JPG" alt="Air Ukraine - Fokker F28-1000 UR-40393">
         <div class="livery-links">
       скачати: <a href="https://flightsim.to/file/103743/fokker-f28-1000-air-ukraine-livery-ur-40393-fictional" target="_blank">MSFS 2024</a>
            <br> <br> <em> установка: як написано на flightsim.to </em>
@@ -3540,7 +3555,7 @@ Crackish <br>
           <td>
       <div class="livery-header">Skyup Fenix A321 9H-PEB<br> <em>(хвіст не перекрашували в реальності, це був лізинг)</em></div>
       <div class="livery-content">
-        <img src="skyupA321.JPG" alt="Skyup Fenix A321 9H-PEB">
+        <img data-src="skyupA321.JPG" alt="Skyup Fenix A321 9H-PEB">
         <div class="livery-links">
       скачати: <a href="https://drive.google.com/file/d/1RuapCW5qln32d6oVHUMlLerSe10aLJd5/view?usp=sharing" target="_blank">MSFS 2020 / 2024</a> <br>
       <br> <em> установка: в папку Community (в архіві 2 версії- для 2020 i 2024) </em>
@@ -3551,7 +3566,7 @@ Crackish <br>
       <td>
       <div class="livery-header">UTair Ukraine - Aerosoft CRJ-550 UR-UTZ<br> <em>(як заміна CRJ-200LR піде)</em> </div> 
       <div class="livery-content">
-        <img src="ur-utz.JPG" alt="UTair Ukraine - Aerosoft CRJ-550 UR-UTZ">
+        <img data-src="ur-utz.JPG" alt="UTair Ukraine - Aerosoft CRJ-550 UR-UTZ">
         <div class="livery-links">
       скачати: <a href="https://flightsim.to/file/100140/crj-550-utair-ukraine" target="_blank">MSFS 2020 / 2024</a>
            <br> <br> <em> установка: як написано на flightsim.to </em>
@@ -3565,7 +3580,7 @@ Crackish <br>
 <td>
       <div class="livery-header">Air Ukraine - FSS Boeing 727-200 <br> <em>(Fictional, але як заміна Ту-154 піде)</em></div>
       <div class="livery-content">
-        <img src="727superAirUkr.JPG" alt="Air Ukraine - FSS Boeing 727-200">
+        <img data-src="727superAirUkr.JPG" alt="Air Ukraine - FSS Boeing 727-200">
         <div class="livery-links">
       скачати: <a href="https://flightsim.to/file/103385/boeing-727-200-super-27-air-ukraine-ur-85499-1995" target="_blank">MSFS 2020 (Super 27 pax) </a> <br>
       <br> <em> установка лівреї: як написано на flightsim.to</em>
@@ -3576,7 +3591,7 @@ Crackish <br>
       <td>
       <div class="livery-header">Supernova - FSS Boeing 727-200 (cargo) <br> <em>(Fictional)</em> </div> 
       <div class="livery-content">
-        <img src="727supernova.JPG" alt="Supernova - FSS Boeing 727-200">
+        <img data-src="727supernova.JPG" alt="Supernova - FSS Boeing 727-200">
         <div class="livery-links">
       скачати: <a href="https://drive.google.com/file/d/161N4ML71mnxe-Q4RQcEY41_cG99aUAem/view?usp=sharing" target="_blank">MSFS 2020</a> / <a href="https://flightsim.to/file/103231/b727f-super27-supernova-fictional" target="_blank">MSFS 2020 (Super 27)</a>
                     <br> <br> <em> установка: як написано на flightsim.to </em>
@@ -3589,7 +3604,7 @@ Crackish <br>
 <td>
       <div class="livery-header">Dniproavia - PMDG 737-600  <em>(трохи Fictional, в реальності це 737-500)</em></div>
       <div class="livery-content">
-        <img src="736dnipro.JPG" alt="Dniproavia - PMDG 737-600">
+        <img data-src="736dnipro.JPG" alt="Dniproavia - PMDG 737-600">
         <div class="livery-links">
       скачати: <a href="https://drive.google.com/file/d/1xID2eeza6-vPvy9y9m4ab5HK0jpyJiIA/view?usp=sharing" target="_blank">MSFS 2024 (конвертація)</a>
       / <a href="https://flightsim.to/file/66100/pmdg-737-600-dniproavia-ur-dnc" target="_blank">MSFS 2020</a> <br>
@@ -3601,7 +3616,7 @@ Crackish <br>
       <td>
       <div class="livery-header">Air Onix - PMDG 737-600 <em>(трохи Fictional, в реальності це 737-500)</em> </div> 
       <div class="livery-content">
-        <img src="736onix.JPG" alt="Air Onix - PMDG 737-600">
+        <img data-src="736onix.JPG" alt="Air Onix - PMDG 737-600">
         <div class="livery-links">
       скачати: <a href="https://drive.google.com/file/d/1mbJ4VuoDuLJVgQTpkS7chzb2MniiJvIT/view?usp=sharing" target="_blank">MSFS 2024 (конвертація)</a>
       / <a href="https://flightsim.to/file/55501/pmdg-boeing-737-600-air-onix" target="_blank">MSFS 2020</a>
@@ -3616,7 +3631,7 @@ Crackish <br>
 <td>
       <div class="livery-header">Windrose - iniBuilds A321 LR<br> <em>(трохи Fictional, у Windrose A321ceo)</em></div>
       <div class="livery-content">
-        <img src="ini321windrose.JPG" alt="Windrose - iniBuilds A321 LR">
+        <img data-src="ini321windrose.JPG" alt="Windrose - iniBuilds A321 LR">
         <div class="livery-links">
       скачати: <a href="https://flightsim.to/file/91629/inibuilds-airbus-a321lr-ur-wrx-windrose-w-cabin-fictional" target="_blank">MSFS 2024</a> <br>
       <br> <em> установка лівреї: як написано на flightsim.to</em>
@@ -3627,7 +3642,7 @@ Crackish <br>
       <td>
       <div class="livery-header">Ukraine International - iFly 737 MAX8 UR-MXA<br> <em>(трохи Fictional, МАУ так і не отримала МАХ)</em> </div> 
       <div class="livery-content">
-        <img src="urmxa.JPG" alt="Ukraine International - iFly 737 MAX8 UR-MXA">
+        <img data-src="urmxa.JPG" alt="Ukraine International - iFly 737 MAX8 UR-MXA">
         <div class="livery-links">
       скачати: <a href="https://flightsim.to/file/83345/ukraine-international-airlines-ur-mxa" target="_blank">MSFS 2020 / 2024</a>
            <br> <br> <em> установка: як написано на flightsim.to </em>
@@ -3640,7 +3655,7 @@ Crackish <br>
       <td>
       <div class="livery-header">Windrose - FBW A320neo UR-WRW<br> <em>(насправді це А320сео)</em></div>
       <div class="livery-content">
-        <img src="urwrwfbw.JPG" alt="Windrose - FBW A320neo UR-WRW">
+        <img data-src="urwrwfbw.JPG" alt="Windrose - FBW A320neo UR-WRW">
         <div class="livery-links">
       скачати: <a href="https://flightsim.to/file/24511/a32nx-windrose-a320-neo-ukraine" download target="_blank">MSFS 2020/2024</a> <br>
       <br> <em> Ліврея для безкоштовного A320neo від FBW (flybywiresim.com) <BR> установка: як написано на flightsim.to </em>
@@ -3651,7 +3666,7 @@ Crackish <br>
       <td>
       <div class="livery-header">Armed Forces of Ukraine | Inibuilds A321 LR<br> <em>(Fictional)</em></div>
       <div class="livery-content">
-        <img src="a321mil.JPG" alt="Armed Forces of Ukraine | Inibuilds A321 LR">
+        <img data-src="a321mil.JPG" alt="Armed Forces of Ukraine | Inibuilds A321 LR">
         <div class="livery-links">
       скачати: <a href="https://flightsim.to/file/100459/inibuilds-a321lr-ukrainian-armed-forces" download target="_blank">MSFS 2024</a> <br>
       <br> <em> установка: як написано на flightsim.to </em>
@@ -3664,7 +3679,7 @@ Crackish <br>
       <td>
       <div class="livery-header">Armed Forces of Ukraine | Miltech CH-47D (Chinook)<br> <em>(Fictional)</em></div>
       <div class="livery-content">
-        <img src="chin.JPG" alt="Armed Forces of Ukraine | Miltech CH-47D (Chinook)">
+        <img data-src="chin.JPG" alt="Armed Forces of Ukraine | Miltech CH-47D (Chinook)">
         <div class="livery-links">
       скачати: <a href="https://flightsim.to/file/99094/miltech-ch-47d-ukraine-national-guard" download target="_blank">MSFS 2020/2024</a> <br>
       <br> <em> установка: як написано на flightsim.to </em>
@@ -3675,7 +3690,7 @@ Crackish <br>
       <td>
       <div class="livery-header">Armed Forces of Ukraine | A400M Atlas<br> <em>(Fictional)</em></div>
       <div class="livery-content">
-        <img src="a400mil.JPG" alt="Armed Forces of Ukraine | A400M Atlas">
+        <img data-src="a400mil.JPG" alt="Armed Forces of Ukraine | A400M Atlas">
         <div class="livery-links">
       скачати: <a href="https://flightsim.to/file/98529/inibuilds-a400m-atlas-ukrainian-armed-forces" download target="_blank">MSFS 2024</a> <br>
       <br> <em> установка: як написано на flightsim.to </em>
@@ -3689,7 +3704,7 @@ Crackish <br>
       <td>
       <div class="livery-header">Літак контрабандистів - Ан-2 UR-40308<br> <em>(атмосферна реальна ліврея)</em></div> 
       <div class="livery-content">
-        <img src="an2.JPG" alt="Літак контрабандистів - Ан-2 UR-40308">
+        <img data-src="an2.JPG" alt="Літак контрабандистів - Ан-2 UR-40308">
         <div class="livery-links">
       скачати: <a href="https://flightsim.to/file/100842/ukrainian-an-2-weathered-livery-ur-40308" target="_blank">MSFS 2020 / 2024</a>
            <br> <br> <em> установка: як написано на flightsim.to </em>
@@ -3700,7 +3715,7 @@ Crackish <br>
  <td>
       <div class="livery-header">Аеросвіт | BAe146-200/Avro RJ-85 <br> <em>(Схожий на Ан-148/158)</em></div>
       <div class="livery-content">
-        <img src="urntq.JPG" alt="Аеросвіт | BAe146-200/Avro RJ-85">
+        <img data-src="urntq.JPG" alt="Аеросвіт | BAe146-200/Avro RJ-85">
         <div class="livery-links">
       скачати: <a href="https://flightsim.to/addon/105677/bae146-200-avro-rj-85-aerosvit" download target="_blank">MSFS 2020/2024</a> <br>
       <br> <em> установка: як написано на flightsim.to </em>
@@ -3714,7 +3729,7 @@ Crackish <br>
 	<td>
       <div class="livery-header">WINDROSE "SPECIAL" | FSS E-195 <br> <em>у 2014 у Рози Вітрів були красиві Special лівреї</em></div>
       <div class="livery-content">
-        <img src="e195wrc.jpg" alt="WINDROSE SPECIAL FSS E-195">
+        <img data-src="e195wrc.jpg" alt="WINDROSE SPECIAL FSS E-195">
         <div class="livery-links">
       скачати: <a href="https://flightsim.to/addon/109468/windrose-special-kievan-lavra-livery-for-e195" target="_blank">MSFS 2024 </a>
        <br>
@@ -3725,7 +3740,7 @@ Crackish <br>
 	<td>
       <div class="livery-header">Kharkiv Wings | PMDG 737-800 | UR-KHW<br> <em>від SaintHelgi для комьюніті !!!</em></div>
       <div class="livery-content">
-        <img src="KHW01.jpg" alt="Kharkiv Wings | PMDG 737-800 | UR-KHW">
+        <img data-src="KHW01.jpg" alt="Kharkiv Wings | PMDG 737-800 | UR-KHW">
         <div class="livery-links">
       скачати: <a href="https://drive.google.com/file/d/1jpPtTsX83Mvh76GE3HORyk9S34K6jzdX/view?usp=sharing" target="_blank">MSFS 2024 </a> 
 			/ <a href="https://drive.google.com/file/d/14KZO-q68oRpei6XcSJX-_mMXj4xVGwG-/view?usp=sharing" target="_blank">MSFS 2020</a>
@@ -3752,7 +3767,7 @@ Crackish <br>
     <td>
       <div class="livery-header">PMDG 737-800 UR-UCA (pax)</div>
       <div class="livery-content">
-        <img src="thumbnail_small 738 pax UCAA.jpg" alt="PMDG 737-800 UR-UCA (pax)">
+        <img data-src="thumbnail_small 738 pax UCAA.jpg" alt="PMDG 737-800 UR-UCA (pax)">
         <div class="livery-links">
       скачати: <a href="https://drive.google.com/file/d/1kCP4m8HKZyEU41a6D4DK-WYBecEO3oQp/view?usp=sharing" target="_blank">MSFS 2024 </a>
       / <a href="https://drive.google.com/file/d/10dm_hWtTUocMPR58RcYZalOO1rIGhFku/view?usp=sharing" download target="_blank">MSFS 2020</a> <br>
@@ -3764,7 +3779,7 @@ Crackish <br>
     <td>
       <div class="livery-header">PMDG 737-800 BCF UR-CAA (cargo)</div>
       <div class="livery-content">
-        <img src="thumbnail_small 738 Cargo UCAA.jpg" alt="PMDG 737-800 BCF UR-CAA (cargo)">
+        <img data-src="thumbnail_small 738 Cargo UCAA.jpg" alt="PMDG 737-800 BCF UR-CAA (cargo)">
         <div class="livery-links">
       скачати: <a href="https://drive.google.com/file/d/1JsezrmJqAECRqs93poG2RdznBfri1uBA/view?usp=sharing" target="_blank">MSFS 2024 </a>
       / <a href="https://drive.google.com/file/d/1-aHel8aRcisjs08ufCjc85LmSfaVjUL5/view?usp=sharing" download target="_blank">MSFS 2020</a> <br>
@@ -3779,7 +3794,7 @@ Crackish <br>
     <td>
       <div class="livery-header">PMDG Boeing 777F UR-CRG (cargo)</div>
       <div class="livery-content">
-        <img src="ur-crg.JPG" alt="PMDG Boeing 777F UR-CRG (cargo)">
+        <img data-src="ur-crg.JPG" alt="PMDG Boeing 777F UR-CRG (cargo)">
         <div class="livery-links">
       скачати: <a href="https://drive.google.com/file/d/1tX9hB9BGx6kkKs5-yi8qXaU7To9tWuuc/view?usp=sharing" target="_blank">MSFS 2024 </a>
       <br>
@@ -3791,7 +3806,7 @@ Crackish <br>
         <td>
       <div class="livery-header">iniBuilds A300-600 PW | UR-LDC (cargo)</div>
       <div class="livery-content">
-        <img src="ur-ldc.JPG" alt="iniBuilds A300-600 PW | UR-LDC (cargo)">
+        <img data-src="ur-ldc.JPG" alt="iniBuilds A300-600 PW | UR-LDC (cargo)">
         <div class="livery-links">
       скачати: <a href="https://drive.google.com/file/d/1DOLE2y8uqdDvYZ7MlcG8dKkyhHm6tQ8-/view?usp=sharing" target="_blank">MSFS 2024 </a>
       <br>
@@ -3806,7 +3821,7 @@ Crackish <br>
      <td>
       <div class="livery-header">Fenix A320 UR-BUS</div> 
       <div class="livery-content">
-        <img src="urbus.PNG" alt="Fenix A320 UR-BUS">
+        <img data-src="urbus.PNG" alt="Fenix A320 UR-BUS">
         <div class="livery-links">
       скачати: <a href="https://drive.google.com/file/d/14YonjG7sk_gOuZCYqxNBoi0IYp5NDP9J/view?usp=sharing" target="_blank">MSFS 2024</a>
            <br><br><em> установка: в папку Community</em> <br><br>
@@ -3817,7 +3832,7 @@ Crackish <br>
 <td>
       <div class="livery-header">FF Boeing 757-200RF (cargo) UR-SFS</div>
       <div class="livery-content">
-        <img src="xp757.PNG" alt="FF Boeing 757-200RF (cargo) UR-SFS">
+        <img data-src="xp757.PNG" alt="FF Boeing 757-200RF (cargo) UR-SFS">
         <div class="livery-links">
       скачати: <a href="https://drive.google.com/file/d/1-EvdofE5SEN1rfnvzhZlGpKCMCLS48ZK/view?usp=sharing" target="_blank">X-Plane 12</a>
            / <a href="https://drive.google.com/file/d/1HhLcmPaGPeFNNiz-sRw9_hAs5UeGN-tD/view?usp=sharing" target="_blank">X-Plane 11</a>
@@ -3832,7 +3847,7 @@ Crackish <br>
      <td>
       <div class="livery-header">BlueBird Boeing 757-200 UR-SUN</div> 
       <div class="livery-content">
-        <img src="ur-sun.png" alt="BlueBird Boeing 757-200 UR-SUN">
+        <img data-src="ur-sun.png" alt="BlueBird Boeing 757-200 UR-SUN">
         <div class="livery-links">
       скачати: <a href="https://drive.google.com/file/d/10gxQuYmmT37ttspkLjw61aiCE4-oxKRZ/view?usp=drive_link" target="_blank">MSFS 2024</a>
            <br><br><em> установка: в папку Community</em> <br><br>
@@ -3843,7 +3858,7 @@ Crackish <br>
 <td>
       <div class="livery-header">BlueBird Boeing 757-200 UR-SUF</div>
       <div class="livery-content">
-        <img src="ur-suf.JPG" alt="BlueBird Boeing 757-200 UR-SUF">
+        <img data-src="ur-suf.JPG" alt="BlueBird Boeing 757-200 UR-SUF">
         <div class="livery-links">
       скачати: <a href="https://drive.google.com/file/d/1LSXAWhnsNJ_riPvXMPgRKXsvqxpCiqzE/view?usp=sharing" target="_blank">MSFS 2024</a>
        <br> <br> <em> установка: в папку Community</em>
@@ -3856,7 +3871,7 @@ Crackish <br>
      <td>
       <div class="livery-header">Just Flight Fokker 100 UR-FKR</div> 
       <div class="livery-content">
-        <img src="URFKR.PNG" alt="Just Flight Fokker 100 UR-FKR">
+        <img data-src="URFKR.PNG" alt="Just Flight Fokker 100 UR-FKR">
         <div class="livery-links">
       скачати ліврею: <a href="https://drive.google.com/file/d/1klyFErzjHv0q4EwbK6baM5SF5tDibQ1i/view?usp=sharing" target="_blank">MSFS 2024</a> / <a href="https://drive.google.com/file/d/1x49TUrRsKRYhg8my8MRkkfrFlSOfF-mg/view?usp=sharing" target="_blank">MSFS 2020</a>
            <br><em> установка: в папку Community</em> <br><br>
@@ -3870,7 +3885,7 @@ Crackish <br>
 <td>
       <div class="livery-header">FSS Embraer 190F red/blue (cargo)</div>
       <div class="livery-content">
-        <img src="E190-UCAA-red-grey.jpg" alt="FSS Embraer 190F red-grey (cargo)">
+        <img data-src="E190-UCAA-red-grey.jpg" alt="FSS Embraer 190F red-grey (cargo)">
         <div class="livery-links">
       скачати blue: <a href="https://drive.google.com/file/d/11xP1T0EpNeZ4dftCDB6tMsMAjgrSFzAz/view?usp=sharing" target="_blank"> MSFS 2020/2024 </a>     <br>
       скачати red: <a href="https://drive.google.com/file/d/1wT1FIxi3cCrFfORrCfmwcLv8sASi1GP4/view?usp=sharing" target="_blank"> MSFS 2020/2024 </a>
@@ -3888,7 +3903,7 @@ Crackish <br>
      <td>
       <div class="livery-header">Black Square C208 Grand Caravan (pax) UR-PAX</div> 
       <div class="livery-content">
-        <img src="urpax.PNG" alt="Black Square C208 Grand Caravan (pax) UR-PAX">
+        <img data-src="urpax.PNG" alt="Black Square C208 Grand Caravan (pax) UR-PAX">
         <div class="livery-links">
       скачати: <a href="https://drive.google.com/file/d/1cLaRacFr9oZjXJU1lE2Yo-d2g7uGSU2A/view?usp=sharing" target="_blank">MSFS 2024</a>
            <br><br><em> установка: в папку Community</em> 
@@ -3900,7 +3915,7 @@ Crackish <br>
 <td>
       <div class="livery-header">Black Square C208 Grand Caravan (cargo) UR-VAN</div>
       <div class="livery-content">
-        <img src="urvan.PNG" alt="Black Square C208 Grand Caravan (cargo) UR-VAN">
+        <img data-src="urvan.PNG" alt="Black Square C208 Grand Caravan (cargo) UR-VAN">
         <div class="livery-links">
       скачати: <a href="https://drive.google.com/file/d/1zRqzdPTi6F1L8Uyo3yMU0_xYK_KphgHk/view?usp=sharing" target="_blank">MSFS 2024 </a>
        <br>
@@ -3917,7 +3932,7 @@ Crackish <br>
       <td>
       <div class="livery-header">Укрпошта - E190F UR-OLD, UR-GLD</div>
       <div class="livery-content">
-        <img src="uroldgld.JPG" alt="Укрпошта - E190F UR-OLD, UR-GLD">
+        <img data-src="uroldgld.JPG" alt="Укрпошта - E190F UR-OLD, UR-GLD">
         <div class="livery-links">
       скачати: <a href="https://drive.google.com/file/d/1yZyC0TZBwMMnQ_gFhsxbTNNEoURLb91T/view?usp=sharing" target="_blank">MSFS 2020 / 2024</a> <br>
       <br> <em> Чудово підійде під нагороду <a href="https://newsky.app/award/696d1b3d3dc76275babb991c" target="_blank">Tour de Ukraine</a> <br> установка: в папку Community </em>
@@ -3928,7 +3943,7 @@ Crackish <br>
 	   <td>
       <div class="livery-header">AeroSvit vs Ukraine Classic Air Alliance<br>PMDG 737-800 UR-AAN (pax)</div>
       <div class="livery-content">
-        <img src="UR-AAN vs UCAA logo.jpg" alt="AeroSvit vs Ukraine Classic Air Alliance PMDG 737-800 UR-AAN (pax)">
+        <img data-src="UR-AAN vs UCAA logo.jpg" alt="AeroSvit vs Ukraine Classic Air Alliance PMDG 737-800 UR-AAN (pax)">
         <div class="livery-links">
       скачати: <a href="https://drive.google.com/file/d/1Km-JY2YElCA3-HJQBOvzltLpgW2i28Zo/view?usp=sharing" target="_blank">MSFS 2024 </a>
        <br>
@@ -3943,7 +3958,7 @@ Crackish <br>
      <td>
       <div class="livery-header">Укрпошта - ATR 42-600 UR-ATR</div> 
       <div class="livery-content">
-        <img src="uratr.jpg" alt="UkrPost - ATR 42-600 UR-ATR">
+        <img data-src="uratr.jpg" alt="UkrPost - ATR 42-600 UR-ATR">
         <div class="livery-links">
       скачати: <a href="https://drive.google.com/file/d/15metMs-f0DmrVta1Yj-DLI7P-a2Cd2Cs/view?usp=drive_link" target="_blank">MSFS 2020 / 2024</a>
            <br> <br> <em> аби був трушний карго - використовуйте <a href="https://dispatch.simbrief.com/airframes/share/651862_1768754942245" target="_blank">цей SimBrif профіль</a>,<br> в GSX ставте галочку "Cargo" в меню "Customize Airplane"<br> Чудово підійде під нагороду <a href="https://newsky.app/award/696d1b3d3dc76275babb991c" target="_blank">Tour de Ukraine</a> <br> установка: в папку Community </em>
@@ -3954,7 +3969,7 @@ Crackish <br>
       <td>
       <div class="livery-header">Укропшта | BAe146 QT/Avro RJ QT | JustFlight <br> <em>(грузовик Укрпошти для віртуальних польотів)</em></div> 
       <div class="livery-content">
-        <img src="RJukr.JPG" alt="Укропшта | BAe146 QT/Avro RJ QT | JustFlight">
+        <img data-src="RJukr.JPG" alt="Укропшта | BAe146 QT/Avro RJ QT | JustFlight">
         <div class="livery-links">
       скачати: <a href="https://flightsim.to/addon/105323/bae146-300-qt-avro-rj-qt-ukrposhta-fictional" target="_blank">MSFS 2020 / 2024</a>
            <br> <br> <em> установка: як написано на flightsim.to </em> <br><br>
@@ -3978,7 +3993,7 @@ Crackish <br>
      
   <tr>
     <td style="font-size:14px; width:1000px; text-align:left; ">
-  <img src="fsltl1k.JPG" style="width:900px; display: flex; justify-content: center;" >    
+  <img data-src="fsltl1k.JPG" style="width:900px; display: flex; justify-content: center;" >    
       <br>
 Так як з flightsim.to прибрали оптимізовані лівреї для FSLTL трафіка, <strong> пропоную вам скачати мій пак з гугл діска: <a href="https://drive.google.com/file/d/1YBW13LmBPGIC_Kqgyp2tBjiEGRh3JAQJ/view?usp=sharing" download target="_blank">1K Textures for FSLTL Traffic</a> </strong> <br><br> 
     <em style="font-size:12px; text-align:left;"><strong>Установка:</strong> <br> 1. Скачати  <a href="https://flybywiresim.com/downloads/" download target="_blank"> FBW installer </a> і встановити звідти FSLTL Traffic / Injector (якщо встановлено - то ок) <br>
@@ -11099,6 +11114,17 @@ function closeFullscreenImage() {
     img.src = "";
 }
 </script>
-  
+  <script>
+document.querySelectorAll('details.livery-details').forEach(section => {
+  section.addEventListener('toggle', () => {
+    if (!section.open) return;
+
+    section.querySelectorAll('img[data-src]').forEach(img => {
+      img.src = img.dataset.src;
+      img.removeAttribute('data-src');
+    });
+  });
+});
+</script>
 </body>
 </html>
