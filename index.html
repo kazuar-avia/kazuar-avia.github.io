@@ -369,6 +369,35 @@ body > h2[style*="text-align:center"] + p[style*="text-align:center"] {
   padding: 5px;
 }
 
+/* Згорнуті розділи ліврей */
+.livery-details {
+  width: 960px;
+  max-width: 100%;
+  margin: 10px auto;
+}
+
+.livery-details > summary {
+  padding: 7px;
+  border: 1px solid #777;
+  cursor: pointer;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  list-style-position: inside;
+}
+
+.livery-details > summary:hover {
+  filter: brightness(0.96);
+}
+
+.livery-details[open] > summary {
+  margin-bottom: 8px;
+}
+
+.livery-details .livery-grid {
+  margin-top: 0;
+}	
+
 .livery-content {
   padding: 5px;            /* відступ 10px від краю ячейки */
   text-align: center;
@@ -2628,7 +2657,7 @@ body.ukraine-map-fullscreen-active .site-nav {
 
   <a href="https://kazuar.in.ua/pilot-cabinet.html#dashboard"><strong>Кабінет пілотів UCAA </strong><em style="color:red;"> new!</em></a>
   <a href="#live-traffic">LIVE VATSIM + UCAA трафік</a>
-  <a href="#ukraine-map-section">Скачати сценарії / Погода / Схеми (натисни на аеропорт на карті) -></a>	
+  <a href="#ukraine-map-section">Сценарії UK** / Погода / Схеми <br>(натисни на аеропорт на карті) -></a>	
   <a href="#FSLTL_addon"><strong>Cкачати FSLTL_UA_ADDON</strong></a>
   <a href="#real-ukrainian-liveries-section">Реальні лівреї українських АК</a>
   <a href="#ucaa-liveries-section">Лівреї Ukraine Classic Air Alliance</a>
@@ -2977,12 +3006,12 @@ Crackish <br>
 
   
 <!-- ------------------------------------------------------------------------------ Реальні лівреї українських авіакомпаній ------------------------------------------------------------- -->
-   <table class="livery-grid">                                                 
-  <tr id="real-ukrainian-liveries-section">                                                                     
-    <td colspan="2" style="background-color: #fbe694;">
-    <strong>Реальні лівреї українських авіакомпаній:</strong> (яких немає нижче, пошукайте на <a href="https://flightsim.to/" target="_blank">flightsim.to</a>)
-  </td>
-   </tr> 
+<details class="livery-details" id="real-ukrainian-liveries-section">
+<summary style="background:#fbe694;">
+Реальні лівреї українських авіакомпаній
+</summary>
+
+<table class="livery-grid">
 
     <tr>
     <td>
@@ -3473,14 +3502,14 @@ Crackish <br>
        
    </tr>  
    </table>
-
+</details>
 <!-- ------------------------------------------------------------------------------ Інші лівреї українських авіакомпаній: ------------------------------------------------------------- -->
-   <table class="livery-grid">                                                 
-  <tr id="other-ukrainian-liveries-section">                                                                     
-    <td colspan="2" style="background-color: #f4f0c0;">
-    <strong>Інші лівреї українських авіакомпаній:</strong>
-  </td>
-   </tr> 
+<details class="livery-details" id="other-ukrainian-liveries-section">
+<summary style="background:#f4f0c0;">
+Інші лівреї українських авіакомпаній
+</summary>
+
+<table class="livery-grid">
   
         <tr>
       <td>
@@ -3709,15 +3738,15 @@ Crackish <br>
 </tr>
 	   
 </table>
-
+</details>
   <!-- -------------------------------------------------------------Лівреї віртуальної авіакомпанії Ukraine Classic Air Alliance----------------------------------------------------- -->
   
-<table class="livery-grid">                                                 
-   <tr id="ucaa-liveries-section">
-    <td  colspan="2" style="background-color: #c0f6f9;">
-    <strong>Лівреї віртуальної авіакомпанії Ukraine Classic Air Alliance:</strong>
-  </td>
-   </tr>
+<details class="livery-details" id="ucaa-liveries-section">
+<summary style="background:#c0f6f9;">
+Лівреї віртуальної авіакомпанії Ukraine Classic Air Alliance
+</summary>
+
+<table class="livery-grid">
 
  <tr>
     <td>
@@ -3936,16 +3965,16 @@ Crackish <br>
     </tr>
  
 </table>
-  
+  </details>
+	
 <br>
   
-<table>
+<details class="livery-details" id="fsltl-textures-section">
+<summary style="background:#f2cad7;">
+Оптимізовані текстури для FSLTL Traffic (1K замість 4K, 5 GB замість 45 GB)
+</summary>
 
- <tr id="fsltl-textures-section">
-  <td colspan="3" style="width:1000px;background-color: #f2cad7;">
-    <strong>Оптимізовані текстури для FSLTL Traffic (1к замість 4к, 5 гагабайт замість 45 гігабайт) </strong>
-  </td>
-</tr>
+<table>
      
   <tr>
     <td style="font-size:14px; width:1000px; text-align:left; ">
@@ -3962,7 +3991,7 @@ Crackish <br>
    </td>
   </tr>
 </table>
-
+</details>
 <script>
  let currentSort = '';
 let sortDirection = 1; 
