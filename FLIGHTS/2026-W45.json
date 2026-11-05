@@ -5841,6 +5841,180 @@
                         "elev": 1907
                     }
                 }
+            },
+            {
+                "_id": "6aebdf27d962ff40f1843086",
+                "aircraft": {
+                    "_id": "695a66383dc76275bad0826f",
+                    "name": "Airbus A320",
+                    "customName": "Dry Lease l A320 CFM FENIX msfs2024",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "185D",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 160,
+                    "cargo": 17,
+                    "weights": {
+                        "cargo": 1394
+                    }
+                },
+                "depTime": "2026-11-05T01:55:00.000Z",
+                "duration": 45,
+                "arrTime": "2026-11-05T02:40:00.000Z",
+                "depTimeAct": "2026-11-05T02:01:32.842Z",
+                "delay": 17,
+                "takeoffTimeAct": "2026-11-05T02:04:34.842Z",
+                "durationAct": 53,
+                "arrTimeAct": "2026-11-05T02:57:08.764Z",
+                "open": "2026-11-05T01:56:51.860Z",
+                "close": "2026-11-05T03:00:09.799Z",
+                "rating": 9.95,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 275,
+                        "fuel": 2738,
+                        "expenses": 9540,
+                        "penalties": 0,
+                        "revenue": 13025,
+                        "balance": 3485,
+                        "prices": {
+                            "ticketPrice": 82,
+                            "cargoUnitPrice": 94,
+                            "costScalars": {
+                                "timeAcceleration": 0.885,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 160,
+                            "cargo": 17,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 160
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2740,
+                        "aircraft": 4651,
+                        "handling": 1129,
+                        "landing": 1020
+                    },
+                    "revenue": {
+                        "tickets": 11611,
+                        "cargo": 1414
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 4.42m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -5,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.29G (223 ft/min, normal  conditions)<br/>Distance from threshold: 475m (accepted range: 174-697m)<br/>Average centerline deviation: 1.40m<br/>Max centerline deviation: 4.42m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.29,
+                                        "rate": 223
+                                    },
+                                    "weather": {
+                                        "windDir": 101.87,
+                                        "windSpd": 4.47,
+                                        "windX": 3.87
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Time acceleration used (1.13x) - reduced revenue",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 60
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.29,
+                                        "rate": 223
+                                    },
+                                    "weather": {
+                                        "windDir": 101.87,
+                                        "windSpd": 4.47,
+                                        "windX": 3.87
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-05T01:43:03.036Z",
+                "updatedAt": "2026-11-05T03:00:09.903Z",
+                "dep": {
+                    "icao": "LOWI",
+                    "name": "Innsbruck Airport",
+                    "city": "Innsbruck",
+                    "location": {
+                        "lat": 47.260201,
+                        "lon": 11.344,
+                        "elev": 1907
+                    }
+                },
+                "arr": {
+                    "icao": "LIML",
+                    "name": "Milano Linate Airport",
+                    "city": "Segrate (MI)",
+                    "location": {
+                        "lat": 45.445099,
+                        "lon": 9.27674,
+                        "elev": 353
+                    }
+                },
+                "actArr": {
+                    "icao": "LIML",
+                    "name": "Milano Linate Airport",
+                    "city": "Segrate (MI)",
+                    "location": {
+                        "lat": 45.445099,
+                        "lon": 9.27674,
+                        "elev": 353
+                    }
+                }
             }
         ]
     },
