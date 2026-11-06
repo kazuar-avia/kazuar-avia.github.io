@@ -11604,6 +11604,156 @@
                         "elev": 137
                     }
                 }
+            },
+            {
+                "_id": "6aededb0d962ff40f1ac79f8",
+                "aircraft": {
+                    "_id": "6a4fa2fb5760ec7cdb629836",
+                    "name": "Boeing 777-200ER",
+                    "customName": "Dry Lease l 777-200ER PW 294 pax",
+                    "icao": "B772"
+                },
+                "type": "pax",
+                "flightNumber": "1204",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 432,
+                    "cargo": 59,
+                    "weights": {
+                        "cargo": 6254
+                    }
+                },
+                "depTime": "2026-11-06T15:30:00.000Z",
+                "duration": 125,
+                "arrTime": "2026-11-06T17:35:00.000Z",
+                "depTimeAct": "2026-11-06T15:34:22.688Z",
+                "delay": 9,
+                "takeoffTimeAct": "2026-11-06T15:46:20.688Z",
+                "durationAct": 118,
+                "arrTimeAct": "2026-11-06T17:44:07.766Z",
+                "open": "2026-11-06T15:11:37.205Z",
+                "close": "2026-11-06T17:52:14.800Z",
+                "rating": 9.56,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 905,
+                        "fuel": 12268,
+                        "expenses": 38615,
+                        "penalties": 0,
+                        "revenue": 254816,
+                        "balance": 216201,
+                        "prices": {
+                            "ticketPrice": 142,
+                            "cargoUnitPrice": 160,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 432,
+                            "cargo": 59,
+                            "paxByClass": {
+                                "F": 432,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 13869,
+                        "aircraft": 17390,
+                        "handling": 5081,
+                        "landing": 2275
+                    },
+                    "revenue": {
+                        "tickets": 245376,
+                        "cargo": 9440
+                    },
+                    "violations": [
+                        {
+                            "title": "Great touchdown: 1.26G (279 ft/min, challenging  conditions)<br/>Distance from threshold: 644m (accepted range: 200-801m)<br/>Average centerline deviation: 5.54m<br/>Max centerline deviation: 7.99m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.26,
+                                        "rate": 279
+                                    },
+                                    "weather": {
+                                        "windDir": 334.36,
+                                        "windSpd": 9.95,
+                                        "windX": -3.38
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Max G exceeded: 2.22G (max allowed: 2G)",
+                            "penalty": {
+                                "points": -44,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-06T15:09:36.691Z",
+                "updatedAt": "2026-11-06T17:52:14.889Z",
+                "dep": {
+                    "icao": "ESSA",
+                    "name": "Stockholm-Arlanda Airport",
+                    "city": "Stockholm",
+                    "location": {
+                        "lat": 59.64849,
+                        "lon": 17.928829,
+                        "elev": 137
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
             }
         ]
     },
