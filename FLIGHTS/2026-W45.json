@@ -2087,6 +2087,156 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6af0a148d962ff40f1f279c0",
+                "aircraft": {
+                    "_id": "6a4fa15e5760ec7cdb627803",
+                    "name": "Boeing 737-800",
+                    "customName": "Dry Lease l BOEING 737-800",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "78",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 184,
+                    "cargo": 18,
+                    "weights": {
+                        "cargo": 1098
+                    }
+                },
+                "depTime": "2026-11-08T16:55:00.000Z",
+                "duration": 65,
+                "arrTime": "2026-11-08T18:00:00.000Z",
+                "depTimeAct": "2026-11-08T16:54:51.585Z",
+                "delay": 29,
+                "takeoffTimeAct": "2026-11-08T17:07:12.594Z",
+                "durationAct": 82,
+                "arrTimeAct": "2026-11-08T18:29:14.657Z",
+                "open": "2026-11-08T16:26:31.268Z",
+                "close": "2026-11-08T18:39:48.491Z",
+                "rating": 9.8,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 391,
+                        "fuel": 4069,
+                        "expenses": 12741,
+                        "penalties": 0,
+                        "revenue": 22746,
+                        "balance": 10005,
+                        "prices": {
+                            "ticketPrice": 111,
+                            "cargoUnitPrice": 129,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 184,
+                            "cargo": 18,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 184
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4378,
+                        "aircraft": 5250,
+                        "handling": 1547,
+                        "landing": 1566
+                    },
+                    "revenue": {
+                        "tickets": 20424,
+                        "cargo": 2322
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 5.26m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -20,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 1
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.35G (307 ft/min, normal  conditions)<br/>Distance from threshold: 443m (accepted range: 190-763m)<br/>Average centerline deviation: 3.12m<br/>Max centerline deviation: 5.26m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 1
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.35,
+                                        "rate": 307
+                                    },
+                                    "weather": {
+                                        "windDir": 299.98,
+                                        "windSpd": 2.08,
+                                        "windX": 0.04
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-08T16:20:24.074Z",
+                "updatedAt": "2026-11-08T18:39:48.598Z",
+                "dep": {
+                    "icao": "ELLX",
+                    "name": "Luxembourg-Findel International Airport",
+                    "city": "Luxembourg",
+                    "location": {
+                        "lat": 49.626845,
+                        "lon": 6.212134,
+                        "elev": 1234
+                    }
+                },
+                "arr": {
+                    "icao": "EGSS",
+                    "name": "London Stansted Airport",
+                    "city": "London, Essex",
+                    "location": {
+                        "lat": 51.884998,
+                        "lon": 0.235,
+                        "elev": 348
+                    }
+                },
+                "actArr": {
+                    "icao": "EGSS",
+                    "name": "London Stansted Airport",
+                    "city": "London, Essex",
+                    "location": {
+                        "lat": 51.884998,
+                        "lon": 0.235,
+                        "elev": 348
+                    }
+                }
             }
         ]
     },
