@@ -14076,6 +14076,233 @@
                         "elev": 508
                     }
                 }
+            },
+            {
+                "_id": "6af07fdad962ff40f1edd2c8",
+                "aircraft": {
+                    "_id": "6988b9149da57b990ad5b53e",
+                    "name": "Airbus A320 neo",
+                    "customName": "DRY LEASE l free A320neo v2 msfs2024",
+                    "icao": "A20N"
+                },
+                "type": "pax",
+                "flightNumber": "705C",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 122,
+                    "cargo": 21,
+                    "weights": {
+                        "cargo": 1911
+                    }
+                },
+                "depTime": "2026-11-08T14:10:00.000Z",
+                "duration": 55,
+                "arrTime": "2026-11-08T15:05:00.000Z",
+                "depTimeAct": "2026-11-08T14:13:16.367Z",
+                "delay": 0,
+                "takeoffTimeAct": "2026-11-08T14:16:33.371Z",
+                "durationAct": 48,
+                "arrTimeAct": "2026-11-08T15:05:02.404Z",
+                "open": "2026-11-08T14:06:25.901Z",
+                "close": "2026-11-08T15:05:48.437Z",
+                "rating": 7.43,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 276,
+                        "fuel": 1617,
+                        "expenses": 7147,
+                        "penalties": 0,
+                        "revenue": 16275,
+                        "balance": 9128,
+                        "prices": {
+                            "ticketPrice": 108,
+                            "cargoUnitPrice": 127,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.7,
+                                "fuel": 0.8,
+                                "ground": 0.7
+                            }
+                        },
+                        "payload": {
+                            "pax": 122,
+                            "cargo": 21,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 4,
+                                "Y": 118
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1463,
+                        "aircraft": 3800,
+                        "handling": 519,
+                        "landing": 1365
+                    },
+                    "revenue": {
+                        "tickets": 13608,
+                        "cargo": 2667
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 9.44m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -30,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 33
+                                    },
+                                    "weather": {
+                                        "windDir": 269.98,
+                                        "windSpd": 1.02,
+                                        "windX": -0.14
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1026mb instead of 1013.25mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 33
+                                    },
+                                    "weather": {
+                                        "windDir": 269.98,
+                                        "windSpd": 1.02,
+                                        "windX": -0.14
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 12.83m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -66,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 38
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.70G (550 ft/min, challenging  conditions)<br/>Distance from threshold: 450m (accepted range: 209-838m)<br/>Average centerline deviation: 10.38m<br/>Max centerline deviation: 12.83m",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 10
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.7,
+                                        "rate": 550
+                                    },
+                                    "weather": {
+                                        "windDir": 270,
+                                        "windSpd": 1.01,
+                                        "windX": 1.01
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on landing: 1028mb instead of 1013.25mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 10
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.7,
+                                        "rate": 550
+                                    },
+                                    "weather": {
+                                        "windDir": 270,
+                                        "windSpd": 1.01,
+                                        "windX": 1.01
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No BEACON lights for 73s when required",
+                            "penalty": {
+                                "points": -11,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-08T13:57:46.581Z",
+                "updatedAt": "2026-11-08T15:05:48.512Z",
+                "dep": {
+                    "icao": "UKHH",
+                    "name": "Kharkiv International Airport",
+                    "city": "Kharkiv",
+                    "location": {
+                        "lat": 49.926943,
+                        "lon": 36.290814,
+                        "elev": 508
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
             }
         ]
     },
