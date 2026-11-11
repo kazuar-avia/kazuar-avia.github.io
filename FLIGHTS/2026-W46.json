@@ -3484,6 +3484,156 @@
                         "elev": 87
                     }
                 }
+            },
+            {
+                "_id": "6af4da13d962ff40f151cb2a",
+                "aircraft": {
+                    "_id": "6a4fa15e5760ec7cdb627803",
+                    "name": "Boeing 737-800",
+                    "customName": "Dry Lease l BOEING 737-800",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "78",
+                "free": false,
+                "schedule": false,
+                "charter": true,
+                "payload": {
+                    "pax": 189,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-11-11T21:50:00.000Z",
+                "duration": 60,
+                "arrTime": "2026-11-11T22:50:00.000Z",
+                "depTimeAct": "2026-11-11T21:45:38.939Z",
+                "delay": -13,
+                "takeoffTimeAct": "2026-11-11T21:52:39.934Z",
+                "durationAct": 44,
+                "arrTimeAct": "2026-11-11T22:36:41.973Z",
+                "open": "2026-11-11T21:19:36.589Z",
+                "close": "2026-11-11T22:42:33.991Z",
+                "rating": 9.84,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 271,
+                        "fuel": 2492,
+                        "expenses": 9129,
+                        "penalties": 0,
+                        "revenue": 29106,
+                        "balance": 19977,
+                        "prices": {
+                            "ticketPrice": 154,
+                            "cargoUnitPrice": 190,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 189,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 189
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2924,
+                        "aircraft": 4600,
+                        "handling": 945,
+                        "landing": 660
+                    },
+                    "revenue": {
+                        "tickets": 29106,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 4.92m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -16,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 22
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.15G (204 ft/min, normal  conditions)<br/>Distance from threshold: 648m (accepted range: 165-663m)<br/>Average centerline deviation: 1.78m<br/>Max centerline deviation: 2.19m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 23
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.15,
+                                        "rate": 204
+                                    },
+                                    "weather": {
+                                        "windDir": 119.98,
+                                        "windSpd": 10.85,
+                                        "windX": 0.1
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-11T21:11:47.745Z",
+                "updatedAt": "2026-11-11T22:42:34.073Z",
+                "dep": {
+                    "icao": "SBKG",
+                    "name": "Presidente João Suassuna Airport",
+                    "city": "Campina Grande",
+                    "location": {
+                        "lat": -7.269662,
+                        "lon": -35.896057,
+                        "elev": 1646
+                    }
+                },
+                "arr": {
+                    "icao": "SBAR",
+                    "name": "Aracaju - Santa Maria Airport",
+                    "city": "Aracaju",
+                    "location": {
+                        "lat": -10.98394,
+                        "lon": -37.072873,
+                        "elev": 23
+                    }
+                },
+                "actArr": {
+                    "icao": "SBAR",
+                    "name": "Aracaju - Santa Maria Airport",
+                    "city": "Aracaju",
+                    "location": {
+                        "lat": -10.98394,
+                        "lon": -37.072873,
+                        "elev": 23
+                    }
+                }
             }
         ]
     },
