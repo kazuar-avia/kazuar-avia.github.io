@@ -8269,6 +8269,156 @@
                         "elev": 88
                     }
                 }
+            },
+            {
+                "_id": "6af6d802d962ff40f173f570",
+                "aircraft": {
+                    "_id": "6a4fa15e5760ec7cdb627803",
+                    "name": "Boeing 737-800",
+                    "customName": "Dry Lease l BOEING 737-800",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "1204",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 166,
+                    "cargo": 21,
+                    "weights": {
+                        "cargo": 1386
+                    }
+                },
+                "depTime": "2026-11-13T09:50:00.000Z",
+                "duration": 275,
+                "arrTime": "2026-11-13T14:25:00.000Z",
+                "depTimeAct": "2026-11-13T09:50:11.083Z",
+                "delay": -19,
+                "takeoffTimeAct": "2026-11-13T09:54:18.092Z",
+                "durationAct": 251,
+                "arrTimeAct": "2026-11-13T14:05:42.238Z",
+                "open": "2026-11-13T09:33:07.235Z",
+                "close": "2026-11-13T14:11:17.154Z",
+                "rating": 9.95,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1765,
+                        "fuel": 11627,
+                        "expenses": 24592,
+                        "penalties": 0,
+                        "revenue": 51381,
+                        "balance": 26789,
+                        "prices": {
+                            "ticketPrice": 240,
+                            "cargoUnitPrice": 241,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.85
+                            }
+                        },
+                        "payload": {
+                            "pax": 166,
+                            "cargo": 21,
+                            "paxByClass": {
+                                "F": 4,
+                                "C": 15,
+                                "Y": 147
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 13145,
+                        "aircraft": 9325,
+                        "handling": 841,
+                        "landing": 1281
+                    },
+                    "revenue": {
+                        "tickets": 46320,
+                        "cargo": 5061
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 4.37m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -5,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "spoilers",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.23G (245 ft/min, normal  conditions)<br/>Distance from threshold: 462m (accepted range: 197-790m)<br/>Average centerline deviation: 2.47m<br/>Max centerline deviation: 4.37m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.23,
+                                        "rate": 245
+                                    },
+                                    "weather": {
+                                        "windDir": 267.96,
+                                        "windSpd": 10.6,
+                                        "windX": -7.41
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-13T09:27:30.980Z",
+                "updatedAt": "2026-11-13T14:11:17.241Z",
+                "dep": {
+                    "icao": "ENSB",
+                    "name": "Svalbard Airport, Longyear",
+                    "city": "Longyearbyen",
+                    "location": {
+                        "lat": 78.246101,
+                        "lon": 15.4656,
+                        "elev": 88
+                    }
+                },
+                "arr": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "actArr": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                }
             }
         ]
     },
