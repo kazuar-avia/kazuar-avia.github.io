@@ -12122,6 +12122,180 @@
                         "elev": 13
                     }
                 }
+            },
+            {
+                "_id": "6af77128d962ff40f181c1ec",
+                "aircraft": {
+                    "_id": "6a4b7caa5760ec7cdb148f25",
+                    "name": "Fokker 50",
+                    "customName": "Dry Lease l Fokker F50 l XP11",
+                    "icao": "F50"
+                },
+                "type": "pax",
+                "flightNumber": "25F",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 50,
+                    "cargo": 5,
+                    "weights": {
+                        "cargo": 415
+                    }
+                },
+                "depTime": "2026-11-13T20:40:00.000Z",
+                "duration": 65,
+                "arrTime": "2026-11-13T21:45:00.000Z",
+                "depTimeAct": "2026-11-13T20:33:54.720Z",
+                "delay": -23,
+                "takeoffTimeAct": "2026-11-13T20:35:37.129Z",
+                "durationAct": 46,
+                "arrTimeAct": "2026-11-13T21:22:03.671Z",
+                "open": "2026-11-13T20:21:55.078Z",
+                "close": "2026-11-13T21:24:01.036Z",
+                "rating": 9.88,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 175,
+                        "fuel": 728,
+                        "expenses": 2939,
+                        "penalties": 0,
+                        "revenue": 5195,
+                        "balance": 2256,
+                        "prices": {
+                            "ticketPrice": 93,
+                            "cargoUnitPrice": 109,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 50,
+                            "cargo": 5,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 50
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 824,
+                        "aircraft": 1628,
+                        "handling": 227,
+                        "landing": 260
+                    },
+                    "revenue": {
+                        "tickets": 4650,
+                        "cargo": 545
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 4.58m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -9,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.41G (182 ft/min, normal  conditions)<br/>Distance from threshold: 374m (accepted range: 179-720m)<br/>Average centerline deviation: 2.66m<br/>Max centerline deviation: 4.58m",
+                            "penalty": {
+                                "points": -3,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.41,
+                                        "rate": 182
+                                    },
+                                    "weather": {
+                                        "windDir": 51.57,
+                                        "windSpd": 3.57,
+                                        "windX": 2.25
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Fuel used 465 kg is lower than estimated minimum 728 kg.",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.41,
+                                        "rate": 182
+                                    },
+                                    "weather": {
+                                        "windDir": 51.57,
+                                        "windSpd": 3.57,
+                                        "windX": 2.25
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-13T20:20:56.460Z",
+                "updatedAt": "2026-11-13T21:24:01.112Z",
+                "dep": {
+                    "icao": "UKLN",
+                    "name": "Chernivtsi International Airport",
+                    "city": "Chernivtsi",
+                    "location": {
+                        "lat": 48.2593,
+                        "lon": 25.980801,
+                        "elev": 826
+                    }
+                },
+                "arr": {
+                    "icao": "LRSB",
+                    "name": "Sibiu International Airport",
+                    "city": "Sibiu",
+                    "location": {
+                        "lat": 45.785841,
+                        "lon": 24.086666,
+                        "elev": 1496
+                    }
+                },
+                "actArr": {
+                    "icao": "LRSB",
+                    "name": "Sibiu International Airport",
+                    "city": "Sibiu",
+                    "location": {
+                        "lat": 45.785841,
+                        "lon": 24.086666,
+                        "elev": 1496
+                    }
+                }
             }
         ]
     },
