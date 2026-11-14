@@ -5842,6 +5842,180 @@
                         "elev": 508
                     }
                 }
+            },
+            {
+                "_id": "6af86aafd962ff40f194938e",
+                "aircraft": {
+                    "_id": "6a4fa15e5760ec7cdb627803",
+                    "name": "Boeing 737-800",
+                    "customName": "Dry Lease l BOEING 737-800",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "78",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 166,
+                    "cargo": 28,
+                    "weights": {
+                        "cargo": 2128
+                    }
+                },
+                "depTime": "2026-11-14T14:45:00.000Z",
+                "duration": 70,
+                "arrTime": "2026-11-14T15:55:00.000Z",
+                "depTimeAct": "2026-11-14T14:44:52.395Z",
+                "delay": 1,
+                "takeoffTimeAct": "2026-11-14T14:53:10.406Z",
+                "durationAct": 63,
+                "arrTimeAct": "2026-11-14T15:56:22.450Z",
+                "open": "2026-11-14T14:16:12.188Z",
+                "close": "2026-11-14T16:05:03.520Z",
+                "rating": 8.13,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 406,
+                        "fuel": 3017,
+                        "expenses": 11103,
+                        "penalties": 0,
+                        "revenue": 25477,
+                        "balance": 14374,
+                        "prices": {
+                            "ticketPrice": 113,
+                            "cargoUnitPrice": 131,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 166,
+                            "cargo": 28,
+                            "paxByClass": {
+                                "F": 4,
+                                "C": 15,
+                                "Y": 147
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3411,
+                        "aircraft": 4950,
+                        "handling": 1176,
+                        "landing": 1566
+                    },
+                    "revenue": {
+                        "tickets": 21809,
+                        "cargo": 3668
+                    },
+                    "violations": [
+                        {
+                            "title": "Long landing (931m from threshold beyond 824m max accepted)",
+                            "penalty": {
+                                "points": -37,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 22
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.38,
+                                        "rate": 340
+                                    },
+                                    "weather": {
+                                        "windDir": 150.02,
+                                        "windSpd": 8.5,
+                                        "windX": -0.04
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.38G (340 ft/min, normal  conditions)<br/>Distance from threshold: 931m (accepted range: 205-824m)<br/>Average centerline deviation: 0.64m<br/>Max centerline deviation: 0.82m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 22
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.38,
+                                        "rate": 340
+                                    },
+                                    "weather": {
+                                        "windDir": 150.02,
+                                        "windSpd": 8.5,
+                                        "windX": -0.04
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 597ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 22
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-14T14:05:35.336Z",
+                "updatedAt": "2026-11-14T16:05:03.596Z",
+                "dep": {
+                    "icao": "EKBI",
+                    "name": "Billund Airport",
+                    "city": "Billund",
+                    "location": {
+                        "lat": 55.740335,
+                        "lon": 9.157019,
+                        "elev": 247
+                    }
+                },
+                "arr": {
+                    "icao": "EDDK",
+                    "name": "Cologne Bonn Airport",
+                    "city": "Köln (Cologne)",
+                    "location": {
+                        "lat": 50.865898,
+                        "lon": 7.14274,
+                        "elev": 302
+                    }
+                },
+                "actArr": {
+                    "icao": "EDDK",
+                    "name": "Cologne Bonn Airport",
+                    "city": "Köln (Cologne)",
+                    "location": {
+                        "lat": 50.865898,
+                        "lon": 7.14274,
+                        "elev": 302
+                    }
+                }
             }
         ]
     },
