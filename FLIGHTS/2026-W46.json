@@ -13867,6 +13867,165 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6af8a8a2d962ff40f19cc889",
+                "aircraft": {
+                    "_id": "6a4f69f85760ec7cdb5e7cef",
+                    "name": "Boeing 737-800",
+                    "customName": "SkyUp l 737-800 based in UKOO UKBB l UR-SQC",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "192",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 189,
+                    "cargo": 20,
+                    "weights": {
+                        "cargo": 1900
+                    }
+                },
+                "depTime": "2026-11-14T18:50:00.000Z",
+                "duration": 160,
+                "arrTime": "2026-11-14T21:30:00.000Z",
+                "depTimeAct": "2026-11-14T18:51:01.440Z",
+                "delay": -4,
+                "takeoffTimeAct": "2026-11-14T19:02:31.161Z",
+                "durationAct": 144,
+                "arrTimeAct": "2026-11-14T21:26:17.884Z",
+                "open": "2026-11-14T18:45:20.327Z",
+                "close": "2026-11-14T21:29:36.035Z",
+                "rating": 8.95,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1026,
+                        "fuel": 6769,
+                        "expenses": 14292,
+                        "penalties": 783,
+                        "revenue": 39930,
+                        "balance": 24855,
+                        "prices": {
+                            "ticketPrice": 190,
+                            "cargoUnitPrice": 201,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 189,
+                            "cargo": 20,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 189
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 6122,
+                        "aircraft": 5975,
+                        "handling": 1358,
+                        "landing": 837
+                    },
+                    "revenue": {
+                        "tickets": 35910,
+                        "cargo": 4020
+                    },
+                    "violations": [
+                        {
+                            "title": "MLW exceeded: 130kg above maximum landing weight of 66361kg",
+                            "penalty": {
+                                "points": -12,
+                                "cash": 783
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 22
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.81,
+                                        "rate": 795
+                                    },
+                                    "weather": {
+                                        "windDir": 349.81,
+                                        "windSpd": 1.85,
+                                        "windX": -1.82
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Uncomfortable touchdown: 1.81G (795 ft/min, normal  conditions)<br/>Distance from threshold: 505m (accepted range: 206-826m)<br/>Average centerline deviation: 0.67m<br/>Max centerline deviation: 1.50m",
+                            "penalty": {
+                                "points": -93,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 22
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.81,
+                                        "rate": 795
+                                    },
+                                    "weather": {
+                                        "windDir": 349.81,
+                                        "windSpd": 1.85,
+                                        "windX": -1.82
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-14T18:29:54.266Z",
+                "updatedAt": "2026-11-14T21:29:36.112Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "UDYZ",
+                    "name": "Zvartnots International Airport",
+                    "city": "Yerevan",
+                    "location": {
+                        "lat": 40.148941,
+                        "lon": 44.397887,
+                        "elev": 2838
+                    }
+                },
+                "actArr": {
+                    "icao": "UDYZ",
+                    "name": "Zvartnots International Airport",
+                    "city": "Yerevan",
+                    "location": {
+                        "lat": 40.148941,
+                        "lon": 44.397887,
+                        "elev": 2838
+                    }
+                }
             }
         ]
     },
