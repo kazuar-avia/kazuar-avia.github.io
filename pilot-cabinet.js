@@ -4988,6 +4988,7 @@ function companyLiveryAnyLiveRecordForCard(card, headline = null) {
     const cardIcaos = companyLiveryCardAircraftIcaos(card, headline);
     const allCards = [...document.querySelectorAll('#companyView .company-livery-card')];
     liveFlight = liveFlights.find(flight => {
+      if (companyLiveryLiveFlightAircraftId(flight)) return false;
       const icao = companyLiveryLiveFlightAircraftIcao(flight);
       if (!icao || !cardIcaos.includes(icao)) return false;
       const sameIcaoCards = allCards.filter(item => companyLiveryCardAircraftIcaos(item).includes(icao));
