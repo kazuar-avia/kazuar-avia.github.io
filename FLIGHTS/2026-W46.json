@@ -6826,6 +6826,156 @@
                         "elev": 302
                     }
                 }
+            },
+            {
+                "_id": "6af9dd0dd962ff40f1b86bfe",
+                "aircraft": {
+                    "_id": "6a4fa15e5760ec7cdb627803",
+                    "name": "Boeing 737-800",
+                    "customName": "Dry Lease l BOEING 737-800",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "78",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 166,
+                    "cargo": 18,
+                    "weights": {
+                        "cargo": 1512
+                    }
+                },
+                "depTime": "2026-11-15T17:05:00.000Z",
+                "duration": 65,
+                "arrTime": "2026-11-15T18:10:00.000Z",
+                "depTimeAct": "2026-11-15T17:00:44.732Z",
+                "delay": -7,
+                "takeoffTimeAct": "2026-11-15T17:02:56.741Z",
+                "durationAct": 60,
+                "arrTimeAct": "2026-11-15T18:02:50.785Z",
+                "open": "2026-11-15T16:32:56.646Z",
+                "close": "2026-11-15T18:12:16.231Z",
+                "rating": 9.84,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 341,
+                        "fuel": 2678,
+                        "expenses": 12176,
+                        "penalties": 0,
+                        "revenue": 23956,
+                        "balance": 11780,
+                        "prices": {
+                            "ticketPrice": 112,
+                            "cargoUnitPrice": 130,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 166,
+                            "cargo": 18,
+                            "paxByClass": {
+                                "F": 4,
+                                "C": 15,
+                                "Y": 147
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3125,
+                        "aircraft": 5000,
+                        "handling": 1171,
+                        "landing": 2880
+                    },
+                    "revenue": {
+                        "tickets": 21616,
+                        "cargo": 2340
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 5.01m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -16,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 22
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.05G (46 ft/min, normal  conditions)<br/>Distance from threshold: 648m (accepted range: 199-800m)<br/>Average centerline deviation: 2.76m<br/>Max centerline deviation: 5.01m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 22
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.05,
+                                        "rate": 46
+                                    },
+                                    "weather": {
+                                        "windDir": 79.97,
+                                        "windSpd": 9.99,
+                                        "windX": -0.03
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-15T16:25:49.107Z",
+                "updatedAt": "2026-11-15T18:12:16.311Z",
+                "dep": {
+                    "icao": "KABQ",
+                    "name": "Albuquerque International Sunport",
+                    "city": "Albuquerque",
+                    "location": {
+                        "lat": 35.039976,
+                        "lon": -106.608925,
+                        "elev": 5355
+                    }
+                },
+                "arr": {
+                    "icao": "KPHX",
+                    "name": "Phoenix Sky Harbor International Airport",
+                    "city": "Phoenix",
+                    "location": {
+                        "lat": 33.435302,
+                        "lon": -112.005905,
+                        "elev": 1135
+                    }
+                },
+                "actArr": {
+                    "icao": "KPHX",
+                    "name": "Phoenix Sky Harbor International Airport",
+                    "city": "Phoenix",
+                    "location": {
+                        "lat": 33.435302,
+                        "lon": -112.005905,
+                        "elev": 1135
+                    }
+                }
             }
         ]
     },
