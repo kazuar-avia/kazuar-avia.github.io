@@ -1,0 +1,240 @@
+[
+    {
+        "pilot_id": "69c3ced7c739a30ec89bfda3",
+        "fullname": "Yury Tr",
+        "avatar": "69c3ced7c739a30ec89bfda31792763653809",
+        "flights": [
+            {
+                "_id": "6afa63f8d962ff40f1c52d84",
+                "aircraft": {
+                    "_id": "6afa30efd962ff40f1c2268f",
+                    "name": "Antonov An-28",
+                    "customName": "An-28 pax",
+                    "icao": "AN28"
+                },
+                "type": "pax",
+                "flightNumber": "28AN",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 9,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-11-16T02:15:00.000Z",
+                "duration": 95,
+                "arrTime": "2026-11-16T03:50:00.000Z",
+                "depTimeAct": "2026-11-16T02:07:15.706Z",
+                "delay": -5,
+                "takeoffTimeAct": "2026-11-16T02:10:44.119Z",
+                "durationAct": 94,
+                "arrTimeAct": "2026-11-16T03:44:53.500Z",
+                "open": "2026-11-16T02:04:33.298Z",
+                "close": "2026-11-16T03:46:55.549Z",
+                "rating": 6.85,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 269,
+                        "fuel": 819,
+                        "expenses": 2748,
+                        "penalties": 0,
+                        "revenue": 990,
+                        "balance": -1758,
+                        "prices": {
+                            "ticketPrice": 110,
+                            "cargoUnitPrice": 129,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.7,
+                                "fuel": 0.8,
+                                "ground": 0.7
+                            }
+                        },
+                        "payload": {
+                            "pax": 9,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 9
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 741,
+                        "aircraft": 1670,
+                        "handling": 38,
+                        "landing": 299
+                    },
+                    "revenue": {
+                        "tickets": 990,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Incorrect flaps for takeoff",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 33
+                                    },
+                                    "weather": {
+                                        "windDir": 160.82,
+                                        "windSpd": 9.01,
+                                        "windX": 8.59
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 4.13m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -2,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.45G (339 ft/min, normal  conditions)<br/>Distance from threshold: 358m (accepted range: 197-790m)<br/>Average centerline deviation: 2.01m<br/>Max centerline deviation: 4.13m",
+                            "penalty": {
+                                "points": -13,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.45,
+                                        "rate": 339
+                                    },
+                                    "weather": {
+                                        "windDir": 150.73,
+                                        "windSpd": 6.29,
+                                        "windX": -1.54
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on landing: 1017mb instead of 1023.9mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.45,
+                                        "rate": 339
+                                    },
+                                    "weather": {
+                                        "windDir": 150.73,
+                                        "windSpd": 6.29,
+                                        "windX": -1.54
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No STROBE lights for 5646s when required",
+                            "penalty": {
+                                "points": -100,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        },
+                        {
+                            "title": "Fuel used 472 kg is lower than estimated minimum 819 kg.",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.45,
+                                        "rate": 339
+                                    },
+                                    "weather": {
+                                        "windDir": 150.73,
+                                        "windSpd": 6.29,
+                                        "windX": -1.54
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-16T02:01:28.602Z",
+                "updatedAt": "2026-11-16T03:46:55.632Z",
+                "dep": {
+                    "icao": "UKKK",
+                    "name": "Igor Sikorsky Kyiv International Airport (Zhuliany)",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.40194,
+                        "lon": 30.45194,
+                        "elev": 587
+                    }
+                },
+                "arr": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "actArr": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                }
+            }
+        ]
+    }
+]
