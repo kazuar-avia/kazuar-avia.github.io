@@ -4725,6 +4725,161 @@
                         "elev": 594
                     }
                 }
+            },
+            {
+                "_id": "6afc7a90d962ff40f1e63a16",
+                "aircraft": {
+                    "_id": "69a3f2119da57b990aaa1899",
+                    "name": "BAe 146-300 QT",
+                    "customName": "UkrPost l BAe 146-300 QT (cargo) based in UKLN l UR-UPS",
+                    "icao": "B463"
+                },
+                "type": "cargo",
+                "flightNumber": "584E",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 0,
+                    "cargo": 84,
+                    "weights": {
+                        "cargo": 6552
+                    }
+                },
+                "depTime": "2026-11-17T16:15:00.000Z",
+                "duration": 65,
+                "arrTime": "2026-11-17T17:20:00.000Z",
+                "depTimeAct": "2026-11-17T16:23:20.299Z",
+                "delay": 9,
+                "takeoffTimeAct": "2026-11-17T16:32:34.040Z",
+                "durationAct": 57,
+                "arrTimeAct": "2026-11-17T17:29:07.187Z",
+                "open": "2026-11-17T16:10:07.203Z",
+                "close": "2026-11-17T17:32:16.522Z",
+                "rating": 9,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 291,
+                        "fuel": 1518,
+                        "expenses": 3683,
+                        "penalties": 5000,
+                        "revenue": 11340,
+                        "balance": 2657,
+                        "prices": {
+                            "ticketPrice": 109,
+                            "cargoUnitPrice": 135,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 0,
+                            "cargo": 84,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1373,
+                        "aircraft": 1920,
+                        "handling": 147,
+                        "landing": 243
+                    },
+                    "revenue": {
+                        "tickets": 0,
+                        "cargo": 11340
+                    },
+                    "violations": [
+                        {
+                            "title": "Tail wind value exceeded on takeoff (measured: 12 KT, allowed: 10 KT)",
+                            "penalty": {
+                                "points": -100,
+                                "cash": 5000
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    },
+                                    "weather": {
+                                        "windDir": 186.35,
+                                        "windSpd": 13.49,
+                                        "windX": -5.53
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.40G (479 ft/min, challenging  conditions)<br/>Distance from threshold: 294m (accepted range: 177-710m)<br/>Average centerline deviation: 0.68m<br/>Max centerline deviation: 1.35m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 48
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.4,
+                                        "rate": 479
+                                    },
+                                    "weather": {
+                                        "windDir": 130.91,
+                                        "windSpd": 13.41,
+                                        "windX": 6.87
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-17T16:02:24.951Z",
+                "updatedAt": "2026-11-17T17:32:16.610Z",
+                "dep": {
+                    "icao": "UKOO",
+                    "name": "Odesa International Airport",
+                    "city": "Odesa",
+                    "location": {
+                        "lat": 46.427196,
+                        "lon": 30.672649,
+                        "elev": 172
+                    }
+                },
+                "arr": {
+                    "icao": "UKHP",
+                    "name": "Suprunovka Airport",
+                    "city": "Poltava",
+                    "location": {
+                        "lat": 49.5686,
+                        "lon": 34.397202,
+                        "elev": 505
+                    }
+                },
+                "actArr": {
+                    "icao": "UKHP",
+                    "name": "Suprunovka Airport",
+                    "city": "Poltava",
+                    "location": {
+                        "lat": 49.5686,
+                        "lon": 34.397202,
+                        "elev": 505
+                    }
+                }
             }
         ]
     },
