@@ -3774,5 +3774,162 @@
                 }
             }
         ]
+    },
+    {
+        "pilot_id": "653037e6139a4e9a333116c1",
+        "fullname": "Roman Zavialov",
+        "avatar": "default",
+        "flights": [
+            {
+                "_id": "6afbf68ed962ff40f1ddb3ac",
+                "aircraft": {
+                    "_id": "69ef2347a5e61d69a7a9a2b0",
+                    "name": "Airbus A320",
+                    "customName": "WizzAir Ukraine l A320 IAE SL based in UKBB l UR-WUB",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "6106",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 168,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-11-17T06:50:00.000Z",
+                "duration": 120,
+                "arrTime": "2026-11-17T08:50:00.000Z",
+                "depTimeAct": "2026-11-17T07:09:42.359Z",
+                "delay": 62,
+                "takeoffTimeAct": "2026-11-17T07:19:57.361Z",
+                "durationAct": 152,
+                "arrTimeAct": "2026-11-17T09:51:40.455Z",
+                "open": "2026-11-17T07:07:25.367Z",
+                "close": "2026-11-17T09:55:17.634Z",
+                "rating": 7.85,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 968,
+                        "fuel": 6159,
+                        "expenses": 14662,
+                        "penalties": 18420,
+                        "revenue": 22848,
+                        "balance": -10234,
+                        "prices": {
+                            "ticketPrice": 136,
+                            "cargoUnitPrice": 148,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 168,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 168
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 5571,
+                        "aircraft": 6700,
+                        "handling": 1176,
+                        "landing": 1215
+                    },
+                    "revenue": {
+                        "tickets": 22848,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight delayed 5 minutes (max 15 minutes after scheduled is allowed)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 420
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Bad touchdown: 2.36G (879 ft/min, challenging  conditions)<br/>Distance from threshold: 531m (accepted range: 187-749m)<br/>Average centerline deviation: 4.91m<br/>Max centerline deviation: 7.21m",
+                            "penalty": {
+                                "points": -215,
+                                "cash": 18000
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.36,
+                                        "rate": 879
+                                    },
+                                    "weather": {
+                                        "windDir": 160.03,
+                                        "windSpd": 22.33,
+                                        "windX": 1.95
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-17T06:39:10.853Z",
+                "updatedAt": "2026-11-17T09:55:17.738Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "EFHK",
+                    "name": "Helsinki Vantaa Airport",
+                    "city": "Helsinki (Vantaa)",
+                    "location": {
+                        "lat": 60.318363,
+                        "lon": 24.963341,
+                        "elev": 179
+                    }
+                },
+                "actArr": {
+                    "icao": "EFHK",
+                    "name": "Helsinki Vantaa Airport",
+                    "city": "Helsinki (Vantaa)",
+                    "location": {
+                        "lat": 60.318363,
+                        "lon": 24.963341,
+                        "elev": 179
+                    }
+                }
+            }
+        ]
     }
 ]
