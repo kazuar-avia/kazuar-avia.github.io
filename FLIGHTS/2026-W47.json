@@ -3088,6 +3088,156 @@
                         "elev": 3021
                     }
                 }
+            },
+            {
+                "_id": "6afcc3cfd962ff40f1ed5eb1",
+                "aircraft": {
+                    "_id": "69847d4e9da57b990a58cf4f",
+                    "name": "Airbus A350-900",
+                    "customName": "Dry Lease l A350-900",
+                    "icao": "A359"
+                },
+                "type": "pax",
+                "flightNumber": "78",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 352,
+                    "cargo": 52,
+                    "weights": {
+                        "cargo": 7228
+                    }
+                },
+                "depTime": "2026-11-17T22:00:00.000Z",
+                "duration": 75,
+                "arrTime": "2026-11-17T23:15:00.000Z",
+                "depTimeAct": "2026-11-17T22:00:29.113Z",
+                "delay": 17,
+                "takeoffTimeAct": "2026-11-17T22:10:39.122Z",
+                "durationAct": 82,
+                "arrTimeAct": "2026-11-17T23:32:26.184Z",
+                "open": "2026-11-17T21:47:43.786Z",
+                "close": "2026-11-17T23:48:55.858Z",
+                "rating": 9.73,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 479,
+                        "fuel": 9909,
+                        "expenses": 36564,
+                        "penalties": 0,
+                        "revenue": 60820,
+                        "balance": 24256,
+                        "prices": {
+                            "ticketPrice": 116,
+                            "cargoUnitPrice": 139,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 352,
+                            "cargo": 52,
+                            "paxByClass": {
+                                "F": 22,
+                                "C": 44,
+                                "Y": 286
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 11320,
+                        "aircraft": 18450,
+                        "handling": 3194,
+                        "landing": 3600
+                    },
+                    "revenue": {
+                        "tickets": 53592,
+                        "cargo": 7228
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 6.36m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -27,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 23
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.30G (372 ft/min, normal  conditions)<br/>Distance from threshold: 544m (accepted range: 203-815m)<br/>Average centerline deviation: 2.96m<br/>Max centerline deviation: 6.36m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 22
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.3,
+                                        "rate": 372
+                                    },
+                                    "weather": {
+                                        "windDir": 200.23,
+                                        "windSpd": 4.05,
+                                        "windX": 2.01
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-17T21:14:55.823Z",
+                "updatedAt": "2026-11-17T23:48:55.965Z",
+                "dep": {
+                    "icao": "ROAH",
+                    "city": "Naha",
+                    "location": {
+                        "lat": 26.192437,
+                        "lon": 127.639804,
+                        "elev": 12
+                    },
+                    "name": "Naha International Airport"
+                },
+                "arr": {
+                    "icao": "RCTP",
+                    "name": "Taiwan Taoyuan International Airport",
+                    "city": "Taoyuan",
+                    "location": {
+                        "lat": 25.0777,
+                        "lon": 121.233002,
+                        "elev": 106
+                    }
+                },
+                "actArr": {
+                    "icao": "RCTP",
+                    "name": "Taiwan Taoyuan International Airport",
+                    "city": "Taoyuan",
+                    "location": {
+                        "lat": 25.0777,
+                        "lon": 121.233002,
+                        "elev": 106
+                    }
+                }
             }
         ]
     },
