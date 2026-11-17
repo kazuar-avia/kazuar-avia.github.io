@@ -393,6 +393,219 @@
                         "elev": 774
                     }
                 }
+            },
+            {
+                "_id": "6afc9ce2d962ff40f1e9a352",
+                "aircraft": {
+                    "_id": "6afa30efd962ff40f1c2268f",
+                    "name": "Antonov An-28",
+                    "customName": "An-28 pax",
+                    "icao": "AN28"
+                },
+                "type": "pax",
+                "flightNumber": "57N",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 17,
+                    "cargo": 2,
+                    "weights": {
+                        "cargo": 134
+                    }
+                },
+                "depTime": "2026-11-17T18:50:00.000Z",
+                "duration": 55,
+                "arrTime": "2026-11-17T19:45:00.000Z",
+                "depTimeAct": "2026-11-17T18:38:28.950Z",
+                "delay": -29,
+                "takeoffTimeAct": "2026-11-17T18:42:32.271Z",
+                "durationAct": 33,
+                "arrTimeAct": "2026-11-17T19:15:46.429Z",
+                "open": "2026-11-17T18:36:15.612Z",
+                "close": "2026-11-17T19:22:59.712Z",
+                "rating": 7.92,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 123,
+                        "fuel": 287,
+                        "expenses": 1762,
+                        "penalties": 0,
+                        "revenue": 895,
+                        "balance": -867,
+                        "prices": {
+                            "ticketPrice": 68,
+                            "cargoUnitPrice": 80,
+                            "costScalars": {
+                                "timeAcceleration": 0.68,
+                                "dep": 1,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.85
+                            }
+                        },
+                        "payload": {
+                            "pax": 17,
+                            "cargo": 2,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 17
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 221,
+                        "aircraft": 1090,
+                        "handling": 103,
+                        "landing": 348
+                    },
+                    "revenue": {
+                        "tickets": 786,
+                        "cargo": 109
+                    },
+                    "violations": [
+                        {
+                            "title": "Great touchdown: 1.36G (258 ft/min, challenging  conditions)<br/>Distance from threshold: 319m (accepted range: 203-815m)<br/>Average centerline deviation: 2.28m<br/>Max centerline deviation: 3.67m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.36,
+                                        "rate": 258
+                                    },
+                                    "weather": {
+                                        "windDir": 185.25,
+                                        "windSpd": 8.72,
+                                        "windX": -1.16
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Max G exceeded: 2.82G (max allowed: 2G)",
+                            "penalty": {
+                                "points": -164,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 54
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Min G exceeded: -0.22G (min allowed: 0G)",
+                            "penalty": {
+                                "points": -44,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 56
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Time acceleration used (1.47x) - reduced revenue",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.36,
+                                        "rate": 258
+                                    },
+                                    "weather": {
+                                        "windDir": 185.25,
+                                        "windSpd": 8.72,
+                                        "windX": -1.16
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Fuel used 218 kg is lower than estimated minimum 287 kg.",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 37
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.36,
+                                        "rate": 258
+                                    },
+                                    "weather": {
+                                        "windDir": 185.25,
+                                        "windSpd": 8.72,
+                                        "windX": -1.16
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-17T18:28:50.871Z",
+                "updatedAt": "2026-11-17T19:22:59.788Z",
+                "dep": {
+                    "icao": "UKFK",
+                    "city": "Kerch",
+                    "location": {
+                        "lat": 45.372501,
+                        "lon": 36.401402,
+                        "elev": 171
+                    },
+                    "name": "Kerch Airport"
+                },
+                "arr": {
+                    "icao": "UKFF",
+                    "city": "Simferopol",
+                    "location": {
+                        "lat": 45.0522,
+                        "lon": 33.975101,
+                        "elev": 639
+                    },
+                    "name": "Simferopol International Airport"
+                },
+                "actArr": {
+                    "icao": "UKFF",
+                    "city": "Simferopol",
+                    "location": {
+                        "lat": 45.0522,
+                        "lon": 33.975101,
+                        "elev": 639
+                    },
+                    "name": "Simferopol International Airport"
+                }
             }
         ]
     },
