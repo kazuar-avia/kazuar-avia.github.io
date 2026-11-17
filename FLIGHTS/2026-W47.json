@@ -2208,6 +2208,165 @@
                         "elev": 648
                     }
                 }
+            },
+            {
+                "_id": "6afc9c68d962ff40f1e99348",
+                "aircraft": {
+                    "_id": "6980e9459da57b990a02e1bd",
+                    "name": "Boeing 737 MAX 8",
+                    "customName": "Ukraine Int l 737-MAX8 189 pax iFly l UR-MXA",
+                    "icao": "B38M"
+                },
+                "type": "pax",
+                "flightNumber": "892T",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 189,
+                    "cargo": 37,
+                    "weights": {
+                        "cargo": 2479
+                    }
+                },
+                "depTime": "2026-11-17T18:50:00.000Z",
+                "duration": 130,
+                "arrTime": "2026-11-17T21:00:00.000Z",
+                "depTimeAct": "2026-11-17T18:53:33.428Z",
+                "delay": 13,
+                "takeoffTimeAct": "2026-11-17T19:00:39.449Z",
+                "durationAct": 132,
+                "arrTimeAct": "2026-11-17T21:12:42.155Z",
+                "open": "2026-11-17T18:45:06.977Z",
+                "close": "2026-11-17T21:19:07.682Z",
+                "rating": 9.56,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 820,
+                        "fuel": 5901,
+                        "expenses": 13654,
+                        "penalties": 2957,
+                        "revenue": 32984,
+                        "balance": 16373,
+                        "prices": {
+                            "ticketPrice": 143,
+                            "cargoUnitPrice": 161,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 189,
+                            "cargo": 37,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 189
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 5337,
+                        "aircraft": 6200,
+                        "handling": 1388,
+                        "landing": 729
+                    },
+                    "revenue": {
+                        "tickets": 27027,
+                        "cargo": 5957
+                    },
+                    "violations": [
+                        {
+                            "title": "MLW exceeded: 512kg above maximum landing weight of 69308kg",
+                            "penalty": {
+                                "points": -44,
+                                "cash": 2957
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.49,
+                                        "rate": 490
+                                    },
+                                    "weather": {
+                                        "windDir": 148.16,
+                                        "windSpd": 6.77,
+                                        "windX": 6.74
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.49G (490 ft/min, challenging  conditions)<br/>Distance from threshold: 357m (accepted range: 177-711m)<br/>Average centerline deviation: 1.57m<br/>Max centerline deviation: 2.49m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.49,
+                                        "rate": 490
+                                    },
+                                    "weather": {
+                                        "windDir": 148.16,
+                                        "windSpd": 6.77,
+                                        "windX": 6.74
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-17T18:26:48.012Z",
+                "updatedAt": "2026-11-17T21:19:07.766Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "LDSP",
+                    "name": "Split Saint Jerome Airport",
+                    "city": "Split",
+                    "location": {
+                        "lat": 43.538898,
+                        "lon": 16.298,
+                        "elev": 79
+                    }
+                },
+                "actArr": {
+                    "icao": "LDSP",
+                    "name": "Split Saint Jerome Airport",
+                    "city": "Split",
+                    "location": {
+                        "lat": 43.538898,
+                        "lon": 16.298,
+                        "elev": 79
+                    }
+                }
             }
         ]
     },
