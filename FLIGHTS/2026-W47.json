@@ -3491,6 +3491,217 @@
                         "elev": 35
                     }
                 }
+            },
+            {
+                "_id": "6afca06ed962ff40f1ea0536",
+                "aircraft": {
+                    "_id": "6a4fa15e5760ec7cdb627803",
+                    "name": "Boeing 737-800",
+                    "customName": "Dry Lease l BOEING 737-800",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "653Y",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 127,
+                    "cargo": 34,
+                    "weights": {
+                        "cargo": 2278
+                    }
+                },
+                "depTime": "2026-11-17T19:00:00.000Z",
+                "duration": 40,
+                "arrTime": "2026-11-17T19:40:00.000Z",
+                "depTimeAct": "2026-11-17T18:51:16.205Z",
+                "delay": -16,
+                "takeoffTimeAct": "2026-11-17T18:51:21.415Z",
+                "durationAct": 33,
+                "arrTimeAct": "2026-11-17T19:24:18.140Z",
+                "open": "2026-11-17T18:50:53.550Z",
+                "close": "2026-11-17T19:33:53.440Z",
+                "rating": 7.83,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 140,
+                        "fuel": 1202,
+                        "expenses": 7504,
+                        "penalties": 0,
+                        "revenue": 11356,
+                        "balance": 3852,
+                        "prices": {
+                            "ticketPrice": 68,
+                            "cargoUnitPrice": 80,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.85
+                            }
+                        },
+                        "payload": {
+                            "pax": 127,
+                            "cargo": 34,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 127
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1359,
+                        "aircraft": 3875,
+                        "handling": 779,
+                        "landing": 1491
+                    },
+                    "revenue": {
+                        "tickets": 8636,
+                        "cargo": 2720
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 9.65m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -52,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 27
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.35G (271 ft/min, challenging  conditions)<br/>Distance from threshold: 636m (accepted range: 203-815m)<br/>Average centerline deviation: 0.39m<br/>Max centerline deviation: 0.81m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.35,
+                                        "rate": 271
+                                    },
+                                    "weather": {
+                                        "windDir": 182.15,
+                                        "windSpd": 7.54,
+                                        "windX": 1.48
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on landing: 1008mb instead of 1005.6mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.35,
+                                        "rate": 271
+                                    },
+                                    "weather": {
+                                        "windDir": 182.15,
+                                        "windSpd": 7.54,
+                                        "windX": 1.48
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Overspeed for 23 seconds",
+                            "penalty": {
+                                "points": -115,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        },
+                        {
+                            "title": "Fuel used 1169 kg is lower than estimated minimum 1202 kg.",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.35,
+                                        "rate": 271
+                                    },
+                                    "weather": {
+                                        "windDir": 182.15,
+                                        "windSpd": 7.54,
+                                        "windX": 1.48
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-17T18:43:58.191Z",
+                "updatedAt": "2026-11-17T19:33:53.518Z",
+                "dep": {
+                    "icao": "UKFK",
+                    "city": "Kerch",
+                    "location": {
+                        "lat": 45.372501,
+                        "lon": 36.401402,
+                        "elev": 171
+                    },
+                    "name": "Kerch Airport"
+                },
+                "arr": {
+                    "icao": "UKFF",
+                    "city": "Simferopol",
+                    "location": {
+                        "lat": 45.0522,
+                        "lon": 33.975101,
+                        "elev": 639
+                    },
+                    "name": "Simferopol International Airport"
+                },
+                "actArr": {
+                    "icao": "UKFF",
+                    "city": "Simferopol",
+                    "location": {
+                        "lat": 45.0522,
+                        "lon": 33.975101,
+                        "elev": 639
+                    },
+                    "name": "Simferopol International Airport"
+                }
             }
         ]
     },
