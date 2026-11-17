@@ -1819,6 +1819,156 @@
                         "elev": 298
                     }
                 }
+            },
+            {
+                "_id": "6afc03fad962ff40f1de2ead",
+                "aircraft": {
+                    "_id": "6a4fa15e5760ec7cdb627803",
+                    "name": "Boeing 737-800",
+                    "customName": "Dry Lease l BOEING 737-800",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "78",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 166,
+                    "cargo": 18,
+                    "weights": {
+                        "cargo": 1908
+                    }
+                },
+                "depTime": "2026-11-17T08:20:00.000Z",
+                "duration": 70,
+                "arrTime": "2026-11-17T09:30:00.000Z",
+                "depTimeAct": "2026-11-17T08:10:31.353Z",
+                "delay": 1,
+                "takeoffTimeAct": "2026-11-17T08:18:51.366Z",
+                "durationAct": 72,
+                "arrTimeAct": "2026-11-17T09:30:39.419Z",
+                "open": "2026-11-17T07:45:20.945Z",
+                "close": "2026-11-17T09:35:21.920Z",
+                "rating": 9.15,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 372,
+                        "fuel": 3410,
+                        "expenses": 11889,
+                        "penalties": 0,
+                        "revenue": 23956,
+                        "balance": 12067,
+                        "prices": {
+                            "ticketPrice": 112,
+                            "cargoUnitPrice": 130,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 166,
+                            "cargo": 18,
+                            "paxByClass": {
+                                "F": 4,
+                                "C": 15,
+                                "Y": 147
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4001,
+                        "aircraft": 5275,
+                        "handling": 1503,
+                        "landing": 1110
+                    },
+                    "revenue": {
+                        "tickets": 21616,
+                        "cargo": 2340
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 12.26m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -85,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 23
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.26G (270 ft/min, challenging  conditions)<br/>Distance from threshold: 650m (accepted range: 189-759m)<br/>Average centerline deviation: 5.11m<br/>Max centerline deviation: 12.26m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 23
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.26,
+                                        "rate": 270
+                                    },
+                                    "weather": {
+                                        "windDir": 110.03,
+                                        "windSpd": 18.59,
+                                        "windX": 0.25
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-17T07:36:26.857Z",
+                "updatedAt": "2026-11-17T09:35:21.997Z",
+                "dep": {
+                    "icao": "MPTO",
+                    "name": "Tocumen International Airport",
+                    "city": "Tocumen",
+                    "location": {
+                        "lat": 9.07136,
+                        "lon": -79.383499,
+                        "elev": 135
+                    }
+                },
+                "arr": {
+                    "icao": "MROC",
+                    "name": "Juan Santamaría International Airport",
+                    "city": "San José (Alajuela)",
+                    "location": {
+                        "lat": 9.99386,
+                        "lon": -84.208801,
+                        "elev": 3021
+                    }
+                },
+                "actArr": {
+                    "icao": "MROC",
+                    "name": "Juan Santamaría International Airport",
+                    "city": "San José (Alajuela)",
+                    "location": {
+                        "lat": 9.99386,
+                        "lon": -84.208801,
+                        "elev": 3021
+                    }
+                }
             }
         ]
     },
