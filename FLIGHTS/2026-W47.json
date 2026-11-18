@@ -7042,5 +7042,191 @@
                 }
             }
         ]
+    },
+    {
+        "pilot_id": "695807ad3dc76275ba8a6e4b",
+        "fullname": "Alex Zaugarov",
+        "avatar": "695807ad3dc76275ba8a6e4b1767377295052",
+        "flights": [
+            {
+                "_id": "6afd4fe6d962ff40f1f38440",
+                "aircraft": {
+                    "_id": "6aa800e9ef75cc333072a8c2",
+                    "name": "Embraer ERJ-145 LR",
+                    "customName": "E145 ",
+                    "icao": "E145"
+                },
+                "type": "pax",
+                "flightNumber": "12B",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 50,
+                    "cargo": 5,
+                    "weights": {
+                        "cargo": 625
+                    }
+                },
+                "depTime": "2026-11-18T07:40:00.000Z",
+                "duration": 55,
+                "arrTime": "2026-11-18T08:35:00.000Z",
+                "depTimeAct": "2026-11-18T07:44:09.967Z",
+                "delay": -3,
+                "takeoffTimeAct": "2026-11-18T07:47:43.232Z",
+                "durationAct": 44,
+                "arrTimeAct": "2026-11-18T08:32:09.622Z",
+                "open": "2026-11-18T07:12:58.618Z",
+                "close": "2026-11-18T08:36:37.439Z",
+                "rating": 8.91,
+                "simulator": "xp",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 247,
+                        "fuel": 720,
+                        "expenses": 2719,
+                        "penalties": 0,
+                        "revenue": 6070,
+                        "balance": 3351,
+                        "prices": {
+                            "ticketPrice": 108,
+                            "cargoUnitPrice": 134,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 0.95
+                            }
+                        },
+                        "payload": {
+                            "pax": 50,
+                            "cargo": 5,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 50
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 814,
+                        "aircraft": 1323,
+                        "handling": 322,
+                        "landing": 260
+                    },
+                    "revenue": {
+                        "tickets": 5400,
+                        "cargo": 670
+                    },
+                    "violations": [
+                        {
+                            "title": "Altimeter incorrect on takeoff: 1002mb instead of 994.96mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 36
+                                    },
+                                    "weather": {
+                                        "windDir": 250.09,
+                                        "windSpd": 4.91,
+                                        "windX": -1.57
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Long landing (919m from threshold beyond 751m max accepted)",
+                            "penalty": {
+                                "points": -59,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.14,
+                                        "rate": 142
+                                    },
+                                    "weather": {
+                                        "windDir": 178.53,
+                                        "windSpd": 2.18,
+                                        "windX": 2.18
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.14G (142 ft/min, normal  conditions)<br/>Distance from threshold: 919m (accepted range: 187-751m)<br/>Average centerline deviation: 0.79m<br/>Max centerline deviation: 1.45m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.14,
+                                        "rate": 142
+                                    },
+                                    "weather": {
+                                        "windDir": 178.53,
+                                        "windSpd": 2.18,
+                                        "windX": 2.18
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-18T07:12:38.224Z",
+                "updatedAt": "2026-11-18T08:36:37.512Z",
+                "dep": {
+                    "icao": "LUKK",
+                    "name": "Chişinău International Airport",
+                    "city": "Chişinău",
+                    "location": {
+                        "lat": 46.92774,
+                        "lon": 28.931704,
+                        "elev": 399
+                    }
+                },
+                "arr": {
+                    "icao": "LRSB",
+                    "name": "Sibiu International Airport",
+                    "city": "Sibiu",
+                    "location": {
+                        "lat": 45.785841,
+                        "lon": 24.086666,
+                        "elev": 1496
+                    }
+                },
+                "actArr": {
+                    "icao": "LRSB",
+                    "name": "Sibiu International Airport",
+                    "city": "Sibiu",
+                    "location": {
+                        "lat": 45.785841,
+                        "lon": 24.086666,
+                        "elev": 1496
+                    }
+                }
+            }
+        ]
     }
 ]
