@@ -11230,6 +11230,180 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6b008468d962ff40f12664cd",
+                "aircraft": {
+                    "_id": "6a5e237a50c8a562fcb2e8d7",
+                    "name": "Airbus A330-300",
+                    "customName": "Dry Lease l A330-300 RR iniBuilds l 375 pax elite",
+                    "icao": "A333"
+                },
+                "type": "pax",
+                "flightNumber": "76B",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 375,
+                    "cargo": 60,
+                    "weights": {
+                        "cargo": 6240
+                    }
+                },
+                "depTime": "2026-11-20T17:45:00.000Z",
+                "duration": 140,
+                "arrTime": "2026-11-20T20:05:00.000Z",
+                "depTimeAct": "2026-11-20T17:43:32.332Z",
+                "delay": 5,
+                "takeoffTimeAct": "2026-11-20T17:54:39.725Z",
+                "durationAct": 135,
+                "arrTimeAct": "2026-11-20T20:10:09.605Z",
+                "open": "2026-11-20T17:35:21.683Z",
+                "close": "2026-11-20T20:15:48.933Z",
+                "rating": 8.48,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 883,
+                        "fuel": 13103,
+                        "expenses": 34801,
+                        "penalties": 0,
+                        "revenue": 78500,
+                        "balance": 43699,
+                        "prices": {
+                            "ticketPrice": 149,
+                            "cargoUnitPrice": 166,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 375,
+                            "cargo": 60,
+                            "paxByClass": {
+                                "F": 15,
+                                "C": 40,
+                                "Y": 320
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 11851,
+                        "aircraft": 18825,
+                        "handling": 2730,
+                        "landing": 1395
+                    },
+                    "revenue": {
+                        "tickets": 68540,
+                        "cargo": 9960
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 4.31m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -5,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 34
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Short landing (43m from threshold before 193m min accepted)",
+                            "penalty": {
+                                "points": -117,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 38
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.52,
+                                        "rate": 500
+                                    },
+                                    "weather": {
+                                        "windDir": 260,
+                                        "windSpd": 4.34,
+                                        "windX": 0
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.52G (500 ft/min, normal  conditions)<br/>Distance from threshold: 43m (accepted range: 193-776m)<br/>Average centerline deviation: 2.28m<br/>Max centerline deviation: 4.31m",
+                            "penalty": {
+                                "points": -30,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 38
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.52,
+                                        "rate": 500
+                                    },
+                                    "weather": {
+                                        "windDir": 260,
+                                        "windSpd": 4.34,
+                                        "windX": -0.88
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-20T17:33:28.859Z",
+                "updatedAt": "2026-11-20T20:15:49.016Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "EDDV",
+                    "name": "Hannover Airport",
+                    "city": "Hannover",
+                    "location": {
+                        "lat": 52.461102,
+                        "lon": 9.68508,
+                        "elev": 183
+                    }
+                },
+                "actArr": {
+                    "icao": "EDDV",
+                    "name": "Hannover Airport",
+                    "city": "Hannover",
+                    "location": {
+                        "lat": 52.461102,
+                        "lon": 9.68508,
+                        "elev": 183
+                    }
+                }
             }
         ]
     },
