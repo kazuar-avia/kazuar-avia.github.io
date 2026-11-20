@@ -12342,5 +12342,186 @@
                 }
             }
         ]
+    },
+    {
+        "pilot_id": "69ea36d0a5e61d69a7350b79",
+        "fullname": "Volodymyr Kotliarskyi",
+        "avatar": "default",
+        "flights": [
+            {
+                "_id": "6b006276d962ff40f12368b8",
+                "aircraft": {
+                    "_id": "69a3f2119da57b990aaa1899",
+                    "name": "BAe 146-300 QT",
+                    "customName": "UkrPost l BAe 146-300 QT (cargo) based in UKLN l UR-UPS",
+                    "icao": "B463"
+                },
+                "type": "cargo",
+                "flightNumber": "90L",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 0,
+                    "cargo": 48,
+                    "weights": {
+                        "cargo": 6000
+                    }
+                },
+                "depTime": "2026-11-20T15:50:00.000Z",
+                "duration": 80,
+                "arrTime": "2026-11-20T17:10:00.000Z",
+                "depTimeAct": "2026-11-20T16:00:34.581Z",
+                "delay": -5,
+                "takeoffTimeAct": "2026-11-20T16:09:42.578Z",
+                "durationAct": 55,
+                "arrTimeAct": "2026-11-20T17:04:52.483Z",
+                "open": "2026-11-20T16:00:24.680Z",
+                "close": "2026-11-20T17:19:08.487Z",
+                "rating": 9.34,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 271,
+                        "fuel": 1337,
+                        "expenses": 3636,
+                        "penalties": 0,
+                        "revenue": 6432,
+                        "balance": 2796,
+                        "prices": {
+                            "ticketPrice": 108,
+                            "cargoUnitPrice": 134,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 0,
+                            "cargo": 48,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1512,
+                        "aircraft": 1913,
+                        "handling": 22,
+                        "landing": 189
+                    },
+                    "revenue": {
+                        "tickets": 0,
+                        "cargo": 6432
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 8.03m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -1,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 46
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.56G (279 ft/min, challenging  conditions)<br/>Distance from threshold: 402m (accepted range: 199-800m)<br/>Average centerline deviation: 4.77m<br/>Max centerline deviation: 7.39m",
+                            "penalty": {
+                                "points": -15,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 45
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.56,
+                                        "rate": 279
+                                    },
+                                    "weather": {
+                                        "windDir": 295.12,
+                                        "windSpd": 7.96,
+                                        "windX": 4
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on landing: 999mb instead of 994.3mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 45
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.56,
+                                        "rate": 279
+                                    },
+                                    "weather": {
+                                        "windDir": 295.12,
+                                        "windSpd": 7.96,
+                                        "windX": -4.45
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-20T15:08:38.337Z",
+                "updatedAt": "2026-11-20T17:19:08.570Z",
+                "dep": {
+                    "icao": "UKLN",
+                    "name": "Chernivtsi International Airport",
+                    "city": "Chernivtsi",
+                    "location": {
+                        "lat": 48.2593,
+                        "lon": 25.980801,
+                        "elev": 826
+                    }
+                },
+                "arr": {
+                    "icao": "UKKM",
+                    "name": "Hostomel Airport",
+                    "city": "Kiev",
+                    "location": {
+                        "lat": 50.6035,
+                        "lon": 30.1919,
+                        "elev": 517
+                    }
+                },
+                "actArr": {
+                    "icao": "UKKM",
+                    "name": "Hostomel Airport",
+                    "city": "Kiev",
+                    "location": {
+                        "lat": 50.6035,
+                        "lon": 30.1919,
+                        "elev": 517
+                    }
+                }
+            }
+        ]
     }
 ]
