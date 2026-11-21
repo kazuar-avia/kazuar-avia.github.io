@@ -14721,6 +14721,165 @@
                         "elev": 280
                     }
                 }
+            },
+            {
+                "_id": "6b01d284d962ff40f13dbf33",
+                "aircraft": {
+                    "_id": "6aa800e9ef75cc333072a8c2",
+                    "name": "Embraer ERJ-145 LR",
+                    "customName": "E145 ",
+                    "icao": "E145"
+                },
+                "type": "pax",
+                "flightNumber": "09J",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 49,
+                    "cargo": 5,
+                    "weights": {
+                        "cargo": 695
+                    }
+                },
+                "depTime": "2026-11-21T17:45:00.000Z",
+                "duration": 55,
+                "arrTime": "2026-11-21T18:40:00.000Z",
+                "depTimeAct": "2026-11-21T17:38:24.252Z",
+                "delay": 2,
+                "takeoffTimeAct": "2026-11-21T17:52:45.250Z",
+                "durationAct": 49,
+                "arrTimeAct": "2026-11-21T18:41:35.553Z",
+                "open": "2026-11-21T17:37:19.259Z",
+                "close": "2026-11-21T18:48:10.517Z",
+                "rating": 9.5,
+                "simulator": "xp",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 244,
+                        "fuel": 756,
+                        "expenses": 2583,
+                        "penalties": 0,
+                        "revenue": 5962,
+                        "balance": 3379,
+                        "prices": {
+                            "ticketPrice": 108,
+                            "cargoUnitPrice": 134,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 49,
+                            "cargo": 5,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 49
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 855,
+                        "aircraft": 1223,
+                        "handling": 316,
+                        "landing": 189
+                    },
+                    "revenue": {
+                        "tickets": 5292,
+                        "cargo": 670
+                    },
+                    "violations": [
+                        {
+                            "title": "Great touchdown: 1.13G (102 ft/min, challenging  conditions)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 20
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.13,
+                                        "rate": 102
+                                    },
+                                    "weather": {
+                                        "windDir": 250.97,
+                                        "windSpd": 7.62,
+                                        "windX": 2
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on landing: 1009mb instead of 1004.96mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 20
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.13,
+                                        "rate": 102
+                                    },
+                                    "weather": {
+                                        "windDir": 250.97,
+                                        "windSpd": 7.62,
+                                        "windX": -2.01
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-21T17:19:00.403Z",
+                "updatedAt": "2026-11-21T18:48:10.592Z",
+                "dep": {
+                    "icao": "LUKK",
+                    "name": "Chişinău International Airport",
+                    "city": "Chişinău",
+                    "location": {
+                        "lat": 46.92774,
+                        "lon": 28.931704,
+                        "elev": 399
+                    }
+                },
+                "arr": {
+                    "icao": "UKKK",
+                    "name": "Igor Sikorsky Kyiv International Airport (Zhuliany)",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.40194,
+                        "lon": 30.45194,
+                        "elev": 587
+                    }
+                },
+                "actArr": {
+                    "icao": "UKKK",
+                    "name": "Igor Sikorsky Kyiv International Airport (Zhuliany)",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.40194,
+                        "lon": 30.45194,
+                        "elev": 587
+                    }
+                }
             }
         ]
     },
