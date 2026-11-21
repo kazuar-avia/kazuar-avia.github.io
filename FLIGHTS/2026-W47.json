@@ -14091,6 +14091,156 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6b01a1f9d962ff40f1395af9",
+                "aircraft": {
+                    "_id": "69ef2347a5e61d69a7a9a2b0",
+                    "name": "Airbus A320",
+                    "customName": "WizzAir Ukraine l A320 IAE SL based in UKBB l UR-WUB",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "6100",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 180,
+                    "cargo": 2,
+                    "weights": {
+                        "cargo": 158
+                    }
+                },
+                "depTime": "2026-11-21T14:10:00.000Z",
+                "duration": 200,
+                "arrTime": "2026-11-21T17:30:00.000Z",
+                "depTimeAct": "2026-11-21T14:15:52.174Z",
+                "delay": 70,
+                "takeoffTimeAct": "2026-11-21T14:20:16.710Z",
+                "durationAct": 260,
+                "arrTimeAct": "2026-11-21T18:40:03.083Z",
+                "open": "2026-11-21T14:14:00.161Z",
+                "close": "2026-11-21T18:45:04.309Z",
+                "rating": 8.85,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1586,
+                        "fuel": 9830,
+                        "expenses": 20580,
+                        "penalties": 0,
+                        "revenue": 34060,
+                        "balance": 13480,
+                        "prices": {
+                            "ticketPrice": 187,
+                            "cargoUnitPrice": 200,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 1,
+                                "fuel": 0.8,
+                                "ground": 0.85
+                            }
+                        },
+                        "payload": {
+                            "pax": 180,
+                            "cargo": 2,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 180
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 8891,
+                        "aircraft": 9525,
+                        "handling": 1264,
+                        "landing": 900
+                    },
+                    "revenue": {
+                        "tickets": 33660,
+                        "cargo": 400
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 6.18m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -35,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "spoilers",
+                                "payload": {
+                                    "system": {
+                                        "fps": 33
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Uncomfortable touchdown: 1.73G (572 ft/min, normal  conditions)<br/>Distance from threshold: 509m (accepted range: 174-698m)<br/>Average centerline deviation: 3.18m<br/>Max centerline deviation: 6.18m",
+                            "penalty": {
+                                "points": -80,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.73,
+                                        "rate": 572
+                                    },
+                                    "weather": {
+                                        "windDir": 170.03,
+                                        "windSpd": 6.05,
+                                        "windX": 3
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-21T13:51:53.280Z",
+                "updatedAt": "2026-11-21T18:45:04.407Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "ENTC",
+                    "name": "Tromsø Airport",
+                    "city": "Tromsø",
+                    "location": {
+                        "lat": 69.683296,
+                        "lon": 18.9189,
+                        "elev": 31
+                    }
+                },
+                "actArr": {
+                    "icao": "ENTC",
+                    "name": "Tromsø Airport",
+                    "city": "Tromsø",
+                    "location": {
+                        "lat": 69.683296,
+                        "lon": 18.9189,
+                        "elev": 31
+                    }
+                }
             }
         ]
     },
