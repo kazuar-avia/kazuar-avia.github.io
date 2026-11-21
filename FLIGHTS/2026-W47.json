@@ -15477,6 +15477,224 @@
                     },
                     "name": "Simferopol International Airport"
                 }
+            },
+            {
+                "_id": "6b01d2e35516042e4871cbf3",
+                "aircraft": {
+                    "_id": "6afa30efd962ff40f1c2268f",
+                    "name": "Antonov An-28",
+                    "customName": "An-28 pax",
+                    "icao": "AN28"
+                },
+                "type": "pax",
+                "flightNumber": "335",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 16,
+                    "cargo": 1,
+                    "weights": {
+                        "cargo": 139
+                    }
+                },
+                "depTime": "2026-11-21T18:00:00.000Z",
+                "duration": 90,
+                "arrTime": "2026-11-21T19:30:00.000Z",
+                "depTimeAct": "2026-11-21T18:20:01.268Z",
+                "delay": 1,
+                "takeoffTimeAct": "2026-11-21T18:22:15.263Z",
+                "durationAct": 68,
+                "arrTimeAct": "2026-11-21T19:30:45.257Z",
+                "open": "2026-11-21T17:45:08.790Z",
+                "close": "2026-11-21T19:38:54.013Z",
+                "rating": 8,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 227,
+                        "fuel": 382,
+                        "expenses": 2136,
+                        "penalties": 48,
+                        "revenue": 1775,
+                        "balance": -409,
+                        "prices": {
+                            "ticketPrice": 103,
+                            "cargoUnitPrice": 127,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 16,
+                            "cargo": 1,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 16
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 432,
+                        "aircraft": 1500,
+                        "handling": 72,
+                        "landing": 132
+                    },
+                    "revenue": {
+                        "tickets": 1648,
+                        "cargo": 127
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight delayed 6 minutes (max 15 minutes after scheduled is allowed)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 48
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Incorrect flaps for takeoff",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "weather": {
+                                        "windDir": 253.76,
+                                        "windSpd": 6.37,
+                                        "windX": 0.44
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.24G (180 ft/min, challenging  conditions)<br/>Distance from threshold: 381m (accepted range: 169-679m)<br/>Average centerline deviation: 2.50m<br/>Max centerline deviation: 3.31m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.24,
+                                        "rate": 180
+                                    },
+                                    "weather": {
+                                        "windDir": 268.18,
+                                        "windSpd": 9.01,
+                                        "windX": 1
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on landing: 1012mb instead of 1009.8mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.24,
+                                        "rate": 180
+                                    },
+                                    "weather": {
+                                        "windDir": 268.18,
+                                        "windSpd": 9.01,
+                                        "windX": 1.11
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Fuel used 344 kg is lower than estimated minimum 382 kg.",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.24,
+                                        "rate": 180
+                                    },
+                                    "weather": {
+                                        "windDir": 268.18,
+                                        "windSpd": 9.01,
+                                        "windX": 1.11
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-21T17:20:35.848Z",
+                "updatedAt": "2026-11-21T19:38:54.125Z",
+                "dep": {
+                    "icao": "UKLC",
+                    "city": "Lutsk",
+                    "name": "Lutsk Airport",
+                    "location": {
+                        "lat": 50.678404,
+                        "lon": 25.487165,
+                        "elev": 774
+                    }
+                },
+                "arr": {
+                    "icao": "UKKK",
+                    "name": "Igor Sikorsky Kyiv International Airport (Zhuliany)",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.40194,
+                        "lon": 30.45194,
+                        "elev": 587
+                    }
+                },
+                "actArr": {
+                    "icao": "UKKK",
+                    "name": "Igor Sikorsky Kyiv International Airport (Zhuliany)",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.40194,
+                        "lon": 30.45194,
+                        "elev": 587
+                    }
+                }
             }
         ]
     },
