@@ -12411,6 +12411,196 @@
                         "elev": 74
                     }
                 }
+            },
+            {
+                "_id": "6b01f9b1d962ff40f14163ca",
+                "aircraft": {
+                    "_id": "6a0b23a267cd7e249842bd81",
+                    "name": "Airbus A380",
+                    "customName": "Dry lease l FBW A380-800 l 446 pax elite",
+                    "icao": "A388"
+                },
+                "type": "pax",
+                "flightNumber": "2251",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 351,
+                    "cargo": 147,
+                    "weights": {
+                        "cargo": 11613
+                    }
+                },
+                "depTime": "2026-11-21T21:00:00.000Z",
+                "duration": 740,
+                "arrTime": "2026-11-22T09:20:00.000Z",
+                "depTimeAct": "2026-11-21T21:12:09.583Z",
+                "delay": 155,
+                "takeoffTimeAct": "2026-11-21T21:27:00.561Z",
+                "durationAct": 868,
+                "arrTimeAct": "2026-11-22T11:55:28.003Z",
+                "open": "2026-11-21T20:09:35.865Z",
+                "close": "2026-11-22T12:05:20.030Z",
+                "rating": 7.75,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 6071,
+                        "fuel": 182800,
+                        "expenses": 313684,
+                        "penalties": 10000,
+                        "revenue": 999240,
+                        "balance": 675556,
+                        "prices": {
+                            "ticketPrice": 638,
+                            "cargoUnitPrice": 704,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 351,
+                            "cargo": 147,
+                            "paxByClass": {
+                                "F": 351,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 208813,
+                        "aircraft": 89000,
+                        "handling": 6781,
+                        "landing": 9090
+                    },
+                    "revenue": {
+                        "tickets": 895752,
+                        "cargo": 103488
+                    },
+                    "violations": [
+                        {
+                            "title": "Takeoff beyond runway end, over by 109m",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 10000
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 15
+                                    },
+                                    "weather": {
+                                        "windDir": 80,
+                                        "windSpd": 5,
+                                        "windX": 0.82
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline takeoff (deviation 9.48m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -63,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 15
+                                    },
+                                    "weather": {
+                                        "windDir": 80,
+                                        "windSpd": 5,
+                                        "windX": 0.82
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 4.85m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -12,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 14
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.15G (197 ft/min, normal  conditions)<br/>Distance from threshold: 653m (accepted range: 207-831m)<br/>Average centerline deviation: 3.48m<br/>Max centerline deviation: 4.85m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 15
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.15,
+                                        "rate": 197
+                                    },
+                                    "weather": {
+                                        "windDir": 90,
+                                        "windSpd": 6,
+                                        "windX": 0
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-21T20:06:09.398Z",
+                "updatedAt": "2026-11-22T12:05:20.189Z",
+                "dep": {
+                    "icao": "VHHH",
+                    "name": "Hong Kong International Airport",
+                    "city": "Hong Kong",
+                    "location": {
+                        "lat": 22.31184,
+                        "lon": 113.914862,
+                        "elev": 28
+                    }
+                },
+                "arr": {
+                    "icao": "EGLL",
+                    "name": "London Heathrow Airport",
+                    "city": "London",
+                    "location": {
+                        "lat": 51.470748,
+                        "lon": -0.459909,
+                        "elev": 83
+                    }
+                },
+                "actArr": {
+                    "icao": "EGLL",
+                    "name": "London Heathrow Airport",
+                    "city": "London",
+                    "location": {
+                        "lat": 51.470748,
+                        "lon": -0.459909,
+                        "elev": 83
+                    }
+                }
             }
         ]
     },
