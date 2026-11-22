@@ -16893,6 +16893,200 @@
                         "elev": 1071
                     }
                 }
+            },
+            {
+                "_id": "6b02afb4d962ff40f14c0864",
+                "aircraft": {
+                    "_id": "6a4f90ec5760ec7cdb612ec3",
+                    "name": "Airbus A320",
+                    "customName": "Aerosvit vs DonbassAero l A320 CFM based in UKBB l UR-DAH",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "18J",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 180,
+                    "cargo": 5,
+                    "weights": {
+                        "cargo": 555
+                    }
+                },
+                "depTime": "2026-11-22T09:20:00.000Z",
+                "duration": 95,
+                "arrTime": "2026-11-22T10:55:00.000Z",
+                "depTimeAct": "2026-11-22T09:24:05.832Z",
+                "delay": 35,
+                "takeoffTimeAct": "2026-11-22T09:28:06.676Z",
+                "durationAct": 122,
+                "arrTimeAct": "2026-11-22T11:30:05.480Z",
+                "open": "2026-11-22T09:15:09.780Z",
+                "close": "2026-11-22T11:34:43.517Z",
+                "rating": 6.85,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 557,
+                        "fuel": 3655,
+                        "expenses": 14866,
+                        "penalties": 586,
+                        "revenue": 23230,
+                        "balance": 7778,
+                        "prices": {
+                            "ticketPrice": 125,
+                            "cargoUnitPrice": 146,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 180,
+                            "cargo": 5,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 180
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4132,
+                        "aircraft": 6250,
+                        "handling": 1622,
+                        "landing": 2862
+                    },
+                    "revenue": {
+                        "tickets": 22500,
+                        "cargo": 730
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 13.86m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -141,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    },
+                                    "weather": {
+                                        "windDir": 279.96,
+                                        "windSpd": 9.09,
+                                        "windX": -1.98
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "MLW exceeded: 94kg above maximum landing weight of 64500kg",
+                            "penalty": {
+                                "points": -9,
+                                "cash": 586
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 20
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.46,
+                                        "rate": 343
+                                    },
+                                    "weather": {
+                                        "windDir": 30.01,
+                                        "windSpd": 7.07,
+                                        "windX": 4
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.46G (343 ft/min, normal  conditions)<br/>Distance from threshold: 464m (accepted range: 209-838m)<br/>Average centerline deviation: 2.42m<br/>Max centerline deviation: 3.74m",
+                            "penalty": {
+                                "points": -15,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 20
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.46,
+                                        "rate": 343
+                                    },
+                                    "weather": {
+                                        "windDir": 30.01,
+                                        "windSpd": 7.07,
+                                        "windX": -3.82
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 693ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 20
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-22T09:02:44.816Z",
+                "updatedAt": "2026-11-22T11:34:43.594Z",
+                "dep": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                },
+                "arr": {
+                    "icao": "EDDF",
+                    "name": "Frankfurt Main Airport",
+                    "city": "Frankfurt am Main",
+                    "location": {
+                        "lat": 50.026706,
+                        "lon": 8.55835,
+                        "elev": 364
+                    }
+                },
+                "actArr": {
+                    "icao": "EDDF",
+                    "name": "Frankfurt Main Airport",
+                    "city": "Frankfurt am Main",
+                    "location": {
+                        "lat": 50.026706,
+                        "lon": 8.55835,
+                        "elev": 364
+                    }
+                }
             }
         ]
     }
