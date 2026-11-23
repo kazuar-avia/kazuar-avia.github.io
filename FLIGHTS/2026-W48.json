@@ -182,6 +182,165 @@
                         "elev": 28
                     }
                 }
+            },
+            {
+                "_id": "6b0427a7d962ff40f166cc33",
+                "aircraft": {
+                    "_id": "6a93e58eef75cc33306d7cbc",
+                    "name": "Airbus A350-1000",
+                    "customName": "Airbus A350-1000",
+                    "icao": "A35K"
+                },
+                "type": "pax",
+                "flightNumber": "35Z",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 384,
+                    "cargo": 72,
+                    "weights": {
+                        "cargo": 4392
+                    }
+                },
+                "depTime": "2026-11-23T13:00:00.000Z",
+                "duration": 50,
+                "arrTime": "2026-11-23T13:50:00.000Z",
+                "depTimeAct": "2026-11-23T13:03:26.133Z",
+                "delay": 1,
+                "takeoffTimeAct": "2026-11-23T13:09:35.126Z",
+                "durationAct": 42,
+                "arrTimeAct": "2026-11-23T13:51:07.056Z",
+                "open": "2026-11-23T12:22:51.727Z",
+                "close": "2026-11-23T13:57:47.100Z",
+                "rating": 9.94,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 210,
+                        "fuel": 4873,
+                        "expenses": 23303,
+                        "penalties": 0,
+                        "revenue": 61632,
+                        "balance": 38329,
+                        "prices": {
+                            "ticketPrice": 104,
+                            "cargoUnitPrice": 128,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 384,
+                            "cargo": 72,
+                            "paxByClass": {
+                                "F": 24,
+                                "C": 48,
+                                "Y": 312
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4408,
+                        "aircraft": 14910,
+                        "handling": 2545,
+                        "landing": 1440
+                    },
+                    "revenue": {
+                        "tickets": 52416,
+                        "cargo": 9216
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 4.37m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -6,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 17
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.36,
+                                        "rate": 369
+                                    },
+                                    "weather": {
+                                        "windDir": 285.15,
+                                        "windSpd": 7.01,
+                                        "windX": 2
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.36G (369 ft/min, normal  conditions)<br/>Distance from threshold: 211m (accepted range: 193-776m)<br/>Average centerline deviation: 1.20m<br/>Max centerline deviation: 4.37m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 17
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.36,
+                                        "rate": 369
+                                    },
+                                    "weather": {
+                                        "windDir": 285.15,
+                                        "windSpd": 7.01,
+                                        "windX": 1.02
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-23T11:46:47.349Z",
+                "updatedAt": "2026-11-23T13:57:47.186Z",
+                "dep": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "arr": {
+                    "icao": "EPKT",
+                    "name": "Katowice Wojciech Korfanty International Airport",
+                    "city": "Katowice",
+                    "location": {
+                        "lat": 50.476015,
+                        "lon": 19.080705,
+                        "elev": 995
+                    }
+                },
+                "actArr": {
+                    "icao": "EPKT",
+                    "name": "Katowice Wojciech Korfanty International Airport",
+                    "city": "Katowice",
+                    "location": {
+                        "lat": 50.476015,
+                        "lon": 19.080705,
+                        "elev": 995
+                    }
+                }
             }
         ]
     },
