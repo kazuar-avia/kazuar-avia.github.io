@@ -504,6 +504,156 @@
                         "elev": 1417
                     }
                 }
+            },
+            {
+                "_id": "6b059978d962ff40f17c1a1b",
+                "aircraft": {
+                    "_id": "6a0b23a267cd7e249842bd81",
+                    "name": "Airbus A380",
+                    "customName": "Dry lease l FBW A380-800 l 446 pax elite",
+                    "icao": "A388"
+                },
+                "type": "pax",
+                "flightNumber": "24Y",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 446,
+                    "cargo": 124,
+                    "weights": {
+                        "cargo": 12400
+                    }
+                },
+                "depTime": "2026-11-24T15:15:00.000Z",
+                "duration": 85,
+                "arrTime": "2026-11-24T16:40:00.000Z",
+                "depTimeAct": "2026-11-24T15:17:20.475Z",
+                "delay": 0,
+                "takeoffTimeAct": "2026-11-24T15:28:08.450Z",
+                "durationAct": 72,
+                "arrTimeAct": "2026-11-24T16:39:40.305Z",
+                "open": "2026-11-24T14:34:31.309Z",
+                "close": "2026-11-24T16:46:37.327Z",
+                "rating": 9.47,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 482,
+                        "fuel": 16365,
+                        "expenses": 61679,
+                        "penalties": 0,
+                        "revenue": 138490,
+                        "balance": 76811,
+                        "prices": {
+                            "ticketPrice": 121,
+                            "cargoUnitPrice": 143,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 446,
+                            "cargo": 124,
+                            "paxByClass": {
+                                "F": 85,
+                                "C": 297,
+                                "Y": 64
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 18501,
+                        "aircraft": 29300,
+                        "handling": 9288,
+                        "landing": 4590
+                    },
+                    "revenue": {
+                        "tickets": 120758,
+                        "cargo": 17732
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 8.62m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -53,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "spoilers",
+                                "payload": {
+                                    "system": {
+                                        "fps": 14
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.18G (265 ft/min, normal  conditions)<br/>Distance from threshold: 576m (accepted range: 195-784m)<br/>Average centerline deviation: 4.94m<br/>Max centerline deviation: 8.62m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 18
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.18,
+                                        "rate": 265
+                                    },
+                                    "weather": {
+                                        "windDir": 13.42,
+                                        "windSpd": 2.77,
+                                        "windX": 2
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-24T14:04:40.983Z",
+                "updatedAt": "2026-11-24T16:46:37.434Z",
+                "dep": {
+                    "icao": "EGLL",
+                    "name": "London Heathrow Airport",
+                    "city": "London",
+                    "location": {
+                        "lat": 51.470748,
+                        "lon": -0.459909,
+                        "elev": 83
+                    }
+                },
+                "arr": {
+                    "icao": "LSZH",
+                    "name": "Zürich Airport",
+                    "city": "Zurich",
+                    "location": {
+                        "lat": 47.458056,
+                        "lon": 8.548056,
+                        "elev": 1417
+                    }
+                },
+                "actArr": {
+                    "icao": "LSZH",
+                    "name": "Zürich Airport",
+                    "city": "Zurich",
+                    "location": {
+                        "lat": 47.458056,
+                        "lon": 8.548056,
+                        "elev": 1417
+                    }
+                }
             }
         ]
     },
