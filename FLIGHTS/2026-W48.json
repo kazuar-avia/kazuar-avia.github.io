@@ -341,6 +341,169 @@
                         "elev": 995
                     }
                 }
+            },
+            {
+                "_id": "6b055a94d962ff40f1787b32",
+                "aircraft": {
+                    "_id": "6a0b23a267cd7e249842bd81",
+                    "name": "Airbus A380",
+                    "customName": "Dry lease l FBW A380-800 l 446 pax elite",
+                    "icao": "A388"
+                },
+                "type": "pax",
+                "flightNumber": "12Z",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 446,
+                    "cargo": 92,
+                    "weights": {
+                        "cargo": 11408
+                    }
+                },
+                "depTime": "2026-11-24T11:00:00.000Z",
+                "duration": 135,
+                "arrTime": "2026-11-24T13:15:00.000Z",
+                "depTimeAct": "2026-11-24T11:01:44.632Z",
+                "delay": -7,
+                "takeoffTimeAct": "2026-11-24T11:13:43.619Z",
+                "durationAct": 115,
+                "arrTimeAct": "2026-11-24T13:08:27.441Z",
+                "open": "2026-11-24T10:33:02.367Z",
+                "close": "2026-11-24T13:16:46.460Z",
+                "rating": 8.99,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 840,
+                        "fuel": 22587,
+                        "expenses": 67909,
+                        "penalties": 0,
+                        "revenue": 164802,
+                        "balance": 96893,
+                        "prices": {
+                            "ticketPrice": 149,
+                            "cargoUnitPrice": 175,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 446,
+                            "cargo": 92,
+                            "paxByClass": {
+                                "F": 85,
+                                "C": 297,
+                                "Y": 64
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 25535,
+                        "aircraft": 32525,
+                        "handling": 5259,
+                        "landing": 4590
+                    },
+                    "revenue": {
+                        "tickets": 148702,
+                        "cargo": 16100
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 12.16m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -94,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "spoilers",
+                                "payload": {
+                                    "system": {
+                                        "fps": 14
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.23G (274 ft/min, normal  conditions)<br/>Distance from threshold: 471m (accepted range: 195-784m)<br/>Average centerline deviation: 7.26m<br/>Max centerline deviation: 12.16m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 16
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.23,
+                                        "rate": 274
+                                    },
+                                    "weather": {
+                                        "windDir": 55.4,
+                                        "windSpd": 4.68,
+                                        "windX": 5
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No BEACON lights for 56s when required",
+                            "penalty": {
+                                "points": -7,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-24T09:36:20.843Z",
+                "updatedAt": "2026-11-24T13:16:46.567Z",
+                "dep": {
+                    "icao": "ESSA",
+                    "name": "Stockholm-Arlanda Airport",
+                    "city": "Stockholm",
+                    "location": {
+                        "lat": 59.64849,
+                        "lon": 17.928829,
+                        "elev": 137
+                    }
+                },
+                "arr": {
+                    "icao": "LSZH",
+                    "name": "Zürich Airport",
+                    "city": "Zurich",
+                    "location": {
+                        "lat": 47.458056,
+                        "lon": 8.548056,
+                        "elev": 1417
+                    }
+                },
+                "actArr": {
+                    "icao": "LSZH",
+                    "name": "Zürich Airport",
+                    "city": "Zurich",
+                    "location": {
+                        "lat": 47.458056,
+                        "lon": 8.548056,
+                        "elev": 1417
+                    }
+                }
             }
         ]
     },
