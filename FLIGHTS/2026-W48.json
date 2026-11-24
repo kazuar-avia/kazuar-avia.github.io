@@ -633,6 +633,156 @@
                         "elev": 38
                     }
                 }
+            },
+            {
+                "_id": "6b0577c1d962ff40f17a2a8f",
+                "aircraft": {
+                    "_id": "6a4671586748d36670c9277b",
+                    "name": "Boeing 737 MAX 8",
+                    "customName": "Dry Lease l 737-MAX8 189 pax l msfs 2024",
+                    "icao": "B38M"
+                },
+                "type": "pax",
+                "flightNumber": "77",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 189,
+                    "cargo": 22,
+                    "weights": {
+                        "cargo": 2574
+                    }
+                },
+                "depTime": "2026-11-24T12:10:00.000Z",
+                "duration": 55,
+                "arrTime": "2026-11-24T13:05:00.000Z",
+                "depTimeAct": "2026-11-24T12:10:46.281Z",
+                "delay": -5,
+                "takeoffTimeAct": "2026-11-24T12:14:12.304Z",
+                "durationAct": 46,
+                "arrTimeAct": "2026-11-24T12:59:47.334Z",
+                "open": "2026-11-24T11:47:44.542Z",
+                "close": "2026-11-24T13:05:09.346Z",
+                "rating": 9.55,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 255,
+                        "fuel": 1801,
+                        "expenses": 9558,
+                        "penalties": 0,
+                        "revenue": 26060,
+                        "balance": 16502,
+                        "prices": {
+                            "ticketPrice": 108,
+                            "cargoUnitPrice": 134,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.9,
+                                "fuel": 1,
+                                "ground": 0.9
+                            }
+                        },
+                        "payload": {
+                            "pax": 189,
+                            "cargo": 22,
+                            "paxByClass": {
+                                "F": 4,
+                                "C": 13,
+                                "Y": 172
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2037,
+                        "aircraft": 4325,
+                        "handling": 1711,
+                        "landing": 1485
+                    },
+                    "revenue": {
+                        "tickets": 23112,
+                        "cargo": 2948
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 6.84m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -45,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 23
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.23G (191 ft/min, normal  conditions)<br/>Distance from threshold: 475m (accepted range: 175-704m)<br/>Average centerline deviation: 3.42m<br/>Max centerline deviation: 6.84m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 22
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.23,
+                                        "rate": 191
+                                    },
+                                    "weather": {
+                                        "windDir": 319.98,
+                                        "windSpd": 8.02,
+                                        "windX": 7
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-24T11:40:49.258Z",
+                "updatedAt": "2026-11-24T13:05:09.435Z",
+                "dep": {
+                    "icao": "EFHK",
+                    "name": "Helsinki Vantaa Airport",
+                    "city": "Helsinki (Vantaa)",
+                    "location": {
+                        "lat": 60.318363,
+                        "lon": 24.963341,
+                        "elev": 179
+                    }
+                },
+                "arr": {
+                    "icao": "ESSA",
+                    "name": "Stockholm-Arlanda Airport",
+                    "city": "Stockholm",
+                    "location": {
+                        "lat": 59.64849,
+                        "lon": 17.928829,
+                        "elev": 137
+                    }
+                },
+                "actArr": {
+                    "icao": "ESSA",
+                    "name": "Stockholm-Arlanda Airport",
+                    "city": "Stockholm",
+                    "location": {
+                        "lat": 59.64849,
+                        "lon": 17.928829,
+                        "elev": 137
+                    }
+                }
             }
         ]
     },
