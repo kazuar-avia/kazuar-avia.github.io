@@ -1609,6 +1609,154 @@
                         "elev": 362
                     }
                 }
+            },
+            {
+                "_id": "6b0533b8d962ff40f176ecde",
+                "aircraft": {
+                    "_id": "6980e9459da57b990a02e1bd",
+                    "name": "Boeing 737 MAX 8",
+                    "customName": "Ukraine Int l 737-MAX8 189 pax iFly l UR-MXA",
+                    "icao": "B38M"
+                },
+                "type": "pax",
+                "flightNumber": "904",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 189,
+                    "cargo": 23,
+                    "weights": {
+                        "cargo": 1748
+                    }
+                },
+                "depTime": "2026-11-24T07:10:00.000Z",
+                "duration": 95,
+                "arrTime": "2026-11-24T08:45:00.000Z",
+                "depTimeAct": "2026-11-24T07:07:43.230Z",
+                "delay": -4,
+                "takeoffTimeAct": "2026-11-24T07:13:02.485Z",
+                "durationAct": 88,
+                "arrTimeAct": "2026-11-24T08:40:54.820Z",
+                "open": "2026-11-24T06:55:49.536Z",
+                "close": "2026-11-24T08:43:21.935Z",
+                "rating": 9,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 545,
+                        "fuel": 3919,
+                        "expenses": 12082,
+                        "penalties": 0,
+                        "revenue": 32020,
+                        "balance": 19938,
+                        "prices": {
+                            "ticketPrice": 148,
+                            "cargoUnitPrice": 176,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 189,
+                            "cargo": 23,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 189
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4431,
+                        "aircraft": 4575,
+                        "handling": 1711,
+                        "landing": 1365
+                    },
+                    "revenue": {
+                        "tickets": 27972,
+                        "cargo": 4048
+                    },
+                    "violations": [
+                        {
+                            "title": "Great touchdown: 1.11G (310 ft/min, challenging  conditions)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.11,
+                                        "rate": 310
+                                    },
+                                    "weather": {
+                                        "windDir": 290.16,
+                                        "windSpd": 10.19,
+                                        "windX": 9
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No BEACON lights for 5877s when required",
+                            "penalty": {
+                                "points": -100,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-24T06:50:32.916Z",
+                "updatedAt": "2026-11-24T08:43:22.018Z",
+                "dep": {
+                    "icao": "EPWA",
+                    "name": "Warsaw Chopin Airport",
+                    "city": "Warsaw",
+                    "location": {
+                        "lat": 52.165699,
+                        "lon": 20.9671,
+                        "elev": 362
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
             }
         ]
     },
