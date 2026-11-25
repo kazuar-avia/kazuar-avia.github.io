@@ -6178,6 +6178,171 @@
                         "elev": 172
                     }
                 }
+            },
+            {
+                "_id": "6b07006d5516042e487861e4",
+                "aircraft": {
+                    "_id": "6b06e23a5516042e48782fff",
+                    "name": "Embraer 190 Freighter",
+                    "customName": "UCAA l Embraer 190F (cargo) 2",
+                    "icao": "E190"
+                },
+                "type": "cargo",
+                "flightNumber": "335",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 0,
+                    "cargo": 106,
+                    "weights": {
+                        "cargo": 6678
+                    }
+                },
+                "depTime": "2026-11-25T18:15:00.000Z",
+                "duration": 80,
+                "arrTime": "2026-11-25T19:35:00.000Z",
+                "depTimeAct": "2026-11-25T18:18:27.332Z",
+                "delay": 8,
+                "takeoffTimeAct": "2026-11-25T18:32:09.341Z",
+                "durationAct": 70,
+                "arrTimeAct": "2026-11-25T19:42:31.329Z",
+                "open": "2026-11-25T17:31:57.356Z",
+                "close": "2026-11-25T19:50:06.935Z",
+                "rating": 6.85,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 462,
+                        "fuel": 2126,
+                        "expenses": 5112,
+                        "penalties": 0,
+                        "revenue": 14840,
+                        "balance": 9728,
+                        "prices": {
+                            "ticketPrice": 118,
+                            "cargoUnitPrice": 140,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 0,
+                            "cargo": 106,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2404,
+                        "aircraft": 2233,
+                        "handling": 48,
+                        "landing": 427
+                    },
+                    "revenue": {
+                        "tickets": 0,
+                        "cargo": 14840
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 15.34m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -162,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.41G (333 ft/min, normal  conditions)<br/>Distance from threshold: 588m (accepted range: 197-790m)<br/>Average centerline deviation: 9.34m<br/>Max centerline deviation: 15.34m",
+                            "penalty": {
+                                "points": -3,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 38
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.41,
+                                        "rate": 333
+                                    },
+                                    "weather": {
+                                        "windDir": 135.22,
+                                        "windSpd": 0.62,
+                                        "windX": 0
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 879ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-25T15:36:13.524Z",
+                "updatedAt": "2026-11-25T19:50:07.064Z",
+                "dep": {
+                    "icao": "LKPR",
+                    "name": "Václav Havel Airport Prague",
+                    "city": "Prague",
+                    "location": {
+                        "lat": 50.100874,
+                        "lon": 14.259911,
+                        "elev": 1247
+                    }
+                },
+                "arr": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "actArr": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                }
             }
         ]
     }
