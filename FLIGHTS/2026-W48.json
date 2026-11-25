@@ -3946,6 +3946,186 @@
                     },
                     "name": "Simferopol International Airport"
                 }
+            },
+            {
+                "_id": "6b07191ad962ff40f191a994",
+                "aircraft": {
+                    "_id": "6a4fa15e5760ec7cdb627803",
+                    "name": "Boeing 737-800",
+                    "customName": "Dry Lease l BOEING 737-800",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "217D",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 144,
+                    "cargo": 17,
+                    "weights": {
+                        "cargo": 1275
+                    }
+                },
+                "depTime": "2026-11-25T17:50:00.000Z",
+                "duration": 70,
+                "arrTime": "2026-11-25T19:00:00.000Z",
+                "depTimeAct": "2026-11-25T17:50:33.985Z",
+                "delay": -12,
+                "takeoffTimeAct": "2026-11-25T17:50:40.000Z",
+                "durationAct": 57,
+                "arrTimeAct": "2026-11-25T18:47:59.112Z",
+                "open": "2026-11-25T17:49:30.132Z",
+                "close": "2026-11-25T18:51:29.126Z",
+                "rating": 8.1,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 332,
+                        "fuel": 3166,
+                        "expenses": 10503,
+                        "penalties": 0,
+                        "revenue": 25495,
+                        "balance": 14992,
+                        "prices": {
+                            "ticketPrice": 117,
+                            "cargoUnitPrice": 137,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 1,
+                                "arr": 1,
+                                "fuel": 1,
+                                "ground": 1
+                            }
+                        },
+                        "payload": {
+                            "pax": 144,
+                            "cargo": 17,
+                            "paxByClass": {
+                                "F": 12,
+                                "C": 18,
+                                "Y": 114
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 3715,
+                        "aircraft": 4925,
+                        "handling": 873,
+                        "landing": 990
+                    },
+                    "revenue": {
+                        "tickets": 23166,
+                        "cargo": 2329
+                    },
+                    "violations": [
+                        {
+                            "title": "Unstable approach below 300ft: vertical speed below -1500 ft/min (actual -1579 ft/min)",
+                            "penalty": {
+                                "points": -39,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 5.40m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -23,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "spoilers",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.26G (303 ft/min, normal  conditions)<br/>Distance from threshold: 656m (accepted range: 209-838m)<br/>Average centerline deviation: 3.51m<br/>Max centerline deviation: 5.40m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 1
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.26,
+                                        "rate": 303
+                                    },
+                                    "weather": {
+                                        "windDir": 199.99,
+                                        "windSpd": 15.2,
+                                        "windX": 10
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 915ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -128,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-25T17:21:30.808Z",
+                "updatedAt": "2026-11-25T18:51:29.210Z",
+                "dep": {
+                    "icao": "MMCZ",
+                    "name": "Cozumel International Airport",
+                    "city": "Cozumel",
+                    "location": {
+                        "lat": 20.514922,
+                        "lon": -86.928538,
+                        "elev": 15
+                    }
+                },
+                "arr": {
+                    "icao": "MUHA",
+                    "name": "José Martí International Airport",
+                    "city": "Havana",
+                    "location": {
+                        "lat": 22.989200592041016,
+                        "lon": -82.40910339355469,
+                        "elev": 210
+                    }
+                },
+                "actArr": {
+                    "icao": "MUHA",
+                    "name": "José Martí International Airport",
+                    "city": "Havana",
+                    "location": {
+                        "lat": 22.989200592041016,
+                        "lon": -82.40910339355469,
+                        "elev": 210
+                    }
+                }
             }
         ]
     },
