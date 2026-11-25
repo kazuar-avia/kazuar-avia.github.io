@@ -3646,6 +3646,156 @@
                         "elev": 587
                     }
                 }
+            },
+            {
+                "_id": "6b06edd4d962ff40f18e4077",
+                "aircraft": {
+                    "_id": "696285163dc76275ba9ef60c",
+                    "name": "Boeing 737-800",
+                    "customName": "UCAA l 737-800 (pax) based in UKKK l UR-UCA",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "5008",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 139,
+                    "cargo": 39,
+                    "weights": {
+                        "cargo": 4134
+                    }
+                },
+                "depTime": "2026-11-25T14:30:00.000Z",
+                "duration": 60,
+                "arrTime": "2026-11-25T15:30:00.000Z",
+                "depTimeAct": "2026-11-25T14:26:33.562Z",
+                "delay": -24,
+                "takeoffTimeAct": "2026-11-25T14:26:40.947Z",
+                "durationAct": 40,
+                "arrTimeAct": "2026-11-25T15:06:20.938Z",
+                "open": "2026-11-25T14:26:05.386Z",
+                "close": "2026-11-25T15:07:25.242Z",
+                "rating": 8.06,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 225,
+                        "fuel": 1916,
+                        "expenses": 7827,
+                        "penalties": 0,
+                        "revenue": 22847,
+                        "balance": 15020,
+                        "prices": {
+                            "ticketPrice": 122,
+                            "cargoUnitPrice": 151,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 139,
+                            "cargo": 39,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 139
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2167,
+                        "aircraft": 3400,
+                        "handling": 769,
+                        "landing": 1491
+                    },
+                    "revenue": {
+                        "tickets": 16958,
+                        "cargo": 5889
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 22.26m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -194,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 23
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.10G (84 ft/min, challenging  conditions)<br/>Distance from threshold: 554m (accepted range: 203-816m)<br/>Average centerline deviation: 7.98m<br/>Max centerline deviation: 22.26m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 24
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.1,
+                                        "rate": 84
+                                    },
+                                    "weather": {
+                                        "windDir": 287.38,
+                                        "windSpd": 21.91,
+                                        "windX": 21
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-25T14:16:52.904Z",
+                "updatedAt": "2026-11-25T15:07:25.328Z",
+                "dep": {
+                    "icao": "UKDE",
+                    "name": "Zaporizhzhia International Airport",
+                    "city": "Zaporizhia",
+                    "location": {
+                        "lat": 47.866962,
+                        "lon": 35.314723,
+                        "elev": 373
+                    }
+                },
+                "arr": {
+                    "icao": "UKFF",
+                    "city": "Simferopol",
+                    "location": {
+                        "lat": 45.0522,
+                        "lon": 33.975101,
+                        "elev": 639
+                    },
+                    "name": "Simferopol International Airport"
+                },
+                "actArr": {
+                    "icao": "UKFF",
+                    "city": "Simferopol",
+                    "location": {
+                        "lat": 45.0522,
+                        "lon": 33.975101,
+                        "elev": 639
+                    },
+                    "name": "Simferopol International Airport"
+                }
             }
         ]
     },
