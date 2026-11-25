@@ -5534,5 +5534,186 @@
                 }
             }
         ]
+    },
+    {
+        "pilot_id": "6957b3673dc76275ba7e053e",
+        "fullname": "Kazuar Avia",
+        "avatar": "6957b3673dc76275ba7e053e1777215050804",
+        "flights": [
+            {
+                "_id": "6b06e4155516042e4878360e",
+                "aircraft": {
+                    "_id": "6b06e23a5516042e48782fff",
+                    "name": "Embraer 190 Freighter",
+                    "customName": "UCAA l Embraer 190F (cargo) 2",
+                    "icao": "E190"
+                },
+                "type": "cargo",
+                "flightNumber": "337",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 0,
+                    "cargo": 90,
+                    "weights": {
+                        "cargo": 6300
+                    }
+                },
+                "depTime": "2026-11-25T14:00:00.000Z",
+                "duration": 60,
+                "arrTime": "2026-11-25T15:00:00.000Z",
+                "depTimeAct": "2026-11-25T14:00:05.441Z",
+                "delay": 2,
+                "takeoffTimeAct": "2026-11-25T14:06:28.439Z",
+                "durationAct": 56,
+                "arrTimeAct": "2026-11-25T15:02:25.427Z",
+                "open": "2026-11-25T13:35:36.264Z",
+                "close": "2026-11-25T15:08:19.774Z",
+                "rating": 7.75,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 306,
+                        "fuel": 1632,
+                        "expenses": 4034,
+                        "penalties": 0,
+                        "revenue": 12060,
+                        "balance": 8026,
+                        "prices": {
+                            "ticketPrice": 109,
+                            "cargoUnitPrice": 134,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.7,
+                                "fuel": 0.8,
+                                "ground": 0.7
+                            }
+                        },
+                        "payload": {
+                            "pax": 0,
+                            "cargo": 90,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1476,
+                        "aircraft": 1945,
+                        "handling": 158,
+                        "landing": 455
+                    },
+                    "revenue": {
+                        "tickets": 0,
+                        "cargo": 12060
+                    },
+                    "violations": [
+                        {
+                            "title": "Average touchdown: 1.60G (412 ft/min, challenging  conditions)<br/>Distance from threshold: 321m (accepted range: 184-738m)<br/>Average centerline deviation: 2.01m<br/>Max centerline deviation: 3.57m",
+                            "penalty": {
+                                "points": -25,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.6,
+                                        "rate": 412
+                                    },
+                                    "weather": {
+                                        "windDir": 278.55,
+                                        "windSpd": 8.48,
+                                        "windX": 7
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on landing: 1013mb instead of 1023mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.6,
+                                        "rate": 412
+                                    },
+                                    "weather": {
+                                        "windDir": 278.55,
+                                        "windSpd": 8.48,
+                                        "windX": -7.38
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 603ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-25T13:35:17.099Z",
+                "updatedAt": "2026-11-25T15:08:20.304Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "UKOO",
+                    "name": "Odesa International Airport",
+                    "city": "Odesa",
+                    "location": {
+                        "lat": 46.427196,
+                        "lon": 30.672649,
+                        "elev": 172
+                    }
+                },
+                "actArr": {
+                    "icao": "UKOO",
+                    "name": "Odesa International Airport",
+                    "city": "Odesa",
+                    "location": {
+                        "lat": 46.427196,
+                        "lon": 30.672649,
+                        "elev": 172
+                    }
+                }
+            }
+        ]
     }
 ]
