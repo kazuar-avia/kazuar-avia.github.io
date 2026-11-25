@@ -1854,6 +1854,186 @@
                         "elev": 1046
                     }
                 }
+            },
+            {
+                "_id": "6b068e97d962ff40f1896d78",
+                "aircraft": {
+                    "_id": "69ef2347a5e61d69a7a9a2b0",
+                    "name": "Airbus A320",
+                    "customName": "WizzAir Ukraine l A320 IAE SL based in UKBB l UR-WUB",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "6115",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 180,
+                    "cargo": 8,
+                    "weights": {
+                        "cargo": 864
+                    }
+                },
+                "depTime": "2026-11-25T08:00:00.000Z",
+                "duration": 135,
+                "arrTime": "2026-11-25T10:15:00.000Z",
+                "depTimeAct": "2026-11-25T07:57:34.772Z",
+                "delay": 27,
+                "takeoffTimeAct": "2026-11-25T08:01:32.799Z",
+                "durationAct": 160,
+                "arrTimeAct": "2026-11-25T10:41:57.880Z",
+                "open": "2026-11-25T07:54:27.782Z",
+                "close": "2026-11-25T10:42:14.817Z",
+                "rating": -0.8,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": true,
+                "result": {
+                    "totals": {
+                        "distance": 986,
+                        "fuel": 5929,
+                        "expenses": 0,
+                        "penalties": 0,
+                        "revenue": 0,
+                        "balance": 0,
+                        "prices": {
+                            "ticketPrice": 146,
+                            "cargoUnitPrice": 164,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 180,
+                            "cargo": 8,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 180
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 6703,
+                        "aircraft": 6925,
+                        "handling": 1138,
+                        "landing": 1365
+                    },
+                    "revenue": {
+                        "tickets": 26280,
+                        "cargo": 1312
+                    },
+                    "violations": [
+                        {
+                            "title": "Tail strike on landing (pitch: 14.2, max: 13.0)",
+                            "penalty": {
+                                "points": -400,
+                                "cash": 150000
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.32,
+                                        "rate": 437
+                                    },
+                                    "weather": {
+                                        "windDir": 297.71,
+                                        "windSpd": 11.26,
+                                        "windX": 9
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Runway excursion on landing (28m from runway edge)",
+                            "penalty": {
+                                "points": -300,
+                                "cash": 30000
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 33
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Emergency Declared",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "emergency",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Incoherent data: flight closed without a landing",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "emergency",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-25T07:30:31.706Z",
+                "updatedAt": "2026-11-25T10:42:14.929Z",
+                "dep": {
+                    "icao": "EDDN",
+                    "name": "Nuremberg Airport",
+                    "city": "Nuremberg",
+                    "location": {
+                        "lat": 49.498699,
+                        "lon": 11.078056,
+                        "elev": 1046
+                    }
+                },
+                "arr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "actArr": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                }
             }
         ]
     },
