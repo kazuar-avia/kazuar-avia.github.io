@@ -6118,6 +6118,7 @@ async function loadVatsimTraffic() {
 
         const response = await fetch(VATSIM_URL);
         const data = await response.json();
+        const vatsimReceivedAt = Date.now() / 1000;
         setUkraineMapAtc(data.controllers || []);
 
 // =========================
@@ -6125,6 +6126,7 @@ async function loadVatsimTraffic() {
 // =========================
 
 let newSkyFlights = [];
+let newSkyReceivedAt = null;
 
 try {
 
@@ -6138,6 +6140,7 @@ try {
     );
 
     const nsData = await nsResponse.json();
+    newSkyReceivedAt = Date.now() / 1000;
 
     newSkyFlights =
         nsData.results || [];
@@ -7206,7 +7209,7 @@ ${status}
         if (!isLatestVatsimTrafficLoad()) return;
 
         document.getElementById('vatsim-traffic').innerHTML = html;
-        setUkraineMapFlights(pilots, visibleNewSkyFlights);
+        setUkraineMapFlights(pilots, visibleNewSkyFlights, { vatsim: vatsimReceivedAt, newsky: newSkyReceivedAt });
 
     } catch (error) {
 
@@ -9944,7 +9947,8 @@ function getNewSkyAirportCoords(flight, field) {
   return [lat, lon];
 }
 
-function setUkraineMapFlights(vatsimPilots, newSkyFlights) {
+function setUkraineMapFlights(vatsimPilots, newSkyFlights, receivedAt = {}) {
+  window.ukraineMapFlightReceivedAt = receivedAt;
   window.ukraineMapVatsimFlights = Array.isArray(vatsimPilots) ? vatsimPilots : [];
   window.ukraineMapNewSkyFlights = Array.isArray(newSkyFlights) ? newSkyFlights : [];
   renderUkraineFlightLayers();
@@ -11083,6 +11087,47 @@ function addEndpointIcaoLabel(layer, coords, icao) {
   }).addTo(layer);
 }
 
+// The track timestamp is the collector's receipt time, not a pilot observation time.
+function newestUkraineTrackPoint(points, live, receivedAt, source) {
+  if (!Array.isArray(points) || !Array.isArray(live) || !Number.isFinite(receivedAt)) return null;
+  const valid = p => p && Number.isFinite(p.t) && Number.isFinite(p.lat) &&
+    Number.isFinite(p.lon) && Math.abs(p.lat) <= 90 && Math.abs(p.lon) <= 180;
+  const last = points[points.length - 1];
+  if (!valid(last)) return null;
+  const samePosition = p => valid(p) &&
+    Math.abs(p.lat - live[0]) <= 0.000001 && Math.abs(p.lon - live[1]) <= 0.000001;
+  if (samePosition(last)) return null;
+  const maxAge = source === "newsky" ? 180 : 45;
+  if (last.t < receivedAt - maxAge || last.t > Date.now() / 1000 + 5) return null;
+  const matched = points.slice(0, -1).reverse().find(samePosition);
+  if (last.t > receivedAt + 2 ||
+      (matched && last.t > matched.t && last.t >= receivedAt - 15 &&
+       matched.t >= receivedAt - maxAge)) return last;
+  return null;
+}
+
+function syncUkraineTrackMarker(marker, point) {
+  if (!marker || !point) return;
+  const popup = marker.getPopup();
+  const autoPan = popup?.options.autoPan;
+  if (popup) popup.options.autoPan = false;
+  try {
+    marker.setLatLng([point.lat, point.lon]);
+    const icon = marker.getElement()?.querySelector(".ukraine-flight-icon");
+    if (icon && Number.isFinite(point.heading)) {
+      icon.style.transform = `rotate(${normalizeHeading(point.heading)}deg)`;
+    }
+    if (popup && typeof popup.getContent() === "string") {
+      let content = popup.getContent();
+      if (Number.isFinite(point.alt)) content = content.replace(/ALT [^<]+/, "ALT " + formatFlightAltitude(point.alt));
+      if (Number.isFinite(point.heading)) content = content.replace(/HDG [^<]+/, "HDG " + formatFlightHeading(point.heading));
+      if (content !== popup.getContent()) popup.setContent(content);
+    }
+  } finally {
+    if (popup) popup.options.autoPan = autoPan;
+  }
+}
+
 function showUkraineActiveFlightRoute(depCoords, depIcao, aircraftCoords, arrCoords, arrIcao, color, trackId, marker) {
   const routeLayer = ensureUkraineActiveRouteLayer();
   if (!routeLayer || !Array.isArray(aircraftCoords)) return;
@@ -11091,8 +11136,13 @@ function showUkraineActiveFlightRoute(depCoords, depIcao, aircraftCoords, arrCoo
   const selected = window.ukraineSelectedTrack;
   const tracks = window.KazuarFlightTracks;
   function paint(points) {
+    const newer = newestUkraineTrackPoint(points, aircraftCoords,
+      window.ukraineMapFlightReceivedAt?.[trackId?.source], trackId?.source);
+    if (newer) syncUkraineTrackMarker(marker, newer);
+    const live = marker?.getLatLng();
+    const currentCoords = live ? [live.lat, live.lng] : aircraftCoords;
     routeLayer.clearLayers();
-    if (tracks) tracks.drawRoute(L, routeLayer, trackId?.source || "vatsim", points, depCoords, aircraftCoords, arrCoords, color);
+    if (tracks) tracks.drawRoute(L, routeLayer, trackId?.source || "vatsim", points, depCoords, currentCoords, arrCoords, color);
     addEndpointIcaoLabel(routeLayer, depCoords, depIcao);
     addEndpointIcaoLabel(routeLayer, arrCoords, arrIcao);
   }
