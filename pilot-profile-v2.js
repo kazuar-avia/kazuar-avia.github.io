@@ -2563,11 +2563,37 @@
         <div class="profile-finance-grid"><div class="profile-finance-stack"><section class="profile-finance"><div class="profile-finance-title">ФІНАНСОВЕ КОЛО ПІЛОТА · ${esc(periodName(current.period))}</div><div class="profile-finance-body"><div class="profile-finance-pie" id="profileFinancePie"></div><div class="profile-finance-legend" id="profileFinanceLegend"></div></div></section><section class="profile-finance profile-airline-benefit"><div class="profile-finance-title">ПРИБУТОК ДЛЯ АВІАКОМПАНІЇ · ${esc(periodName(current.period))}</div><div class="profile-finance-body"><div class="profile-finance-pie" id="profileAirlineBenefitPie"></div><div class="profile-finance-legend" id="profileAirlineBenefitLegend"></div></div></section></div><div class="profile-mini-pies"><div class="profile-mini-pie-block"><div class="profile-mini-title">УЛЮБЛЕНИЙ АЕРОПОРТ</div><div class="profile-mini-pie" id="profileAirportPie"></div><div class="profile-mini-labels aircraft" id="profileAirportLegend"></div></div><div class="profile-mini-pie-block"><div class="profile-mini-title">ТИП ЛІТАКА</div><div class="profile-mini-pie" id="profileAircraftTypePie"></div><div class="profile-mini-labels aircraft" id="profileAircraftTypeLegend"></div></div><div class="profile-mini-pie-block"><div class="profile-mini-title">УЛЮБЛЕНА КРАЇНА</div><div class="profile-mini-pie" id="profileCountryPie"></div><div class="profile-mini-labels countries" id="profileCountryLegend"></div></div><div class="profile-mini-pie-block"><div class="profile-mini-title">ТИП РЕЙСУ</div><div class="profile-mini-pie" id="profileFlightTypePie"></div><div class="profile-mini-labels" id="profileFlightTypeLegend"></div></div></div></div>
         <div class="profile-cards"><div class="profile-card"><small>Середній рейтинг</small><strong>${selected.rating?selected.rating.toFixed(2):'—'}</strong><span>${esc(periodCaption())}</span></div><div class="profile-card"><small>Рейсів виконано</small><strong>${selected.completed.length}</strong><span>${esc(periodCaption())}</span></div><div class="profile-card"><small>Наліт пілота</small><strong>${formatMinutes(selected.minutes)}</strong><span>${esc(periodCaption())}</span></div><div class="profile-card"><small>Прибуток для АК</small><strong class="${selected.companyProfit<0?'negative':'positive'}">${money(selected.companyProfit,true)}</strong><span>${esc(periodCaption())}</span></div><div class="profile-card"><small>Зарплата пілота</small><strong>${money(selected.salary)}</strong><span>${esc(periodCaption())}</span></div></div>
       </div>
-      <section class="profile-flights-panel"><div class="profile-flights-title">ВИКОНАНІ РЕЙСИ ЗА ВИБРАНИЙ ПЕРІОД</div><div class="profile-flight-window"><table class="profile-flight-table dashboard-flight-table"><colgroup><col style="width:13%"><col style="width:17%"><col style="width:22%"><col style="width:9%"><col style="width:14%"><col style="width:14%"><col style="width:11%"></colgroup><thead><tr><th>${sortButton('date','Дата /<br>Рейс')}</th><th>${sortButton('duration','Маршрут /<br>Тривалість')}</th><th class="profile-aircraft-filter-head"><button type="button" id="profileAircraftFilterButton" class="profile-aircraft-filter-button ${current.aircraft?'active':''}"><span>Літак${selectedAircraft?` ${esc(selectedAircraft.icao)}`:''}</span><span class="profile-filter-hint">(фільтр)</span></button><span id="profileAircraftFilterList" class="profile-aircraft-list" hidden></span></th><th>${sortButton('payload','Пейлоад')}</th><th>${sortButton('rating','Рейтинг /<br>посадка')}</th><th>${sortButton('profit','Прибуток<br>авіакомпанії')}</th><th>${sortButton('salary','Зарплата<br>пілота')}</th></tr></thead><tbody>${rows.length?rows.map(flightRow).join(''):'<tr><td colspan="7" style="text-align:center;padding:14px">За вибраний період рейсів немає</td></tr>'}</tbody></table></div></section>
+      <section class="profile-flights-panel"><div class="profile-flights-title">ТАБЛИЦЯ РЕЙСІВ ЗА ВИБРАНИЙ ПЕРІОД<button type="button" class="profile-flights-map-button" ${rows.length?'':'disabled'} title="Показати рейси за вибраний період на карті">🗺 ПОКАЗАТИ НА КАРТІ</button></div><div class="profile-flight-window"><table class="profile-flight-table dashboard-flight-table"><colgroup><col style="width:13%"><col style="width:17%"><col style="width:22%"><col style="width:9%"><col style="width:14%"><col style="width:14%"><col style="width:11%"></colgroup><thead><tr><th>${sortButton('date','Дата /<br>Рейс')}</th><th>${sortButton('duration','Маршрут /<br>Тривалість')}</th><th class="profile-aircraft-filter-head"><button type="button" id="profileAircraftFilterButton" class="profile-aircraft-filter-button ${current.aircraft?'active':''}"><span>Літак${selectedAircraft?` ${esc(selectedAircraft.icao)}`:''}</span><span class="profile-filter-hint">(фільтр)</span></button><span id="profileAircraftFilterList" class="profile-aircraft-list" hidden></span></th><th>${sortButton('payload','Пейлоад')}</th><th>${sortButton('rating','Рейтинг /<br>посадка')}</th><th>${sortButton('profit','Прибуток<br>авіакомпанії')}</th><th>${sortButton('salary','Зарплата<br>пілота')}</th></tr></thead><tbody>${rows.length?rows.map(flightRow).join(''):'<tr><td colspan="7" style="text-align:center;padding:14px">За вибраний період рейсів немає</td></tr>'}</tbody></table></div></section>
       <p class="profile-note">* Персональна ставка формується з базових $65/год, лояльності, регулярності та flight streak-бонусу. Детальний розрахунок доступний натисканням на зарплату конкретного рейсу.</p>
     </div>`;
 
     wireAircraftAwardTooltips(page.content);
+    // карта польотів: та сама панель періоду, що й тут; зміна періоду на карті = зміна тут (render → карта оновлюється)
+    const flightsMapPeriod = {
+      periods: PERIODS,
+      period: current.period,
+      customDate: current.customDate || '',
+      customEndDate: current.customEndDate || '',
+      set(next) {
+        current.period = next.period;
+        current.customDate = next.customDate || '';
+        current.customEndDate = next.customEndDate || '';
+        current.aircraft = null;
+        profileCalendarOpen = false;
+        profileCalendarRangePickingEnd = false;
+        profileCalendarPickerValue = '';
+        render();
+      },
+      // табличка рейсів на карті — ті самі рядки і кліки (рейтинг / прибуток / зарплата), що в таблиці тут
+      rowHtml: flight => flightRow(rows.find(row => row.flight === flight) || {flight, direct: window.UCAADashboardFlightUI.directFlightFinance(flight)}),
+      openFlightInfo: (flightId, type) => {
+        const flight = completed.find(item => item.id === flightId);
+        if (flight) window.UCAADashboardFlightUI.openFlightInfo(flight, type);
+      }
+    };
+    const openFlightsMap = () => window.UCAAPilotFlightsMap?.open(rows.map(row => row.flight), `${lifetime.name} · ${periodName(current.period)}`, flightsMapPeriod);
+    page.content.querySelector('.profile-flights-map-button')?.addEventListener('click', openFlightsMap);
+    if (window.UCAAPilotFlightsMap?.isOpen?.()) openFlightsMap();
     page.content.querySelector('.profile-pies-balance')?.addEventListener('click', () => openPilotPiesLog(lifetime.id));
     page.content.querySelector('.profile-awards-list-button')?.addEventListener('click', event => {
       event.preventDefault();
