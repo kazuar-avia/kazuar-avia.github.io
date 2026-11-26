@@ -478,7 +478,7 @@ async function main() {
   const airports = loadAirportLocations(completedFlights);
   const aircraftMaps = aircraftKeyData(db, matching);
   const coefficient = loadAircraftCoefficient();
-  const demand = parseDemandFile(path.join(OUTPUT_ROOT, 'newsky-charter-results.txt'));
+  const demand = parseDemandFile(path.join(OUTPUT_ROOT, 'data', 'newsky-charter-results.txt'));
 
   const probeAircraftId = cleanId(argValue('--probe-aircraft'));
   if (probeAircraftId) {

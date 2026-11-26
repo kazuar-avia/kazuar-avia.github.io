@@ -228,7 +228,7 @@ function loadAirportLocations(flights) {
     add(flight.arrival);
     add(flight.actualArrival);
   });
-  const ad = readJson(path.join(OUTPUT_ROOT, 'ADcoordinates.json'), {});
+  const ad = readJson(path.join(OUTPUT_ROOT, 'data', 'ADcoordinates.json'), {});
   Object.entries(ad || {}).forEach(([icao, item]) => {
     const code = upper(icao);
     const lat = Number(item?.lat);
@@ -1077,7 +1077,7 @@ async function main() {
   const aircraftMaps = aircraftKeyData(db, matching);
   applyLatestCompletedLocations(completedFlights, aircraftMaps);
   const coefficient = loadAircraftCoefficient();
-  const demand = parseDemandFile(path.join(OUTPUT_ROOT, 'newsky-charter-results.txt'));
+  const demand = parseDemandFile(path.join(OUTPUT_ROOT, 'data', 'newsky-charter-results.txt'));
 
   const probeAircraftId = cleanId(argValue('--probe-aircraft'));
   if (probeAircraftId) {

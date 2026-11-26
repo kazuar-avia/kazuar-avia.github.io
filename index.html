@@ -5382,7 +5382,7 @@ async function fetchRealMetarReport(code) {
 
 async function loadWeatherAirportCoordinates() {
     try {
-        const res = await fetch("./newsky-airports.txt?v=" + new Date().getTime());
+        const res = await fetch("./data/newsky-airports.txt?v=" + new Date().getTime());
         if (!res.ok) throw new Error("Не вдалося відкрити newsky-airports.txt");
 
         const text = await res.text();
@@ -5406,7 +5406,7 @@ async function loadWeatherAirportCoordinates() {
 
 async function loadUkraineAtcSectorBoundaries() {
     try {
-        const res = await fetch("./uk-vatsim-sectors.json?v=" + new Date().getTime());
+        const res = await fetch("./data/uk-vatsim-sectors.json?v=" + new Date().getTime());
         if (!res.ok) throw new Error(`UK sectors HTTP ${res.status}`);
 
         const data = await res.json();
@@ -5428,8 +5428,8 @@ async function loadUkraineAtcSectorBoundaries() {
 async function loadUkraineAtcLowerSectors() {
     try {
         const sources = [
-            "./uk-vatglasses-full.json",
-            "./uk-vatglasses-lower-sectors.json"
+            "./data/uk-vatglasses-full.json",
+            "./data/uk-vatglasses-lower-sectors.json"
         ];
 
         let data = null;
@@ -5831,7 +5831,7 @@ async function preloadStaticData() {
     try {
 
         const txtResponse =
-            await fetch('listofUKRaircompanies.txt');
+            await fetch('data/listofUKRaircompanies.txt');
 
         const txtData =
             await txtResponse.text();
@@ -5866,7 +5866,7 @@ async function preloadStaticData() {
     try {
 
         const txtResponse =
-            await fetch('3LDALL.txt');
+            await fetch('data/3LDALL.txt');
 
         const txtData =
             await txtResponse.text();
@@ -5934,7 +5934,7 @@ async function preloadStaticData() {
     try {
 
         const txtResponse =
-            await fetch('ICAOTYPES_CLEAN.txt');
+            await fetch('data/ICAOTYPES_CLEAN.txt');
 
         const txtData =
             await txtResponse.text();
@@ -5969,7 +5969,7 @@ async function preloadStaticData() {
     try {
 
         const txtResponse =
-            await fetch('ruBanned.txt');
+            await fetch('data/ruBanned.txt');
 
         const txtData =
             await txtResponse.text();
@@ -5989,7 +5989,7 @@ async function preloadStaticData() {
     try {
 
         const txtResponse =
-            await fetch('ruBanned_airlines.txt');
+            await fetch('data/ruBanned_airlines.txt');
 
         const txtData =
             await txtResponse.text();
@@ -6101,10 +6101,10 @@ async function loadVatsimTraffic() {
     const VATSIM_URL = 'https://data.vatsim.net/v3/vatsim-data.json';
 
     // TXT файл з авіакомпаніями
-    const AIRLINES_TXT = 'listofUKRaircompanies.txt';
-    const ALL_3LD_TXT = '3LDALL.txt';
-    const ICAO_TYPES_TXT = 'ICAOTYPES_CLEAN.txt';
-    const RU_BANNED_TXT = 'ruBanned.txt';
+    const AIRLINES_TXT = 'data/listofUKRaircompanies.txt';
+    const ALL_3LD_TXT = 'data/3LDALL.txt';
+    const ICAO_TYPES_TXT = 'data/ICAOTYPES_CLEAN.txt';
+    const RU_BANNED_TXT = 'data/ruBanned.txt';
     // =========================
     // LOAD AIRLINES LIST
     // =========================
@@ -8450,7 +8450,7 @@ function renderTopLines(lines, title) {
 
   async function loadNewskyAirportsUpdatedTime() {
   try {
-    const res = await fetch("./newsky-airports.txt?v=" + new Date().getTime());
+    const res = await fetch("./data/newsky-airports.txt?v=" + new Date().getTime());
     if (!res.ok) throw new Error("Не вдалося відкрити newsky-airports.txt");
 
     const text = await res.text();
@@ -8467,7 +8467,7 @@ function renderTopLines(lines, title) {
 
 async function loadNewskyAirportNames() {
   try {
-    const res = await fetch("./newsky-airports.txt?v=" + new Date().getTime());
+    const res = await fetch("./data/newsky-airports.txt?v=" + new Date().getTime());
     if (!res.ok) throw new Error("Не вдалося відкрити newsky-airports.txt");
 
     const text = await res.text();
@@ -8498,7 +8498,7 @@ async function loadNewskyAirportNames() {
   
 async function loadAirportDump() {
   try {
-    const res = await fetch("./newsky-charter-results.txt?v=" + new Date().getTime());
+    const res = await fetch("./data/newsky-charter-results.txt?v=" + new Date().getTime());
     if (!res.ok) throw new Error("Не вдалося відкрити newsky-charter-results.txt");
 
 await loadNewskyAirportNames();

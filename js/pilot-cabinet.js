@@ -692,46 +692,6 @@ function formatRankUpdatedAt(value) {
   return `${parts.day}.${parts.month} в ${parts.hour}:${parts.minute} UTC`;
 }
 
-async function loadNewskyRankSubtitleLegacy() {
-  const subtitle = $('#newskyRankSubtitle');
-  if (!subtitle) return;
-  try {
-    const response = await fetch('newsky-rank.json', {cache: 'no-store'});
-    if (!response.ok) throw new Error(`rank json ${response.status}`);
-    const data = await response.json();
-    const airline = data.airline || {};
-    const rank = Number(airline.rank);
-    const flights = Number(airline.flights);
-    const aboveFlights = Number(data.above?.flights);
-    const toNext = Number.isFinite(aboveFlights) && Number.isFinite(flights)
-      ? Math.max(1, aboveFlights - flights + 1)
-      : Number(data.above?.difference || 0) + 1;
-    const toTop = Number(data.top3Target?.neededFlights ?? data.topTarget?.neededFlights ?? data.top5Target?.neededFlights);
-    const updated = formatRankUpdatedAt(data.updatedAt);
-    if (!Number.isFinite(rank) || !Number.isFinite(flights)) return;
-    const cleanFlightWord = value => {
-      const n = Math.abs(Math.round(Number(value) || 0));
-      if (n % 10 === 1 && n % 100 !== 11) return '\u043F\u043E\u043B\u0456\u0442';
-      if ([2,3,4].includes(n % 10) && ![12,13,14].includes(n % 100)) return '\u043F\u043E\u043B\u044C\u043E\u0442\u0438';
-      return '\u043F\u043E\u043B\u044C\u043E\u0442\u0456\u0432';
-    };
-    const flightWord = value => {
-      const n = Math.abs(Math.round(Number(value) || 0));
-      if (n % 10 === 1 && n % 100 !== 11) return 'політ';
-      if ([2,3,4].includes(n % 10) && ![12,13,14].includes(n % 100)) return 'польоти';
-      return 'польотів';
-    };
-    const toTopText = Number.isFinite(toTop) ? `${toTop.toLocaleString('uk-UA')} ${flightWord(toTop)}` : '—';
-    subtitle.innerHTML = `<span class="rank-subtitle-main">📊 Ми #${rank} у <a href="https://newsky.app/airlines" target="_blank" rel="noopener">рейтингу NewSky</a>!</span> Виконано ${flights.toLocaleString('uk-UA')} ${flightWord(flights)} за крайні 30 днів! 🔥<br><span class="rank-subtitle-extra">До наступного місця: ${toNext.toLocaleString('uk-UA')} ${flightWord(toNext)}, до ТОП-3: ${toTopText}. <a class="rank-join-link" href="https://newsky.app/airline/ukl/join" target="_blank" rel="noopener">Долучайся!</a>${updated ? ` (оновлено ${updated})` : ''}</span>`;
-    subtitle.innerHTML = `<span class="rank-subtitle-main"><span id="mobileModeTrigger" class="mobile-mode-trigger" role="button" tabindex="0" aria-label="Мобільна версія">🔥</span> 📊 Ми #${rank} у <a href="https://newsky.app/airlines" target="_blank" rel="noopener">рейтингу NewSky</a>!</span> Виконано ${flights.toLocaleString('uk-UA')} ${flightWord(flights)} за крайні 30 днів!<br><span class="rank-subtitle-extra">До наступного місця: ${toNext.toLocaleString('uk-UA')} ${flightWord(toNext)}, до ТОП-3: ${toTopText}. <a class="rank-join-link" href="https://newsky.app/airline/ukl/join" target="_blank" rel="noopener">Долучайся!</a>${updated ? ` (оновлено ${updated})` : ''}</span>`;
-    bindMobileModeTrigger(subtitle);
-    subtitle.innerHTML = `<span class="rank-desktop-line"><span class="rank-subtitle-main"><span id="mobileModeTrigger" class="mobile-mode-trigger" role="button" tabindex="0" aria-label="\u041C\u043E\u0431\u0456\u043B\u044C\u043D\u0430 \u0432\u0435\u0440\u0441\u0456\u044F">\u{1F4CA}</span> \u041C\u0438 #${rank} \u0443 <a href="https://newsky.app/airlines" target="_blank" rel="noopener">\u0440\u0435\u0439\u0442\u0438\u043D\u0433\u0443 NewSky</a>!</span> \u0412\u0438\u043A\u043E\u043D\u0430\u043D\u043E ${flights.toLocaleString('uk-UA')} ${cleanFlightWord(flights)} \u0437\u0430 \u043A\u0440\u0430\u0439\u043D\u0456 30 \u0434\u043D\u0456\u0432! <span id="desktopModeTrigger" class="mobile-mode-trigger" role="button" tabindex="0" aria-label="\u0417\u0432\u0438\u0447\u0430\u0439\u043D\u0430 \u0432\u0435\u0440\u0441\u0456\u044F">\u{1F525}</span></span><span class="rank-mobile-line">\u0412\u0438\u043A\u043E\u043D\u0430\u043D\u043E ${flights.toLocaleString('uk-UA')} ${cleanFlightWord(flights)} / 30 \u0434\u043D\u0456\u0432 \u{1F525} #${rank} \u043C\u0456\u0441\u0446\u0435 NewSky!</span><br><span class="rank-subtitle-extra">\u0414\u043E \u043D\u0430\u0441\u0442\u0443\u043F\u043D\u043E\u0433\u043E \u043C\u0456\u0441\u0446\u044F: ${toNext.toLocaleString('uk-UA')} ${cleanFlightWord(toNext)}, \u0434\u043E \u0422\u041E\u041F-3: ${Number.isFinite(toTop) ? `${toTop.toLocaleString('uk-UA')} ${cleanFlightWord(toTop)}` : '\u2014'}. <a class="rank-join-link" href="https://newsky.app/airline/ukl/join" target="_blank" rel="noopener">\u0414\u043E\u043B\u0443\u0447\u0430\u0439\u0441\u044F!</a>${updated ? ` (\u043E\u043D\u043E\u0432\u043B\u0435\u043D\u043E ${updated})` : ''}</span>`;
-    bindMobileModeTrigger(subtitle);
-  } catch (error) {
-    console.warn('Не вдалося оновити рейтинг NewSky', error);
-  }
-}
-
 function rankAirlineFlights(airline) {
   return Number(airline?.stats?.recentFlights ?? airline?.recentFlights ?? airline?.flights ?? 0) || 0;
 }
@@ -3011,7 +2971,7 @@ function parseCompanyCharterDemand(text) {
 
 async function loadCompanyCharterDemand(cacheMode = 'default') {
   try {
-    const response = await fetch(`newsky-charter-results.txt${cacheMode === 'no-store' ? `?v=${Date.now()}` : ''}`, {cache: cacheMode});
+    const response = await fetch(`data/newsky-charter-results.txt${cacheMode === 'no-store' ? `?v=${Date.now()}` : ''}`, {cache: cacheMode});
     if (!response.ok) return {};
     return parseCompanyCharterDemand(await response.text());
   } catch (error) {
@@ -3032,7 +2992,7 @@ async function loadDatabases() {
       fetch('COMPANY/route-missions.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
       fetch(`COMPANY/guaranteed-bonuses.json?v=${Date.now()}`, {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
       fetch('COMPANY/guaranteed-bonuses-manual.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
-      fetch('ADcoordinates.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
+      fetch('data/ADcoordinates.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
       fetch(`COMPANY/pies-ledger.json?v=${Date.now()}`, {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null)
     ]);
     const {archive, current} = loaded;
@@ -3106,7 +3066,7 @@ async function refreshDatabasesSoft() {
     fetch(`COMPANY/route-missions.json?v=${Date.now()}`, {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
     fetch(`COMPANY/guaranteed-bonuses.json?v=${Date.now()}`, {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
     fetch(`COMPANY/guaranteed-bonuses-manual.json?v=${Date.now()}`, {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
-    fetch(`ADcoordinates.json?v=${Date.now()}`, {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
+    fetch(`data/ADcoordinates.json?v=${Date.now()}`, {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
     fetch(`COMPANY/pies-ledger.json?v=${Date.now()}`, {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null)
   ]);
   const {archive, current} = loaded;

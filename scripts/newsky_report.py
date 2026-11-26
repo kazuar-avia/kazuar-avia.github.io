@@ -9,7 +9,7 @@ import os
 # === Налаштування ===
 BASE_DIR = Path(__file__).resolve().parent
 if BASE_DIR.name == "scripts":
-    BASE_DIR = BASE_DIR.parent
+    BASE_DIR = BASE_DIR.parent / "data"
 INPUT_FILE = BASE_DIR / "newsky-airports.txt"
 OUTPUT_FILE = BASE_DIR / "newsky-airports-report.txt"
 
