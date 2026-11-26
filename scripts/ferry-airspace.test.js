@@ -5,7 +5,7 @@ const path = require('node:path');
 const vm = require('node:vm');
 
 function loadAirspace() {
-  const code = fs.readFileSync(path.join(__dirname, '..', 'ferry-airspace.js'), 'utf8');
+  const code = fs.readFileSync(path.join(__dirname, '..', 'js', 'ferry-airspace.js'), 'utf8');
   const context = {window: {}};
   vm.runInNewContext(code, context, {filename: 'ferry-airspace.js'});
   return context.window.UCAAFerryAirspace;

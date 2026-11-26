@@ -3,8 +3,8 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
-const rewards = require('../pie-rewards.js');
-const source = fs.readFileSync(path.join(__dirname,'..','pilot-cabinet.js'),'utf8');
+const rewards = require('../js/pie-rewards.js');
+const source = fs.readFileSync(path.join(__dirname,'..','js', 'pilot-cabinet.js'),'utf8');
 function functions(first, next) {
   return source.slice(source.indexOf('function '+first+'('),source.indexOf('function '+next+'('));
 }

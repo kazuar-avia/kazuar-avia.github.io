@@ -4,9 +4,9 @@ const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
 const {hotCandidateAllowed, buildTopPool} = require('./update-top-pool.js');
-const rewards = require('../pie-rewards.js');
+const rewards = require('../js/pie-rewards.js');
 const root = path.resolve(__dirname, '..');
-const source = fs.readFileSync(path.join(root, 'pilot-cabinet.js'), 'utf8');
+const source = fs.readFileSync(path.join(root, 'js', 'pilot-cabinet.js'), 'utf8');
 
 function candidate(id, minutes = 210, type = 'schedule', group = 'unknown') {
   return {aircraftId:id, aircraft:{id,lastflightlocationICAO:'UKBB'}, aircraftTitle:id, group, registration:id,

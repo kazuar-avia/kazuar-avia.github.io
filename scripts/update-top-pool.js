@@ -8,7 +8,7 @@ const vm = require('vm');
 const OUTPUT_ROOT = path.resolve(__dirname, '..');
 const COMPANY_DIR = path.join(OUTPUT_ROOT, 'COMPANY');
 const FLIGHTS_DIR = path.join(OUTPUT_ROOT, 'FLIGHTS');
-const flightBlockTime = require(path.join(OUTPUT_ROOT, 'flight-block-time.js'));
+const flightBlockTime = require(path.join(OUTPUT_ROOT, 'js', 'flight-block-time.js'));
 const BONUS_FILE = path.join(COMPANY_DIR, 'guaranteed-bonuses.json');
 const LIVE_URL = 'https://newsky.app/api/airline-api/flights/ongoing';
 const LIVE_DETAIL_URL = 'https://newsky.app/api/airline-api/flight/';
@@ -270,8 +270,8 @@ function distanceNm(airports, from, to) {
 
 function loadAircraftCoefficient() {
   const sandbox = {window: {}};
-  vm.runInNewContext(fs.readFileSync(path.join(OUTPUT_ROOT, 'aircraft-difficulty-coefficients.js'), 'utf8'), sandbox);
-  vm.runInNewContext(fs.readFileSync(path.join(OUTPUT_ROOT, 'pilot-pay-policy.js'), 'utf8'), sandbox);
+  vm.runInNewContext(fs.readFileSync(path.join(OUTPUT_ROOT, 'js', 'aircraft-difficulty-coefficients.js'), 'utf8'), sandbox);
+  vm.runInNewContext(fs.readFileSync(path.join(OUTPUT_ROOT, 'js', 'pilot-pay-policy.js'), 'utf8'), sandbox);
   return (icao, flightType) => {
     const fn = sandbox.window?.UCAAPilotPay?.aircraftCoefficient;
     return Number(fn ? fn(icao, flightType) : 1) || 1;

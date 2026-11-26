@@ -195,8 +195,8 @@ function distanceNm(airports, from, to) {
 
 function loadAircraftCoefficient() {
   const sandbox = {window: {}};
-  vm.runInNewContext(fs.readFileSync(path.join(OUTPUT_ROOT, 'aircraft-difficulty-coefficients.js'), 'utf8'), sandbox);
-  vm.runInNewContext(fs.readFileSync(path.join(OUTPUT_ROOT, 'pilot-pay-policy.js'), 'utf8'), sandbox);
+  vm.runInNewContext(fs.readFileSync(path.join(OUTPUT_ROOT, 'js', 'aircraft-difficulty-coefficients.js'), 'utf8'), sandbox);
+  vm.runInNewContext(fs.readFileSync(path.join(OUTPUT_ROOT, 'js', 'pilot-pay-policy.js'), 'utf8'), sandbox);
   return (icao, flightType) => {
     const fn = sandbox.window?.UCAAPilotPay?.aircraftCoefficient;
     return Number(fn ? fn(icao, flightType) : 1) || 1;

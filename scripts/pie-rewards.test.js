@@ -6,7 +6,7 @@ const os = require('node:os');
 const vm = require('node:vm');
 const {createRequire} = require('node:module');
 const {spawnSync} = require('node:child_process');
-const rewards = require('../pie-rewards.js');
+const rewards = require('../js/pie-rewards.js');
 
 const root = path.resolve(__dirname, '..');
 const now = new Date('2026-10-01T12:00:00Z');
@@ -200,17 +200,18 @@ test('Railway standalone bonus script runs without the currency module and prese
     fs.rmSync(fixtureRoot,{recursive:true,force:true});
   });
   fs.mkdirSync(path.join(fixtureRoot,'scripts'));
+  fs.mkdirSync(path.join(fixtureRoot,'js'));
   fs.mkdirSync(path.join(fixtureRoot,'COMPANY'));
   const script = path.join(fixtureRoot,'scripts','update-guaranteed-bonuses.js');
   fs.copyFileSync(path.join(root,'scripts','update-guaranteed-bonuses.js'),script);
-  for (const name of ['aircraft-difficulty-coefficients.js','pilot-pay-policy.js']) fs.copyFileSync(path.join(root,name),path.join(fixtureRoot,name));
+  for (const name of ['aircraft-difficulty-coefficients.js','pilot-pay-policy.js']) fs.copyFileSync(path.join(root,'js',name),path.join(fixtureRoot,'js',name));
   const ledgerFile = path.join(fixtureRoot,'COMPANY','pies-ledger.json');
   const ledgerText = JSON.stringify(initialLedger());
   fs.writeFileSync(ledgerFile,ledgerText);
   const {record} = fixture();
   fs.writeFileSync(path.join(fixtureRoot,'COMPANY','guaranteed-bonuses.json'),JSON.stringify({version:1,flights:{'flight-1':record}}));
   fs.writeFileSync(path.join(fixtureRoot,'COMPANY','top-pool-current.json'),JSON.stringify({version:1,items:[]}));
-  assert.equal(fs.existsSync(path.join(fixtureRoot,'pie-rewards.js')),false);
+  assert.equal(fs.existsSync(path.join(fixtureRoot,'js', 'pie-rewards.js')),false);
   const result = spawnSync(process.execPath,[script,'--skip-live','--dry-run'],{cwd:fixtureRoot,encoding:'utf8',timeout:10000});
   assert.equal(result.status,0,result.stderr);
   assert.equal(JSON.parse(result.stdout).flights['flight-1'].status,'earned');
@@ -291,7 +292,7 @@ test('ledger updater persists currency, is idempotent, and leaves dry runs untou
 });
 
 test('top card shows saved rank and reward even after rearranging or entering LIVE', () => {
-  const source = fs.readFileSync(path.join(root,'pilot-cabinet.js'),'utf8');
+  const source = fs.readFileSync(path.join(root,'js', 'pilot-cabinet.js'),'utf8');
   const note = source.slice(source.indexOf('function companyPiesRewardHtml('),source.indexOf('function companyFixedTopPoolModeForPieType('));
   const context = vm.createContext({window:{UCAAPieRewards:rewards},companyFixedTopPoolConsumedFlight:()=>null,companyFixedTopPoolLiveMatchFlight:()=>null,companyFixedTopPoolInterceptedFlight:()=>null,companyFixedTopPoolLiveStatus:()=>null});
   vm.runInContext(note,context);
@@ -321,7 +322,7 @@ test('flight markers require an actual earning for the exact completed flight an
 });
 
 test('fleet and TOP cards share the matching LIVE premium before bonus data catches up', () => {
-  const source = fs.readFileSync(path.join(root,'pilot-cabinet.js'),'utf8');
+  const source = fs.readFileSync(path.join(root,'js', 'pilot-cabinet.js'),'utf8');
   const item = {aircraftId:'aircraft-1',proposal:{premiumUsd:319}};
   const flight = {_id:'live-1'};
   const liveInfo = {state:'LIVE',pilotId:'pilot-1',pilotName:'Mozhehov Denys',aircraftId:'aircraft-1'};
@@ -360,7 +361,7 @@ test('fleet and TOP cards share the matching LIVE premium before bonus data catc
 });
 
 test('an old flight on the same route cannot turn the current LIVE reward into DONE', () => {
-  const source = fs.readFileSync(path.join(root,'pilot-cabinet.js'),'utf8');
+  const source = fs.readFileSync(path.join(root,'js', 'pilot-cabinet.js'),'utf8');
   const {record,flight} = fixture();
   record.flightNumber = flight.flightNumber;
   const liveId = '6abfee39e2b73bbe59044797';
@@ -388,7 +389,7 @@ test('an old flight on the same route cannot turn the current LIVE reward into D
 });
 
 test('promised pies appear only in hot cards, using the confirmed LIVE rank', () => {
-  const source = fs.readFileSync(path.join(root,'pilot-cabinet.js'),'utf8');
+  const source = fs.readFileSync(path.join(root,'js', 'pilot-cabinet.js'),'utf8');
   const {record,flight} = fixture('hot-live',1);
   const saved = {...record,state:'LIVE',status:'matched',pilotName:'Mozhehov Denys'};
   const live = {_id:flight.id,depTimeAct:flight.times.actualDeparture};
@@ -406,7 +407,7 @@ test('promised pies appear only in hot cards, using the confirmed LIVE rank', ()
 });
 
 test('hot rewards name the LIVE recipient, then distinguish pending from credited pies', () => {
-  const source = fs.readFileSync(path.join(root,'pilot-cabinet.js'),'utf8');
+  const source = fs.readFileSync(path.join(root,'js', 'pilot-cabinet.js'),'utf8');
   const {record,flight} = fixture('recipient-flight',2);
   flight.pilot.name = 'Denys <test>';
   const app = {piesLedger:initialLedger()};

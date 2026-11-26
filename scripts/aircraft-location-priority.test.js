@@ -7,7 +7,7 @@ const path = require('node:path');
 const vm = require('node:vm');
 
 const root = path.join(__dirname, '..');
-const cabinetSource = fs.readFileSync(path.join(root, 'pilot-cabinet.js'), 'utf8');
+const cabinetSource = fs.readFileSync(path.join(root, 'js', 'pilot-cabinet.js'), 'utf8');
 const engines = ['scripts/update-top-pool.js', 'scripts/update-guaranteed-bonuses.js'];
 
 function functionSource(source, name) {
