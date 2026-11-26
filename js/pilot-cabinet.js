@@ -973,8 +973,22 @@ function pieRewardIconHtml(flight) {
   return `<span class="flight-pies-icon" title="Нараховано ${esc(label)} за цей рейс"><img src="assets/icons/pyrih.png" alt="+${esc(label)}"></span>`;
 }
 
+// Розділ, з якого взято рейс (записано в гарантованому бонусі: pieType). «Гарячі пиріжки» показуються пиріжком
+// з журналу (pieRewardIconHtml), а для інших розділів пиріжків нема — показуємо значок розділу.
+const FLIGHT_SOURCE_ICONS = {
+  cash: ['\u{1F4B8}', 'Рейс із розділу «Підняти кеш»'],
+  returnRoute: ['\u{1F501}', 'Рейс із розділу «Повернути на маршрут»'],
+  idle: ['\u{1F9F0}', 'Рейс із розділу «Вивести з простоя»']
+};
+function flightSourceIconHtml(flight) {
+  const record = guaranteedBonusRecordForFlight(flight);
+  if (!record || typeof record !== 'object') return '';
+  const icon = FLIGHT_SOURCE_ICONS[String(record.pieType || '').trim()];
+  return icon ? `<span class="flight-source-icon" title="${esc(icon[1])}">${icon[0]}</span>` : '';
+}
+
 function flightRewardIconsHtmlForRow(flight, amount) {
-  return guaranteedBonusIconHtmlForRow(flight, amount) + pieRewardIconHtml(flight);
+  return guaranteedBonusIconHtmlForRow(flight, amount) + pieRewardIconHtml(flight) + flightSourceIconHtml(flight);
 }
 
 function salaryAmountWithRewardsHtml(flight, amount, salary) {
@@ -1105,12 +1119,16 @@ function dashboardFinanceData(selected, bounds) {
     const startDay = new Date(Date.UTC(fixedStart.getUTCFullYear(), fixedStart.getUTCMonth(), fixedStart.getUTCDate()));
     const boundary = bounds.end.getUTCHours() === 0 && bounds.end.getUTCMinutes() === 0 && bounds.end.getUTCSeconds() === 0;
     const endDay = new Date(Date.UTC(bounds.end.getUTCFullYear(), bounds.end.getUTCMonth(), bounds.end.getUTCDate() + (boundary ? 0 : 1)));
+    // періоди зі своїми ставками на день (economy.fixedCostPeriods: {from, to?, fleet, airports, handling, schedulers}); нема періоду — старе середнє
+    const periods = data.economy.fixedCostPeriods || [];
+    const rateFor = iso => periods.find(p => iso >= p.from && (!p.to || iso <= p.to)) || averages;
     for (let day=startDay; day<endDay; day=new Date(day.getTime()+86400000)) {
-      const exact = calibration.get(day.toISOString().slice(0,10));
-      fixedTotals.fleet += exact?.fleetFixed ?? averages.fleet;
-      fixedTotals.airports += exact?.airportFixed ?? averages.airports;
-      fixedTotals.handling += exact?.handlingExtra ?? averages.handling;
-      fixedTotals.schedulers += exact?.schedulers ?? averages.schedulers;
+      const iso = day.toISOString().slice(0,10);
+      const exact = calibration.get(iso), rate = rateFor(iso);
+      fixedTotals.fleet += exact?.fleetFixed ?? rate.fleet;
+      fixedTotals.airports += exact?.airportFixed ?? rate.airports;
+      fixedTotals.handling += exact?.handlingExtra ?? rate.handling;
+      fixedTotals.schedulers += exact?.schedulers ?? rate.schedulers;
     }
   }
   const insurance = window.UCAAInsurance.summary(app.flights, bounds.start, bounds.end);

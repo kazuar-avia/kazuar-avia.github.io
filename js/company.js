@@ -64,16 +64,20 @@ function fixedCostsForSelection(data, start, end) {
   if (start >= end) return {fleet:0, airports:0, handling:0, schedulers:0};
   const averages = {fleet:fixed.fleet/fixed.days, airports:fixed.airports/fixed.days, handling:fixed.handling/fixed.days, schedulers:fixed.schedulers/fixed.days};
   const calibration = new Map((data.economy.calibrationDays || []).map(day => [day.date, day]));
+  // періоди зі своїми ставками на день (economy.fixedCostPeriods: {from, to?, fleet, airports, handling, schedulers}); нема періоду — старе середнє
+  const periods = data.economy.fixedCostPeriods || [];
+  const rateFor = iso => periods.find(p => iso >= p.from && (!p.to || iso <= p.to)) || averages;
   const result = {fleet:0, airports:0, handling:0, schedulers:0};
   const startDay = new Date(Date.UTC(start.getUTCFullYear(),start.getUTCMonth(),start.getUTCDate()));
   const boundary = end.getUTCHours() === 0 && end.getUTCMinutes() === 0 && end.getUTCSeconds() === 0;
   const endDay = new Date(Date.UTC(end.getUTCFullYear(),end.getUTCMonth(),end.getUTCDate() + (boundary ? 0 : 1)));
   for (let day=startDay; day<endDay; day=new Date(day.getTime()+86400000)) {
-    const exact = calibration.get(day.toISOString().slice(0,10));
-    result.fleet += exact?.fleetFixed ?? averages.fleet;
-    result.airports += exact?.airportFixed ?? averages.airports;
-    result.handling += exact?.handlingExtra ?? averages.handling;
-    result.schedulers += exact?.schedulers ?? averages.schedulers;
+    const iso = day.toISOString().slice(0,10);
+    const exact = calibration.get(iso), rate = rateFor(iso);
+    result.fleet += exact?.fleetFixed ?? rate.fleet;
+    result.airports += exact?.airportFixed ?? rate.airports;
+    result.handling += exact?.handlingExtra ?? rate.handling;
+    result.schedulers += exact?.schedulers ?? rate.schedulers;
   }
   return result;
 }

@@ -901,6 +901,9 @@
   .devlogin form input{flex:1;min-width:0}
   .devlogin .cap{font-size:11px;font-weight:bold;color:#0b6f7a;text-transform:uppercase;letter-spacing:.4px}
   .devlogin .cap .adm{color:#888;font-weight:normal;text-transform:none;letter-spacing:0;text-decoration:none}
+  tr.devcab-money .devcab-sep{margin:0 4px;color:#bbb}
+  tr.devcab-money .devcab-task{color:#888;font-weight:normal;white-space:nowrap;cursor:help}
+  tr.devcab-money .devcab-task + .devcab-task{margin-left:5px}
   .devlogin .fwheel{display:inline-flex;align-items:center;vertical-align:-3px;margin:0 3px 0 4px;padding:0;border:0;background:none;cursor:pointer;font-size:15px;line-height:1}
   .devlogin .fwheel:hover{filter:drop-shadow(0 0 3px #f59f00);transform:scale(1.15)}
   .devlogin .fwheel img.pieic{width:16px;height:16px}
@@ -1657,6 +1660,32 @@
     if (s) { const v = String(balPies()); s.textContent = v; s.dataset.devShown = v; }
     moneyRow();
   }
+  // Скільки рейсів пілот виконав з інших розділів диспетчерської (не «Гарячі пиріжки»): з COMPANY/guaranteed-bonuses.json
+  // (pieType у записі бонусу; рахуються виконані — state DONE). Оновлюється раз на 10 хв.
+  const TASK_KINDS = [['returnRoute', '🔁', 'Повернути на маршрут'], ['cash', '💸', 'Підняти кеш'], ['idle', '🧰', 'Вивести з простоя']];
+  const tasks = {byPilot: null, at: 0, busy: false};
+  const flightsWordUa = n => (n % 10 === 1 && n % 100 !== 11) ? 'рейс' : (n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20)) ? 'рейси' : 'рейсів';
+  function loadTasks() {
+    if (tasks.busy || Date.now() - tasks.at < 10 * 60e3) return;
+    tasks.busy = true;
+    fetch(`COMPANY/guaranteed-bonuses.json?t=${Math.floor(Date.now() / 60e3)}`).then(r => r.ok ? r.json() : null).then(data => {
+      const recs = data?.flights && typeof data.flights === 'object' ? data.flights : data || {};
+      const by = {};
+      Object.values(recs).forEach(r => {
+        if (!r || typeof r !== 'object' || String(r.state || '').toUpperCase() !== 'DONE') return;
+        const pid = String(r.pilotId || ''), kind = String(r.pieType || '');
+        if (!pid || !TASK_KINDS.some(([k]) => k === kind)) return;
+        (by[pid] ||= {})[kind] = (by[pid][kind] || 0) + 1;
+      });
+      tasks.byPilot = by; tasks.at = Date.now();
+    }).catch(() => {}).finally(() => { tasks.busy = false; });
+  }
+  function tasksHtml(pid) {
+    loadTasks();
+    if (!tasks.byPilot) return '';
+    const c = tasks.byPilot[pid] || {};
+    return TASK_KINDS.map(([k, icon, label]) => `<span class="devcab-task" title="${label}: виконано ${c[k] || 0} ${flightsWordUa(c[k] || 0)}">${icon}${c[k] || 0}</span>`).join('');
+  }
   // Рядок у «Загальна інформація про пілота»: баланс пиріжків · на рахунку у банку · витрачено на Офіс/Дім (станом на зараз)
   function moneyRow() {
     const th = [...document.querySelectorAll('#profileView th')].find(t => t.textContent.trim() === 'Зарплата пілота');
@@ -1665,13 +1694,13 @@
     let tr = tbody.querySelector('tr.devcab-money');
     if (!tr) { tr = document.createElement('tr'); tr.className = 'devcab-money'; tbody.appendChild(tr); }
     const thCls = th.className, tdCls = th.nextElementSibling?.className || '';
-    const html = `<th class="${thCls}">Баланс пиріжків</th><td class="${tdCls}" data-pies-balance-cell role="button" tabindex="0" aria-label="Відкрити Logbook пиріжків"><b>${balPies()}</b> 🥧</td>`
+    const html = `<th class="${thCls}" style="cursor:help" title="Баланс пиріжків · виконані рейси з розділів диспетчерської: 🔁 Повернути на маршрут, 💸 Підняти кеш, 🧰 Вивести з простоя">Спецзавдання</th><td class="${tdCls}" data-pies-balance-cell role="button" tabindex="0" aria-label="Відкрити Logbook пиріжків"><b>${balPies()}</b> 🥧${(() => { const t = tasksHtml(profilePilotId()); return t ? `<span class="devcab-sep">|</span><span class="devcab-tasks">${t}</span>` : ''; })()}</td>`
       + `<th class="${thCls}">Витрачено на Офіс/Дім</th><td class="${tdCls}">${fmtUsd(state.spentUsd || 0)} | ${state.spent || 0} 🥧</td>`
       + `<th class="${thCls}">Залишок на рахунку</th><td class="${tdCls}"><b>${fmtUsd(balUsd())}</b></td>`;
     if (tr.dataset.h !== html) { tr.dataset.h = html; tr.innerHTML = html; pieify(tr); }
     const piesCell = tr.querySelector('[data-pies-balance-cell]');
     if (piesCell) {
-      piesCell.onclick = () => document.querySelector('#profileView .profile-pies-balance')?.click();
+      piesCell.onclick = e => { if (e.target.closest('.devcab-tasks')) return; document.querySelector('#profileView .profile-pies-balance')?.click(); };
       piesCell.onkeydown = event => {
         if (event.key !== 'Enter' && event.key !== ' ') return;
         event.preventDefault();

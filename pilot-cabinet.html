@@ -204,15 +204,17 @@
     .management-bonus-row th,.management-bonus-row td{background:#e4f6fb!important;border-top:2px solid #86b9c5!important;border-bottom:2px solid #86b9c5!important}
     .guaranteed-bonus-row th,.guaranteed-bonus-row td{background:#f2e8fb!important;border-top:2px solid #b99ad1!important;border-bottom:2px solid #b99ad1!important}
     .salary-amount-inline{display:inline-block;white-space:nowrap}
-    #dashboardView .salary-amount-inline{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;white-space:nowrap;line-height:1.1}
-    #dashboardView .salary-value{display:block}
-    #dashboardView .flight-reward-icons{display:flex;align-items:center;justify-content:center;gap:3px;margin-top:2px;line-height:1}
-    #dashboardView .flight-reward-icons .guaranteed-bonus-icon,#dashboardView .flight-reward-icons .flight-pies-icon{margin-left:0}
-    #dashboardView .flight-reward-icons .flight-pies-icon img{width:17px;height:17px}
+    #dashboardView .salary-amount-inline,#profileView .salary-amount-inline{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;white-space:nowrap;line-height:1.1}
+    #dashboardView .salary-value,#profileView .salary-value{display:block}
+    #dashboardView .flight-reward-icons,#profileView .flight-reward-icons{display:flex;align-items:center;justify-content:center;gap:3px;margin-top:2px;line-height:1}
+    #dashboardView .flight-reward-icons .guaranteed-bonus-icon,#dashboardView .flight-reward-icons .flight-pies-icon,#profileView .flight-reward-icons .guaranteed-bonus-icon,#profileView .flight-reward-icons .flight-pies-icon{margin-left:0}
+    #dashboardView .flight-reward-icons .flight-pies-icon img,#profileView .flight-reward-icons .flight-pies-icon img{width:17px;height:17px}
     #dashboardView .live-flight-reward-icons{display:inline-flex;margin-top:0;vertical-align:middle}
     .guaranteed-bonus-icon{display:inline-block;margin-left:4px;vertical-align:1px;white-space:nowrap}
     .flight-pies-icon{display:inline-flex;align-items:center;margin-left:4px;vertical-align:middle}
     .flight-pies-icon img{display:block;width:18px;height:18px;object-fit:contain}
+    .flight-source-icon{display:inline-block;margin-left:4px;vertical-align:1px;white-space:nowrap;cursor:help}
+    .flight-reward-icons .flight-source-icon{margin-left:0}
     #dashboardView .guaranteed-bonus-icon{margin-left:1px}
     .salary-deduction-row th,.salary-deduction-row td{background:#fff0f0!important}
     .salary-deductions-start th,.salary-deductions-start td{border-top:3px solid #d48b8b!important}
@@ -902,14 +904,14 @@ document.querySelector('.close').onclick=()=>document.querySelector('#pilotDialo
 <script type="application/x-ucaa-deferred" data-ucaa-script-src="js/pilot-pay-policy.js?v=20260628-05"></script>
 <script type="application/x-ucaa-deferred" data-ucaa-script-src="js/incident-compensation-policy.js?v=20260623-5"></script>
 <script type="application/x-ucaa-deferred" data-ucaa-script-src="js/pie-rewards.js"></script>
-<script type="application/x-ucaa-deferred" data-ucaa-script-src="js/pilot-profile-v2.js?v=20261126-vatsim-1-divert-local-small6"></script>
-<script type="application/x-ucaa-deferred" data-ucaa-script-src="js/pilot-flights-map.js?v=20261126-18-mapdivert-local1-planned-v2"></script>
+<script type=application/x-ucaa-deferred data-ucaa-script-src=js/pilot-profile-v2.js?v=20261127-merge-1></script>
+<script type=application/x-ucaa-deferred data-ucaa-script-src=js/pilot-flights-map.js?v=20261126-18-mapdivert-local1-planned-v2></script>
 <script type="application/x-ucaa-deferred" data-ucaa-script-src="js/app-navigation.js?v=20260628-1"></script>
 <script type="application/x-ucaa-deferred" data-ucaa-script-src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script type="application/x-ucaa-deferred" data-ucaa-script-src="js/ferry-airspace.js?v=20261018-crimea-1"></script>
 <script type="application/x-ucaa-deferred" data-ucaa-script-src="js/flight-block-time.js?v=20261017-1"></script>
-<script type="application/x-ucaa-deferred" data-ucaa-script-type="module" data-ucaa-script-src="js/pilot-cabinet.js?v=20261126-data-1-divert-local-small6"></script>
-<script type="application/x-ucaa-deferred" data-ucaa-script-type="module" data-ucaa-script-src="js/company.js?v=20260627-17"></script>
-<script type="application/x-ucaa-deferred" data-ucaa-script-src="js/iso-cabinet.js?v=20261127-header-pweye-2"></script>
+<script type=application/x-ucaa-deferred data-ucaa-script-type=module data-ucaa-script-src=js/pilot-cabinet.js?v=20261127-merge-1></script>
+<script type=application/x-ucaa-deferred data-ucaa-script-type=module data-ucaa-script-src=js/company.js?v=20261127-fixed-periods-2></script>
+<script type=application/x-ucaa-deferred data-ucaa-script-src=js/iso-cabinet.js?v=20261127-merge-1></script>
 </body>
 </html>
