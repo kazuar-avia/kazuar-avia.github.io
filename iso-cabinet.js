@@ -1049,7 +1049,7 @@
   .catcard .finprev{height:120px;border-radius:5px;border:1px solid #ced4da;margin-bottom:4px}
   .fincard .finprev{height:96px;border-radius:5px;border:1px solid #ced4da;margin-bottom:4px}
   .fincard.on .finprev{border:2px solid #3b5bdb}
-  #profileView .profile-pies-balance{display:none!important}   /* пиріжки під аватаркою сховано — баланс тепер у таблиці «Загальна інформація» */
+  #profileView .devcab-money .profile-pies-balance{margin-top:0;font-family:Arial,sans-serif;font-weight:400}   /* оригінальна кнопка Logbook у таблиці */
   img.pieic{width:1.2em;height:1.2em;object-fit:contain;vertical-align:-.25em;display:inline-block}
   .sellx{display:inline-block;margin-left:3px;padding:0 3px;border:1px solid #e03131;border-radius:4px;background:#fff5f5;cursor:pointer;font-size:10px;line-height:14px}
   .sellx:hover{background:#ffe3e3}
@@ -1633,10 +1633,14 @@
     let tr = tbody.querySelector('tr.devcab-money');
     if (!tr) { tr = document.createElement('tr'); tr.className = 'devcab-money'; tbody.appendChild(tr); }
     const thCls = th.className, tdCls = th.nextElementSibling?.className || '';
-    const html = `<th class="${thCls}">Баланс пиріжків</th><td class="${tdCls}"><b>${balPies()}</b> 🥧</td>`
+    const piesButton = document.querySelector('#profileView .profile-pies-balance');
+    const html = `<th class="${thCls}">Баланс пиріжків</th><td class="${tdCls}" data-pies-balance-cell>${piesButton ? '' : `<b>${balPies()}</b> 🥧`}</td>`
       + `<th class="${thCls}">Витрачено на Офіс/Дім</th><td class="${tdCls}">${fmtUsd(state.spentUsd || 0)} | ${state.spent || 0} 🥧</td>`
       + `<th class="${thCls}">Залишок на рахунку</th><td class="${tdCls}"><b>${fmtUsd(balUsd())}</b></td>`;
     if (tr.dataset.h !== html) { tr.dataset.h = html; tr.innerHTML = html; pieify(tr); }
+    // Переносимо той самий DOM-вузол, щоб зберегти оригінальний обробник відкриття Logbook.
+    const piesCell = tr.querySelector('[data-pies-balance-cell]');
+    if (piesButton && piesCell && piesButton.parentElement !== piesCell) piesCell.appendChild(piesButton);
     if (tr !== tbody.lastElementChild) tbody.appendChild(tr);   // завжди останнім рядком таблиці
     syncMoney();
   }
