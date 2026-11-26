@@ -9348,9 +9348,11 @@ function refreshGroundPopupButtons() {
 
 
 function ukraineAirportMinZoom(icao) {
+  // Keep the full airport map at country scale, then thin it gradually.
   if (["UKBB", "UKOO", "UKLL", "UKHH"].includes(icao)) return 0;
-  if (["UKKK", "UKDD", "UKDE", "UKFF", "UKCC", "UKLI", "UKLN", "UKLU"].includes(icao)) return 6;
-  return 7;
+  if (["UKDD", "UKFF", "UKCC", "UKLU"].includes(icao)) return 4;
+  if (["UKDE", "UKLI", "UKLN", "UKLC", "UKLR", "UKHS", "UKHP", "UKWW", "UKOH", "UKKL"].includes(icao)) return 5;
+  return 6;
 }
 
 function updateUkraineAirportVisibility() {
