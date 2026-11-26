@@ -1,0 +1,52 @@
+name: Build flight archive
+
+# Раз на тиждень (понеділок ~02:15 UTC, коли минулий тиждень уже закрито) збирає
+# FLIGHTS/archive.json + FLIGHTS/manifest.json з усіх минулих тижнів.
+# Тоді кабінет пілота качає тільки архів + поточний live-тиждень.
+# Запустити вручну: Actions → Build flight archive → Run workflow.
+on:
+  schedule:
+    - cron: "15 2 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: build-flight-archive
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build archive
+        run: python scripts/build_flight_archive.py
+      - name: Publish archive
+        id: publish
+        run: |
+          if git diff --quiet -- FLIGHTS/archive.json FLIGHTS/manifest.json; then
+            echo "Archive is up to date."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add FLIGHTS/archive.json FLIGHTS/manifest.json
+          git commit -m "Build flight archive"
+          git pull --rebase origin main
+          git push
+          echo "pushed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Start Railway cleanup after new commit
+        if: steps.publish.outputs.pushed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run cancel-old-railway.yml --ref main
