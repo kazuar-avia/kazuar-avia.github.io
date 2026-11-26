@@ -3025,7 +3025,7 @@ async function loadDatabases() {
     const [loaded, companyData, companyLiveryData, companyLiveryMatching, companyTopPool, companyCharterDemand, routeMissions, guaranteedBonuses, manualGuaranteedBonuses, adCoordinates, piesLedger] = await Promise.all([
       window.UCAAFlightData.loadWeeklyFlights(message => { status.textContent = message; }),
       fetch('COMPANY/company-data.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
-      fetch('COMPANY/ucaa-livery-database.json', {cache:'default'}).then(response => response.ok ? response.json() : null).catch(() => null),
+      fetch('COMPANY/ucaa-livery-database.json?v=20261126-ur-eca', {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
       fetch(`COMPANY/livery-matching.json?v=${Date.now()}`, {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
       fetch(`COMPANY/top-pool-current.json?v=${Date.now()}`, {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
       loadCompanyCharterDemand('default'),
@@ -3099,7 +3099,7 @@ async function refreshDatabasesSoft() {
   const [loaded, companyData, companyLiveryData, companyLiveryMatching, companyTopPool, companyCharterDemand, routeMissions, guaranteedBonuses, manualGuaranteedBonuses, adCoordinates, piesLedger] = await Promise.all([
     loader(message => { if (status) status.textContent = message; }),
     fetch('COMPANY/company-data.json', {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
-    fetch('COMPANY/ucaa-livery-database.json', {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
+    fetch('COMPANY/ucaa-livery-database.json?v=20261126-ur-eca', {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
     fetch(`COMPANY/livery-matching.json?v=${Date.now()}`, {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
     fetch(`COMPANY/top-pool-current.json?v=${Date.now()}`, {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
     loadCompanyCharterDemand('no-store'),
