@@ -928,6 +928,28 @@
   .devlogin .help:hover .tip,.devlogin .help.open .tip{display:block}
   body.mobile-cabinet header.topline{padding-right:12px;text-align:center;min-height:0;display:block}
   body.mobile-cabinet .devlogin{position:static;justify-content:center;margin:4px 0}
+
+  /* Compact signed-in header card; leave the signed-out form unchanged. */
+  .devlogin[data-mode^="in:"]{background:#f5fafb;border-color:#9bbac1;border-radius:4px;padding:5px 7px;box-shadow:0 1px 3px #00000012;max-width:100%}
+  .devlogin[data-mode^="in:"] .me{display:flex;flex-direction:column;justify-content:space-between;gap:4px;min-width:0;overflow:visible}
+  .devlogin[data-mode^="in:"] .devlogin-identity{display:flex;align-items:center;gap:8px;min-width:0}
+  .devlogin[data-mode^="in:"] .devlogin-person{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+  .devlogin[data-mode^="in:"] .ava{box-sizing:border-box;width:42px!important;height:42px!important;align-self:center;flex:0 0 42px;border:1px solid #9bbac1;border-radius:4px}
+  .devlogin[data-mode^="in:"] .nm{font-size:16px;line-height:19px;color:#18272d}
+  .devlogin[data-mode^="in:"] .cap{display:flex;align-items:center;gap:4px;min-width:0;font-size:11px!important;line-height:16px;text-transform:none}
+  .devlogin[data-mode^="in:"] .capt{display:inline-flex;align-items:center;gap:3px;white-space:nowrap}
+  .devlogin[data-mode^="in:"] .me .cap .adm{display:inline-flex;align-items:center;gap:3px;font-size:11px;margin-left:auto;color:#626b70}
+  .devlogin[data-mode^="in:"] .fwheel{flex:none;margin:0;padding:0;border:0;background:none}
+  .devlogin[data-mode^="in:"] .fwheel:hover{background:none}
+  .devlogin[data-mode^="in:"] .row{gap:6px;border-top:1px solid #d0e2e6;padding-top:4px}
+  .devlogin[data-mode^="in:"] .row button{display:inline-flex;align-items:center;justify-content:center;gap:5px;box-sizing:border-box;min-height:24px;padding:2px 7px;border-radius:3px;font-size:12px;line-height:18px}
+  .devlogin[data-mode^="in:"] .row .prof{flex:1;background:#caeef2;border-color:#9bbac1;color:#164f59}
+  .devlogin[data-mode^="in:"] .row .prof:hover{background:#b6e3e9}
+  .devlogin[data-mode^="in:"] .row .out{flex:0 0 auto;background:#fff;border-color:#c8d6da;color:#a33b3b}
+  .devlogin[data-mode^="in:"] .row .out:hover{background:#fff0f0;border-color:#d5a0a0}
+  .devlogin[data-mode^="in:"] svg{display:block;width:12px;height:12px;flex:none;pointer-events:none}
+  .devlogin[data-mode^="in:"] .row button svg{width:14px;height:14px}
+  .devlogin[data-mode^="in:"] button:focus-visible,.devlogin[data-mode^="in:"] a:focus-visible{outline:2px solid #0b6f7a;outline-offset:2px}
   .wheelover .wpanel{width:min(940px,96vw);max-height:96vh;overflow:auto;padding:16px 24px 20px;border:1px solid #555;background:#fff;box-shadow:3px 3px 0 rgba(0,0,0,.2);font:13px Arial,sans-serif;color:#222;box-sizing:border-box}
   .wheelover h3{margin:0 0 8px;font-size:17px;text-align:center}
   .wheelover .wstage{display:flex;flex-direction:column;align-items:center;justify-content:center}
@@ -3012,13 +3034,15 @@
     if (state.auth) {
       const av = localStorage.getItem(AUTH_AVA_KEY) || 'default';
       // з 🎡 рядок не влазить у 260 px — тоді коротко «(адм.)»
-      const adm = isAdmin() ? `${free ? '' : ' '}<a class="adm" href="${API}/admin" target="_blank" rel="noopener" title="Адмінка сервера кабінету">${free ? '(адм.)' : '(адмінка)'}</a>` : '';
+      const adm = isAdmin() ? `${free ? '' : ' '}<a class="adm" href="${API}/admin" target="_blank" rel="noopener" title="Адмінка сервера кабінету"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 22s8-4 8-12V5l-8-3-8 3v5c0 8 8 12 8 12z"/><path d="m9 12 2 2 4-4"/></svg>${free ? 'Адм.' : 'Адмінка'}</a>` : '';
       // 🎡 — є безкоштовна прокрутка на сьогодні: клік = свій профіль → «Облаштувати» → вікно колеса
       const fw = free ? `<button type="button" class="fwheel" title="Сьогодні є безкоштовна прокрутка колеса фортуни — натисніть, щоб крутити"><img class="pieic" src="${WHEEL_ICON}" alt="🎡"></button>` : '';
-      box.innerHTML = `<div class="me"><span class="cap"><span class="capt">✈ Пілот UCAA</span>${fw}${adm}</span><b class="nm" title="${esc(localStorage.getItem(AUTH_NAME_KEY) || state.auth)}">${esc(localStorage.getItem(AUTH_NAME_KEY) || state.auth)}</b>
-        <div class="row"><button type="button" class="prof yel">Мій профіль</button><button type="button" class="out">Вийти</button></div></div>
+      box.innerHTML = `<div class="me"><div class="devlogin-identity">
         <img class="ava" alt="" src="https://newsky.app/api/pilot/avatar/${encodeURIComponent(av)}"
-          onerror="if(!this.dataset.fb){this.dataset.fb='1';this.src='https://newsky.app/api/pilot/avatar/default'}">`;
+          onerror="if(!this.dataset.fb){this.dataset.fb='1';this.src='https://newsky.app/api/pilot/avatar/default'}">
+        <div class="devlogin-person"><b class="nm" title="${esc(localStorage.getItem(AUTH_NAME_KEY) || state.auth)}">${esc(localStorage.getItem(AUTH_NAME_KEY) || state.auth)}</b>
+          <span class="cap"><span class="capt">✈ Пілот UCAA</span>${fw}${adm}</span></div></div>
+        <div class="row"><button type="button" class="prof"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="3.5"/><path d="M5 21v-2a7 7 0 0 1 14 0v2"/></svg>Мій профіль</button><button type="button" class="out"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10 17l5-5-5-5m5 5H3m11-8h5a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-5"/></svg>Вийти</button></div></div>`;
       box.querySelector('.out').onclick = logout;
       // аватарка в шапці → налаштування NewSky (там міняється аватарка)
       const avaImg = box.querySelector('.ava');
