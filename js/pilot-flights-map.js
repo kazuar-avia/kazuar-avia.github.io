@@ -6,6 +6,15 @@
   const TILES = 'https://{s}.basemaps.cartocdn.com/rastertiles/light_nolabels/{z}/{x}/{y}{r}.png?key=cb1_3ru0_1_a901fffcbed84bfbb252eede';
   const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
   const icaoOf = a => String(a?.icao || '').trim().toUpperCase();
+  // PFM_DIVERT_MAP_LOCAL_V2
+  const DIVERT_COLOR = '#8051a6';
+  const plannedOf = f => {
+    const p = f?.plannedArrival;
+    return icaoOf(p) && icaoOf(p) !== icaoOf(f?.arrival) ? p : null;
+  };
+  const routeText = f => `${icaoOf(f.departure)} → ${plannedOf(f) ? `${icaoOf(plannedOf(f))} / DIVERT / ` : ''}${icaoOf(f.arrival)}`;
+  const shuffleIcon = '<svg width="11" height="11" viewBox="0 0 16 16" style="vertical-align:-1px" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 4H3C7 4 9 12 13 12H15 M12 9L15 12L12 15 M1 12H3C7 12 9 4 13 4H15 M12 1L15 4L12 7"/></svg>';
+  const routeHtml = f => `${esc(icaoOf(f.departure))} → ${plannedOf(f) ? `<s style="color:#666">${esc(icaoOf(plannedOf(f)))}</s> ${shuffleIcon} ` : ''}${esc(icaoOf(f.arrival))}`;
   const typeOf = f => String(f.aircraft?.icao || '').trim().toUpperCase() || '?';
   // Pax / Cargo і Free / Schedule / Charter — як у таблиці рейсів сайту
   const loadOf = f => {
@@ -125,6 +134,9 @@
         #pilotFlightsMapDialog .pfm-reset{flex:none;margin-left:auto;padding:4px 10px;border:2px solid #c0392b;background:#fdecea;color:#c0392b;font:bold 12px Arial,sans-serif}
         #pilotFlightsMapDialog .pfm-reset:hover{background:#c0392b;color:#fff}
         #pilotFlightsMapDialog .company-route-airport-label{cursor:pointer}
+        #pilotFlightsMapDialog .pfm-planned-label{border:1px dashed #777!important;background:#f8f8f8!important;cursor:default}
+        #pilotFlightsMapDialog .pfm-planned-label span{color:#666!important;text-decoration:line-through}
+        #pilotFlightsMapDialog .pfm-planned-label img{opacity:1}
         #pilotFlightsMapDialog .leaflet-interactive:focus,#pilotFlightsMapDialog .leaflet-interactive:focus-visible{outline:none}
         #pilotFlightsMapDialog path.pfm-hit{cursor:pointer}
         #pilotFlightsMapDialog .pfm-fhead{display:flex;align-items:center;gap:6px;margin-bottom:5px;font:bold 12px Arial,sans-serif}
@@ -281,6 +293,64 @@
     let list = [], bounds = [], sel = -1, selKey = '';
     const routeLines = new Map();   // ключ маршруту → {vis, rt}
     const hits = L.layerGroup().addTo(map);
+    let airportMarkers = [];
+    const selectedFlights = () => sel >= 0 ? [list[sel]].filter(Boolean) : (routeLines.get(selKey)?.rt.flights || []);
+    function updateAirportLabels() {
+      const zoom = map.getZoom();
+      if (!Number.isFinite(zoom)) return;
+      const size = map.getSize();
+      const priority = new Set(selectedFlights().flatMap(f => [icaoOf(f.departure), icaoOf(f.arrival), icaoOf(plannedOf(f))]));
+      if (filt.ap) priority.add(filt.ap);
+      const ordered = [...airportMarkers].sort((a,b) => Number(priority.has(b.icao)) - Number(priority.has(a.icao)) || Number(Boolean(b.planned)) - Number(Boolean(a.planned)) || b.n - a.n || a.icao.localeCompare(b.icao));
+      const used = [];
+      const gapX = zoom <= 3 ? 110 : zoom <= 5 ? 95 : zoom <= 7 ? 82 : 70;
+      const gapY = zoom <= 3 ? 48 : zoom <= 5 ? 39 : 30;
+      const limit = zoom <= 3 ? 14 : zoom === 4 ? 30 : zoom === 5 ? 65 : Infinity;
+      for (const rec of ordered) {
+        const point = map.latLngToContainerPoint(rec.marker.getLatLng());
+        const inside = point.x >= -40 && point.x <= size.x + 40 && point.y >= -25 && point.y <= size.y + 25;
+        const force = priority.has(rec.icao);
+        const visible = inside && (force || ((rec.planned || used.length < limit) && !used.some(p => Math.abs(p.x-point.x) < gapX && Math.abs(p.y-point.y) < gapY)));
+        if (visible) { used.push(point); if (!labels.hasLayer(rec.marker)) labels.addLayer(rec.marker); }
+        else if (labels.hasLayer(rec.marker)) labels.removeLayer(rec.marker);
+      }
+    }
+    map.on('zoomend moveend resize', updateAirportLabels);
+    // Only a planned great-circle approximation, not a recorded aircraft track.
+    // Planned airports are visible on the overview, not only after selecting a flight.
+    // These dashed great-circle lines are illustrative, not flown tracks.
+    function showPlannedRoutes(flights, overview = false) {
+      const seen = new Set(), marked = new Map(), points = [];
+      const target = overview ? base : hi;
+      for (const f of flights) {
+        const plan = plannedOf(f), a = pointOf(f.departure), b = pointOf(plan);
+        if (!plan || !a || !b) continue;
+        const code = icaoOf(plan), key = `${icaoOf(f.departure)}|${code}`;
+        if (overview) {
+          const rec = marked.get(code) || {plan, point:b, n:0};
+          rec.n++;
+          marked.set(code, rec);
+        }
+        if (seen.has(key)) continue;
+        seen.add(key);
+        const path = arc(a,b);
+        const line = L.polyline(path, {color:'#747474', weight:overview ? 1.5 : 2, opacity:overview ? 0.48 : 0.9, dashArray:'6 6', interactive:!overview}).addTo(target);
+        if (!overview) line.bindTooltip(`Плановий: ${esc(icaoOf(f.departure))} → ${esc(code)} (планова дуга, не трек)`, {sticky:true});
+        points.push(...path);
+      }
+      if (overview) for (const [code,rec] of marked) {
+        const p = rec.point;
+        const tip = `<b>${esc(code)}</b> — заплановане прибуття (діверт) · ${rec.n} ${flightsWord(rec.n)}`;
+        L.circleMarker([p.lat,p.lon], {radius:5, color:'#747474', weight:2, fillColor:'#fff', fillOpacity:0.95}).addTo(base)
+          .bindTooltip(tip,{direction:'top',opacity:0.95});
+        const marker = L.marker([p.lat,p.lon], {
+          icon:L.divIcon({className:'company-route-airport-label pfm-planned-label', html:airportHtml(rec.plan), iconSize:null, iconAnchor:[18,24]}),
+          zIndexOffset:650
+        }).bindTooltip(tip,{direction:'top',offset:[0,-8],opacity:0.95});
+        airportMarkers.push({marker, icao:code, n:rec.n, planned:true});
+      }
+      return points;
+    }
     const PAD = {paddingTopLeft: [60, 150], paddingBottomRight: [230, 30], maxZoom: 7};
 
     const home = () => {
@@ -314,7 +384,7 @@
     }
 
     function draw(fit = true) {
-      base.clearLayers(); labels.clearLayers(); hi.clearLayers(); sel = -1;
+      base.clearLayers(); labels.clearLayers(); hi.clearLayers(); airportMarkers = []; sel = -1;
       list = all.filter(passes);
       const airports = new Map(), routes = new Map();
       list.forEach(f => {
@@ -333,12 +403,16 @@
       routeLines.clear(); hits.clearLayers(); selKey = ''; tableEl.hidden = true;
       routes.forEach((rt, key) => {
         const n = rt.flights.length, pts = arc(rt.a, rt.b);
-        const vis = L.polyline(pts, {color: '#2468b2', weight: Math.min(2 + (n - 1) * 0.8, 7), opacity: 0.6, interactive: false}).addTo(base);
+        const divertedCount = rt.flights.filter(plannedOf).length;
+        const routeColor = divertedCount ? DIVERT_COLOR : '#2468b2';
+        const vis = L.polyline(pts, {color: routeColor, weight: Math.min(2 + (n - 1) * 0.8, 7), opacity: 0.6, interactive: false}).addTo(base);
         vis._pfmW = vis.options.weight;
+        vis._pfmColor = routeColor;
+        if (divertedCount && rt.a.lat === rt.b.lat && rt.a.lon === rt.b.lon) L.circleMarker([rt.b.lat,rt.b.lon], {radius:8,color:DIVERT_COLOR,weight:2,fill:false,interactive:false}).addTo(base);
         routeLines.set(key, {vis, rt});
         // широка невидима смуга поверх лінії — щоб легко навести і клікнути
         L.polyline(pts, {color: '#000', weight: 18, opacity: 0, className: 'pfm-hit'}).addTo(hits)
-          .bindTooltip(`${esc(rt.dep)} ↔ ${esc(rt.arr)} · ${n} ${flightsWord(n)} · ${Math.round(km(rt.a, rt.b))} км<br><small>клік — показати ${n === 1 ? 'рейс' : 'рейси'} у списку</small>`, {sticky: true, opacity: 0.95})
+          .bindTooltip(`${esc(rt.dep)} ↔ ${esc(rt.arr)} · ${n} ${flightsWord(n)} · ${Math.round(km(rt.a, rt.b))} км${divertedCount ? `<br><b style="color:${DIVERT_COLOR}">DIVERT: ${divertedCount}/${n}</b>` : ''}<br><small>клік — показати ${n === 1 ? 'рейс' : 'рейси'} у списку</small>`, {sticky: true, opacity: 0.95})
           .on('mouseover', () => { if (key !== selKey) vis.setStyle({color: '#f29f05', weight: 5, opacity: 0.95}).bringToFront(); })
           .on('mouseout', () => { if (key !== selKey) restyle(vis); })
           .on('click', () => selectRoute(key === selKey ? '' : key));
@@ -346,7 +420,7 @@
       airports.forEach(rec => {
         const name = [rec.airport.name, rec.airport.city].filter(Boolean).join(', ') || icaoOf(rec.airport);
         const country = countryOf(rec.airport);
-        L.marker([rec.point.lat, rec.point.lon], {
+        const marker = L.marker([rec.point.lat, rec.point.lon], {
           icon: L.divIcon({className: 'company-route-airport-label', html: airportHtml(rec.airport), iconSize: null, iconAnchor: [18, 0]}),
           zIndexOffset: 600
         }).bindTooltip(`${esc(name)} · ${rec.n} ${rec.n === 1 ? 'виліт/посадка' : 'вильотів/посадок'}${country ? `<br><small>клік — фільтр «${esc(icaoOf(rec.airport))}»</small>` : ''}`, {direction: 'top', offset: [0, -8], opacity: 0.95})
@@ -358,26 +432,35 @@
             filt.ap = icao;
             if (!countryAirports().some(([i]) => i === icao)) filt.dir = 'all';
             draw();
-          })
-          .addTo(labels);
+          });
+        airportMarkers.push({marker, icao:icaoOf(rec.airport), n:rec.n});
+        L.circleMarker([rec.point.lat, rec.point.lon], {radius:3, color:'#2468b2', weight:1, fillColor:'#2468b2', fillOpacity:0.75}).addTo(base)
+          .bindTooltip(esc(icaoOf(rec.airport)), {direction:'top'})
+          .on('click', () => marker.fire('click'));
       });
+      showPlannedRoutes(list, true);
       bounds = [...airports.values()].map(r => [r.point.lat, r.point.lon]);
+      airportMarkers.filter(r => r.planned).forEach(r => {
+        const p = r.marker.getLatLng();
+        bounds.push([p.lat,p.lng]);
+      });
 
       const totalKm = list.reduce((s, f) => s + km(pointOf(f.departure), pointOf(f.arrival)), 0);
       const totalMin = Math.round(list.reduce((s, f) => s + (Number(f.times?.durationMinutes) || 0), 0));
       const hoursHtml = `<b>${Math.floor(totalMin / 60).toLocaleString('uk-UA')}</b> год <b>${String(totalMin % 60).padStart(2, '0')}</b> хв`;
       const statsEl = dlg.querySelector('.pfm-stats');
       statsEl.innerHTML = `<div class="pfm-stxt"><b>${list.length}</b> ${flightsWord(list.length)}${list.length !== all.length ? ` з ${all.length}` : ''} · <b>${routes.size}</b> маршр. · <b>${airports.size}</b> аероп. · ≈ <b>${Math.round(totalKm).toLocaleString('uk-UA')}</b> км по прямій · ${hoursHtml}`
-        + (missing > 0 ? `<br><span style="color:#a33">${missing} без координат — не показано</span>` : '') + '</div>'
+        + (missing > 0 ? `<br><span style="color:#a33">${missing} без координат — не показано</span>` : '') + '<br><small><span style="color:#2468b2">━</span> Звичайний · <span style="color:#8051a6">━</span> Діверт · <span style="color:#747474">┄</span> Плановий (пунктир)</small></div>'
         + (anyFilter() ? '<button type="button" class="pfm-reset" title="Поставити «ВСІ» в усіх фільтрах">✕ СКИНУТИ ФІЛЬТР</button>' : '');
       const rb = statsEl.querySelector('.pfm-reset');
       if (rb) rb.onclick = () => { filt.cc = ''; filt.dir = 'all'; filt.ap = ''; filt.types.clear(); filt.loads.clear(); filt.ops.clear(); draw(); };
       dlg.querySelector('.company-route-map-list-title').textContent = `${list.length} ${flightsWord(list.length).toUpperCase()}:`;
       allBtn.hidden = true;
-      listEl.innerHTML = list.length ? list.map((f, i) => `<button type="button" data-i="${i}" title="${esc(f.aircraft?.name || '')}"><span class="d">${dateShort(flightDate(f))}</span><span class="flight-number-link flight-number-${opOf(f)}">${esc(f.flightNumber || '—')}</span> ${esc(icaoOf(f.departure))}→${esc(icaoOf(f.arrival))}</button>`).join('')
+      listEl.innerHTML = list.length ? list.map((f, i) => `<button type="button" data-i="${i}" title="${esc(f.aircraft?.name || '')}"><span class="d">${dateShort(flightDate(f))}</span><span class="flight-number-link flight-number-${opOf(f)}">${esc(f.flightNumber || '—')}</span> ${routeHtml(f)}</button>`).join('')
         : '<span class="muted">Немає рейсів для цього фільтра</span>';
       renderFilters();
       if (fit) home();
+      updateAirportLabels();
     }
 
     function setCountry(cc) {
@@ -421,7 +504,7 @@
     tableEl.hidden = true;
 
     const dimmed = () => sel >= 0 || Boolean(selKey);
-    const restyle = vis => vis.setStyle({color: '#2468b2', weight: vis._pfmW, opacity: dimmed() ? 0.25 : 0.6});
+    const restyle = vis => vis.setStyle({color: vis._pfmColor || '#2468b2', weight: vis._pfmW, opacity: dimmed() ? 0.25 : 0.6});
     // клік по маршруту на карті: маршрут оранжевий, його рейси підсвічені у списку справа
     function selectRoute(key) {
       // маршрут з одним рейсом — одразу вибираємо цей рейс (з табличкою)
@@ -434,13 +517,17 @@
       const idx = r ? list.map((f, i) => r.rt.flights.includes(f) ? i : -1).filter(i => i >= 0) : [];
       listEl.querySelectorAll('button').forEach(b => b.classList.toggle('active', idx.includes(Number(b.dataset.i))));
       allBtn.hidden = !r;
-      if (!r) { tableEl.hidden = true; home(); return; }
+      if (!r) { tableEl.hidden = true; home(); updateAirportLabels(); return; }
       // кілька рейсів маршрутом — табличка з усіма (прокрутка, заголовок таблиці стоїть на місці)
       const rf = idx.map(i => list[i]);
       showTable(rf, `${r.rt.dep} ↔ ${r.rt.arr} · ${rf.length} ${flightsWord(rf.length)}`);
-      r.vis.setStyle({color: '#f29f05', weight: 5, opacity: 0.95}).bringToFront();
+      r.vis.setStyle({color: rf.some(plannedOf) ? DIVERT_COLOR : '#f29f05', weight: 5, opacity: 0.95}).bringToFront();
+      const plannedPoints = showPlannedRoutes(rf);
       listEl.querySelector(`button[data-i="${idx[0]}"]`)?.scrollIntoView({block: 'nearest'});
-      map.fitBounds(r.vis.getBounds(), PAD);
+      const selectedBounds = r.vis.getBounds();
+      plannedPoints.forEach(p => selectedBounds.extend(p));
+      map.fitBounds(selectedBounds, PAD);
+      updateAirportLabels();
     }
     const select = i => {
       sel = i; selKey = '';
@@ -448,12 +535,18 @@
       listEl.querySelectorAll('button').forEach(b => b.classList.toggle('active', Number(b.dataset.i) === i));
       allBtn.hidden = i < 0;
       routeLines.forEach(({vis}) => restyle(vis));
-      if (i < 0) { tableEl.hidden = true; home(); return; }
-      showTable([list[i]], `Рейс ${list[i].flightNumber || ''} · ${icaoOf(list[i].departure)} → ${icaoOf(list[i].arrival)}`);
+      if (i < 0) { tableEl.hidden = true; home(); updateAirportLabels(); return; }
+      showTable([list[i]], `Рейс ${list[i].flightNumber || ''} · ${routeText(list[i])}`);
       const f = list[i], a = pointOf(f.departure), b = pointOf(f.arrival);
-      const line = L.polyline(arc(a, b), {color: '#f29f05', weight: 5, opacity: 0.95}).addTo(hi);
-      line.bindTooltip(`${esc(f.flightNumber || '')} ${esc(icaoOf(f.departure))} → ${esc(icaoOf(f.arrival))} · ${Math.round(km(a, b))} км`, {sticky: true});
-      map.fitBounds(line.getBounds(), PAD);
+      const line = L.polyline(arc(a, b), {color: plannedOf(f) ? DIVERT_COLOR : '#f29f05', weight: 5, opacity: 0.95}).addTo(hi);
+      line.bindTooltip(`${esc(f.flightNumber || '')} ${routeHtml(f)} · ${Math.round(km(a, b))} км`, {sticky: true});
+      const selectedBounds = line.getBounds();
+      showPlannedRoutes([f]).forEach(p => selectedBounds.extend(p));
+      if (plannedOf(f) && a.lat === b.lat && a.lon === b.lon) {
+        L.circleMarker([b.lat,b.lon], {radius:9, color:DIVERT_COLOR, weight:3, fill:false}).addTo(hi).bindTooltip('Діверт: повернення в аеропорт вильоту');
+      }
+      map.fitBounds(selectedBounds, PAD);
+      updateAirportLabels();
     };
     listEl.onclick = e => {
       const b = e.target.closest('button[data-i]');
@@ -508,7 +601,7 @@
     });
     map.addControl(new Home());
     draw(false);
-    setTimeout(() => { map.invalidateSize(); home(); }, 50);
+    setTimeout(() => { map.invalidateSize(); home(); updateAirportLabels(); }, 50);
   }
 
   window.UCAAPilotFlightsMap = {open, isOpen: () => Boolean(dialog?.open)};

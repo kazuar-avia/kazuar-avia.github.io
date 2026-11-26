@@ -171,6 +171,7 @@
       enrichAirportLocation(flight.departure, lookup);
       enrichAirportLocation(flight.arrival, lookup);
       enrichAirportLocation(flight.actualArrival, lookup);
+      enrichAirportLocation(flight.plannedArrival, lookup);
     });
   }
 
