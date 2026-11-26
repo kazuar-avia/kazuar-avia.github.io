@@ -9,7 +9,9 @@ from typing import Dict, List, Tuple, Optional
 # НАЛАШТУВАННЯ
 # =========================
 
-BASE_DIR = Path(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).resolve().parent
+if BASE_DIR.name == "scripts":
+    BASE_DIR = BASE_DIR.parent
 
 INPUT_FILE = BASE_DIR / "newsky-airports-report.txt"
 OUTPUT_FILE = BASE_DIR / "newsky-charter-results.txt"

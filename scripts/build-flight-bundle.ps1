@@ -1,6 +1,6 @@
 $ErrorActionPreference = 'Stop'
 
-$flightsDir = Join-Path $PSScriptRoot 'FLIGHTS'
+$flightsDir = Join-Path (Split-Path -Parent $PSScriptRoot) 'FLIGHTS'
 $files = Get-ChildItem -LiteralPath $flightsDir -Filter '2026-W*.json' | Sort-Object Name
 if (-not $files) { throw 'No weekly files found in FLIGHTS.' }
 
