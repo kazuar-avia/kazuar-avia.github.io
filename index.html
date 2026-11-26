@@ -8629,24 +8629,11 @@ window.ukraineFlightListVisible = true;
 window.ukraineGroundVisible = false;
 
   function updateMapLabelLayer() {
-    if (!window.ukraineAirportsVisible) {
-      map.getContainer().classList.remove("ukraine-map-default-zoom");
-      if (!map.hasLayer(labelsLayer)) {
-        labelsLayer.addTo(map);
-      }
-      return;
-    }
-
-    if (map.getZoom() === defaultZoom) {
-      map.getContainer().classList.add("ukraine-map-default-zoom");
-      if (map.hasLayer(labelsLayer)) {
-        map.removeLayer(labelsLayer);
-      }
-    } else {
-      map.getContainer().classList.remove("ukraine-map-default-zoom");
-      if (!map.hasLayer(labelsLayer)) {
-        labelsLayer.addTo(map);
-      }
+    // Keep geographic labels available at every zoom; CARTO selects detail per tile zoom.
+    map.getContainer().classList.toggle("ukraine-map-default-zoom",
+      window.ukraineAirportsVisible && map.getZoom() === defaultZoom);
+    if (!map.hasLayer(labelsLayer)) {
+      labelsLayer.addTo(map);
     }
   }
 
