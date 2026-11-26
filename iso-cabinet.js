@@ -1634,13 +1634,17 @@
     if (!tr) { tr = document.createElement('tr'); tr.className = 'devcab-money'; tbody.appendChild(tr); }
     const thCls = th.className, tdCls = th.nextElementSibling?.className || '';
     const piesButton = document.querySelector('#profileView .profile-pies-balance');
-    const html = `<th class="${thCls}">Баланс пиріжків</th><td class="${tdCls}" data-pies-balance-cell>${piesButton ? '' : `<b>${balPies()}</b> 🥧`}</td>`
+    const html = `<th class="${thCls}">Баланс пиріжків</th><td class="${tdCls}" data-pies-balance-cell>${piesButton ? '' : `<b>${balPies()}</b>`}</td>`
       + `<th class="${thCls}">Витрачено на Офіс/Дім</th><td class="${tdCls}">${fmtUsd(state.spentUsd || 0)} | ${state.spent || 0} 🥧</td>`
       + `<th class="${thCls}">Залишок на рахунку</th><td class="${tdCls}"><b>${fmtUsd(balUsd())}</b></td>`;
     if (tr.dataset.h !== html) { tr.dataset.h = html; tr.innerHTML = html; pieify(tr); }
     // Переносимо той самий DOM-вузол, щоб зберегти оригінальний обробник відкриття Logbook.
     const piesCell = tr.querySelector('[data-pies-balance-cell]');
-    if (piesButton && piesCell && piesButton.parentElement !== piesCell) piesCell.appendChild(piesButton);
+    if (piesButton && piesCell) {
+      const amount = piesButton.querySelector('strong');
+      if (amount && (piesButton.childNodes.length !== 1 || piesButton.firstChild !== amount)) piesButton.replaceChildren(amount);
+      if (piesButton.parentElement !== piesCell) piesCell.appendChild(piesButton);
+    }
     if (tr !== tbody.lastElementChild) tbody.appendChild(tr);   // завжди останнім рядком таблиці
     syncMoney();
   }
