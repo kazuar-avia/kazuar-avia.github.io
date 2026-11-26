@@ -34,7 +34,7 @@
   function url(id, location) {
     if (!id) return null;
     const local = ['localhost','127.0.0.1'].includes(location.hostname) && location.protocol === 'http:';
-    const production = ['kazuar.in.ua','www.kazuar.in.ua'].includes(location.hostname) && location.protocol === 'https:';
+    const production = ['kazuar.in.ua','www.kazuar.in.ua','kazuar-avia.github.io'].includes(location.hostname) && location.protocol === 'https:';
     if (!local && !production) return null;
     const base = local ? 'http://127.0.0.1:8765' : 'https://bot-production-a418.up.railway.app';
     return base + '/api/flight-tracks?' + new URLSearchParams(id);
