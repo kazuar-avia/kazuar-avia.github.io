@@ -968,6 +968,11 @@
   .pweye-wrap input{width:100%;box-sizing:border-box;padding-right:36px!important}
   .pweye{position:absolute;right:4px;top:50%;transform:translateY(-50%);width:28px;height:26px;padding:0;border:0;background:transparent;font-size:16px;line-height:1;cursor:pointer;opacity:.45}
   .pweye:hover,.pweye.on{opacity:1}
+  .devlogin form .pweye-wrap{flex:1;min-width:0}
+  .devlogin form .pweye-wrap input{display:block;width:100%;padding-right:26px!important}
+  .devlogin form button.pweye{right:2px;width:22px;height:22px;padding:0;border:0;background:transparent;font-size:14px;line-height:1}
+  .devlogin form button.pweye:hover{background:transparent}
+  .devlogin form button.pweye:focus-visible{outline:1px solid #0b6f7a;outline-offset:1px}
   .modeled .note{line-height:1.45}
   .modeled .mdlbox{margin-top:4px;padding:6px 8px;border:1px solid #2f9e44;background:#ebfbee;line-height:1.8}
   .modeled .mdlink{display:inline-block;margin-right:8px;padding:2px 8px;border:1px solid #2f9e44;background:#fff;color:#1b5e20;font-weight:bold;text-decoration:none}
@@ -3010,7 +3015,8 @@
       const wrap = Object.assign(document.createElement('span'), {className: 'pweye-wrap'});
       inp.replaceWith(wrap); wrap.appendChild(inp);
       const b = Object.assign(document.createElement('button'), {type: 'button', className: 'pweye', title: 'Показати пароль', textContent: '👁'});
-      b.onclick = () => { const show = inp.type === 'password'; inp.type = show ? 'text' : 'password'; b.classList.toggle('on', show); b.title = show ? 'Сховати пароль' : 'Показати пароль'; inp.focus(); };
+      b.setAttribute('aria-label', 'Показати пароль'); b.setAttribute('aria-pressed', 'false');
+      b.onclick = () => { const show = inp.type === 'password'; inp.type = show ? 'text' : 'password'; b.classList.toggle('on', show); b.title = show ? 'Сховати пароль' : 'Показати пароль'; b.setAttribute('aria-label', b.title); b.setAttribute('aria-pressed', String(show)); inp.focus(); };
       wrap.appendChild(b);
     });
   }
@@ -3075,6 +3081,7 @@
       <div class="row"><input name="password" type="password" autocomplete="current-password" placeholder="Пароль"><button type="submit" class="yel">Увійти</button></div>
       <div class="err" hidden></div></form>`;
     const form = box.querySelector('form');
+    addPwEyes(form);
     const help = form.querySelector('.help');
     help.onclick = e => { e.stopPropagation(); help.classList.toggle('open'); };   // на телефоні — по кліку
     document.addEventListener('click', () => help.classList.remove('open'));
@@ -3086,7 +3093,7 @@
       e.preventDefault();
       const err = form.querySelector('.err');
       const show = t => { err.textContent = t; err.hidden = !t; };
-      const btn = form.querySelector('button');
+      const btn = form.querySelector('button[type="submit"]');
       const login = form.elements.username.value.trim(), pw = form.elements.password.value;
       if (!login || !pw) return show('Введіть логін і пароль.');
       show(''); btn.disabled = true;

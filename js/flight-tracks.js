@@ -101,56 +101,6 @@
   function adjacent(a,b) {
     return valid(a)&&valid(b)&&!b.break_before&&Math.abs(a.lon-b.lon)<=180;
   }
-  function interval(a,b) {
-    if (!adjacent(a,b) || chord(a,b)<.01) return null;
-    if (Number.isFinite(a.t)&&Number.isFinite(b.t)) {
-      const dt=b.t-a.t;
-      return dt>0&&dt<=60?dt:null;
-    }
-    return Math.max(.1,chord(a,b));
-  }
-  // Weighted harmonic mean: zero slope at a change in direction on an axis.
-  function tangent(d1,d2,h1,h2) {
-    if (!d1||!d2||Math.sign(d1)!==Math.sign(d2)) return 0;
-    const w1=2*h2+h1,w2=2*h1+h2;
-    return (w1+w2)/(w1/d1+w2/d2);
-  }
-  function axis(a,b,c,d,h0,h,h2,k,key) {
-    const rate=(c[key]-b[key])/h;
-    const m0=h0===null?rate:tangent((b[key]-a[key])/h0,rate,h0,h);
-    const m1=h2===null?rate:tangent(rate,(d[key]-c[key])/h2,h,h2);
-    const k2=k*k,k3=k2*k;
-    const value=(2*k3-3*k2+1)*b[key]+(k3-2*k2+k)*h*m0+(-2*k3+3*k2)*c[key]+(k3-k2)*h*m1;
-    return Math.max(Math.min(b[key],c[key]),Math.min(Math.max(b[key],c[key]),value));
-  }
-  function interpolatedLeg(a,b,c,d) {
-    const h=interval(b,c);
-    const from=[b.lat,b.lon],to=[c.lat,c.lon];
-    if(h===null)return [from,to];
-    const h0=interval(a,b),h2=interval(c,d);
-    if(h0===null&&h2===null)return [from,to];
-    const distance=chord(b,c);
-    const timed=Number.isFinite(b.t)&&Number.isFinite(c.t);
-    const onGround=timed?distance/h<26:distance<500;
-    // Bound estimated lateral offset to avoid drawing a fake taxiway or turn.
-    const limit=Math.min(distance*.18,onGround?10:150);
-    const scale=Math.max(.01,Math.cos((b.lat+c.lat)*Math.PI/360));
-    const dx=(c.lat-b.lat)*metresPerDegree,dy=(c.lon-b.lon)*metresPerDegree*scale;
-    const coords=[from];
-    for(let j=1;j<12;j++) {
-      const k=j/12;
-      let lat=axis(a,b,c,d,h0,h,h2,k,'lat'),lon=axis(a,b,c,d,h0,h,h2,k,'lon');
-      const x=(lat-b.lat)*metresPerDegree,y=(lon-b.lon)*metresPerDegree*scale;
-      const along=Math.max(0,Math.min(1,(x*dx+y*dy)/(dx*dx+dy*dy)));
-      const px=along*dx,py=along*dy,dev=Math.hypot(x-px,y-py);
-      if(dev>limit){const f=limit/dev;lat=b.lat+(px+(x-px)*f)/metresPerDegree;lon=b.lon+(py+(y-py)*f)/(metresPerDegree*scale);}
-      coords.push([lat,lon]);
-    }
-    coords.push(to);
-    // Avoid adding needless vertices to a straight segment.
-    if(coords.slice(1,-1).every(([lat,lon])=>Math.abs((lat-b.lat)*metresPerDegree*dy-(lon-b.lon)*metresPerDegree*scale*dx)/distance<.001))return [from,to];
-    return coords;
-  }
   // Use fractional layer pixels for track paths only. Leaflet normally rounds them.
   const preciseClasses = new WeakMap();
   function historyPolyline(L, coords, options) {
@@ -175,34 +125,16 @@
     }
     return new Precise(coords,options);
   }
-  function groundLeg(a,b,c,d) {
-    const h=interval(b,c);
-    if (h===null || chord(b,c)<1 || chord(b,c)/h>35 || !Number.isFinite(b.t) || !Number.isFinite(c.t)) return false;
-    // Avoid treating slow high-altitude samples as taxiing. Altitude is MSL.
-    if ([b,c].some(p=>typeof p.alt==='number'&&p.alt>10000)) return false;
-    const scale=Math.max(.01,Math.cos((b.lat+c.lat)*Math.PI/360));
-    const vector=(p,q)=>[(q.lon-p.lon)*scale,q.lat-p.lat];
-    const angle=(v,w)=>Math.atan2(v[0]*w[1]-v[1]*w[0],v[0]*w[0]+v[1]*w[1]);
-    const v=vector(b,c);
-    const previous=interval(a,b),next=interval(c,d);
-    const angles=[];
-    if(previous!==null&&chord(a,b)>=3&&chord(a,b)/previous<=35) angles.push(angle(vector(a,b),v));
-    if(next!==null&&chord(c,d)>=3&&chord(c,d)/next<=35) angles.push(angle(v,vector(c,d)));
-    // No invented lateral movement at a sampled reversal, nor smoothing of tiny heading noise.
-    if(angles.some(x=>Math.abs(x)>Math.PI*0.8)) return false;
-    if(angles.length===2&&angles[0]*angles[1]<0&&Math.min(...angles.map(Math.abs))>Math.PI/18) return false;
-    return angles.some(x=>Math.abs(x)>=Math.PI/12);
-  }
-  // NewSky samples arrive much less frequently than VATSIM. Round observed
-  // turns visually, through every real sample, without crossing a data gap.
-  function newskyInterval(a,b) {
+  // Round observed turns visually through real samples for both networks.
+  // The maximum eligible time gap is source-specific; no extrapolation.
+  function turnInterval(a,b,maxGap) {
     if (!adjacent(a,b) || !Number.isFinite(a.t) || !Number.isFinite(b.t)) return null;
     const dt=b.t-a.t, distance=chord(a,b);
-    return dt>0 && dt<=240 && distance>=3 && distance/dt<=400 ? dt : null;
+    return dt>0 && dt<=maxGap && distance>=3 && distance/dt<=400 ? dt : null;
   }
-  function newskyLeg(a,b,c,d) {
+  function roundedLeg(a,b,c,d,maxGap) {
     const straight=[[b.lat,b.lon],[c.lat,c.lon]];
-    const dt=newskyInterval(b,c);
+    const dt=turnInterval(b,c,maxGap);
     if (dt===null) return straight;
     const scale=Math.max(.01,Math.cos((b.lat+c.lat)*Math.PI/360));
     const vector=(p,q)=>[(q.lon-p.lon)*metresPerDegree*scale,(q.lat-p.lat)*metresPerDegree];
@@ -211,7 +143,7 @@
     const v=vector(b,c), len=length(v), u=unit(v);
     if (!u) return straight;
     function corner(p,q,r) {
-      const h0=newskyInterval(p,q),h1=newskyInterval(q,r);
+      const h0=turnInterval(p,q,maxGap),h1=turnInterval(q,r,maxGap);
       if (h0===null || h1===null) return null;
       const v0=vector(p,q),v1=vector(q,r),u0=unit(v0),u1=unit(v1);
       if (!u0||!u1) return null;
@@ -251,8 +183,8 @@
       const b=p[i-1],c=p[i];
       if(!adjacent(b,c)||(b.lat===c.lat&&b.lon===c.lon))continue;
       const color=source==='newsky'?'#1a9d61':altitudeColor(typeof b.alt==='number'&&Number.isFinite(b.alt)&&typeof c.alt==='number'&&Number.isFinite(c.alt)?(b.alt+c.alt)/2:null);
-      const coords=source==='newsky' ? newskyLeg(p[i-2],b,c,p[i+1]) :
-        groundLeg(p[i-2],b,c,p[i+1]) ? interpolatedLeg(p[i-2],b,c,p[i+1]) : [[b.lat,b.lon],[c.lat,c.lon]];
+      // VATSIM samples are denser; do not estimate curves across gaps over 60 seconds.
+      const coords=roundedLeg(p[i-2],b,c,p[i+1],source==='newsky'?240:60);
       const prev=out[out.length-1];
       if(prev&&prev.end===i-1&&prev.color===color){prev.coords.push(...coords.slice(1));prev.end=i;}
       else out.push({color,coords,end:i});
