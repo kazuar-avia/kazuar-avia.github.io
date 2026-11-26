@@ -4345,6 +4345,30 @@ Crackish <br>
   </div>
 </div>
 
+<style id="kazuar-track-style-v2">
+#ukraine-live-map .ukraine-flight-marker {position:relative;display:block;width:52px;height:36px;}
+#ukraine-live-map .ukraine-flight-marker .ukraine-flight-callsign {position:absolute;left:26px;bottom:25px;margin:0;transform:translateX(-50%);}
+#ukraine-live-map .ukraine-flight-marker .ukraine-flight-icon-wrap {position:absolute;left:26px;top:24px;width:22px;height:22px;transform:translate(-50%,-50%);border:0;background:transparent;box-shadow:none;}
+#ukraine-live-map .ukraine-flight-marker .ukraine-flight-icon {display:block;width:100%;height:100%;line-height:0;}
+#ukraine-live-map .ukraine-flight-marker .ukraine-flight-icon svg {width:100%;height:100%;display:block;overflow:visible;}
+#ukraine-live-map.ukraine-map-fullscreen .ukraine-flight-marker .ukraine-flight-icon-wrap {width:28px;height:28px;}
+#ukraine-live-map.ukraine-map-fullscreen .ukraine-flight-marker .ukraine-flight-callsign {bottom:28px;}
+/* kazuar-icon-contrast-v3 */
+/* kazuar-no-aircraft-title-v3 */
+#ukraine-live-map .ukraine-flight-marker .ukraine-flight-icon svg {filter:drop-shadow(0 0 .65px rgba(255,255,255,.95));}
+</style>
+<script src="flight-aircraft-icons.js"></script>
+<style id="kazuar-adaptive-labels-v2">
+#ukraine-live-map .ukraine-flight-marker .ukraine-flight-callsign {
+  scale: var(--kazuar-label-scale, 1); transform-origin: center bottom;
+}
+#ukraine-live-map .ukraine-airport-marker .ukraine-airport-name,
+#ukraine-live-map .ukraine-airport-marker .ukraine-airport-label {
+  scale: var(--kazuar-label-scale, 1); transform-origin: center;
+}
+</style>
+<script src="map-labels.js"></script>
+<script src="flight-tracks.js"></script>
 <script>
  let currentSort = '';
 let sortDirection = 1; 
@@ -8637,6 +8661,7 @@ window.ukraineGroundVisible = false;
   // Без жорсткого обмеження карти: даємо вільне панорамування на зумі.
 
   window.ukraineLiveMap = map;
+  window.KazuarMapLabels.attach(map);
   window.ukraineVatsimLayer = L.layerGroup();
   window.ukraineNewSkyLayer = L.layerGroup();
 
@@ -11013,6 +11038,9 @@ function ensureUkraineActiveRouteLayer() {
 }
 
 function clearUkraineActiveFlightRoute() {
+  window.ukraineSelectedTrack = null;
+  if (window.ukraineTrackRequest) window.ukraineTrackRequest.abort();
+  window.ukraineTrackRequest = null;
   if (window.ukraineActiveFlightRouteLayer) {
     window.ukraineActiveFlightRouteLayer.clearLayers();
   }
@@ -11045,32 +11073,40 @@ function addEndpointIcaoLabel(layer, coords, icao) {
   }).addTo(layer);
 }
 
-function showUkraineActiveFlightRoute(depCoords, depIcao, aircraftCoords, arrCoords, arrIcao, color) {
+function showUkraineActiveFlightRoute(depCoords, depIcao, aircraftCoords, arrCoords, arrIcao, color, trackId, marker) {
   const routeLayer = ensureUkraineActiveRouteLayer();
   if (!routeLayer || !Array.isArray(aircraftCoords)) return;
-
-  routeLayer.clearLayers();
-
-  if (Array.isArray(depCoords)) {
-    L.polyline([depCoords, aircraftCoords], {
-      color,
-      weight: 1.2,
-      opacity: 0.92,
-      pane: "ukraineFlightLinesPane"
-    }).addTo(routeLayer);
+  clearUkraineActiveFlightRoute();
+  window.ukraineSelectedTrack = { id: trackId, marker };
+  const selected = window.ukraineSelectedTrack;
+  const tracks = window.KazuarFlightTracks;
+  function paint(points) {
+    routeLayer.clearLayers();
+    if (tracks) tracks.drawRoute(L, routeLayer, trackId?.source || "vatsim", points, depCoords, aircraftCoords, arrCoords, color);
+    addEndpointIcaoLabel(routeLayer, depCoords, depIcao);
+    addEndpointIcaoLabel(routeLayer, arrCoords, arrIcao);
   }
+  paint([]); // Show approximate route immediately, including before history exists.
+  if (!trackId || !tracks) return;
+  const controller = new AbortController();
+  window.ukraineTrackRequest = controller;
+  tracks.load(trackId, window.location, controller.signal).then(points => {
+    if (controller.signal.aborted || window.ukraineSelectedTrack !== selected) return;
+    paint(points);
+  }).catch(error => {
+    if (!controller.signal.aborted) console.warn("Flight track unavailable:", error);
+  });
+}
 
-  if (Array.isArray(arrCoords)) {
-    L.polyline([aircraftCoords, arrCoords], {
-      color,
-      weight: 1.2,
-      opacity: 0.92,
-      pane: "ukraineFlightLinesPane"
-    }).addTo(routeLayer);
-  }
-
-  addEndpointIcaoLabel(routeLayer, depCoords, depIcao);
-  addEndpointIcaoLabel(routeLayer, arrCoords, arrIcao);
+function bindUkraineFlightTrack(marker, source, flight, depCoords, dep, aircraftCoords, arrCoords, arr, color) {
+  const id = window.KazuarFlightTracks?.identity(source, flight) || null;
+  marker.on("popupopen", () => {
+    showUkraineActiveFlightRoute(depCoords, dep, aircraftCoords, arrCoords, arr, color, id, marker);
+  });
+  marker.on("popupclose", () => {
+    if (window.ukraineSelectedTrack?.marker === marker) clearUkraineActiveFlightRoute();
+  });
+  return id;
 }
 
 function addUkraineFlightListItem({
@@ -11165,6 +11201,8 @@ function renderUkraineFlightLayers() {
     window.ukraineActiveFlightRouteLayer = L.layerGroup();
   }
 
+  const previousTrack = window.ukraineSelectedTrack?.id || null;
+  let restoreTrackMarker = null;
   window.ukraineVatsimLayer.clearLayers();
   window.ukraineNewSkyLayer.clearLayers();
   clearUkraineActiveFlightRoute();
@@ -11237,7 +11275,7 @@ if (isMilitaryCallsign(callsign)) {
 
     const icon = L.divIcon({
       className: "",
-      html: `<span class="ukraine-flight-marker vatsim"><span class="ukraine-flight-callsign"><img class="ukraine-flight-callsign-logo" src="${logoPath}" onerror="this.onerror=null; this.src='LOGOS/nologo.png';">${displayCallsign}</span><span class="ukraine-flight-icon-wrap"><span class="ukraine-flight-icon" style="transform: rotate(${heading - 24}deg);">🛪</span></span></span>`,
+      html: `<span class="ukraine-flight-marker vatsim"><span class="ukraine-flight-callsign"><img class="ukraine-flight-callsign-logo" src="${logoPath}" onerror="this.onerror=null; this.src='LOGOS/nologo.png';">${displayCallsign}</span><span class="ukraine-flight-icon-wrap"><span class="ukraine-flight-icon" style="transform: rotate(${heading}deg);">${window.KazuarAircraftIcons.svg(window.KazuarAircraftIcons.vatsimType(pilot))}</span></span></span>`,
       iconSize: [52, 36],
       iconAnchor: [26, 24],
       popupAnchor: [0, -20]
@@ -11246,7 +11284,6 @@ if (isMilitaryCallsign(callsign)) {
     const marker = L.marker([lat, lon], {
       icon,
       pane: "ukraineFlightsPane",
-      title: `${callsign} ${dep}→${arr}`
     }).addTo(window.ukraineVatsimLayer);
     mapFlightMarkers[normalizeCallsignKey(callsign)] = {
       marker,
@@ -11265,12 +11302,8 @@ if (isMilitaryCallsign(callsign)) {
       `${airlineShort}<br>${aircraftShort}<br>ALT ${altitudeText}<br>HDG ${headingText}<br>${dep} → ${arr}`,
       { className: "ukraine-flight-popup", closeButton: false, autoPan: true }
     );
-    marker.on("popupopen", () => {
-      showUkraineActiveFlightRoute(depCoords, dep, [lat, lon], arrCoords, arr, "#2a76d2");
-    });
-    marker.on("popupclose", () => {
-      clearUkraineActiveFlightRoute();
-    });
+    const trackId = bindUkraineFlightTrack(marker, "vatsim", pilot, depCoords, dep, [lat, lon], arrCoords, arr, "#2a76d2");
+    if (window.ukraineVatsimVisible && window.KazuarFlightTracks?.same(previousTrack, trackId)) restoreTrackMarker = marker;
   });
 
   newSkyFlights.forEach(flight => {
@@ -11301,7 +11334,7 @@ if (isMilitaryCallsign(callsign)) {
 
     const icon = L.divIcon({
       className: "",
-      html: `<span class="ukraine-flight-marker newsky"><span class="ukraine-flight-callsign"><img class="ukraine-flight-callsign-logo" src="${logoPath}" onerror="this.onerror=null; this.src='LOGOS/nologo.png';">${displayCallsign}</span><span class="ukraine-flight-icon-wrap"><span class="ukraine-flight-icon" style="transform: rotate(${heading - 24}deg);">🛪</span></span></span>`,
+      html: `<span class="ukraine-flight-marker newsky"><span class="ukraine-flight-callsign"><img class="ukraine-flight-callsign-logo" src="${logoPath}" onerror="this.onerror=null; this.src='LOGOS/nologo.png';">${displayCallsign}</span><span class="ukraine-flight-icon-wrap"><span class="ukraine-flight-icon" style="transform: rotate(${heading}deg);">${window.KazuarAircraftIcons.svg(window.KazuarAircraftIcons.newskyType(flight))}</span></span></span>`,
       iconSize: [52, 36],
       iconAnchor: [26, 24],
       popupAnchor: [0, -20]
@@ -11310,7 +11343,6 @@ if (isMilitaryCallsign(callsign)) {
     const marker = L.marker([lat, lon], {
       icon,
       pane: "ukraineFlightsPane",
-      title: `${callsign} ${dep}→${arr}`
     }).addTo(window.ukraineNewSkyLayer);
     mapFlightMarkers[normalizeCallsignKey(callsign)] = {
       marker,
@@ -11329,12 +11361,8 @@ if (isMilitaryCallsign(callsign)) {
       `${airlineShort}<br>${aircraftShort}<br>HDG ${headingText}<br>${dep} → ${arr}`,
       { className: "ukraine-flight-popup", closeButton: false, autoPan: true }
     );
-    marker.on("popupopen", () => {
-      showUkraineActiveFlightRoute(depCoords, dep, [lat, lon], arrCoords, arr, "#1a9d61");
-    });
-    marker.on("popupclose", () => {
-      clearUkraineActiveFlightRoute();
-    });
+    const trackId = bindUkraineFlightTrack(marker, "newsky", flight, depCoords, dep, [lat, lon], arrCoords, arr, "#1a9d61");
+    if (window.ukraineNewSkyVisible && window.KazuarFlightTracks?.same(previousTrack, trackId)) restoreTrackMarker = marker;
   });
 
   if (window.ukraineVatsimVisible) {
@@ -11357,7 +11385,15 @@ if (isMilitaryCallsign(callsign)) {
     clearUkraineActiveFlightRoute();
   }
   
- renderUkraineFlightList(); 
+  renderUkraineFlightList();
+  if (restoreTrackMarker && window.ukraineLiveMap.hasLayer(restoreTrackMarker)) {
+    // Reopen the same flight without pulling the user's map view away.
+    const popup = restoreTrackMarker.getPopup();
+    const previousAutoPan = popup.options.autoPan;
+    popup.options.autoPan = false;
+    try { restoreTrackMarker.openPopup(); }
+    finally { popup.options.autoPan = previousAutoPan; }
+  }
 }
 
 document.addEventListener("click", event => {
