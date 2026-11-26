@@ -193,13 +193,66 @@
     if(angles.length===2&&angles[0]*angles[1]<0&&Math.min(...angles.map(Math.abs))>Math.PI/18) return false;
     return angles.some(x=>Math.abs(x)>=Math.PI/12);
   }
+  // NewSky samples arrive much less frequently than VATSIM. Round observed
+  // turns visually, through every real sample, without crossing a data gap.
+  function newskyInterval(a,b) {
+    if (!adjacent(a,b) || !Number.isFinite(a.t) || !Number.isFinite(b.t)) return null;
+    const dt=b.t-a.t, distance=chord(a,b);
+    return dt>0 && dt<=240 && distance>=3 && distance/dt<=400 ? dt : null;
+  }
+  function newskyLeg(a,b,c,d) {
+    const straight=[[b.lat,b.lon],[c.lat,c.lon]];
+    const dt=newskyInterval(b,c);
+    if (dt===null) return straight;
+    const scale=Math.max(.01,Math.cos((b.lat+c.lat)*Math.PI/360));
+    const vector=(p,q)=>[(q.lon-p.lon)*metresPerDegree*scale,(q.lat-p.lat)*metresPerDegree];
+    const length=v=>Math.hypot(v[0],v[1]);
+    const unit=v=>{const n=length(v);return n>0?v.map(x=>x/n):null;};
+    const v=vector(b,c), len=length(v), u=unit(v);
+    if (!u) return straight;
+    function corner(p,q,r) {
+      const h0=newskyInterval(p,q),h1=newskyInterval(q,r);
+      if (h0===null || h1===null) return null;
+      const v0=vector(p,q),v1=vector(q,r),u0=unit(v0),u1=unit(v1);
+      if (!u0||!u1) return null;
+      const angle=Math.atan2(Math.abs(u0[0]*u1[1]-u0[1]*u1[0]),u0[0]*u1[0]+u0[1]*u1[1]);
+      if (angle<Math.PI/12 || angle>Math.PI*.8) return null;
+      const dir=unit([u0[0]+u1[0],u0[1]+u1[1]]);
+      if (!dir) return null;
+      const slow=length(v0)/h0<=35 && length(v1)/h1<=35;
+      return {dir,reach:Math.min(length(v0),length(v1))*.25,limit:slow?10:500};
+    }
+    const start=corner(a,b,c),end=corner(b,c,d);
+    if (!start&&!end) return straight;
+    function control(turn) {
+      if (!turn) return u.map(x=>x*len/3);
+      const cross=Math.abs(u[0]*turn.dir[1]-u[1]*turn.dir[0]);
+      const along=u[0]*turn.dir[0]+u[1]*turn.dir[1];
+      if (along<=0) return u.map(x=>x*len/3);
+      const reach=Math.min(turn.reach,len*.25,Math.min(len*.12,turn.limit)/Math.max(cross,1e-9));
+      return turn.dir.map(x=>x*reach);
+    }
+    const cp1=control(start), e=control(end),cp2=[v[0]-e[0],v[1]-e[1]];
+    const coords=[straight[0]];
+    for(let j=1;j<16;j++){
+      const k=j/16,m=1-k;
+      const x=3*m*m*k*cp1[0]+3*m*k*k*cp2[0]+k*k*k*v[0];
+      const y=3*m*m*k*cp1[1]+3*m*k*k*cp2[1]+k*k*k*v[1];
+      const lat=b.lat+y/metresPerDegree,lon=b.lon+x/(metresPerDegree*scale);
+      if (!valid({lat,lon})) return straight;
+      coords.push([lat,lon]);
+    }
+    coords.push(straight[1]);
+    return coords;
+  }
   function smoothSegments(source,points) {
     const p=Array.isArray(points)?points:[],out=[];
     for(let i=1;i<p.length;i++){
       const b=p[i-1],c=p[i];
       if(!adjacent(b,c)||(b.lat===c.lat&&b.lon===c.lon))continue;
       const color=source==='newsky'?'#1a9d61':altitudeColor(typeof b.alt==='number'&&Number.isFinite(b.alt)&&typeof c.alt==='number'&&Number.isFinite(c.alt)?(b.alt+c.alt)/2:null);
-      const coords=groundLeg(p[i-2],b,c,p[i+1]) ? interpolatedLeg(p[i-2],b,c,p[i+1]) : [[b.lat,b.lon],[c.lat,c.lon]];
+      const coords=source==='newsky' ? newskyLeg(p[i-2],b,c,p[i+1]) :
+        groundLeg(p[i-2],b,c,p[i+1]) ? interpolatedLeg(p[i-2],b,c,p[i+1]) : [[b.lat,b.lon],[c.lat,c.lon]];
       const prev=out[out.length-1];
       if(prev&&prev.end===i-1&&prev.color===color){prev.coords.push(...coords.slice(1));prev.end=i;}
       else out.push({color,coords,end:i});
