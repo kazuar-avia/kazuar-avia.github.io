@@ -5527,6 +5527,193 @@
                         "elev": 210
                     }
                 }
+            },
+            {
+                "_id": "6b08254dd962ff40f19e8f5d",
+                "aircraft": {
+                    "_id": "6999ffea9da57b990aa9d81b",
+                    "name": "Bombardier CRJ-550",
+                    "customName": "UTair Ukraine l Aerosoft CRJ-550 l UR-UTZ",
+                    "icao": "CRJ7"
+                },
+                "type": "pax",
+                "flightNumber": "2410",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 40,
+                    "cargo": 8,
+                    "weights": {
+                        "cargo": 520
+                    }
+                },
+                "depTime": "2026-11-26T12:50:00.000Z",
+                "duration": 90,
+                "arrTime": "2026-11-26T14:20:00.000Z",
+                "depTimeAct": "2026-11-26T12:47:21.997Z",
+                "delay": -23,
+                "takeoffTimeAct": "2026-11-26T12:56:03.010Z",
+                "durationAct": 61,
+                "arrTimeAct": "2026-11-26T13:57:24.066Z",
+                "open": "2026-11-26T12:31:39.292Z",
+                "close": "2026-11-26T14:04:19.445Z",
+                "rating": 6.53,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 278,
+                        "fuel": 1529,
+                        "expenses": 3489,
+                        "penalties": 25000,
+                        "revenue": 7072,
+                        "balance": -21417,
+                        "prices": {
+                            "ticketPrice": 143,
+                            "cargoUnitPrice": 169,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.7,
+                                "fuel": 0.8,
+                                "ground": 0.7
+                            }
+                        },
+                        "payload": {
+                            "pax": 40,
+                            "cargo": 8,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 40
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1383,
+                        "aircraft": 1508,
+                        "handling": 171,
+                        "landing": 427
+                    },
+                    "revenue": {
+                        "tickets": 5720,
+                        "cargo": 1352
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 4.90m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -13,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Short landing (107m from threshold before 197m min accepted)",
+                            "penalty": {
+                                "points": -69,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.5,
+                                        "rate": 924
+                                    },
+                                    "weather": {
+                                        "windDir": 81.69,
+                                        "windSpd": 8.71,
+                                        "windX": 7
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Terrible touchdown: 2.50G (924 ft/min, normal  conditions)<br/>Distance from threshold: 107m (accepted range: 197-790m)<br/>Average centerline deviation: 3.97m<br/>Max centerline deviation: 4.90m",
+                            "penalty": {
+                                "points": -250,
+                                "cash": 25000
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 40
+                                    },
+                                    "touchDown": {
+                                        "gForce": 2.5,
+                                        "rate": 924
+                                    },
+                                    "weather": {
+                                        "windDir": 81.69,
+                                        "windSpd": 8.71,
+                                        "windX": -0.11
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No BEACON lights for 86s when required",
+                            "penalty": {
+                                "points": -15,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-26T12:25:49.260Z",
+                "updatedAt": "2026-11-26T14:04:19.995Z",
+                "dep": {
+                    "icao": "UKKK",
+                    "name": "Igor Sikorsky Kyiv International Airport (Zhuliany)",
+                    "city": "Kyiv",
+                    "location": {
+                        "lat": 50.40194,
+                        "lon": 30.45194,
+                        "elev": 587
+                    }
+                },
+                "arr": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "actArr": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                }
             }
         ]
     },
