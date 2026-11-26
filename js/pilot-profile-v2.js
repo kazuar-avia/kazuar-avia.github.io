@@ -792,7 +792,10 @@
     const tooltip = entries.length > 1
       ? entries.map(entry => `${entry.label}: ${entry.count} ${flightWord(entry.count)} (${entry.percent.toFixed(0)}%)`).join('\n')
       : leader ? `${leader.label}: ${leader.count} ${flightWord(leader.count)} (${leader.percent.toFixed(0)}%)` : '';
-    return {leader,entries,total,tooltip};
+    // рейси в мережі VATSIM (operations.network) — окремим рядком під лінією
+    const vatsim = completed.filter(flight => /vatsim/i.test(flight.operations?.network || '')).length;
+    const vatsimLine = completed.length ? `У VATSIM: ${vatsim} ${flightWord(vatsim)} (${(vatsim / completed.length * 100).toFixed(0)}%)` : '';
+    return {leader,entries,total,tooltip:tooltip && vatsimLine ? `${tooltip}\n@@LINE@@\n${vatsimLine}` : tooltip};
   }
 
   function aircraftAwardFamily(flight) {
@@ -1967,6 +1970,7 @@
         .profile-v2 .profile-tip{position:relative;cursor:help}.profile-v2 .profile-tip:hover{background:#fffbe3}.profile-v2 .profile-awards-list-button.profile-tip{cursor:pointer}
         .profile-v2 .profile-tooltip-box{position:absolute;left:50%;top:calc(100% + 5px);transform:translateX(-50%);z-index:100;width:max-content;max-width:350px;padding:7px 9px;border:1px solid #666;background:#fff;color:#222;font-family:Arial,sans-serif;font-size:11px;font-weight:normal;line-height:1.35;text-align:left;white-space:pre-line;box-shadow:0 4px 12px #0003;opacity:0;visibility:hidden;pointer-events:none}
         .profile-v2 .profile-tip:hover .profile-tooltip-box{opacity:1;visibility:visible}
+        .profile-v2 .profile-sim-badge .profile-tooltip-box{left:0;transform:none;text-align:left}
         .profile-v2 .profile-tooltip-section{display:block;white-space:pre-line}.profile-v2 .profile-tooltip-rule{height:0;margin:5px 0;border:0;border-top:1px solid #ccc}
         .profile-v2 .profile-career-line{line-height:16px}.profile-v2 .profile-career-line .profile-epaulet{width:27px;height:12px;vertical-align:1px}.profile-v2 .profile-career-line .profile-tooltip-box{min-width:360px;max-width:460px}
         .profile-v2 .profile-tooltip-excluded{display:block;margin-top:6px;color:#888;font-style:italic;white-space:pre-line}

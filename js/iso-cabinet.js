@@ -942,6 +942,10 @@
   .modeled input:not([type=checkbox]):not([type=file]),.modeled select{padding:3px 6px;border:1px solid #888;border-radius:0;font:inherit;background:#fff;min-width:0}
   .tst button.tsave{font-weight:bold}
   .tst button.tsave.on{background:#ffe066!important;border-color:#e0a800!important;color:#5c3c00!important;box-shadow:0 0 0 2px rgba(224,168,0,.35)}
+  .pweye-wrap{position:relative;display:block}
+  .pweye-wrap input{width:100%;box-sizing:border-box;padding-right:36px!important}
+  .pweye{position:absolute;right:4px;top:50%;transform:translateY(-50%);width:28px;height:26px;padding:0;border:0;background:transparent;font-size:16px;line-height:1;cursor:pointer;opacity:.45}
+  .pweye:hover,.pweye.on{opacity:1}
   .modeled .note{line-height:1.45}
   .modeled .mdlbox{margin-top:4px;padding:6px 8px;border:1px solid #2f9e44;background:#ebfbee;line-height:1.8}
   .modeled .mdlink{display:inline-block;margin-right:8px;padding:2px 8px;border:1px solid #2f9e44;background:#fff;color:#1b5e20;font-weight:bold;text-decoration:none}
@@ -2973,6 +2977,19 @@
       localStorage.setItem(TOKEN_KEY, res.data.token);
       toast('Пароль змінено ✓');
       return null;
+    });
+    addPwEyes([...document.querySelectorAll('.devauth-back')].pop());
+  }
+  // «👁» справа в полі пароля: показати / сховати те, що вводиш
+  function addPwEyes(root) {
+    root?.querySelectorAll('input[type=password]').forEach(inp => {
+      if (inp.dataset.eye) return;
+      inp.dataset.eye = '1';
+      const wrap = Object.assign(document.createElement('span'), {className: 'pweye-wrap'});
+      inp.replaceWith(wrap); wrap.appendChild(inp);
+      const b = Object.assign(document.createElement('button'), {type: 'button', className: 'pweye', title: 'Показати пароль', textContent: '👁'});
+      b.onclick = () => { const show = inp.type === 'password'; inp.type = show ? 'text' : 'password'; b.classList.toggle('on', show); b.title = show ? 'Сховати пароль' : 'Показати пароль'; inp.focus(); };
+      wrap.appendChild(b);
     });
   }
   // відкрили сторінку — перевіряємо, чи вхід ще дійсний

@@ -258,6 +258,16 @@
     archiveFlights.forEach(flight => unique.set(flight.id, flight));
     currentFlights.forEach(flight => unique.set(flight.id, flight));
     const flights = [...unique.values()];
+    // Рейс сів не там, куди планували (запасний / повернення): «прибуття» для таблиць, карти, статистики й нагород —
+    // ФАКТИЧНИЙ аеропорт (actArr → actualArrival). Плановий лишається в plannedArrival, позначка diverted.
+    flights.forEach(flight => {
+      const act = flight.actualArrival, plan = flight.arrival;
+      if (!act?.icao || !plan || String(act.icao).toUpperCase() === String(plan.icao || '').toUpperCase()) return;
+      flight.plannedArrival = plan;
+      flight.arrival = act;
+      flight.diverted = true;
+      flight.routeType = routeType(flight.departure?.icao, act.icao);
+    });
     enrichFlightAirportLocations(flights, airportLocations);
     const latestPilotIdentity = new Map();
     flights.forEach(flight => {
