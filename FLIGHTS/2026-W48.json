@@ -4396,6 +4396,161 @@
                         "elev": 210
                     }
                 }
+            },
+            {
+                "_id": "6b07fcddd962ff40f19c7870",
+                "aircraft": {
+                    "_id": "69ef2326a5e61d69a7a9a128",
+                    "name": "Airbus A320",
+                    "customName": "Windrose l A320 based in UKDD UKBB l UR-WRW",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "783",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 160,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-11-26T09:45:00.000Z",
+                "duration": 85,
+                "arrTime": "2026-11-26T11:10:00.000Z",
+                "depTimeAct": "2026-11-26T09:46:23.413Z",
+                "delay": -29,
+                "takeoffTimeAct": "2026-11-26T09:46:37.593Z",
+                "durationAct": 55,
+                "arrTimeAct": "2026-11-26T10:41:07.877Z",
+                "open": "2026-11-26T09:45:22.067Z",
+                "close": "2026-11-26T10:47:47.948Z",
+                "rating": 9.35,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 277,
+                        "fuel": 2015,
+                        "expenses": 7758,
+                        "penalties": 0,
+                        "revenue": 22720,
+                        "balance": 14962,
+                        "prices": {
+                            "ticketPrice": 142,
+                            "cargoUnitPrice": 168,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.7,
+                                "fuel": 0.8,
+                                "ground": 0.7
+                            }
+                        },
+                        "payload": {
+                            "pax": 160,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 160
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1823,
+                        "aircraft": 3450,
+                        "handling": 1120,
+                        "landing": 1365
+                    },
+                    "revenue": {
+                        "tickets": 22720,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 12.77m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -65,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 26
+                                    },
+                                    "weather": {
+                                        "windDir": 287.25,
+                                        "windSpd": 7.1,
+                                        "windX": -6.63
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.13G (98 ft/min, challenging  conditions)<br/>Distance from threshold: 665m (accepted range: 185-741m)<br/>Average centerline deviation: 1.60m<br/>Max centerline deviation: 4.30m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 29
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.13,
+                                        "rate": 98
+                                    },
+                                    "weather": {
+                                        "windDir": 76.61,
+                                        "windSpd": 7.19,
+                                        "windX": 7
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-26T09:33:17.215Z",
+                "updatedAt": "2026-11-26T10:47:48.037Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "UKOO",
+                    "name": "Odesa International Airport",
+                    "city": "Odesa",
+                    "location": {
+                        "lat": 46.427196,
+                        "lon": 30.672649,
+                        "elev": 172
+                    }
+                },
+                "actArr": {
+                    "icao": "UKOO",
+                    "name": "Odesa International Airport",
+                    "city": "Odesa",
+                    "location": {
+                        "lat": 46.427196,
+                        "lon": 30.672649,
+                        "elev": 172
+                    }
+                }
             }
         ]
     },
