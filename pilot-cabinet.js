@@ -1010,7 +1010,7 @@ function pieRewardIconHtml(flight) {
   const entry = window.UCAAPieRewards.earningForFlight(app.piesLedger, flight);
   if (!entry) return '';
   const label = `${entry.delta} ${entry.delta === 1 ? 'пиріжок' : 'пиріжки'}`;
-  return `<span class="flight-pies-icon" title="Нараховано ${esc(label)} за цей рейс"><img src="pyrih.png" alt="+${esc(label)}"></span>`;
+  return `<span class="flight-pies-icon" title="Нараховано ${esc(label)} за цей рейс"><img src="assets/icons/pyrih.png" alt="+${esc(label)}"></span>`;
 }
 
 function flightRewardIconsHtmlForRow(flight, amount) {
@@ -1029,7 +1029,7 @@ function livePieRewardIconHtml(flight) {
   const reward = window.UCAAPieRewards?.rewardForRank?.(record.pieRank, record.pieRewardRulesVersion || 1) || 0;
   if (!reward) return '';
   const label = `${reward} ${reward === 1 ? 'пиріжок' : 'пиріжки'}`;
-  return `<span class="flight-pies-icon" title="Буде нараховано ${esc(label)} за цей рейс"><img src="pyrih.png" alt="+${esc(label)}"></span>`;
+  return `<span class="flight-pies-icon" title="Буде нараховано ${esc(label)} за цей рейс"><img src="assets/icons/pyrih.png" alt="+${esc(label)}"></span>`;
 }
 
 function liveFlightRewardIconsHtml(flight) {
@@ -1717,7 +1717,7 @@ function buildPilotCardsMonthlyCache() {
 
 function pilotCardPendingIcon(pending) {
   if (pending.length > 1) return `<b class="multi">${pending.length}</b>`;
-  if (pending[0]?.key === 'top-hot') return `<b class="pilot-card-pyrih-icon"><img src="pyrih.png" alt="Пиріжки"></b>`;
+  if (pending[0]?.key === 'top-hot') return `<b class="pilot-card-pyrih-icon"><img src="assets/icons/pyrih.png" alt="Пиріжки"></b>`;
   const emoji = pending[0]?.emoji || '';
   const allowed = new Set(['✅','⏱️','👷','🧑‍✈️','🛫','💵','💸','⚙️','🥧','🔁','🧰']);
   return `<b>${allowed.has(emoji) ? emoji : '🛫'}</b>`;
@@ -3708,7 +3708,7 @@ function setupCompanyLiverySortControls() {
       heading.classList.add('company-live-dashboard-heading');
       collapse.hidden = true;
       controls.classList.add('company-live-mode-controls');
-      controls.innerHTML = '<button type="button" class="company-livery-sort-button company-live-mode-button" data-company-live-mode="live" title="Показати літаки, які зараз LIVE"><span class="company-live-mode-arrow" aria-hidden="true">▶</span><span class="company-live-mode-label">LIVE NOW <span class="company-live-mode-secondary">- 0 рейсів</span></span></button><button type="button" class="company-livery-sort-button company-live-mode-button" data-company-live-mode="quick" title="Рейси до 3 год 30 хв включно. ТОП #1 — 3 пиріжки, ТОП #2 — 2, ТОП #3–#6 — по 1"><span class="company-live-mode-arrow" aria-hidden="true">▶</span><span class="company-live-mode-label">Гарячі пиріжки <img class="company-pyrih-icon" src="pyrih.png" alt="пиріжок" aria-hidden="true"></span></button><button type="button" class="company-livery-sort-button company-live-mode-button" data-company-live-mode="earn" title="Найкращі пропозиції за премією на годину"><span class="company-live-mode-arrow" aria-hidden="true">▶</span><span class="company-live-mode-label">Підняти кеш 💸 <span class="company-live-mode-secondary">$/год</span></span></button><button type="button" class="company-livery-sort-button company-live-mode-button" data-company-live-mode="return" title="FREE flight для подальшого SCHEDULE"><span class="company-live-mode-arrow" aria-hidden="true">▶</span><span class="company-live-mode-label">Повернути на маршрут 🔁</span></button><button type="button" class="company-livery-sort-button company-live-mode-button" data-company-live-mode="idle" title="Літаки, які найдовше не літали"><span class="company-live-mode-arrow" aria-hidden="true">▶</span><span class="company-live-mode-label">Вивести з простоя <span class="company-toolbox-icon">🧰</span></span></button>';
+      controls.innerHTML = '<button type="button" class="company-livery-sort-button company-live-mode-button" data-company-live-mode="live" title="Показати літаки, які зараз LIVE"><span class="company-live-mode-arrow" aria-hidden="true">▶</span><span class="company-live-mode-label">LIVE NOW <span class="company-live-mode-secondary">- 0 рейсів</span></span></button><button type="button" class="company-livery-sort-button company-live-mode-button" data-company-live-mode="quick" title="Рейси до 3 год 30 хв включно. ТОП #1 — 3 пиріжки, ТОП #2 — 2, ТОП #3–#6 — по 1"><span class="company-live-mode-arrow" aria-hidden="true">▶</span><span class="company-live-mode-label">Гарячі пиріжки <img class="company-pyrih-icon" src="assets/icons/pyrih.png" alt="пиріжок" aria-hidden="true"></span></button><button type="button" class="company-livery-sort-button company-live-mode-button" data-company-live-mode="earn" title="Найкращі пропозиції за премією на годину"><span class="company-live-mode-arrow" aria-hidden="true">▶</span><span class="company-live-mode-label">Підняти кеш 💸 <span class="company-live-mode-secondary">$/год</span></span></button><button type="button" class="company-livery-sort-button company-live-mode-button" data-company-live-mode="return" title="FREE flight для подальшого SCHEDULE"><span class="company-live-mode-arrow" aria-hidden="true">▶</span><span class="company-live-mode-label">Повернути на маршрут 🔁</span></button><button type="button" class="company-livery-sort-button company-live-mode-button" data-company-live-mode="idle" title="Літаки, які найдовше не літали"><span class="company-live-mode-arrow" aria-hidden="true">▶</span><span class="company-live-mode-label">Вивести з простоя <span class="company-toolbox-icon">🧰</span></span></button>';
       controls.querySelectorAll('[data-company-live-mode]').forEach(button => {
         const active = button.dataset.companyLiveMode === section.dataset.liveMode;
         button.classList.toggle('active', active && !grid.hidden);
@@ -3770,7 +3770,7 @@ function openCompanyLiveryDialog(card, titleText, index = -1) {
   title.textContent = titleText || 'Ліврея UCAA';
   let imageHtml = image ? `<img class="company-livery-modal-image" src="${esc(image.getAttribute('src') || '')}" alt="${esc(image.getAttribute('alt') || title.textContent)}">` : '';
   if (index === 8) {
-    imageHtml = `<img class="company-livery-modal-image" src="E190-UCAA-red-grey.jpg" alt="${esc(title.textContent)}">`;
+    imageHtml = `<img class="company-livery-modal-image" src="assets/aircraft/E190-UCAA-red-grey.jpg" alt="${esc(title.textContent)}">`;
   }
   body.innerHTML = `${companyWetLeaseMissionHtml(card, index)}${imageHtml}<div class="company-livery-downloads">${normalizeLiveryDownloadDetails(details ? details.innerHTML : '')}</div>`;
   showCompanyLiveryDialog(dialog);
@@ -3780,7 +3780,7 @@ const COMPANY_WET_LEASE_MISSIONS = [
   {
     title: 'UR-UCA — Boeing 737-800',
     subtitle: 'Хребет України',
-    image: 'UCA-mission.jpg',
+    image: 'assets/missions/UCA-mission.jpg',
     text: 'Основний пасажирський літак внутрішньої мережі UCAA. Він з’єднує великі міста України прямими рейсами.',
     bullets: [
       'Пряме сполучення між великими регіональними центрами.',
@@ -3793,7 +3793,7 @@ const COMPANY_WET_LEASE_MISSIONS = [
   {
     title: 'UR-BUS — Airbus A320',
     subtitle: 'Східні ворота до Європи',
-    image: 'BUS-mission.jpg',
+    image: 'assets/missions/BUS-mission.jpg',
     text: 'Міжнародний пасажирський борт із базою в Запоріжжі. Він відкриває європейські напрямки для промислових і регіональних центрів України.',
     bullets: [
       'Основна база — UKDE Запоріжжя.',
@@ -3806,7 +3806,7 @@ const COMPANY_WET_LEASE_MISSIONS = [
   {
     title: 'UR-FKR — Fokker 100',
     subtitle: 'Авіація повертається в регіони',
-    image: 'FKR-mission.jpg',
+    image: 'assets/missions/FKR-mission.jpg',
     text: 'Літак для аеропортів, де регулярні реактивні рейси стали рідкістю. Він виконує чартери, спеціальні перевезення та регіональні місії.',
     bullets: [
       'Основна база — UKHH Харків.',
@@ -3819,7 +3819,7 @@ const COMPANY_WET_LEASE_MISSIONS = [
   {
     title: 'UR-CAA — Boeing 737-800BCF',
     subtitle: 'Регіональний Cargo Express',
-    image: 'CAA-mission.jpg',
+    image: 'assets/missions/CAA-mission.jpg',
     text: 'Середньомагістральний вантажний літак для маршрутів, де Cessna вже замала, а A300 — надто великий.',
     bullets: [
       'Основна база — UKKM Гостомель.',
@@ -3832,7 +3832,7 @@ const COMPANY_WET_LEASE_MISSIONS = [
   {
     title: 'UR-LDC — Airbus A300-600F',
     subtitle: 'Європейський карго-хаб',
-    image: 'LDC-mission.jpg',
+    image: 'assets/missions/LDC-mission.jpg',
     text: 'Класичний магістральний вантажний літак UCAA. Він перевозить великі консолідовані партії між Гостомелем і головними європейськими карго-вузлами.',
     bullets: [
       'Основна база — UKKM Гостомель.',
@@ -3845,7 +3845,7 @@ const COMPANY_WET_LEASE_MISSIONS = [
   {
     title: 'UR-CRG — Boeing 777F',
     subtitle: 'Heavy Cargo',
-    image: 'CRG-mission.jpg',
+    image: 'assets/missions/CRG-mission.jpg',
     text: 'Найпотужніший вантажний літак компанії для важких, термінових і великогабаритних контрактів.',
     bullets: [
       'Основна база — UKBB Бориспіль.',
@@ -3858,7 +3858,7 @@ const COMPANY_WET_LEASE_MISSIONS = [
   {
     title: 'UR-PAX — Cessna 208 Caravan',
     subtitle: 'Карпатський експрес',
-    image: 'PAX-mission.jpg',
+    image: 'assets/missions/PAX-mission.jpg',
     text: 'Малий пасажирський літак із базою в Рівному, створений для сполучення західних областей без пересадки в Києві.',
     bullets: [
       'Основна база — UKLR Рівне.',
@@ -3871,7 +3871,7 @@ const COMPANY_WET_LEASE_MISSIONS = [
   {
     title: 'UR-VAN — Cessna 208 Caravan Cargo',
     subtitle: 'Гуманітарні крила',
-    image: 'VAN-mission.jpg',
+    image: 'assets/missions/VAN-mission.jpg',
     text: 'Невеликий вантажний літак для маршрутів, де швидкість і доступність важливіші за прибуток.',
     bullets: [
       'Основна база — UKDE Запоріжжя.',
@@ -3884,7 +3884,7 @@ const COMPANY_WET_LEASE_MISSIONS = [
   {
     title: 'UR-ECA — Embraer 190F',
     subtitle: 'Одеський Market Express',
-    image: 'ECA-mission.jpg',
+    image: 'assets/missions/ECA-mission.jpg',
     text: 'Регіональний вантажний літак, який забирає консолідовані партії в Одесі та Гостомелі й розвозить їх до обласних центрів.',
     bullets: [
       'Основна база — UKOO Одеса, карго-вузол — UKKM Гостомель.',
@@ -4034,7 +4034,7 @@ function liveryGroupAircraft(card) {
     id: fixedIds.get(regs[index]) || id,
     reg: regs[index] || titles[index] || `Борт ${index + 1}`,
     title: titles[index] || regs[index] || `Борт ${index + 1}`,
-    image: images[index] || `${(regs[index] || '').replace('-', '')}.png`
+    image: images[index] || `assets/aircraft/${(regs[index] || '').replace('-', '')}.png`
   }));
 }
 
@@ -6534,7 +6534,7 @@ function companyPiesRewardHtml(item, consumed, live) {
   }
   if (record) reward = window.UCAAPieRewards.rewardForRank(record.pieRank, record.pieRewardRulesVersion || 1);
   if (!reward) return '';
-  const icon = '<img class="company-pyrih-icon" src="pyrih.png" alt="пиріжки">';
+  const icon = '<img class="company-pyrih-icon" src="assets/icons/pyrih.png" alt="пиріжки">';
   const quantity = `${reward} ${reward === 1 ? 'пиріжок' : 'пиріжки'}`;
   if (!pilot) return `<span class="company-pies-reward">Нагорода: ${reward} ${icon}</span>`;
   const id = String(pilot?.id || '').trim();
@@ -6564,7 +6564,7 @@ function companyFixedTopPoolNoteHtml(item, category, mode, index) {
   const rewardHtml = mode === 'quick'
     ? companyPiesRewardHtml(item, consumed, companyFixedTopPoolLiveMatchFlight(item, mode)) : '';
   const quickLabel = mode === 'quick'
-    ? `<strong>ТОП <img class="company-pyrih-icon" src="pyrih.png" alt="пиріжок" aria-hidden="true">${Number.isInteger(rank) && rank > 0 ? ` #${rank}` : ''}</strong>${rewardHtml ? `<br>${rewardHtml}` : ''}`
+    ? `<strong>ТОП <img class="company-pyrih-icon" src="assets/icons/pyrih.png" alt="пиріжок" aria-hidden="true">${Number.isInteger(rank) && rank > 0 ? ` #${rank}` : ''}</strong>${rewardHtml ? `<br>${rewardHtml}` : ''}`
     : '';
   const withQuickLabel = html => quickLabel ? `${quickLabel}<br>${html}` : html;
   if (consumed) return withQuickLabel(`<span class="company-top-pool-live-state company-top-pool-live-ok">✅ Бонусний рейс виконано!</span>`);
@@ -6705,7 +6705,7 @@ function renderCompanyFixedTopPoolItems(grid, mode, sourceCards, headingTitle, m
   const cards = [...uniqueLivePieRows, ...regularRows].slice(0, 6);
   if (mode === 'quick') cards.sort((a, b) => (Number(a.item.rank) || 99) - (Number(b.item.rank) || 99));
   const titles = {
-    quick: ['Гарячі пиріжки <img class="company-pyrih-icon" src="pyrih.png" alt="пиріжок" aria-hidden="true">', '<img class="company-pyrih-icon" src="pyrih.png" alt="пиріжок" aria-hidden="true">'],
+    quick: ['Гарячі пиріжки <img class="company-pyrih-icon" src="assets/icons/pyrih.png" alt="пиріжок" aria-hidden="true">', '<img class="company-pyrih-icon" src="assets/icons/pyrih.png" alt="пиріжок" aria-hidden="true">'],
     earn: ['ТОП 💸 $/год', '💸 $/год'],
     return: ['Повернути на маршрут 🔁', 'Маршрут 🔁'],
     idle: ['Вивести з простоя <span class="company-toolbox-icon">🧰</span>', 'Простій <span class="company-toolbox-icon">🧰</span>']
@@ -6787,9 +6787,9 @@ function renderCompanyLiveFleetExtract() {
 
   if (mode === 'quick') {
     const items = companyLiveQuickTopItems(sourceCards, companyLiveReservedCardsBeforeMode(sourceCards, 'quick'));
-    if (headingTitle) headingTitle.innerHTML = `Гарячі пиріжки <img class="company-pyrih-icon" src="pyrih.png" alt="пиріжок" aria-hidden="true"> - ${items.length} пропозицій`;
-    if (mobileTitle) mobileTitle.innerHTML = `<img class="company-pyrih-icon" src="pyrih.png" alt="пиріжок" aria-hidden="true">: ${items.length}`;
-    renderCompanyLiveDashboardItems(grid, 'Гарячі пиріжки', items, (item, index) => `<strong>ТОП <img class="company-pyrih-icon" src="pyrih.png" alt="пиріжок" aria-hidden="true"> #${index + 1}</strong>`);
+    if (headingTitle) headingTitle.innerHTML = `Гарячі пиріжки <img class="company-pyrih-icon" src="assets/icons/pyrih.png" alt="пиріжок" aria-hidden="true"> - ${items.length} пропозицій`;
+    if (mobileTitle) mobileTitle.innerHTML = `<img class="company-pyrih-icon" src="assets/icons/pyrih.png" alt="пиріжок" aria-hidden="true">: ${items.length}`;
+    renderCompanyLiveDashboardItems(grid, 'Гарячі пиріжки', items, (item, index) => `<strong>ТОП <img class="company-pyrih-icon" src="assets/icons/pyrih.png" alt="пиріжок" aria-hidden="true"> #${index + 1}</strong>`);
     if (!items.length) renderCompanyLiveEmpty(grid, 'Гарячих пиріжків зараз немає');
     return;
   }

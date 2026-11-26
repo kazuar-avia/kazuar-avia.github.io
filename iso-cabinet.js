@@ -1669,7 +1669,7 @@
     if (b && !b.disabled) { lastFlightsRefresh = Date.now(); b.click(); }
   }, 30e3);
   // 🥧 → картинка пиріжка (як під аватаркою) у всьому інтерфейсі кабінету
-  const PIE_IMG = 'pyrih.png';
+  const PIE_IMG = 'assets/icons/pyrih.png';
   // 🎡 → кольорове колесо з 5 секторами (замість тьмяного емодзі)
   const WHEEL_ICON = (() => {
     const cols = ['#ffd43b', '#4dabf7', '#ff6b6b', '#51cf66', '#9775fa'];

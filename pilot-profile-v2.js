@@ -21,7 +21,7 @@
   const MONTH_AWARD_MONTHS = ['СІЧ','ЛЮТ','БЕР','КВІ','ТРА','ЧЕР','ЛИП','СЕР','ВЕР','ЖОВ','ЛИС','ГРУ'];
   const TOP_MONTH_AWARD_THRESHOLD = 3;
   const TOP_MONTH_AWARD_DEFS = [
-    {category:'hot', key:'top-hot', emoji:'🥧', iconHtml:'<img class="profile-monthly-top-pyrih" src="pyrih.png" alt="Пиріжки">', label:'ТОП Гарячі пиріжки', shortLabel:'HUSTLE'},
+    {category:'hot', key:'top-hot', emoji:'🥧', iconHtml:'<img class="profile-monthly-top-pyrih" src="assets/icons/pyrih.png" alt="Пиріжки">', label:'ТОП Гарячі пиріжки', shortLabel:'HUSTLE'},
     {category:'cash', key:'top-cash', emoji:'💸', label:'ТОП Підняти кеш', shortLabel:'CASH'},
     {category:'returnRoute', key:'top-returnRoute', emoji:'🔁', label:'ТОП Повернув на маршрут', shortLabel:'ROUTE'},
     {category:'idle', key:'top-idle', emoji:'🧰', label:'ТОП Вивів з простоя', shortLabel:'SAVE'}
@@ -37,7 +37,7 @@
     const hint = balance === null
       ? 'Баланс тимчасово недоступний. Відкрити журнал нарахувань.'
       : 'Натисніть, щоб переглянути рейси з нарахованими пиріжками.';
-    return `<button type="button" class="profile-pies-balance" title="${esc(hint)}" aria-label="Переглянути рейси з нарахованими пиріжками"><img src="pyrih.png" alt="" aria-hidden="true"><span>Пиріжки: <strong>${label}</strong></span></button>`;
+    return `<button type="button" class="profile-pies-balance" title="${esc(hint)}" aria-label="Переглянути рейси з нарахованими пиріжками"><img src="assets/icons/pyrih.png" alt="" aria-hidden="true"><span>Пиріжки: <strong>${label}</strong></span></button>`;
   }
   function pilotPiesLogEntries(pilotId) {
     const id = String(pilotId || '').trim();
@@ -155,7 +155,7 @@
         <td class="company-livery-log-duration">${flight ? formatMinutes(flight.times?.durationMinutes) : '—'}</td>
         <td class="company-livery-log-rating">${ratingHtml}</td>
         <td class="company-livery-log-rating">${Number.isInteger(Number(entry.rank)) && Number(entry.rank)>0 ? `#${Number(entry.rank)}` : '—'}</td>
-        <td class="company-livery-log-money pilot-pies-log-earned">+${Number(entry.delta)} <img src="pyrih.png" alt="пиріжків"></td>
+        <td class="company-livery-log-money pilot-pies-log-earned">+${Number(entry.delta)} <img src="assets/icons/pyrih.png" alt="пиріжків"></td>
       </tr>`;
     }).join('') : '<tr><td colspan="7" class="loading">За вибраний період нарахувань пиріжків немає</td></tr>';
     return `<div class="company-livery-log-scroll"><table class="company-livery-log-table"><colgroup><col class="company-livery-log-date"><col class="company-livery-log-pilot"><col class="company-livery-log-route-col"><col class="company-livery-log-duration-col"><col class="company-livery-log-rating-col"><col class="company-livery-log-profit-col"><col class="company-livery-log-salary-col"></colgroup><thead><tr><th>Дата / Рейс</th><th>${aircraftSelect}</th><th>Маршрут</th><th>Тривалість</th><th>Рейтинг</th><th>ТОП</th><th>Пиріжки</th></tr></thead><tbody>${rows}</tbody></table></div>`;
