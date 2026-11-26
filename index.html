@@ -8648,6 +8648,7 @@ window.ukraineGroundVisible = false;
   // Без жорсткого обмеження карти: даємо вільне панорамування на зумі.
 
   window.ukraineLiveMap = map;
+  map.on("zoomend", updateUkraineAirportVisibility);
   window.KazuarMapLabels.attach(map);
   window.ukraineVatsimLayer = L.layerGroup();
   window.ukraineNewSkyLayer = L.layerGroup();
@@ -9349,6 +9350,25 @@ function refreshGroundPopupButtons() {
 }
 
 
+function ukraineAirportMinZoom(icao) {
+  if (["UKBB", "UKOO", "UKLL", "UKHH"].includes(icao)) return 0;
+  if (["UKKK", "UKDD", "UKDE", "UKFF", "UKCC", "UKLI", "UKLN", "UKLU"].includes(icao)) return 6;
+  return 7;
+}
+
+function updateUkraineAirportVisibility() {
+  const map = window.ukraineLiveMap;
+  const layer = window.ukraineAirportLayer;
+  if (!map || !layer) return;
+
+  const zoom = map.getZoom();
+  for (const { icao, marker } of window.ukraineAirportMarkers || []) {
+    const visible = zoom >= ukraineAirportMinZoom(icao);
+    if (visible && !layer.hasLayer(marker)) layer.addLayer(marker);
+    if (!visible && layer.hasLayer(marker)) layer.removeLayer(marker);
+  }
+}
+
 function addUkraineAirportMarkers() {
   if (!window.ukraineLiveMap || typeof L === "undefined") return;
 
@@ -9361,6 +9381,8 @@ function addUkraineAirportMarkers() {
   if (window.ukraineAirportsVisible !== false && !window.ukraineLiveMap.hasLayer(window.ukraineAirportLayer)) {
     window.ukraineAirportLayer.addTo(window.ukraineLiveMap);
   }
+
+  window.ukraineAirportMarkers = [];
 
   const ukrainianAirportNames = {
     UKBB: "Бориспіль",
@@ -9660,7 +9682,8 @@ const popupAnchor = getAirportPopupAnchor(airport.icao);
         title: `${airport.icao} ${airport.name || ""}`.trim(),
         zIndexOffset: airportZIndex[airport.icao] || 0,
         riseOnHover: true
-      }).addTo(window.ukraineAirportLayer);
+      });
+      window.ukraineAirportMarkers.push({ icao: airport.icao, marker });
 	  
 	  marker.on("click", () => {
   const updatedIcon = L.divIcon({
@@ -9691,6 +9714,7 @@ const popupAnchor = getAirportPopupAnchor(airport.icao);
         });
       }
     });
+  updateUkraineAirportVisibility();
 }
 
 function normalizeHeading(value) {
