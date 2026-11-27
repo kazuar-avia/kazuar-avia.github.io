@@ -3063,6 +3063,18 @@ body.ukraine-map-fullscreen-active .site-nav5 {
         font-weight: bold;
     }
 
+    /* телефон: поки в першому полі нічого нема — сіра підказка праворуч від поля */
+    .site-nav-wx .wx-slot:first-child .wx-out:empty {
+        display: block;
+    }
+
+    .site-nav-wx .wx-slot:first-child .wx-out:empty::before {
+        content: "← Впиши код ICAO, отримай METAR\A(для UK** — погода з OPEN-MET / MET.NO)";
+        white-space: pre-line;
+        color: #999;
+        font: 21px/1.35 Arial, sans-serif;
+    }
+
     .site-nav-wx .wx-more {
         width: 304px;
         padding: 10px;
