@@ -11,7 +11,18 @@ function family(code){const t=normalize(code);if(has(frames,t)&&!t.startsWith('S
 function frameSVG(key){const f=has(frames,key)?frames[key]:frames.B736_0;
  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${f.w} ${f.h}" aria-hidden="true" focusable="false"><image width="${f.w}" height="${f.h}" href="data:image/png;base64,${f.data}"/></svg>`;}
 function svg(code){return frameSVG(family(code));}
+function markerStyle(code){
+ const f=frames[family(code)]||frames.B736_0;
+ const extent=Math.max(f.w,f.h);
+ const bounded=Math.max(140,Math.min(340,extent));
+ const normal=12+(bounded-140)*6/176;
+ const full=15+(bounded-140)*7/176;
+ const ratio=Math.hypot(f.w,f.h)/extent;
+ const round=n=>Math.ceil(n*10)/10;
+ const icon=round(normal),fullIcon=round(full);
+ return `--aircraft-icon:${icon}px;--aircraft-circle:${round(icon*ratio+3)}px;--aircraft-full-icon:${fullIcon}px;--aircraft-full-circle:${round(fullIcon*ratio+5)}px`;
+}
 function vatsimType(p){return p?.flight_plan?.aircraft_short||p?.flight_plan?.aircraft_faa||p?.flight_plan?.aircraft||'';}
 function newskyType(f){const a=f?.aircraft?.airframe;const icon=normalize(a?.icon);return has(frames,icon+'_0')&&!icon.startsWith('SLEI')?icon:(a?.icao||a?.ident||'');}
-const api={family,svg,frameSVG,frames:()=>Object.keys(frames),vatsimType,newskyType};root.KazuarAircraftIcons=api;if(typeof module!=='undefined'&&module.exports)module.exports=api;
+const api={family,svg,frameSVG,markerStyle,frames:()=>Object.keys(frames),vatsimType,newskyType};root.KazuarAircraftIcons=api;if(typeof module!=='undefined'&&module.exports)module.exports=api;
 })(typeof globalThis!=='undefined'?globalThis:this);
