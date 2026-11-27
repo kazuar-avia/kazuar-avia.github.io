@@ -870,6 +870,7 @@
     view: {owned: 'sky', draft: 'sky'},
     bin: [],                        // прибрані під час редагування речі (можна повернути)
     group: {office: null, home: null},
+    catalogSearch: {office: '', home: ''}, // лише фільтр меню, не частина збереженого кабінету
     placing: null,       // id речі, яку ставимо
     selected: null,      // uid обраної речі
     hover: null,         // {i,j} або {wall,k}
@@ -1136,6 +1137,12 @@
   .isomenu h4{margin:0;padding:8px;background:#FFEE8C;border-bottom:1px solid #555;text-align:center;font-size:15px}
   .isomenu .bar{display:flex;gap:6px;align-items:center;padding:6px;border-bottom:1px solid #eee}
   .isomenu select{flex:1;padding:6px;border:1px solid #ccc;border-radius:5px}
+  .isomenu .searchbar{flex-shrink:0;gap:6px}
+  .isomenu .searchbar input{flex:1;min-width:0;width:100%;box-sizing:border-box;padding:7px 9px;border:1px solid #aaa;border-radius:5px;font:inherit}
+  .isomenu .searchbar input:focus{outline:2px solid #3b5bdb;outline-offset:-1px}
+  .isomenu .searchbar button{flex:none;padding:6px 9px;border:1px solid #bbb;border-radius:5px;background:#fff;cursor:pointer;font:inherit}
+  .isomenu .searchbar button:disabled{opacity:.45;cursor:default}
+  .isomenu .search-empty{grid-column:1/-1;padding:20px 10px;text-align:center;color:#666}
   .isomenu .hint{padding:6px 8px;background:#f1f3f5;color:#444;font-size:12px}
   .isomenu .sel{padding:6px 8px;background:#edf2ff;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
   .isomenu .sel button,.isomenu .foot button{padding:6px 10px;border-radius:5px;border:1px solid #bbb;background:#fff;cursor:pointer;font-weight:bold}
@@ -2506,6 +2513,12 @@
   }
 
   // ---------- меню ----------
+  // Пошук за всіма словами, без урахування регістру та варіантів апострофа/дефіса.
+  const normalizeCatalogSearch = value => String(value || '').normalize('NFKC').toLocaleLowerCase('uk-UA').replace(/['’ʼ`]/g, '').replace(/[-_–—]+/g, ' ').replace(/\s+/g, ' ').trim();
+  const catalogMatches = (terms, ...values) => {
+    const hay = normalizeCatalogSearch(values.join(' '));
+    return terms.every(term => hay.includes(term));
+  };
   function renderMenu() {
     const zone = state.editing;
     if (!isAdmin()) { state.testMode = false; state.showHidden = false; }   // «🛠 Редагувати каталог» — тільки для адмінів сайту
@@ -2518,14 +2531,21 @@
     if (!zone) { menu.innerHTML = ''; return; }
     undoTick();   // запам'ятати стан після останньої дії (для «↶ Відмінити дію»)
     const keep = menu.querySelector('.isogrid')?.scrollTop || 0;
+    const oldSearch = menu.querySelector('[data-catalog-search]');
+    const searchFocus = oldSearch && document.activeElement === oldSearch;
+    const searchSelection = searchFocus ? [oldSearch.selectionStart, oldSearch.selectionEnd] : null;
+    const searchValue = state.catalogSearch[zone] || '';
+    const terms = normalizeCatalogSearch(searchValue).split(' ').filter(Boolean);
+    const searching = terms.length > 0;
+    const matchesItem = it => !searching || catalogMatches(terms, it.name, it.id, it.group);
     // в офісі перші пункти списку — «Стіни» і «Підлога» (оздоблення кімнати)
     // у домі перший пункт — «🏞 Пейзаж за вікном» (вид за ділянкою; куплений лишається вашим, не продається)
     const FIN_G = {'🎨 Стіни': 'wall', '🟫 Підлога': 'floor', '🏞 Пейзаж за вікном': 'view', '🪵 Паркани': 'fence'};
     // перший пункт — «Всі категорії»: головна сторінка меню (картки категорій); з категорії — «← Назад»
     const groups = [ALL_CATS, ...(zone === 'office' ? ['🎨 Стіни', '🟫 Підлога'] : ['🏞 Пейзаж за вікном', '🪵 Паркани']), ...groupsFor(zone)];
     const group = state.group[zone] && groups.includes(state.group[zone]) ? state.group[zone] : groups[0];   // за замовчуванням — «Всі категорії»
-    const allCats = group === ALL_CATS && !state.showStock;
-    const finKey = !state.showStock ? FIN_G[group] || null : null;
+    const allCats = group === ALL_CATS && !state.showStock && !searching;
+    const finKey = !state.showStock && !searching ? FIN_G[group] || null : null;
     state.group[zone] = group;
     // сортування за ціною: за замовчуванням від дешевих; спершу речі за $, потім за 🥧 (валюти не змішуємо)
     const dir = state.sortDesc ? -1 : 1;
@@ -2540,7 +2560,7 @@
     const placedBy = new Map();   // id → {office: n, home: n}
     ZONES.forEach(z => state.draft[z].forEach(p => { const it = byId.get(p.id); if (!it || it.free) return;
       const o = placedBy.get(p.id) || {office: 0, home: 0}; o[z]++; placedBy.set(p.id, o); }));
-    const placedHtml = !state.showStock ? '' : [...placedBy.keys()].map(id => byId.get(id)).filter(Boolean).sort(byPrice).map(it => {
+    const placedHtml = !state.showStock ? '' : [...placedBy.keys()].map(id => byId.get(id)).filter(it => it && matchesItem(it)).sort(byPrice).map(it => {
       const o = placedBy.get(it.id), where = [o.office ? `в офісі${o.office > 1 ? ` × ${o.office}` : ''}` : '', o.home ? `вдома${o.home > 1 ? ` × ${o.home}` : ''}` : ''].filter(Boolean).join(', ');
       return `<div class="isocard placed" title="Уже стоїть ${where}. Щоб переставити — виділіть на сцені і натисніть 🎒">${miniHtml(it, MINI_W, MINI_H)}<div class="n">${esc(it.name)}</div><div class="p">✓ стоїть ${where}</div><div class="c">${it.place === 'wall' ? `стіна · ${it.fw} кл.` : `${it.fw}×${it.fd} кл.`}</div></div>`;
     }).join('');
@@ -2549,7 +2569,8 @@
     [...state.draft.office, ...state.draft.home, ...state.draft.stock].forEach(p => haveN.set(sideA(p.id), (haveN.get(sideA(p.id)) || 0) + 1));
     const items = state.showStock
       ? [...[...stockBy.keys()].map(id => byId.get(id)).sort(byPrice), ...itemsFor(zone).filter(c => c.free && !stockBy.has(c.id)).sort(byPrice)]
-      : itemsFor(zone).filter(c => c.group === group).sort(byPrice);
+      : itemsFor(zone).filter(c => searching || c.group === group).sort(byPrice);
+    const filteredItems = items.filter(matchesItem);
     const c = cart(zone);
     const sel = state.selected && state.draft[zone].find(p => p.uid === state.selected);
     const selItem = sel && byId.get(sel.id);
@@ -2594,6 +2615,31 @@
         <span><button type="button" data-act="undo" ${UNDO.stack.length ? '' : 'disabled'} title="Відмінити останню дію (Ctrl+Z)">↶ Відмінити дію</button> <button type="button" data-act="cancel">Скасувати</button> <button type="button" data-act="preview">👁 Переглянути</button>
         <button type="button" class="save" ${short.usd || short.pies ? 'disabled' : ''}>💾 Зберегти</button></span>
         ${short.usd || short.pies ? `<span class="warn">Не вистачає ${[short.usd ? 'доларів' : '', short.pies ? 'пиріжків' : ''].filter(Boolean).join(' і ')}</span>` : ''}</div>`;
+    const fenceList = [...[...FENCES].sort((a, b) => dir * (a.price - b.price)), {id: 'erase', name: '🧽 Прибрати паркан', price: 0}];
+    const finishList = key => [...(key === 'wall' ? WALL_FINISHES : key === 'floor' ? FLOOR_FINISHES : HOME_VIEWS)].sort((a, b) => dir * (a.price - b.price));
+    const renderFenceCard = f => {
+          // паркани: клік — пензель цього паркану (ще раз — сховати); на складі — «🎒 N шт.» і продаж за 50%
+          const on = state.brush === 'fence:' + f.id, inv = fInv[f.id]?.inv || 0;
+          const prev = f.id === 'erase' ? 'repeating-linear-gradient(45deg,#fff5f5 0 8px,#ffe3e3 8px 16px)'
+            : `#f1f3f5 url('data:image/svg+xml;utf8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="80" height="44" viewBox="0 0 40 30">${fenceSvg(f.id, {x: 4, y: 26}, {x: 36, y: 18})}</svg>`)}') center/contain no-repeat`;
+          return `<div class="isocard fincard${on ? ' on' : ''}" data-fin="${f.id}" data-fkey="fence" title="${esc(f.name)}">
+            <div class="finprev" style="background:${prev}"></div><div class="n">${esc(f.name)}</div>
+            <div class="p">${f.id === 'erase' ? 'на склад' : `${money(f.price)} / відрізок`}</div>${f.id !== 'erase' ? `<div class="c">${f.open ? 'відкритий' : 'закритий'}</div>` : ''}
+            ${inv ? `<div class="c">🎒 на складі: ${inv} шт.</div><button type="button" class="sellstock" data-sellinv="fence:${f.id}">💰 Продати запас<br><b>+${money(sellPrice(f.price) * inv)}</b></button>` : ''}</div>`;
+        };
+    const renderFinishCard = (f, finKey) => {
+          const cur = (finKey === 'view' ? state.view.draft : state.finish.draft[finKey]) === f.id, own = state.lib.draft[finKey].includes(f.id);
+          const prev = finKey === 'view' ? `url('data:image/svg+xml;utf8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="120" height="72" viewBox="0 120 451 270" preserveAspectRatio="xMidYMid slice">${viewSvg(f.id, 451, 340, 300).replace(/#/g, '%23')}</svg>`).replace(/%2523/g, '%23')}') center/cover` : finSw(f);
+          return `<div class="isocard fincard${cur ? ' on' : ''}" data-fin="${f.id}" data-fkey="${finKey}" title="${esc(f.name)}">
+            <div class="finprev" style="background:${prev}"></div><div class="n">${esc(f.name)}</div>
+            <div class="p">${cur && own ? '✓ зараз' : own ? '🎒 ваше' : f.price ? money(f.price) : '🎁 Профсоюзне $0'}</div>
+</div>`;   // фарбування / підлога не продаються — куплене просто лишається вашим
+        };
+    const searchFinHtml = searching && !state.showStock ? groups.filter(g => FIN_G[g]).map(g => {
+      const key = FIN_G[g];
+      const list = key === 'fence' ? fenceList : finishList(key);
+      return list.filter(f => catalogMatches(terms, f.name, f.id, g)).map(f => key === 'fence' ? renderFenceCard(f) : renderFinishCard(f, key)).join('');
+    }).join('') : '';
     menu.innerHTML = `<h4>${esc(ZONE_CFG[zone].menuTitle)}</h4>
       ${foot}
       ${state.brush === 'eraser' ? '<div class="hint">🧽 Гумка: ведіть мишкою з натиснутою кнопкою — речі під курсором йдуть у кошик. Вимкнути — ще раз «🧽 Гумка» біля назви панелі.</div>' : ''}
@@ -2603,6 +2649,7 @@
         <button type="button" data-act="stock" class="sw${state.showStock ? ' on' : ''}" style="padding:5px 10px;white-space:nowrap;font-weight:bold" title="Ваші придбані речі, які зараз не виставлені, і безкоштовні від профсоюзу">🎒 Куплене (${stockCount})</button>
         <select${state.showStock ? ' disabled' : ''}>${groups.map(g => `<option${g === group ? ' selected' : ''}>${esc(g)}</option>`).join('')}</select>
         <button type="button" data-act="sort" class="sw" style="padding:5px 10px;white-space:nowrap" title="Змінити порядок">${state.sortDesc ? '↓ Від дорогих' : '↑ Від дешевих'}</button></div>
+      <div class="bar searchbar"><input type="text" data-catalog-search value="${esc(searchValue)}" placeholder="${state.showStock ? 'Пошук у купленому…' : 'Пошук предметів у всіх категоріях…'}" aria-label="Пошук предметів" autocomplete="off" spellcheck="false"><button type="button" data-act="clearsearch" title="Очистити пошук" aria-label="Очистити пошук"${searchValue ? '' : ' disabled'}>✕</button></div>
       ${selItem ? `<div class="sel">Обрано: <b>${esc(selItem.name)}</b>
           <button type="button" data-act="flip">↔ Дзеркально</button>
           <button type="button" data-act="remove">${wonSet.has(state.selected) ? '🎒 Прибрати (🎡 виграш не продається)' : `🗑 ${selOwned ? `Продати (+${costText(selItem, true)})` : 'Прибрати'}`}</button></div>`
@@ -2611,30 +2658,14 @@
         <label style="cursor:pointer"><input type="checkbox" data-act="test" ${state.testMode ? 'checked' : ''}> 🛠 Редагувати каталог</label>
         <button type="button" data-act="prizepool" class="sw" style="padding:3px 8px" title="Надіслати на сервер поточний каталог (ціни, видалені моделі) — з нього колесо удачі бере призи">🎡 Оновити призи колеса</button>
         <button type="button" data-act="addmodel" class="sw" style="padding:3px 8px;font-weight:bold" title="Додати в каталог нову модель: картинка з комп'ютера (PNG / WebP) → категорія, розмір, ціна">➕ Додати модель</button>        ${state.testMode ? `<span style="width:100%;color:#555">Клік по клітинці під річчю — вирізати її або повернути (форма «Г»). Щоб додати клітинку з краю — спершу «+», потім вирізати зайві.</span>
-          <span>Перевірено в групі: <b>${items.filter(i => i.ok && !i.hidden).length} з ${items.filter(i => !i.hidden).length}</b></span>
+          <span>Перевірено у списку: <b>${filteredItems.filter(i => i.ok && !i.hidden).length} з ${filteredItems.filter(i => !i.hidden).length}</b></span>
           <label style="cursor:pointer"><input type="checkbox" data-act="showhidden" ${state.showHidden ? 'checked' : ''}> показати видалені (${CATALOG.filter(i => i.hidden && i.group === group).length})</label>
           ${unsaved.size ? `<span style="color:#c92a2a;font-weight:bold" title="Речі з незбереженими змінами — натисніть «💾 Зберегти» на їхніх картках">● не збережено: ${unsaved.size}</span>` : ''}
           <span style="color:${state.ovrSaved === 'server' || state.ovrSaved === 'file' ? '#2b8a3e' : '#e67700'}">${state.ovrSaved === 'server' ? '✓ збережено на сервері — бачать усі' : state.ovrSaved === 'file' ? '✓ збережено у файл (сервер не відповів)' : state.ovrSaved === 'local' ? '⚠ сервер не відповів — правки поки тільки в цьому браузері' : ''}</span>` : ''}
       </div>
       ${state.showStock ? `<div class="hint">🎒 Ваші речі, які зараз ніде не стоять, — ставляться без оплати. Прибрати річ сюди: виділіть її і натисніть 🎒 над нею. ${items.length || placedHtml ? '' : '<b>Поки порожньо.</b>'}</div>` : ''}
-      ${!allCats ? `<div class="backrow"><button type="button" data-act="allcats" title="Повернутись до всіх категорій">← Назад до категорій</button><b>${esc(state.showStock ? '🎒 Куплене' : group)}</b></div>` : ''}
-      <div class="isogrid${state.testMode && !finKey && !allCats ? ' test' : ''}">${allCats ? catCardsHtml(zone, groups.slice(1), FIN_G, finSw) :finKey === 'fence' ?[...[...FENCES].sort((a, b) => dir * (a.price - b.price)), {id: 'erase', name: '🧽 Прибрати паркан', price: 0}].map(f => {
-          // паркани: клік — пензель цього паркану (ще раз — сховати); на складі — «🎒 N шт.» і продаж за 50%
-          const on = state.brush === 'fence:' + f.id, inv = fInv[f.id]?.inv || 0;
-          const prev = f.id === 'erase' ? 'repeating-linear-gradient(45deg,#fff5f5 0 8px,#ffe3e3 8px 16px)'
-            : `#f1f3f5 url('data:image/svg+xml;utf8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="80" height="44" viewBox="0 0 40 30">${fenceSvg(f.id, {x: 4, y: 26}, {x: 36, y: 18})}</svg>`)}') center/contain no-repeat`;
-          return `<div class="isocard fincard${on ? ' on' : ''}" data-fin="${f.id}" data-fkey="fence" title="${esc(f.name)}">
-            <div class="finprev" style="background:${prev}"></div><div class="n">${esc(f.name)}</div>
-            <div class="p">${f.id === 'erase' ? 'на склад' : `${money(f.price)} / відрізок`}</div>${f.id !== 'erase' ? `<div class="c">${f.open ? 'відкритий' : 'закритий'}</div>` : ''}
-            ${inv ? `<div class="c">🎒 на складі: ${inv} шт.</div><button type="button" class="sellstock" data-sellinv="fence:${f.id}">💰 Продати запас<br><b>+${money(sellPrice(f.price) * inv)}</b></button>` : ''}</div>`;
-        }).join('') : finKey ? [...(finKey === 'wall' ? WALL_FINISHES : finKey === 'floor' ? FLOOR_FINISHES : HOME_VIEWS)].sort((a, b) => dir * (a.price - b.price)).map(f => {
-          const cur = (finKey === 'view' ? state.view.draft : state.finish.draft[finKey]) === f.id, own = state.lib.draft[finKey].includes(f.id);
-          const prev = finKey === 'view' ? `url('data:image/svg+xml;utf8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="120" height="72" viewBox="0 120 451 270" preserveAspectRatio="xMidYMid slice">${viewSvg(f.id, 451, 340, 300).replace(/#/g, '%23')}</svg>`).replace(/%2523/g, '%23')}') center/cover` : finSw(f);
-          return `<div class="isocard fincard${cur ? ' on' : ''}" data-fin="${f.id}" data-fkey="${finKey}" title="${esc(f.name)}">
-            <div class="finprev" style="background:${prev}"></div><div class="n">${esc(f.name)}</div>
-            <div class="p">${cur && own ? '✓ зараз' : own ? '🎒 ваше' : f.price ? money(f.price) : '🎁 Профсоюзне $0'}</div>
-</div>`;   // фарбування / підлога не продаються — куплене просто лишається вашим
-        }).join('') : items.map(it => { const su = state.showStock ? stockBy.get(it.id) : null;
+      ${!allCats ? `<div class="backrow"><button type="button" data-act="allcats" title="Повернутись до всіх категорій">← Назад до категорій</button><b>${esc(state.showStock ? '🎒 Куплене' : searching ? 'Результати пошуку' : group)}</b></div>` : ''}
+      <div class="isogrid${state.testMode && !finKey && !allCats ? ' test' : ''}">${allCats ? catCardsHtml(zone, groups.slice(1), FIN_G, finSw) : finKey === 'fence' ? fenceList.map(renderFenceCard).join('') : finKey ? finishList(finKey).map(f => renderFinishCard(f, finKey)).join('') : filteredItems.map(it => { const su = state.showStock ? stockBy.get(it.id) : null;
         return `<div class="isocard${state.placing === it.id && (state.placingUid || null) === (su ? su[0] : null) ? ' on' : ''}${state.testMode && it.ok ? ' ok' : ''}${it.hidden ? ' gone' : ''}" data-id="${esc(it.id)}"${su ? ` data-stock="${esc(su[0])}"` : ''}>
           ${state.testMode ? miniHtml(it, 230, 200, true) : miniHtml(it, MINI_W, MINI_H)}<div class="n">${!su && !it.free && haveN.get(it.id) ? `<span title="Уже є у вас: ${haveN.get(it.id)} шт. (можна купити ще)">🎒${haveN.get(it.id) > 1 ? `×${haveN.get(it.id)}` : ''}</span> ` : ''}${otherSide(it.id) ? '<span class="sides4" title="4 положення: ↔ дзеркально, ↕ інша сторона (кнопки над поставленою річчю)">↔↕</span> ' : ''}${esc(it.name)}${state.testMode && SIDE_B.has(it.id) ? ' <i style="color:#c92a2a">(сторона Б)</i>' : ''}</div>
           <div class="p">${su ? `${state.draft.stock.some(s => s.id === it.id && s.from === 'wheel') ? '<span title="Виграно в колесі удачі">🎡</span> ' : ''}🎒 ваше${su.length > 1 ? ` × ${su.length}` : ''}` : costText(it)}</div>
@@ -2662,7 +2693,7 @@
             <div class="full">${it.hidden
               ? '<button data-t="hide" style="border-color:#2b8a3e;color:#2b8a3e">↩ Повернути в каталог</button>'
               : '<button data-t="hide" style="border-color:#e03131;color:#e03131">✕ Видалити модель</button>'}</div>
-          </div>` : ''}</div>`; }).join('')}${!finKey && placedHtml ? `<div class="placedhead">✓ Уже стоять на екрані</div>${placedHtml}` : ''}</div>`;
+          </div>` : ''}</div>`; }).join('')}${searchFinHtml}${searching && !filteredItems.length && !searchFinHtml && !placedHtml ? '<div class="search-empty">Нічого не знайдено. Спробуйте іншу назву.</div>' : ''}${!finKey && placedHtml ? `<div class="placedhead">✓ Уже стоять на екрані</div>${placedHtml}` : ''}</div>`;
     const box = finboxes[zone];
     box.hidden = Boolean(state.preview) || !boxHtml;
     box.innerHTML = boxHtml;
@@ -2679,6 +2710,17 @@
     const ui = {querySelector: q => parts.map(p => p.querySelector(q)).find(Boolean) || null, querySelectorAll: q => parts.flatMap(p => [...p.querySelectorAll(q)])};
 
     ui.querySelector('.isogrid').scrollTop = keep;
+    const searchInput = ui.querySelector('[data-catalog-search]');
+    if (searchFocus) { searchInput.focus({preventScroll: true}); if (searchSelection) searchInput.setSelectionRange(...searchSelection); }
+    const setSearch = value => {
+      if (state.catalogSearch[zone] === value) return;
+      state.catalogSearch[zone] = value;
+      renderMenu(); menu.querySelector('.isogrid').scrollTop = 0;
+    };
+    searchInput.addEventListener('input', e => { if (!e.isComposing) setSearch(e.target.value); });
+    searchInput.addEventListener('compositionend', e => setSearch(e.target.value));
+    searchInput.addEventListener('keydown', e => { if (e.key === 'Escape' && searchInput.value) { e.preventDefault(); setSearch(''); } });
+    ui.querySelector('[data-act="clearsearch"]').onclick = () => { setSearch(''); menu.querySelector('[data-catalog-search]').focus({preventScroll: true}); };
     ui.querySelectorAll('[data-wheel]').forEach(b => { b.onclick = () => openWheel(b.dataset.wheel); });
     ui.querySelector('[data-act="won"]').onclick = wonModal;
     ui.querySelector('[data-act="bin"]').onclick = () => {
@@ -2694,7 +2736,7 @@
       localStorage.setItem('devIsoSortDesc', state.sortDesc ? '1' : '');
       renderMenu(); ui.querySelector('.isogrid').scrollTop = 0;
     };
-    ui.querySelector('.bar select').onchange =e => { state.group[zone] = e.target.value; state.placing = null; renderMenu(); ui.querySelector('.isogrid').scrollTop = 0; };
+    ui.querySelector('.bar select').onchange =e => { state.group[zone] = e.target.value; state.catalogSearch[zone] = ''; state.placing = null; renderMenu(); ui.querySelector('.isogrid').scrollTop = 0; };
     // «💰 Продати за 50%» у «Куплене»: прибираємо одну таку річ зі складу — кошик рахує її як продану
     ui.querySelectorAll('[data-sellstock]').forEach(b => b.onclick = e => {
       e.stopPropagation();
@@ -2707,11 +2749,11 @@
     });
     // «Всі категорії»: клік по картці — відкрити категорію; «← Назад» — повернутись (і з «Куплене» теж)
     ui.querySelectorAll('[data-cat]').forEach(card => card.onclick = () => {
-      state.group[zone] = card.dataset.cat; state.placing = null; state.showStock = false;
+      state.group[zone] = card.dataset.cat; state.catalogSearch[zone] = ''; state.placing = null; state.showStock = false;
       renderMenu(); ui.querySelector('.isogrid').scrollTop = 0;
     });
     ui.querySelector('[data-act="allcats"]')?.addEventListener('click', () => {
-      state.group[zone] = ALL_CATS; state.placing = null; state.showStock = false; state.brush = state.brush?.startsWith('fence:') ? null : state.brush;
+      state.group[zone] = ALL_CATS; state.catalogSearch[zone] = ''; state.placing = null; state.showStock = false; state.brush = state.brush?.startsWith('fence:') ? null : state.brush;
       renderMenu(); ui.querySelector('.isogrid').scrollTop = 0;
     });
     ui.querySelectorAll('.isocard:not(.placed):not(.fincard):not(.catcard)').forEach(card => card.onclick = event => {
@@ -2968,7 +3010,7 @@
   function openEdit(zone) {
     // поки кабінет не прочитано з сервера — не редагуємо (інакше збереження «з нуля» затерло б справжнє оформлення)
     if (!(profilePilotId() in ACC.data)) { toast('⚠ Сервер кабінету ще не відповів — спробуйте за хвилину.', zone); ensureFile(profilePilotId()); return; }
-    state.group[zone] = ALL_CATS; state.showStock = false;   // меню відкривається з «Всі категорії»
+    state.group[zone] = ALL_CATS; state.catalogSearch[zone] = ''; state.showStock = false;   // меню відкривається з «Всі категорії»
     state.draft = clone(state.owned);
     state.size.draft = state.size.owned;
     state.finish.draft = {...state.finish.owned};
