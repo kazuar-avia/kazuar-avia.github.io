@@ -151,6 +151,18 @@
         #pilotFlightsMapDialog .pfm-table-close:hover{background:#fdecea}
         #pilotFlightsMapDialog .pfm-table-body{overflow:auto;flex:1;min-height:0}
         #pilotFlightsMapDialog .pfm-table-body table{width:100%;margin:0;border-collapse:collapse}
+        @media (max-width:760px){
+          #pilotFlightsMapDialog .company-route-map-shell,#pilotFlightsMapDialog .company-route-map{height:calc(100vh - 250px);min-height:320px}
+          #pilotFlightsMapDialog .pfm-periods{gap:3px;padding:4px 5px}
+          #pilotFlightsMapDialog .pfm-periods button{padding:2px 6px;font-size:12px}
+          #pilotFlightsMapDialog .pfm-side{left:52px;right:8px;max-width:none}
+          #pilotFlightsMapDialog .pfm-stats{flex-wrap:wrap;gap:6px;font-size:11.5px}
+          #pilotFlightsMapDialog .pfm-stats small{white-space:nowrap}
+          #pilotFlightsMapDialog .pfm-reset{margin-left:0;padding:3px 8px;font-size:11px}
+          #pilotFlightsMapDialog .pfm-filters{max-height:45vh;overflow:auto}
+          #pilotFlightsMapDialog .company-route-map-list{top:auto;bottom:8px;right:8px;width:175px;max-height:45%}
+          #pilotFlightsMapDialog .pfm-table{width:calc(100% - 16px);bottom:8px}
+        }
         .profile-v2 .profile-flights-title{display:flex;align-items:center;justify-content:center;gap:40px}
         .profile-v2 .profile-flights-map-button{padding:1px 8px;border:1px solid #777;border-radius:0;background:#ffee8c;color:#111;font:bold 11px/16px Arial,sans-serif;cursor:pointer}
         .profile-v2 .profile-flights-map-button:hover{background:#f7df5a}
@@ -226,7 +238,16 @@
     const sig = `${title}|${(flights || []).map(f => f.id).join(',')}`;
     if (refresh && sig === lastSig) return;
     lastSig = sig;
-    if (!dlg.open) dlg.showModal();
+    if (!dlg.open) {
+      dlg.showModal();
+      // телефон: фільтр і список рейсів спочатку згорнуті (−/+ розгортає), щоб було видно карту і статистику з легендою
+      if (window.matchMedia('(max-width: 760px)').matches) {
+        const fbox = dlg.querySelector('.pfm-fbox'), ftog = dlg.querySelector('.pfm-ftog');
+        const panel = dlg.querySelector('.company-route-map-list'), tog = panel.querySelector('.company-route-list-toggle');
+        fbox.classList.add('collapsed'); ftog.textContent = '+'; ftog.title = 'Розгорнути фільтр';
+        panel.classList.add('company-route-map-list-collapsed'); tog.textContent = '+'; tog.title = 'Розгорнути список';
+      }
+    }
     const mapEl = dlg.querySelector('.pfm-map');
     if (typeof L === 'undefined') { mapEl.innerHTML = '<div class="company-route-empty">Карта не завантажилась: Leaflet недоступний.</div>'; return; }
     if (map) { map.remove(); map = null; }

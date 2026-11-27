@@ -11,6 +11,7 @@
   const TITLE_H = 34;
   const TOOLS_H = 62;                  // смужка інструментів під заголовком панелі (тільки під час редагування)
   const AUTH_KEY = 'devCabinetAuth';
+  const missionHdr = {on: false, at: 0, auth: ''};   // місія в шапці (checkMissionHdr)
   const BASE_DPR_KEY = 'devCabinetBaseDpr';
   const SAVE_KEY = id => `devIsoCabinet1:${id}`;
   const TW = 64, TH = 32;   // ромб клітинки в пікселях картинок
@@ -885,7 +886,7 @@
   .devcab-open:hover{color:#2459d3;text-decoration:underline}
   header.topline{position:relative;text-align:left;padding-left:0;padding-right:275px;min-height:98px;box-sizing:border-box;
     display:flex;flex-direction:column;justify-content:space-evenly;padding-top:4px;padding-bottom:6px}
-  body:not(.mobile-cabinet) header.topline h1{font-size:25px;letter-spacing:.3px}
+  body:not(.mobile-cabinet) header.topline h1{font-size:clamp(16px,calc((100vw - 310px) / 26),25px);letter-spacing:.3px;white-space:nowrap}   /* вузьке вікно — менший шрифт, назва в один рядок поруч із входом */
   body:not(.mobile-cabinet) header.topline p{margin:0;font-size:15.5px;line-height:1.55}
   body:not(.mobile-cabinet) header.topline .rank-subtitle-extra{font-size:14.5px}
   .devlogin{position:absolute;top:4px;right:0;display:flex;align-items:stretch;gap:8px;font-size:13px;padding:5px 6px;border:1px solid var(--line,#555);
@@ -902,6 +903,10 @@
   .devlogin .cap{font-size:11px;font-weight:bold;color:#0b6f7a;text-transform:uppercase;letter-spacing:.4px}
   .devlogin .cap .adm{color:#888;font-weight:normal;text-transform:none;letter-spacing:0;text-decoration:none}
   tr.devcab-money .devcab-sep{margin:0 4px;color:#bbb}
+  /* телефон: таблиця стає сіткою з order у клітинок — наші 3 поля в самий низ, у своєму порядку */
+  tr.devcab-money > :nth-child(1){order:101} tr.devcab-money > :nth-child(2){order:102}
+  tr.devcab-money > :nth-child(3){order:103} tr.devcab-money > :nth-child(4){order:104}
+  tr.devcab-money > :nth-child(5){order:105} tr.devcab-money > :nth-child(6){order:106}
   tr.devcab-money .devcab-task{color:#888;font-weight:normal;white-space:nowrap;cursor:help}
   tr.devcab-money .devcab-task + .devcab-task{margin-left:5px}
   .devlogin .fwheel{display:inline-flex;align-items:center;vertical-align:-3px;margin:0 3px 0 4px;padding:0;border:0;background:none;cursor:pointer;font-size:15px;line-height:1}
@@ -941,18 +946,56 @@
   .devlogin[data-mode^="in:"] .nm{font-size:16px;line-height:19px;color:#18272d}
   .devlogin[data-mode^="in:"] .cap{display:flex;align-items:center;gap:4px;min-width:0;font-size:11px!important;line-height:16px;text-transform:none}
   .devlogin[data-mode^="in:"] .capt{display:inline-flex;align-items:center;gap:3px;white-space:nowrap}
-  .devlogin[data-mode^="in:"] .me .cap .adm{display:inline-flex;align-items:center;gap:3px;font-size:11px;margin-left:auto;color:#626b70}
+  .devlogin[data-mode^="in:"] .me .cap .adm{display:inline-flex;align-items:center;gap:3px;font-size:11px;margin-left:6px;color:#626b70}
+  .devlogin[data-mode^="in:"] .me .cap .mis{margin-left:auto;font-size:11px;font-weight:bold;color:#9a6b00;text-decoration:none;white-space:nowrap}
+  .devlogin[data-mode^="in:"] .me .cap .mis.on{color:#b8860b;background:#fff3c4;border:1px solid #e0c060;border-radius:3px;padding:0 4px}
+  .devlogin[data-mode^="in:"] .me .cap .mis:hover{text-decoration:underline}
   .devlogin[data-mode^="in:"] .fwheel{flex:none;margin:0;padding:0;border:0;background:none}
   .devlogin[data-mode^="in:"] .fwheel:hover{background:none}
   .devlogin[data-mode^="in:"] .row{gap:6px;border-top:1px solid #d0e2e6;padding-top:4px}
   .devlogin[data-mode^="in:"] .row button{display:inline-flex;align-items:center;justify-content:center;gap:5px;box-sizing:border-box;min-height:24px;padding:2px 7px;border-radius:3px;font-size:12px;line-height:18px}
-  .devlogin[data-mode^="in:"] .row .prof{flex:1;background:#caeef2;border-color:#9bbac1;color:#164f59}
-  .devlogin[data-mode^="in:"] .row .prof:hover{background:#b6e3e9}
+  .devlogin[data-mode^="in:"] .row .whl{flex:0 0 40px;padding:0;background:#fff;border-color:#c8d6da}
+  .devlogin[data-mode^="in:"] .row .whl:hover{background:#fff6d6;border-color:#e0a800}
+  .devlogin[data-mode^="in:"] .row .whl img.pieic{width:18px;height:18px;display:block}
+  .devlogin[data-mode^="in:"] .row .prof{flex:1;background:#d7f2da;border-color:#93c79a;color:#1f5f2b}
+  .devlogin[data-mode^="in:"] .row .prof:hover{background:#c2e9c7}
   .devlogin[data-mode^="in:"] .row .out{flex:0 0 auto;background:#fff;border-color:#c8d6da;color:#a33b3b}
   .devlogin[data-mode^="in:"] .row .out:hover{background:#fff0f0;border-color:#d5a0a0}
   .devlogin[data-mode^="in:"] svg{display:block;width:12px;height:12px;flex:none;pointer-events:none}
   .devlogin[data-mode^="in:"] .row button svg{width:14px;height:14px}
   .devlogin[data-mode^="in:"] button:focus-visible,.devlogin[data-mode^="in:"] a:focus-visible{outline:2px solid #0b6f7a;outline-offset:2px}
+  /* Форма входу — у тому ж стилі й розмірі, що й картка після входу */
+  .devlogin[data-mode="out"]{background:#f5fafb;border-color:#9bbac1;border-radius:4px;padding:5px 7px;box-shadow:0 1px 3px #00000012;max-width:100%}
+  .devlogin[data-mode="out"] form{gap:4px;justify-content:space-between}
+  .devlogin[data-mode="out"] .cap{font-size:14px!important;line-height:18px;font-weight:bold;color:#18272d;text-transform:none}
+  .devlogin[data-mode="out"] .row{gap:6px}
+  .devlogin[data-mode="out"] input{box-sizing:border-box;min-height:24px;padding:2px 7px;border:1px solid #c8d6da;border-radius:3px;font-size:12px;line-height:18px}
+  .devlogin[data-mode="out"] input:focus{border-color:#93c79a;background:#fff}
+  .devlogin[data-mode="out"] .help{width:24px;height:24px;border:1px solid #c8d6da;border-radius:3px;background:#fff;color:#626b70;line-height:22px}
+  .devlogin[data-mode="out"] .help:hover,.devlogin[data-mode="out"] .help.open{background:#eef4f5}
+  .devlogin[data-mode="out"] .tip,.devlogin[data-mode="out"] .err{border-radius:4px;box-shadow:0 2px 6px #0000001f}
+  .devlogin[data-mode="out"] .tip{border-color:#9bbac1;background:#f5fafb}
+  .devlogin .err .forgot{margin-top:6px}
+  .devlogin .err .forgotb{padding:2px 10px;border:1px solid #c9a0a0;border-radius:3px;background:#fff;color:#a33;font-size:12px;font-weight:bold;cursor:pointer}
+  .devlogin .err .forgotb:hover{background:#fff0f0}
+  .devauth.forgotm [data-act="cancel"]{display:none}
+  .devlogin[data-mode="out"] button[type="submit"]{box-sizing:border-box;min-height:24px;padding:2px 12px;border:1px solid #93c79a;border-radius:3px;background:#d7f2da;color:#1f5f2b;font-size:12px;line-height:18px}
+  .devlogin[data-mode="out"] button[type="submit"]:hover{background:#c2e9c7}
+  .devlogin[data-mode="out"] button:focus-visible{outline:2px solid #0b6f7a;outline-offset:2px}
+  /* Телефон: картка пілота і форма входу — на всю ширину, в один рядок, нижчі */
+  body.mobile-cabinet header.topline{padding-right:0}
+  body.mobile-cabinet .devlogin{width:auto!important;height:auto!important;min-height:0;margin:4px 0;padding:4px 7px}
+  body.mobile-cabinet .devlogin[data-mode^="in:"] .me{flex-direction:row;align-items:center;gap:10px}
+  body.mobile-cabinet .devlogin[data-mode^="in:"] .devlogin-identity{flex:1;min-width:0}
+  body.mobile-cabinet .devlogin[data-mode^="in:"] .ava{width:34px!important;height:34px!important;flex-basis:34px}
+  body.mobile-cabinet .devlogin[data-mode^="in:"] .devlogin-person{gap:0;text-align:left}
+  body.mobile-cabinet .devlogin[data-mode^="in:"] .me .cap .adm{margin-left:8px}
+  body.mobile-cabinet .devlogin[data-mode^="in:"] .row{flex:none;border-top:0;padding-top:0}
+  body.mobile-cabinet .devlogin[data-mode^="in:"] .row .prof{flex:none;padding:2px 10px}
+  body.mobile-cabinet .devlogin[data-mode="out"] form{flex-direction:row;align-items:center;gap:8px;width:auto}
+  body.mobile-cabinet .devlogin[data-mode="out"] .cap{flex:none;font-size:0!important}
+  body.mobile-cabinet .devlogin[data-mode="out"] .cap::before{content:'✈';font-size:16px}
+  body.mobile-cabinet .devlogin[data-mode="out"] .row{flex:1;min-width:0}
   .wheelover .wpanel{width:min(940px,96vw);max-height:96vh;overflow:auto;padding:16px 24px 20px;border:1px solid #555;background:#fff;box-shadow:3px 3px 0 rgba(0,0,0,.2);font:13px Arial,sans-serif;color:#222;box-sizing:border-box}
   .wheelover h3{margin:0 0 8px;font-size:17px;text-align:center}
   .wheelover .wstage{display:flex;flex-direction:column;align-items:center;justify-content:center}
@@ -1045,6 +1088,33 @@
   .isoscene svg{position:absolute;left:0;top:0;overflow:visible}
   .isoscene img.it{position:absolute;pointer-events:none;user-select:none}
   .isoscene img.it.flip{transform:scaleX(-1)}
+  .profile-person.devcab-has-mbtns{position:relative;box-sizing:border-box}
+  .devcab-mbtns{position:absolute;top:6px;bottom:2px;max-width:160px;display:flex;flex-direction:column;gap:6px}
+  .devcab-mbtns[hidden]{display:none}
+  .devcab-mtiles{display:contents}
+  .devcab-mtiles button{flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;width:60px;height:40px;margin:3px 4px;padding:0;border:1px solid #555;border-radius:10px;font:bold 12px Arial,sans-serif;cursor:pointer;box-shadow:0 2px 3px rgba(0,0,0,.18)}
+  .devcab-mtiles button{align-self:flex-start;margin-top:13px;gap:1px;font-size:11px}
+  .devcab-mtiles button b{font-size:15px;line-height:1}
+  .devcab-mtiles .mo{background:#fde3c4;color:#6b3d00;border-color:#e0a868}
+  .devcab-mtiles .mh{background:#dcefd6;color:#2b5a24;border-color:#9cc794}
+  .devcab-mtiles .mo:hover{background:#fbd5a8}
+  .devcab-mtiles .mh:hover{background:#cbe6c3}
+  .devcab-mbtns.narrow button{font-size:14px;padding:2px 4px}
+  .isomob-bar button{flex:1;max-width:170px;padding:6px 10px;border:1px solid #555;border-radius:4px;font:bold 14px Arial,sans-serif;cursor:pointer;white-space:nowrap}
+  .devcab-mbtns button{flex:1;min-height:0;padding:2px 6px;border:1px solid #555;border-radius:5px;font:bold 18px Arial,sans-serif;cursor:pointer;white-space:nowrap;overflow:hidden;font-size:16px}
+  .devcab-mbtns .mo,.isomob-bar .mo{background:#fde3c4;color:#6b3d00;border-color:#e0a868}
+  .devcab-mbtns .mh,.isomob-bar .mh{background:#dcefd6;color:#2b5a24;border-color:#9cc794}
+  .devcab-mbtns .mo:hover{background:#fbd5a8}
+  .devcab-mbtns .mh:hover{background:#cbe6c3}
+  .isomob-back{position:fixed;inset:0;z-index:9500;background:rgba(0,0,0,.55)}
+  .isomob-back[hidden],.isomob-bar[hidden]{display:none}
+  .isomob-bar{position:fixed;top:24px;left:8px;right:8px;z-index:9502;display:flex;justify-content:center;gap:8px}
+  .isomob-bar button.on{box-shadow:0 0 0 3px #fff}
+  .isomob-bar .mx{flex:none;background:#fff;color:#a33}
+  .isozone.mview{z-index:9501}
+  .isozone.mview .isozone-title{visibility:visible}
+  .isozone.mview .isozone-inner{background:#fff;border-color:#999}
+  .isozone.mview .isozone-btn{display:none}
   .isohovertip{position:fixed;z-index:10000;pointer-events:none;background:rgba(33,37,41,.92);color:#fff;font:12px/1.35 Arial,sans-serif;padding:5px 8px;border-radius:5px;box-shadow:0 2px 8px rgba(0,0,0,.25);white-space:nowrap}
   .isohovertip[hidden]{display:none}
   .isoscene img.it.sel{filter:drop-shadow(0 0 4px #3b5bdb) drop-shadow(0 0 2px #3b5bdb)}
@@ -1221,7 +1291,19 @@
     if (!s) return 0;
     // сайт міг перемалювати число (оновлення даних) — тоді в ньому знову «зароблено», а не наш баланс
     if (!s.dataset.devOrig || s.textContent.trim() !== s.dataset.devShown) s.dataset.devOrig = s.textContent.trim();
-    return Number(s.dataset.devOrig) || 0;
+    return (Number(s.dataset.devOrig) || 0) + missionPies(profilePilotId());   // + пиріжки за виконані місії (сервер кабінету)
+  }
+  // пиріжки за місії (рулетка «Підібрати випадковий рейс», company-filter.js) — сервер рахує сам за польотами; оновлюємо раз на 2 хв
+  const MISSION_PIES = {};
+  function missionPies(id) {
+    if (!id) return 0;
+    const c = MISSION_PIES[id];
+    if (!c || Date.now() - c.at > 120000) {
+      MISSION_PIES[id] = {v: c?.v || 0, at: Date.now()};
+      fetch(`${API}/missions/pilot/${encodeURIComponent(id)}`, {cache: 'no-store'}).then(r => r.ok ? r.json() : null)
+        .then(d => { if (d) MISSION_PIES[id] = {v: Number(d.earnedPies) || 0, at: Date.now()}; }).catch(() => {});
+    }
+    return MISSION_PIES[id].v;
   }
   // Дві окремі валюти, без курсу: усе коштує $ (із зарплати пілота), а речі з галочкою «за пиріжки» (тест-режим) — 🥧
   const testPilot = () => (LOCAL && window.UCAADevTestPilots || []).find(t => t.id === profilePilotId());   // тестові пілоти — тільки локально
@@ -1256,7 +1338,8 @@
   // Файл пілота CABINET-DB/pilots/<id>.json (схема v1, опис — CABINET-DB/API.md) — так само працюватиме сервер на Railway:
   // GET  /cabinet/<id> → цей документ;  POST /cabinet/<id> → новий документ (сервер перевіряє ціни й баланс сам).
   // З 26.11.2026 — сервер на Railway (код: D:\KAZUAR IN UA website\kazuar-cabinet-api): кабінети + вхід з паролем.
-  const API = 'https://kazuar-cabinet-api-production.up.railway.app';
+  // локальна перевірка: localStorage.kazuarApiOverride = 'http://127.0.0.1:8003' — тестовий сервер (тільки на localhost)
+  const API = (LOCAL && localStorage.getItem('kazuarApiOverride')) || 'https://kazuar-cabinet-api-production.up.railway.app';
   const TOKEN_KEY = 'kazuarCabToken';
   // запит до сервера → {ok, status, error, data}; status 0 — сервер недоступний
   async function api(path, body) {
@@ -1585,6 +1668,77 @@
   previewBar.querySelector('button').onclick = () => { state.preview = false; render(); };
   document.body.append(dim, menu, previewBar);
 
+  // Телефон / вузьке вікно (бокові панелі не влазять): кнопки «Офіс» / «Дім» у профілі → перегляд у вікні по центру (без редагування)
+  const mobBack = Object.assign(document.createElement('div'), {className: 'isomob-back', hidden: true});
+  const mobBar = Object.assign(document.createElement('div'), {className: 'isomob-bar', hidden: true});
+  mobBar.innerHTML = '<button type="button" class="mo" data-z="office">🏢 Офіс</button><button type="button" class="mh" data-z="home">🏡 Дім</button><button type="button" class="mx" title="Закрити">✕ Закрити</button>';
+  document.body.append(mobBack, mobBar);
+  function openMobileView(zone) { state.mobileView = zone; state.mobileFor = profilePilotId(); hoverTip.hidden = true; layout(); }
+  function closeMobileView() { state.mobileView = null; hoverTip.hidden = true; layout(); }
+  mobBack.onclick = closeMobileView;
+  mobBar.onclick = e => {
+    const b = e.target.closest('button');
+    if (!b) return;
+    if (b.dataset.z) openMobileView(b.dataset.z); else closeMobileView();
+  };
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && state.mobileView) closeMobileView(); });
+  // кнопки в шапці профілю: тільки якщо в пілота є збережений кабінет (файл на сервері)
+  function mobileButtons(on) {
+    // праворуч у блоці з ніком (одна над одною, низ — по нижньому рядку блоку), щоб не зсувати нагороди
+    const person = profileView()?.querySelector('.profile-identity .profile-person');
+    let box = document.querySelector('.devcab-mbtns');
+    const hideBox = () => { if (box) { box.hidden = true; box.parentElement?.classList.remove('devcab-has-mbtns'); if (box.parentElement) box.parentElement.style.paddingRight = ''; } };
+    // проміжна ширина вікна (не телефон, але бокові панелі ще не влазять): «Офіс» / «Дім» — першими плитками перед нагородами
+    const awards = profileView()?.querySelector('.profile-identity .profile-aircraft-awards');
+    let tiles = document.querySelector('.devcab-mtiles');
+    // межа — ширина вікна 600 px (≈30% екрана 1920): вужче — кнопки біля ніка (телефон), ширше — плитки (вікна 720 і 945 px з прикладів Дмитра)
+    if (on && awards && document.documentElement.clientWidth >= 600) {
+      hideBox();
+      if (!tiles || tiles.parentElement !== awards || awards.firstElementChild !== tiles) {
+        tiles?.remove();
+        tiles = Object.assign(document.createElement('span'), {className: 'devcab-mtiles'});
+        tiles.innerHTML = '<button type="button" class="mo" data-z="office" title="Офіс пілота"><b>🏢</b>Офіс</button><button type="button" class="mh" data-z="home" title="Дім пілота"><b>🏡</b>Дім</button>';
+        tiles.onclick = e => { const b = e.target.closest('button'); if (b) openMobileView(b.dataset.z); };
+        awards.prepend(tiles);
+      }
+      return;
+    }
+    tiles?.remove();
+    if (!on || !person) { hideBox(); return; }
+    if (!box || box.parentElement !== person) {
+      box?.remove();
+      box = Object.assign(document.createElement('div'), {className: 'devcab-mbtns'});
+      box.innerHTML = '<button type="button" class="mo" data-z="office">🏢 Офіс</button><button type="button" class="mh" data-z="home">🏡 Дім</button>';
+      box.onclick = e => { const b = e.target.closest('button'); if (b) openMobileView(b.dataset.z); };
+      person.appendChild(box);
+    }
+    person.classList.add('devcab-has-mbtns');
+    box.hidden = false;
+    // ліворуч — одразу після тексту блоку (нік, кнопки NewSky, рядки), праворуч — до краю; мало місця (довгий нік) — мінімум 80 px, текст переноситься
+    const MIN_W = 74;
+    person.style.paddingRight = '';
+    const pr = person.getBoundingClientRect();
+    // права межа самого вмісту: текст (по рядках) + кнопки/картинки; блоки-обгортки на всю ширину не рахуються
+    let textRight = pr.left;
+    const range = document.createRange();
+    const walk = document.createTreeWalker(person, NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT);
+    // сховані підказки (.profile-tip тощо) не рахуємо — тільки те, що справді видно
+    const seen = el => { for (let e = el; e && e !== person; e = e.parentElement) { const cs = getComputedStyle(e); if (cs.display === 'none' || cs.visibility === 'hidden' || Number(cs.opacity) === 0) return false; } return true; };
+    for (let n = walk.nextNode(); n; n = walk.nextNode()) {
+      if (box.contains(n) || !seen(n.nodeType === 3 ? n.parentElement : n)) continue;
+      let rects = [];
+      if (n.nodeType === 3) { if (!n.textContent.trim()) continue; range.selectNodeContents(n); rects = range.getClientRects(); }
+      else if (/^(BUTTON|IMG|A|INPUT|SVG)$/i.test(n.tagName) || getComputedStyle(n).display.startsWith('inline-')) rects = n.getClientRects();
+      for (const r of rects) if (r.width && r.height) textRight = Math.max(textRight, r.right);
+    }
+    let left = Math.round(textRight - pr.left + 12);
+    if (pr.width - left < MIN_W) { person.style.paddingRight = `${MIN_W + 8}px`; left = Math.round(pr.width - MIN_W); }
+    const width = Math.min(160, Math.round(pr.width - left));   // не ширше 160 px — на широкому екрані не розтягуються
+    if (box.style.left !== `${left}px`) box.style.left = `${left}px`;
+    if (box.style.width !== `${width}px`) box.style.width = `${width}px`;
+    box.classList.toggle('narrow', width < 120);   // вузькі кнопки — менший шрифт, щоб «Офіс» влазив
+  }
+
   // Перегляд офісу і дому (не редагування): при наведенні на річ — назва і ціна біля мишки.
   // Річ під курсором шукаємо за непрозорими пікселями картинки (прозорі краї не рахуються), зверху — та, що ближче.
   const hoverTip = Object.assign(document.createElement('div'), {className: 'isohovertip', hidden: true});
@@ -1655,7 +1809,7 @@
       title.appendChild(btn);
     }
     btn.textContent = !isMine() ? '(увійти)' : state.changedThisSession ? '(зміни внесено, вийти)' : '(вийти)';
-    btn.hidden = Boolean(state.auth) && !isMine();   // увійшли — на чужих профілях нічого (ні «увійти», ні «вийти»); «(вийти)» тільки на своєму
+    btn.hidden = true;   // з 27.11.2026 «(увійти)» / «(вийти)» біля заголовка не показуємо — вхід і вихід тільки в шапці (кнопка лишається схованою, бо на ній тримається решта оновлень рядка)
     const s = pieStrong();
     if (s) { const v = String(balPies()); s.textContent = v; s.dataset.devShown = v; }
     moneyRow();
@@ -1772,16 +1926,29 @@
     const infoTopDoc = show ? info.getBoundingClientRect().top + scrollY : 0;
     const maxStage = (innerHeight - 2 * GAP) / (s || 1) - (TITLE_H + 14);
     const stageH = Math.round(Math.max(300, Math.min(maxStage, (innerHeight - GAP - 7 * s - infoTopDoc) / (s || 1))));
+    // телефон: перегляд офісу/дому у вікні по центру (тільки якщо є збережений кабінет; редагування на телефоні нема)
+    const mobileOk = !show && visible && hasSaved() && !state.editing;
+    if (state.mobileView && (!mobileOk || state.mobileFor !== profilePilotId())) state.mobileView = null;
+    const mv = state.mobileView;
+    mobileButtons(mobileOk);
+    mobBack.hidden = mobBar.hidden = !mv;
+    if (mv) mobBar.querySelectorAll('[data-z]').forEach(b => b.classList.toggle('on', b.dataset.z === mv));
+    const ms = Math.min(1, (document.documentElement.clientWidth - 16) / ZONE_W);
+    // висота сцени у вікні: скільки влазить, але не більше, ніж треба самій кімнаті/ділянці (без порожнього білого зверху)
+    const mStageH = Math.round(Math.max(200, Math.min((innerHeight - 90) / ms - (TITLE_H + 14), STAGE_W * (mv === 'home' ? 1.35 : 1.05))));
     ZONES.forEach(zone => {
       const outer = zones[zone];
-      outer.classList.toggle('show', show);
+      const mview = zone === mv;
+      outer.classList.toggle('show', show || mview);
+      outer.classList.toggle('mview', mview);
       const wrap = finboxes[zone].parentElement;
       wrap.style.display = show ? '' : 'none';
-      if (!show) return;
-      outer.querySelector('.isozone-inner').style.zoom = String(s);
+      if (!show && !mview) return;
+      const sc = mview ? ms : s;
+      outer.querySelector('.isozone-inner').style.zoom = String(sc);
       // під час редагування над сценою — смужка інструментів, сцена на стільки ж нижча (панель не росте)
       const toolsOn = state.editing === zone && !state.preview;
-      outer.querySelector('.isozone-stage').style.height = `${stageH - (toolsOn ? TOOLS_H : 0)}px`;
+      outer.querySelector('.isozone-stage').style.height = `${(mview ? mStageH : stageH) - (toolsOn ? TOOLS_H : 0)}px`;
       // масштаб — за базовим розміром кімнати; більша кімната не зменшується, а виходить за краї (по центру)
       const scene = outer.querySelector('.isoscene');
       if (ZONE_CFG[zone].big) {
@@ -1795,6 +1962,12 @@
         scene.style.transform = `scale(${k})`;
         scene.style.left = `${(STAGE_W - size.w * k) / 2}px`;
       }
+      if (mview) {
+        const w = ZONE_W * ms;
+        Object.assign(outer.style, {top: '70px', bottom: 'auto', width: `${w}px`, left: `${(document.documentElement.clientWidth - w) / 2}px`});
+        return;
+      }
+      outer.style.top = '';
       outer.style.bottom = `${GAP}px`;
       outer.style.width = `${widthCss}px`;
       outer.style.left = `${zone === 'office' ? center.left - GAP - widthCss : center.right + GAP}px`;
@@ -3057,27 +3230,36 @@
     if (res.data.mustChange) changePasswordModal(null, true);
   });
 
+  // «Забули пароль?» — як відновити: написати адміну (Discord kazuar13 або NewSky — СЕО UCAA Kazuar Avia)
+  function forgotModal() {
+    modal('🔑 Забули пароль?', `<p style="margin:0 0 8px">Напишіть адміну в приватні — він відновить пароль:</p>
+      <p style="margin:0 0 6px">• у <a href="https://discord.gg/7tSkgz2BUv" target="_blank" rel="noopener"><b>Discord</b></a> — нікнейм <b>kazuar13</b>;</p>
+      <p style="margin:0">• або в <b>NewSky</b> — СЕО Ukraine Classic Air Alliance (<b>Kazuar Avia</b>).</p>`, 'Зрозуміло', () => null, 'forgotm');
+  }
+
   function ensureHeaderLogin() {
     const head = document.querySelector('header.topline');
     if (!head) return;
     let box = head.querySelector('.devlogin');
     if (!box) { box = Object.assign(document.createElement('div'), {className: 'devlogin'}); head.appendChild(box); }
     const free = freeSpinNow();
-    const mode = state.auth ? `in:${state.auth}:${isAdmin() ? 'a' : ''}:${free ? 'f' : ''}` : 'out';
+    const mode = state.auth ? `in:${state.auth}:${isAdmin() ? 'a' : ''}:${free ? 'f' : ''}:${missionHdr.on ? 'M' : 'm'}` : 'out';
     if (box.dataset.mode === mode) return;
     box.dataset.mode = mode;
     if (state.auth) {
       const av = localStorage.getItem(AUTH_AVA_KEY) || 'default';
       // з 🎡 рядок не влазить у 260 px — тоді коротко «(адм.)»
-      const adm = isAdmin() ? `${free ? '' : ' '}<a class="adm" href="${API}/admin" target="_blank" rel="noopener" title="Адмінка сервера кабінету"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 22s8-4 8-12V5l-8-3-8 3v5c0 8 8 12 8 12z"/><path d="m9 12 2 2 4-4"/></svg>${free ? 'Адм.' : 'Адмінка'}</a>` : '';
+      const adm = isAdmin() ? `<a class="adm" href="${API}/admin" target="_blank" rel="noopener" title="Адмінка сервера кабінету"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 22s8-4 8-12V5l-8-3-8 3v5c0 8 8 12 8 12z"/><path d="m9 12 2 2 4-4"/></svg>Адм.</a>` : '';
+      // 🎯 місія (з 27.11.2026): «Моя місія» (є активна / запропонована) або «Взяти місію»; в адмінів коротко «Місія» — клік відкриває рулетку на «Флот і рейси»
+      const mis = `<a class="mis${missionHdr.on ? ' on' : ''}" href="#company" title="${missionHdr.on ? 'Ваша місія за пиріжки — відкрити' : 'Взяти місію за пиріжки (рулетка на «Флот і рейси»)'}">🎯 ${isAdmin() ? 'Місія' : missionHdr.on ? 'Моя місія' : 'Взяти місію'}</a>`;
       // 🎡 — є безкоштовна прокрутка на сьогодні: клік = свій профіль → «Облаштувати» → вікно колеса
       const fw = free ? `<button type="button" class="fwheel" title="Сьогодні є безкоштовна прокрутка колеса фортуни — натисніть, щоб крутити"><img class="pieic" src="${WHEEL_ICON}" alt="🎡"></button>` : '';
       box.innerHTML = `<div class="me"><div class="devlogin-identity">
         <img class="ava" alt="" src="https://newsky.app/api/pilot/avatar/${encodeURIComponent(av)}"
           onerror="if(!this.dataset.fb){this.dataset.fb='1';this.src='https://newsky.app/api/pilot/avatar/default'}">
         <div class="devlogin-person"><b class="nm" title="${esc(localStorage.getItem(AUTH_NAME_KEY) || state.auth)}">${esc(localStorage.getItem(AUTH_NAME_KEY) || state.auth)}</b>
-          <span class="cap"><span class="capt">✈ Пілот UCAA</span>${fw}${adm}</span></div></div>
-        <div class="row"><button type="button" class="prof"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="3.5"/><path d="M5 21v-2a7 7 0 0 1 14 0v2"/></svg>Мій профіль</button><button type="button" class="out"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10 17l5-5-5-5m5 5H3m11-8h5a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-5"/></svg>Вийти</button></div></div>`;
+          <span class="cap"><span class="capt">✈ Пілот UCAA</span>${fw}${mis}${adm}</span></div></div>
+        <div class="row"><button type="button" class="whl" title="🎡 Колесо фортуни"><img class="pieic" src="${WHEEL_ICON}" alt="🎡"></button><button type="button" class="prof"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="3.5"/><path d="M5 21v-2a7 7 0 0 1 14 0v2"/></svg>Мій профіль</button><button type="button" class="out"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10 17l5-5-5-5m5 5H3m11-8h5a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-5"/></svg>Вийти</button></div></div>`;
       box.querySelector('.out').onclick = logout;
       // аватарка в шапці → налаштування NewSky (там міняється аватарка)
       const avaImg = box.querySelector('.ava');
@@ -3086,6 +3268,13 @@
       box.querySelector('.prof').onclick = () => { location.hash = `#profile/${encodeURIComponent(state.auth)}`; };
       const fwb = box.querySelector('.fwheel');
       if (fwb) fwb.onclick = openFreeWheel;
+      box.querySelector('.whl').onclick = openFreeWheel;   // колесо завжди (значок біля ніка — лише коли є безкоштовна спроба)
+      box.querySelector('.mis').onclick = async e => {
+        e.preventDefault();
+        if (location.hash !== '#company') location.hash = '#company';
+        for (let k = 0; k < 40 && !(window.UCAAMissions && document.getElementById('companyView')?.offsetParent); k++) await new Promise(r => setTimeout(r, 250));
+        window.UCAAMissions?.open();
+      };
       // тестовий «Містер Кеш» (для відео-інструкцій): клік по «✈ Пілот UCAA» повертає безкоштовну прокрутку на сьогодні
       if (FREE_RESET_IDS.includes(state.auth)) {
         const capt = box.querySelector('.capt');
@@ -3117,7 +3306,7 @@
     // спливаюче повідомлення про помилку ховається, щойно починаєте виправляти, або по кліку на нього
     const errBox = form.querySelector('.err');
     form.addEventListener('input', () => { errBox.hidden = true; });
-    errBox.onclick = () => { errBox.hidden = true; };
+    errBox.onclick = e => { if (!e.target.closest('a')) errBox.hidden = true; };
     form.onsubmit = async e => {
       e.preventDefault();
       const err = form.querySelector('.err');
@@ -3127,7 +3316,15 @@
       if (!login || !pw) return show('Введіть логін і пароль.');
       show(''); btn.disabled = true;
       const res = await api('/login', {login, password: pw});
-      if (!res.ok) { btn.disabled = false; return show(res.error); }
+      if (!res.ok) {
+        btn.disabled = false;
+        if (![400, 401, 403, 404].includes(res.status)) return show(res.error);   // забагато спроб / сервер не відповів — без «Забули пароль?»
+        show(res.error);
+        // неправильний логін чи пароль — кнопка «Забули пароль?» → спливаюче вікно, як відновити
+        err.insertAdjacentHTML('beforeend', '<div class="forgot"><button type="button" class="forgotb">🔑 Забули пароль?</button></div>');
+        err.querySelector('.forgotb').onclick = e => { e.stopPropagation(); forgotModal(); };
+        return;
+      }
       const {id, name, token, mustChange, isAdmin: adm} = res.data;
       localStorage.setItem(AUTH_ADMIN_KEY, adm ? '1' : '0');
       localStorage.setItem(AUTH_AVA_KEY, await pilotAvatar(id));
@@ -3868,7 +4065,19 @@
   setTimeout(render, 500);
   // ---------- 🎡 у шапці: чи є сьогодні безкоштовна прокрутка (сервер /wheel → limits.free) ----------
   let freeCheck = {at: 0, auth: null};
+  // місія в шапці: є активна / запропонована → «Моя місія»; раз на 2 хв і після змін у рулетці
+  function checkMissionHdr(force) {
+    if (!state.auth) return;
+    if (!force && missionHdr.auth === state.auth && Date.now() - missionHdr.at < 120e3) return;
+    Object.assign(missionHdr, {at: Date.now(), auth: state.auth});
+    api('/missions/state').then(res => {
+      const on = Boolean(res.ok && (res.data.active || res.data.offered));
+      if (on !== missionHdr.on) { missionHdr.on = on; ensureHeaderLogin(); }
+    });
+  }
+  addEventListener('ucaa-missions-updated', () => checkMissionHdr(true));
   function checkFreeSpin() {
+    checkMissionHdr();
     if (!state.auth || wheel.busy) return;
     if (freeCheck.auth === state.auth && Date.now() - freeCheck.at < 5 * 60e3) return;   // раз на 5 хв (і одразу після входу)
     freeCheck = {at: Date.now(), auth: state.auth};
@@ -3884,6 +4093,9 @@
       await new Promise(r => setTimeout(r, 300));
     }
     if (profilePilotId() !== me || !(me in ACC.data)) { toast('⚠ Кабінет ще не завантажився — спробуйте за хвилину.'); return; }
+    // бокові панелі видно (комп'ютер) — як раніше, через «Облаштувати»; телефон — редагування нема, колесо одразу (виграш іде в «Куплене» на сервері)
+    const panelsShown = zones.office.classList.contains('show') && !zones.office.classList.contains('mview');
+    if (!panelsShown) { if (!state.editing) openWheel('pies'); return; }
     if (!state.editing) { openEdit('office'); await new Promise(r => setTimeout(r, 300)); }
     if (state.editing) openWheel('pies');
   }

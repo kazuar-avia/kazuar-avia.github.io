@@ -42,7 +42,10 @@
   function pilotPiesLogEntries(pilotId) {
     const id = String(pilotId || '').trim();
     const flightsById = new Map(availableFlights.map(flight => [String(flight.id || ''), flight]));
-    return Object.values(piesLedger?.entries || {})
+    // місії (рулетка, company-filter.js): рейс-місія — один рядок з повною нагородою; «гарячий» запис за той самий рейс не дублюємо
+    const missionEntries = window.UCAAMissions?.ledgerEntries?.(id) || [];
+    const missionIds = new Set(missionEntries.map(entry => String(entry.flightId)));
+    return [...Object.values(piesLedger?.entries || {}).filter(entry => !missionIds.has(String(entry?.flightId || ''))), ...missionEntries]
       .filter(entry => entry && entry.kind === 'earn' && String(entry.pilotId || '').trim() === id
         && Number.isSafeInteger(Number(entry.delta)) && Number(entry.delta) > 0)
       .map(entry => {
@@ -154,8 +157,8 @@
         <td class="route"><span class="route-airports">${flight?.diverted && flight?.plannedArrival?.icao ? '<span class="diverted-route"><span class="diverted-leg">' + airportLabel(flight?.departure,item.dep) + '</span><span class="diverted-leg">→ <span class="diverted-planned" title="Planned arrival">' + airportLabel(flight?.plannedArrival,flight?.plannedArrival?.icao) + '</span></span><span class="diverted-leg"><svg class="diverted-arrow" width="11" height="11" viewBox="0 0 16 16" style="display:inline-block;width:11px!important;height:11px!important;vertical-align:-1px" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 4H3C7 4 9 12 13 12H15 M12 9L15 12L12 15 M1 12H3C7 12 9 4 13 4H15 M12 1L15 4L12 7"/></svg> ' + airportLabel(flight?.actualArrival || flight?.arrival,item.arr) + '</span></span>' : airportLabel(flight?.departure,item.dep) + ' → ' + airportLabel(flight?.actualArrival || flight?.arrival,item.arr)}</span></td>
         <td class="company-livery-log-duration">${flight ? formatMinutes(flight.times?.durationMinutes) : '—'}</td>
         <td class="company-livery-log-rating">${ratingHtml}</td>
-        <td class="company-livery-log-rating">${Number.isInteger(Number(entry.rank)) && Number(entry.rank)>0 ? `#${Number(entry.rank)}` : '—'}</td>
-        <td class="company-livery-log-money pilot-pies-log-earned">+${Number(entry.delta)} <img src="assets/icons/pyrih.png" alt="пиріжків"></td>
+        <td class="company-livery-log-rating">${entry.mission ? '<span title="Місія — випадковий рейс (рулетка)">🎯 Місія</span>' : Number.isInteger(Number(entry.rank)) && Number(entry.rank)>0 ? `#${Number(entry.rank)}` : '—'}</td>
+        <td class="company-livery-log-money pilot-pies-log-earned">+${Number(entry.delta)} <img src="assets/icons/pyrih.png" alt="пиріжків">${entry.mission ? ' <span class="cff-mission-icon" title="Місія — випадковий рейс" style="margin-left:4px">🎯</span>' : ''}</td>
       </tr>`;
     }).join('') : '<tr><td colspan="7" class="loading">За вибраний період нарахувань пиріжків немає</td></tr>';
     return `<div class="company-livery-log-scroll"><table class="company-livery-log-table"><colgroup><col class="company-livery-log-date"><col class="company-livery-log-pilot"><col class="company-livery-log-route-col"><col class="company-livery-log-duration-col"><col class="company-livery-log-rating-col"><col class="company-livery-log-profit-col"><col class="company-livery-log-salary-col"></colgroup><thead><tr><th>Дата / Рейс</th><th>${aircraftSelect}</th><th>Маршрут</th><th>Тривалість</th><th>Рейтинг</th><th>ТОП</th><th>Пиріжки</th></tr></thead><tbody>${rows}</tbody></table></div>`;
@@ -2030,9 +2033,9 @@
         body.mobile-cabinet .profile-v2 .profile-overall colgroup{display:none}
         body.mobile-cabinet .profile-v2 .profile-overall tbody{display:grid;grid-template-columns:max-content minmax(0,1fr)}
         body.mobile-cabinet .profile-v2 .profile-overall tr{display:contents}
-        body.mobile-cabinet .profile-v2 .profile-overall th,body.mobile-cabinet .profile-v2 .profile-overall td{display:block;min-width:0;padding:5px 6px;font-size:11px;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:clip}
+        body.mobile-cabinet .profile-v2 .profile-overall th,body.mobile-cabinet .profile-v2 .profile-overall td{display:block;min-width:0;padding:6px 8px;font-size:14px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:clip}
         body.mobile-cabinet .profile-v2 .profile-overall th{width:auto;max-width:none;justify-self:stretch;box-sizing:border-box}
-        body.mobile-cabinet .profile-v2 .profile-overall td{text-align:left;font-family:Arial,sans-serif!important;font-size:10px!important;font-weight:400!important;letter-spacing:0!important}
+        body.mobile-cabinet .profile-v2 .profile-overall td{text-align:left;font-family:Arial,sans-serif!important;font-size:14px!important;font-weight:400!important;letter-spacing:0!important}
         body.mobile-cabinet .profile-v2 .profile-overall tbody tr:nth-child(1) th:nth-of-type(1){order:1}
         body.mobile-cabinet .profile-v2 .profile-overall tbody tr:nth-child(1) td:nth-of-type(1){order:2}
         body.mobile-cabinet .profile-v2 .profile-overall tbody tr:nth-child(2) th:nth-of-type(1){order:3}
@@ -2975,5 +2978,7 @@
       }).join('');
   }
 
-  window.UCAAPilotProfile = {open,setFlights,setGuaranteedBonuses,setPiesLedger,cardAwards,cardAircraftAwardsHtml,cardSpecialAwardsHtml,warmProfileCaches};
+  // pilotAircraftFamilies(id) — сімейства типів (як у нагородах: B738, A320, F100…), на яких пілот літав; для «Підібрати випадковий рейс» (company-filter.js)
+  window.UCAAPilotProfile = {open,setFlights,setGuaranteedBonuses,setPiesLedger,cardAwards,cardAircraftAwardsHtml,cardSpecialAwardsHtml,warmProfileCaches,
+    pilotAircraftFamilies: pilotId => aircraftAwardStats(pilotId).map(award => award.family)};
 })();

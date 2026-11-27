@@ -60,8 +60,8 @@ body {
 
 	.site-nav2 {
   position: fixed;
-  top: 517px;
-  left: calc(50% - 712px);
+  top: 648px;
+  left: calc(50% + 472px);
   width: 240px;
   z-index: 9999;
 
@@ -2845,6 +2845,192 @@ body.ukraine-map-fullscreen-active .site-nav5 {
     }
 }
 	
+/* ---------- Отримати METAR* (ліва колонка, під «Корисні посилання») ---------- */
+.site-nav-wx {
+    position: fixed;
+    top: 517px;
+    left: calc(50% - 712px);
+    width: 240px;
+    z-index: 9999;
+    background: #ffffff;
+    border: 1px solid #999;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.site-nav-wx .site-nav-title {
+    background: #fbe8ef;
+}
+
+.site-nav-wx .wx-body {
+    padding: 6px;
+}
+
+.site-nav-wx .wx-slot + .wx-slot {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px dashed #ccc;
+}
+
+.site-nav-wx .wx-row {
+    display: flex;
+    gap: 4px;
+}
+
+.site-nav-wx input {
+    flex: 1;
+    min-width: 0;
+    box-sizing: border-box;
+    padding: 4px 8px;
+    border: 1px solid #b3c4b3;
+    background: #f0f4f0;
+    font: bold 18px/1.2 Consolas, "Courier New", monospace;
+    letter-spacing: 3px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.site-nav-wx input::placeholder {
+    font: 13px Arial, sans-serif;
+    letter-spacing: 0;
+    text-transform: none;
+    color: #8d9a8d;
+}
+
+.site-nav-wx input:focus {
+    outline: none;
+    background: #e8eee8;
+    border-color: #8fa48f;
+}
+
+.site-nav-wx .wx-del {
+    flex: none;
+    width: 26px;
+    padding: 0;
+    border: 1px solid #ccc;
+    background: #fff;
+    color: #999;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.site-nav-wx .wx-del:hover {
+    color: #a33;
+    border-color: #d5a0a0;
+}
+
+.site-nav-wx .wx-ref {
+    color: #5b735b;
+    font-weight: bold;
+}
+
+.site-nav-wx .wx-ref:hover {
+    color: #5b735b;
+    border-color: #b3c4b3;
+    background: #eef2ee;
+}
+
+.site-nav-wx .wx-out {
+    margin-top: 6px;
+    font: 14px/1.3 Consolas, "Courier New", monospace;
+    word-break: break-word;
+}
+
+.site-nav-wx .wx-out .real-metar-report {
+    font-size: inherit;
+    line-height: inherit;
+}
+
+.site-nav-wx .wx-out:empty {
+    display: none;
+}
+
+.site-nav-wx .wx-out .wx-msg {
+    font-family: Arial, sans-serif;
+    color: #888;
+}
+
+.site-nav-wx .wx-more {
+    display: block;
+    width: 100%;
+    margin-top: 8px;
+    padding: 4px;
+    border: 1px dashed #a9b8c6;
+    background: #eef2f6;
+    font: bold 13px Arial, sans-serif;
+    color: #4f6275;
+    cursor: pointer;
+}
+
+.site-nav-wx .wx-more:hover {
+    background: #e2e9f0;
+}
+
+.site-nav-wx .wx-note {
+    padding: 5px 8px 6px;
+    border-top: 1px solid #999;
+    background: #f7f7f7;
+    color: #555;
+    font-size: 12px;
+    line-height: 1.35;
+}
+
+.site-nav-wx .wx-note[hidden] {
+    display: none;
+}
+
+.site-nav-wx .wx-note button {
+    margin-top: 3px;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: #2459d3;
+    font: 12px Arial, sans-serif;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+@media (max-width: 1380px) {
+    .site-nav-wx {
+        position: static;
+        width: 930px;
+        max-width: calc(100% - 20px);
+        margin: 10px auto;
+    }
+
+    /* телефон / вузький екран: без заголовка (у полі підказка «Отримати METAR»), поле і погода — в один рядок */
+    .site-nav-wx .site-nav-title {
+        display: none;
+    }
+
+    .site-nav-wx .wx-slot {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .site-nav-wx .wx-row {
+        flex: 0 0 210px;
+    }
+
+    .site-nav-wx .wx-out {
+        flex: 1;
+        margin-top: 0;
+    }
+
+    .site-nav-wx .wx-out br {
+        display: none;
+    }
+
+    .site-nav-wx .wx-more {
+        width: 210px;
+    }
+
+    .site-nav-wx .wx-note {
+        grid-column: 1 / -1;
+    }
+}
+
 /* ---------- Подяка ТОП меценатам (тільки до 1380px) ---------- */
 .mobile-thanks {
     display: none;
@@ -2973,6 +3159,12 @@ body.ukraine-map-fullscreen-active .site-nav5 {
 		
 </div>
 
+
+		<div class="site-nav-wx">
+		<div class="site-nav-title">Отримати METAR</div>
+		<div class="wx-body" id="wxBody"></div>
+		<div class="wx-note" id="wxNote" hidden></div>
+		</div>
 
 		<div class="site-nav2">
 		<div class="site-nav-title">Подяка ТОП меценатам:</div>
@@ -5329,10 +5521,12 @@ function buildMetarLikeReport(airport, current) {
     const reportTime = current.time
         ? `${String(current.time).split('T')[1]?.substring(0, 5) || '--:--'}z`
         : '--:--z';
+    // дата звіту (27.11) — у data-date; показує тільки блок «Отримати METAR» на головній, форма на карті — як була
+    const reportDate = (String(current.time || '').split('T')[0].match(/^\d{4}-(\d{2})-(\d{2})$/) || []).slice(1).reverse().join('.');
     const runwayText = runway ? `(${runway})` : '';
 
     return [
-        `<strong>${airport.icao}</strong>&nbsp;<span class="weather-report-time">${reportTime}</span><button type="button" class="weather-source-label" data-weather-refresh="1" title="Змінити порядок джерел погоди">${current._weatherSource || ''}</button><button type="button" class="weather-source-toggle" data-weather-refresh="1" title="Змінити порядок джерел погоди">↻</button>`,
+        `<strong>${airport.icao}</strong>&nbsp;<span class="weather-report-time" data-date="${reportDate}">${reportTime}</span><button type="button" class="weather-source-label" data-weather-refresh="1" title="Змінити порядок джерел погоди">${current._weatherSource || ''}</button><button type="button" class="weather-source-toggle" data-weather-refresh="1" title="Змінити порядок джерел погоди">↻</button>`,
         `${formatWindDirection(windDirection)}° ${wind} ${runwayText}`.trim(),
         `${visibilityLine} ${formatMetarTemperature(temp)}/${formatMetarTemperature(dewPoint)} ${pressure}${weather ? ` ${weather}` : ''}`
     ].filter(Boolean).join('<br>');
@@ -11699,6 +11893,124 @@ document.querySelectorAll('details.livery-details').forEach(section => {
 
   moveNavigation();
   window.addEventListener('resize', moveNavigation);
+})();
+</script>
+<script>
+// «Отримати METAR*»: до 3 полів по 4 літери ICAO; українська / російська розкладка перекладається в латиницю за клавішами (ГЛИИ → UKBB).
+// UK** — приблизна погода з Open-Meteo / MET.no, як у формі на карті (fetchAirportWeatherReport); решта — METAR з VATSIM.
+(function () {
+  const body = document.getElementById('wxBody');
+  const note = document.getElementById('wxNote');
+  if (!body || !note) return;
+  const MAX = 3;
+  const KEYS = {
+    'й':'Q','ц':'W','у':'E','к':'R','е':'T','н':'Y','г':'U','ш':'I','щ':'O','з':'P',
+    'ф':'A','і':'S','ы':'S','в':'D','а':'F','п':'G','р':'H','о':'J','л':'K','д':'L',
+    'я':'Z','ч':'X','с':'C','м':'V','и':'B','т':'N','ь':'M'
+  };
+  const SOURCE_NAMES = {'OPEN-MET': 'Open-Met', 'MET.NO': 'MET.no'};
+  const toLatin = v => [...String(v).toLowerCase()].map(ch => KEYS[ch] || (/[a-z]/.test(ch) ? ch.toUpperCase() : '')).join('').slice(0, 4);
+  const slots = [];   // {el, input, out, code, req, ukSource}
+
+  function addSlot(focus) {
+    const el = document.createElement('div');
+    el.className = 'wx-slot';
+    el.innerHTML = '<div class="wx-row"><input type="text" maxlength="4" autocomplete="off" spellcheck="false" aria-label="Код ICAO аеропорту"></div><div class="wx-out"></div>';
+    const slot = {el, input: el.querySelector('input'), out: el.querySelector('.wx-out'), code: '', req: 0, ukSource: ''};
+    slot.input.placeholder = placeholderText();
+    // ↻ — оновити погоду цього аеродрому
+    const ref = Object.assign(document.createElement('button'), {type: 'button', className: 'wx-del wx-ref', title: 'Оновити погоду', textContent: '↻'});
+    ref.onclick = () => { if (slot.input.value.length === 4) load(slot, slot.input.value); else slot.input.focus(); };
+    el.querySelector('.wx-row').appendChild(ref);
+    // ✕ — у першому полі очищає його, додаткові поля прибирає зовсім
+    const first = !slots.length;
+    const del = Object.assign(document.createElement('button'), {type: 'button', className: 'wx-del', title: first ? 'Очистити поле' : 'Прибрати це поле', textContent: '✕'});
+    del.onclick = () => {
+      if (first) {
+        slot.input.value = ''; slot.code = ''; slot.req++; slot.ukSource = ''; slot.out.innerHTML = '';
+        update(); slot.input.focus();
+      } else { slots.splice(slots.indexOf(slot), 1); el.remove(); update(); }
+    };
+    el.querySelector('.wx-row').appendChild(del);
+    slot.input.addEventListener('input', () => {
+      const v = toLatin(slot.input.value);
+      if (slot.input.value !== v) slot.input.value = v;
+      if (v.length === 4) { if (v !== slot.code) load(slot, v); }
+      else { slot.code = ''; slot.req++; slot.ukSource = ''; slot.out.innerHTML = ''; update(); }
+    });
+    slot.input.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && slot.input.value.length === 4) load(slot, slot.input.value);
+    });
+    slots.push(slot);
+    body.insertBefore(el, body.querySelector('.wx-more'));
+    update();
+    if (focus) slot.input.focus();
+  }
+
+  async function load(slot, code) {
+    const id = ++slot.req;
+    slot.code = code;
+    slot.ukSource = '';
+    slot.out.innerHTML = `<span class="wx-msg">${code}: запит погоди...</span>`;
+    update();
+    let html, uk = '';
+    try {
+      if (code.startsWith('UK') && typeof fetchAirportWeatherReport === 'function') {
+        html = await fetchAirportWeatherReport(code);
+        if (/координат/.test(html)) html = await fetchRealMetarReport(code);   // аеропорту нема в нашому списку координат — звичайний METAR
+        else {
+          // джерело — з кнопки у звіті; самі маленькі кнопки прибираємо, джерело пишемо внизу блоку
+          const tmp = document.createElement('div');
+          tmp.innerHTML = html;
+          const label = tmp.querySelector('.weather-source-label');
+          uk = SOURCE_NAMES[String(label?.textContent || '').trim()] || String(label?.textContent || '').trim() || 'модель погоди';
+          tmp.querySelectorAll('[data-weather-refresh]').forEach(b => b.remove());
+          // дата зліва від часу: «27.11 00:30z» — щоб було видно, що погода свіжа
+          const t = tmp.querySelector('.weather-report-time');
+          if (t && t.dataset.date) t.textContent = `${t.dataset.date} ${t.textContent}`;
+          html = tmp.innerHTML.replace(/^(<strong>[A-Z]{4}<\/strong>)/, '$1*');
+        }
+      } else {
+        html = await fetchRealMetarReport(code);
+      }
+    } catch (e) {
+      html = `<span class="wx-msg">${code}: погоду не отримано</span>`;
+    }
+    if (id !== slot.req) return;
+    slot.out.innerHTML = String(html).replace(/<br\s*\/?>/gi, '<br> ');   // пробіл — щоб на телефоні (рядки в один) слова не злипались
+    slot.ukSource = uk;
+    update();
+  }
+
+  function update() {
+    // «+ Ще один код ICAO» — коли в останньому полі вже є погода і полів менше 3
+    let more = body.querySelector('.wx-more');
+    const last = slots[slots.length - 1];
+    const showMore = slots.length < MAX && last && last.code && last.out.textContent && !/запит погоди/.test(last.out.textContent);
+    if (showMore && !more) {
+      more = Object.assign(document.createElement('button'), {type: 'button', className: 'wx-more', textContent: '+ Ще один код ICAO'});
+      more.onclick = () => addSlot(true);
+      body.appendChild(more);
+    } else if (!showMore && more) more.remove();
+    // підпис про приблизну погоду для UK**
+    const sources = [...new Set(slots.map(s => s.ukSource).filter(Boolean))];
+    if (!sources.length) { note.hidden = true; note.innerHTML = ''; return; }
+    note.hidden = false;
+    const other = sources.length === 1 ? (sources[0] === 'MET.no' ? 'Open-Met' : 'MET.no') : '';
+    note.innerHTML = `* Приблизна погода з: <b>${sources.join(', ')}</b><br><button type="button" class="wx-switch">↻ ${other ? `Змінити джерело на ${other}` : 'Змінити джерело'}</button>`;
+    note.querySelector('.wx-switch').onclick = () => {
+      if (typeof weatherPreferOpenMeteoFirst !== 'undefined') weatherPreferOpenMeteoFirst = !weatherPreferOpenMeteoFirst;
+      slots.filter(s => s.ukSource).forEach(s => load(s, s.code));
+    };
+  }
+
+  // на вузькому екрані заголовка нема — тоді підказка в полі «Отримати METAR»
+  const narrow = window.matchMedia('(max-width: 1380px)');
+  function placeholderText() { return narrow.matches ? 'Отримати METAR' : 'Напиши код ICAO'; }
+  const syncPlaceholders = () => slots.forEach(s => { s.input.placeholder = placeholderText(); });
+  if (narrow.addEventListener) narrow.addEventListener('change', syncPlaceholders); else narrow.addListener(syncPlaceholders);
+
+  addSlot(false);
 })();
 </script>
 </body>

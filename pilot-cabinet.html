@@ -592,6 +592,30 @@
   #companyView .liveair-section .company-live-mode-controls{grid-template-columns:1.20fr 1.00fr 1.02fr 1.25fr 1.13fr!important}
   #companyView .liveair-section [data-company-live-mode="live"] .company-live-mode-label{overflow:visible;text-overflow:clip}
   #companyView .liveair-section [data-company-live-mode="live"] .company-live-mode-secondary{display:inline-block;min-width:58px;text-align:left}
+  /* фільтр запропонованих рейсів (js/company-filter.js) — заголовок уже в HTML, щоб сторінка не «смикалась» при завантаженні */
+  .cff-panel{margin-top:7px;border:1px solid #8f8f8f;background:#fff}
+  /* заголовок — як у «Флот авіакомпанії UCAA у WET LEASE»: шрифт 14 px жирний, кнопка −/+ і кнопка справа — як AB / 🛫 */
+  .cff-panel .cff-head{display:flex;align-items:center;gap:0;min-height:29px;box-sizing:border-box;padding:2px 8px;background:linear-gradient(90deg,#d6e6f5 0%,#f4f8fc 60%);font:bold 14px Arial,sans-serif}
+  .cff-panel .cff-tog,.cff-panel .cff-rnd{height:24.75px;min-width:38px;box-sizing:border-box;padding:2px 8px;border:1px solid #9c9c9c;border-radius:0;background:linear-gradient(#fff 0%,#f1f1f1 100%);box-shadow:inset 0 1px 0 #fff;color:#000;font:bold 15px/18.75px Arial;cursor:pointer}
+  .cff-panel .cff-tog{width:38px;margin-right:7px}
+  .cff-panel .cff-tog:hover,.cff-panel .cff-rnd:hover{background:linear-gradient(#fff 0%,#ffeeb0 100%)}
+  .cff-panel .cff-title{cursor:pointer}
+  .cff-panel .cff-count{margin-left:10px;font-weight:normal;color:#555}
+  .cff-panel .cff-reset{margin-left:auto}
+  .cff-panel .cff-rnd{display:inline-flex;align-items:center;gap:6px;margin-left:auto;font-size:13px}
+  .cff-panel .cff-reset:not([hidden]) + .cff-rnd{margin-left:8px}
+  .cff-panel .cff-wheel{width:17px;height:17px;flex:none}
+  .cff-panel .cff-rnd:hover .cff-wheel{transform:rotate(72deg);transition:transform .3s}
+  body.mobile-cabinet .cff-panel .cff-head{min-height:0;padding:2px 6px;font-size:12px}
+  body.mobile-cabinet .cff-panel .cff-tog,body.mobile-cabinet .cff-panel .cff-rnd{height:20.25px;min-width:30px;padding:1px 6px;font-size:13px;line-height:16.25px}
+  body.mobile-cabinet .cff-panel .cff-tog{width:30px;margin-right:6px}
+  body.mobile-cabinet .cff-panel .cff-rnd{font-size:11px}
+  body.mobile-cabinet .cff-panel .cff-wheel{width:14px;height:14px}
+  #companyView .company-livery-card.cff-picked{outline:3px solid #f29f05;outline-offset:2px;box-shadow:0 0 0 6px rgba(242,159,5,.25)}
+  /* телефон: короткі назви вкладок (LIVE / Пиріг / Кеш / Вернути / Простой) */
+  .company-live-mode-button .company-live-mode-short{display:none}
+  body.mobile-cabinet .company-live-mode-button .company-live-mode-label{display:none}
+  body.mobile-cabinet .company-live-mode-button .company-live-mode-short{display:inline}
   #companyView .company-toolbox-icon{display:inline-block;transform:translateY(-1px);line-height:1}
   .pilot-card-top-pyrih{width:15px;height:15px;object-fit:contain;display:inline-block;vertical-align:middle;border:0!important;background:transparent!important;padding:0!important;box-shadow:none!important}
   .pilot-card-award-icon-html{top:-3px!important}
@@ -670,6 +694,7 @@
       <div class="company-heading liveair-heading">LIVE NOW - 0 &#1088;&#1077;&#1081;&#1089;&#1110;&#1074;</div>
       <div class="company-fleet-liveries" data-static-order="1"></div>
     </section>
+    <section class="company-panel cff-panel" id="cffPanel"><div class="company-heading cff-head"><button type="button" class="cff-tog" title="Розгорнути фільтр">+</button><span class="cff-title">Фільтр запропонованих рейсів</span><span class="cff-count"></span><button type="button" class="cff-reset" hidden>✕ Скинути</button><button type="button" class="cff-rnd" title="Місія за пиріжки або просто випадковий рейс (з тих, що підходять під фільтр)">🎯 МІСІЯ / Випадковий рейс</button></div></section>
     <section class="company-panel company-section wetlease-section">
       <div class="company-heading livery-heading">Флот авіакомпанії UCAA у WET LEASE (довготривалий лізинг, власні лівреї)</div>
       <div class="company-fleet-liveries">
@@ -737,7 +762,7 @@
         <div class="company-livery-card" data-aircraft-id="6a1c2fb3a5e61d69a78961aa" data-livery-title="Котрабандисти | Ан-2 | UR-40308" data-livery-modal-title="Літак контрабандистів - Ан-2 UR-40308"><div class="company-livery-title">Котрабандисти | Ан-2 | UR-40308</div><img data-ucaa-img-src="assets/aircraft/an2.JPG" alt="Літак контрабандистів | Ан-2 | UR-40308"><div class="company-livery-links">скачати: <a href="https://flightsim.to/file/100842/ukrainian-an-2-weathered-livery-ur-40308" target="_blank" rel="noopener">MSFS 2020 / 2024</a><br><em>установка: як написано на flightsim.to</em></div></div>
         <div class="company-livery-card" data-aircraft-id="6a325d16840ade899ebbaa5b" data-livery-title="Motor Sich | Fokker F27 | UR-KZR" data-livery-modal-title="Motor Sich - Fokker F27-MK500 UR-KZR"><div class="company-livery-title">Motor Sich | Fokker F27 | UR-KZR</div><img data-ucaa-img-src="assets/aircraft/ur-kzr.JPG" alt="Motor Sich | Fokker F27-MK500 | UR-KZR"><div class="company-livery-links">скачати: <a href="https://flightsim.to/file/91632/fokker-f27-motor-sich-fictional-an-24-livery" target="_blank" rel="noopener">MSFS 2020</a><br><em>літак Fokker F27-MK500 безкоштовний — <a href="https://flightsim.to/liveries/fokker-f27-mk-500/" target="_blank" rel="noopener">скачати тут</a><br>установка лівреї: як написано на flightsim.to</em></div></div>
         <div class="company-livery-card" data-aircraft-id="6a4fd97e5760ec7cdb67b063" data-livery-title="Supernova | 727-200 | UR-NPB" data-livery-modal-title="Supernova - FSS Boeing 727-200 (cargo)"><div class="company-livery-title">Supernova | 727-200 | UR-NPB</div><img data-ucaa-img-src="assets/aircraft/727supernova.JPG" alt="Supernova | FSS Boeing 727-200 (cargo)"><div class="company-livery-links">скачати: <a href="https://drive.google.com/file/d/161N4ML71mnxe-Q4RQcEY41_cG99aUAem/view?usp=sharing" target="_blank" rel="noopener">MSFS 2020</a> / <a href="https://flightsim.to/file/103231/b727f-super27-supernova-fictional" target="_blank" rel="noopener">MSFS 2020 (Super 27)</a><br><em>установка: як написано на flightsim.to</em></div></div>
-        <div class="company-livery-card" data-aircraft-id="69a3f2119da57b990aaa1899" data-livery-title="Укропшта | BAe146 QT/Avro RJ QT" data-livery-modal-title="Укропшта | BAe146 QT/Avro RJ QT | JustFlight"><div class="company-livery-title">Укропшта | BAe146 QT/Avro RJ QT</div><img data-ucaa-img-src="assets/aircraft/RJukr.JPG" alt="Укропшта | BAe146 QT/Avro RJ QT | JustFlight"><div class="company-livery-links">скачати: <a href="https://flightsim.to/addon/105323/bae146-300-qt-avro-rj-qt-ukrposhta-fictional" target="_blank" rel="noopener">MSFS 2020 / 2024</a><br><em>установка: як написано на flightsim.to</em></div></div>
+        <div class="company-livery-card" data-aircraft-id="69a3f2119da57b990aaa1899" data-livery-title="Укрпошта | BAe146 QT/Avro RJ QT" data-livery-modal-title="Укрпошта | BAe146 QT/Avro RJ QT | JustFlight"><div class="company-livery-title">Укрпошта | BAe146 QT/Avro RJ QT</div><img data-ucaa-img-src="assets/aircraft/RJukr.JPG" alt="Укрпошта | BAe146 QT/Avro RJ QT | JustFlight"><div class="company-livery-links">скачати: <a href="https://flightsim.to/addon/105323/bae146-300-qt-avro-rj-qt-ukrposhta-fictional" target="_blank" rel="noopener">MSFS 2020 / 2024</a><br><em>установка: як написано на flightsim.to</em></div></div>
         <div class="company-livery-card" data-aircraft-id="696d16883dc76275bababd67" data-livery-title="Укрпошта | ATR 42-600 | UR-ATR" data-livery-modal-title="Укрпошта - ATR 42-600 UR-ATR"><div class="company-livery-title">Укрпошта | ATR 42-600 | UR-ATR</div><img data-ucaa-img-src="assets/aircraft/uratr.jpg" alt="Укрпошта | ATR 42-600 | UR-ATR"><div class="company-livery-links">скачати: <a href="https://drive.google.com/file/d/15metMs-f0DmrVta1Yj-DLI7P-a2Cd2Cs/view?usp=drive_link" target="_blank" rel="noopener">MSFS 2020 / 2024</a><br><em>установка: як написано в архіві</em></div></div>
       </div>
     </section>
@@ -904,14 +929,15 @@ document.querySelector('.close').onclick=()=>document.querySelector('#pilotDialo
 <script type="application/x-ucaa-deferred" data-ucaa-script-src="js/pilot-pay-policy.js?v=20260628-05"></script>
 <script type="application/x-ucaa-deferred" data-ucaa-script-src="js/incident-compensation-policy.js?v=20260623-5"></script>
 <script type="application/x-ucaa-deferred" data-ucaa-script-src="js/pie-rewards.js"></script>
-<script type=application/x-ucaa-deferred data-ucaa-script-src=js/pilot-profile-v2.js?v=20261127-merge-1></script>
-<script type=application/x-ucaa-deferred data-ucaa-script-src=js/pilot-flights-map.js?v=20261126-18-mapdivert-local1-planned-v2></script>
+<script type=application/x-ucaa-deferred data-ucaa-script-src=js/pilot-profile-v2.js?v=20261127-missions-3></script>
+<script type=application/x-ucaa-deferred data-ucaa-script-src=js/pilot-flights-map.js?v=20261127-mobile-2></script>
 <script type="application/x-ucaa-deferred" data-ucaa-script-src="js/app-navigation.js?v=20260628-1"></script>
 <script type="application/x-ucaa-deferred" data-ucaa-script-src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script type="application/x-ucaa-deferred" data-ucaa-script-src="js/ferry-airspace.js?v=20261018-crimea-1"></script>
 <script type="application/x-ucaa-deferred" data-ucaa-script-src="js/flight-block-time.js?v=20261017-1"></script>
-<script type=application/x-ucaa-deferred data-ucaa-script-type=module data-ucaa-script-src=js/pilot-cabinet.js?v=20261127-merge-1></script>
+<script type=application/x-ucaa-deferred data-ucaa-script-type=module data-ucaa-script-src=js/pilot-cabinet.js?v=20261127-missions-3></script>
 <script type=application/x-ucaa-deferred data-ucaa-script-type=module data-ucaa-script-src=js/company.js?v=20261127-fixed-periods-2></script>
-<script type=application/x-ucaa-deferred data-ucaa-script-src=js/iso-cabinet.js?v=20261127-merge-1></script>
+<script type=application/x-ucaa-deferred data-ucaa-script-src=js/iso-cabinet.js?v=20261127-missions-2></script>
+<script type=application/x-ucaa-deferred data-ucaa-script-src=js/company-filter.js?v=20261127-missions-4></script>
 </body>
 </html>
