@@ -3029,6 +3029,43 @@ body.ukraine-map-fullscreen-active .site-nav5 {
     .site-nav-wx .wx-note {
         grid-column: 1 / -1;
     }
+
+    /* телефон: поле і погода ~в 2 рази більші; шрифт поля ≥16px — айфон не збільшує сторінку сам при натисканні */
+    .site-nav-wx .wx-row {
+        flex: 0 0 320px;
+        gap: 6px;
+    }
+
+    .site-nav-wx input {
+        min-height: 54px;
+        padding: 6px 10px;
+        font-size: 30px;
+        letter-spacing: 4px;
+    }
+
+    .site-nav-wx input::placeholder {
+        font-size: 22px;
+    }
+
+    .site-nav-wx .wx-del {
+        width: 50px;
+        font-size: 24px;
+    }
+
+    .site-nav-wx .wx-out {
+        font-size: 22px;
+    }
+
+    .site-nav-wx .wx-more {
+        width: 320px;
+        padding: 8px;
+        font-size: 20px;
+    }
+
+    .site-nav-wx .wx-note,
+    .site-nav-wx .wx-note button {
+        font-size: 18px;
+    }
 }
 
 /* ---------- Подяка ТОП меценатам (тільки до 1380px) ---------- */

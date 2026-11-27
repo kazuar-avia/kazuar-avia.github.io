@@ -607,6 +607,13 @@
   .cff-panel .cff-wheel{width:17px;height:17px;flex:none}
   .cff-panel .cff-rnd:hover .cff-wheel{transform:rotate(72deg);transition:transform .3s}
   body.mobile-cabinet .cff-panel .cff-head{min-height:0;padding:2px 6px;font-size:12px}
+  .cff-panel .cff-tshort{display:none}
+  body.mobile-cabinet .cff-panel .cff-tfull{display:none}
+  body.mobile-cabinet .cff-panel .cff-tshort{display:inline}
+  body.mobile-cabinet .cff-panel .cff-count{display:none}
+  body.mobile-cabinet .cff-panel .cff-reset{margin-left:auto;padding:1px 6px;font-size:11px;white-space:nowrap}
+  body.mobile-cabinet .cff-panel .cff-reset:not([hidden]) + .cff-rnd{margin-left:6px}
+  .cff-panel .cff-title,.cff-panel .cff-rnd{white-space:nowrap}
   body.mobile-cabinet .cff-panel .cff-tog,body.mobile-cabinet .cff-panel .cff-rnd{height:20.25px;min-width:30px;padding:1px 6px;font-size:13px;line-height:16.25px}
   body.mobile-cabinet .cff-panel .cff-tog{width:30px;margin-right:6px}
   body.mobile-cabinet .cff-panel .cff-rnd{font-size:11px}
@@ -616,6 +623,7 @@
   .company-live-mode-button .company-live-mode-short{display:none}
   body.mobile-cabinet .company-live-mode-button .company-live-mode-label{display:none}
   body.mobile-cabinet .company-live-mode-button .company-live-mode-short{display:inline}
+  body.mobile-cabinet .company-live-mode-button{font-size:12px!important;letter-spacing:-.2px}
   #companyView .company-toolbox-icon{display:inline-block;transform:translateY(-1px);line-height:1}
   .pilot-card-top-pyrih{width:15px;height:15px;object-fit:contain;display:inline-block;vertical-align:middle;border:0!important;background:transparent!important;padding:0!important;box-shadow:none!important}
   .pilot-card-award-icon-html{top:-3px!important}
@@ -694,7 +702,7 @@
       <div class="company-heading liveair-heading">LIVE NOW - 0 &#1088;&#1077;&#1081;&#1089;&#1110;&#1074;</div>
       <div class="company-fleet-liveries" data-static-order="1"></div>
     </section>
-    <section class="company-panel cff-panel" id="cffPanel"><div class="company-heading cff-head"><button type="button" class="cff-tog" title="Розгорнути фільтр">+</button><span class="cff-title">Фільтр запропонованих рейсів</span><span class="cff-count"></span><button type="button" class="cff-reset" hidden>✕ Скинути</button><button type="button" class="cff-rnd" title="Місія за пиріжки або просто випадковий рейс (з тих, що підходять під фільтр)">🎯 МІСІЯ / Випадковий рейс</button></div></section>
+    <section class="company-panel cff-panel" id="cffPanel"><div class="company-heading cff-head"><button type="button" class="cff-tog" title="Розгорнути фільтр">+</button><span class="cff-title"><span class="cff-tfull">Фільтр запропонованих рейсів</span><span class="cff-tshort">Фільтр</span></span><span class="cff-count"></span><button type="button" class="cff-reset" hidden>✕ Скинути</button><button type="button" class="cff-rnd" title="Місія за пиріжки або просто випадковий рейс (з тих, що підходять під фільтр)">🎯 МІСІЯ / Випадковий рейс</button></div></section>
     <section class="company-panel company-section wetlease-section">
       <div class="company-heading livery-heading">Флот авіакомпанії UCAA у WET LEASE (довготривалий лізинг, власні лівреї)</div>
       <div class="company-fleet-liveries">
@@ -929,15 +937,15 @@ document.querySelector('.close').onclick=()=>document.querySelector('#pilotDialo
 <script type="application/x-ucaa-deferred" data-ucaa-script-src="js/pilot-pay-policy.js?v=20260628-05"></script>
 <script type="application/x-ucaa-deferred" data-ucaa-script-src="js/incident-compensation-policy.js?v=20260623-5"></script>
 <script type="application/x-ucaa-deferred" data-ucaa-script-src="js/pie-rewards.js"></script>
-<script type=application/x-ucaa-deferred data-ucaa-script-src=js/pilot-profile-v2.js?v=20261127-missions-3></script>
+<script type=application/x-ucaa-deferred data-ucaa-script-src=js/pilot-profile-v2.js?v=20261127-mobile-font-2></script>
 <script type=application/x-ucaa-deferred data-ucaa-script-src=js/pilot-flights-map.js?v=20261127-mobile-2></script>
 <script type="application/x-ucaa-deferred" data-ucaa-script-src="js/app-navigation.js?v=20260628-1"></script>
 <script type="application/x-ucaa-deferred" data-ucaa-script-src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script type="application/x-ucaa-deferred" data-ucaa-script-src="js/ferry-airspace.js?v=20261018-crimea-1"></script>
 <script type="application/x-ucaa-deferred" data-ucaa-script-src="js/flight-block-time.js?v=20261017-1"></script>
-<script type=application/x-ucaa-deferred data-ucaa-script-type=module data-ucaa-script-src=js/pilot-cabinet.js?v=20261127-missions-3></script>
+<script type=application/x-ucaa-deferred data-ucaa-script-type=module data-ucaa-script-src=js/pilot-cabinet.js?v=20261127-missions-5></script>
 <script type=application/x-ucaa-deferred data-ucaa-script-type=module data-ucaa-script-src=js/company.js?v=20261127-fixed-periods-2></script>
-<script type=application/x-ucaa-deferred data-ucaa-script-src=js/iso-cabinet.js?v=20261127-missions-2></script>
-<script type=application/x-ucaa-deferred data-ucaa-script-src=js/company-filter.js?v=20261127-missions-6></script>
+<script type=application/x-ucaa-deferred data-ucaa-script-src=js/iso-cabinet.js?v=20261127-mobile-hdr-2></script>
+<script type=application/x-ucaa-deferred data-ucaa-script-src=js/company-filter.js?v=20261127-mobile-2></script>
 </body>
 </html>

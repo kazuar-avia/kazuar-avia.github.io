@@ -2029,13 +2029,13 @@
         .profile-v2 .profile-aircraft-list button{display:flex;justify-content:space-between;gap:6px;width:100%;border:1px solid #bbb;background:#fff;padding:5px;text-align:left;cursor:pointer}.profile-v2 .profile-aircraft-list button+button{margin-top:2px}.profile-v2 .profile-aircraft-list button:hover,.profile-v2 .profile-aircraft-list button.active{background:#fff7c7}
         .profile-v2 .profile-note{font-size:11px;color:#666;margin:6px 0}.profile-v2 .pie-hit-map{position:absolute;inset:0;width:100%;height:100%;border-radius:50%;pointer-events:none}.profile-v2 .pie-hit-map path{pointer-events:auto;cursor:help}
         @media(max-width:720px){.profile-v2 .profile-identity{grid-template-columns:112px minmax(0,1fr)}.profile-v2 .profile-aircraft-awards{grid-column:1/-1}.profile-v2 .profile-period-bar{align-items:flex-start;flex-direction:column}.profile-v2 .profile-period-buttons{flex-wrap:wrap}.profile-v2 .profile-finance-grid,.profile-v2 .profile-finance-body{grid-template-columns:1fr}.profile-v2 .profile-cards{grid-template-columns:1fr 1fr}}
-        body.mobile-cabinet .profile-v2 .profile-overall{display:block;table-layout:auto;width:100%}
+        body.mobile-cabinet .profile-v2 .profile-overall{display:block;table-layout:auto;width:100%;-webkit-text-size-adjust:100%;text-size-adjust:100%}
         body.mobile-cabinet .profile-v2 .profile-overall colgroup{display:none}
         body.mobile-cabinet .profile-v2 .profile-overall tbody{display:grid;grid-template-columns:max-content minmax(0,1fr)}
         body.mobile-cabinet .profile-v2 .profile-overall tr{display:contents}
-        body.mobile-cabinet .profile-v2 .profile-overall th,body.mobile-cabinet .profile-v2 .profile-overall td{display:block;min-width:0;padding:6px 8px;font-size:14px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:clip}
+        body.mobile-cabinet .profile-v2 .profile-overall th,body.mobile-cabinet .profile-v2 .profile-overall td{display:block;min-width:0;padding:5px 6px;font-size:12px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:clip}
         body.mobile-cabinet .profile-v2 .profile-overall th{width:auto;max-width:none;justify-self:stretch;box-sizing:border-box}
-        body.mobile-cabinet .profile-v2 .profile-overall td{text-align:left;font-family:Arial,sans-serif!important;font-size:14px!important;font-weight:400!important;letter-spacing:0!important}
+        body.mobile-cabinet .profile-v2 .profile-overall td{text-align:left;font-family:Arial,sans-serif!important;font-size:12.5px!important;font-weight:400!important;letter-spacing:0!important}
         body.mobile-cabinet .profile-v2 .profile-overall tbody tr:nth-child(1) th:nth-of-type(1){order:1}
         body.mobile-cabinet .profile-v2 .profile-overall tbody tr:nth-child(1) td:nth-of-type(1){order:2}
         body.mobile-cabinet .profile-v2 .profile-overall tbody tr:nth-child(2) th:nth-of-type(1){order:3}

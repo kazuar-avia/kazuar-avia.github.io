@@ -132,7 +132,7 @@
     panel.className = 'company-panel cff-panel';
     if (!panel.querySelector('.cff-head .cff-rnd')) {   // запасний варіант, якщо в HTML заголовка нема
       panel.innerHTML = `<div class="company-heading cff-head"><button type="button" class="cff-tog" title="Розгорнути фільтр">+</button>
-        <span class="cff-title">Фільтр запропонованих рейсів</span><span class="cff-count"></span><button type="button" class="cff-reset" hidden>✕ Скинути</button>
+        <span class="cff-title"><span class="cff-tfull">Фільтр запропонованих рейсів</span><span class="cff-tshort">Фільтр</span></span><span class="cff-count"></span><button type="button" class="cff-reset" hidden>✕ Скинути</button>
         <button type="button" class="cff-rnd" title="Місія за пиріжки або просто випадковий рейс">🎯 МІСІЯ / Випадковий рейс</button></div>`;
     }
     panel.querySelector('.cff-body')?.remove();
@@ -696,6 +696,21 @@
     #companyView .company-livery-live-badge .cff-mtag{display:inline-flex;align-items:center;gap:3px;color:#7a4f00;white-space:nowrap}
     #companyView .company-livery-live-badge .cff-mtag img.cff-pie{width:15px;height:15px;margin:0;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;object-fit:contain;vertical-align:middle}
     body.mobile-cabinet .cff-panel .cff-body{grid-template-columns:1fr 1fr}
+    /* телефон: список типів — на всю ширину панелі (а не від поля), щоб моделі влазили */
+    body.mobile-cabinet .cff-panel .cff-body{position:relative}
+    body.mobile-cabinet .cff-panel .cff-field{position:static}
+    body.mobile-cabinet .cff-pop{left:10px;right:10px;min-width:0;width:auto;max-height:60vh}
+    body.mobile-cabinet .cff-pop-type{width:auto;max-width:none}
+    body.mobile-cabinet .cff-cols{grid-template-columns:minmax(120px,40%) 1fr}
+    /* телефон: рулетка компактніша — плитки без фото, менша картка рейсу, кнопки видно без прокрутки */
+    body.mobile-cabinet .cff-rstage{height:74px;margin:8px}
+    body.mobile-cabinet .cff-tile{margin:4px 4px;padding:4px 5px}
+    body.mobile-cabinet .cff-tile .t0{display:none}
+    body.mobile-cabinet .cff-rres .company-livery-card{width:min(280px,100%);font-size:12px}
+    body.mobile-cabinet .cff-rres .company-livery-card img:not(.airport-flag):not(.cff-pie){max-height:105px;width:100%;object-fit:cover}
+    body.mobile-cabinet .cff-rmission{margin:8px 8px 0;padding:6px 8px}
+    body.mobile-cabinet .cff-rbtns{flex-wrap:wrap;gap:6px;padding:10px 8px}
+    body.mobile-cabinet .cff-rbtns button{min-width:0;flex:1 1 40%}
     @media (max-width:560px){.cff-panel .cff-body{grid-template-columns:1fr}.cff-pop-type{width:auto}.cff-cols{grid-template-columns:130px 1fr}}`;
   document.head.appendChild(st);
 

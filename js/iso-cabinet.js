@@ -985,13 +985,20 @@
   /* Телефон: картка пілота і форма входу — на всю ширину, в один рядок, нижчі */
   body.mobile-cabinet header.topline{padding-right:0}
   body.mobile-cabinet .devlogin{width:auto!important;height:auto!important;min-height:0;margin:4px 0;padding:4px 7px}
-  body.mobile-cabinet .devlogin[data-mode^="in:"] .me{flex-direction:row;align-items:center;gap:10px}
-  body.mobile-cabinet .devlogin[data-mode^="in:"] .devlogin-identity{flex:1;min-width:0}
-  body.mobile-cabinet .devlogin[data-mode^="in:"] .ava{width:34px!important;height:34px!important;flex-basis:34px}
-  body.mobile-cabinet .devlogin[data-mode^="in:"] .devlogin-person{gap:0;text-align:left}
-  body.mobile-cabinet .devlogin[data-mode^="in:"] .me .cap .adm{margin-left:8px}
-  body.mobile-cabinet .devlogin[data-mode^="in:"] .row{flex:none;border-top:0;padding-top:0}
-  body.mobile-cabinet .devlogin[data-mode^="in:"] .row .prof{flex:none;padding:2px 10px}
+  /* телефон після входу: рядок 1 — аватарка, нік, «Пілот UCAA · Місія · Адм.»; рядок 2 (під аватаркою) — колесо, «Мій профіль», «Вийти» */
+  body.mobile-cabinet .devlogin[data-mode^="in:"] .me{flex-direction:column;align-items:stretch;gap:5px}
+  body.mobile-cabinet .devlogin[data-mode^="in:"] .devlogin-identity{min-width:0}
+  body.mobile-cabinet .devlogin[data-mode^="in:"] .ava{width:38px!important;height:38px!important;flex-basis:38px}
+  body.mobile-cabinet .devlogin[data-mode^="in:"] .devlogin-person{gap:1px;text-align:left}
+  body.mobile-cabinet .devlogin[data-mode^="in:"] .nm{white-space:normal;overflow:visible}
+  body.mobile-cabinet .devlogin[data-mode^="in:"] .me .cap{flex-wrap:wrap;row-gap:2px}
+  body.mobile-cabinet .devlogin[data-mode^="in:"] .me .cap .adm{margin-left:10px;font-size:13px}
+  body.mobile-cabinet .devlogin[data-mode^="in:"] .me .cap .mis{font-size:14px}
+  body.mobile-cabinet .devlogin[data-mode^="in:"] .me .cap .capt{font-size:13px}
+  body.mobile-cabinet .devlogin[data-mode^="in:"] .me .cap .mis{margin-left:10px}
+  body.mobile-cabinet .devlogin[data-mode^="in:"] .row{display:flex;gap:8px;border-top:1px solid #d0e2e6;padding-top:5px}
+  body.mobile-cabinet .devlogin[data-mode^="in:"] .row .prof{flex:1;padding:3px 10px}
+  body.mobile-cabinet .devlogin[data-mode^="in:"] .row .out{flex:none;padding:3px 12px}
   body.mobile-cabinet .devlogin[data-mode="out"] form{flex-direction:row;align-items:center;gap:8px;width:auto}
   body.mobile-cabinet .devlogin[data-mode="out"] .cap{flex:none;font-size:0!important}
   body.mobile-cabinet .devlogin[data-mode="out"] .cap::before{content:'✈';font-size:16px}
