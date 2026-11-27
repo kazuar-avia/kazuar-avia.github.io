@@ -10659,6 +10659,197 @@
                         "elev": 1071
                     }
                 }
+            },
+            {
+                "_id": "6b09c2205516042e487b9637",
+                "aircraft": {
+                    "_id": "6b06e23a5516042e48782fff",
+                    "name": "Embraer 190 Freighter",
+                    "customName": "UCAA l Embraer 190F (cargo) based in UKOO l UR-ECA",
+                    "icao": "E190"
+                },
+                "type": "cargo",
+                "flightNumber": "5093",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 0,
+                    "cargo": 74,
+                    "weights": {
+                        "cargo": 8436
+                    }
+                },
+                "depTime": "2026-11-27T18:10:00.000Z",
+                "duration": 70,
+                "arrTime": "2026-11-27T19:20:00.000Z",
+                "depTimeAct": "2026-11-27T18:22:53.944Z",
+                "delay": 5,
+                "takeoffTimeAct": "2026-11-27T18:30:59.937Z",
+                "durationAct": 54,
+                "arrTimeAct": "2026-11-27T19:25:11.923Z",
+                "open": "2026-11-27T18:00:04.751Z",
+                "close": "2026-11-27T19:31:34.622Z",
+                "rating": 8.22,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 289,
+                        "fuel": 1568,
+                        "expenses": 3366,
+                        "penalties": 0,
+                        "revenue": 12950,
+                        "balance": 9584,
+                        "prices": {
+                            "ticketPrice": 145,
+                            "cargoUnitPrice": 175,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.7,
+                                "fuel": 0.8,
+                                "ground": 0.7
+                            }
+                        },
+                        "payload": {
+                            "pax": 0,
+                            "cargo": 74,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 0
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1419,
+                        "aircraft": 1628,
+                        "handling": 130,
+                        "landing": 189
+                    },
+                    "revenue": {
+                        "tickets": 0,
+                        "cargo": 12950
+                    },
+                    "violations": [
+                        {
+                            "title": "Average touchdown: 1.50G (426 ft/min, challenging  conditions)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 31
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.5,
+                                        "rate": 426
+                                    },
+                                    "weather": {
+                                        "windDir": 26.39,
+                                        "windSpd": 5.77,
+                                        "windX": 4
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Late landing configuration (at 889ft) below airline SOP altitude of 1000ft above airport level",
+                            "penalty": {
+                                "points": -150,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "flaps",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "No NAV lights for 79s when required",
+                            "penalty": {
+                                "points": -13,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        },
+                        {
+                            "title": "No BEACON lights for 79s when required",
+                            "penalty": {
+                                "points": -13,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": null
+                                }
+                            }
+                        },
+                        {
+                            "title": "Max G exceeded: 2.01G (max allowed: 2G)",
+                            "penalty": {
+                                "points": -2,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "gforce_range",
+                                "payload": {
+                                    "system": {
+                                        "fps": 32
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-27T17:47:12.442Z",
+                "updatedAt": "2026-11-27T19:31:34.712Z",
+                "dep": {
+                    "icao": "UKOO",
+                    "name": "Odesa International Airport",
+                    "city": "Odesa",
+                    "location": {
+                        "lat": 46.427196,
+                        "lon": 30.672649,
+                        "elev": 172
+                    }
+                },
+                "arr": {
+                    "icao": "UKKM",
+                    "name": "Hostomel Airport",
+                    "city": "Kiev",
+                    "location": {
+                        "lat": 50.6035,
+                        "lon": 30.1919,
+                        "elev": 517
+                    }
+                },
+                "actArr": {
+                    "icao": "UKKM",
+                    "name": "Hostomel Airport",
+                    "city": "Kiev",
+                    "location": {
+                        "lat": 50.6035,
+                        "lon": 30.1919,
+                        "elev": 517
+                    }
+                }
             }
         ]
     },
