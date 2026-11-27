@@ -194,17 +194,20 @@
     if (!me) return null;
     try { const f = window.UCAAPilotProfile?.pilotAircraftFamilies?.(me); return Array.isArray(f) && f.length ? new Set(f) : null; } catch (e) { return null; }
   }
-  function flightPool() {
+  // mission = true — прокрутка на місію: фільтр сторінки НЕ діє (щоб не можна було «вибрати» собі рейс), лише типи пілота
+  function flightPool(mission) {
     // літаки, що зараз у польоті (є в LIVE NOW або картка позначена LIVE), — не в рулетку
     const liveIds = new Set([...document.querySelectorAll('#companyView .liveair-section .company-livery-card')].map(c => c.dataset.aircraftId).filter(Boolean));
-    const base = infos().filter(i => i.section !== 'liveair' && i.dep && i.arr && !i.card.classList.contains('cff-hide')
+    const filtered = !mission && active();
+    const base = infos().filter(i => i.section !== 'liveair' && i.dep && i.arr && (mission || !i.card.classList.contains('cff-hide'))
       && !i.card.classList.contains('company-livery-live') && !liveIds.has(i.card.dataset.aircraftId));
+    const tail = mission && active() ? ' (фільтр для місій не діє)' : '';
     const fam = myFamilies();
-    if (!fam) return {list: base, note: active() ? 'з рейсів під фільтр' : 'з усіх запропонованих рейсів'};
+    if (!fam) return {list: base, note: (filtered ? 'з рейсів під фільтр' : 'з усіх запропонованих рейсів') + tail};
     const mine = base.filter(i => familiesOf(i).some(f => fam.has(f)));
     const names = [...fam].map(famLabel).sort().join(', ');
-    if (!mine.length) return {list: base, note: `на ваших типах (${names}) зараз рейсів нема — з усіх${active() ? ' під фільтр' : ''}`};
-    return {list: mine, note: `на типах, якими ви вже літали: ${names}`};
+    if (!mine.length) return {list: base, note: `на ваших типах (${names}) зараз рейсів нема — з усіх${filtered ? ' під фільтр' : ''}${tail}`};
+    return {list: mine, note: `на типах, якими ви вже літали: ${names}${tail}`};
   }
   const routeHtml = i => `<b>${i.dep}</b>${flagImg(i.dep)} → <b>${i.arr}</b>${flagImg(i.arr)}`;
   // мініатюра літака — та сама картинка, що на картці (вже в кеші браузера)
@@ -323,6 +326,7 @@
     box.innerHTML = '<div class="cff-rmrules">Завантаження місії…</div>';
     const res = await mapi('/missions/state');
     if (!res.ok) { back.mst = null; box.innerHTML = res.status === 404 ? '' : `<div class="cff-rmerr">⚠ ${esc(res.error)}</div>`; return free(); }
+    if (res.data.canSpin) prepare(back, true);   // місія: стрічка і підпис — з усіх рейсів, без фільтра
     renderMission(back, res.data);
   }
   async function decide(back, id, accept) {
@@ -358,8 +362,8 @@
     loadMission(back);
   }
   // стартовий вигляд: з чого підбираємо + нерухома стрічка з кількох рейсів
-  function prepare(back) {
-    const {list, note} = flightPool();
+  function prepare(back, mission) {
+    const {list, note} = flightPool(mission);
     back.querySelector('.cff-rnote').textContent = list.length ? `Підбір ${note} · ${list.length} ${list.length === 1 ? 'рейс' : list.length < 5 ? 'рейси' : 'рейсів'}` : '';
     const tape = back.querySelector('.cff-rtape');
     tape.style.transition = 'none';
@@ -376,7 +380,7 @@
     const st = back.mst;
     if (st && (st.offered || st.active)) { renderMission(back, st); return; }   // спершу рішення по місії
     const mission = Boolean(st && st.canSpin);
-    const {list, note} = flightPool();
+    const {list, note} = flightPool(mission);
     const res = back.querySelector('.cff-rres'), tape = back.querySelector('.cff-rtape');
     back.querySelector('.cff-rnote').textContent = list.length ? `Підбір ${note} · ${list.length} ${list.length === 1 ? 'рейс' : list.length < 5 ? 'рейси' : 'рейсів'}` : '';
     res.innerHTML = '';
