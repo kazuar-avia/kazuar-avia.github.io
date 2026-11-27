@@ -12060,7 +12060,7 @@ document.querySelectorAll('details.livery-details').forEach(section => {
 
   // на вузькому екрані заголовка нема — тоді підказка в полі «Отримати METAR»
   const narrow = window.matchMedia('(max-width: 1380px)');
-  function placeholderText() { return narrow.matches ? 'Отримати METAR' : 'Напиши код ICAO'; }
+  function placeholderText() { return narrow.matches ? 'METAR' : 'Напиши код ICAO'; }
   const syncPlaceholders = () => slots.forEach(s => { s.input.placeholder = placeholderText(); });
   if (narrow.addEventListener) narrow.addEventListener('change', syncPlaceholders); else narrow.addListener(syncPlaceholders);
 
