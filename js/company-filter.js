@@ -710,6 +710,9 @@
     body.mobile-cabinet .cff-panel .cff-body{position:relative}
     body.mobile-cabinet .cff-panel .cff-field{position:static}
     body.mobile-cabinet .cff-pop{left:10px;right:10px;min-width:0;width:auto;max-height:60vh}
+    body.mobile-cabinet .cff-row input,body.mobile-cabinet .cff-field[data-k="dep"] input,body.mobile-cabinet .cff-field[data-k="arr"] input{font-size:16px}
+    body.mobile-cabinet .cff-row input::placeholder{font-size:14px}
+    body.mobile-cabinet .cff-opt{font-size:15px;padding:6px 8px}
     body.mobile-cabinet .cff-pop-type{width:auto;max-width:none}
     body.mobile-cabinet .cff-cols{grid-template-columns:minmax(120px,40%) 1fr}
     /* телефон: рулетка компактніша — плитки без фото, менша картка рейсу, кнопки видно без прокрутки */

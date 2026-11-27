@@ -12,6 +12,8 @@
   const TOOLS_H = 62;                  // смужка інструментів під заголовком панелі (тільки під час редагування)
   const AUTH_KEY = 'devCabinetAuth';
   const missionHdr = {on: false, at: 0, auth: ''};   // місія в шапці (checkMissionHdr)
+  // підпис у шапці замість «Пілот UCAA» (з 27.11.2026): Kazuar Avia — СЕО, Nazar Pilot — адмін
+  const ROLE_TITLES = {'6957b3673dc76275ba7e053e': 'СЕО UCAA', '695ce1b43dc76275ba0f240e': 'Адмін UCAA'};
   const BASE_DPR_KEY = 'devCabinetBaseDpr';
   const SAVE_KEY = id => `devIsoCabinet1:${id}`;
   const TW = 64, TH = 32;   // ромб клітинки в пікселях картинок
@@ -3265,7 +3267,7 @@
         <img class="ava" alt="" src="https://newsky.app/api/pilot/avatar/${encodeURIComponent(av)}"
           onerror="if(!this.dataset.fb){this.dataset.fb='1';this.src='https://newsky.app/api/pilot/avatar/default'}">
         <div class="devlogin-person"><b class="nm" title="${esc(localStorage.getItem(AUTH_NAME_KEY) || state.auth)}">${esc(localStorage.getItem(AUTH_NAME_KEY) || state.auth)}</b>
-          <span class="cap"><span class="capt">✈ Пілот UCAA</span>${fw}${mis}${adm}</span></div></div>
+          <span class="cap"><span class="capt">✈ ${esc(ROLE_TITLES[state.auth] || 'Пілот UCAA')}</span>${fw}${mis}${adm}</span></div></div>
         <div class="row"><button type="button" class="whl" title="🎡 Колесо фортуни"><img class="pieic" src="${WHEEL_ICON}" alt="🎡"></button><button type="button" class="prof"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="3.5"/><path d="M5 21v-2a7 7 0 0 1 14 0v2"/></svg>Мій профіль</button><button type="button" class="out"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10 17l5-5-5-5m5 5H3m11-8h5a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-5"/></svg>Вийти</button></div></div>`;
       box.querySelector('.out').onclick = logout;
       // аватарка в шапці → налаштування NewSky (там міняється аватарка)
@@ -3283,7 +3285,7 @@
         window.UCAAMissions?.open();
       };
       // тестовий «Містер Кеш» (для відео-інструкцій): клік по «✈ Пілот UCAA» повертає безкоштовну прокрутку на сьогодні
-      if (FREE_RESET_IDS.includes(state.auth)) {
+      if (FREE_RESET_IDS.includes(state.auth) && !ROLE_TITLES[state.auth]) {   // СЕО / адмін — без цього кліку
         const capt = box.querySelector('.capt');
         capt.style.cursor = 'pointer';
         capt.title = 'Тест: повернути безкоштовну прокрутку колеса на сьогодні';
@@ -3878,8 +3880,21 @@
   const wheelCats = w => { const o = wheel.data?.odds?.[w]; if (!o) return [];
     const cons = {group: o.cons.usd ? `💰 ${fmtUsd(o.cons.usd)}` : `🥧 ${o.cons.pies} пиріжок`, p: o.cons.p, cons: true};
     const cash = (o.cash || []).map(c => ({group: `💵 ${fmtUsd(c.usd)}`, p: c.p, cash: c.usd}));   // сектори «просто гроші»
-    let a = 0;   // кути секторів: 0° — угорі, за годинниковою
-    return [...o.cats, cons, ...cash].map(c => { const r = {...c, a0: a, a1: a + c.p * 360}; a = r.a1; return r; }); };
+    // кути секторів — ТІЛЬКИ для малюнка (шанси вибирає сервер, вони не змінюються): розмір ∝ √шансу, мінімум MIN°,
+    // тож видно підписи всіх категорій, а сектор із більшим шансом завжди більший (або рівний) за сектор із меншим
+    const list = [...o.cats, cons, ...cash];
+    const MIN = Math.min(9, 300 / Math.max(1, list.length));
+    let v = list.map(c => Math.sqrt(Math.max(0, c.p)));
+    const fixed = new Set();
+    for (let k = 0; k < list.length; k++) {   // «підтягуємо» замалі сектори до MIN, решту пропорційно стискаємо
+      const free = 360 - fixed.size * MIN, sum = v.reduce((s, x, i) => s + (fixed.has(i) ? 0 : x), 0);
+      const small = v.findIndex((x, i) => !fixed.has(i) && x / sum * free < MIN);
+      if (small < 0) { v = v.map((x, i) => fixed.has(i) ? MIN : x / sum * free); break; }
+      fixed.add(small);
+      if (fixed.size === list.length) { v = v.map(() => 360 / list.length); break; }
+    }
+    let a = 0;   // 0° — угорі, за годинниковою
+    return list.map((c, i) => { const r = {...c, a0: a, a1: a + v[i]}; a = r.a1; return r; }); };
   // SVG колеса: сектори = категорії (розмір = шанс)
   function wheelSvg(w, D) {
     const cats = wheelCats(w), R = D / 2;
@@ -3891,7 +3906,7 @@
       const col = c.cons ? '#dee2e6' : c.cash ? '#40c057' : WHEEL_COLORS[n % WHEEL_COLORS.length];
       out += da >= 359.9 ? `<circle cx="${R}" cy="${R}" r="${R - 3}" fill="${col}"/>`
         : `<path d="M${R} ${R}L${x0.toFixed(2)} ${y0.toFixed(2)}A${R - 3} ${R - 3} 0 ${da > 180 ? 1 : 0} 1 ${x1.toFixed(2)} ${y1.toFixed(2)}Z" fill="${col}" stroke="#fff" stroke-width="1.5"/>`;
-      if (da >= 6) {   // підпис — тільки для помітних секторів (уздовж радіуса)
+      if (da >= 4) {   // підпис уздовж радіуса (сектори тепер не менші за ~8°, тож підписані всі)
         const mid = a + da / 2, [tx, ty] = pt(mid, R * 0.62);
         const label = c.group.replace(/^Люди: /, '👤 ').slice(0, 18);
         out += `<text x="${tx.toFixed(1)}" y="${ty.toFixed(1)}" font-size="${Math.max(9, Math.min(14, D / 34))}" font-weight="bold" text-anchor="middle" dominant-baseline="middle"
