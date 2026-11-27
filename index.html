@@ -11915,7 +11915,7 @@ document.querySelectorAll('details.livery-details').forEach(section => {
   function addSlot(focus) {
     const el = document.createElement('div');
     el.className = 'wx-slot';
-    el.innerHTML = '<div class="wx-row"><input type="text" maxlength="4" autocomplete="off" spellcheck="false" aria-label="Код ICAO аеропорту"></div><div class="wx-out"></div>';
+    el.innerHTML = '<div class="wx-row"><input type="text" name="wx-icao" maxlength="4" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore="true" data-bwignore="true" data-form-type="other" aria-label="Код ICAO аеропорту"></div><div class="wx-out"></div>';
     const slot = {el, input: el.querySelector('input'), out: el.querySelector('.wx-out'), code: '', req: 0, ukSource: ''};
     slot.input.placeholder = placeholderText();
     // ↻ — оновити погоду цього аеродрому

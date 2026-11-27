@@ -137,12 +137,12 @@
     }
     panel.querySelector('.cff-body')?.remove();
     panel.insertAdjacentHTML('beforeend', `
-      <div class="cff-body" hidden>
+      <form class="cff-body" hidden autocomplete="off" role="search" onsubmit="return false">
         ${field('type', 'Тип літака', 'напр. 319, A, Boeing')}
         ${field('airline', 'Авіакомпанія', 'UCAA, Windrose, SkyUp…')}
         ${field('dep', 'Виліт', 'ICAO')}
         ${field('arr', 'Прибуття', 'ICAO')}
-      </div>`);
+      </form>`);
     panel.querySelector('.cff-rnd').onclick = pickRandom;
     panel.querySelector('.cff-tog').onclick = () => { state.open = !state.open; syncOpen(); };
     panel.querySelector('.cff-title').onclick = () => { state.open = !state.open; syncOpen(); };
@@ -500,7 +500,8 @@
   }
   function field(k, label, ph) {
     return `<div class="cff-field" data-k="${k}"><span class="cff-lbl">${label}</span><div class="cff-row">
-      <input type="text" autocomplete="off" spellcheck="false" placeholder="${ph}"${k === 'dep' || k === 'arr' ? ' maxlength="4"' : ''}>
+      <input type="text" name="cff-filter-${k}" id="cff-filter-${k}" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+        data-lpignore="true" data-1p-ignore="true" data-bwignore="true" data-form-type="other" aria-label="${label}" placeholder="${ph}"${k === 'dep' || k === 'arr' ? ' maxlength="4"' : ''}>
       <button type="button" class="cff-pick" title="Вибрати зі списку">▾</button><button type="button" class="cff-clear" title="Очистити">✕</button></div></div>`;
   }
   function syncOpen() {
