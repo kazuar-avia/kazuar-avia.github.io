@@ -4358,7 +4358,7 @@ Crackish <br>
 /* kazuar-no-aircraft-title-v3 */
 #ukraine-live-map .ukraine-flight-marker .ukraine-flight-icon svg {filter:drop-shadow(0 0 .65px rgba(255,255,255,.95));}
 </style>
-<script src="js/flight-aircraft-icons.js?v=20261127-marker-size-1"></script>
+<script src="js/flight-aircraft-icons.js?v=20261127-radar-c1619fb338"></script>
 <style id="kazuar-adaptive-labels-v2">
 #ukraine-live-map .ukraine-airport-marker .ukraine-airport-name,
 #ukraine-live-map .ukraine-airport-marker .ukraine-airport-label {
@@ -8648,6 +8648,7 @@ window.ukraineGroundVisible = false;
 
   // Без жорсткого обмеження карти: даємо вільне панорамування на зумі.
 
+  map.attributionControl?.addAttribution('<a href="https://github.com/VATSIM-Radar/vatsim-radar/tree/9e70c08da081d8c8678c68d4052b3befc075959c/app/assets/icons/aircraft" target="_blank" rel="noopener noreferrer">Aircraft icons: VATSIM Radar</a> (adapted, <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC 4.0</a>)');
   window.ukraineLiveMap = map;
   map.on("zoomend", updateUkraineAirportVisibility);
   window.KazuarMapLabels.attach(map);
