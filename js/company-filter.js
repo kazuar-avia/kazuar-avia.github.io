@@ -279,6 +279,13 @@
   // стан місій у вікні рулетки
   function renderMission(back, st, justAccepted) {
     back.mst = st;
+    renderMissionBody(back, st, justAccepted);
+    const after = back.querySelector('.cff-rafter');
+    after.innerHTML = '';
+    const req = document.body.classList.contains('mobile-cabinet') && back.querySelector('.cff-rmission .cff-req');
+    if (req) after.appendChild(req);
+  }
+  function renderMissionBody(back, st, justAccepted) {
     const box = back.querySelector('.cff-rmission');
     const done = (st.recent || []).filter(m => m.status === 'done').slice(-1)[0];
     const doneHtml = done && Date.now() - new Date(done.flight?.close || 0).getTime() < 36 * 3600e3
@@ -287,7 +294,7 @@
       const o = st.offered, next = {1: 4, 2: 3}[o.attempt];
       showMissionCard(back, o, '🎉 Вам випало:');
       box.innerHTML = `${doneHtml}<div class="cff-rmtitle">🎯 Місія на <b>${pies(o.reward)}</b> · спроба ${o.attempt} з 3</div>
-        <div class="cff-rmrules">Почати рейс треба протягом 6 год (до <b>${utc(Date.now() + 6 * 3600e3)}</b>)<br>
+        <div class="cff-rmrules cff-req">Почати рейс треба протягом 6 год (до <b>${utc(Date.now() + 6 * 3600e3)}</b>)<br>
         Завершити — протягом 24 год після прийняття.<br>
         ${next ? `Якщо відмовитесь, наступна прокрутка дасть нагороду макс. ${pies(next)}.` : 'Це остання прокрутка на сьогодні — якщо відмовитесь, нова місія завтра.'}</div>`;
       setButtons(back, {accept: `✅ Прийняти місію<small>на ${pies(o.reward)}</small>`,
@@ -301,7 +308,7 @@
       showMissionCard(back, a, '🎯 Ваша місія:');
       box.innerHTML = `${doneHtml}<div class="cff-rmok">${justAccepted ? '✅ Місію прийнято! Вона офіційно закріплена за вами.' : '🎯 У вас активна місія.'}</div>
         <div class="cff-rmtitle">Нагорода: <b>${pies(a.reward)}</b> · ${esc(a.offer.dep)} → ${esc(a.offer.arr)}</div>
-        <div class="cff-rmrules">Почати рейс до <b>${utc(a.startBy)}</b><br>Завершити до <b>${utc(a.finishBy)}</b><br>
+        <div class="cff-rmrules cff-req">Почати рейс до <b>${utc(a.startBy)}</b><br>Завершити до <b>${utc(a.finishBy)}</b><br>
         Нову місію можна взяти після виконання (або коли мине час).</div>`;
       setButtons(back, {close: 'Закрити'});
       return;
@@ -351,7 +358,7 @@
       <div class="cff-rnote"></div><div class="cff-rstage"><div class="cff-rptr"></div><div class="cff-rtape"></div></div><div class="cff-rres"></div>
       <div class="cff-rmission"></div>
       <div class="cff-rbtns"><button type="button" class="cff-ragain">🎲 Підібрати</button><button type="button" class="cff-raccept" hidden></button><button type="button" class="cff-rdecline" hidden></button>
-        <button type="button" class="cff-rclose">Ще подумаю</button></div></div>`;
+        <button type="button" class="cff-rclose">Ще подумаю</button></div><div class="cff-rafter"></div></div>`;
     view.appendChild(back);   // усередині #companyView — копія картки має ті самі стилі, що й на сторінці
     const close = () => { if (!rouletteBusy) back.remove(); };
     back.querySelector('.cff-rx').onclick = close;
@@ -675,6 +682,9 @@
     .cff-rmission:empty{display:none}
     .cff-rmtitle{font:15px Arial,sans-serif}
     .cff-rmrules{margin-top:5px;color:#444;font-size:13px;line-height:1.55}
+    .cff-rafter:empty{display:none}
+    .cff-rafter{margin:0 8px 10px;padding:6px 8px;border:1px solid #e3d29a;border-radius:6px;background:#fffbea;text-align:center}
+    .cff-rafter .cff-rmrules{margin-top:0}
     .cff-rmdone{margin-bottom:6px;padding:5px 8px;border:1px solid #9cc794;background:#eaf6e6;color:#2b5a24;font-weight:bold}
     .cff-rmok{margin-bottom:6px;padding:6px 8px;border:1px solid #5f9e55;background:#d7f2da;color:#1f5f2b;font:bold 14px Arial,sans-serif}
     .cff-rmerr{margin-top:6px;color:#a33;font-weight:bold}
