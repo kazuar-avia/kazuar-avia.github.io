@@ -8624,6 +8624,165 @@
                         "elev": 648
                     }
                 }
+            },
+            {
+                "_id": "6b09a2c6d962ff40f1b7155d",
+                "aircraft": {
+                    "_id": "6980e9459da57b990a02e1bd",
+                    "name": "Boeing 737 MAX 8",
+                    "customName": "Ukraine Int l 737-MAX8 189 pax iFly l UR-MXA",
+                    "icao": "B38M"
+                },
+                "type": "pax",
+                "flightNumber": "158",
+                "free": false,
+                "schedule": true,
+                "charter": false,
+                "payload": {
+                    "pax": 189,
+                    "cargo": 16,
+                    "weights": {
+                        "cargo": 1776
+                    }
+                },
+                "depTime": "2026-11-27T15:45:00.000Z",
+                "duration": 205,
+                "arrTime": "2026-11-27T19:10:00.000Z",
+                "depTimeAct": "2026-11-27T15:47:02.036Z",
+                "delay": 15,
+                "takeoffTimeAct": "2026-11-27T15:52:55.978Z",
+                "durationAct": 212,
+                "arrTimeAct": "2026-11-27T19:25:16.522Z",
+                "open": "2026-11-27T15:33:54.801Z",
+                "close": "2026-11-27T19:28:56.783Z",
+                "rating": 6.64,
+                "simulator": "xp",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 1254,
+                        "fuel": 10294,
+                        "expenses": 20116,
+                        "penalties": 0,
+                        "revenue": 49834,
+                        "balance": 29718,
+                        "prices": {
+                            "ticketPrice": 242,
+                            "cargoUnitPrice": 256,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 189,
+                            "cargo": 16,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 189
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 9310,
+                        "aircraft": 7700,
+                        "handling": 1351,
+                        "landing": 1755
+                    },
+                    "revenue": {
+                        "tickets": 45738,
+                        "cargo": 4096
+                    },
+                    "violations": [
+                        {
+                            "title": "Insufficient fuel reserves on landing (actual: 1125 kg, required: 1562 kg based on OFP)",
+                            "penalty": {
+                                "points": -336,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 21
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.09,
+                                        "rate": 218
+                                    },
+                                    "weather": {
+                                        "windDir": 121.72,
+                                        "windSpd": 6,
+                                        "windX": 4
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.09G (218 ft/min, challenging  conditions)<br/>Distance from threshold: 458m (accepted range: 196-785m)<br/>Average centerline deviation: 0.57m<br/>Max centerline deviation: 1.78m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 21
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.09,
+                                        "rate": 218
+                                    },
+                                    "weather": {
+                                        "windDir": 121.72,
+                                        "windSpd": 6,
+                                        "windX": 4.12
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-27T15:33:26.978Z",
+                "updatedAt": "2026-11-27T19:28:56.900Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "EGKK",
+                    "name": "London Gatwick Airport",
+                    "city": "London",
+                    "location": {
+                        "lat": 51.148744,
+                        "lon": -0.185739,
+                        "elev": 202
+                    }
+                },
+                "actArr": {
+                    "icao": "EGKK",
+                    "name": "London Gatwick Airport",
+                    "city": "London",
+                    "location": {
+                        "lat": 51.148744,
+                        "lon": -0.185739,
+                        "elev": 202
+                    }
+                }
             }
         ]
     },
