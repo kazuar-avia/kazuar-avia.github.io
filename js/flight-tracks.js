@@ -22,6 +22,43 @@
     }
     return stops[stops.length-1][1];
   }
+  // Choose an aerodrome by position only; determine ground status by elevation only.
+  // Both VATSIM altitude and OurAirports elevation are in feet.
+  const groundToleranceFt = 150, airportRadiusKm = 5;
+  function airportElevationLookup(airports) {
+    const list = (Array.isArray(airports) ? airports : [])
+      .filter(a => valid(a) && Number.isFinite(a.elevationFt))
+      .slice().sort((a,b) => a.lat-b.lat);
+    const rad = Math.PI/180, earthKm = 6371;
+    const latRange = airportRadiusKm/earthKm/rad;
+    return function elevationAt(p) {
+      if (!valid(p)) return null;
+      let lo=0, hi=list.length;
+      while (lo<hi) {
+        const mid=(lo+hi)>>>1;
+        if (list[mid].lat<p.lat-latRange) lo=mid+1; else hi=mid;
+      }
+      let nearest=null, best=airportRadiusKm;
+      for (let i=lo; i<list.length && list[i].lat<=p.lat+latRange; i++) {
+        const a=list[i], dy=(a.lat-p.lat)*rad, dx=(a.lon-p.lon)*rad;
+        const v=Math.sin(dy/2)**2+Math.cos(p.lat*rad)*Math.cos(a.lat*rad)*Math.sin(dx/2)**2;
+        const km=2*earthKm*Math.asin(Math.sqrt(Math.min(1,Math.max(0,v))));
+        if (km<=best) {best=km;nearest=a.elevationFt;}
+      }
+      return nearest;
+    };
+  }
+  function groundPoint(p, elevationAt) {
+    if (!Number.isFinite(p.alt) || typeof elevationAt !== 'function') return false;
+    const elevation=elevationAt(p);
+    return Number.isFinite(elevation) && Math.abs(p.alt-elevation)<=groundToleranceFt;
+  }
+  function segmentColor(source,a,b,elevationAt) {
+    if (source==='newsky') return '#1a9d61';
+    if (groundPoint(a,elevationAt) && groundPoint(b,elevationAt)) return '#ffffff';
+    const known=Number.isFinite(a.alt)&&Number.isFinite(b.alt);
+    return altitudeColor(known ? (a.alt+b.alt)/2 : null);
+  }
   function identity(source, flight) {
     if (source === 'newsky') {
       const key = flight?._id || flight?.id;
@@ -40,14 +77,13 @@
     return base + '/api/flight-tracks?' + new URLSearchParams(id);
   }
   function valid(p) { return p && typeof p.lat === 'number' && typeof p.lon === 'number' && Number.isFinite(p.lat) && Number.isFinite(p.lon) && Math.abs(p.lat)<=90 && Math.abs(p.lon)<=180; }
-  function segments(source, points) {
+  function segments(source, points, elevationAt) {
     const result = [];
     let last = null;
     for (const p of Array.isArray(points) ? points : []) {
       if (!valid(p)) { last = null; continue; }
       if (last && !p.break_before && Math.abs(last.lon-p.lon)<=180 && (last.lat!==p.lat || last.lon!==p.lon)) {
-        const known = typeof last.alt === 'number' && Number.isFinite(last.alt) && typeof p.alt === 'number' && Number.isFinite(p.alt);
-        const color = source === 'newsky' ? '#1a9d61' : altitudeColor(known ? (last.alt+p.alt)/2 : null);
+        const color = segmentColor(source,last,p,elevationAt);
         const from = [last.lat,last.lon], to = [p.lat,p.lon], previous = result[result.length-1];
         if (previous && previous.color === color && previous.last === last) { previous.coords.push(to); previous.last = p; }
         else result.push({color, coords:[from,to],last:p});
@@ -177,12 +213,12 @@
     coords.push(straight[1]);
     return coords;
   }
-  function smoothSegments(source,points) {
+  function smoothSegments(source,points,elevationAt) {
     const p=Array.isArray(points)?points:[],out=[];
     for(let i=1;i<p.length;i++){
       const b=p[i-1],c=p[i];
       if(!adjacent(b,c)||(b.lat===c.lat&&b.lon===c.lon))continue;
-      const color=source==='newsky'?'#1a9d61':altitudeColor(typeof b.alt==='number'&&Number.isFinite(b.alt)&&typeof c.alt==='number'&&Number.isFinite(c.alt)?(b.alt+c.alt)/2:null);
+      const color=segmentColor(source,b,c,elevationAt);
       // VATSIM samples are denser; do not estimate curves across gaps over 60 seconds.
       const coords=roundedLeg(p[i-2],b,c,p[i+1],source==='newsky'?240:60);
       const prev=out[out.length-1];
@@ -191,17 +227,17 @@
     }
     return out.map(({color,coords})=>({color,coords}));
   }
-  function draw(L, layer, source, points) {
-    for (const segment of smoothSegments(source,points)) {
+  function draw(L, layer, source, points, elevationAt) {
+    for (const segment of smoothSegments(source,points,elevationAt)) {
       historyPolyline(L,segment.coords,{...historyStyle,smoothFactor:0,color:segment.color}).addTo(layer);
     }
   }
-  function drawRoute(L,layer,source,points,dep,live,arr,color){
+  function drawRoute(L,layer,source,points,dep,live,arr,color,elevationAt){
     for(const h of helpers(points,dep,live,arr)){
       L.polyline(h.coords,{...historyStyle,color,weight:1,opacity:.92,
         ...(h.kind==='arrival'?{}:{dashArray:'5 5'})}).addTo(layer);
     }
-    draw(L,layer,source,points);
+    draw(L,layer,source,points,elevationAt);
   }
-  return {identity,same,url,segments,altitudeColor,load,draw,helpers,drawRoute,smoothSegments};
+  return {identity,same,url,segments,altitudeColor,load,draw,helpers,drawRoute,smoothSegments,airportElevationLookup};
 });

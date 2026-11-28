@@ -4625,7 +4625,7 @@ Crackish <br>
 }
 </style>
 <script src="js/map-labels.js"></script>
-<script src="js/flight-tracks.js?v=20261127-vatsim-curves-1"></script>
+<script src="js/flight-tracks.js?v=20261128-ground-elevation-1"></script>
 <script>
  let currentSort = '';
 let sortDirection = 1; 
@@ -4639,6 +4639,7 @@ let newskyCharterDemandByAirport = {};
 let ourAirportsFallback = {};
 let ourAirportsFallbackLoaded = false;
 let ourAirportsFallbackLoading = null;
+ let ourAirportsElevationAt = null;
 let selectedWeatherAirport = '';
 let weatherPreferOpenMeteoFirst = true;
 let depAirportFilter = 'ALL';
@@ -5792,12 +5793,15 @@ async function loadOurAirportsFallback() {
             const identIdx = header.indexOf("ident");
             const latIdx = header.indexOf("latitude_deg");
             const lonIdx = header.indexOf("longitude_deg");
+            const elevationIdx = header.indexOf("elevation_ft");
+            const typeIdx = header.indexOf("type");
 
             if (identIdx < 0 || latIdx < 0 || lonIdx < 0) {
                 throw new Error("OurAirports CSV: required columns missing");
             }
 
             const map = {};
+            const elevations = [];
 
             for (let i = 1; i < lines.length; i++) {
                 const raw = lines[i];
@@ -5805,16 +5809,23 @@ async function loadOurAirportsFallback() {
 
                 const cols = parseCsvLine(raw);
                 const ident = String(cols[identIdx] || "").trim().toUpperCase();
-                if (!/^[A-Z]{4}$/.test(ident)) continue;
+                const latRaw = String(cols[latIdx] ?? "").trim();
+                const lonRaw = String(cols[lonIdx] ?? "").trim();
+                if (!latRaw || !lonRaw) continue;
+                const lat = Number(latRaw), lon = Number(lonRaw);
+                if (!Number.isFinite(lat) || !Number.isFinite(lon) || Math.abs(lat)>90 || Math.abs(lon)>180) continue;
 
-                const lat = Number(cols[latIdx]);
-                const lon = Number(cols[lonIdx]);
-                if (!Number.isFinite(lat) || !Number.isFinite(lon)) continue;
-
-                map[ident] = { lat, lon };
+                if (/^[A-Z]{4}$/.test(ident)) map[ident] = { lat, lon };
+                const elevationRaw = String(cols[elevationIdx] ?? "").trim();
+                const elevationFt = Number(elevationRaw);
+                if (elevationRaw && Number.isFinite(elevationFt) &&
+                    String(cols[typeIdx] ?? "") !== "closed") {
+                    elevations.push({lat, lon, elevationFt});
+                }
             }
 
             ourAirportsFallback = map;
+            ourAirportsElevationAt = window.KazuarFlightTracks?.airportElevationLookup(elevations) || null;
             ourAirportsFallbackLoaded = true;
         } catch (e) {
             console.warn("OurAirports fallback load failed:", e);
@@ -11414,7 +11425,7 @@ function showUkraineActiveFlightRoute(depCoords, depIcao, aircraftCoords, arrCoo
     const live = marker?.getLatLng();
     const currentCoords = live ? [live.lat, live.lng] : aircraftCoords;
     routeLayer.clearLayers();
-    if (tracks) tracks.drawRoute(L, routeLayer, trackId?.source || "vatsim", points, depCoords, currentCoords, arrCoords, color);
+    if (tracks) tracks.drawRoute(L, routeLayer, trackId?.source || "vatsim", points, depCoords, currentCoords, arrCoords, color, ourAirportsElevationAt);
     addEndpointIcaoLabel(routeLayer, depCoords, depIcao);
     addEndpointIcaoLabel(routeLayer, arrCoords, arrIcao);
   }
@@ -11425,6 +11436,12 @@ function showUkraineActiveFlightRoute(depCoords, depIcao, aircraftCoords, arrCoo
   tracks.load(trackId, window.location, controller.signal).then(points => {
     if (controller.signal.aborted || window.ukraineSelectedTrack !== selected) return;
     paint(points);
+    // History can arrive before the existing asynchronous airport database.
+    if (trackId.source === "vatsim" && !ourAirportsFallbackLoaded) {
+      loadOurAirportsFallback().then(() => {
+        if (!controller.signal.aborted && window.ukraineSelectedTrack === selected && ourAirportsElevationAt) paint(points);
+      });
+    }
   }).catch(error => {
     if (!controller.signal.aborted) console.warn("Flight track unavailable:", error);
   });
