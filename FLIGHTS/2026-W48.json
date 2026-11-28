@@ -12424,6 +12424,210 @@
                         "elev": 517
                     }
                 }
+            },
+            {
+                "_id": "6b0af4825516042e487d1909",
+                "aircraft": {
+                    "_id": "69ef3747a5e61d69a7aad0da",
+                    "name": "Airbus A320",
+                    "customName": "UCAA l A320 based in UKDE l UR-BUS",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "336",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 152,
+                    "cargo": 23,
+                    "weights": {
+                        "cargo": 2277
+                    }
+                },
+                "depTime": "2026-11-28T15:50:00.000Z",
+                "duration": 65,
+                "arrTime": "2026-11-28T16:55:00.000Z",
+                "depTimeAct": "2026-11-28T16:16:53.869Z",
+                "delay": -3,
+                "takeoffTimeAct": "2026-11-28T16:22:34.868Z",
+                "durationAct": 29,
+                "arrTimeAct": "2026-11-28T16:51:37.861Z",
+                "open": "2026-11-28T16:00:05.460Z",
+                "close": "2026-11-28T16:55:23.779Z",
+                "rating": 8.72,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 326,
+                        "fuel": 2912,
+                        "expenses": 7130,
+                        "penalties": 912,
+                        "revenue": 10978,
+                        "balance": 2936,
+                        "prices": {
+                            "ticketPrice": 116,
+                            "cargoUnitPrice": 136,
+                            "costScalars": {
+                                "timeAcceleration": 0.493,
+                                "dep": 0.9,
+                                "arr": 0.7,
+                                "fuel": 1,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 152,
+                            "cargo": 23,
+                            "paxByClass": {
+                                "F": 2,
+                                "C": 7,
+                                "Y": 143
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1623,
+                        "aircraft": 3258,
+                        "handling": 968,
+                        "landing": 1281
+                    },
+                    "revenue": {
+                        "tickets": 9436,
+                        "cargo": 1542
+                    },
+                    "violations": [
+                        {
+                            "title": "Flight delayed 12 minutes (max 15 minutes after scheduled is allowed)",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 912
+                            },
+                            "entry": {
+                                "type": "offblock",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline takeoff (deviation 6.58m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -30,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Off centerline landing (deviation 10.85m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -98,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.27G (250 ft/min, normal  conditions)<br/>Distance from threshold: 285m (accepted range: 197-790m)<br/>Average centerline deviation: 7.14m<br/>Max centerline deviation: 10.85m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.27,
+                                        "rate": 250
+                                    },
+                                    "weather": {
+                                        "windDir": 90.09,
+                                        "windSpd": 11.1,
+                                        "windX": 7
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Time acceleration used (2.03x) - reduced revenue",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 30
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.27,
+                                        "rate": 250
+                                    },
+                                    "weather": {
+                                        "windDir": 90.09,
+                                        "windSpd": 11.1,
+                                        "windX": -7.43
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-28T15:34:26.667Z",
+                "updatedAt": "2026-11-28T16:55:23.901Z",
+                "dep": {
+                    "icao": "LZIB",
+                    "name": "M. R. Štefánik Airport",
+                    "city": "Bratislava",
+                    "location": {
+                        "lat": 48.1702,
+                        "lon": 17.2127,
+                        "elev": 436
+                    }
+                },
+                "arr": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "actArr": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                }
             }
         ]
     },
