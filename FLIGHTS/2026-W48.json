@@ -2215,6 +2215,161 @@
                         "elev": 427
                     }
                 }
+            },
+            {
+                "_id": "6b0a1180d962ff40f1c03852",
+                "aircraft": {
+                    "_id": "6a4fa15e5760ec7cdb627803",
+                    "name": "Boeing 737-800",
+                    "customName": "Dry Lease l BOEING 737-800",
+                    "icao": "B738"
+                },
+                "type": "pax",
+                "flightNumber": "788",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 134,
+                    "cargo": 20,
+                    "weights": {
+                        "cargo": 1260
+                    }
+                },
+                "depTime": "2026-11-28T00:00:00.000Z",
+                "duration": 40,
+                "arrTime": "2026-11-28T00:40:00.000Z",
+                "depTimeAct": "2026-11-28T00:06:40.287Z",
+                "delay": 1,
+                "takeoffTimeAct": "2026-11-28T00:09:53.286Z",
+                "durationAct": 31,
+                "arrTimeAct": "2026-11-28T00:41:00.311Z",
+                "open": "2026-11-27T23:39:20.330Z",
+                "close": "2026-11-28T00:48:09.355Z",
+                "rating": 8.49,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": null
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 144,
+                        "fuel": 1495,
+                        "expenses": 6327,
+                        "penalties": 0,
+                        "revenue": 14928,
+                        "balance": 8601,
+                        "prices": {
+                            "ticketPrice": 72,
+                            "cargoUnitPrice": 84,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 134,
+                            "cargo": 20,
+                            "paxByClass": {
+                                "F": 11,
+                                "C": 17,
+                                "Y": 106
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 1353,
+                        "aircraft": 3675,
+                        "handling": 570,
+                        "landing": 729
+                    },
+                    "revenue": {
+                        "tickets": 13248,
+                        "cargo": 1680
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 15.30m from centerline, perfect score under 8m in challenging conditions)",
+                            "penalty": {
+                                "points": -151,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "takeoff",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    },
+                                    "weather": {
+                                        "windDir": 11.32,
+                                        "windSpd": 6.74,
+                                        "windX": -5.94
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.22G (243 ft/min, challenging  conditions)<br/>Distance from threshold: 716m (accepted range: 185-743m)<br/>Average centerline deviation: 2.96m<br/>Max centerline deviation: 5.68m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 25
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.22,
+                                        "rate": 243
+                                    },
+                                    "weather": {
+                                        "windDir": 34.49,
+                                        "windSpd": 8.82,
+                                        "windX": 7
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-27T23:25:52.732Z",
+                "updatedAt": "2026-11-28T00:48:09.453Z",
+                "dep": {
+                    "icao": "UKHH",
+                    "name": "Kharkiv International Airport",
+                    "city": "Kharkiv",
+                    "location": {
+                        "lat": 49.926943,
+                        "lon": 36.290814,
+                        "elev": 508
+                    }
+                },
+                "arr": {
+                    "icao": "UKDD",
+                    "name": "Dnipro International Airport",
+                    "city": "Dnipro",
+                    "location": {
+                        "lat": 48.357201,
+                        "lon": 35.100601,
+                        "elev": 481
+                    }
+                },
+                "actArr": {
+                    "icao": "UKDD",
+                    "name": "Dnipro International Airport",
+                    "city": "Dnipro",
+                    "location": {
+                        "lat": 48.357201,
+                        "lon": 35.100601,
+                        "elev": 481
+                    }
+                }
             }
         ]
     },
