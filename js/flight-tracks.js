@@ -228,7 +228,15 @@
     return out.map(({color,coords})=>({color,coords}));
   }
   function draw(L, layer, source, points, elevationAt) {
-    for (const segment of smoothSegments(source,points,elevationAt)) {
+    const segments = smoothSegments(source,points,elevationAt);
+    // Outline white history on light basemaps. Draw casings first so the
+    // original colored strokes remain visible at shared segment endpoints.
+    for (const segment of segments) {
+      if (segment.color === '#ffffff') {
+        historyPolyline(L,segment.coords,{...historyStyle,smoothFactor:0,color:'#4f5560',weight:4}).addTo(layer);
+      }
+    }
+    for (const segment of segments) {
       historyPolyline(L,segment.coords,{...historyStyle,smoothFactor:0,color:segment.color}).addTo(layer);
     }
   }
