@@ -12098,6 +12098,156 @@
                         "elev": 1071
                     }
                 }
+            },
+            {
+                "_id": "6b0a99a2d962ff40f1c603ca",
+                "aircraft": {
+                    "_id": "69f0eb2ca5e61d69a7cfbe9e",
+                    "name": "Boeing 737-900",
+                    "customName": "Ukraine Int l 737-900ER Single Class based in UKBB l UR-PSI",
+                    "icao": "B739"
+                },
+                "type": "pax",
+                "flightNumber": "1204",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 204,
+                    "cargo": 12,
+                    "weights": {
+                        "cargo": 972
+                    }
+                },
+                "depTime": "2026-11-28T09:25:00.000Z",
+                "duration": 110,
+                "arrTime": "2026-11-28T11:15:00.000Z",
+                "depTimeAct": "2026-11-28T09:27:35.608Z",
+                "delay": -8,
+                "takeoffTimeAct": "2026-11-28T09:32:25.620Z",
+                "durationAct": 94,
+                "arrTimeAct": "2026-11-28T11:06:39.666Z",
+                "open": "2026-11-28T09:09:41.928Z",
+                "close": "2026-11-28T11:12:31.704Z",
+                "rating": 9.76,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 609,
+                        "fuel": 4448,
+                        "expenses": 12230,
+                        "penalties": 0,
+                        "revenue": 29556,
+                        "balance": 17326,
+                        "prices": {
+                            "ticketPrice": 136,
+                            "cargoUnitPrice": 151,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.9,
+                                "fuel": 0.8,
+                                "ground": 0.8
+                            }
+                        },
+                        "payload": {
+                            "pax": 204,
+                            "cargo": 12,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 204
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 4023,
+                        "aircraft": 5875,
+                        "handling": 1306,
+                        "landing": 1026
+                    },
+                    "revenue": {
+                        "tickets": 27744,
+                        "cargo": 1812
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline takeoff (deviation 5.65m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -24,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 21
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Great touchdown: 1.19G (259 ft/min, normal  conditions)<br/>Distance from threshold: 483m (accepted range: 203-813m)<br/>Average centerline deviation: 2.27m<br/>Max centerline deviation: 3.03m",
+                            "penalty": {
+                                "points": 0,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 20
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.19,
+                                        "rate": 259
+                                    },
+                                    "weather": {
+                                        "windDir": 119.98,
+                                        "windSpd": 13.52,
+                                        "windX": 7
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-28T09:06:42.739Z",
+                "updatedAt": "2026-11-28T11:12:31.792Z",
+                "dep": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "arr": {
+                    "icao": "EDDH",
+                    "name": "Hamburg Helmut Schmidt Airport",
+                    "city": "Hamburg",
+                    "location": {
+                        "lat": 53.630402,
+                        "lon": 9.98823,
+                        "elev": 53
+                    }
+                },
+                "actArr": {
+                    "icao": "EDDH",
+                    "name": "Hamburg Helmut Schmidt Airport",
+                    "city": "Hamburg",
+                    "location": {
+                        "lat": 53.630402,
+                        "lon": 9.98823,
+                        "elev": 53
+                    }
+                }
             }
         ]
     }
