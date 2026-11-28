@@ -1736,23 +1736,75 @@ min-width: 276px;
 }
 
 #ukraine-live-map .ukraine-flight-popup .leaflet-popup-content-wrapper {
-    border-radius: 5px;
+    border-radius: 7px;
     padding: 0;
-    border: 1px solid #3f4a56;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    border: 1px solid #bfc4c9;
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14);
 }
 
 #ukraine-live-map .ukraine-flight-popup .leaflet-popup-content {
-    margin: 4px 6px;
-    font-family: Consolas, "Courier New", monospace;
-    font-size: 11px;
+    margin: 8px 9px;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
     line-height: 1.2;
-    color: #1d2733;
+    color: #262c35;
+}
+
+#ukraine-live-map .ukraine-flight-popup .flight-popup-airline {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    overflow-wrap: anywhere;
+}
+
+#ukraine-live-map .ukraine-flight-popup .flight-popup-aircraft {
+    margin-top: 3px;
+    color: #606873;
+    overflow-wrap: anywhere;
+}
+
+#ukraine-live-map .ukraine-flight-popup .flight-popup-route {
+    margin-top: 7px;
+    padding-top: 6px;
+    border-top: 1px solid #e4e7eb;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: #902b55;
+    overflow-wrap: anywhere;
+}
+
+#ukraine-live-map .ukraine-flight-popup .flight-popup-metrics {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 6px;
+    margin-top: 6px;
+}
+
+#ukraine-live-map .ukraine-flight-popup .flight-popup-metric:last-child {
+    text-align: right;
+}
+
+#ukraine-live-map .ukraine-flight-popup .flight-popup-label {
+    display: block;
+    font-size: 9px;
+    line-height: 1.1;
+    color: #747b86;
+    margin-bottom: 2px;
+    white-space: nowrap;
+}
+
+#ukraine-live-map .ukraine-flight-popup .flight-popup-value {
+    display: block;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
 }
 
 #ukraine-live-map .ukraine-flight-popup .leaflet-popup-tip {
     background: #ffffff;
-    border: 1px solid #3f4a56;
+    border: 1px solid #bfc4c9;
     box-shadow: none;
 }
 
@@ -2477,12 +2529,6 @@ body.ukraine-map-fullscreen-active .site-nav5 {
 
 #ukraine-live-map.ukraine-map-fullscreen .ukraine-airport-marker.name-label-below .ukraine-airport-name {
     transform: translateY(22px);
-}
-
-#ukraine-live-map.ukraine-map-fullscreen .ukraine-flight-popup .leaflet-popup-content {
-    margin: 5px 7px;
-    font-size: 15px;
-    line-height: 1.18;
 }
 
 .ukraine-flight-marker {
@@ -10041,21 +10087,33 @@ function getAirportCoords(icao) {
 }
 
 function formatFlightAltitude(value) {
+  if (value == null || (typeof value !== "number" && typeof value !== "string") || String(value).trim() === "") return "N/A";
   const altitude = Number(value);
   if (!Number.isFinite(altitude)) return "N/A";
-  return `${Math.round(altitude)} ft`;
+  return `${Math.round(altitude).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")} ft`;
 }
 
-function formatFlightHeading(value) {
-  const heading = normalizeHeading(value);
-  return `${Math.round(heading)}°`;
+function formatFlightPopupSpeed(value, estimated = false) {
+  if (value == null || (typeof value !== "number" && typeof value !== "string") || String(value).trim() === "") return "N/A";
+  const speed = Number(value);
+  if (!Number.isFinite(speed) || speed < 0) return "N/A";
+  return `${estimated ? "≈ " : ""}${Math.round(speed)} kt`;
 }
 
-function trimInfoText(value, maxLen = 13) {
-  const text = String(value || "").trim();
-  if (!text) return "N/A";
-  if (text.length <= maxLen) return text;
-  return `${text.slice(0, maxLen - 1)}.`;
+function escapeFlightPopupText(value) {
+  return String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  })[char]);
+}
+
+function buildUkraineFlightPopup({ airlineName, aircraftType, dep, arr, altitude, speed, estimatedSpeed = false }) {
+  return `<div class="flight-popup-airline">${escapeFlightPopupText(airlineName)}</div>
+    <div class="flight-popup-aircraft">${escapeFlightPopupText(aircraftType)}</div>
+    <div class="flight-popup-route">${escapeFlightPopupText(dep)} → ${escapeFlightPopupText(arr)}</div>
+    <div class="flight-popup-metrics">
+      <div class="flight-popup-metric"><span class="flight-popup-label">ALTITUDE</span><span class="flight-popup-value flight-popup-altitude">${formatFlightAltitude(altitude)}</span></div>
+      <div class="flight-popup-metric"${estimatedSpeed ? ' title="Estimated average ground speed since departure, not instantaneous speed"' : ""}><span class="flight-popup-label">${estimatedSpeed ? "AVG SPEED" : "SPEED"}</span><span class="flight-popup-value">${formatFlightPopupSpeed(speed, estimatedSpeed)}</span></div>
+    </div>`;
 }
 
 function formatMapCallsign(value) {
@@ -11391,8 +11449,10 @@ function syncUkraineTrackMarker(marker, point) {
     }
     if (popup && typeof popup.getContent() === "string") {
       let content = popup.getContent();
-      if (Number.isFinite(point.alt)) content = content.replace(/ALT [^<]+/, "ALT " + formatFlightAltitude(point.alt));
-      if (Number.isFinite(point.heading)) content = content.replace(/HDG [^<]+/, "HDG " + formatFlightHeading(point.heading));
+      if (Number.isFinite(point.alt)) {
+        content = content.replace(/(<span class="flight-popup-value flight-popup-altitude">)[^<]*(<\/span>)/,
+          (_, open, close) => open + formatFlightAltitude(point.alt) + close);
+      }
       if (content !== popup.getContent()) popup.setContent(content);
     }
   } finally {
@@ -11598,10 +11658,6 @@ if (isMilitaryCallsign(callsign)) {
       aircraftCode ||
       "Unknown";
     const logoPath = getVatsimLogoPath(callsign, dep, arr);
-    const altitudeText = formatFlightAltitude(pilot?.altitude);
-    const headingText = formatFlightHeading(heading);
-    const airlineShort = trimInfoText(airlineName, 16);
-    const aircraftShort = trimInfoText(aircraftType, 16);
     const depCoords = getAirportCoords(dep);
     const arrCoords = getAirportCoords(arr);
 
@@ -11631,8 +11687,8 @@ if (isMilitaryCallsign(callsign)) {
 });
 
     marker.bindPopup(
-      `${airlineShort}<br>${aircraftShort}<br>ALT ${altitudeText}<br>HDG ${headingText}<br>${dep} → ${arr}`,
-      { className: "ukraine-flight-popup", closeButton: false, autoPan: true }
+      buildUkraineFlightPopup({ airlineName, aircraftType, dep, arr, altitude: pilot?.altitude, speed: pilot?.groundspeed }),
+      { className: "ukraine-flight-popup", closeButton: false, autoPan: true, minWidth: 150, maxWidth: 150 }
     );
     const trackId = bindUkraineFlightTrack(marker, "vatsim", pilot, depCoords, dep, [lat, lon], arrCoords, arr, "#2a76d2");
     if (window.ukraineVatsimVisible && window.KazuarFlightTracks?.same(previousTrack, trackId)) restoreTrackMarker = marker;
@@ -11658,11 +11714,10 @@ if (isMilitaryCallsign(callsign)) {
         "Unknown"
       );
     const logoPath = getNewSkyLogoPath(flight);
-    const headingText = formatFlightHeading(heading);
-    const airlineShort = trimInfoText(airlineName, 16);
-    const aircraftShort = trimInfoText(aircraftType, 16);
     const depCoords = getNewSkyAirportCoords(flight, "dep");
     const arrCoords = getNewSkyAirportCoords(flight, "arr");
+    const popupSpeed = calculateNewSkyGroundspeed(flight,
+      depCoords ? { lat: depCoords[0], lon: depCoords[1] } : null, lat, lon);
 
     const icon = L.divIcon({
       className: "",
@@ -11690,8 +11745,12 @@ if (isMilitaryCallsign(callsign)) {
 });
 
     marker.bindPopup(
-      `${airlineShort}<br>${aircraftShort}<br>HDG ${headingText}<br>${dep} → ${arr}`,
-      { className: "ukraine-flight-popup", closeButton: false, autoPan: true }
+      buildUkraineFlightPopup({
+        airlineName, aircraftType, dep, arr,
+        altitude: flight?.lastState?.location?.alt,
+        speed: popupSpeed, estimatedSpeed: true
+      }),
+      { className: "ukraine-flight-popup", closeButton: false, autoPan: true, minWidth: 150, maxWidth: 150 }
     );
     const trackId = bindUkraineFlightTrack(marker, "newsky", flight, depCoords, dep, [lat, lon], arrCoords, arr, "#1a9d61");
     if (window.ukraineNewSkyVisible && window.KazuarFlightTracks?.same(previousTrack, trackId)) restoreTrackMarker = marker;
