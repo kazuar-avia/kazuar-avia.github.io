@@ -3088,7 +3088,7 @@ async function refreshDatabasesSoft() {
   const [loaded, companyData, companyLiveryData, companyLiveryMatching, companyTopPool, companyCharterDemand, routeMissions, guaranteedBonuses, manualGuaranteedBonuses, adCoordinates, piesLedger] = await Promise.all([
     loader(message => { if (status) status.textContent = message; }),
     fetch('COMPANY/company-data.json', {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
-    fetch('COMPANY/ucaa-livery-database.json?v=20261126-ur-eca', {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
+    fetch('COMPANY/ucaa-livery-database.json?v=20261128-ur-azp', {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
     fetch(`COMPANY/livery-matching.json?v=${Date.now()}`, {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
     fetch(`COMPANY/top-pool-current.json?v=${Date.now()}`, {cache:'no-store'}).then(response => response.ok ? response.json() : null).catch(() => null),
     loadCompanyCharterDemand('no-store'),
@@ -3329,6 +3329,7 @@ const NEWSKY_AIRCRAFT_NAMES = {
   '695a67f93dc76275bad0c740': 'Bravo Anda Khors l MD-82 based in UKKK UKBB UKLL l UR-CRX',
   '696bb9e13dc76275ba8ddf8f': 'Windrose vs AUI l A330-200 based in UKBB l UR-WRQ',
   '695ebf3c3dc76275ba3e31f1': 'SkyLine Express l 777-300ER based in UKBB l UR-AZR',
+  '6b0a1404d962ff40f1c06005': 'Skyline Azur Ukr l 757-200 based in UKBB UKHH UKLL l UR-AZP',
   '695a82b73dc76275bad4f381': 'Windrose l ATR-72 based in UKBB l UR-RWC',
   '695a63363dc76275bacff63f': 'Ukraine Int l 777-200 based in UKBB l UR-GOA',
   '695a2a573dc76275bac8ccc8': 'Supernova l 737-800F based in LKMT l UR-NPA',
@@ -4283,15 +4284,16 @@ function liveryScheduleRoutesForAircraft(aircraft) {
   const id = String(aircraft.id || '').trim();
   const reg = String(aircraft.registration || '').trim().toUpperCase();
   const assignments = Object.values(app.companyLiveryData?.scheduleAssignments || {});
+  // один номер рейсу може мати окремі записи для різних бортів (зі своїми днями),
+  // тому борт перевіряється за самим записом, а не за першим записом з таким номером
   const assigned = assignments
-    .map(normalizeLiveryScheduleRoute)
-    .filter(route => route && route.active)
-    .filter(route => {
-      const raw = assignments.find(item => String(item?.number || '') === route.number && String(item?.dep || '').toUpperCase() === route.dep && String(item?.arr || '').toUpperCase() === route.arr);
+    .filter(raw => {
       const ids = (raw?.assignedAircraftIds || []).map(item => String(item || '').trim());
       const regs = (raw?.assignedRegistrations || []).map(item => String(item || '').trim().toUpperCase());
       return (id && ids.includes(id)) || (reg && regs.includes(reg));
-    });
+    })
+    .map(normalizeLiveryScheduleRoute)
+    .filter(route => route && route.active);
   return assigned;
 }
 
