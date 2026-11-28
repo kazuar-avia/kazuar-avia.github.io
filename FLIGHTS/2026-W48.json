@@ -924,6 +924,180 @@
                         "elev": 364
                     }
                 }
+            },
+            {
+                "_id": "6b0ade95d962ff40f1cc18d4",
+                "aircraft": {
+                    "_id": "69ef2347a5e61d69a7a9a2b0",
+                    "name": "Airbus A320",
+                    "customName": "WizzAir Ukraine l A320 IAE SL based in UKBB l UR-WUB",
+                    "icao": "A320"
+                },
+                "type": "pax",
+                "flightNumber": "27H",
+                "free": true,
+                "schedule": false,
+                "charter": false,
+                "payload": {
+                    "pax": 178,
+                    "cargo": 0,
+                    "weights": {
+                        "cargo": 0
+                    }
+                },
+                "depTime": "2026-11-28T14:40:00.000Z",
+                "duration": 65,
+                "arrTime": "2026-11-28T15:45:00.000Z",
+                "depTimeAct": "2026-11-28T14:50:53.739Z",
+                "delay": 19,
+                "takeoffTimeAct": "2026-11-28T14:59:40.719Z",
+                "durationAct": 64,
+                "arrTimeAct": "2026-11-28T16:04:02.587Z",
+                "open": "2026-11-28T14:12:34.364Z",
+                "close": "2026-11-28T16:08:14.232Z",
+                "rating": 7.92,
+                "simulator": "msfs2024",
+                "network": {
+                    "name": "vatsim"
+                },
+                "emergency": false,
+                "result": {
+                    "totals": {
+                        "distance": 355,
+                        "fuel": 2576,
+                        "expenses": 9057,
+                        "penalties": 0,
+                        "revenue": 20470,
+                        "balance": 11413,
+                        "prices": {
+                            "ticketPrice": 115,
+                            "cargoUnitPrice": 136,
+                            "costScalars": {
+                                "timeAcceleration": 1,
+                                "dep": 0.7,
+                                "arr": 0.7,
+                                "fuel": 0.8,
+                                "ground": 0.7
+                            }
+                        },
+                        "payload": {
+                            "pax": 178,
+                            "cargo": 0,
+                            "paxByClass": {
+                                "F": 0,
+                                "C": 0,
+                                "Y": 178
+                            }
+                        }
+                    },
+                    "expenses": {
+                        "fuel": 2330,
+                        "aircraft": 4200,
+                        "handling": 1246,
+                        "landing": 1281
+                    },
+                    "revenue": {
+                        "tickets": 20470,
+                        "cargo": 0
+                    },
+                    "violations": [
+                        {
+                            "title": "Off centerline landing (deviation 13.78m from centerline, perfect score under 4m in normal conditions)",
+                            "penalty": {
+                                "points": -140,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "position",
+                                "payload": {
+                                    "system": {
+                                        "fps": 14
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Average touchdown: 1.47G (363 ft/min, normal  conditions)<br/>Distance from threshold: 372m (accepted range: 197-790m)<br/>Average centerline deviation: 5.43m<br/>Max centerline deviation: 13.78m",
+                            "penalty": {
+                                "points": -18,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.47,
+                                        "rate": 363
+                                    },
+                                    "weather": {
+                                        "windDir": 66.02,
+                                        "windSpd": 5.8,
+                                        "windX": 5
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "title": "Altimeter incorrect on landing: 1038mb instead of 1035.5mb",
+                            "penalty": {
+                                "points": -50,
+                                "cash": 0
+                            },
+                            "entry": {
+                                "type": "landing",
+                                "payload": {
+                                    "system": {
+                                        "fps": 28
+                                    },
+                                    "touchDown": {
+                                        "gForce": 1.47,
+                                        "rate": 363
+                                    },
+                                    "weather": {
+                                        "windDir": 66.02,
+                                        "windSpd": 5.8,
+                                        "windX": -4.58
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "createdAt": "2026-11-28T14:00:53.580Z",
+                "updatedAt": "2026-11-28T16:08:14.312Z",
+                "dep": {
+                    "icao": "UKBB",
+                    "name": "Boryspil International Airport",
+                    "city": "Boryspil",
+                    "location": {
+                        "lat": 50.345001,
+                        "lon": 30.894699,
+                        "elev": 427
+                    }
+                },
+                "arr": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                },
+                "actArr": {
+                    "icao": "UKLL",
+                    "name": "Lviv International Airport",
+                    "city": "Lviv",
+                    "location": {
+                        "lat": 49.8125,
+                        "lon": 23.9561,
+                        "elev": 1071
+                    }
+                }
             }
         ]
     },
